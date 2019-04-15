@@ -2,10 +2,12 @@ NAME = doom-nukem
 
 SRC_PATH =		./src/
 PATH_1 =	/data/
-PATH_2 =	/draw/
+PATH_2 =	/display/
+PATH_3 =	/event/
 SRC =	$(wildcard $(SRC_PATH)*.c)\
 		$(wildcard $(SRC_PATH)$(PATH_1)*.c)\
-		$(wildcard $(SRC_PATH)$(PATH_2)*.c)
+		$(wildcard $(SRC_PATH)$(PATH_2)*.c)\
+		$(wildcard $(SRC_PATH)$(PATH_3)*.c)
 
 BIN_PATH =		./bin
 BIN = $(patsubst $(SRC_PATH)%.c,./bin/%.o,$(SRC))
@@ -40,6 +42,7 @@ directory:
 		@mkdir $(BIN_PATH) 2> /dev/null || true
 		@mkdir $(BIN_PATH)/$(PATH_1) 2> /dev/null || true
 		@mkdir $(BIN_PATH)/$(PATH_2) 2> /dev/null || true
+		@mkdir $(BIN_PATH)/$(PATH_3) 2> /dev/null || true
 
 clean:
 		rm -rf $(BIN_PATH)
