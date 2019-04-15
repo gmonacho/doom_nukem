@@ -25,15 +25,16 @@ LIBRARIES = $(LIBSDL2) $(LIBFT)/$(LIBFT).a
 
 all:	directory $(NAME)
 
-$(NAME): $(BIN)
-		make -C $(LIBFT)
-		$(CC) $(CFLAGS) $(BIN) -o $(NAME) $(LIBRARIES)
-
 $(BIN_PATH)/%.o : $(SRC_PATH)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 
 $(BIN_PATH)/$(SRC_PATH_1)/%.o : $(SRC_PATH)/$(SRC_PATH_1)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
+
+$(NAME): $(BIN)
+		make -C $(LIBFT)
+		$(CC) $(CFLAGS) $(BIN) -o $(NAME) $(LIBRARIES)
+
 
 directory:
 		@mkdir $(BIN_PATH) 2> /dev/null || true
