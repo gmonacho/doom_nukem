@@ -9,6 +9,12 @@ typedef struct		s_dot
 	int				y;
 }					t_dot;
 
+typedef struct	s_line
+{
+	t_dot		p1;
+	t_dot		p2;
+}				t_line;
+
 typedef struct		s_fdot
 {
 	double			x;
