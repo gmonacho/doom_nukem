@@ -36,10 +36,10 @@ t_linedef	new_linedef(t_line line, SDL_Texture *p1p2, SDL_Texture *p2p1, Uint32 
 	return (linedef);
 }
 
-void		map_zoom(t_win *win, t_map *map, double zoom)
+/*void		map_zoom(t_win *win, t_map *map)
 {
-	map->x -= ((map->w * map->unit) - map->w * map->unit * zoom) / 2;
-	map->y -= ((map->h * map->unit) - map->h * map->unit * zoom) / 2;
+	win->x += zoom;
+	win->y += zoom;
 	if (win)
 		map->unit *= zoom;
-}
+}*/

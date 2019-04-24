@@ -14,8 +14,6 @@
 typedef struct		s_win
 {
 	SDL_Window*		ptr;
-	int				x;
-	int				y;
 	int				w;
 	int				h;
 	SDL_Renderer*	rend;
@@ -23,6 +21,7 @@ typedef struct		s_win
 }					t_win;
 
 int			create_window(t_win *win, const char *title, SDL_Rect rect, Uint32 flags);
+SDL_bool	is_in_screen(t_win *win, t_dot p);
 
 /*
 ** ================================== Renderer Management ==================================

@@ -14,3 +14,8 @@ int 			create_window(t_win *win, const char *title, SDL_Rect rect, Uint32 flags)
 	return (1);
 }
 
+SDL_bool		is_in_screen(t_win *win, t_dot p)
+{
+	return ((p.x >= 0 && p.x < win->w && p.y >= 0 && p.y < win->h));
+}
+
