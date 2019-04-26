@@ -11,9 +11,20 @@ static void			editor_display(t_win *win, const t_map *map)
 
 	i = 0;
 	SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 200);
+	/*p1 = (t_dot){map->x, map->y};
+	p2 = (t_dot){map->x, map->y + map->h * map->unit};
+	draw_line(win, p1, p2);
+	p1 = (t_dot){map->x, map->y};
+	p2 = (t_dot){map->x + map->w * map->unit, map->y};
+	draw_line(win, p1, p2);
+	p1 = (t_dot){map->x + map->w * map->unit, map->y};
+	p2 = (t_dot){map->x + map->w * map->unit, map->y + map->h * map->unit};
+	draw_line(win, p1, p2);
+	p1 = (t_dot){map->x + map->w * map->unit, map->y + map->h * map->unit};
+	p2 = (t_dot){map->x, map->y + map->h * map->unit};
+	draw_line(win, p1, p2);*/
 	while (i < map->nb_lines)
 	{
-
 		p1 = (t_dot){map->lines[i].p1.x * map->unit + map->x, map->lines[i].p1.y * map->unit + map->y};
 		p2 = (t_dot){map->lines[i].p2.x * map->unit + map->x, map->lines[i].p2.y * map->unit + map->y};
 		if (is_in_screen(win, p1) || is_in_screen(win, p2))
@@ -30,7 +41,7 @@ static int		editor_init(t_win *win, t_map *map)
 	map->y = 0;
 	map->w = 2000;
 	map->h = 1200;
-	map->unit = 1.0	;
+	map->unit = 1.0;
 	map->sectors = NULL;
 	map->nb_vectors = 0;
 	map->lines = NULL;

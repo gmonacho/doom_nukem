@@ -15,9 +15,9 @@ int			editor_event(t_win *win, t_map *map, SDL_bool *loop)
 	else if(event.type == SDL_MOUSEWHEEL)
 	{
 		if (event.wheel.y > 0)
-			map->unit -= map->unit / 10;
+			map_zoom(map, 0.05);
 		else if (event.wheel.y < 0)
-			map->unit += map->unit / 10;
+			map_zoom(map, -0.05);
 	}
 	if (win->mouse->button[MOUSE_LEFT].pressing)
 	{
