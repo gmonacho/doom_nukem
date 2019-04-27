@@ -20,27 +20,28 @@ enum	e_map
 **	====================== Data Level ======================
 */
 
-typedef struct			s_linedef
+typedef struct				s_linedef
 {
-	t_dot				p1;
-	t_dot				p2;
-	SDL_Texture			*p1p2_texture;
-	SDL_Texture			*p2p1_texture;
-	struct s_linedef	*next;
-	Uint32				flags;
-}						t_linedef;
+	t_dot					p1;
+	t_dot					p2;
+	SDL_Texture				*p1p2_texture;
+	SDL_Texture				*p2p1_texture;
+	Uint32					flags;
+	struct s_sector			*next;
+}							t_linedef;
 
-typedef struct		s_sector
+typedef struct				s_sector
 {
-	int				floor_height;
-	SDL_Texture		*floor_texture;
+	int						floor_height;
+	SDL_Texture				*floor_texture;
 
-	int				ceil_height;
-	SDL_Texture		*ceil_texture;
+	int						ceil_height;
+	SDL_Texture				*ceil_texture;
 
-	int				light_level;
-	struct s_sector	*next;
-}					t_sector;
+	int						light_level;
+    t_linedef                  *lines;
+	struct s_sector 		*next;
+}							t_sector;
 
 /*
 **	====================== Map ======================
@@ -69,5 +70,8 @@ void		delete_linedef(t_linedef **lines, Uint32 delete_flags);
 t_dot 		is_next_to_linedef(t_linedef **lines, t_dot dot, SDL_bool jump_first, int radius);
 SDL_bool	is_line_horizontal(int y1, int y2, int pitch);
 SDL_bool	is_line_vertical(int x1, int x2, int pitch);
+int			map_add_line(t_map *map, t_linedef line);
+int 		ft_data_storing(int fd, int fd1);
+
 
 #endif
