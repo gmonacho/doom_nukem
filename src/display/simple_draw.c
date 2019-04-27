@@ -27,3 +27,39 @@ void	draw_line(t_win *win, t_dot p1, t_dot p2)
 					SDL_RenderDrawPoint(win->rend, pixel.x, pixel.y);
 		}
 }
+
+void	draw_rect(t_win *win, SDL_Rect rect)
+{
+	draw_line(win, (t_dot){rect.x, rect.y}, (t_dot){rect.x + rect.w, rect.y});
+	draw_line(win, (t_dot){rect.x + rect.w, rect.y}, (t_dot){rect.x + rect.w, rect.y + rect.h});
+	draw_line(win, (t_dot){rect.x + rect.w, rect.y + rect.h}, (t_dot){rect.x, rect.y + rect.h});
+	draw_line(win, (t_dot){rect.x, rect.y + rect.h}, (t_dot){rect.x, rect.y});
+}
+
+void	draw_circle(t_win *win, t_circle circle)
+{
+	int		x;
+	int		y;
+	int		m;
+	x = 0;
+	y = circle.radius;
+	m = 5 - 4 * circle.radius;
+	while(x <= y)
+	{
+		SDL_RenderDrawPoint(win->rend, circle.x + x, y + circle.y);
+		SDL_RenderDrawPoint(win->rend, circle.x + y, circle.y + x);
+		SDL_RenderDrawPoint(win->rend, circle.x - x, y + circle.y);
+		SDL_RenderDrawPoint(win->rend, circle.x - y, circle.y + x);
+		SDL_RenderDrawPoint(win->rend, circle.x + x, circle.y - y);
+		SDL_RenderDrawPoint(win->rend, circle.x + y, circle.y - x);
+		SDL_RenderDrawPoint(win->rend, circle.x - x, circle.y - y);
+		SDL_RenderDrawPoint(win->rend, circle.x - y, circle.y - x);
+		if(m > 0)
+		{
+			y--;
+			m = m - 8 * y;
+		}
+		x++;
+		m = m + 8 * x + 4;
+	}
+}

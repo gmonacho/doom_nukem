@@ -15,10 +15,18 @@ typedef struct		s_line
 	t_dot			p2;
 }					t_line;
 
+typedef struct 		s_circle
+{
+	int				x;
+	int				y;
+	int				radius;
+}					t_circle;
+
 typedef struct		s_fdot
 {
 	double			x;
 	double			y;
 }					t_fdot;
+
 
 #endif

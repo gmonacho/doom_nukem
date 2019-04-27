@@ -6,12 +6,14 @@ PATH_2 =	/display/
 PATH_3 =	/event/
 PATH_4 =	/editor_loop/
 PATH_5 =	/game_loop/
+PATH_6 =	/physics/
 SRC =	$(wildcard $(SRC_PATH)*.c)\
 		$(wildcard $(SRC_PATH)$(PATH_1)*.c)\
 		$(wildcard $(SRC_PATH)$(PATH_2)*.c)\
 		$(wildcard $(SRC_PATH)$(PATH_3)*.c)\
 		$(wildcard $(SRC_PATH)$(PATH_4)*.c)\
-		$(wildcard $(SRC_PATH)$(PATH_5)*.c)
+		$(wildcard $(SRC_PATH)$(PATH_5)*.c)\
+		$(wildcard $(SRC_PATH)$(PATH_6)*.c)
 
 BIN_PATH =		./bin
 BIN = $(patsubst $(SRC_PATH)%.c,./bin/%.o,$(SRC))
@@ -42,7 +44,9 @@ $(BIN_PATH)/$(SRC_PATH_3)/%.o : $(SRC_PATH)/$(SRC_PATH_3)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 $(BIN_PATH)/$(SRC_PATH_4)/%.o : $(SRC_PATH)/$(SRC_PATH_4)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
-$(BIN_PATH)/$(SRC_PATH_5)/%.o : $(SRC_PATH)/$(SRC_PATH_4)/%.c
+$(BIN_PATH)/$(SRC_PATH_5)/%.o : $(SRC_PATH)/$(SRC_PATH_5)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+$(BIN_PATH)/$(SRC_PATH_6)/%.o : $(SRC_PATH)/$(SRC_PATH_6)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(BIN)
@@ -57,6 +61,7 @@ directory:
 		@mkdir $(BIN_PATH)/$(PATH_3) 2> /dev/null || true
 		@mkdir $(BIN_PATH)/$(PATH_4) 2> /dev/null || true
 		@mkdir $(BIN_PATH)/$(PATH_5) 2> /dev/null || true
+		@mkdir $(BIN_PATH)/$(PATH_6) 2> /dev/null || true
 
 clean:
 		rm -rf $(BIN_PATH)

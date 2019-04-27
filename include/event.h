@@ -4,7 +4,12 @@
 # include "SDL.h"
 # include "struct_2d.h"
 
-enum mouse_button {MOUSE_LEFT, MOUSE_MIDDLE, MOUSE_RIGHT};
+enum e_mouse
+{
+	MOUSE_NONE = 0x0000
+};
+
+enum e_mouse_button {MOUSE_LEFT, MOUSE_MIDDLE, MOUSE_RIGHT};
 
 typedef struct	s_button
 {

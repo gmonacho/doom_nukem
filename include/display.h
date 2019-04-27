@@ -4,8 +4,8 @@
 # include "SDL.h"
 # include "libft.h"
 # include "ret_error.h"
-# include "struct_2d.h"
 # include "event.h"
+# include "struct_2d.h"
 
 /*
 ** ================================== Window Management ==================================
@@ -34,5 +34,7 @@ void		clear_rend(SDL_Renderer *rend, Uint8 r, Uint8 g, Uint8 b);
 */
 
 void		draw_line(t_win *win, t_dot p1, t_dot p2);
+void		draw_rect(t_win *win, SDL_Rect rect);
+void		draw_circle(t_win *win, t_circle circle);
 
 #endif

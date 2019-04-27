@@ -5,13 +5,12 @@
 
 static void			editor_display(t_win *win, const t_map *map)
 {
-	int		i;
-	t_dot	p1;
-	t_dot	p2;
+	t_dot		p1;
+	t_dot		p2;
+	t_linedef	*line_tmp;
 
-	i = 0;
-	SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 200);
-	/*p1 = (t_dot){map->x, map->y};
+	SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
+	p1 = (t_dot){map->x, map->y};
 	p2 = (t_dot){map->x, map->y + map->h * map->unit};
 	draw_line(win, p1, p2);
 	p1 = (t_dot){map->x, map->y};
@@ -22,14 +21,24 @@ static void			editor_display(t_win *win, const t_map *map)
 	draw_line(win, p1, p2);
 	p1 = (t_dot){map->x + map->w * map->unit, map->y + map->h * map->unit};
 	p2 = (t_dot){map->x, map->y + map->h * map->unit};
-	draw_line(win, p1, p2);*/
-	while (i < map->nb_lines)
+	draw_line(win, p1, p2);
+	SDL_SetRenderDrawColor(win->rend, 150, 150, 150, 200);
+	draw_rect(win, map->rect_util);
+	line_tmp = map->lines;
+	while (line_tmp)
 	{
-		p1 = (t_dot){map->lines[i].p1.x * map->unit + map->x, map->lines[i].p1.y * map->unit + map->y};
-		p2 = (t_dot){map->lines[i].p2.x * map->unit + map->x, map->lines[i].p2.y * map->unit + map->y};
+		//printf("line_tmp->flags = %d\n", line_tmp->flags);
+		if (line_tmp->flags & LINEDEF_SELECTED)
+			SDL_SetRenderDrawColor(win->rend, 0, 175, 175, 255);
+		else if (line_tmp->flags & LINEDEF_MOUSE_POINTED)
+			SDL_SetRenderDrawColor(win->rend, 50, 150, 150, 255);
+		else
+			SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
+		p1 = (t_dot){line_tmp->p1.x * map->unit + map->x, line_tmp->p1.y * map->unit + map->y};
+		p2 = (t_dot){line_tmp->p2.x * map->unit + map->x, line_tmp->p2.y * map->unit + map->y};
 		if (is_in_screen(win, p1) || is_in_screen(win, p2))
 			draw_line(win, p1, p2);
-		i++;
+		line_tmp = line_tmp->next;
 	}
 	draw_fps();
 }
@@ -43,9 +52,9 @@ static int		editor_init(t_win *win, t_map *map)
 	map->h = 1200;
 	map->unit = 1.0;
 	map->sectors = NULL;
-	map->nb_vectors = 0;
 	map->lines = NULL;
-	map->nb_lines = 0;
+	map->rect_util = (SDL_Rect){};
+	map->flags = 0;
 	return (1);
 }
 
