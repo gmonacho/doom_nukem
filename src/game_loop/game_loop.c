@@ -2,6 +2,7 @@
 #include "display.h"
 #include "event.h"
 #include "data.h"
+#include "ret_error.h"
 
 int             game_loop(t_win *win)
 {
@@ -22,5 +23,5 @@ int             game_loop(t_win *win)
 			SDL_RenderPresent(win->rend);
 		}
 	}
-	return (1);
+	return (SUCCESS);
 }

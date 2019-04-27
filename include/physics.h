@@ -2,7 +2,7 @@
 # define PHYSICS_H
 
 /*
-**   Collision ect
+**   Collision etc
 **/
 
 #endif

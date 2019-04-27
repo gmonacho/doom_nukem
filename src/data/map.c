@@ -10,7 +10,7 @@ int		map_add_line(t_map *map, t_linedef line)
 	int			i;
 	
 	tmp = map->lines;
-	if (!(map->lines = (t_linedef*)ft_memalloc(sizeof(t_linedef) * (map->nb_lines + 1))))
+	if (!(map->lines = (t_linedef *)ft_memalloc(sizeof(t_linedef) * (map->nb_lines + 1))))
 		return (ret_perror("lines allocation failed in map_add_line"));
 	i = 0;
 	while (i < map->nb_lines)
