@@ -2,30 +2,35 @@
 # define DATA_H
 
 # include "SDL.h"
+# include "struct_2d.h"
+# include "display.h"
 
 /*
 **	====================== Data Level ======================
 */
 
-typedef struct	s_linedef
+typedef struct				s_linedef
 {
-	t_dot		p1;
-	t_dot		p2;
-	SDL_Texture	*p1p2_texture;
-	SDL_Texture	*p2p1_texture;
-	Uint32		flags;
-}				t_linedef;
+	t_dot					p1;
+	t_dot					p2;
+	SDL_Texture				*p1p2_texture;
+	SDL_Texture				*p2p1_texture;
+	Uint32					flags;
+	struct s_sector			*next;
+}							t_linedef;
 
-typedef struct	s_sector
+typedef struct				s_sector
 {
-	int			floor_height;
-	SDL_Texture	*floor_texture;
+	int						floor_height;
+	SDL_Texture				*floor_texture;
 
-	int			ceil_height;
-	SDL_Texture	*ceil_texture;
+	int						ceil_height;
+	SDL_Texture				*ceil_texture;
 
-	int			light_level;
-}				t_sector;
+	int						light_level;
+    t_linedef                  *lines;
+	struct s_sector 		*next;
+}							t_sector;
 
 /*
 **	====================== Map ======================
@@ -48,5 +53,7 @@ int			map_add_line(t_map *map, t_linedef line);
 int			map_get_nb_data(void **data);
 t_linedef	new_linedef(t_line line, SDL_Texture *p1p2, SDL_Texture *p2p1, Uint32 flags);
 void		map_zoom(t_win *win, t_map *map);
+int 		ft_data_storing(int fd, int fd1);
+
 
 #endif
