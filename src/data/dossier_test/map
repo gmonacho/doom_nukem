@@ -10,7 +10,7 @@ map
 	}
 	Sector
 	{
-		floorHeight = 0
+		floorHeight = 81
 		ceilHeight = 10
 		line
 		{
@@ -30,7 +30,7 @@ map
 	}
 	Sector
 	{
-		floorHeight = 2
+		floorHeight = 26
 		ceilHeight = 10
 		line
 		{
