@@ -1,7 +1,7 @@
 #ifndef DOOM_NUKEM_H
 # define DOOM_NUKEM_H
 
-enum		state{SUCESS, MALLOC_ERROR, UNDEFINED_ERROR};
+enum		state{SUCCESS, MALLOC_ERROR, UNDEFINED_ERROR};
 
 /*
 ** ================================== Error Management ==================================

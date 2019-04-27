@@ -1,8 +1,8 @@
 #ifndef PHYSICS_H
 # define PHYSICS_H
 
-/*
-**   Collision etc
-**/
+# include "data.h"
+
+int		move(t_map *map, t_player *player);
 
 #endif

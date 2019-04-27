@@ -2,7 +2,29 @@
 #include "data.h"
 #include "struct_2d"
 
-void	intersection(t_affine line, t_affine vel, t_player *player, t_fdot newpos)
+/*
+**	s = perimetre / 2 = somme des trois cote
+**	On melange 2 formules sur l'aire du triangle : bh / 2 = sqrt(s(s-a)(s-b)(s-c))
+*/
+
+static void	gliss(t_affine line, t_fdot collision, t_player *player, t_fdot newpos)
+{
+	double	h;
+	double	s;
+	double	a;
+	double	b;
+	double	c;
+
+	a = dist(collision, newpos);
+	b = dist(newpos, line.d1);
+	c = dist(line.d1, collision)
+	s = (a + b + c) / 2;
+	h = (2 * sqrt(s * (s - a) * (s - b) * (s - c))) / c;
+	player->pos.x = newpos.x + cos(90 - atan(line.a)) * h;
+	player->pos.y = newpos.y + cos(-atan(line.a)) * h;
+}
+
+static void	collisions(t_affine line, t_affine vel, t_player *player, t_fdot newpos)
 {
 	t_fdot		collision;
 
@@ -10,12 +32,14 @@ void	intersection(t_affine line, t_affine vel, t_player *player, t_fdot newpos)
 	{
 		collision.x = (line.b - vel.b) / (vel.a - line.a);
 		collision.y = vel.a * collision.x + vel.b;
-		if (dist(player->pos, collision) > mag(player->vel))
+		if (dist(player->pos, collision) + player->hitbox > mag(player->vel))
 			player->pos = newpos;
+		else
+			gliss(line, collision, player, newpos);
 	}
 }
 
-int		collisions(t_map *map, t_player *player)
+int		move(t_map *map, t_player *player)
 {
 	int			i;
 	t_sector	*sector;
@@ -36,7 +60,7 @@ int		collisions(t_map *map, t_player *player)
 	line = sector->lines;
 	while (line)
 	{
-		intersection(line->equation, vel, player);
+		collisions(line->equation, vel, player);
 		line = line->next;
 	}
 	return (0);

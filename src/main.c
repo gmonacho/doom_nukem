@@ -14,19 +14,22 @@ static int	init_equations(t_map *map)
 		line = sector->lines;
 		while (line)
 		{
-			line->equation.a = (line->d2.y - line->d1.y) / (line->d2.x - line->d1.x);
+			line->equation.a = (line->d2.y - line->d1.y) /\
+								(line->d2.x - line->d1.x);
 			line->equation.b = line->d1.y - line->equation.a * line->d1.x;
 			line = line->next;
 		}
 		sector = sector->next;
 	}
-	return (SUCESS);
+	return (SUCCESS);
 }
 
-static int	init(t_map *map)
+static int	init(t_map *map, t_player *player)
 {
 	init_equations(map);
-	return (SUCESS);
+	player->hitbox = 0.5;
+	player->pos = (t_fdot){0, 0};
+	return (SUCCESS);
 }
 
 int		main(int ac, char **av)
@@ -36,7 +39,7 @@ int		main(int ac, char **av)
 
 	ac = 0;
 	av = NULL;
-	if (init(&map) < 0)
+	if (init(&map, &(map.player)) < 0)
 		return (ret_error("Error init"));
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		return (ret_error(SDL_GetError()));
@@ -48,5 +51,5 @@ int		main(int ac, char **av)
 	SDL_DestroyWindow(win.ptr);
 	SDL_DestroyRenderer(win.rend);
 	SDL_Quit();
-	return (SUCESS);
+	return (SUCCESS);
 }
