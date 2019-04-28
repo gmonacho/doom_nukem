@@ -1,8 +1,4 @@
-#include "SDL.h"
-#include "ret_error.h"
-#include "display.h"
-#include "loop.h"
-#include "physics.h"
+#include "doom_nukem.h"
 
 static int	init_equations(t_map *map)
 {

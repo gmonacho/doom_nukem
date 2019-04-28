@@ -1,10 +1,4 @@
-#include "loop.h"
-#include "display.h"
-#include "event.h"
-#include "data.h"
-#include "ret_error.h"
-#include "event.h"
-#include "physics.h"
+#include "doom_nukem.h"
 
 static void	keyboard_move(t_map *map, t_player *player, const Uint8 *state)
 {

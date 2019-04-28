@@ -1,5 +1,4 @@
-#include "data.h"
-#include "struct_2d.h"
+#include "doom_nukem.h"
 
 double	dist(t_fdot d1, t_fdot d2)
 {

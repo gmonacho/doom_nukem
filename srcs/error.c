@@ -1,6 +1,4 @@
- 
-#include <stdio.h>
-#include "libft.h"
+#include "doom_nukem.h"
 
 int		ret_error(const char *error_msg)
 {

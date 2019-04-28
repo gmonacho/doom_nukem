@@ -3,6 +3,12 @@
 
 # include "SDL.h"
 
+# include "struct_2d.h"
+# include "loop.h"
+# include "event.h"
+# include "display.h"
+# include "physics.h"
+
 /*
 **	====================== Data Level ======================
 */

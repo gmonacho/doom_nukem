@@ -1,13 +1,11 @@
-#include "physics.h"
-#include "data.h"
-#include "struct_2d"
+#include "doom_nukem.h"
 
 /*
 **	s = perimetre / 2 = somme des trois cote
 **	On melange 2 formules sur l'aire du triangle : bh / 2 = sqrt(s(s-a)(s-b)(s-c))
 */
 
-static void	gliss(t_affine line, t_fdot collision, t_player *player, t_fdot newpos)
+static void	gliss(t_linedef line, t_fdot collision, t_player *player, t_fdot newpos)
 {
 	double	h;
 	double	s;
@@ -17,25 +15,25 @@ static void	gliss(t_affine line, t_fdot collision, t_player *player, t_fdot newp
 
 	a = dist(collision, newpos);
 	b = dist(newpos, line.d1);
-	c = dist(line.d1, collision)
+	c = dist(line.d1, collision);
 	s = (a + b + c) / 2;
 	h = (2 * sqrt(s * (s - a) * (s - b) * (s - c))) / c;
-	player->pos.x = newpos.x + cos(90 - atan(line.a)) * h;
-	player->pos.y = newpos.y + cos(-atan(line.a)) * h;
+	player->pos.x = newpos.x + cos(90 - atan(line.equation.a)) * h;
+	player->pos.y = newpos.y + cos(-atan(line.equation.a)) * h;
 }
 
 static void	collisions(t_linedef *line, t_affine vel, t_player *player, t_fdot newpos)
 {
 	t_fdot		collision;
 
-	if (vel->a != line->equation.a)
+	if (vel.a != line->equation.a)
 	{
 		collision.x = (line->equation.b - vel.b) / (vel.a - line->equation.a);
 		collision.y = vel.a * collision.x + vel.b;
 		if (dist(player->pos, collision) + player->hitbox > mag(player->vel))
 			player->pos = newpos;
 		else if (!line->portal)
-			gliss(line->equation, collision, player, newpos);
+			gliss(*line, collision, player, newpos);
 		else
 			;/*Changement de secteur*/
 	}

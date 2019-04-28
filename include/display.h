@@ -3,9 +3,12 @@
 
 # include "SDL.h"
 # include "libft.h"
-# include "ret_error.h"
+
 # include "struct_2d.h"
+# include "loop.h"
 # include "event.h"
+# include "physics.h"
+# include "data.h"
 
 /*
 ** ================================== Window Management ==================================

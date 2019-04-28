@@ -7,16 +7,16 @@ SRCS_PATH_3 =	event
 SRCS_PATH_4 =	editor_loop
 SRCS_PATH_5 =	game_loop
 SRCS_PATH_6 =	physics
-SRCS =		$(wildcard $(SRCS_PATH)/*.c)
-			#$(wildcard $(SRCS_PATH)/$(SRCS_PATH_1)/*.c)\
+SRCS =		$(wildcard $(SRCS_PATH)/*.c)\
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_1)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_2)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_3)/*.c)\
-			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_4)/*.c)\
-			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_5)/*.c)
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_5)/*.c)\
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_6)/*.c)
+			#$(wildcard $(SRCS_PATH)/$(SRCS_PATH_4)/*.c)
 
 OBJS_PATH =	./objs
 OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
-#OBJS = $(SRCS_PATH)/main.c
 
 LIBSDL2 = -framework SDL2 -F $(FW_PATH) -framework SDL2_image -framework SDL2_ttf -rpath $(FW_PATH)
 LIBFT = libft
@@ -48,6 +48,8 @@ $(OBJS_PATH)/$(SRCS_PATH_3)/%.o : $(SRCS_PATH)/$(SRCS_PATH_3)/%.c
 $(OBJS_PATH)/$(SRCS_PATH_4)/%.o : $(SRCS_PATH)/$(SRCS_PATH_4)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 $(OBJS_PATH)/$(SRCS_PATH_5)/%.o : $(SRCS_PATH)/$(SRCS_PATH_4)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_PATH_6)/%.o : $(SRCS_PATH)/$(SRCS_PATH_4)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 
 directory:

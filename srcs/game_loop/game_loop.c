@@ -1,8 +1,4 @@
-#include "loop.h"
-#include "display.h"
-#include "event.h"
-#include "data.h"
-#include "ret_error.h"
+#include "doom_nukem.h"
 
 int		game_loop(t_win *win, t_map *map)
 {

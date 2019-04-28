@@ -1,5 +1,5 @@
-#ifndef DOOM_NUKEM_H
-# define DOOM_NUKEM_H
+#ifndef RET_ERROR_H
+# define RET_ERROR_H
 
 enum		state{SUCCESS, MALLOC_ERROR, UNDEFINED_ERROR};
 
