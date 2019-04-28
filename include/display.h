@@ -14,9 +14,9 @@
 typedef struct		s_win
 {
 	SDL_Window*		ptr;
-	int				w;
-	int				h;
-	SDL_Renderer*	rend;
+	int				width;
+	int				height;
+	SDL_Renderer	*rend;
 	t_mouse			*mouse;
 }					t_win;
 
@@ -33,6 +33,7 @@ void		clear_rend(SDL_Renderer *rend, Uint8 r, Uint8 g, Uint8 b);
 ** ================================== Drawing Fonctions ==================================
 */
 
-void		draw_line(t_win *win, t_dot p1, t_dot p2);
+void		draw(t_win *win, t_map *map, t_player *player);
+void		draw_line(t_win *win, t_fdot p1, t_fdot p2);
 
 #endif

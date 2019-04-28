@@ -1,65 +1,66 @@
 NAME = doom-nukem
 
-SRC_PATH =		./src/
-PATH_1 =	data/
-PATH_2 =	display/
-PATH_3 =	event/
-PATH_4 =	editor_loop/
-PATH_5 =	game_loop/
-PATH_6 =	physics/
-SRC =		$(wildcard $(SRC_PATH)*.c)\
-			$(wildcard $(SRC_PATH)$(PATH_1)*.c)\
-			$(wildcard $(SRC_PATH)$(PATH_2)*.c)\
-			$(wildcard $(SRC_PATH)$(PATH_3)*.c)\
-			$(wildcard $(SRC_PATH)$(PATH_4)*.c)\
-			$(wildcard $(SRC_PATH)$(PATH_5)*.c)
+SRCS_PATH =		./srcs
+SRCS_PATH_1 =	data
+SRCS_PATH_2 =	display
+SRCS_PATH_3 =	event
+SRCS_PATH_4 =	editor_loop
+SRCS_PATH_5 =	game_loop
+SRCS_PATH_6 =	physics
+SRCS =		$(wildcard $(SRCS_PATH)/*.c)
+			#$(wildcard $(SRCS_PATH)/$(SRCS_PATH_1)/*.c)\
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_2)/*.c)\
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_3)/*.c)\
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_4)/*.c)\
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_5)/*.c)
 
-BIN_PATH =	./bin
-BIN = $(patsubst $(SRC_PATH)%.c,./bin/%.o,$(SRC))
+OBJS_PATH =	./objs
+OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
+#OBJS = $(SRCS_PATH)/main.c
 
-INCLUDE_PATH = include
+LIBSDL2 = -framework SDL2 -F $(FW_PATH) -framework SDL2_image -framework SDL2_ttf -rpath $(FW_PATH)
+LIBFT = libft
+LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
+
+INCLUDE_PATH = ./include
 FW_PATH = ./frameworks
 CC = gcc
-CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address -I./$(INCLUDE_PATH)\
-														-I./libft/includes/\
+CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address	-I$(INCLUDE_PATH)\
+														-I./$(LIBFT)/includes/\
 														-I$(FW_PATH)/SDL2_image.framework/Headers/\
 														-I$(FW_PATH)/SDL2_ttf.framework/Headers/\
 														-I$(FW_PATH)/SDL2.framework/Headers/
 
-LIBSDL2 = -framework SDL2 -F $(FW_PATH) -framework SDL2_image -framework SDL2_ttf -rpath $(FW_PATH)
-LIBFT = libft
-LIBRARIES = $(LIBSDL2) $(LIBFT)/$(LIBFT).a
-
 all:	directory $(NAME)
 
-$(BIN_PATH)/%.o : $(SRC_PATH)/%.c
-		$(CC) $(CFLAGS) -c $< -o $@
-
-$(BIN_PATH)/$(SRC_PATH_1)/%.o : $(SRC_PATH)/$(SRC_PATH_1)/%.c
-		$(CC) $(CFLAGS) -c $< -o $@
-$(BIN_PATH)/$(SRC_PATH_2)/%.o : $(SRC_PATH)/$(SRC_PATH_2)/%.c
-		$(CC) $(CFLAGS) -c $< -o $@
-$(BIN_PATH)/$(SRC_PATH_3)/%.o : $(SRC_PATH)/$(SRC_PATH_3)/%.c
-		$(CC) $(CFLAGS) -c $< -o $@
-$(BIN_PATH)/$(SRC_PATH_4)/%.o : $(SRC_PATH)/$(SRC_PATH_4)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-$(BIN_PATH)/$(SRC_PATH_5)/%.o : $(SRC_PATH)/$(SRC_PATH_4)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(NAME): $(BIN)
+$(NAME): $(OBJS)
 		make -C $(LIBFT)
-		$(CC) $(CFLAGS) $(BIN) -o $(NAME) $(LIBRARIES)
+		$(CC) $(CFLAGS) $(LIBRARIES) $(OBJS) -o $(NAME)
+
+$(OBJS_PATH)/%.o : $(SRC_PATH)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_PATH_1)/%.o : $(SRCS_PATH)/$(SRCS_PATH_1)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_PATH_2)/%.o : $(SRCS_PATH)/$(SRCS_PATH_2)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_PATH_3)/%.o : $(SRCS_PATH)/$(SRCS_PATH_3)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_PATH_4)/%.o : $(SRCS_PATH)/$(SRCS_PATH_4)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_PATH_5)/%.o : $(SRCS_PATH)/$(SRCS_PATH_4)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
 
 directory:
-		@mkdir $(BIN_PATH) 2> /dev/null || true
-		@mkdir $(BIN_PATH)/$(PATH_1) 2> /dev/null || true
-		@mkdir $(BIN_PATH)/$(PATH_2) 2> /dev/null || true
-		@mkdir $(BIN_PATH)/$(PATH_3) 2> /dev/null || true
-		@mkdir $(BIN_PATH)/$(PATH_4) 2> /dev/null || true
-		@mkdir $(BIN_PATH)/$(PATH_5) 2> /dev/null || true
+		@mkdir $(OBJS_PATH) 2> /dev/null || true
+		@mkdir $(OBJS_PATH)/$(SRCS_PATH_1) 2> /dev/null || true
+		@mkdir $(OBJS_PATH)/$(SRCS_PATH_2) 2> /dev/null || true
+		@mkdir $(OBJS_PATH)/$(SRCS_PATH_3) 2> /dev/null || true
+		@mkdir $(OBJS_PATH)/$(SRCS_PATH_5) 2> /dev/null || true
+		@mkdir $(OBJS_PATH)/$(SRCS_PATH_6) 2> /dev/null || true
+		@mkdir $(OBJS_PATH)/$(SRCS_PATH_7) 2> /dev/null || true
 
 clean:
-		rm -rf $(BIN_PATH)
+		rm -rf $(OBJS_PATH)
 		make clean -C $(LIBFT)
 
 fclean:	clean
@@ -69,8 +70,8 @@ fclean:	clean
 re:		fclean all
 
 norme:
-		@norminette $(LIBFT)
-		@norminette $(SRC_PATH)
+		@norminette $(LIBFT)/*.c
+		@norminette $(SRCS_PATH)
 		@norminette $(INCLUDE_PATH)
 
 .PHONY: all, clean, fclean, re, directory, norme

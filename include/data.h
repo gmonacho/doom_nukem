@@ -34,9 +34,11 @@ typedef struct	s_sector
 typedef struct	s_player
 {
 	t_fdot		pos;
-	int			sector;
 	t_vector	vel;
+	double		const_vel;
+	double		dir;
 	double		hitbox;
+	int			sector;
 }				t_player;
 
 /*

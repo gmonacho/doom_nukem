@@ -24,18 +24,20 @@ static void	gliss(t_affine line, t_fdot collision, t_player *player, t_fdot newp
 	player->pos.y = newpos.y + cos(-atan(line.a)) * h;
 }
 
-static void	collisions(t_affine line, t_affine vel, t_player *player, t_fdot newpos)
+static void	collisions(t_linedef *line, t_affine vel, t_player *player, t_fdot newpos)
 {
 	t_fdot		collision;
 
-	if (vel->a != line->a)
+	if (vel->a != line->equation.a)
 	{
-		collision.x = (line.b - vel.b) / (vel.a - line.a);
+		collision.x = (line->equation.b - vel.b) / (vel.a - line->equation.a);
 		collision.y = vel.a * collision.x + vel.b;
 		if (dist(player->pos, collision) + player->hitbox > mag(player->vel))
 			player->pos = newpos;
+		else if (!line->portal)
+			gliss(line->equation, collision, player, newpos);
 		else
-			gliss(line, collision, player, newpos);
+			;/*Changement de secteur*/
 	}
 }
 
@@ -60,7 +62,7 @@ int		move(t_map *map, t_player *player)
 	line = sector->lines;
 	while (line)
 	{
-		collisions(line->equation, vel, player);
+		collisions(line, vel, player);
 		line = line->next;
 	}
 	return (0);

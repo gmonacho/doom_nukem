@@ -32,6 +32,7 @@ t_dot		mouse_drag(int x, int y, SDL_bool end);
 **	====================== Event Managment ======================
 */
 
+int		keyboard_state(t_map *map, t_player *player);
 int		key_pressed(Uint32 sdl_keycode);
 
 /*

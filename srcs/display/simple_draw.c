@@ -2,7 +2,7 @@
 #include "display.h"
 #include "struct_2d.h"
 
-void	draw_line(t_win *win, t_dot p1, t_dot p2)
+/*void	draw_line(t_win *win, t_dot p1, t_dot p2)
 {
 		int             i;
 		int				n_pixels;
@@ -26,4 +26,4 @@ void	draw_line(t_win *win, t_dot p1, t_dot p2)
 			if (pixel.y < win->h && pixel.y >= 0 && pixel.x < win->w && pixel.x >= 0)
 					SDL_RenderDrawPoint(win->rend, pixel.x, pixel.y);
 		}
-}
+}*/

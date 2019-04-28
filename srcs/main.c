@@ -2,6 +2,7 @@
 #include "ret_error.h"
 #include "display.h"
 #include "loop.h"
+#include "physics.h"
 
 static int	init_equations(t_map *map)
 {
@@ -29,6 +30,8 @@ static int	init(t_map *map, t_player *player)
 	init_equations(map);
 	player->hitbox = 0.5;
 	player->pos = (t_fdot){0, 0};
+	player->dir = PI / 2;
+	player->const_vel = 0.02;
 	return (SUCCESS);
 }
 
@@ -37,17 +40,20 @@ int		main(int ac, char **av)
 	t_win	win;
 	t_map	map;
 
-	ac = 0;
-	av = NULL;
 	if (init(&map, &(map.player)) < 0)
 		return (ret_error("Error init"));
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		return (ret_error(SDL_GetError()));
+
 	if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, 2000, 1200}, SDL_WINDOW_SHOWN)))
 		return (0);
 	SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
-	editor_loop(&win);
-	//game_loop(&win);
+
+	if (ac >= 2 && !ft_atoi(av[1]))
+		editor_loop(&win);
+	else
+		game_loop(&win);
+
 	SDL_DestroyWindow(win.ptr);
 	SDL_DestroyRenderer(win.rend);
 	SDL_Quit();
