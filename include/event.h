@@ -4,6 +4,8 @@
 # include "SDL.h"
 # include "struct_2d.h"
 
+# define NEXT_FACTOR 20
+
 enum e_mouse
 {
 	MOUSE_NONE = 0x0000

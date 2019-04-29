@@ -9,25 +9,13 @@ static void			editor_display(t_win *win, const t_map *map)
 	t_dot		p2;
 	t_linedef	*line_tmp;
 
-	SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
-	p1 = (t_dot){map->x, map->y};
-	p2 = (t_dot){map->x, map->y + map->h * map->unit};
-	draw_line(win, p1, p2);
-	p1 = (t_dot){map->x, map->y};
-	p2 = (t_dot){map->x + map->w * map->unit, map->y};
-	draw_line(win, p1, p2);
-	p1 = (t_dot){map->x + map->w * map->unit, map->y};
-	p2 = (t_dot){map->x + map->w * map->unit, map->y + map->h * map->unit};
-	draw_line(win, p1, p2);
-	p1 = (t_dot){map->x + map->w * map->unit, map->y + map->h * map->unit};
-	p2 = (t_dot){map->x, map->y + map->h * map->unit};
-	draw_line(win, p1, p2);
+	SDL_SetRenderDrawColor(win->rend, 100, 100, 100, 255);
+	draw_rect(win, (SDL_Rect){map->x, map->y, map->w * map->unit, map->h * map->unit});
 	SDL_SetRenderDrawColor(win->rend, 150, 150, 150, 200);
 	draw_rect(win, map->rect_util);
 	line_tmp = map->lines;
 	while (line_tmp)
 	{
-		//printf("line_tmp->flags = %d\n", line_tmp->flags);
 		if (line_tmp->flags & LINEDEF_SELECTED)
 			SDL_SetRenderDrawColor(win->rend, 0, 175, 175, 255);
 		else if (line_tmp->flags & LINEDEF_MOUSE_POINTED)

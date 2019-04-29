@@ -91,36 +91,34 @@ int			map_get_nb_linedef(t_linedef *lines)
 	return (nb);
 }
 
-t_dot 		is_next_to_linedef(t_linedef **lines, t_dot dot, SDL_bool jump_first, int radius)
+SDL_bool 		is_next_to_linedef(t_linedef **lines, t_dot *dot, int radius)
 {
 	t_linedef 	*tmp;
 
 	tmp = *lines;
-	if (tmp)
+	if (dot)
 	{
-		if (jump_first)
-			tmp = tmp->next;
 		while (tmp)
 		{
-			if (is_next_point(tmp->p1, dot, radius))
-				return (tmp->p1);
-			if (is_next_point(tmp->p2, dot, radius))
-				return (tmp->p2);
+			if (!((dot->x == tmp->p1.x && dot->y == tmp->p1.y) || (dot->x == tmp->p2.x && dot->y == tmp->p2.y)))
+			{
+				if (is_next_point(tmp->p1, *dot, radius))
+				{
+					*dot = tmp->p1;
+					return (SDL_TRUE);
+				}
+				if (is_next_point(tmp->p2, *dot, radius))
+				{
+					*dot = tmp->p2;
+					return (SDL_TRUE);
+				}
+			}
 			tmp = tmp->next;
 		}
 	}
-	return (dot);
+	return (SDL_FALSE);
 }
 
-t_linedef 	*get_last_linedef(t_map *map)
-{
-	t_linedef *tmp;
-
-	tmp = map->lines;
-	while (tmp->next)
-		tmp = tmp->next;
-	return (tmp);
-}
 
 void		map_zoom(t_map *map, double zoom)
 {

@@ -8,6 +8,7 @@ enum	e_linedef
 {
 	LINEDEF_SELECTED = 0x0001,
 	LINEDEF_MOUSE_POINTED = 0x0010,
+	LINEDEF_MOUSE_NEXT = 0x0100,
 	LINEDEF_NONE = 0x0000
 };
 
@@ -27,7 +28,7 @@ typedef struct				s_linedef
 	SDL_Texture				*p1p2_texture;
 	SDL_Texture				*p2p1_texture;
 	Uint32					flags;
-	struct s_sector			*next;
+	struct s_linedef		*next;
 }							t_linedef;
 
 typedef struct				s_sector
@@ -61,13 +62,12 @@ typedef struct	s_map
 }				t_map;
 
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
-t_linedef 	*get_last_linedef(t_map *map);
 int			map_get_nb_linedef(t_linedef *lines);
 t_linedef	*new_linedef(t_line line, SDL_Texture *p1p2, SDL_Texture *p2p1, Uint32 flags);
 void		map_zoom(t_map *map, double zoom);
 void		selected_linedef(t_map *map, Uint32 flags);
 void		delete_linedef(t_linedef **lines, Uint32 delete_flags);
-t_dot 		is_next_to_linedef(t_linedef **lines, t_dot dot, SDL_bool jump_first, int radius);
+SDL_bool 	is_next_to_linedef(t_linedef **lines, t_dot *dot, int radius);
 SDL_bool	is_line_horizontal(int y1, int y2, int pitch);
 SDL_bool	is_line_vertical(int x1, int x2, int pitch);
 int			map_add_line(t_map *map, t_linedef line);
