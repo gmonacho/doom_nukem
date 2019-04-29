@@ -5,6 +5,16 @@
 **	On melange 2 formules sur l'aire du triangle : bh / 2 = sqrt(s(s-a)(s-b)(s-c))
 */
 
+static void	coef_null(t_map *map, t_player *player)
+{
+	t_fdot		newpos;
+
+	newpos = (t_fdot){player->pos.x + player->vel.x,\
+						player->pos.y + player->vel.y};
+	if (dist(player->pos, collision) + player->hitbox > mag(player->vel))
+		player->pos = newpos;
+}
+
 static void	gliss(t_linedef line, t_fdot collision, t_player *player, t_fdot newpos)
 {
 	double	h;
@@ -47,12 +57,15 @@ int		move(t_map *map, t_player *player)
 	t_fdot		newpos;
 	t_affine	vel;
 
-	if (!(player->vel.x))
+	if (!player->vel.x && !player->vel.y)
 		return (0);
+	//printf("Move\n");
 	newpos = (t_fdot){player->pos.x + player->vel.x,\
 						player->pos.y + player->vel.y};
-	vel.a = (newpos.y - player->pos.y) / (newpos.x - player->pos.x);
+	if (player->vel.x)
+		vel.a = (newpos.y - player->pos.y) / (newpos.x - player->pos.x);
 	vel.b = player->pos.y - vel.a * player->pos.x;
+	//printf("Move 2\n");
 	sector = map->sectors;
 	i = -1;
 	while (++i < player->sector)
@@ -60,8 +73,12 @@ int		move(t_map *map, t_player *player)
 	line = sector->lines;
 	while (line)
 	{
-		collisions(line, vel, player);
+		if (player->vel.x)
+			collisions(line, vel, player, newpos);
+		else
+			coef_null(map, player);
 		line = line->next;
 	}
+	//printf("Fin Move\n");
 	return (0);
 }

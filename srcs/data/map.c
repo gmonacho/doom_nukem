@@ -1,39 +1,38 @@
-#include "display.h"
-#include "struct_2d.h"
-#include "libft.h"
-#include "ret_error.h"
-#include "data.h"
+#include "doom_nukem.h"
 
-int		map_add_line(t_map *map, t_linedef line)
+void	map_add_line(t_map *map, int n_sector, t_linedef *line)
 {
+	t_sector	*sector;
 	t_linedef	*tmp;
 	int			i;
-	
-	tmp = map->lines;
-	if (!(map->lines = (t_linedef *)ft_memalloc(sizeof(t_linedef) * (map->nb_lines + 1))))
-		return (ret_perror("lines allocation failed in map_add_line"));
-	i = 0;
-	while (i < map->nb_lines)
+
+	sector = map->sectors;
+	i = -1;
+	while (++i < n_sector)
+		sector = sector->next;
+	if (sector->lines)
 	{
-		map->lines[i] = tmp[i];
-		i++;
+		tmp = sector->lines;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = line;
 	}
-	map->lines[map->nb_lines] = line;
-	map->nb_lines++;
-	free(tmp);
-	return (1);
+	else
+		sector->lines = line;
 }
 
-t_linedef	new_linedef(t_line line, SDL_Texture *p1p2, SDL_Texture *p2p1, Uint32 flags)
+t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags)
 {
-	t_linedef linedef;
+	t_linedef	*newline;
 
-	linedef.p1 = line.p1;
-	linedef.p2 = line.p2;
-	linedef.p1p2_texture = p1p2;
-	linedef.p2p1_texture = p2p1;
-	linedef.flags = flags;
-	return (linedef);
+	if (!(newline = (t_linedef *)ft_memalloc(sizeof(t_linedef))))
+		return (ret_null_perror("lines allocation failed in map_add_line"));
+	newline->d1 = line.d1;
+	newline->d2 = line.d2;
+	newline->p1p2_texture = texture;
+	newline->flags = flags;
+	newline->next = NULL;
+	return (newline);
 }
 
 /*void		map_zoom(t_win *win, t_map *map)

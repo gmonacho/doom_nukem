@@ -1,5 +1,4 @@
-#include "SDL.h"
-#include "event.h"
+#include "doom_nukem.h"
 
 int		key_pressed(Uint32 sdl_keycode)
 {

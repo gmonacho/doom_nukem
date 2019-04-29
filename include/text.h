@@ -3,6 +3,6 @@
 
 /*
 ** Gestion TTF   
-**/
+*/
 
 #endif

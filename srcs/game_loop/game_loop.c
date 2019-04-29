@@ -10,9 +10,6 @@ int		game_loop(t_win *win, t_map *map)
 	{
 		while (loop)
 		{
-			draw_fps();
-			clear_rend(win->rend, 255, 255, 255);
-
 			SDL_PumpEvents();
 			SDL_PollEvent(&event);
 
@@ -21,6 +18,7 @@ int		game_loop(t_win *win, t_map *map)
 			keyboard_state(map, &(map->player));
 
 			move(map, &(map->player));
+
 			draw(win, map, &(map->player));
 			SDL_RenderPresent(win->rend);
 		}

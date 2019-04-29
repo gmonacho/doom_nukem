@@ -4,10 +4,7 @@
 # include "SDL.h"
 # include "libft.h"
 
-# include "struct_2d.h"
-# include "loop.h"
 # include "event.h"
-# include "physics.h"
 # include "data.h"
 
 /*
@@ -16,7 +13,7 @@
 
 typedef struct		s_win
 {
-	SDL_Window*		ptr;
+	SDL_Window		*ptr;
 	int				width;
 	int				height;
 	SDL_Renderer	*rend;

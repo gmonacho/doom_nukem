@@ -1,16 +1,14 @@
-#include "loop.h"
-#include "display.h"
-#include "event.h"
-#include "data.h"
-#include "ret_error.h"
-#include "event.h"
-#include "physics.h"
+#include "doom_nukem.h"
 
 void	draw(t_win *win, t_map *map, t_player *player)
 {
 	t_sector	*sector;
 	t_linedef	*line;
 
+	//printf("Debut print\n");
+	clear_rend(win->rend, 0, 0, 0);
+
+	SDL_SetRenderDrawColor(win->rend, 0xFF, 0xFF, 0xFF, 255);
 	sector = map->sectors;
 	while (sector)
 	{
@@ -24,5 +22,8 @@ void	draw(t_win *win, t_map *map, t_player *player)
 	}
 
 	SDL_SetRenderDrawColor(win->rend, 0x20, 0xDD, 0x20, 255);
-	SDL_RenderDrawPoint(win->rend, player->pos.x, player->pos.y);
+	SDL_RenderDrawPoint(win->rend, (int)player->pos.x, (int)player->pos.y);
+
+	//draw_fps();
+	//printf("Fin print\n");
 }

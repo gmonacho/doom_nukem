@@ -1,10 +1,7 @@
 #ifndef LOOP_H
 # define LOOP_H
 
-# include "struct_2d.h"
-# include "event.h"
 # include "display.h"
-# include "physics.h"
 # include "data.h"
 
 /*

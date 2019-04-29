@@ -1,10 +1,4 @@
-#include "loop.h"
-#include "display.h"
-#include "event.h"
-#include "data.h"
-#include "ret_error.h"
-#include "event.h"
-#include "physics.h"
+#include "doom_nukem.h"
 
 void	draw_line(t_win *win, t_fdot p1, t_fdot p2)
 {

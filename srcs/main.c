@@ -21,13 +21,29 @@ static int	init_equations(t_map *map)
 	return (SUCCESS);
 }
 
-static int	init(t_map *map, t_player *player)
+static int	init(t_win *win, t_map *map, t_player *player)
 {
+	t_linedef	*tmp;
+
 	init_equations(map);
-	player->hitbox = 0.5;
-	player->pos = (t_fdot){0, 0};
+	win->width = 2000;
+	win->height = 1200;
+	player->hitbox = 10;
+	player->pos = (t_fdot){win->width / 2, win->height / 2};
+	player->sector = 0;
 	player->dir = PI / 2;
-	player->const_vel = 0.02;
+	player->const_vel = 1;
+	if (!(map->sectors = (t_sector *)malloc(sizeof(t_sector))))
+		return (MALLOC_ERROR);
+	map->sectors->lines = NULL;
+	map->sectors->next = NULL;
+	printf("Fin malloc sector\n");
+	tmp = new_linedef((t_line){(t_fdot){(float)0, (float)win->height},\
+												(t_fdot){(float)win->width / 2, (float)0}},\
+										NULL, 0);
+	printf("Fin linedef malloc\n");
+	map_add_line(map, 0, tmp);
+	printf("Fin add line\n");
 	return (SUCCESS);
 }
 
@@ -36,19 +52,22 @@ int		main(int ac, char **av)
 	t_win	win;
 	t_map	map;
 
-	if (init(&map, &(map.player)) < 0)
+	if (init(&win, &map, &(map.player)) < 0)
 		return (ret_error("Error init"));
+	printf("Fin init main\n");
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		return (ret_error(SDL_GetError()));
+	printf("Fin SDL init main\n");
 
-	if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, 2000, 1200}, SDL_WINDOW_SHOWN)))
+	if (!(create_window(&win, "doom_nukem", (SDL_Rect){0, 0, win.width, win.height}, SDL_WINDOW_SHOWN)))
 		return (0);
-	SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
+	printf("Fin create window main\n");
 
 	if (ac >= 2 && !ft_atoi(av[1]))
-		editor_loop(&win);
+		;//editor_loop(&win);
 	else
-		game_loop(&win);
+		game_loop(&win, &map);
+	printf("Fin game loop main\n");
 
 	SDL_DestroyWindow(win.ptr);
 	SDL_DestroyRenderer(win.rend);

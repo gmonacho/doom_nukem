@@ -1,6 +1,4 @@
-#include "event.h"
-#include "SDL.h"
-#include "struct_2d.h"
+#include "doom_nukem.h"
 
 t_mouse		*mouse_refresh()
 {

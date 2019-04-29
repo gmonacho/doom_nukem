@@ -1,6 +1,4 @@
-#include "SDL.h"
-#include "event.h"
-#include "libft.h"
+#include "doom_nukem.h"
 
 void	draw_fps()
 {

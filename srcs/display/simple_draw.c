@@ -1,6 +1,4 @@
-#include "SDL.h"
-#include "display.h"
-#include "struct_2d.h"
+#include "doom_nukem.h"
 
 /*void	draw_line(t_win *win, t_dot p1, t_dot p2)
 {
