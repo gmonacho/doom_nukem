@@ -33,24 +33,6 @@ typedef struct		s_vector
 	double			y;
 }					t_vector;
 
-typedef struct		s_len
-{
-	unsigned int	x;
-	unsigned int	y;
-}					t_len;
-
-typedef struct		s_interval
-{
-	int				start;
-	int				end;
-}					t_interval;
-
-typedef struct		s_index
-{
-	unsigned int	i;
-	unsigned int	j;
-}					t_index;
-
 /*
 **	================================= Event ================================
 */

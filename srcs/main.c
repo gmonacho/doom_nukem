@@ -1,6 +1,6 @@
 #include "doom_nukem.h"
 
-static int	init_equations(t_map *map)
+/*static int	init_equations(t_map *map)
 {
 	t_sector	*sector;
 	t_linedef	*line;
@@ -19,31 +19,32 @@ static int	init_equations(t_map *map)
 		sector = sector->next;
 	}
 	return (SUCCESS);
-}
+}*/
 
 static int	init(t_win *win, t_map *map, t_player *player)
 {
 	t_linedef	*tmp;
 
-	init_equations(map);
+	//init_equations(map);
 	win->width = 2000;
 	win->height = 1200;
-	player->hitbox = 10;
+	player->hitbox = 20;
 	player->pos = (t_fdot){win->width / 2, win->height / 2};
 	player->sector = 0;
 	player->dir = PI / 2;
-	player->const_vel = 1;
+	player->const_vel = 0.5;
 	if (!(map->sectors = (t_sector *)malloc(sizeof(t_sector))))
 		return (MALLOC_ERROR);
 	map->sectors->lines = NULL;
 	map->sectors->next = NULL;
-	printf("Fin malloc sector\n");
 	tmp = new_linedef((t_line){(t_fdot){(float)0, (float)win->height},\
-												(t_fdot){(float)win->width / 2, (float)0}},\
+										(t_fdot){(float)win->width / 2, (float)0}},\
 										NULL, 0);
-	printf("Fin linedef malloc\n");
 	map_add_line(map, 0, tmp);
-	printf("Fin add line\n");
+	tmp = new_linedef((t_line){(t_fdot){(float)win->width, (float)win->height},\
+										(t_fdot){(float)win->width / 2, (float)0}},\
+										NULL, 0);
+	map_add_line(map, 0, tmp);
 	return (SUCCESS);
 }
 

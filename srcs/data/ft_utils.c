@@ -8,5 +8,5 @@ double	dist(t_fdot d1, t_fdot d2)
 
 double	mag(t_vector vector)
 {
-	return (sqrt(vector.x * vector.x + vector.y * vector.y));
+	return (fabs(sqrt(vector.x * vector.x + vector.y * vector.y)));
 }

@@ -23,7 +23,7 @@ void	draw(t_win *win, t_map *map, t_player *player)
 
 	SDL_SetRenderDrawColor(win->rend, 0x20, 0xDD, 0x20, 255);
 	SDL_RenderDrawPoint(win->rend, (int)player->pos.x, (int)player->pos.y);
-
+	
 	//draw_fps();
 	//printf("Fin print\n");
 }

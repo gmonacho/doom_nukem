@@ -21,7 +21,7 @@ static void	keyboard_move(t_map *map, t_player *player, const Uint8 *state)
 	}
 	if (state[SDL_SCANCODE_D])
 	{
-		player->vel.x += cos(player->dir - PI / 2) * player->const_vel;
+		player->vel.x += cos(player->dir - M_PI / 2) * player->const_vel;
 		player->vel.y += -sin(player->dir - PI / 2) * player->const_vel;
 	}*/
 	if (state[SDL_SCANCODE_W])
