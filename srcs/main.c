@@ -27,22 +27,22 @@ static int	init(t_win *win, t_map *map, t_player *player)
 
 	//init_equations(map);
 	win->width = 2000;
-	win->height = 1200;
-	player->hitbox = 20;
-	player->pos = (t_fdot){win->width / 2, win->height / 2};
+	win->height = 1000;
+	player->hitbox = 10;
+	player->pos = (t_fdot){win->width / 2, win->height / 2 - 100};
 	player->sector = 0;
 	player->dir = PI / 2;
-	player->const_vel = 0.5;
+	player->const_vel = 0.8;
 	if (!(map->sectors = (t_sector *)malloc(sizeof(t_sector))))
 		return (MALLOC_ERROR);
 	map->sectors->lines = NULL;
 	map->sectors->next = NULL;
-	tmp = new_linedef((t_line){(t_fdot){(float)0, (float)win->height},\
-										(t_fdot){(float)win->width / 2, (float)0}},\
+	tmp = new_linedef((t_line){(t_fdot){0, 0},\
+										(t_fdot){win->width, win->height}},\
 										NULL, 0);
 	map_add_line(map, 0, tmp);
-	tmp = new_linedef((t_line){(t_fdot){(float)win->width, (float)win->height},\
-										(t_fdot){(float)win->width / 2, (float)0}},\
+	tmp = new_linedef((t_line){(t_fdot){win->width, win->height},\
+										(t_fdot){win->width / 2, 0}},\
 										NULL, 0);
 	map_add_line(map, 0, tmp);
 	return (SUCCESS);

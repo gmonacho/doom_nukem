@@ -32,6 +32,7 @@ t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags)
 	newline->equation.a = (line.d2.y - line.d1.y) /\
 						(line.d2.x - line.d1.x);
 	newline->equation.b = line.d1.y - newline->equation.a * line.d1.x;
+	printf("%f\t%f\n", newline->equation.a, newline->equation.b);
 	newline->portal = 0;
 	newline->p1p2_texture = texture;
 	newline->flags = flags;
