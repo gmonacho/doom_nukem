@@ -74,5 +74,6 @@ int			move(t_map *map, t_player *player);
 
 double		dist(t_fdot d1, t_fdot d2);
 double		mag(t_vector vector);
+int			sign(double nbr);
 
 #endif

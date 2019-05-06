@@ -10,3 +10,8 @@ double	mag(t_vector vector)
 {
 	return (fabs(sqrt(vector.x * vector.x + vector.y * vector.y)));
 }
+
+int		sign(double nbr)
+{
+	return (nbr < 0 ? -1 : 1);
+}
