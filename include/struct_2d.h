@@ -1,8 +1,6 @@
 #ifndef STRUCT_2D_H
 # define STRUCT_2D_H
 
-# include "stdlib.h"
-
 typedef struct		s_dot
 {
 	int				x;
@@ -28,5 +26,12 @@ typedef struct		s_fdot
 	double			y;
 }					t_fdot;
 
+typedef struct 		s_frect
+{
+	double			x;
+	double			y;
+	double			w;
+	double			h;
+}					t_frect;
 
 #endif

@@ -36,11 +36,29 @@ void	draw_rect(t_win *win, SDL_Rect rect)
 	draw_line(win, (t_dot){rect.x, rect.y + rect.h}, (t_dot){rect.x, rect.y});
 }
 
+void	draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio)
+{
+	int x;
+	int	y;
+	int	w;
+	int	h;
+
+	x = rect->w * ratio->x + rect->x;
+	y = rect->h * ratio->y + rect->y;
+	w = rect->w * ratio->w;
+	h = rect->h * ratio->h;
+	draw_line(win, (t_dot){x, y}, (t_dot){x + w, y});
+	draw_line(win, (t_dot){x + w, y}, (t_dot){x + w, y + h});
+	draw_line(win, (t_dot){x + w, y + h}, (t_dot){x, y + h});
+	draw_line(win, (t_dot){x, y + h}, (t_dot){x, y});
+}
+
 void	draw_circle(t_win *win, t_circle circle)
 {
 	int		x;
 	int		y;
 	int		m;
+
 	x = 0;
 	y = circle.radius;
 	m = 5 - 4 * circle.radius;

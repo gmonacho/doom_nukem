@@ -4,7 +4,7 @@
 #include "data.h"
 #include "ret_error.h"
 
-void        add_sectors(t_sector **sectors, t_sector *new_sectors)
+/*void        add_sectors(t_sector **sectors, t_sector *new_sectors)
 {
     new_sectors->next = *sectors;
     *sectors = new_sectors;
@@ -24,7 +24,7 @@ t_sector    *new_sector()
     sector->lines = NULL;
     sector->next = NULL;
     return (sector);
-}
+}*/
 
 int     count_line(int fd1)
 {   
@@ -83,7 +83,7 @@ int    ft_data_storing(int fd, int fd1)
         {
             while ((ft_strchr(tab[i], '}') == NULL || ft_strchr(tab[i - 1], '}') == NULL))
             {   
-                add_sectors(&sector, new_sector());
+                add_sector(&sector, new_sector());
                 if (ft_strstr(tab[i], "floorHeight"))
                     {   
                         y = 0;

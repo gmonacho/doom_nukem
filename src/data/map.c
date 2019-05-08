@@ -120,13 +120,6 @@ SDL_bool 		is_next_to_linedef(t_linedef **lines, t_dot *dot, int radius)
 }
 
 
-void		map_zoom(t_map *map, double zoom)
-{
-	map->x -= map->unit * zoom * map->w / 2;
-	map->y -= map->unit * zoom * map->h / 2;
-	map->unit += map->unit * zoom;
-}
-
 SDL_bool	is_line_horizontal(int y1, int y2, int pitch)
 {
 	return (abs(y1 - y2) < pitch);
@@ -135,4 +128,33 @@ SDL_bool	is_line_horizontal(int y1, int y2, int pitch)
 SDL_bool	is_line_vertical(int x1, int x2, int pitch)
 {
 	return (abs(x1 - x2) < pitch);
+}
+
+t_sector	*new_sector()
+{
+	t_sector *sector;
+
+	if (!(sector = (t_sector*)ft_memalloc(sizeof(t_sector))))
+		return (ret_null_perror("sector allocation failed in new_sector"));
+	sector->floor_height = 0;
+	sector->floor_texture = NULL;
+	sector->ceil_height = 0;
+	sector->ceil_texture = NULL;
+	sector->light_level = 0;
+	sector->lines = NULL;
+	sector->next = NULL;
+	return (sector);
+}
+
+void		add_sector(t_sector **sectors, t_sector *new_sector)
+{
+	new_sector->next = *sectors;
+	*sectors = new_sector;
+}
+
+void		map_zoom(t_map *map, double zoom)
+{
+	map->x -= map->unit * zoom * map->w / 2;
+	map->y -= map->unit * zoom * map->h / 2;
+	map->unit += map->unit * zoom;
 }
