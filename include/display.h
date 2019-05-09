@@ -6,6 +6,7 @@
 # include "ret_error.h"
 # include "event.h"
 # include "struct_2d.h"
+# include "SDL_ttf.h"
 
 
 
@@ -60,13 +61,22 @@ void		add_button_to_frame(t_frame **frame, t_button *button);
 typedef struct		s_win
 {
 	SDL_Window*		ptr;
+	SDL_Renderer*	rend;
+
 	int				w;
 	int				h;
-	SDL_Renderer*	rend;
+
 	t_mouse			*mouse;
+
+	SDL_Texture		**sectors_texture;
+	SDL_Texture		**sectors_texture_selected;
+
 	t_frame			*frames;
 	t_frame			*selected_frame;
+
 	t_button		*selected_button;
+
+	TTF_Font		*font;
 }					t_win;
 
 int			create_window(t_win *win, const char *title, SDL_Rect rect, Uint32 flags);

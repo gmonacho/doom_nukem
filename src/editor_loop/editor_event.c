@@ -60,24 +60,6 @@ static void		update_ui_rect(t_win *win)
 	}
 }
 
-static void		resolve_ui_left_release(t_win *win, t_map *map)
-{
-	t_frame		*f;
-
-	f = win->selected_frame;
-	if (win->selected_frame->flags & FRAME_SECTORS)
-	{
-		if (win->mouse->x < f->rect.x + (f->rect.w / MAX_SECTORS) * (f->nb_buttons - 1))
-			map->selected_sector = (win->mouse->x - f->rect.x) / (f->rect.w / MAX_SECTORS);
-		else if (win->mouse->x > f->rect.x + (f->rect.w / MAX_SECTORS) * (f->nb_buttons - 1) &&
-				win->mouse->x < f->rect.x + (f->rect.w / MAX_SECTORS) * f->nb_buttons)
-		{
-			add_button_to_frame(&win->selected_frame, new_button((t_frect){1.0 / MAX_SECTORS * f->nb_buttons, 0, 1.0 / MAX_SECTORS, 1}, NULL, 0));
-			add_sector(&map->sectors, new_sector());
-		}
-	}
-}
-
 int				editor_event(t_win *win, t_map *map, SDL_bool *loop)
 {
 	SDL_Event	event;
@@ -114,10 +96,14 @@ int				editor_event(t_win *win, t_map *map, SDL_bool *loop)
 		if (!win->selected_frame)
 		{
 			dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
-			is_next_to_linedef(&map->lines, &dot, map->unit * NEXT_FACTOR);
+			if (!key_pressed(SC_DRAW_FREE))
+				is_next_to_linedef(map, &dot, map->unit * NEXT_FACTOR);
 			if (!(tmp = new_linedef((t_line){dot, dot}, NULL, NULL, LINEDEF_NONE)))
 				return (0);
-			add_linedef(&map->lines, tmp);
+			if (map->selected_sector)
+				add_linedef(&map->sectors->lines, tmp);
+			else
+				add_linedef(&map->lines, tmp);
 			map->flags = map->flags | DRAWING_LINE;
 		}
 	}
@@ -132,8 +118,18 @@ int				editor_event(t_win *win, t_map *map, SDL_bool *loop)
 			if (map->flags & DRAWING_LINE)
 			{
 				dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
-				is_next_to_linedef(&map->lines, &dot, map->unit * NEXT_FACTOR);
-				map->lines->p2 = dot;
+				if (map->selected_sector)
+				{
+					if (!key_pressed(SC_DRAW_FREE))
+						is_next_to_linedef(map, &dot, map->unit * NEXT_FACTOR);
+					map->sectors->lines->p2 = dot;
+				}
+				else
+				{
+					if (!key_pressed(SC_DRAW_FREE))
+						is_next_to_linedef(map, &dot, map->unit * NEXT_FACTOR);
+					map->lines->p2 = dot;
+				}
 				map->flags -= DRAWING_LINE;
 			}
 		}
@@ -163,8 +159,18 @@ int				editor_event(t_win *win, t_map *map, SDL_bool *loop)
 	{
 		if (map->flags & DRAWING_LINE)
 		{
-			map->lines->p2 = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
-			is_next_to_linedef(&map->lines, &map->lines->p2, map->unit * NEXT_FACTOR);
+			if (map->selected_sector)
+			{
+				map->sectors->lines->p2 = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
+				if (!key_pressed(SC_DRAW_FREE))
+					is_next_to_linedef(map, &map->sectors->lines->p2, map->unit * NEXT_FACTOR);
+			}
+			else
+			{
+				map->lines->p2 = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
+				if (!key_pressed(SC_DRAW_FREE))
+					is_next_to_linedef(map, &map->lines->p2, map->unit * NEXT_FACTOR);
+			}
 		}
 	}
 	if (win->mouse->button[MOUSE_RIGHT].pressed)
@@ -185,7 +191,7 @@ int				editor_event(t_win *win, t_map *map, SDL_bool *loop)
 	}
 
 	if (key_pressed(SDL_SCANCODE_DELETE))
-		delete_linedef(&map->lines, LINEDEF_SELECTED);
+		delete_linedef(map, LINEDEF_SELECTED);
 	if (key_pressed(SDL_SCANCODE_W))
 		map->y += 2;
 	if (key_pressed(SDL_SCANCODE_S))

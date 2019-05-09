@@ -28,51 +28,100 @@ t_linedef	*new_linedef(t_line line, SDL_Texture *p1p2, SDL_Texture *p2p1, Uint32
 
 void	selected_linedef(t_map *map, Uint32 flags)
 {
-	t_linedef	*tmp;
+	t_sector	*s;
+	t_linedef	*l;
 
-	tmp = map->lines;
-	while (tmp)
+	l = map->lines;
+	while (l)
 	{
-		if (intersect_line_rect((t_line){(t_dot){tmp->p1.x * map->unit + map->x,
-												 tmp->p1.y * map->unit + map->y},
-										 (t_dot){tmp->p2.x * map->unit + map->x,
-										 		 tmp->p2.y * map->unit + map->y}}, map->rect_util))
-			tmp->flags = tmp->flags | flags;
+		if (intersect_line_rect((t_line){(t_dot){l->p1.x * map->unit + map->x,
+												 l->p1.y * map->unit + map->y},
+										 (t_dot){l->p2.x * map->unit + map->x,
+										 		 l->p2.y * map->unit + map->y}}, map->rect_util))
+			l->flags = l->flags | flags;
 		else
-			tmp->flags = LINEDEF_NONE;
-		tmp = tmp->next;
+			l->flags = LINEDEF_NONE;
+		l = l->next;
+	}
+	s = map->sectors;
+	while (s)
+	{
+		l = s->lines;
+		while (l)
+		{
+			if (intersect_line_rect((t_line){(t_dot){l->p1.x * map->unit + map->x,
+												 	l->p1.y * map->unit + map->y},
+										 	(t_dot){l->p2.x * map->unit + map->x,
+										 		 	l->p2.y * map->unit + map->y}}, map->rect_util))
+			l->flags = l->flags | flags;
+			else
+				l->flags = LINEDEF_NONE;
+			l = l->next;
+		}
+		s = s->next;
 	}
 }
 
-void	delete_linedef(t_linedef **lines, Uint32 delete_flags)
+void	delete_linedef(t_map *map, Uint32 delete_flags)
 {
-	t_linedef	*tmp;
+	t_sector	*s;
+	t_linedef	*l;
 	t_linedef	*previous;
 
 	previous = NULL;
-	tmp = *lines;
-	if (tmp)
+	l = map->lines;
+	if (l)
 	{
-		if (tmp->flags & delete_flags)
+		if (l->flags & delete_flags)
 		{
-			(*lines) = (*lines)->next;
-			free(tmp);
-			tmp = *lines;
+			map->lines = map->lines->next;
+			free(l);
+			l = map->lines;
 		}
 	}
-	while (tmp)
+	while (l)
 	{
-		if (tmp->flags & delete_flags)
+		if (l->flags & delete_flags)
 		{
 			if (previous)
 			{
-				previous->next = tmp->next;
-				free(tmp);
-				tmp = previous;
+				previous->next = l->next;
+				free(l);
+				l = previous;
 			}
 		}
-		previous = tmp;
-		tmp = tmp->next;
+		previous = l;
+		l = l->next;
+	}
+	previous = NULL;
+	s = map->sectors;
+	while (s)
+	{
+		l = s->lines;
+		if (l)
+		{
+			if (l->flags & delete_flags)
+			{
+				s->lines = s->lines->next;
+				free(l);
+				l = s->lines;
+			}
+		}
+		while (l)
+		{
+			if (l->flags & delete_flags)
+			{
+				if (previous)
+				{
+					previous->next = l->next;
+					free(l);
+					l = previous;
+				}
+			}
+			previous = l;
+			l = l->next;
+		}
+		s = s->next;
 	}
 }
 
@@ -91,29 +140,53 @@ int			map_get_nb_linedef(t_linedef *lines)
 	return (nb);
 }
 
-SDL_bool 		is_next_to_linedef(t_linedef **lines, t_dot *dot, int radius)
+SDL_bool 		is_next_to_linedef(t_map *map, t_dot *dot, int radius)
 {
-	t_linedef 	*tmp;
+	t_sector	*s;
+	t_linedef 	*l;
 
-	tmp = *lines;
+	s = map->sectors;
+	l = map->lines;
 	if (dot)
 	{
-		while (tmp)
+		while (l)
 		{
-			if (!((dot->x == tmp->p1.x && dot->y == tmp->p1.y) || (dot->x == tmp->p2.x && dot->y == tmp->p2.y)))
+			if (!((dot->x == l->p1.x && dot->y == l->p1.y) || (dot->x == l->p2.x && dot->y == l->p2.y)))
 			{
-				if (is_next_point(tmp->p1, *dot, radius))
+				if (is_next_point(l->p1, *dot, radius))
 				{
-					*dot = tmp->p1;
+					*dot = l->p1;
 					return (SDL_TRUE);
 				}
-				if (is_next_point(tmp->p2, *dot, radius))
+				if (is_next_point(l->p2, *dot, radius))
 				{
-					*dot = tmp->p2;
+					*dot = l->p2;
 					return (SDL_TRUE);
 				}
 			}
-			tmp = tmp->next;
+			l = l->next;
+		}
+		while (s)
+		{
+			l = s->lines;
+			while (l)
+			{
+				if (!((dot->x == l->p1.x && dot->y == l->p1.y) || (dot->x == l->p2.x && dot->y == l->p2.y)))
+				{
+					if (is_next_point(l->p1, *dot, radius))
+					{
+						*dot = l->p1;
+						return (SDL_TRUE);
+					}
+					if (is_next_point(l->p2, *dot, radius))
+					{
+						*dot = l->p2;
+						return (SDL_TRUE);
+					}
+				}
+				l = l->next;
+			}
+			s = s->next;
 		}
 	}
 	return (SDL_FALSE);
@@ -136,6 +209,8 @@ t_sector	*new_sector()
 
 	if (!(sector = (t_sector*)ft_memalloc(sizeof(t_sector))))
 		return (ret_null_perror("sector allocation failed in new_sector"));
+	sector->name = "Unnamed";
+	sector->color = (SDL_Color){255, 0, 0, 255};
 	sector->floor_height = 0;
 	sector->floor_texture = NULL;
 	sector->ceil_height = 0;
@@ -150,6 +225,21 @@ void		add_sector(t_sector **sectors, t_sector *new_sector)
 {
 	new_sector->next = *sectors;
 	*sectors = new_sector;
+}
+
+int			get_nb_sectors(t_sector *sector)
+{
+	t_sector	*s;
+	int			i;
+
+	s = sector;
+	i = 0;
+	while (s)
+	{
+		i++;
+		s = s->next;
+	}
+	return (i);
 }
 
 void		map_zoom(t_map *map, double zoom)

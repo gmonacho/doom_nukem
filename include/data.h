@@ -48,8 +48,6 @@ typedef struct				s_linedef
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
 int			map_get_nb_linedef(t_linedef *lines);
 t_linedef	*new_linedef(t_line line, SDL_Texture *p1p2, SDL_Texture *p2p1, Uint32 flags);
-void		delete_linedef(t_linedef **lines, Uint32 delete_flags);
-SDL_bool 	is_next_to_linedef(t_linedef **lines, t_dot *dot, int radius);
 SDL_bool	is_line_horizontal(int y1, int y2, int pitch);
 SDL_bool	is_line_vertical(int x1, int x2, int pitch);
 
@@ -57,6 +55,9 @@ SDL_bool	is_line_vertical(int x1, int x2, int pitch);
 
 typedef struct				s_sector
 {
+	char					*name;
+
+	SDL_Color				color;
 	int						floor_height;
 	SDL_Texture				*floor_texture;
 
@@ -71,6 +72,7 @@ typedef struct				s_sector
 
 t_sector	*new_sector();
 void		add_sector(t_sector **sectors, t_sector *new_sector);
+int			get_nb_sectors(t_sector *sector);
 
 /*
 **	====================== Map ======================
@@ -90,7 +92,7 @@ typedef struct	s_map
 	int			h;
 	double		unit;
 	t_sector	*sectors;
-	int			selected_sector;
+	t_sector	*selected_sector;
 	t_linedef	*lines;
 	SDL_Rect	rect_util;
 	Uint32		flags;
@@ -99,6 +101,8 @@ typedef struct	s_map
 void		map_zoom(t_map *map, double zoom);
 int			map_add_line(t_map *map, t_linedef line);
 void		selected_linedef(t_map *map, Uint32 flags);
+void		delete_linedef(t_map *map, Uint32 delete_flags);
+SDL_bool 	is_next_to_linedef(t_map *map, t_dot *dot, int radius);
 
 /*
 **	====================== Parsing ======================

@@ -89,7 +89,7 @@ int    ft_data_storing(int fd, int fd1)
                         y = 0;
                         comptor = 0;
                         while (tab[i][y])
-                        {   
+                        { 
                             if (ft_isdigit(tab[i][y]))
                             {
                                 tmp[comptor] = tab[i][y];
