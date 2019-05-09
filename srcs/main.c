@@ -41,8 +41,8 @@ static int	init(t_win *win, t_map *map, t_player *player)
 										(t_fdot){win->width, win->height}},\
 										NULL, 0);
 	map_add_line(map, 0, tmp);
-	tmp = new_linedef((t_line){(t_fdot){win->width, win->height},\
-										(t_fdot){win->width / 2, 0}},\
+	tmp = new_linedef((t_line){(t_fdot){0, win->height},\
+										(t_fdot){win->width, 0}},\
 										NULL, 0);
 	map_add_line(map, 0, tmp);
 	return (SUCCESS);

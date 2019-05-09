@@ -78,9 +78,10 @@ typedef struct		s_linedef
 	t_fdot			d1;
 	t_fdot			d2;
 	t_affine		equation;
-	int				portal;
+	double			angle;
 	SDL_Texture		*p1p2_texture;
 	Uint32			flags;
+	int				portal;
 	struct s_linedef	*next;
 }					t_linedef;
 

@@ -3,7 +3,24 @@
 /*
 **	s = perimetre / 2 = somme des trois cote
 **	On melange 2 formules sur l'aire du triangle : bh / 2 = sqrt(s(s-a)(s-b)(s-c))
+**
+**	
 */
+/*
+static t_dot	direction(t_linedef *line, t_player *player, t_fdot *newpos)
+{
+	t_dot		dir;
+
+	if (line->equation.a > 0)
+	{
+		if ()
+	}
+	else
+	{
+		if ()
+	}
+	return (dir);
+}*/
 
 static void	gliss(t_linedef *line, t_player *player, t_fdot *newpos)
 {
@@ -21,12 +38,14 @@ static void	gliss(t_linedef *line, t_player *player, t_fdot *newpos)
 	c = dist(line->d1, line->d2);
 	s = (a + b + c) / 2;
 	h = (2 * sqrt(s * (s - a) * (s - b) * (s - c))) / c;
+	printf("heuteur : %f\n", h);
+	//printf("%d\n", line->equation.a * newpos->x + line->equation.b > newpos->y);
 	tmp = newpos->x + (line->equation.a * newpos->x + line->equation.b\
 			> newpos->y ? 1 : -1) *\
-			cos(atan(line->equation.a)) * (h + player->hitbox);
+			cos(line->angle) * (h + player->hitbox);
 	newpos->y += (line->equation.a * newpos->x + line->equation.b\
 				> newpos->y ? 1 : -1) *\
-				cos(atan(line->equation.a)) * (h + player->hitbox);
+				cos(line->angle) * (h + player->hitbox);
 	newpos->x = tmp;
 	/*player->pos.x = newpos.x +\
 	((newpos.y - line->equation.b) / line->equation.a > newpos.x ? 1 : -1) *\
