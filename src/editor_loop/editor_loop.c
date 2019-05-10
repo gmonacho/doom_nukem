@@ -45,7 +45,10 @@ static void			editor_display(t_win *win, const t_map *map)
 			else if (l->flags & LINEDEF_MOUSE_POINTED)
 				SDL_SetRenderDrawColor(win->rend, 50, 150, 150, 255);
 			else
-				SDL_SetRenderDrawColor(win->rend, s->color.r, s->color.g, s->color.b, s->color.a);
+				SDL_SetRenderDrawColor(win->rend, s->color.selected_color.r,
+													s->color.selected_color.g,
+													s->color.selected_color.b,
+													s->color.selected_color.a);
 			p1 = (t_dot){l->p1.x * map->unit + map->x, l->p1.y * map->unit + map->y};
 			p2 = (t_dot){l->p2.x * map->unit + map->x, l->p2.y * map->unit + map->y};
 			if (is_in_screen(win, p1) || is_in_screen(win, p2))
@@ -69,6 +72,11 @@ static void			editor_display(t_win *win, const t_map *map)
 				SDL_RenderCopy(win->rend, b->texture, NULL, &b->rect);
 			else
 				draw_ratio_rect(win, &f->rect, &b->ratio);
+			if (b->flags & BUTTON_COLOR_PICKER)
+			{
+				draw_color_picker(win, b->rect);
+				SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
+			}
 			b = b->next;
 		}
 		f = f->next;
@@ -131,10 +139,13 @@ static int		text_init(t_win *win)
 
 static int		ui_init(t_win *win)
 {
-	// sector frame
+	//	sector frame
 	add_frame_to_window(win, new_frame((t_frect){0.05, 0.02, 0.9, 0.05}, NULL, FRAME_SECTORS, NULL));
-	add_button_to_frame(&win->frames, new_button((t_frect){0, 0, 1.0 / MAX_SECTORS, 1}, win->sectors_texture[MAX_SECTORS], 0));
+	add_button_to_frame(&win->frames, new_button((t_frect){0, 0, 1.0 / MAX_SECTORS, 1}, win->sectors_texture[MAX_SECTORS], BUTTON_NONE));
+	//	info sector frame
 	add_frame_to_window(win, new_frame((t_frect){0.02, 0.1, 0.15, 0.4}, NULL, FRAME_INFO, NULL));
+	//		color_picker
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.85, 0.8, 0.1}, NULL, BUTTON_COLOR_PICKER));
 	return (1);
 }
 

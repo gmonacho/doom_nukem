@@ -9,6 +9,7 @@ int 			create_window(t_win *win, const char *title, SDL_Rect rect, Uint32 flags)
 	win->w = rect.w;
 	win->h = rect.h;
 	win->mouse = mouse_refresh();
+	win->picker_position = 0;
 	win->frames = NULL;
 	if (!(win->rend = SDL_CreateRenderer(win->ptr, 0, SDL_RENDERER_SOFTWARE)))
 		return (ret_error(SDL_GetError()));
