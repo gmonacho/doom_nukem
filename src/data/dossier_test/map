@@ -11,7 +11,7 @@ map
 	Sector
 	{
 		floorHeight = 81
-		ceilHeight = 10
+		ceilHeight = 18
 		line
 		{
 			dot = (1, 5)
@@ -19,8 +19,8 @@ map
 		}
 		line
 		{
-			dot = (1, 7)
-			dot = (6, 8)	
+			dot = (dasd, dsad)
+			dot = (6, 81161)	
 		}
 		line
 		{
@@ -30,8 +30,33 @@ map
 	}
 	Sector
 	{
-		floorHeight = 26
+		floorHeight = 25
 		ceilHeight = 10
+		line
+		{
+			dot = (5, u)
+			dot = (8, 9)
+		}
+		line
+		{
+			dot = (4, 7)
+			dot = (8, 8)
+		}
+		line
+		{
+			dot = (8, 8)
+			dot = (6, 10)	
+		}
+		line
+		{
+			dot = (6, 10)	
+			dot = (5, 5)
+		}
+	}
+	Sector
+	{
+		floorHeight = 34
+		ceilHeight = 29
 		line
 		{
 			dot = (5, 5)
@@ -53,7 +78,7 @@ map
 			dot = (5, 5)
 		}
 	}
-	Pq
+	test
 	{
 		x = 4
 		y = 4

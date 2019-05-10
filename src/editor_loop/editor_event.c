@@ -110,9 +110,7 @@ int				editor_event(t_win *win, t_map *map, SDL_bool *loop)
 	else if (win->mouse->button[MOUSE_LEFT].releasing)
 	{
 		if (win->selected_frame)
-		{
 			resolve_ui_left_release(win, map);
-		}
 		else
 		{
 			if (map->flags & DRAWING_LINE)

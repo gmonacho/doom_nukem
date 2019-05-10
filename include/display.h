@@ -8,16 +8,14 @@
 # include "struct_2d.h"
 # include "SDL_ttf.h"
 
-
-
-
 /*
 ** ================================== Interface Management ==================================
 */
 
 enum	e_button
 {
-	BUTTON_NONE = 0x0000
+	BUTTON_NONE = 0x0000,
+	BUTTON_COLOR_PICKER = 0x0001
 };
 
 typedef struct		s_button
@@ -44,9 +42,12 @@ typedef struct		s_frame
 	t_frect			ratio;
 	SDL_Rect		rect;
 	SDL_Texture		*texture;
+
 	t_button		*buttons;
 	int				nb_buttons;
+
 	Uint32			flags;
+
 	struct s_frame	*next;
 }					t_frame;
 
@@ -70,6 +71,8 @@ typedef struct		s_win
 
 	SDL_Texture		**sectors_texture;
 	SDL_Texture		**sectors_texture_selected;
+
+	float			picker_position;
 
 	t_frame			*frames;
 	t_frame			*selected_frame;
@@ -97,5 +100,6 @@ void		draw_line(t_win *win, t_dot p1, t_dot p2);
 void		draw_rect(t_win *win, SDL_Rect rect);
 void		draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio);
 void		draw_circle(t_win *win, t_circle circle);
+void		draw_color_picker(t_win *win, SDL_Rect rect);
 
 #endif

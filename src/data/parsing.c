@@ -1,7 +1,7 @@
 
-#include "libft.h"
-#include <fcntl.h>
 #include "data.h"
+#include <fcntl.h>
+#include "libft.h"
 #include "ret_error.h"
 
 void		ft_fill_coord(t_sector *sector, char **tab, int i)

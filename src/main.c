@@ -5,12 +5,18 @@
 #include "display.h"
 #include <fcntl.h>
 
-int     main()
+int     main(int argc, char** argv)
 {
+    int     fd;
+    int     fd1;
     t_win win;
-    //if ((((fd = open(argv[1] , O_RDONLY)) <= 0) || ((fd1 = open(argv[1], O_RDONLY)) <= 0)))
-    //    return (-1);
-    //ft_data_storing(fd, fd1);
+
+    if (!argc)
+        argc = 0;
+
+    if ((((fd = open(argv[1] , O_RDONLY)) <= 0) || ((fd1 = open(argv[1], O_RDONLY)) <= 0)))
+        return (-1);
+    ft_data_storing(fd, fd1);
     if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
         return (ret_error(SDL_GetError()));
     if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, 2000, 1200}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
