@@ -24,7 +24,7 @@ int		map_add_line(t_map *map, t_linedef line)
 	return (1);
 }
 
-t_linedef	new_linedef(t_line line, SDL_Texture *p1p2, SDL_Texture *p2p1, Uint32 flags)
+/*t_linedef	new_linedef(t_line line, SDL_Texture *p1p2, SDL_Texture *p2p1, Uint32 flags)
 {
 	t_linedef linedef;
 
@@ -34,7 +34,7 @@ t_linedef	new_linedef(t_line line, SDL_Texture *p1p2, SDL_Texture *p2p1, Uint32 
 	linedef.p2p1_texture = p2p1;
 	linedef.flags = flags;
 	return (linedef);
-}
+}*/
 
 void		map_zoom(t_map *map, double zoom)
 {
