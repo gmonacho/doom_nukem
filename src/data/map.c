@@ -140,11 +140,25 @@ int			map_get_nb_linedef(t_linedef *lines)
 	return (nb);
 }
 
+static int		distance(t_dot p1, t_dot p2)
+{
+	t_dot	v;
+
+	v.x = abs(p2.x - p1.x);
+	v.y = abs(p2.y - p1.y);
+	return (sqrt(v.x * v.x + v.y * v.y));
+}			
+
 SDL_bool 		is_next_to_linedef(t_map *map, t_dot *dot, int radius)
 {
+	SDL_bool	is_next;
+	int			dist;
 	t_sector	*s;
 	t_linedef 	*l;
+	t_dot		target;
 
+	is_next = SDL_FALSE;
+	dist = -1;
 	s = map->sectors;
 	l = map->lines;
 	if (dot)
@@ -155,13 +169,23 @@ SDL_bool 		is_next_to_linedef(t_map *map, t_dot *dot, int radius)
 			{
 				if (is_next_point(l->p1, *dot, radius))
 				{
-					*dot = l->p1;
-					return (SDL_TRUE);
+					if (dist == -1 || distance(*dot, l->p1) < dist)
+					{
+						dist = distance(*dot, l->p1);
+						printf("dist = %d\n", dist);
+						target = l->p1;
+					}
+					is_next = SDL_TRUE;
 				}
 				if (is_next_point(l->p2, *dot, radius))
 				{
-					*dot = l->p2;
-					return (SDL_TRUE);
+					if (dist == -1 || distance(*dot, l->p2) < dist)
+					{
+						dist = distance(*dot, l->p2);
+						printf("dist = %d\n", dist);
+						target = l->p2;
+					}
+					is_next = SDL_TRUE;
 				}
 			}
 			l = l->next;
@@ -175,13 +199,23 @@ SDL_bool 		is_next_to_linedef(t_map *map, t_dot *dot, int radius)
 				{
 					if (is_next_point(l->p1, *dot, radius))
 					{
-						*dot = l->p1;
-						return (SDL_TRUE);
+						if (dist == -1 ||  distance(*dot, l->p1) < dist)
+						{
+							dist = distance(*dot, l->p1);
+							printf("dist = %d\n", dist);
+							target = l->p1;
+						}
+						is_next = SDL_TRUE;
 					}
 					if (is_next_point(l->p2, *dot, radius))
 					{
-						*dot = l->p2;
-						return (SDL_TRUE);
+						if (dist == -1 ||  distance(*dot, l->p2) < dist)
+						{
+							dist = distance(*dot, l->p2);
+							printf("dist = %d\n", dist);
+							target = l->p2;
+						}
+						is_next = SDL_TRUE;
 					}
 				}
 				l = l->next;
@@ -189,7 +223,9 @@ SDL_bool 		is_next_to_linedef(t_map *map, t_dot *dot, int radius)
 			s = s->next;
 		}
 	}
-	return (SDL_FALSE);
+	if (is_next)
+		*dot = target;
+	return (is_next);
 }
 
 
