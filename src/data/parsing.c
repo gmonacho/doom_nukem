@@ -82,14 +82,14 @@ void		ft_data_storing(int fd, int fd1)
 	{
 		if (ft_strstr(tab[i], "Sector"))
 		{
-			add_sector(&sector, new_sector());
+			add_sector(&sector, new_void_sector());
 			while ((ft_strchr(tab[i], '}') == NULL ||
 			ft_strchr(tab[i - 1], '}') == NULL))
 			{
 				ft_fill_data(tab[i], sector);
 				if (ft_strstr(tab[i], "line"))
 				{
-					add_linedef(&sector->lines, new_linedef());
+					add_linedef(&sector->lines, new_void_linedef());
 					ft_fill_coord(sector, tab, i);
 					//printf("floor_heignt = %d\n", sector->floor_height);
 					//printf("ceil_height = %d\n", sector->ceil_height);

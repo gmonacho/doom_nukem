@@ -71,7 +71,8 @@ typedef struct				s_sector
 
 
 t_sector	*new_sector();
-void		add_sector(t_sector **sectors, t_sector *new_sector);
+t_sector	*new_void_sector(void);
+void		add_sector(t_sector **sectors, t_sector *new_sectors);
 int			get_nb_sectors(t_sector *sector);
 
 /*
