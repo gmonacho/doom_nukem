@@ -1,6 +1,4 @@
-#include "data.h"
-#include "physics.h"
-#include "struct_2d.h"
+#include "doom_nukem.h"
 
 static int		distance(t_dot p1, t_dot p2)
 {
@@ -48,7 +46,7 @@ static int		is_next_to_lines(t_linedef **lines, t_dot *dot, int radius, t_dot *t
 	return ((is_next) ? dist : -1);
 }
 
-SDL_bool 		is_next_to_linedef(t_map *map, t_dot *dot, int radius)
+SDL_bool 		is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius)
 {
 	SDL_bool	is_next;
 	int			dist;

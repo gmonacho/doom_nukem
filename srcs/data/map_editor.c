@@ -1,11 +1,6 @@
-#include "display.h"
-#include "libft.h"
-#include "ret_error.h"
-#include "data.h"
-#include "physics.h"
-#include "struct_2d.h"
+#include "doom_nukem.h"
 
-void	selected_linedef(t_map *map, Uint32 flags)
+void	selected_linedef(t_map_editor *map, Uint32 flags)
 {
 	t_sector	*s;
 	t_linedef	*l;
@@ -41,7 +36,7 @@ void	selected_linedef(t_map *map, Uint32 flags)
 	}
 }
 
-void	delete_linedef(t_map *map, Uint32 delete_flags)
+void	delete_linedef(t_map_editor *map, Uint32 delete_flags)
 {
 	t_sector	*s;
 	t_linedef	*l;
@@ -114,9 +109,31 @@ SDL_bool	is_line_vertical(int x1, int x2, int pitch)
 	return (abs(x1 - x2) < pitch);
 }
 
-void		map_zoom(t_map *map, double zoom)
+void		map_zoom(t_map_editor *map, double zoom)
 {
 	map->x -= map->unit * zoom * map->w / 2;
 	map->y -= map->unit * zoom * map->h / 2;
 	map->unit += map->unit * zoom;
 }
+
+// void	map_add_line(t_map *map, int n_sector, t_linedef *line)
+// {
+// 	t_sector	*sector;
+// 	t_linedef	*tmp;
+// 	int			i;
+
+// 	sector = map->sectors;
+// 	i = -1;
+// 	while (++i < n_sector)
+// 		sector = sector->next;
+// 	if (sector->lines)
+// 	{
+// 		tmp = sector->lines;
+// 		while (tmp->next)
+// 			tmp = tmp->next;
+// 		tmp->next = line;
+// 	}
+// 	else
+// 		sector->lines = line;
+// }
+

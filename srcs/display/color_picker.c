@@ -1,5 +1,4 @@
-#include "display.h"
-#include "struct.h"
+#include "doom_nukem.h"
 
 void	draw_color_picker(t_win *win, SDL_Rect rect)
 {

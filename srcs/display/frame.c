@@ -1,4 +1,4 @@
-#include "display.h"
+#include "doom_nukem.h"
 
 t_frame		*new_frame(const t_frect ratio, SDL_Texture *texture, Uint32 frame_flags, t_button *buttons)
 {

@@ -1,7 +1,4 @@
-#include "libft.h"
-#include <fcntl.h>
-#include "data.h"
-#include "ret_error.h"
+#include "doom_nukem.h"
 
 void		ft_find_coord_p1(t_sector *sector, char *tab)
 {
@@ -15,11 +12,3 @@ void		ft_find_coord_p2(t_sector *sector, char *tab)
 	sector->lines->p2.y = ft_atoi(ft_strrchr(tab, ',') + 1);
 }
 
-t_sector	*new_void_sector(void)
-{
-	t_sector *sector;
-
-	if (!(sector = (t_sector *)ft_memalloc(sizeof(t_sector))))
-		exit(0);
-	return (sector);
-}

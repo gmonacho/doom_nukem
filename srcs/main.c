@@ -1,22 +1,68 @@
-#include "SDL.h"
-#include "SDL_ttf.h"
-#include "ret_error.h"
-#include "loop.h"
-#include "display.h"
 #include <fcntl.h>
+#include "doom_nukem.h"
+
+/*static int	init_equations(t_map *map)
+{
+	t_sector	*sector;
+	t_linedef	*line;
+	sector = map->sectors;
+	while (sector)
+	{
+		line = sector->lines;
+		while (line)
+		{
+			line->equation.a = (line->p2.y - line->p1.y) /\
+								(line->p2.x - line->p1.x);
+			line->equation.b = line->p1.y - line->equation.a * line->p1.x;
+			line = line->next;
+		}
+		sector = sector->next;
+	}
+	return (SUCCESS);
+}*/
+
+// static int	init(t_win *win, t_map *map, t_player *player)
+// {
+// 	t_linedef	*tmp;
+
+// 	//init_equations(map);
+// 	win->w = 2000;
+// 	win->h = 1000;
+// 	player->hitbox = 10;
+// 	player->pos = (t_dot){win->w / 2, win->h / 2 - 100};
+// 	player->sector = 0;
+// 	player->dir = PI / 2;
+// 	player->const_vel = 0.8;
+// 	if (!(map->sectors = (t_sector *)ft_memalloc(sizeof(t_sector))))
+// 		return (ret_error("map->sectors allocation failed in init function"));
+// 	map->sectors->lines = NULL;
+// 	map->sectors->next = NULL;
+// 	tmp = new_linedef((t_line){(t_dot){0, 0},\
+// 										(t_dot){win->w, win->h}},\
+// 										NULL, 0);
+// 	//map_add_line(map, 0, tmp);
+// 	tmp = new_linedef((t_line){(t_dot){0, win->h},\
+// 										(t_dot){win->w, 0}},\
+// 										NULL, 0);
+// 	//map_add_line(map, 0, tmp);
+// 	return (1);
+// }
 
 int     main(int argc, char** argv)
 {
     int     fd;
     int     fd1;
-    t_win win;
+    t_win   win;
+//    t_map   map;
+
 
     if (!argc)
         argc = 0;
-
     if ((((fd = open(argv[1] , O_RDONLY)) <= 0) || ((fd1 = open(argv[1], O_RDONLY)) <= 0)))
-        return (-1);
+        return (ret_error("open error"));
     ft_data_storing(fd, fd1);
+	// if (init(&win, &map, &(map.player)) < 0)
+	// 	return (ret_error("init error"));
     if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
         return (ret_error(SDL_GetError()));
     if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, 2000, 1200}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))

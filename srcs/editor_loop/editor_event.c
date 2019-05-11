@@ -1,8 +1,4 @@
-#include "display.h"
-#include "data.h"
-#include "loop.h"
-#include "struct_2d.h"
-#include "physics.h"
+#include "doom_nukem.h"
 
 static void		update_selected_ui(t_win *win)
 {
@@ -60,7 +56,7 @@ static void		update_ui_rect(t_win *win)
 	}
 }
 
-int				editor_event(t_win *win, t_map *map, SDL_bool *loop)
+int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 {
 	SDL_Event	event;
 	t_linedef	*tmp;
@@ -98,7 +94,7 @@ int				editor_event(t_win *win, t_map *map, SDL_bool *loop)
 			dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
 			if (!key_pressed(SC_DRAW_FREE))
 				is_next_to_linedef(map, &dot, map->unit * NEXT_FACTOR);
-			if (!(tmp = new_linedef((t_line){dot, dot}, NULL, NULL, LINEDEF_NONE)))
+			if (!(tmp = new_linedef((t_line){dot, dot}, NULL, LINEDEF_NONE)))
 				return (0);
 			if (map->selected_sector)
 				add_linedef(&map->sectors->lines, tmp);

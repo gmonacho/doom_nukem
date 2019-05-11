@@ -1,8 +1,4 @@
-
-#include "data.h"
-#include <fcntl.h>
-#include "libft.h"
-#include "ret_error.h"
+#include "doom_nukem.h"
 
 void		ft_fill_coord(t_sector *sector, char **tab, int i)
 {
@@ -24,13 +20,13 @@ void		ft_fill_coord(t_sector *sector, char **tab, int i)
 	}
 }
 
-int			count_line(int fd1)
+int			count_line(int fp1)
 {
 	int		nb;
 	char	*line;
 
 	nb = 0;
-	while (get_next_line(fd1, &line) > 0)
+	while (get_next_line(fp1, &line) > 0)
 	{
 		free(line);
 		nb++;
@@ -38,7 +34,7 @@ int			count_line(int fd1)
 	return (nb);
 }
 
-char		**ft_fill_map(int fd, int fd1)
+char		**ft_fill_map(int fd, int fp1)
 {
 	char	*line;
 	char	**tab;
@@ -46,7 +42,7 @@ char		**ft_fill_map(int fd, int fd1)
 	int		nb;
 
 	i = 0;
-	nb = count_line(fd1);
+	nb = count_line(fp1);
 	if (!(tab = (char **)malloc(sizeof(char *) * (nb + 1))))
 		return (NULL);
 	while (get_next_line(fd, &line) > 0)
@@ -68,7 +64,7 @@ void		ft_fill_data(char *tab, t_sector *sector)
 		sector->ceil_height = ft_atoi(ft_strrchr(tab, '=') + 1);
 }
 
-void		ft_data_storing(int fd, int fd1)
+void		ft_data_storing(int fd, int fp1)
 {
 	char		**tab;
 	int			i;
@@ -76,7 +72,7 @@ void		ft_data_storing(int fd, int fd1)
 
 	i = -1;
 	sector = NULL;
-	tab = ft_fill_map(fd, fd1);
+	tab = ft_fill_map(fd, fp1);
 	ft_parse_error(tab);
 	while (tab[++i])
 	{

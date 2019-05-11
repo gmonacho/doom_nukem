@@ -1,6 +1,4 @@
-#include "data.h"
-#include "libft.h"
-#include "ret_error.h"
+#include "doom_nukem.h"
 
 t_sector	*new_sector()
 {
@@ -10,13 +8,15 @@ t_sector	*new_sector()
 		return (ret_null_perror("sector allocation failed in new_sector"));
 	sector->name = "Unnamed";
 	sector->color.selected_color = (SDL_Color){255, 0, 0, 255};
-	sector->floor_height = 0;
-	sector->floor_texture = NULL;
-	sector->ceil_height = 0;
-	sector->ceil_texture = NULL;
-	sector->light_level = 0;
-	sector->lines = NULL;
-	sector->next = NULL;
+	return (sector);
+}
+
+t_sector	*new_void_sector(void)
+{
+	t_sector *sector;
+
+	if (!(sector = (t_sector *)ft_memalloc(sizeof(t_sector))))
+		return (ret_null_perror("sector allocation failed in new_void_sector"));
 	return (sector);
 }
 

@@ -1,6 +1,4 @@
-#include "data.h"
-#include "libft.h"
-#include "ret_error.h"
+#include "doom_nukem.h"
 
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef)
 {
@@ -8,19 +6,33 @@ void		add_linedef(t_linedef **lines, t_linedef *new_linedef)
 	*lines = new_linedef;
 }
 
-t_linedef	*new_linedef(t_line line, SDL_Texture *p1p2, SDL_Texture *p2p1, Uint32 flags)
-{
-	t_linedef *linedef;
 
-	if (!(linedef = (t_linedef*)ft_memalloc(sizeof(t_linedef))))
-		return (ret_null_perror("linedef allocation failed in new_linedef"));
-	linedef->p1 = line.p1;
-	linedef->p2 = line.p2;
-	linedef->p1p2_texture = p1p2;
-	linedef->p2p1_texture = p2p1;
-	linedef->flags = flags;
-	linedef->next = NULL;
-	return (linedef);
+t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags)
+{
+	t_linedef	*newline;
+
+	if (!(newline = (t_linedef *)ft_memalloc(sizeof(t_linedef))))
+		return (ret_null_perror("lines allocation failed in new_linedef"));
+	newline->p1 = line.p1;
+	newline->p2 = line.p2;
+	newline->equation.a = (line.p2.y - line.p1.y) /\
+						(line.p2.x - line.p1.x);
+	newline->equation.b = line.p1.y - newline->equation.a * line.p1.x;
+	newline->angle = atan(newline->equation.a);
+	newline->portal = 0;
+	newline->texture = texture;
+	newline->flags = flags;
+	newline->next = NULL;
+	return (newline);
+}
+
+t_linedef	*new_void_linedef(void)
+{
+	t_linedef	*line;
+
+	if (!(line = (t_linedef *)ft_memalloc(sizeof(t_linedef))))
+		return (ret_null_perror("lines allocation failed in new_void_linedef"));
+	return (line);
 }
 
 int			get_nb_linedef(t_linedef *lines)

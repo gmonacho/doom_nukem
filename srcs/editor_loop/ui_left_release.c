@@ -1,8 +1,6 @@
-#include "display.h"
-#include "data.h"
-#include "physics.h"
+#include "doom_nukem.h"
 
-void		resolve_ui_left_release(t_win *win, t_map *map)
+void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 {
 	t_frame		*f;
 	t_button	*b;
