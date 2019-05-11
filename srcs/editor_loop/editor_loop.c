@@ -1,11 +1,7 @@
-#include "loop.h"
-#include "data.h"
-#include "display.h"
-#include "event.h"
-#include "SDL_ttf.h"
-#include "libft.h"
+#include "doom_nukem.h"
 
-static void			editor_display(t_win *win, const t_map *map)
+
+static void			editor_display(t_win *win, const t_map_editor *map)
 {
 	t_dot		p1;
 	t_dot		p2;
@@ -149,7 +145,7 @@ static int		ui_init(t_win *win)
 	return (1);
 }
 
-static int		editor_init(t_win *win, t_map *map)
+static int		editor_init(t_win *win, t_map_editor *map)
 {
 	map->x = 0;
 	map->y = 0;
@@ -169,8 +165,8 @@ static int		editor_init(t_win *win, t_map *map)
 
 int				editor_loop(t_win *win)
 {
-	SDL_bool	loop;
-	t_map		map;
+	SDL_bool			loop;
+	t_map_editor		map;
 
 	// if (!(parser_png("png_test_800_600.png")))
 	// 	return (0);

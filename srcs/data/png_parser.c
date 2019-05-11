@@ -1,10 +1,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <math.h>	
-#include <zlib.h>
-#include "data.h"
-#include "libft.h"
-#include "ret_error.h"
+#include "doom_nukem.h"
 
 
 // static int		read_up(char *str, int fd)

@@ -1,6 +1,4 @@
-#include "libft.h"
-#include <fcntl.h>
-#include "data.h"
+#include "doom_nukem.h"
 
 void 	ft_count_brace(char **tab)
 {

@@ -1,4 +1,4 @@
-#include "display.h"
+#include "doom_nukem.h"
 
 t_button	*new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags)
 {

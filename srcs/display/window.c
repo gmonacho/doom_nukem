@@ -1,6 +1,4 @@
-#include "SDL.h"
-#include "display.h"
-#include "event.h"
+#include "doom_nukem.h"
 
 int 			create_window(t_win *win, const char *title, SDL_Rect rect, Uint32 flags)
 {

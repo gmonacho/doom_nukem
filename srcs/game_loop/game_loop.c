@@ -1,9 +1,6 @@
-#include "loop.h"
-#include "display.h"
-#include "event.h"
-#include "data.h"
+#include "doom_nukem.h"
 
-int             game_loop(t_win *win)
+int		game_loop(t_win *win, t_map *map)
 {
 	SDL_Event	event;
 	SDL_bool    loop;
@@ -13,12 +10,16 @@ int             game_loop(t_win *win)
 	{
 		while (loop)
 		{
-			draw_fps();
-			clear_rend(win->rend, 255, 255, 255);
 			SDL_PumpEvents();
 			SDL_PollEvent(&event);
-			if (event.type == SDL_QUIT)
+
+			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
 				loop = SDL_FALSE;
+			keyboard_state(map, &(map->player));
+
+			//move(map, &(map->player));
+
+			draw(win, map, &(map->player));
 			SDL_RenderPresent(win->rend);
 		}
 	}

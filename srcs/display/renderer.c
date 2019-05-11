@@ -1,4 +1,4 @@
-#include "display.h"
+#include "doom_nukem.h"
 
 void	clear_rend(SDL_Renderer *rend, Uint8 r, Uint8 g, Uint8 b)
 {
