@@ -97,7 +97,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			if (!(tmp = new_linedef((t_line){dot, dot}, NULL, LINEDEF_NONE)))
 				return (0);
 			if (map->selected_sector)
-				add_linedef(&map->sectors->lines, tmp);
+				add_linedef(&map->selected_sector->lines, tmp);
 			else
 				add_linedef(&map->lines, tmp);
 			map->flags = map->flags | DRAWING_LINE;
@@ -116,7 +116,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 				{
 					if (!key_pressed(SC_DRAW_FREE))
 						is_next_to_linedef(map, &dot, map->unit * NEXT_FACTOR);
-					map->sectors->lines->p2 = dot;
+					map->selected_sector->lines->p2 = dot;
 				}
 				else
 				{
@@ -155,9 +155,9 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		{
 			if (map->selected_sector)
 			{
-				map->sectors->lines->p2 = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
+				map->selected_sector->lines->p2 = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
 				if (!key_pressed(SC_DRAW_FREE))
-					is_next_to_linedef(map, &map->sectors->lines->p2, map->unit * NEXT_FACTOR);
+					is_next_to_linedef(map, &map->selected_sector->lines->p2, map->unit * NEXT_FACTOR);
 			}
 			else
 			{

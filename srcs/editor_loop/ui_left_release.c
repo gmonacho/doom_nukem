@@ -1,5 +1,41 @@
 #include "doom_nukem.h"
 
+SDL_Color	get_selected_color(float picker_position)
+{
+	SDL_Color	color;
+	int			pos;
+
+	pos = picker_position / 0.33;
+
+	printf("pos = %d\n", pos);
+	color = (SDL_Color){0, 0, 0, 255};
+	if (pos == 0)
+	{
+		color.r = 255 - 255 * picker_position;	
+		color.g = 255 * picker_position;
+		color.b = 0;
+	}
+	else if (pos == 1)
+	{
+		color.r = 0;	
+		color.g = 255 - 255 * picker_position;
+		color.b = 255 * picker_position;
+	}
+	else if (pos == 2)
+	{
+		color.r = 255 - 255 * picker_position;	
+		color.g = 255 * picker_position;
+		color.b = 0;
+	}
+	else if (pos == 3)
+	{
+		color.r = 255 * picker_position;	
+		color.g = 0;
+		color.b = 255 - 255 * picker_position;
+	}
+	return (color);
+}
+
 void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 {
 	t_frame		*f;
@@ -56,6 +92,23 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 				b->texture = win->sectors_texture[nb_sectors - i];
 				b = b->next;
 				i++;
+			}
+		}
+	}
+	else if (f->flags & FRAME_INFO)
+	{
+		if (win->selected_button)
+		{
+			b = win->selected_button;
+			if (map->selected_sector)
+			{
+				if (b->flags & BUTTON_COLOR_PICKER)
+				{
+					map->selected_sector->color.pos = (win->mouse->x - b->rect.x) / (float)b->rect.w;
+					// printf("win->picker_position = %f\n", win->picker_position);
+					if (map->selected_sector)
+						map->selected_sector->color.selected_color = get_selected_color(map->selected_sector->color.pos);
+				}
 			}
 		}
 	}

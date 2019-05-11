@@ -67,7 +67,7 @@ void	delete_linedef(t_map_editor *map, Uint32 delete_flags)
 		previous = l;
 		l = l->next;
 	}
-	previous = NULL;
+	previous = NULL;  // SUPPRIME TOUTE LES LINEDEFS
 	s = map->sectors;
 	while (s)
 	{
@@ -97,6 +97,7 @@ void	delete_linedef(t_map_editor *map, Uint32 delete_flags)
 		}
 		s = s->next;
 	}
+	previous = NULL; // SUPPRIME TOUTE LES LINEDEFS
 }
 
 SDL_bool	is_line_horizontal(int y1, int y2, int pitch)

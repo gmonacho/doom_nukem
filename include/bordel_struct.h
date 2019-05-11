@@ -151,8 +151,6 @@ typedef struct		s_win
 	SDL_Texture		**sectors_texture;
 	SDL_Texture		**sectors_texture_selected;
 
-	float			picker_position;
-
 	t_frame			*frames;
 	t_frame			*selected_frame;
 
@@ -215,6 +213,7 @@ typedef struct				s_linedef
 typedef struct		s_color_picker
 {
 	//Uint16			abs_color;
+	float			pos;
 	SDL_Color		selected_color;
 }					t_color_picker;
 

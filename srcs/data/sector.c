@@ -8,6 +8,14 @@ t_sector	*new_sector()
 		return (ret_null_perror("sector allocation failed in new_sector"));
 	sector->name = "Unnamed";
 	sector->color.selected_color = (SDL_Color){255, 0, 0, 255};
+	sector->color.pos = 0;
+	sector->floor_height = 0;
+	sector->floor_texture = NULL;
+	sector->ceil_height = 0;
+	sector->ceil_texture = NULL;
+	sector->light_level = 0;
+	sector->lines = NULL;
+	sector->next = NULL;
 	return (sector);
 }
 

@@ -91,7 +91,7 @@ void		draw_line(t_win *win, t_dot p1, t_dot p2);
 void		draw_rect(t_win *win, SDL_Rect rect);
 void		draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio);
 void		draw_circle(t_win *win, t_circle circle);
-void		draw_color_picker(t_win *win, SDL_Rect rect);
+void	    draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
 void		draw(t_win *win, t_map *map, t_player *player);
 
 /*

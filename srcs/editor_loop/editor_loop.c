@@ -68,10 +68,13 @@ static void			editor_display(t_win *win, const t_map_editor *map)
 				SDL_RenderCopy(win->rend, b->texture, NULL, &b->rect);
 			else
 				draw_ratio_rect(win, &f->rect, &b->ratio);
-			if (b->flags & BUTTON_COLOR_PICKER)
+			if (map->selected_sector)
 			{
-				draw_color_picker(win, b->rect);
-				SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
+				if (b->flags & BUTTON_COLOR_PICKER)
+				{
+					draw_color_picker(win, map->selected_sector->color.pos, b->rect);
+					SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
+				}
 			}
 			b = b->next;
 		}
