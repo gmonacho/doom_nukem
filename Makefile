@@ -22,7 +22,7 @@ LIBSDL2 = -framework SDL2 -F $(FW_PATH) -framework SDL2_image -framework SDL2_tt
 LIBFT = libft
 LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
 
-INCLUDE_PATH = ./include
+INCLUDE_PATH = ./includes
 FW_PATH = ./frameworks
 CC = gcc
 CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address	-I$(INCLUDE_PATH)\
