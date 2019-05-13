@@ -170,13 +170,19 @@ int				editor_loop(t_win *win)
 {
 	SDL_bool			loop;
 	t_map_editor		map;
+	SDL_Event			event;
 
 	// if (!(parser_png("png_test_800_600.png")))
 	// 	return (0);
 	editor_init(win, &map);
 	loop = SDL_TRUE;
 	while (loop)
-	{			
+	{
+		SDL_PumpEvents();
+		SDL_PollEvent(&event);
+		if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+			loop = SDL_FALSE;
+
 		clear_rend(win->rend, 30, 30, 30);
 		editor_display(win, &map);
 		editor_event(win, &map, &loop);

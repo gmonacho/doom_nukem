@@ -37,7 +37,7 @@ $(NAME): $(OBJS)
 		make -C $(LIBFT)
 		$(CC) $(CFLAGS) $(LIBRARIES) $(OBJS) -o $(NAME)
 
-$(OBJS_PATH)/%.o : $(SRC_PATH)/%.c
+$(OBJS_PATH)/%.o : $(SRCS_PATH)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 $(OBJS_PATH)/$(SRCS_PATH_1)/%.o : $(SRCS_PATH)/$(SRCS_PATH_1)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
@@ -47,9 +47,9 @@ $(OBJS_PATH)/$(SRCS_PATH_3)/%.o : $(SRCS_PATH)/$(SRCS_PATH_3)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 $(OBJS_PATH)/$(SRCS_PATH_4)/%.o : $(SRCS_PATH)/$(SRCS_PATH_4)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
-$(OBJS_PATH)/$(SRCS_PATH_5)/%.o : $(SRCS_PATH)/$(SRCS_PATH_4)/%.c
+$(OBJS_PATH)/$(SRCS_PATH_5)/%.o : $(SRCS_PATH)/$(SRCS_PATH_5)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
-$(OBJS_PATH)/$(SRCS_PATH_6)/%.o : $(SRCS_PATH)/$(SRCS_PATH_4)/%.c
+$(OBJS_PATH)/$(SRCS_PATH_6)/%.o : $(SRCS_PATH)/$(SRCS_PATH_6)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 
 directory:

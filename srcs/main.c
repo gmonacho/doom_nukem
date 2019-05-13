@@ -21,39 +21,39 @@
 	return (SUCCESS);
 }*/
 
-// static int	init(t_win *win, t_map *map, t_player *player)
-// {
-// 	t_linedef	*tmp;
+static int	init(t_win *win, t_map *map, t_player *player)
+{
+	t_linedef	*tmp;
 
-// 	//init_equations(map);
-// 	win->w = 2000;
-// 	win->h = 1000;
-// 	player->hitbox = 10;
-// 	player->pos = (t_dot){win->w / 2, win->h / 2 - 100};
-// 	player->sector = 0;
-// 	player->dir = PI / 2;
-// 	player->const_vel = 0.8;
-// 	if (!(map->sectors = (t_sector *)ft_memalloc(sizeof(t_sector))))
-// 		return (ret_error("map->sectors allocation failed in init function"));
-// 	map->sectors->lines = NULL;
-// 	map->sectors->next = NULL;
-// 	tmp = new_linedef((t_line){(t_dot){0, 0},\
-// 										(t_dot){win->w, win->h}},\
-// 										NULL, 0);
-// 	//map_add_line(map, 0, tmp);
-// 	tmp = new_linedef((t_line){(t_dot){0, win->h},\
-// 										(t_dot){win->w, 0}},\
-// 										NULL, 0);
-// 	//map_add_line(map, 0, tmp);
-// 	return (1);
-// }
+	//init_equations(map);
+	win->w = 2000;
+	win->h = 1000;
+	player->hitbox = 10;
+	player->pos = (t_dot){win->w / 2, win->h / 2 - 100};
+	player->sector = 0;
+	player->dir = M_PI_2;
+	player->const_vel = 0.8;
+	if (!(map->sectors = (t_sector *)ft_memalloc(sizeof(t_sector))))
+		return (ret_error("map->sectors allocation failed in init function"));
+	map->sectors->lines = NULL;
+	map->sectors->next = NULL;
+	tmp = new_linedef((t_line){(t_dot){0, 0},\
+										(t_dot){win->w, win->h}},\
+										NULL, 0);
+	map_add_line(map, 0, tmp);
+	tmp = new_linedef((t_line){(t_dot){0, win->h},\
+										(t_dot){win->w, 0}},\
+										NULL, 0);
+	map_add_line(map, 0, tmp);
+	return (1);
+}
 
 int     main(int argc, char** argv)
 {
     int     fd;
     int     fd1;
     t_win   win;
-//    t_map   map;
+    t_map   map;
 
 
     if (!argc)
@@ -61,15 +61,15 @@ int     main(int argc, char** argv)
     if ((((fd = open(argv[1] , O_RDONLY)) <= 0) || ((fd1 = open(argv[1], O_RDONLY)) <= 0)))
         return (ret_error("open error"));
     ft_data_storing(fd, fd1);
-	// if (init(&win, &map, &(map.player)) < 0)
-	// 	return (ret_error("init error"));
+	if (init(&win, &map, &(map.player)) < 0)
+		return (ret_error("init error"));
     if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
         return (ret_error(SDL_GetError()));
     if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, 2000, 1200}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
         return (0);
     SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
-    editor_loop(&win);
-    //game_loop(&win);
+    //editor_loop(&win);
+	game_loop(&win, &map);
     SDL_DestroyWindow(win.ptr);
     SDL_DestroyRenderer(win.rend);
     SDL_Quit();
