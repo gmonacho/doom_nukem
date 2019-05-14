@@ -135,20 +135,22 @@ int		move(t_map *map, t_player *player);
 **	---------------------------------- map ----------------------------------
 */
 
-
 void		selected_linedef(t_map_editor *map, t_linedef *lines, Uint32 flags);
 void		selected_sector_linedef(t_map_editor *map, t_sector *sectors, Uint32 flags);
 void		selected_all_linedef(t_map_editor *map, Uint32 flags);
-void		delete_linedef(t_map_editor *map, Uint32 delete_flags);
+
+void		delete_linedef(t_linedef **lines, Uint32 delete_flags);
+void		delete_all_linedef(t_map_editor *map, Uint32 delete_flags);
+
 SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 void		map_zoom(t_map_editor *map, double zoom);
 void		map_add_line(t_map *map, int n_sector, t_linedef *line);
 t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags);
 
 /*
-** ============================================================================
+** =============================================================================
 ** ================================== PARSING ==================================
-** ============================================================================
+** =============================================================================
 */
 
 int 		ft_parse_error(char **tab);

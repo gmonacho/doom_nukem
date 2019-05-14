@@ -185,7 +185,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	}
 
 	if (key_pressed(SDL_SCANCODE_DELETE))
-		delete_linedef(map, LINEDEF_SELECTED);
+		delete_all_linedef(map, LINEDEF_SELECTED);
 	if (key_pressed(SDL_SCANCODE_W))
 		map->y += 2;
 	if (key_pressed(SDL_SCANCODE_S))
