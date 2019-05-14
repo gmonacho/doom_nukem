@@ -33,18 +33,15 @@ static int	init(t_win *win, t_map *map, t_player *player)
 	player->sector = 0;
 	player->dir = M_PI_2;
 	player->const_vel = 0.8;
-	if (!(map->sectors = (t_sector *)ft_memalloc(sizeof(t_sector))))
-		return (ret_error("map->sectors allocation failed in init function"));
-	map->sectors->lines = NULL;
-	map->sectors->next = NULL;
+	add_sector(&map->sectors, new_sector());
 	tmp = new_linedef((t_line){(t_dot){0, 0},\
 										(t_dot){win->w, win->h}},\
 										NULL, 0);
-	map_add_line(map, 0, tmp);
+	add_linedef(&map->sectors->lines, tmp);
 	tmp = new_linedef((t_line){(t_dot){0, win->h},\
 										(t_dot){win->w, 0}},\
 										NULL, 0);
-	map_add_line(map, 0, tmp);
+	add_linedef(&map->sectors->lines, tmp);
 	return (1);
 }
 
