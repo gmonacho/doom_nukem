@@ -141,7 +141,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	{
 		if (map->flags & MAP_SELECTING)
 		{
-			selected_linedef(map, LINEDEF_SELECTED);
+			selected_all_linedef(map, LINEDEF_SELECTED);
 			map->rect_util = (SDL_Rect){};
 			map->flags -= MAP_SELECTING;
 		}
@@ -173,7 +173,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		{
 			map->rect_util.w = win->mouse->x - map->rect_util.x;
 			map->rect_util.h = win->mouse->y - map->rect_util.y;
-			selected_linedef(map, LINEDEF_MOUSE_POINTED);
+			selected_all_linedef(map, LINEDEF_SELECTED);
 		}
 	}
 	if (win->mouse->button[MOUSE_MIDDLE].pressed)
