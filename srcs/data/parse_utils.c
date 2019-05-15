@@ -11,4 +11,3 @@ void		ft_find_coord_p2(t_sector *sector, char *tab)
 	sector->lines->p2.x = ft_atoi(ft_strrchr(tab, '(') + 1);
 	sector->lines->p2.y = ft_atoi(ft_strrchr(tab, ',') + 1);
 }
-

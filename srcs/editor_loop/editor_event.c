@@ -2,32 +2,35 @@
 
 static void		update_selected_ui(t_win *win)
 {
-	t_frame		*frame_tmp;
+	t_frame		*f;
 	t_button	*button_tmp;
 
 	win->selected_frame = NULL;
 	win->selected_button = NULL;
-	frame_tmp = win->frames;
-	while (frame_tmp)
+	f = win->frames;
+	while (f)
 	{
-		if (is_in_rect(frame_tmp->rect, (t_dot){win->mouse->x, win->mouse->y}))
+		if (!(f->flags & FRAME_HIDE))
 		{
-			win->selected_frame = frame_tmp;
-			button_tmp = frame_tmp->buttons;
-			while (button_tmp)
+			if (is_in_rect(f->rect, (t_dot){win->mouse->x, win->mouse->y}))
 			{
-				if (is_in_rect(button_tmp->rect, (t_dot){win->mouse->x, win->mouse->y}))
+				win->selected_frame = f;
+				button_tmp = f->buttons;
+				while (button_tmp)
 				{
-					win->selected_button = button_tmp;
-					button_tmp = NULL;
-					frame_tmp = NULL;
+					if (is_in_rect(button_tmp->rect, (t_dot){win->mouse->x, win->mouse->y}))
+					{
+						win->selected_button = button_tmp;
+						button_tmp = NULL;
+						f = NULL;
+					}
+					if (button_tmp)
+						button_tmp = button_tmp->next;
 				}
-				if (button_tmp)
-					button_tmp = button_tmp->next;
 			}
 		}
-		if (frame_tmp)
-			frame_tmp = frame_tmp->next;
+		if (f)
+			f = f->next;
 	}
 }
 

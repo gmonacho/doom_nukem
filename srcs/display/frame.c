@@ -37,3 +37,29 @@ void		add_button_to_frame(t_frame **frame, t_button *button)
 	(*frame)->buttons = button;
 	(*frame)->nb_buttons++;
 }
+
+void		add_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 added_flags)
+{
+	t_frame		*f;
+
+	f = *frame;
+	while (f)
+	{
+		if (f->flags & target_flags)
+			f->flags |= added_flags;
+		f = f->next;
+	}
+}
+
+void		remove_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 removed_flags)
+{
+	t_frame		*f;
+
+	f = *frame;
+	while (f)
+	{
+		if (f->flags & target_flags && f->flags & removed_flags)
+			f->flags -= removed_flags;
+		f = f->next;
+	}
+}

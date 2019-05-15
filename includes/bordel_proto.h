@@ -59,14 +59,21 @@ void	draw_fps();
 */
 
 
-
+/*
+**	---------------------------------- button ----------------------------------
+*/
 
 t_button	*new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
 void		add_button(t_button **buttons, t_button *new_button);
 
+/*
+**	---------------------------------- frame ----------------------------------
+*/
+
 t_frame		*new_frame(const t_frect ratio, SDL_Texture *texture, Uint32 frame_flags, t_button *buttons);
 void		add_frame(t_frame **frames, t_frame *new_frame);
 void		add_button_to_frame(t_frame **frame, t_button *button);
+void		add_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 added_flags);
 
 /*
 **	---------------------------------- Window ----------------------------------
@@ -75,6 +82,7 @@ void		add_button_to_frame(t_frame **frame, t_button *button);
 int			create_window(t_win *win, const char *title, SDL_Rect rect, Uint32 flags);
 SDL_bool	is_in_screen(t_win *win, t_dot p);
 void		add_frame_to_window(t_win *win, t_frame *new_frame);
+void		remove_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 removed_flags);
 
 /*
 **	---------------------------------- Renderer ----------------------------------

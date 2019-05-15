@@ -7,7 +7,7 @@ SDL_Color	get_selected_color(float picker_position)
 
 	pos = picker_position / 0.33;
 
-	printf("pos = %d\n", pos);
+	// printf("pos = %d\n", pos);
 	color = (SDL_Color){0, 0, 0, 255};
 	if (pos == 0)
 	{
@@ -49,6 +49,7 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 	f = win->selected_frame;
 	if (f->flags & FRAME_SECTORS)
 	{
+		printf("al\n");
 		if (win->mouse->x < f->rect.x + (f->rect.w / MAX_SECTORS) * (f->nb_buttons - 1))
 		{
 			i_sector = (win->mouse->x - f->rect.x) / (f->rect.w / MAX_SECTORS);
@@ -60,9 +61,15 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 				i++;
 			}
 			if (map->selected_sector == s)
+			{
+				add_frame_flags(&win->frames, FRAME_INFO, FRAME_HIDE);
 				map->selected_sector = NULL;
+			}
 			else
+			{
+				remove_frame_flags(&win->frames, FRAME_INFO, FRAME_HIDE);
 				map->selected_sector = s;
+			}
 			i = 0;
 			b = f->buttons;
 			b->texture = win->sectors_texture[MAX_SECTORS];
@@ -100,15 +107,11 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 		if (win->selected_button)
 		{
 			b = win->selected_button;
-			if (map->selected_sector)
+			if (b->flags & BUTTON_COLOR_PICKER)
 			{
-				if (b->flags & BUTTON_COLOR_PICKER)
-				{
-					map->selected_sector->color.pos = (win->mouse->x - b->rect.x) / (float)b->rect.w;
-					// printf("win->picker_position = %f\n", win->picker_position);
-					if (map->selected_sector)
-						map->selected_sector->color.selected_color = get_selected_color(map->selected_sector->color.pos);
-				}
+				map->selected_sector->color.pos = (win->mouse->x - b->rect.x) / (float)b->rect.w;
+				if (map->selected_sector)
+					map->selected_sector->color.selected_color = get_selected_color(map->selected_sector->color.pos);
 			}
 		}
 	}

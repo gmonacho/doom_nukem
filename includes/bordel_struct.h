@@ -117,7 +117,8 @@ enum	e_frame
 {
 	FRAME_NONE = 0b0000,
 	FRAME_SECTORS = 0b0001,
-	FRAME_INFO = 0b0010
+	FRAME_INFO = 0b0010,
+	FRAME_HIDE = 0b0100
 };
 
 typedef struct		s_frame

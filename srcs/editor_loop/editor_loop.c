@@ -1,6 +1,5 @@
 #include "doom_nukem.h"
 
-
 static void			editor_display(t_win *win, const t_map_editor *map)
 {
 	t_dot		p1;
@@ -57,26 +56,26 @@ static void			editor_display(t_win *win, const t_map_editor *map)
 	f = win->frames;
 	while (f)
 	{
-		if (f->texture)
-			printf("texture\n");
-		else
-			draw_ratio_rect(win, &(SDL_Rect){0, 0, win->w, win->h}, &f->ratio);
-		b = f->buttons;
-		while (b)
+		if (!(f->flags & FRAME_HIDE))
 		{
-			if (b->texture)
-				SDL_RenderCopy(win->rend, b->texture, NULL, &b->rect);
+			if (f->texture)
+				printf("texture\n");
 			else
-				draw_ratio_rect(win, &f->rect, &b->ratio);
-			if (map->selected_sector)
+				draw_ratio_rect(win, &(SDL_Rect){0, 0, win->w, win->h}, &f->ratio);
+			b = f->buttons;
+			while (b)
 			{
+				if (b->texture)
+					SDL_RenderCopy(win->rend, b->texture, NULL, &b->rect);
+				else
+					draw_ratio_rect(win, &f->rect, &b->ratio);
 				if (b->flags & BUTTON_COLOR_PICKER)
 				{
 					draw_color_picker(win, map->selected_sector->color.pos, b->rect);
 					SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
 				}
+				b = b->next;
 			}
-			b = b->next;
 		}
 		f = f->next;
 	}
@@ -142,7 +141,7 @@ static int		ui_init(t_win *win)
 	add_frame_to_window(win, new_frame((t_frect){0.05, 0.02, 0.9, 0.05}, NULL, FRAME_SECTORS, NULL));
 	add_button_to_frame(&win->frames, new_button((t_frect){0, 0, 1.0 / MAX_SECTORS, 1}, win->sectors_texture[MAX_SECTORS], BUTTON_NONE));
 	//	info sector frame
-	add_frame_to_window(win, new_frame((t_frect){0.02, 0.1, 0.15, 0.4}, NULL, FRAME_INFO, NULL));
+	add_frame_to_window(win, new_frame((t_frect){0.02, 0.1, 0.15, 0.4}, NULL, FRAME_INFO | FRAME_HIDE, NULL));
 	//		color_picker
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.85, 0.8, 0.1}, NULL, BUTTON_COLOR_PICKER));
 	return (1);
