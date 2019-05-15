@@ -6,18 +6,19 @@ void		delete_linedef(t_linedef **lines, Uint32 delete_flags)
 	t_linedef	*tmp;
 
 	new_lines = NULL;
-	while ((*lines))
+	while (*lines)
 	{
-		if (!((*lines)->flags & delete_flags))
-		{
-			add_linedef(&new_lines, (*lines));
-			(*lines) = (*lines)->next;
-		}
-		else
+		if ((*lines)->flags & delete_flags)
 		{
 			tmp = (*lines);
 			(*lines) = (*lines)->next;
 			free(tmp);
+		}
+		else
+		{
+			tmp = (*lines)->next;
+			add_linedef(&new_lines, *lines);
+			*lines = tmp;
 		}
 	}
 	*lines = new_lines;
