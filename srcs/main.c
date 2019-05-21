@@ -26,32 +26,31 @@ static int	init(t_win *win, t_map *map, t_player *player)
 	t_linedef	*tmp;
 
 	//init_equations(map);
-	win->w = 2000;
-	win->h = 1000;
-	player->hitbox = 10;
+	win->w = 1500;
+	win->h = 800;
+	player->hitbox = 5;
 	player->pos = (t_dot){win->w / 2, win->h / 2 - 100};
 	player->sector = 0;
 	player->dir = M_PI_2;
-	player->const_vel = 0.8;
+	player->const_vel = 3;
 	add_sector(&map->sectors, new_sector());
-	tmp = new_linedef((t_line){(t_dot){0, 0},\
-										(t_dot){win->w, win->h}},\
+	tmp = new_linedef((t_line){(t_dot){200, 200},\
+										(t_dot){win->w / 2, win->h / 2}},\
 										NULL, 0);
 	add_linedef(&map->sectors->lines, tmp);
 	tmp = new_linedef((t_line){(t_dot){0, win->h},\
-										(t_dot){win->w, 0}},\
+										(t_dot){200, win->h / 2}},\
 										NULL, 0);
 	add_linedef(&map->sectors->lines, tmp);
 	return (1);
 }
 
-int     main(int argc, char** argv)
+int     main(int argc, char **argv)
 {
     int     fd;
     int     fd1;
     t_win   win;
     t_map   map;
-
 
     if (!argc)
         argc = 0;
@@ -62,7 +61,7 @@ int     main(int argc, char** argv)
 		return (ret_error("init error"));
     if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
         return (ret_error(SDL_GetError()));
-    if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, 2000, 1200}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
+    if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, 1500, 800}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
         return (0);
     SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
     //editor_loop(&win);

@@ -50,9 +50,15 @@ typedef struct		s_affine
 
 typedef struct		s_vector
 {
+	int				x;
+	int				y;
+}					t_vector;
+
+typedef struct		s_fvector
+{
 	double			x;
 	double			y;
-}					t_vector;
+}					t_fvector;
 
 /*
 ** =====================================================================================
@@ -200,6 +206,7 @@ typedef struct				s_linedef
 	t_dot				p1;
 	t_dot				p2;
 	t_affine			equation;
+	int					isequation;
 	double				angle;
 	int					portal;
 	SDL_Texture			*texture;
@@ -247,7 +254,7 @@ typedef struct		s_player
 {
 	t_dot			pos;
 	t_vector		vel;
-	double			const_vel;
+	int				const_vel;
 	double			dir;
 	double			hitbox;
 	int				sector;

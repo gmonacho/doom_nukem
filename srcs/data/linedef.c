@@ -15,9 +15,19 @@ t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags)
 		return (ret_null_perror("lines allocation failed in new_linedef"));
 	newline->p1 = line.p1;
 	newline->p2 = line.p2;
-	newline->equation.a = (line.p2.x - line.p1.x == 0) ? 0 : (line.p2.y - line.p1.y) / (line.p2.x - line.p1.x);
-	newline->equation.b = line.p1.y - newline->equation.a * line.p1.x;
-	newline->angle = atan(newline->equation.a);
+	if (line.p2.x - line.p1.x)
+	{
+		newline->isequation = 1;
+		newline->equation.a = (line.p2.y - line.p1.y) / (double)(line.p2.x - line.p1.x);
+		newline->equation.b = line.p1.y - newline->equation.a * line.p1.x;
+		newline->angle = atan(newline->equation.a);
+	}
+	else
+	{
+		newline->isequation = 0;
+		newline->equation.a = line.p1.x;
+		newline->angle = M_PI_2;
+	}
 	newline->portal = 0;
 	newline->texture = texture;
 	newline->flags = flags;

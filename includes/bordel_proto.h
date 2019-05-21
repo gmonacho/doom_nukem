@@ -10,11 +10,6 @@
 ** =====================================================================================
 */
 
-int			ret_error(const char *error_msg);
-void		*ret_null_error(const char *error_msg);
-int			ret_perror(const char *error_msg);
-void		*ret_null_perror(const char *error_msg);
-
 /*
 ** =====================================================================================
 ** ================================== EVENT ============================================
@@ -39,12 +34,14 @@ int		    key_pressed(Uint32 sdl_keycode);
 **	---------------------------------- Time ----------------------------------
 */
 
-void	draw_fps();
-
 /*
 ** ==================== Error Management ==========================
 */
 
+int			ret_error(const char *error_msg);
+void		*ret_null_error(const char *error_msg);
+int			ret_perror(const char *error_msg);
+void		*ret_null_perror(const char *error_msg);
 
 /*
 **	====================== Time Managment ======================
@@ -202,7 +199,7 @@ int			move(t_map *map, t_player *player);
 */
 
 double		fdist(t_fdot p1, t_fdot p2);
-int		    dist(t_dot p1, t_dot p2);
+double		dist(t_dot p1, t_dot p2);
 double		mag(t_vector vector);
 int			sign(double nbr);
 
