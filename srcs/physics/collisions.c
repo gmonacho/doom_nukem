@@ -1,6 +1,38 @@
 #include "doom_nukem.h"
 
-static void	coef_null(t_linedef *line, t_player *player)
+/*
+**	Ajouts :
+**	- Collisions sur les cotes des la hitbox
+**	- gliss sur les murs
+**	
+*/
+
+static void	actions(t_map *map, t_linedef *portal, t_player *player)
+{
+	t_sector	*sector;
+	t_linedef	*line;
+
+	if (portal->flags & PORTAL)
+	{
+		sector = map->sectors;
+		while (sector)
+		{
+			line = sector->lines;
+			while (line)
+			{
+				if (portal->id == line->id && portal != line)
+					teleportation(portal, line, player);
+				line = line->next;
+			}
+			sector = sector->next;
+		}
+	}
+	else
+		player->vel = (t_vector){};
+
+}
+
+static void	coef_null(t_map *map, t_linedef *line, t_player *player)
 {
 	int		collisiony;
 
@@ -12,15 +44,15 @@ static void	coef_null(t_linedef *line, t_player *player)
 		{
 			if (player->pos.y < collisiony &&\
 				collisiony <= player->pos.y + player->vel.y + player->hitbox)
-				player->vel = (t_vector){};
+				actions(map, line, player);
 		}
 		else if (player->pos.y > collisiony &&\
 		collisiony >= player->pos.y + player->vel.y - player->hitbox)
-			player->vel = (t_vector){};
+			actions(map, line, player);
 	}
 }
 
-static void	collisions(t_linedef *line, t_affine traj,\
+static void	collisions(t_map *map, t_linedef *line, t_affine traj,\
 						t_player *player)
 {
 	int		collisionx;
@@ -38,10 +70,10 @@ static void	collisions(t_linedef *line, t_affine traj,\
 			if (player->vel.x > 0)
 			{
 				if (player->pos.x < collisionx && collisionx <= player->pos.x + player->vel.x + player->hitbox)
-					player->vel = (t_vector){};
+					actions(map, line, player);
 			}
 			else if (player->pos.x > collisionx && collisionx >= player->pos.x + player->vel.x - player->hitbox)
-				player->vel = (t_vector){};
+				actions(map, line, player);
 		}
 	}
 }
@@ -66,18 +98,19 @@ int		move(t_map *map, t_player *player)
 		traj.b = player->pos.y - traj.a * player->pos.x;
 		while (line)
 		{
-			collisions(line, traj, player);
+			if (!(line->flags & DOOR_OPEN))
+				collisions(map, line, traj, player);
 			line = line->next;
 		}
 	}
 	else
 		while (line)
 		{
-			coef_null(line, player);
+			if (!(line->flags & DOOR_OPEN))
+				coef_null(map, line, player);
 			line = line->next;
 		}
 	player->pos = (t_dot){player->pos.x + player->vel.x, player->pos.y + player->vel.y};
-	printf("\n");
 	return (0);
 }
 

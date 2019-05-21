@@ -28,19 +28,21 @@ static int	init(t_win *win, t_map *map, t_player *player)
 	//init_equations(map);
 	win->w = 1500;
 	win->h = 800;
-	player->hitbox = 5;
 	player->pos = (t_dot){win->w / 2, win->h / 2 - 100};
-	player->sector = 0;
+	player->const_vel = 2;
 	player->dir = M_PI_2;
-	player->const_vel = 3;
+	player->hitbox = 10;
+	player->sector = 0;
 	add_sector(&map->sectors, new_sector());
-	tmp = new_linedef((t_line){(t_dot){200, 200},\
-										(t_dot){win->w / 2, win->h / 2}},\
-										NULL, 0);
+	tmp = new_linedef((t_line){(t_dot){win->w / 4 - 50, win->h / 8},\
+						(t_dot){win->w / 4 + 50, 7 * win->h / 8}},\
+						"Michel",\
+						NULL, PORTAL);
 	add_linedef(&map->sectors->lines, tmp);
-	tmp = new_linedef((t_line){(t_dot){0, win->h},\
-										(t_dot){200, win->h / 2}},\
-										NULL, 0);
+	tmp = new_linedef((t_line){(t_dot){3 * win->w / 4 - 50, win->h / 8},\
+						(t_dot){3 * win->w / 4 + 50, 7 * win->h / 8}},\
+						"Jacquie",\
+						NULL, PORTAL);
 	add_linedef(&map->sectors->lines, tmp);
 	return (1);
 }

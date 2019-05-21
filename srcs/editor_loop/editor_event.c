@@ -97,7 +97,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
 			if (!key_pressed(SC_DRAW_FREE))
 				is_next_to_linedef(map, &dot, map->unit * NEXT_FACTOR);
-			if (!(tmp = new_linedef((t_line){dot, dot}, NULL, LINEDEF_NONE)))
+			if (!(tmp = new_linedef((t_line){dot, dot}, "bite", NULL, LINEDEF_NONE)))
 				return (0);
 			if (map->selected_sector)
 				add_linedef(&map->selected_sector->lines, tmp);

@@ -201,16 +201,25 @@ enum	e_linedef
 	LINEDEF_MOUSE_NEXT = 0b0100
 };
 
+enum	e_flags
+{
+	WALL = 0b0001,
+	PORTAL = 0b0010,
+	DOOR_CLOSE = 0b0100,
+	DOOR_OPEN = 0b00001000
+};
+
 typedef struct				s_linedef
 {
+	char				*name;
 	t_dot				p1;
 	t_dot				p2;
 	t_affine			equation;
 	int					isequation;
 	double				angle;
-	int					portal;
 	SDL_Texture			*texture;
 	Uint32				flags;
+	int					id;
 	struct s_linedef	*next;
 }						t_linedef;
 
@@ -243,7 +252,7 @@ typedef struct				s_sector
 
 	int						light_level;
     t_linedef				*lines;
-	struct s_sector 		*next;
+	struct	s_sector 		*next;
 }							t_sector;
 
 /*
@@ -256,6 +265,7 @@ typedef struct		s_player
 	t_vector		vel;
 	int				const_vel;
 	double			dir;
+	double			orientation;
 	double			hitbox;
 	int				sector;
 }					t_player;

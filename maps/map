@@ -10,12 +10,16 @@ map
 	}
 	Sector
 	{
+		name = example
 		floorHeight = 81
 		ceilHeight = 18
 		line
 		{
 			dot = (1, 5)
 			dot = (1, 7)
+			flags = WALL | PORTAL | DOOR_CLOSE | DOOR_OPEN
+			texture = 1 | 2 | 3 | ...
+			id = -1 | 0 | 1 | ...
 		}
 		line
 		{
