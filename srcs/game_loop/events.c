@@ -8,13 +8,13 @@ static void	mouse_move(t_player *player)
 	SDL_GetMouseState(&newpos.x, &newpos.y);
 	if (newpos.x != lastpos.x)
 	{
-		player->dir += (double)(newpos.x - lastpos.x) / 300;
-		printf("Dir : %f\n", player->dir);
+		player->dir += (newpos.x - lastpos.x) / (double)400;
+		//printf("Dir : %f\n", player->dir);
 	}
 	if (newpos.y != lastpos.y)
 	{
-		printf("dy\n");
-		player->orientation -= (newpos.y - lastpos.y) / 10;
+		//printf("dy\n");
+		player->orientation -= (newpos.y - lastpos.y) / (double)10;
 	}
 	lastpos = (t_dot){newpos.x, newpos.y};
 }
@@ -50,7 +50,6 @@ static void	keyboard_move(t_map *map, t_player *player, const Uint8 *state)
 		player->vel.x -= player->const_vel;
 	if (state[SDL_SCANCODE_D])
 		player->vel.x += player->const_vel;*/
-	//printf("Keyboard end move\n");
 }
 
 int			keyboard_state(t_map *map, t_player *player)
@@ -59,7 +58,7 @@ int			keyboard_state(t_map *map, t_player *player)
 
 	//printf(".");
 	state = SDL_GetKeyboardState(NULL);
-	player->vel = (t_vector){0, 0};
+	player->vel = (t_fvector){};
 	keyboard_move(map, player, state);
 	mouse_move(player);
 	return (0);

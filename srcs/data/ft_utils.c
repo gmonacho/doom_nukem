@@ -26,3 +26,11 @@ int			sign(double nbr)
 {
 	return (nbr < 0 ? -1 : 1);
 }
+
+double		map(double value, t_dot inter1, t_dot inter2)
+{
+	if (inter1.y == inter1.x)
+		return (0);
+	return (inter2.x + ((value - inter1.x) / (inter1.y - inter1.x)) *\
+			(inter2.y - inter2.x));
+}

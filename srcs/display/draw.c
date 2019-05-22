@@ -4,6 +4,7 @@ void	draw(t_win *win, t_map *map, t_player *player)
 {
 	t_sector	*sector;
 	t_linedef	*line;
+	t_circle	perso;
 
 	//printf("Debut print\n");
 	clear_rend(win->rend, 0, 0, 0);
@@ -22,8 +23,11 @@ void	draw(t_win *win, t_map *map, t_player *player)
 	}
 
 	SDL_SetRenderDrawColor(win->rend, 0x20, 0xDD, 0x20, 255);
-	SDL_RenderDrawPoint(win->rend, (int)player->pos.x, (int)player->pos.y);
-	
+	//SDL_RenderDrawPoint(win->rend, (int)player->pos.x, (int)player->pos.y);
+
+	perso = (t_circle){player->pos.x, player->pos.y, player->hitbox};
+	draw_circle(win, perso);
+	draw_line(win, player->pos, (t_dot){player->pos.x + 30 * player->vel.x,\
+										player->pos.y + 30 * player->vel.y});
 	//draw_fps();
-	//printf("Fin print\n");
 }
