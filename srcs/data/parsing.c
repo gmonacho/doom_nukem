@@ -2,6 +2,7 @@
 
 void		ft_fill_coord(t_sector *sector, char **tab, int i)
 {
+	t_line	line;//
 	int y;
 	int flag;
 
@@ -11,13 +12,20 @@ void		ft_fill_coord(t_sector *sector, char **tab, int i)
 	{
 		if (ft_strstr(tab[i], "dot") && flag == 0)
 		{
-			ft_find_coord_p1(sector, tab[i]);
+			//ft_find_coord_p1(sector, tab[i]);
+			line.p1.x = ft_atoi(ft_strrchr(tab[i], '(') + 1);
+			line.p1.y = ft_atoi(ft_strrchr(tab[i], ',') + 1);
 			flag++;
 		}
 		else if (ft_strstr(tab[i], "dot") && flag != 0)
-			ft_find_coord_p2(sector, tab[i]);
+		{
+			//ft_find_coord_p2(sector, tab[i]);
+			line.p2.x = ft_atoi(ft_strrchr(tab[i], '(') + 1);
+			line.p2.y = ft_atoi(ft_strrchr(tab[i], ',') + 1);
+		}
 		i++;
 	}
+	add_linedef(&sector->lines, new_linedef(line, "bite", NULL, WALL));//
 }
 
 int			count_line(int fp1)
@@ -64,7 +72,7 @@ void		ft_fill_data(char *tab, t_sector *sector)
 		sector->ceil_height = ft_atoi(ft_strrchr(tab, '=') + 1);
 }
 
-void		ft_data_storing(int fd, int fp1)
+t_sector	*ft_data_storing(int fd, int fp1)
 {
 	char		**tab;
 	int			i;
@@ -85,7 +93,7 @@ void		ft_data_storing(int fd, int fp1)
 				ft_fill_data(tab[i], sector);
 				if (ft_strstr(tab[i], "line"))
 				{
-					add_linedef(&sector->lines, new_void_linedef());
+					//add_linedef(&sector->lines, new_void_linedef());
 					ft_fill_coord(sector, tab, i);
 					//printf("floor_heignt = %d\n", sector->floor_height);
 					//printf("ceil_height = %d\n", sector->ceil_height);
@@ -97,5 +105,6 @@ void		ft_data_storing(int fd, int fp1)
 			}
 		}
 	}
+	return (sector);
 }
 

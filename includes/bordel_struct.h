@@ -261,12 +261,12 @@ typedef struct				s_sector
 
 typedef struct		s_player
 {
-	t_dot			pos;
+	t_fdot			pos;
 	t_fvector		vel;
-	int				const_vel;
+	double			const_vel;
 	double			dir;
 	double			orientation;
-	double			hitbox;
+	int				hitbox;
 	int				sector;
 }					t_player;
 

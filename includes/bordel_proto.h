@@ -27,7 +27,7 @@ t_dot		mouse_drag(int x, int y, SDL_bool end);
 **	---------------------------------- Event ----------------------------------
 */
 
-int		    keyboard_state(t_map *map, t_player *player);
+int		    keyboard_state(t_player *player);
 int		    key_pressed(Uint32 sdl_keycode);
 
 /*
@@ -47,7 +47,7 @@ void		*ret_null_perror(const char *error_msg);
 **	====================== Time Managment ======================
 */
 
-void	draw_fps();
+void		draw_fps();
 
 /*
 ** ============================================================================
@@ -103,7 +103,7 @@ void		draw(t_win *win, t_map *map, t_player *player);
 **	---------------------------------- Physics ----------------------------------
 */
 
-void	teleportation(t_linedef *line1, t_linedef *line2, t_player *player);
+void		teleportation(t_linedef *line1, t_linedef *line2, t_player *player);
 
 /*
 ** ==========================================================================
@@ -164,7 +164,7 @@ void		map_add_line(t_map *map, int n_sector, t_linedef *line);
 */
 
 int 		ft_parse_error(char **tab);
-void 		ft_data_storing(int fd, int fd1);
+t_sector	*ft_data_storing(int fd, int fd1);
 void		ft_find_coord_p1(t_sector *sector, char *tab);
 void		ft_find_coord_p2(t_sector *sector, char *tab);
 

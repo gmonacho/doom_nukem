@@ -10,26 +10,27 @@ map
 	}
 	Sector
 	{
-		name = example
-		floorHeight = 81
-		ceilHeight = 18
+		floorHeight = 25
+		ceilHeight = 10
 		line
 		{
-			dot = (1, 5)
-			dot = (1, 7)
-			flags = WALL | PORTAL | DOOR_CLOSE | DOOR_OPEN
-			texture = 1 | 2 | 3 | ...
-			id = -1 | 0 | 1 | ...
+			dot = (200, 200)
+			dot = (1600, 400)
 		}
 		line
 		{
-			dot = (dasd, dsad)
-			dot = (6, 81161)	
+			dot = (1600, 400)
+			dot = (1000, 700)
 		}
 		line
 		{
-			dot = (6, 8)	
-			dot = (1, 5)
+			dot = (1000, 700)
+			dot = (600, 500)
+		}
+		line
+		{
+			dot = (600, 500)	
+			dot = (200, 200)
 		}
 	}
 	Sector
@@ -38,54 +39,8 @@ map
 		ceilHeight = 10
 		line
 		{
-			dot = (5, u)
-			dot = (8, 9)
+			dot = (100, 100)
+			dot = (22000, 48662)
 		}
-		line
-		{
-			dot = (4, 7)
-			dot = (8, 8)
-		}
-		line
-		{
-			dot = (8, 8)
-			dot = (6, 10)	
-		}
-		line
-		{
-			dot = (6, 10)	
-			dot = (5, 5)
-		}
-	}
-	Sector
-	{
-		floorHeight = 34
-		ceilHeight = 29
-		line
-		{
-			dot = (5, 5)
-			dot = (4, 7)
-		}
-		line
-		{
-			dot = (4, 7)
-			dot = (8, 8)
-		}
-		line
-		{
-			dot = (8, 8)
-			dot = (6, 10)	
-		}
-		line
-		{
-			dot = (6, 10)	
-			dot = (5, 5)
-		}
-	}
-	test
-	{
-		x = 4
-		y = 4
-		hitbox = 1
 	}
 }
