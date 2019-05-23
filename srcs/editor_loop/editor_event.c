@@ -101,8 +101,6 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 				return (0);
 			if (map->selected_sector)
 				add_linedef(&map->selected_sector->lines, tmp);
-			else
-				add_linedef(&map->lines, tmp);
 			map->flags = map->flags | DRAWING_LINE;
 		}
 	}
@@ -121,12 +119,6 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 						is_next_to_linedef(map, &dot, map->unit * NEXT_FACTOR);
 					map->selected_sector->lines->p2 = dot;
 				}
-				else
-				{
-					if (!key_pressed(SC_DRAW_FREE))
-						is_next_to_linedef(map, &dot, map->unit * NEXT_FACTOR);
-					map->lines->p2 = dot;
-				}
 				map->flags -= DRAWING_LINE;
 			}
 		}
@@ -142,13 +134,13 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	}
 	else if (win->mouse->button[MOUSE_RIGHT].releasing)
 	{
-		if (map->flags & MAP_SELECTING)
+		if (map->flags & MAP_SELECTING && map->selected_sector)
 		{
-			selected_all_linedef(map, LINEDEF_SELECTED);
+			selected_linedef(map, map->selected_sector->lines, LINEDEF_SELECTED);
 			map->rect_util = (SDL_Rect){};
 			map->flags -= MAP_SELECTING;
 		}
-	}	
+	}
 	if (win->mouse->button[MOUSE_MIDDLE].pressing)
 		mouse_drag(win->mouse->x, win->mouse->y, SDL_FALSE);
 
@@ -162,21 +154,15 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 				if (!key_pressed(SC_DRAW_FREE))
 					is_next_to_linedef(map, &map->selected_sector->lines->p2, map->unit * NEXT_FACTOR);
 			}
-			else
-			{
-				map->lines->p2 = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
-				if (!key_pressed(SC_DRAW_FREE))
-					is_next_to_linedef(map, &map->lines->p2, map->unit * NEXT_FACTOR);
-			}
 		}
 	}
 	if (win->mouse->button[MOUSE_RIGHT].pressed)
 	{
-		if (map->flags & MAP_SELECTING)
+		if ( map->selected_sector && map->flags & MAP_SELECTING)
 		{
 			map->rect_util.w = win->mouse->x - map->rect_util.x;
 			map->rect_util.h = win->mouse->y - map->rect_util.y;
-			selected_all_linedef(map, LINEDEF_SELECTED);
+			selected_linedef(map, map->selected_sector->lines, LINEDEF_SELECTED);
 		}
 	}
 	if (win->mouse->button[MOUSE_MIDDLE].pressed)
@@ -188,7 +174,10 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	}
 
 	if (key_pressed(SDL_SCANCODE_DELETE))
-		delete_all_linedef(map, LINEDEF_SELECTED);
+	{
+		if (map->selected_sector)
+			delete_linedef(&map->selected_sector->lines, LINEDEF_SELECTED);
+	}
 	if (key_pressed(SDL_SCANCODE_W))
 		map->y += 2;
 	if (key_pressed(SDL_SCANCODE_S))

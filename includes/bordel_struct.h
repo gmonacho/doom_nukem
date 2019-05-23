@@ -107,7 +107,8 @@ typedef struct		s_mouse
 enum	e_button
 {
 	BUTTON_NONE = 0b0000,
-	BUTTON_COLOR_PICKER = 0b0001
+	BUTTON_COLOR_PICKER = 0b0001,
+	BUTTON_TEXT_ENTRY = 0b0010
 };
 
 typedef struct		s_button
@@ -157,6 +158,7 @@ typedef struct		s_win
 
 	SDL_Texture		**sectors_texture;
 	SDL_Texture		**sectors_texture_selected;
+	SDL_Texture		*text_entry_texture;
 
 	t_frame			*frames;
 	t_frame			*selected_frame;
@@ -289,7 +291,6 @@ typedef struct	s_map_editor
 	double		unit;
 	t_sector	*sectors;
 	t_sector	*selected_sector;
-	t_linedef	*lines;
 	SDL_Rect	rect_util;
 	Uint32		flags;
 	int			nb_lines;

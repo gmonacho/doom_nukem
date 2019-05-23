@@ -94,6 +94,7 @@ void		clear_rend(SDL_Renderer *rend, Uint8 r, Uint8 g, Uint8 b);
 
 void		draw_line(t_win *win, t_dot p1, t_dot p2);
 void		draw_rect(t_win *win, SDL_Rect rect);
+void		fill_rect(t_win *win, SDL_Rect rect);
 void		draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio);
 void		draw_circle(t_win *win, t_circle circle);
 void	    draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
@@ -142,10 +143,9 @@ int			move(t_map *map, t_player *player);
 
 void		selected_linedef(t_map_editor *map, t_linedef *lines, Uint32 flags);
 void		selected_sector_linedef(t_map_editor *map, t_sector *sectors, Uint32 flags);
-void		selected_all_linedef(t_map_editor *map, Uint32 flags);
 
 void		delete_linedef(t_linedef **lines, Uint32 delete_flags);
-void		delete_all_linedef(t_map_editor *map, Uint32 delete_flags);
+void		delete_sector_linedef(t_sector *sectors, Uint32 delete_flags);
 
 SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 void		map_zoom(t_map_editor *map, double zoom);

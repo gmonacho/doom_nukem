@@ -33,7 +33,7 @@ static int	init(t_win *win, t_map *map, t_player *player)
 	player->const_vel = 1;
 	player->dir = M_PI_2;
 	player->hitbox = 10;
-	player->sector = 1;
+	player->sector = 0;
 	/*add_sector(&map->sectors, new_sector());
 
 	tmp = new_linedef((t_line){(t_dot){win->w / 6, win->h / 4},\
@@ -92,8 +92,8 @@ int			main(int argc, char **argv)
 	if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, 2000, 1000}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 		return (0);
 	SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
-	//editor_loop(&win);
-	game_loop(&win, &map);
+	editor_loop(&win);
+	// game_loop(&win, &map);
 	SDL_DestroyWindow(win.ptr);
 	SDL_DestroyRenderer(win.rend);
 	SDL_Quit();
