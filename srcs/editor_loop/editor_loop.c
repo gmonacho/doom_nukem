@@ -14,24 +14,9 @@ static void			editor_display(t_win *win, const t_map_editor *map)
 	SDL_SetRenderDrawColor(win->rend, 150, 150, 150, 200);
 	if (map->flags & MAP_SELECTING)
 		draw_rect(win, map->rect_util);
-	l = map->lines;
-	while (l)
+	if (map->selected_sector)
 	{
-		if (l->flags & LINEDEF_SELECTED)
-			SDL_SetRenderDrawColor(win->rend, 0, 175, 175, 255);
-		else if (l->flags & LINEDEF_MOUSE_POINTED)
-			SDL_SetRenderDrawColor(win->rend, 50, 150, 150, 255);
-		else
-			SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
-		p1 = (t_dot){l->p1.x * map->unit + map->x, l->p1.y * map->unit + map->y};
-		p2 = (t_dot){l->p2.x * map->unit + map->x, l->p2.y * map->unit + map->y};
-		if (is_in_screen(win, p1) || is_in_screen(win, p2))
-			draw_line(win, p1, p2);
-		l = l->next;
-	}
-	s = map->sectors;
-	while (s)
-	{
+		s = map->selected_sector;
 		l = s->lines;
 		while (l)
 		{
@@ -50,7 +35,6 @@ static void			editor_display(t_win *win, const t_map_editor *map)
 				draw_line(win, p1, p2);
 			l = l->next;
 		}
-		s = s->next;
 	}
 	SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
 	f = win->frames;
@@ -86,6 +70,7 @@ static int		text_init(t_win *win)
 {
 	SDL_Surface		*surface;
 	SDL_Texture		*tmp;
+	SDL_Texture		*t;
 	char			*str;
 	int				i;
 
@@ -127,11 +112,31 @@ static int		text_init(t_win *win)
 		SDL_RenderClear(win->rend);
 		SDL_RenderCopy(win->rend, tmp, NULL, &(SDL_Rect){10, 10, 12, 12});
 
-		SDL_SetRenderTarget(win->rend, NULL);
 		SDL_DestroyTexture(tmp);
 		SDL_FreeSurface(surface);
 		i++;
 	}
+	if (!(win->text_entry_texture = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, 60, 20)))
+		return (ret_error("text_entry_texture allocation failed in text_init"));
+	SDL_SetTextureBlendMode(win->text_entry_texture, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderTarget(win->rend, win->text_entry_texture);
+	SDL_SetRenderDrawColor(win->rend, 255, 0, 0, 255);
+	SDL_RenderClear(win->rend);
+	SDL_SetRenderDrawColor(win->rend, 40, 40, 40, 255);
+	fill_rect(win, (SDL_Rect){20, 0, 40, 20});
+	if (!(surface = TTF_RenderText_Solid(win->font, "name", (SDL_Color){200, 200, 200, 255})))
+		return (0);
+	if (!(tmp = SDL_CreateTextureFromSurface(win->rend, surface)))
+		return (0);
+	if (!(t = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, 40, 40)))
+		return (ret_error("t allocation failed in text_init"));
+	SDL_SetRenderTarget(win->rend, t);
+	SDL_RenderCopy(win->rend, tmp, NULL, &(SDL_Rect){0, 0, 40, 40});
+	SDL_SetRenderTarget(win->rend, win->text_entry_texture);
+	SDL_SetRenderDrawColor(win->rend, 80, 80, 80, 255);
+	fill_rect(win, (SDL_Rect){0, 0, 20, 20});
+	SDL_RenderCopy(win->rend, t, NULL, &(SDL_Rect){0, 0, 20, 20});
+	SDL_SetRenderTarget(win->rend, NULL);
 	return (1);
 }
 
@@ -143,6 +148,7 @@ static int		ui_init(t_win *win)
 	//	info sector frame
 	add_frame_to_window(win, new_frame((t_frect){0.02, 0.1, 0.15, 0.4}, NULL, FRAME_INFO | FRAME_HIDE, NULL));
 	//		color_picker
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.1, 0.8, 0.05}, win->text_entry_texture, BUTTON_TEXT_ENTRY));
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.85, 0.8, 0.1}, NULL, BUTTON_COLOR_PICKER));
 	return (1);
 }
@@ -156,7 +162,6 @@ static int		editor_init(t_win *win, t_map_editor *map)
 	map->unit = 1.0;
 	map->sectors = NULL;
 	map->selected_sector = NULL;
-	map->lines = NULL;
 	map->rect_util = (SDL_Rect){};
 	map->flags = 0;
 	if (!text_init(win))
@@ -174,6 +179,7 @@ int				editor_loop(t_win *win)
 	// if (!(parser_png("png_test_800_600.png")))
 	// 	return (0);
 	editor_init(win, &map);
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
 	loop = SDL_TRUE;
 	while (loop)
 	{

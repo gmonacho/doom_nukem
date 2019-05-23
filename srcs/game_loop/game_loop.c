@@ -11,8 +11,7 @@ int		game_loop(t_win *win, t_map *map)
 		while (loop)
 		{
 			SDL_PumpEvents();
-			SDL_PollEvent(&event);
-
+			SDL_PollEvent(&event)
 			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
 				loop = SDL_FALSE;
 			keyboard_state(&(map->player));

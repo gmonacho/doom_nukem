@@ -149,10 +149,9 @@ int			move(t_map *map, t_player *player);
 
 void		selected_linedef(t_map_editor *map, t_linedef *lines, Uint32 flags);
 void		selected_sector_linedef(t_map_editor *map, t_sector *sectors, Uint32 flags);
-void		selected_all_linedef(t_map_editor *map, Uint32 flags);
 
 void		delete_linedef(t_linedef **lines, Uint32 delete_flags);
-void		delete_all_linedef(t_map_editor *map, Uint32 delete_flags);
+void		delete_sector_linedef(t_sector *sectors, Uint32 delete_flags);
 
 SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 void		map_zoom(t_map_editor *map, double zoom);

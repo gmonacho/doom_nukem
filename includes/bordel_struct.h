@@ -291,7 +291,6 @@ typedef struct	s_map_editor
 	double		unit;
 	t_sector	*sectors;
 	t_sector	*selected_sector;
-	t_linedef	*lines;
 	SDL_Rect	rect_util;
 	Uint32		flags;
 	int			nb_lines;

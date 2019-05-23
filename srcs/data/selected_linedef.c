@@ -41,10 +41,3 @@ void		selected_sector_linedef(t_map_editor *map, t_sector *sectors, Uint32 flags
 		s = s->next;
 	}
 }
-
-
-void		selected_all_linedef(t_map_editor *map, Uint32 flags)
-{
-	selected_linedef(map, map->lines, flags);
-	selected_sector_linedef(map, map->sectors, flags);
-}

@@ -35,6 +35,24 @@ void	draw_rect(t_win *win, SDL_Rect rect)
 	draw_line(win, (t_dot){rect.x, rect.y + rect.h}, (t_dot){rect.x, rect.y});
 }
 
+void	fill_rect(t_win *win, SDL_Rect rect)
+{
+	int		x;
+	int		xmax;
+	int		y1;
+	int		y2;
+
+	x = rect.x;
+	xmax = rect.x + rect.w;
+	y1 = rect.y;
+	y2 = rect.y + rect.h;
+	while (x < xmax)
+	{
+		draw_line(win, (t_dot){x, y1}, (t_dot){x, y2});
+		x++;
+	}
+}
+
 void	draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio)
 {
 	int x;
