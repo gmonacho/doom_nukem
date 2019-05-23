@@ -3,8 +3,8 @@
 /*
 **	Ajouts :
 **	- Collisions sur les cotes des la hitbox
-**	- gliss sur les murs
-**	
+**	- Gliss sur les murs
+**	-
 */
 
 static int	actions(t_map *map, t_linedef *portal, t_player *player)
@@ -21,12 +21,15 @@ static int	actions(t_map *map, t_linedef *portal, t_player *player)
 			while (line)
 			{
 				if (portal->id == line->id && portal != line)
-					teleportation(portal, line, player);
+				{
+					if (!teleportation(map, sector, portal, line))
+						player->vel = (t_fvector){0, 0};
+					return (0);
+				}
 				line = line->next;
 			}
 			sector = sector->next;
 		}
-		return (0);
 	}
 	else
 	{
@@ -34,6 +37,7 @@ static int	actions(t_map *map, t_linedef *portal, t_player *player)
 		//printf("Rm vitesse\n");
 		return (1);
 	}
+	return (0);
 }
 
 static int	coef_null(t_map *map, t_linedef *line, t_player *player)
@@ -61,8 +65,8 @@ static int	coef_null(t_map *map, t_linedef *line, t_player *player)
 static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 						t_player *player)
 {
-	int		collisionx;
-	int		collisiony;
+	double	collisionx;
+	double	collisiony;
 
 	if (traj.a != line->equation.a)
 	{
@@ -74,12 +78,12 @@ static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 			collisionx = line->equation.a;
 			collisiony = traj.a * collisionx + traj.b;
 		}
-		if ((!(line->isequation) &&\
-			((line->p1.y <= collisiony && collisiony <= line->p2.y) ||\
-			(line->p2.y <= collisiony && collisiony <= line->p1.y))) ||\
-			(line->isequation &&\
+		if ((line->isequation &&\
 			((line->p1.x <= collisionx && collisionx <= line->p2.x) ||\
-			(line->p2.x <= collisionx && collisionx <= line->p1.x))))
+			(line->p2.x <= collisionx && collisionx <= line->p1.x))) ||\
+			(!(line->isequation) &&\
+			((line->p1.y <= collisiony && collisiony <= line->p2.y) ||\
+			(line->p2.y <= collisiony && collisiony <= line->p1.y))))
 		{
 			//printf("Collision x : %d\n", collisionx);
 			if (player->vel.x > 0)

@@ -25,7 +25,7 @@ void		ft_fill_coord(t_sector *sector, char **tab, int i)
 		}
 		i++;
 	}
-	add_linedef(&sector->lines, new_linedef(line, "bite", NULL, WALL));//
+	add_linedef(&sector->lines, new_linedef(line, NULL, WALL));//
 }
 
 int			count_line(int fp1)

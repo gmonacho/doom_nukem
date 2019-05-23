@@ -18,6 +18,9 @@ int		game_loop(t_win *win, t_map *map)
 			keyboard_state(&(map->player));
 
 			move(map, &(map->player));
+			//entiteMove();
+			//raycasting();
+			//orientation();	//Haut bas
 
 			draw(win, map, &(map->player));
 			SDL_RenderPresent(win->rend);

@@ -100,12 +100,6 @@ void	    draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
 void		draw(t_win *win, t_map *map, t_player *player);
 
 /*
-**	---------------------------------- Physics ----------------------------------
-*/
-
-void		teleportation(t_linedef *line1, t_linedef *line2, t_player *player);
-
-/*
 ** ==========================================================================
 ** ================================== DATA ==================================
 ** ==========================================================================
@@ -122,7 +116,7 @@ int		    parser_png(char *png_file);
 */
 
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
-t_linedef	*new_linedef(t_line line, char *name, SDL_Texture *texture, Uint32 flags);
+t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags);
 t_linedef	*new_void_linedef(void);
 int			get_nb_linedef(t_linedef *lines);
 
@@ -200,7 +194,14 @@ int			game_loop(t_win *win, t_map *map);
 int			move(t_map *map, t_player *player);
 
 /*
-** ========================== Math functions ======================
+** ================================== Physics ===================================
+*/
+
+int			teleportation(t_map *map, t_sector *sector2,\
+						t_linedef *line1, t_linedef *line2);
+
+/*
+** =========================== Math functions ===================================
 */
 
 double		fdist(t_fdot p1, t_fdot p2);
