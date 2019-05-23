@@ -148,7 +148,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			map->rect_util = (SDL_Rect){};
 			map->flags -= MAP_SELECTING;
 		}
-	}	
+	}
 	if (win->mouse->button[MOUSE_MIDDLE].pressing)
 		mouse_drag(win->mouse->x, win->mouse->y, SDL_FALSE);
 

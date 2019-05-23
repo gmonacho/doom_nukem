@@ -65,8 +65,8 @@ int     main(int argc, char** argv)
     if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, 2000, 1200}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
         return (0);
     SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
-    //editor_loop(&win);
-	game_loop(&win, &map);
+    editor_loop(&win);
+	//game_loop(&win, &map);
     SDL_DestroyWindow(win.ptr);
     SDL_DestroyRenderer(win.rend);
     SDL_Quit();
