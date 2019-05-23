@@ -21,9 +21,11 @@ void		ft_fill_coord(t_sector *sector, char **tab, int i)
 			ft_find_coord_p2(line, tab[i]);
 		else if (ft_strstr(tab[i], "flags"))
 			ft_find_type(tab[i], line);
+		else if (ft_strstr(tab[i], "id"))			//////	Changes : agiordan
+			ft_find_id(tab[i], line);
 		i++;
 	}
-	add_linedef(&sector->lines, init_linedef(line));//
+	add_linedef(&sector->lines, init_linedef(line));
 }
 
 int			count_line(int fp1)

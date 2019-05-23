@@ -37,3 +37,12 @@ void		ft_find_type(char *tab, t_linedef *line)
 	line->flags = ft_chose_type(tmp);
 	ft_strdel(&tmp);
 }
+
+void		ft_find_id(char *id, t_linedef *line)		//////agiordan
+{
+	char	*tmp;
+
+	tmp = ft_strdup(ft_strrchr(id, '=') + 2);
+	line->id = ft_atoi(tmp);
+	ft_strdel(&tmp);
+}
