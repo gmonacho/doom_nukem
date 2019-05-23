@@ -11,7 +11,7 @@ t_linedef	*init_linedef(t_linedef *line)
 	return (line);
 }
 
-t_linedef	*new_linedef(t_line line, char *name, SDL_Texture *texture, Uint32 flags)
+t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags)
 {
 	t_linedef	*newline;
 
