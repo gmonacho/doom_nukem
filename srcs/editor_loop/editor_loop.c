@@ -70,11 +70,10 @@ static int		text_init(t_win *win)
 {
 	SDL_Surface		*surface;
 	SDL_Texture		*tmp;
-	SDL_Texture		*t;
 	char			*str;
 	int				i;
 
-	if (!(win->font = TTF_OpenFont("font.ttf", 20)))
+	if (!(win->font = TTF_OpenFont("font/font.ttf", 18)))
 		return (0);
 	if (!(win->sectors_texture = (SDL_Texture**)ft_memalloc(sizeof(SDL_Texture*) * (MAX_SECTORS + 1))))
 		return (0);
@@ -116,26 +115,21 @@ static int		text_init(t_win *win)
 		SDL_FreeSurface(surface);
 		i++;
 	}
-	if (!(win->text_entry_texture = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, 60, 20)))
+	if (!(win->text_entry_texture = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, 300, 100)))
 		return (ret_error("text_entry_texture allocation failed in text_init"));
 	SDL_SetTextureBlendMode(win->text_entry_texture, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderTarget(win->rend, win->text_entry_texture);
 	SDL_SetRenderDrawColor(win->rend, 255, 0, 0, 255);
 	SDL_RenderClear(win->rend);
 	SDL_SetRenderDrawColor(win->rend, 40, 40, 40, 255);
-	fill_rect(win, (SDL_Rect){20, 0, 40, 20});
+	fill_rect(win, (SDL_Rect){100, 0, 200, 100});
+	SDL_SetRenderDrawColor(win->rend, 80, 80, 80, 255);
+	fill_rect(win, (SDL_Rect){0, 0, 100, 100});
 	if (!(surface = TTF_RenderText_Solid(win->font, "name", (SDL_Color){200, 200, 200, 255})))
 		return (0);
 	if (!(tmp = SDL_CreateTextureFromSurface(win->rend, surface)))
 		return (0);
-	if (!(t = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, 40, 40)))
-		return (ret_error("t allocation failed in text_init"));
-	SDL_SetRenderTarget(win->rend, t);
-	SDL_RenderCopy(win->rend, tmp, NULL, &(SDL_Rect){0, 0, 40, 40});
-	SDL_SetRenderTarget(win->rend, win->text_entry_texture);
-	SDL_SetRenderDrawColor(win->rend, 80, 80, 80, 255);
-	fill_rect(win, (SDL_Rect){0, 0, 20, 20});
-	SDL_RenderCopy(win->rend, t, NULL, &(SDL_Rect){0, 0, 20, 20});
+	SDL_RenderCopy(win->rend, tmp, NULL, &(SDL_Rect){10, 24, 80, 75});
 	SDL_SetRenderTarget(win->rend, NULL);
 	return (1);
 }
