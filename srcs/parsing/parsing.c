@@ -2,10 +2,9 @@
 
 void		ft_fill_coord(t_sector *sector, char **tab, int i)
 {
-	t_linedef *line;
-	int y;
-	int flag;
-	char *tmp;
+	t_linedef	*line;
+	int			y;
+	int			flag;
 
 	if (!(line = (t_linedef *)ft_memalloc(sizeof(t_linedef))))
 		exit(0);
@@ -15,24 +14,13 @@ void		ft_fill_coord(t_sector *sector, char **tab, int i)
 	{
 		if (ft_strstr(tab[i], "dot") && flag == 0)
 		{
-			//ft_find_coord_p1(sector, tab[i]);
-			line->p1.x = ft_atoi(ft_strrchr(tab[i], '(') + 1);
-			line->p1.y = ft_atoi(ft_strrchr(tab[i], ',') + 1);
+			ft_find_coord_p1(line, tab[i]);
 			flag++;
 		}
 		else if (ft_strstr(tab[i], "dot") && flag != 0)
-		{
-			//ft_find_coord_p2(sector, tab[i]);
-			line->p2.x = ft_atoi(ft_strrchr(tab[i], '(') + 1);
-			line->p2.y = ft_atoi(ft_strrchr(tab[i], ',') + 1);
-		}
+			ft_find_coord_p2(line, tab[i]);
 		else if (ft_strstr(tab[i], "flags"))
-		{
-			tmp = ft_strdup(ft_strrchr(tab[i], '=') + 2);
-			printf("tmp =%s\n", tmp);
-			line->flags = ft_chose_type(tmp);
-			free(tmp);
-		}
+			ft_find_type(tab[i], line);
 		i++;
 	}
 	add_linedef(&sector->lines, init_linedef(line));//
@@ -107,13 +95,13 @@ t_sector	*ft_data_storing(int fd, int fp1)
 				{
 					//add_linedef(&sector->lines, new_void_linedef());
 					ft_fill_coord(sector, tab, i);
-					printf("floor_heignt = %d\n", sector->floor_height);
-					printf("ceil_height = %d\n", sector->ceil_height);
-					printf("name = %s\n", sector->name);
-					printf("flags = %u\n", sector->lines->flags);
-					printf("p1.x = %d p1.y = %d\n", sector->lines->p1.x, sector->lines->p1.y);
-					printf("p2.x = %d p2.y = %d\n", sector->lines->p2.x, sector->lines->p2.y);
-					printf("\n");
+					//printf("floor_heignt = %d\n", sector->floor_height);
+					//printf("ceil_height = %d\n", sector->ceil_height);
+					//printf("name = %s\n", sector->name);
+					//printf("flags = %u\n", sector->lines->flags);
+					//printf("p1.x = %d p1.y = %d\n", sector->lines->p1.x, sector->lines->p1.y);
+					//printf("p2.x = %d p2.y = %d\n", sector->lines->p2.x, sector->lines->p2.y);
+					//printf("\n");
 				}
 				i++;
 			}

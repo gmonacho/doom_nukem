@@ -166,9 +166,9 @@ void		map_add_line(t_map *map, int n_sector, t_linedef *line);
 
 int 		ft_parse_error(char **tab);
 t_sector	*ft_data_storing(int fd, int fd1);
-void		ft_find_coord_p1(t_sector *sector, char *tab);
-void		ft_find_coord_p2(t_sector *sector, char *tab);
-int 	    ft_chose_type(char *tab);
+void		ft_find_coord_p1(t_linedef *line, char *tab);
+void		ft_find_coord_p2(t_linedef *line, char *tab);
+void	    ft_find_type(char *tab, t_linedef *line);
 
 /*
 ** =================================================================================
