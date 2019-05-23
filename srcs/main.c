@@ -38,43 +38,35 @@ static int	init(t_win *win, t_map *map, t_player *player)
 
 	tmp = new_linedef((t_line){(t_dot){win->w / 6, win->h / 4},\
 								(t_dot){win->w / 6, 3 * win->h / 4}},\
-						"Michel",\
 						NULL, WALL);
 	add_linedef(&map->sectors->lines, tmp);
 	tmp = new_linedef((t_line){(t_dot){win->w / 6, 3 * win->h / 4},\
 								(t_dot){2 * win->w / 6, 3 * win->h / 4}},\
-						"Jacquie",\
 						NULL, WALL);
 	add_linedef(&map->sectors->lines, tmp);
 	tmp = new_linedef((t_line){(t_dot){2 * win->w / 6, 3 * win->h / 4},\
 								(t_dot){2 * win->w / 6, win->h / 4}},\
-						"Ma bite",\
 						NULL, PORTAL);
 	add_linedef(&map->sectors->lines, tmp);
 	tmp = new_linedef((t_line){(t_dot){2 * win->w / 6, win->h / 4},\
 								(t_dot){win->w / 6, win->h / 4}},\
-						"Seb",\
 						NULL, WALL);
 
 	add_linedef(&map->sectors->lines, tmp);
 	tmp = new_linedef((t_line){(t_dot){4 * win->w / 6, win->h / 4},\
 								(t_dot){4 * win->w / 6, 3 * win->h / 4}},\
-						"ag",\
 						NULL, PORTAL);
 	add_linedef(&map->sectors->lines, tmp);
 	tmp = new_linedef((t_line){(t_dot){4 * win->w / 6, 3 * win->h / 4},\
 								(t_dot){5 * win->w / 6, 3 * win->h / 4}},\
-						"agio",\
 						NULL, WALL);
 	add_linedef(&map->sectors->lines, tmp);
 	tmp = new_linedef((t_line){(t_dot){5 * win->w / 6, 3 * win->h / 4},\
 								(t_dot){5 * win->w / 6, win->h / 4}},\
-						"agiord",\
 						NULL, WALL);
 	add_linedef(&map->sectors->lines, tmp);
 	tmp = new_linedef((t_line){(t_dot){5 * win->w / 6, win->h / 4},\
 								(t_dot){4 * win->w / 6, win->h / 4}},\
-						"agiordan",\
 						NULL, WALL);
 	add_linedef(&map->sectors->lines, tmp);*/
 

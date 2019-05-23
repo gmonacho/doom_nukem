@@ -17,7 +17,6 @@ t_linedef	*new_linedef(t_line line, char *name, SDL_Texture *texture, Uint32 fla
 
 	if (!(newline = (t_linedef *)ft_memalloc(sizeof(t_linedef))))
 		return (ret_null_perror("lines allocation failed in new_linedef"));
-	newline->name = name;
 	newline->p1 = line.p1;
 	newline->p2 = line.p2;
 	if (line.p2.x - line.p1.x)
@@ -37,7 +36,7 @@ t_linedef	*new_linedef(t_line line, char *name, SDL_Texture *texture, Uint32 fla
 	newline->texture = texture;
 	newline->flags = flags;
 	newline->id = flags & PORTAL ? 0 : -1;
-	//newline->next = NULL;
+	newline->next = NULL;
 	return (newline);
 }
 
