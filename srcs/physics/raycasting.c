@@ -1,8 +1,8 @@
 #include "doom_nukem.h"
 
 /*
-**	Distance aux murs
-**	
+**	-	Distance aux murs
+**	-
 */
 
 int		raycasting()

@@ -2,60 +2,77 @@ map
 {
 	Player
 	{
-		height = 6
-		width = 2
 		x = 0
 		y = 0
-		z = 0
+		width = 2
+		height = 6
 	}
 	Sector
 	{
+		name = jean-giordan
 		floorHeight = 25
 		ceilHeight = 10
 		line
 		{
+			dot = (1000, 400)
 			dot = (200, 200)
-			dot = (1000, 400)
+			flags = WALL
+			id = -1
 		}
 		line
 		{
-			dot = (1000, 400)
-			dot = (1000, 700)
-		}
-		line
-		{
-			dot = (1000, 700)
+			dot = (200, 200)
 			dot = (600, 500)
+			flags = WALL
+			id = -1
 		}
 		line
 		{
 			dot = (600, 500)	
-			dot = (200, 200)
+			dot = (1000, 700)
+			flags = WALL
+			id = -1
+		}
+		line
+		{
+			dot = (1000, 700)
+			dot = (1000, 400)
+			flags = PORTAL
+			id = 0
 		}
 	}
 	Sector
 	{
+		name = jean-ducimet
 		floorHeight = 25
 		ceilHeight = 10
 		line
 		{
-			dot = (1500, 800)
-			dot = (1800, 400)
-		}
-		line
-		{
 			dot = (1800, 400)
 			dot = (1600, 300)
+			flags = WALL
+			id = -1
 		}
 		line
 		{
 			dot = (1600, 300)
 			dot = (1200, 500)
+			flags = WALL
+			id = -1
 		}
 		line
 		{
-			dot = (1200, 500)	
+			dot = (1200, 500)
 			dot = (1500, 800)
+			flags = PORTAL
+			id = 0
+		}
+		line
+		{
+			dot = (1500, 800)
+			dot = (1800, 400)
+			flags = WALL
+			id = -1
 		}
 	}
 }

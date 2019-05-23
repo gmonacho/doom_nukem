@@ -8,6 +8,21 @@ void		add_linedef(t_linedef **lines, t_linedef *new_linedef)
 
 t_linedef	*init_linedef(t_linedef *line)
 {
+	if (line->p2.x - line->p1.x)
+	{
+		line->isequation = 1;
+		line->equation.a = (line->p2.y - line->p1.y) /\
+						(double)(line->p2.x - line->p1.x);
+		line->equation.b = line->p1.y - line->equation.a * line->p1.x;
+		line->angle = atan(line->equation.a);
+	}
+	else
+	{
+		line->isequation = 0;
+		line->equation.a = line->p1.x;
+		line->angle = M_PI_2;
+	}
+	line->next = NULL;
 	return (line);
 }
 

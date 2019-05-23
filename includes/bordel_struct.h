@@ -269,7 +269,7 @@ typedef struct		s_player
 	double			dir;
 	double			orientation;
 	int				hitbox;
-	int				sector;
+	t_sector		*sector;
 }					t_player;
 
 /*

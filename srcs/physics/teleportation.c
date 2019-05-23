@@ -5,25 +5,35 @@
 **	Le d1p2 doit etre "relier" au d2p1
 */
 
+t_sector		*get_sector(t_map *map, t_linedef *line)
+{
+	t_sector	*sector;
+	t_linedef	*tmp;
+
+	sector = map->sectors;
+	while (sector)
+	{
+		tmp = sector->lines;
+		while (tmp)
+		{
+			if (line == tmp)
+				return (sector);
+			tmp = tmp->next;
+		}
+		sector = sector->next;
+	}
+	return (NULL);
+}
+
 int				teleportation(t_map *tmap, t_sector *sector2,\
 						t_linedef *line1, t_linedef *line2)
 {
 	t_sector	*sector1;
-	t_linedef	*tmp;
 
 	//printf("Changes sector\n");
-	sector1 = tmap->sectors;
-	while (sector1)
-	{
-		tmp = sector1->lines;
-		while (tmp)
-		{
-			if (line1 == tmp)
-				break ;
-			tmp = tmp->next;
-		}
-		sector1 = sector1->next;
-	}
+	sector1 = get_sector(tmap, line1);
+	//printf("Sector 1 : %p\n", sector1);
+	//printf("Sector 2 : %p\n", sector2);
 	if (ft_abs(sector1->floor_height - sector2->floor_height) <\
 														tmap->player.hitbox / 2)
 	{
@@ -35,7 +45,8 @@ int				teleportation(t_map *tmap, t_sector *sector2,\
 									(t_dot){line1->p1.y, line1->p2.y},\
 									(t_dot){line2->p2.y, line2->p1.y}) +\
 					(tmap->player.vel.y > 0 ? 1 : -1) * tmap->player.hitbox};
-		tmap->player.dir += line2->angle - line1->angle;
+		tmap->player.dir -= line2->angle - line1->angle;
+		tmap->player.sector = sector2;
 		return (1);
 	}
 	//printf("Changes sector fin\n");

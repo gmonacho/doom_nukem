@@ -12,6 +12,7 @@ static int	actions(t_map *map, t_linedef *portal, t_player *player)
 	t_sector	*sector;
 	t_linedef	*line;
 
+	//printf("Flag : %u\n", portal->flags);
 	if (portal->flags & PORTAL)
 	{
 		sector = map->sectors;
@@ -22,6 +23,7 @@ static int	actions(t_map *map, t_linedef *portal, t_player *player)
 			{
 				if (portal->id == line->id && portal != line)
 				{
+					//printf("tp\n");
 					if (!teleportation(map, sector, portal, line))
 						player->vel = (t_fvector){0, 0};
 					return (0);
@@ -85,7 +87,7 @@ static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 			((line->p1.y <= collisiony && collisiony <= line->p2.y) ||\
 			(line->p2.y <= collisiony && collisiony <= line->p1.y))))
 		{
-			//printf("Collision x : %d\n", collisionx);
+			//printf("Collision x : %f\n", collisionx);
 			if (player->vel.x > 0)
 			{
 				if (player->pos.x < collisionx &&\
@@ -102,8 +104,8 @@ static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 
 int		move(t_map *map, t_player *player)
 {
-	int			i;
-	t_sector	*sector;
+	//int			i;
+	//t_sector	*sector;
 	t_linedef	*line;
 	t_affine	traj;
 
@@ -111,15 +113,14 @@ int		move(t_map *map, t_player *player)
 	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
 	if (!player->vel.x && !player->vel.y)
 		return (0);
-	i = -1;
+	/*i = -1;
 	sector = map->sectors;
 	while (++i < player->sector && sector)
 		sector = sector->next;
 	if (!sector)
 		return (1);
-	line = sector->lines;
-
-	//printf("\nVitesse x : %e\n", player->vel.x);
+	line = sector->lines;*/
+	line = player->sector->lines;
 	if ((int)(player->vel.x * 100))
 	{
 		//printf("Vitesse x != 0 : %f\n", player->vel.x);
