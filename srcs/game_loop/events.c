@@ -1,47 +1,72 @@
 #include "doom_nukem.h"
 
-static void	keyboard_move(t_map *map, t_player *player, const Uint8 *state)
+/*static void	mouse_move(t_player *player)
 {
-	map = NULL;
-	//printf("Keyboard begin move\n");
-	/*if (state[SDL_SCANCODE_W])
+	static t_dot	lastpos = (t_dot){-100, -100};
+	t_dot			newpos;
+
+	SDL_GetMouseState(&newpos.x, &newpos.y);
+	if (!(lastpos.x == -100 && lastpos.y == -100))
+	{
+		if (newpos.x != lastpos.x)
+		{
+			player->dir += (newpos.x - lastpos.x) / (double)400;
+			//printf("Dir : %f\n", player->dir);
+		}
+		if (newpos.y != lastpos.y)
+		{
+			//printf("dy\n");
+			player->orientation -= (newpos.y - lastpos.y) / (double)10;
+		}
+	}
+	lastpos = (t_dot){newpos.x, newpos.y};
+}*/
+
+static void	keyboard_dir(t_player *player, const Uint8 *state)
+{
+	if (state[SDL_SCANCODE_LEFT])
+		player->dir += 0.01;
+	if (state[SDL_SCANCODE_RIGHT])
+		player->dir -= 0.01;
+	if (state[SDL_SCANCODE_UP])
+		player->orientation += 0.01;
+	if (state[SDL_SCANCODE_DOWN])
+		player->orientation -= 0.01;
+}
+
+static void	keyboard_move(t_player *player, const Uint8 *state)
+{
+	if (state[SDL_SCANCODE_W])
 	{
 		player->vel.x += cos(player->dir) * player->const_vel;
 		player->vel.y += -sin(player->dir) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_S])
 	{
-		player->vel.x += cos(player->dir + PI) * player->const_vel;
-		player->vel.y += -sin(player->dir + PI) * player->const_vel;
+		player->vel.x += cos(player->dir + M_PI) * player->const_vel;
+		player->vel.y += -sin(player->dir + M_PI) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_A])
 	{
-		player->vel.x += cos(player->dir + PI / 2) * player->const_vel;
-		player->vel.y += -sin(player->dir + PI / 2) * player->const_vel;
+		player->vel.x += cos(player->dir + M_PI_2) * player->const_vel;
+		player->vel.y += -sin(player->dir + M_PI_2) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_D])
 	{
-		player->vel.x += cos(player->dir - M_PI / 2) * player->const_vel;
-		player->vel.y += -sin(player->dir - PI / 2) * player->const_vel;
-	}*/
-	if (state[SDL_SCANCODE_W])
-		player->vel.y -= player->const_vel;
-	if (state[SDL_SCANCODE_S])
-		player->vel.y += player->const_vel;
-	if (state[SDL_SCANCODE_A])
-		player->vel.x -= player->const_vel;
-	if (state[SDL_SCANCODE_D])
-		player->vel.x += player->const_vel;
-	//printf("Keyboard end move\n");
+		player->vel.x += cos(player->dir - M_PI_2) * player->const_vel;
+		player->vel.y += -sin(player->dir - M_PI_2) * player->const_vel;
+	}
 }
 
-int			keyboard_state(t_map *map, t_player *player)
+int			keyboard_state(t_player *player)
 {
 	const Uint8	*state;
 
-	//printf(".");
 	state = SDL_GetKeyboardState(NULL);
-	player->vel = (t_vector){.x = 0, .y = 0};
-	keyboard_move(map, player, state);
+	player->vel = (t_fvector){0, 0};
+	keyboard_move(player, state);
+	keyboard_dir(player, state);
+	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
+	//mouse_move(player);
 	return (0);
 }

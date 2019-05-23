@@ -10,11 +10,6 @@
 ** =====================================================================================
 */
 
-int			ret_error(const char *error_msg);
-void		*ret_null_error(const char *error_msg);
-int			ret_perror(const char *error_msg);
-void		*ret_null_perror(const char *error_msg);
-
 /*
 ** =====================================================================================
 ** ================================== EVENT ============================================
@@ -32,25 +27,27 @@ t_dot		mouse_drag(int x, int y, SDL_bool end);
 **	---------------------------------- Event ----------------------------------
 */
 
-int		    keyboard_state(t_map *map, t_player *player);
+int		    keyboard_state(t_player *player);
 int		    key_pressed(Uint32 sdl_keycode);
 
 /*
 **	---------------------------------- Time ----------------------------------
 */
 
-void	draw_fps();
-
 /*
 ** ==================== Error Management ==========================
 */
 
+int			ret_error(const char *error_msg);
+void		*ret_null_error(const char *error_msg);
+int			ret_perror(const char *error_msg);
+void		*ret_null_perror(const char *error_msg);
 
 /*
 **	====================== Time Managment ======================
 */
 
-void	draw_fps();
+void		draw_fps();
 
 /*
 ** ============================================================================
@@ -104,6 +101,12 @@ void	    draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
 void		draw(t_win *win, t_map *map, t_player *player);
 
 /*
+**	---------------------------------- Physics ----------------------------------
+*/
+
+void		teleportation(t_linedef *line1, t_linedef *line2, t_player *player);
+
+/*
 ** ==========================================================================
 ** ================================== DATA ==================================
 ** ==========================================================================
@@ -120,7 +123,7 @@ int		    parser_png(char *png_file);
 */
 
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
-t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags);
+t_linedef	*new_linedef(t_line line, char *name, SDL_Texture *texture, Uint32 flags);
 t_linedef	*new_void_linedef(void);
 int			get_nb_linedef(t_linedef *lines);
 
@@ -138,7 +141,7 @@ int			get_nb_sectors(t_sector *sector);
 **	---------------------------------- player ----------------------------------
 */
 
-int		move(t_map *map, t_player *player);
+int			move(t_map *map, t_player *player);
 
 /*
 **	---------------------------------- map ----------------------------------
@@ -154,7 +157,6 @@ void		delete_all_linedef(t_map_editor *map, Uint32 delete_flags);
 SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 void		map_zoom(t_map_editor *map, double zoom);
 void		map_add_line(t_map *map, int n_sector, t_linedef *line);
-t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags);
 
 /*
 ** =============================================================================
@@ -163,7 +165,7 @@ t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags);
 */
 
 int 		ft_parse_error(char **tab);
-void 		ft_data_storing(int fd, int fd1);
+t_sector	*ft_data_storing(int fd, int fd1);
 void		ft_find_coord_p1(t_sector *sector, char *tab);
 void		ft_find_coord_p2(t_sector *sector, char *tab);
 
@@ -203,8 +205,9 @@ int			move(t_map *map, t_player *player);
 */
 
 double		fdist(t_fdot p1, t_fdot p2);
-int		    dist(t_dot p1, t_dot p2);
+double		dist(t_dot p1, t_dot p2);
 double		mag(t_vector vector);
 int			sign(double nbr);
+double		map(double value, t_dot inter1, t_dot inter2);
 
 #endif
