@@ -16,8 +16,8 @@ map
 		{
 			dot = (1000, 400)
 			dot = (200, 200)
-			flags = WALL
-			id = -1
+			flags = PORTAL
+			id = 1
 		}
 		line
 		{
@@ -50,8 +50,8 @@ map
 		{
 			dot = (1800, 400)
 			dot = (1600, 300)
-			flags = WALL
-			id = -1
+			flags = PORTAL
+			id = 1
 		}
 		line
 		{

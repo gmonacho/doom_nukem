@@ -39,13 +39,15 @@ int				teleportation(t_map *tmap, t_sector *sector2,\
 	{
 		tmap->player.pos = (t_fdot){	map(tmap->player.pos.x,\
 									(t_dot){line1->p1.x, line1->p2.x},\
-									(t_dot){line2->p2.x, line2->p1.x}) +\
-					(tmap->player.vel.x > 0 ? 1 : -1) * tmap->player.hitbox,\
+									(t_dot){line2->p2.x, line2->p1.x}),\
 									map(tmap->player.pos.y,\
 									(t_dot){line1->p1.y, line1->p2.y},\
-									(t_dot){line2->p2.y, line2->p1.y}) +\
-					(tmap->player.vel.y > 0 ? 1 : -1) * tmap->player.hitbox};
+									(t_dot){line2->p2.y, line2->p1.y})};
 		tmap->player.dir -= line2->angle - line1->angle;
+		tmap->player.pos = (t_fdot){tmap->player.pos.x +\
+							cos(tmap->player.dir) * 2 * tmap->player.hitbox,\
+									tmap->player.pos.y +\
+							-sin(tmap->player.dir) * 2 * tmap->player.hitbox};
 		tmap->player.sector = sector2;
 		return (1);
 	}
