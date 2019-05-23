@@ -213,7 +213,7 @@ enum	e_flags
 
 typedef struct				s_linedef
 {
-	char				*name;
+	char *				name;
 	t_dot				p1;
 	t_dot				p2;
 	t_affine			equation;

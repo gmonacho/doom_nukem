@@ -7,13 +7,16 @@ SRCS_PATH_3 =	event
 SRCS_PATH_4 =	editor_loop
 SRCS_PATH_5 =	game_loop
 SRCS_PATH_6 =	physics
+SRCS_PATH_7 =   parsing
+
 SRCS =		$(wildcard $(SRCS_PATH)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_1)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_2)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_3)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_4)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_5)/*.c)\
-			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_6)/*.c)
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_6)/*.c)\
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_7)/*.c)\
 
 OBJS_PATH =	./objs
 OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
@@ -51,6 +54,8 @@ $(OBJS_PATH)/$(SRCS_PATH_5)/%.o : $(SRCS_PATH)/$(SRCS_PATH_5)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 $(OBJS_PATH)/$(SRCS_PATH_6)/%.o : $(SRCS_PATH)/$(SRCS_PATH_6)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_PATH_7)/%.o : $(SRCS_PATH)/$(SRCS_PATH_7)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
 
 directory:
 		@mkdir $(OBJS_PATH) 2> /dev/null || true
@@ -60,6 +65,7 @@ directory:
 		@mkdir $(OBJS_PATH)/$(SRCS_PATH_4) 2> /dev/null || true
 		@mkdir $(OBJS_PATH)/$(SRCS_PATH_5) 2> /dev/null || true
 		@mkdir $(OBJS_PATH)/$(SRCS_PATH_6) 2> /dev/null || true
+		@mkdir $(OBJS_PATH)/$(SRCS_PATH_7) 2> /dev/null || true
 
 clean:
 		rm -rf $(OBJS_PATH)

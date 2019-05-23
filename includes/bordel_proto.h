@@ -122,6 +122,7 @@ int		    parser_png(char *png_file);
 **	---------------------------------- linedef ----------------------------------
 */
 
+t_linedef	*init_linedef(t_linedef *line);
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
 t_linedef	*new_linedef(t_line line, char *name, SDL_Texture *texture, Uint32 flags);
 t_linedef	*new_void_linedef(void);
@@ -167,6 +168,7 @@ int 		ft_parse_error(char **tab);
 t_sector	*ft_data_storing(int fd, int fd1);
 void		ft_find_coord_p1(t_sector *sector, char *tab);
 void		ft_find_coord_p2(t_sector *sector, char *tab);
+int 	    ft_chose_type(char *tab);
 
 /*
 ** =================================================================================
