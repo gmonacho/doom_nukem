@@ -15,7 +15,6 @@ static int		find_portal_id(t_map *map, t_linedef *line1, int id)
 			if (id == line->id && line1 != line)
 			{
 				line1->destline = line;
-				line1->destsector = sector;
 				return (0);
 			}
 			line = line->next;
@@ -25,7 +24,7 @@ static int		find_portal_id(t_map *map, t_linedef *line1, int id)
 	return (1);
 }
 
-static int		init_portals(t_map *map)
+static int		init_lines(t_map *map)
 {
 	t_sector	*sector;
 	t_linedef	*line;
@@ -36,6 +35,7 @@ static int		init_portals(t_map *map)
 		line = sector->lines;
 		while (line)
 		{
+			line->sector = sector;
 			if (line->flags & PORTAL && find_portal_id(map, line, line->id))
 				return (1);
 			line = line->next;
@@ -72,7 +72,7 @@ static int		init(t_win *win, t_map *map, t_player *player)
 {
 	if (init_sectors(map, player))
 		return (1);
-	if (init_portals(map))
+	if (init_lines(map))
 		return (1);
 	win->w = 2000;
 	win->h = 1000;
@@ -145,8 +145,8 @@ int			main(int argc, char **argv)
 		return (0);
 	//SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
 
-	editor_loop(&win);
-	// game_loop(&win, &map);
+	// editor_loop(&win);
+	game_loop(&win, &map);
 
 	SDL_DestroyWindow(win.ptr);
 	SDL_DestroyRenderer(win.rend);

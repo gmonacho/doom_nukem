@@ -46,7 +46,7 @@ static int	actions(t_map *map, t_linedef *portal, t_player *player)
 {
 	if (!(portal->flags & PORTAL) ||\
 		(portal->flags & PORTAL &&\
-		!teleportation(map, portal, portal->destsector, portal->destline)))
+		!teleportation(map, portal, portal->destline)))
 	{
 		player->vel = (t_fvector){0, 0};
 		return (1);

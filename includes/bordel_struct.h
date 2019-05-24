@@ -220,7 +220,7 @@ enum	e_flags
 
 typedef struct				s_linedef
 {
-	char *				name;
+	char				*name;
 	t_dot				p1;
 	t_dot				p2;
 	t_affine			equation;
@@ -229,8 +229,8 @@ typedef struct				s_linedef
 	SDL_Texture			*texture;
 	Uint32				flags;
 	int					id;
+	struct s_sector		*sector;
 	struct s_linedef	*destline;
-	struct s_sector		*destsector;
 	struct s_linedef	*next;
 }						t_linedef;
 
