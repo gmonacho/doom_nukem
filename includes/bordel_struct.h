@@ -222,6 +222,8 @@ typedef struct				s_linedef
 	SDL_Texture			*texture;
 	Uint32				flags;
 	int					id;
+	struct s_linedef	*destline;
+	struct s_sector		*destsector;
 	struct s_linedef	*next;
 }						t_linedef;
 

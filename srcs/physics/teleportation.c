@@ -25,8 +25,8 @@ t_sector		*get_sector(t_map *map, t_linedef *line)
 	return (NULL);
 }
 
-int				teleportation(t_map *tmap, t_sector *sector2,\
-						t_linedef *line1, t_linedef *line2)
+int				teleportation(t_map *tmap, t_linedef *line1,\
+								t_sector *sector2, t_linedef *line2)
 {
 	t_sector	*sector1;
 
@@ -47,11 +47,11 @@ int				teleportation(t_map *tmap, t_sector *sector2,\
 
 		tmap->player.dir -= line2->angle - line1->angle;
 
-		tmap->player.pos = (t_fdot){tmap->player.pos.x +\
+	/*	tmap->player.pos = (t_fdot){tmap->player.pos.x +\
 		cos(tmap->player.dir) * (tmap->player.const_vel + tmap->player.width / 2),\
 									tmap->player.pos.y +\
 		-sin(tmap->player.dir) * (tmap->player.const_vel + tmap->player.width / 2)};
-
+*/
 		tmap->player.sector = sector2;
 		return (1);
 	}

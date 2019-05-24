@@ -27,5 +27,5 @@ void	draw(t_win *win, t_map *map, t_player *player)
 	draw_circle(win, (t_circle){player->pos.x, player->pos.y, player->width / 2});
 	draw_line(win, (t_dot){player->pos.x, player->pos.y}, (t_dot){player->pos.x + 30 * cos(player->dir),\
 										player->pos.y + 30 * -sin(player->dir)});
-	//draw_fps();
+	draw_fps();
 }

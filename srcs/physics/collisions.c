@@ -7,7 +7,7 @@
 **	-
 */
 
-static int	actions(t_map *map, t_linedef *portal, t_player *player)
+/*static int	actions(t_map *map, t_linedef *portal, t_player *player)
 {
 	t_sector	*sector;
 	t_linedef	*line;
@@ -37,6 +37,18 @@ static int	actions(t_map *map, t_linedef *portal, t_player *player)
 	{
 		player->vel = (t_fvector){0, 0};
 		//printf("Rm vitesse\n");
+		return (1);
+	}
+	return (0);
+}*/
+
+static int	actions(t_map *map, t_linedef *portal, t_player *player)
+{
+	if (!(portal->flags & PORTAL) ||\
+		(portal->flags & PORTAL &&\
+		!teleportation(map, portal, portal->destsector, portal->destline)))
+	{
+		player->vel = (t_fvector){0, 0};
 		return (1);
 	}
 	return (0);
@@ -85,7 +97,7 @@ static int	coef_null(t_map *map, t_linedef *line, t_player *player)
 // 			((line->p1.y <= collisiony && collisiony <= line->p2.y) ||\
 // 			(line->p2.y <= collisiony && collisiony <= line->p1.y))))
 // 		{
-// 			/*if (player->vel.x > 0)
+// 			if (player->vel.x > 0)
 // 			{
 // 				if (player->pos.x < collisionx &&\
 // 				collisionx <= player->pos.x + player->vel.x + player->width / 2)
@@ -93,8 +105,6 @@ static int	coef_null(t_map *map, t_linedef *line, t_player *player)
 // 			}
 // 			else if (player->pos.x > collisionx &&\
 // 				collisionx >= player->pos.x + player->vel.x - player->width / 2)
-// 				return (actions(map, line, player));*/
-// 			if (fdist(player->pos))
 // 				return (actions(map, line, player));
 // 		}
 // 	}
@@ -104,33 +114,97 @@ static int	coef_null(t_map *map, t_linedef *line, t_player *player)
 static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 						t_player *player)
 {
-	t_fdot	collision;
+	double	collisionx;
+	double	collisiony;
 
 	if (traj.a != line->equation.a)
 	{
 		if (line->isequation)
-			collision.x = (line->equation.b - traj.b) /\
+			collisionx = (line->equation.b - traj.b) /\
 							(traj.a - line->equation.a);
 		else
-			collision.x = line->equation.a;
-		collision.y = traj.a * collision.x + traj.b;
+			collisionx = line->equation.a;
+		collisiony = traj.a * collisionx + traj.b;
 		if ((line->isequation &&\
-			((line->p1.x <= collision.x && collision.x <= line->p2.x) ||\
-			(line->p2.x <= collision.x && collision.x <= line->p1.x))) ||\
+			((line->p1.x <= collisionx && collisionx <= line->p2.x) ||\
+			(line->p2.x <= collisionx && collisionx <= line->p1.x))) ||\
 			(!(line->isequation) &&\
-			((line->p1.y <= collision.y && collision.y <= line->p2.y) ||\
-			(line->p2.y <= collision.y && collision.y <= line->p1.y))))
+			((line->p1.y <= collisiony && collisiony <= line->p2.y) ||\
+			(line->p2.y <= collisiony && collisiony <= line->p1.y))))
 		{
-			if (fdist(player->pos, collision) <\
-									fmag(player->vel) + player->width / 2 &&\
-				fdist(collision, (t_fdot){player->pos.x + player->vel.x,\
-										player->pos.y + player->vel.y}) <\
-									fmag(player->vel))
-				return (actions(map, line, player));
+			if (player->vel.x > 0)
+			{
+				if (player->vel.y > 0)
+				{
+					if (player->pos.x < collisionx &&\
+						collisionx <= player->pos.x + player->vel.x + player->width / 2 && 
+						player->pos.y < collisiony &&\
+						collisiony <= player->pos.y + player->vel.y + player->width / 2)
+						return (actions(map, line, player));
+				}
+				else
+				{
+					if (player->pos.x < collisionx &&\
+						collisionx <= player->pos.x + player->vel.x + player->width / 2 &&\
+						player->pos.y > collisiony &&\
+						collisiony >= player->pos.y + player->vel.y - player->width / 2)
+						return (actions(map, line, player));
+				}
+			}
+			else
+			{
+				if (player->vel.y > 0)
+				{
+					if (player->pos.x > collisionx &&\
+						collisionx >= player->pos.x + player->vel.x - player->width / 2 &&\
+						player->pos.y < collisiony &&\
+						collisiony <= player->pos.y + player->vel.y + player->width / 2)
+						return (actions(map, line, player));
+				}
+				else
+				{
+					if (player->pos.x > collisionx &&\
+						collisionx >= player->pos.x + player->vel.x - player->width / 2 &&\
+						player->pos.y > collisiony &&\
+						collisiony >= player->pos.y + player->vel.y - player->width / 2)
+						return (actions(map, line, player));
+				}
+			}
 		}
 	}
 	return (0);
 }
+
+// static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
+// 						t_player *player)
+// {
+// 	t_fdot	collision;
+
+// 	if (traj.a != line->equation.a)
+// 	{
+// 		if (line->isequation)
+// 			collision.x = (line->equation.b - traj.b) /\
+// 							(traj.a - line->equation.a);
+// 		else
+// 			collision.x = line->equation.a;
+// 		collision.y = traj.a * collision.x + traj.b;
+// 		if ((line->isequation &&\
+// 			((line->p1.x <= collision.x && collision.x <= line->p2.x) ||\
+// 			(line->p2.x <= collision.x && collision.x <= line->p1.x))) ||\
+// 			(!(line->isequation) &&\
+// 			((line->p1.y <= collision.y && collision.y <= line->p2.y) ||\
+// 			(line->p2.y <= collision.y && collision.y <= line->p1.y))))
+// 		{
+// 			if (fdist(player->pos, collision) <\
+// 									fmag(player->vel) + player->width / 2 &&\
+// 				fdist(collision, (t_fdot){player->pos.x + player->vel.x,\
+// 										player->pos.y + player->vel.y}) <\
+// 									fmag(player->vel))
+// 				return (actions(map, line, player));
+// 		}
+// 	}
+// 	return (0);
+// }
 
 int		move(t_map *map, t_player *player)
 {

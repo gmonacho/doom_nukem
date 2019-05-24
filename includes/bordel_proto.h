@@ -200,8 +200,8 @@ int			move(t_map *map, t_player *player);
 ** ================================== Physics ===================================
 */
 
-int			teleportation(t_map *map, t_sector *sector2,\
-						t_linedef *line1, t_linedef *line2);
+int				teleportation(t_map *tmap, t_linedef *line1,\
+								t_sector *sector2, t_linedef *line2);
 
 /*
 ** =========================== Math functions ===================================
