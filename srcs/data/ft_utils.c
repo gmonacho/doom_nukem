@@ -22,6 +22,11 @@ double		mag(t_vector vector)
 	return (sqrt(vector.x * vector.x + vector.y * vector.y));
 }
 
+double		fmag(t_fvector vector)
+{
+	return (sqrt(vector.x * vector.x + vector.y * vector.y));
+}
+
 int			sign(double nbr)
 {
 	return (nbr < 0 ? -1 : 1);

@@ -54,48 +54,78 @@ static int	coef_null(t_map *map, t_linedef *line, t_player *player)
 		if (player->vel.y > 0)
 		{
 			if (player->pos.y < collisiony &&\
-				collisiony <= player->pos.y + player->vel.y + player->hitbox)
+				collisiony <= player->pos.y + player->vel.y + player->width / 2)
 				return (actions(map, line, player));
 		}
 		else if (player->pos.y > collisiony &&\
-				collisiony >= player->pos.y + player->vel.y - player->hitbox)
+				collisiony >= player->pos.y + player->vel.y - player->width / 2)
 			return (actions(map, line, player));
 	}
 	return (0);
 }
 
+// static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
+// 						t_player *player)
+// {
+// 	double	collisionx;
+// 	double	collisiony;
+
+// 	if (traj.a != line->equation.a)
+// 	{
+// 		if (line->isequation)
+// 			collisionx = (line->equation.b - traj.b) /\
+// 							(traj.a - line->equation.a);
+// 		else
+// 			collisionx = line->equation.a;
+// 		collisiony = traj.a * collisionx + traj.b;
+// 		if ((line->isequation &&\
+// 			((line->p1.x <= collisionx && collisionx <= line->p2.x) ||\
+// 			(line->p2.x <= collisionx && collisionx <= line->p1.x))) ||\
+// 			(!(line->isequation) &&\
+// 			((line->p1.y <= collisiony && collisiony <= line->p2.y) ||\
+// 			(line->p2.y <= collisiony && collisiony <= line->p1.y))))
+// 		{
+// 			/*if (player->vel.x > 0)
+// 			{
+// 				if (player->pos.x < collisionx &&\
+// 				collisionx <= player->pos.x + player->vel.x + player->width / 2)
+// 					return (actions(map, line, player));
+// 			}
+// 			else if (player->pos.x > collisionx &&\
+// 				collisionx >= player->pos.x + player->vel.x - player->width / 2)
+// 				return (actions(map, line, player));*/
+// 			if (fdist(player->pos))
+// 				return (actions(map, line, player));
+// 		}
+// 	}
+// 	return (0);
+// }
+
 static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 						t_player *player)
 {
-	double	collisionx;
-	double	collisiony;
+	t_fdot	collision;
 
 	if (traj.a != line->equation.a)
 	{
 		if (line->isequation)
-			collisionx = (line->equation.b - traj.b) /\
+			collision.x = (line->equation.b - traj.b) /\
 							(traj.a - line->equation.a);
 		else
-		{
-			collisionx = line->equation.a;
-			collisiony = traj.a * collisionx + traj.b;
-		}
+			collision.x = line->equation.a;
+		collision.y = traj.a * collision.x + traj.b;
 		if ((line->isequation &&\
-			((line->p1.x <= collisionx && collisionx <= line->p2.x) ||\
-			(line->p2.x <= collisionx && collisionx <= line->p1.x))) ||\
+			((line->p1.x <= collision.x && collision.x <= line->p2.x) ||\
+			(line->p2.x <= collision.x && collision.x <= line->p1.x))) ||\
 			(!(line->isequation) &&\
-			((line->p1.y <= collisiony && collisiony <= line->p2.y) ||\
-			(line->p2.y <= collisiony && collisiony <= line->p1.y))))
+			((line->p1.y <= collision.y && collision.y <= line->p2.y) ||\
+			(line->p2.y <= collision.y && collision.y <= line->p1.y))))
 		{
-			//printf("Collision x : %f\n", collisionx);
-			if (player->vel.x > 0)
-			{
-				if (player->pos.x < collisionx &&\
-				collisionx <= player->pos.x + player->vel.x + player->hitbox)
-					return (actions(map, line, player));
-			}
-			else if (player->pos.x > collisionx &&\
-				collisionx >= player->pos.x + player->vel.x - player->hitbox)
+			if (fdist(player->pos, collision) <\
+									fmag(player->vel) + player->width / 2 &&\
+				fdist(collision, (t_fdot){player->pos.x + player->vel.x,\
+										player->pos.y + player->vel.y}) <\
+									fmag(player->vel))
 				return (actions(map, line, player));
 		}
 	}
@@ -113,13 +143,6 @@ int		move(t_map *map, t_player *player)
 	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
 	if (!player->vel.x && !player->vel.y)
 		return (0);
-	/*i = -1;
-	sector = map->sectors;
-	while (++i < player->sector && sector)
-		sector = sector->next;
-	if (!sector)
-		return (1);
-	line = sector->lines;*/
 	line = player->sector->lines;
 	if ((int)(player->vel.x * 100))
 	{

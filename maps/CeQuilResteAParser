@@ -1,0 +1,19 @@
+map
+{
+	Player
+	{
+		x = 0
+		y = 0
+		width = 2
+		height = 6
+		sector = 0
+		velocity = 1
+	}
+	Sector
+	{
+		line
+		{
+			texture = 1 | 2 | 3 | ...
+		}
+	}
+}

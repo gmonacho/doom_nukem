@@ -252,6 +252,7 @@ typedef struct				s_sector
 	int						ceil_height;
 	SDL_Texture				*ceil_texture;
 
+	int						height;
 	int						light_level;
     t_linedef				*lines;
 	struct	s_sector 		*next;
@@ -268,7 +269,9 @@ typedef struct		s_player
 	double			const_vel;
 	double			dir;
 	double			orientation;
-	int				hitbox;
+	int				width;
+	int				height;
+	int				numsector;
 	t_sector		*sector;
 }					t_player;
 

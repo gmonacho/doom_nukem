@@ -1,35 +1,41 @@
 #include <fcntl.h>
 #include "doom_nukem.h"
 
-/*static int	init_equations(t_map *map)
+static int		init_sectors(t_map *map, t_player *player)
 {
 	t_sector	*sector;
-	t_linedef	*line;
+	int			i;
+
 	sector = map->sectors;
 	while (sector)
 	{
-		line = sector->lines;
-		while (line)
-		{
-			line->equation.a = (line->p2.y - line->p1.y) /\
-								(line->p2.x - line->p1.x);
-			line->equation.b = line->p1.y - line->equation.a * line->p1.x;
-			line = line->next;
-		}
+		if (sector->floor_height >= sector->ceil_height)
+			return (1);
+		sector->height = sector->ceil_height - sector->floor_height;
 		sector = sector->next;
 	}
-	return (SUCCESS);
-}*/
+	player->numsector = 0;	//A parser
+	player->sector = map->sectors;
+	i = -1;
+	while (++i < player->numsector)
+		player->sector = player->sector->next;
+	if (player->height > player->sector->height)
+		return (1);
+	return (0);
+}
 
-static int	init(t_win *win, t_map *map, t_player *player)
+static int		init(t_win *win, t_map *map, t_player *player)
 {
+	if (init_sectors(map, player))
+		return (1);
 	win->w = 2000;
 	win->h = 1000;
 	player->pos = (t_fdot){2 * win->w / 3, win->h / 2 + 100};
-	player->const_vel = 1;
+	player->const_vel = 2;
 	player->dir = M_PI_2;
-	player->hitbox = 10;
-	player->sector = map->sectors;
+	player->width = 20;
+	player->height = 100;
+
 	/*add_sector(&map->sectors, new_sector());
 
 	tmp = new_linedef((t_line){(t_dot){win->w / 6, win->h / 4},\
@@ -66,7 +72,7 @@ static int	init(t_win *win, t_map *map, t_player *player)
 						NULL, WALL);
 	add_linedef(&map->sectors->lines, tmp);*/
 
-	return (1);
+	return (0);
 }
 
 int			main(int argc, char **argv)
@@ -84,8 +90,8 @@ int			main(int argc, char **argv)
 
 	map.sectors = ft_data_storing(fd, fd1);
 
-	if (init(&win, &map, &(map.player)) < 0)
-		return (ret_error("init error"));
+	if (init(&win, &map, &(map.player)))
+		return (ret_error("Init error"));
 	if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
 		return (ret_error(SDL_GetError()));
 
