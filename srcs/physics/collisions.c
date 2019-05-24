@@ -76,41 +76,6 @@ static int	coef_null(t_map *map, t_linedef *line, t_player *player)
 	return (0);
 }
 
-// static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
-// 						t_player *player)
-// {
-// 	double	collisionx;
-// 	double	collisiony;
-
-// 	if (traj.a != line->equation.a)
-// 	{
-// 		if (line->isequation)
-// 			collisionx = (line->equation.b - traj.b) /\
-// 							(traj.a - line->equation.a);
-// 		else
-// 			collisionx = line->equation.a;
-// 		collisiony = traj.a * collisionx + traj.b;
-// 		if ((line->isequation &&\
-// 			((line->p1.x <= collisionx && collisionx <= line->p2.x) ||\
-// 			(line->p2.x <= collisionx && collisionx <= line->p1.x))) ||\
-// 			(!(line->isequation) &&\
-// 			((line->p1.y <= collisiony && collisiony <= line->p2.y) ||\
-// 			(line->p2.y <= collisiony && collisiony <= line->p1.y))))
-// 		{
-// 			if (player->vel.x > 0)
-// 			{
-// 				if (player->pos.x < collisionx &&\
-// 				collisionx <= player->pos.x + player->vel.x + player->width / 2)
-// 					return (actions(map, line, player));
-// 			}
-// 			else if (player->pos.x > collisionx &&\
-// 				collisionx >= player->pos.x + player->vel.x - player->width / 2)
-// 				return (actions(map, line, player));
-// 		}
-// 	}
-// 	return (0);
-// }
-
 static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 						t_player *player)
 {

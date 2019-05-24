@@ -3,35 +3,14 @@
 /*
 **	Le d1p1 doit etre "relier" au d2p2
 **	Le d1p2 doit etre "relier" au d2p1
+**	Selon le sens de la demi-droite [p1p2) j'ajoute PI ou pas a son angle
+**	car le coef directeur est le meme pour les 2
 */
-
-/*static t_sector	*get_sector(t_map *map, t_linedef *line)
-{
-	t_sector	*sector;
-	t_linedef	*tmp;
-
-	sector = map->sectors;
-	while (sector)
-	{
-		tmp = sector->lines;
-		while (tmp)
-		{
-			if (line == tmp)
-				return (sector);
-			tmp = tmp->next;
-		}
-		sector = sector->next;
-	}
-	return (NULL);
-}*/
 
 int				teleportation(t_map *tmap,\
 								t_linedef *line1, t_linedef *line2)
 {
-	//t_sector	*sector1;
-
 	//printf("Changes sector\n");
-	//sector1 = get_sector(tmap, line1);
 	if (line1->sector->floor_height + tmap->player.height / 2 >=\
 										line2->sector->floor_height &&\
 		tmap->player.height <= line2->sector->height)
