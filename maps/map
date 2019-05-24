@@ -6,12 +6,14 @@ map
 		y = 0
 		width = 2
 		height = 6
+		sector = 0
+		velocity = 1
 	}
 	Sector
 	{
 		name = jean-giordan
-		floorHeight = 25
-		ceilHeight = 10
+		ceilHeight = 200
+		floorHeight = 0
 		line
 		{
 			dot = (1000, 400)
@@ -44,8 +46,8 @@ map
 	Sector
 	{
 		name = jean-ducimet
-		floorHeight = 25
-		ceilHeight = 10
+		ceilHeight = 200
+		floorHeight = 40
 		line
 		{
 			dot = (1800, 400)

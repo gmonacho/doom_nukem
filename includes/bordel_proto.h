@@ -218,6 +218,7 @@ int			teleportation(t_map *map, t_sector *sector2,\
 double		fdist(t_fdot p1, t_fdot p2);
 double		dist(t_dot p1, t_dot p2);
 double		mag(t_vector vector);
+double		fmag(t_fvector vector);
 int			sign(double nbr);
 double		map(double value, t_dot inter1, t_dot inter2);
 

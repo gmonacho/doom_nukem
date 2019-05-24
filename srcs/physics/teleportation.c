@@ -34,20 +34,24 @@ int				teleportation(t_map *tmap, t_sector *sector2,\
 	sector1 = get_sector(tmap, line1);
 	//printf("Sector 1 : %p\n", sector1);
 	//printf("Sector 2 : %p\n", sector2);
-	if (ft_abs(sector1->floor_height - sector2->floor_height) <\
-														tmap->player.hitbox / 2)
+	if (sector1->floor_height + tmap->player.height / 2 >=\
+													sector2->floor_height &&\
+		tmap->player.height <= sector2->height)
 	{
-		tmap->player.pos = (t_fdot){	map(tmap->player.pos.x,\
+		tmap->player.pos = (t_fdot){map(tmap->player.pos.x,\
 									(t_dot){line1->p1.x, line1->p2.x},\
 									(t_dot){line2->p2.x, line2->p1.x}),\
 									map(tmap->player.pos.y,\
 									(t_dot){line1->p1.y, line1->p2.y},\
 									(t_dot){line2->p2.y, line2->p1.y})};
+
 		tmap->player.dir -= line2->angle - line1->angle;
+
 		tmap->player.pos = (t_fdot){tmap->player.pos.x +\
-							cos(tmap->player.dir) * 2 * tmap->player.hitbox,\
+		cos(tmap->player.dir) * (tmap->player.const_vel + tmap->player.width / 2),\
 									tmap->player.pos.y +\
-							-sin(tmap->player.dir) * 2 * tmap->player.hitbox};
+		-sin(tmap->player.dir) * (tmap->player.const_vel + tmap->player.width / 2)};
+
 		tmap->player.sector = sector2;
 		return (1);
 	}
