@@ -15,6 +15,13 @@ typedef struct		s_fdot
 	double			y;
 }					t_fdot;
 
+typedef struct		s_size
+{
+	int				w;
+	int				h;
+}					t_size;
+
+
 typedef struct		s_line
 {
 	t_dot			p1;

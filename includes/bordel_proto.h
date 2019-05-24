@@ -55,6 +55,13 @@ void		draw_fps();
 ** ============================================================================
 */
 
+/*
+**	---------------------------------- text ----------------------------------
+*/
+
+SDL_Texture		*generate_text(SDL_Renderer *rend, TTF_Font *font, const char *text, SDL_Color fg);
+SDL_Texture		*create_bg_text_input(t_win *win, SDL_Rect rect, SDL_Color l_color, SDL_Color r_color);
+SDL_Texture		*blit_text(SDL_Renderer *rend, SDL_Texture *bg_texture, SDL_Texture *text, SDL_Rect *text_rect);
 
 /*
 **	---------------------------------- button ----------------------------------
@@ -184,8 +191,9 @@ SDL_bool 	is_next_point(t_dot dot, t_dot other, int distance);
 */
 
 int			editor_loop(t_win *win);
-void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 int			editor_event(t_win *win, t_map_editor *map, SDL_bool *loop);
+void		resolve_ui_left_release(t_win *win, t_map_editor *map);
+void			editor_display(t_win *win, const t_map_editor *map);
 
 /*
 ** ===============================================================================

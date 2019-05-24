@@ -1,75 +1,11 @@
 #include "doom_nukem.h"
 
-static void			editor_display(t_win *win, const t_map_editor *map)
-{
-	t_dot		p1;
-	t_dot		p2;
-	t_sector	*s;
-	t_linedef	*l;
-	t_frame		*f;
-	t_button	*b;
 
-	SDL_SetRenderDrawColor(win->rend, 100, 100, 100, 255);
-	draw_rect(win, (SDL_Rect){map->x, map->y, map->w * map->unit, map->h * map->unit});
-	SDL_SetRenderDrawColor(win->rend, 150, 150, 150, 200);
-	if (map->flags & MAP_SELECTING)
-		draw_rect(win, map->rect_util);
-	if (map->selected_sector)
-	{
-		s = map->selected_sector;
-		l = s->lines;
-		while (l)
-		{
-			if (l->flags & LINEDEF_SELECTED)
-				SDL_SetRenderDrawColor(win->rend, 0, 175, 175, 255);
-			else if (l->flags & LINEDEF_MOUSE_POINTED)
-				SDL_SetRenderDrawColor(win->rend, 50, 150, 150, 255);
-			else
-				SDL_SetRenderDrawColor(win->rend, s->color.selected_color.r,
-													s->color.selected_color.g,
-													s->color.selected_color.b,
-													s->color.selected_color.a);
-			p1 = (t_dot){l->p1.x * map->unit + map->x, l->p1.y * map->unit + map->y};
-			p2 = (t_dot){l->p2.x * map->unit + map->x, l->p2.y * map->unit + map->y};
-			if (is_in_screen(win, p1) || is_in_screen(win, p2))
-				draw_line(win, p1, p2);
-			l = l->next;
-		}
-	}
-	SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
-	f = win->frames;
-	while (f)
-	{
-		if (!(f->flags & FRAME_HIDE))
-		{
-			if (f->texture)
-				printf("texture\n");
-			else
-				draw_ratio_rect(win, &(SDL_Rect){0, 0, win->w, win->h}, &f->ratio);
-			b = f->buttons;
-			while (b)
-			{
-				if (b->texture)
-					SDL_RenderCopy(win->rend, b->texture, NULL, &b->rect);
-				else
-					draw_ratio_rect(win, &f->rect, &b->ratio);
-				if (b->flags & BUTTON_COLOR_PICKER)
-				{
-					draw_color_picker(win, map->selected_sector->color.pos, b->rect);
-					SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
-				}
-				b = b->next;
-			}
-		}
-		f = f->next;
-	}
-	draw_fps();
-}
 
 static int		text_init(t_win *win)
 {
 	SDL_Surface		*surface;
-	SDL_Texture		*tmp;
+	SDL_Texture		*t;
 	char			*str;
 	int				i;
 
@@ -91,9 +27,9 @@ static int		text_init(t_win *win)
 		}
 		if (!(surface = TTF_RenderText_Solid(win->font, str, (SDL_Color){200, 200, 200, 255})))
 			return (0);
-		if (!(tmp = SDL_CreateTextureFromSurface(win->rend, surface)))
+		if (!(t = SDL_CreateTextureFromSurface(win->rend, surface)))
 			return (0);
-		SDL_SetTextureBlendMode(tmp, SDL_BLENDMODE_BLEND);
+		SDL_SetTextureBlendMode(t, SDL_BLENDMODE_BLEND);
 		if (!(win->sectors_texture[i] = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, 30, 30)))
 			return (0);
 		if (!(win->sectors_texture_selected[i] = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, 30, 30)))
@@ -104,45 +40,43 @@ static int		text_init(t_win *win)
 		SDL_SetRenderTarget(win->rend, win->sectors_texture[i]);
 		SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 0);
 		SDL_RenderClear(win->rend);
-		SDL_RenderCopy(win->rend, tmp, NULL, &(SDL_Rect){10, 10, 12, 12});
+		SDL_RenderCopy(win->rend, t, NULL, &(SDL_Rect){10, 10, 12, 12});
 
 		SDL_SetRenderTarget(win->rend, win->sectors_texture_selected[i]);
 		SDL_SetRenderDrawColor(win->rend, 70, 70, 70, 100);
 		SDL_RenderClear(win->rend);
-		SDL_RenderCopy(win->rend, tmp, NULL, &(SDL_Rect){10, 10, 12, 12});
+		SDL_RenderCopy(win->rend, t, NULL, &(SDL_Rect){10, 10, 12, 12});
 
-		SDL_DestroyTexture(tmp);
+		SDL_DestroyTexture(t);
 		SDL_FreeSurface(surface);
 		i++;
 	}
-	if (!(win->text_entry_texture = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, 300, 100)))
-		return (ret_error("text_entry_texture allocation failed in text_init"));
-	SDL_SetTextureBlendMode(win->text_entry_texture, SDL_BLENDMODE_BLEND);
-	SDL_SetRenderTarget(win->rend, win->text_entry_texture);
-	SDL_SetRenderDrawColor(win->rend, 255, 0, 0, 255);
-	SDL_RenderClear(win->rend);
-	SDL_SetRenderDrawColor(win->rend, 40, 40, 40, 255);
-	fill_rect(win, (SDL_Rect){100, 0, 200, 100});
-	SDL_SetRenderDrawColor(win->rend, 80, 80, 80, 255);
-	fill_rect(win, (SDL_Rect){0, 0, 100, 100});
-	if (!(surface = TTF_RenderText_Solid(win->font, "name", (SDL_Color){200, 200, 200, 255})))
-		return (0);
-	if (!(tmp = SDL_CreateTextureFromSurface(win->rend, surface)))
-		return (0);
-	SDL_RenderCopy(win->rend, tmp, NULL, &(SDL_Rect){10, 24, 80, 75});
+	if (!(win->text_entry_texture = create_bg_text_input(win, (SDL_Rect){100, -1, 300, 100},
+																(SDL_Color){80, 80, 80, 255},
+																(SDL_Color){40, 40, 40, 255})))
+		return (ret_error("bg_text_input creation failed in text init"));
 	SDL_SetRenderTarget(win->rend, NULL);
 	return (1);
 }
 
 static int		ui_init(t_win *win)
 {
+	SDL_Texture	*text;
+	SDL_Texture	*t;
+
 	//	sector frame
 	add_frame_to_window(win, new_frame((t_frect){0.05, 0.02, 0.9, 0.05}, NULL, FRAME_SECTORS, NULL));
 	add_button_to_frame(&win->frames, new_button((t_frect){0, 0, 1.0 / MAX_SECTORS, 1}, win->sectors_texture[MAX_SECTORS], BUTTON_NONE));
 	//	info sector frame
 	add_frame_to_window(win, new_frame((t_frect){0.02, 0.1, 0.15, 0.4}, NULL, FRAME_INFO | FRAME_HIDE, NULL));
+	//		text_input
+	//			name
+	if (!(text = generate_text(win->rend, win->font, "name",  (SDL_Color){200, 200, 200, 255})))
+		return (ret_error("text generation failed in ui_init"));
+	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
+		return (ret_error("blit_text failed in ui_init"));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.1, 0.8, 0.05}, t, BUTTON_TEXT_ENTRY));
 	//		color_picker
-	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.1, 0.8, 0.05}, win->text_entry_texture, BUTTON_TEXT_ENTRY));
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.85, 0.8, 0.1}, NULL, BUTTON_COLOR_PICKER));
 	return (1);
 }
