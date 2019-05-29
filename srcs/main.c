@@ -79,6 +79,7 @@ static int		init(t_win *win, t_map *map, t_player *player)
 	player->pos = (t_fdot){2 * win->w / 3, win->h / 2 + 100};
 	player->const_vel = 1;
 	player->dir = M_PI_2;
+	player->fov = 3 * M_PI_4;
 	player->width = 20;
 	player->height = 100;
 
@@ -145,8 +146,8 @@ int			main(int argc, char **argv)
 		return (0);
 	//SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
 
-	// editor_loop(&win);
-	game_loop(&win, &map);
+	editor_loop(&win);
+	// game_loop(&win, &map);
 
 	SDL_DestroyWindow(win.ptr);
 	SDL_DestroyRenderer(win.rend);

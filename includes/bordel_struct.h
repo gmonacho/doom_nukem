@@ -278,6 +278,7 @@ typedef struct		s_player
 	double			const_vel;
 	double			dir;
 	double			orientation;
+	double			fov;
 	int				width;
 	int				height;
 	int				numsector;
