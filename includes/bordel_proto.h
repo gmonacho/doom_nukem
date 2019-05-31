@@ -201,14 +201,14 @@ void			editor_display(t_win *win, const t_map_editor *map);
 ** ===============================================================================
 */
 
-int			game_loop(t_win *win, t_map *map);
-int			move(t_map *map, t_player *player);
-
 /*
 ** ================================== Physics ===================================
 */
 
-int				teleportation(t_map *tmap, t_linedef *line1,\
+int			game_loop(t_win *win, t_map *map);
+int			raycasting(t_win *win, t_player *player);
+int			move(t_map *map, t_player *player);
+int			teleportation(t_map *tmap, t_linedef *line1,\
 								t_linedef *line2);
 
 /*

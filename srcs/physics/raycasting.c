@@ -10,16 +10,34 @@
 **	Si les y des projections sont respectivement aux dessus des points alors le segment est en dessous
 **	Si les y des projections sont respectivement en dessous des points alors le segment est au dessus
 **	Si un est en dessous et l'autre au dessus alors la droite coupe le segment
+**
+**	Mur sans equations !
+**	Ray sans equation !!
+**
 */
 
-void			print_wall(t_linedef *wall, t_fdot collision, double dist)
+void			print_wall(t_win *win, t_linedef *wall, double dist, int column)
 {
-	wall = NULL;
-	collision.x = 0;
-	dist = 0;
+	t_dot		top;
+	t_dot		bottom;
+	double		h;
+
+	h = 10000 / dist;
+	top = (t_dot){column, win->h / 2 - h};
+	bottom = (t_dot){column, win->h / 2 + h};
+
+	SDL_SetRenderDrawColor(win->rend, 0x40, 0x40, 0x40, 255);
+	draw_line(win, (t_dot){column, 0}, top);
+	draw_line(win, bottom, (t_dot){column, win->h});
+
+	if (wall->flags & PORTAL)
+		SDL_SetRenderDrawColor(win->rend, 0xDD, 0x40, 0x40, 255);
+	else if (wall->flags & WALL)
+		SDL_SetRenderDrawColor(win->rend, 0x40, 0xDD, 0x40, 255);
+	draw_line(win, top, bottom);
 }
 
-void			find_wall(t_player *player, t_affine ray)
+void			find_wall(t_win *win, t_player *player, t_affine ray, int column)
 {
 	t_linedef	*line;
 	t_linedef	*wall;
@@ -42,8 +60,9 @@ void			find_wall(t_player *player, t_affine ray)
 			wall = line;
 		}
 		line = line->next;
+		printf("Test wall\n");
 	}
-	print_wall(wall, closest, dist);
+	print_wall(win, wall, dist, column);
 }
 
 int				raycasting(t_win *win, t_player *player)
@@ -61,8 +80,9 @@ int				raycasting(t_win *win, t_player *player)
 		//ray = (t_fvector){cos(alpha), sin(alpha)};
 		ray.a = tan(alpha);
 		ray.b = player->pos.y - ray.a * player->pos.x;
-		find_wall(player, ray);
+		find_wall(win, player, ray, column);
 		alpha += dangle;
+		printf("New x\n");
 	}
 	return (0);
 }
