@@ -1,6 +1,50 @@
 #include <fcntl.h>
 #include "doom_nukem.h"
 
+static int		find_portal_id(t_map *map, t_linedef *line1, int id)
+{
+	t_sector	*sector;
+	t_linedef	*line;
+
+	sector = map->sectors;
+	while (sector)
+	{
+		line = sector->lines;
+		while (line)
+		{
+			if (id == line->id && line1 != line)
+			{
+				line1->destline = line;
+				return (0);
+			}
+			line = line->next;
+		}
+		sector = sector->next;
+	}
+	return (1);
+}
+
+static int		init_lines(t_map *map)
+{
+	t_sector	*sector;
+	t_linedef	*line;
+
+	sector = map->sectors;
+	while (sector)
+	{
+		line = sector->lines;
+		while (line)
+		{
+			line->sector = sector;
+			if (line->flags & PORTAL && find_portal_id(map, line, line->id))
+				return (1);
+			line = line->next;
+		}
+		sector = sector->next;
+	}
+	return (0);
+}
+
 static int		init_sectors(t_map *map, t_player *player)
 {
 	t_sector	*sector;
@@ -28,11 +72,14 @@ static int		init(t_win *win, t_map *map, t_player *player)
 {
 	if (init_sectors(map, player))
 		return (1);
+	if (init_lines(map))
+		return (1);
 	win->w = 2000;
 	win->h = 1000;
 	player->pos = (t_fdot){2 * win->w / 3, win->h / 2 + 100};
-	player->const_vel = 2;
+	player->const_vel = 1;
 	player->dir = M_PI_2;
+	player->fov = 3 * M_PI_4;
 	player->width = 20;
 	player->height = 100;
 
@@ -99,8 +146,8 @@ int			main(int argc, char **argv)
 		return (0);
 	//SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
 
-	editor_loop(&win);
-	// game_loop(&win, &map);
+	// editor_loop(&win);
+	game_loop(&win, &map);
 
 	SDL_DestroyWindow(win.ptr);
 	SDL_DestroyRenderer(win.rend);

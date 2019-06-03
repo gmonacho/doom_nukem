@@ -31,15 +31,15 @@ map
 		line
 		{
 			dot = (600, 500)	
-			dot = (1000, 700)
+			dot = (1100, 700)
 			flags = WALL
-			id = -1
+			id = 2
 		}
 		line
 		{
-			dot = (1000, 700)
+			dot = (1100, 700)
 			dot = (1000, 400)
-			flags = PORTAL
+			flags = WALL
 			id = 0
 		}
 	}
@@ -52,21 +52,21 @@ map
 		{
 			dot = (1800, 400)
 			dot = (1600, 300)
-			flags = PORTAL
+			flags = WALL
 			id = 1
 		}
 		line
 		{
 			dot = (1600, 300)
 			dot = (1200, 500)
-			flags = WALL
-			id = -1
+			flags = PORTAL
+			id = 2
 		}
 		line
 		{
 			dot = (1200, 500)
 			dot = (1500, 800)
-			flags = PORTAL
+			flags = WALL
 			id = 0
 		}
 		line
@@ -74,7 +74,7 @@ map
 			dot = (1500, 800)
 			dot = (1800, 400)
 			flags = WALL
-			id = -1
+			id = 3
 		}
 	}
 }

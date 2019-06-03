@@ -10,6 +10,7 @@ int		game_loop(t_win *win, t_map *map)
 	{
 		while (loop)
 		{
+			clear_rend(win->rend, 0, 0, 0);
 			SDL_PumpEvents();
 			SDL_PollEvent(&event);
 			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
@@ -18,7 +19,6 @@ int		game_loop(t_win *win, t_map *map)
 
 			move(map, &(map->player));
 			//entiteMove();
-			//raycasting();
 			//orientation();	//Haut bas
 
 			draw(win, map, &(map->player));
