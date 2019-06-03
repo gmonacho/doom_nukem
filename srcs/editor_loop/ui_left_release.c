@@ -49,7 +49,6 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 	f = win->selected_frame;
 	if (f->flags & FRAME_SECTORS)
 	{
-		printf("al\n");
 		if (win->mouse->x < f->rect.x + (f->rect.w / MAX_SECTORS) * (f->nb_buttons - 1))
 		{
 			i_sector = (win->mouse->x - f->rect.x) / (f->rect.w / MAX_SECTORS);
@@ -83,7 +82,6 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 				b = b->next;
 				i++;
 			}
-			printf("map->selected_sector = %p\n", map->selected_sector);
 		}
 		else if (win->mouse->x > f->rect.x + (f->rect.w / MAX_SECTORS) * (f->nb_buttons - 1) &&
 				win->mouse->x < f->rect.x + (f->rect.w / MAX_SECTORS) * f->nb_buttons)

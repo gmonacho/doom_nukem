@@ -3,7 +3,7 @@
 static void		update_selected_ui(t_win *win)
 {
 	t_frame		*f;
-	t_button	*button_tmp;
+	t_button	*b;
 
 	win->selected_frame = NULL;
 	win->selected_button = NULL;
@@ -15,17 +15,17 @@ static void		update_selected_ui(t_win *win)
 			if (is_in_rect(f->rect, (t_dot){win->mouse->x, win->mouse->y}))
 			{
 				win->selected_frame = f;
-				button_tmp = f->buttons;
-				while (button_tmp)
+				b = f->buttons;
+				while (b)
 				{
-					if (is_in_rect(button_tmp->rect, (t_dot){win->mouse->x, win->mouse->y}))
+					if (is_in_rect(b->rect, (t_dot){win->mouse->x, win->mouse->y}))
 					{
-						win->selected_button = button_tmp;
-						button_tmp = NULL;
+						win->selected_button = b;
+						b = NULL;
 						f = NULL;
 					}
-					if (button_tmp)
-						button_tmp = button_tmp->next;
+					if (b)
+						b = b->next;
 				}
 			}
 		}
@@ -36,27 +36,45 @@ static void		update_selected_ui(t_win *win)
 
 static void		update_ui_rect(t_win *win)
 {
-	t_frame		*frame_tmp;
-	t_button	*button_tmp;
+	t_frame		*f;
+	t_button	*b;
 
-	frame_tmp = win->frames;
-	while (frame_tmp)
+	f = win->frames;
+	while (f)
 	{
-		frame_tmp->rect = (SDL_Rect){win->w * frame_tmp->ratio.x,
-										win->h * frame_tmp->ratio.y,
-										win->w * frame_tmp->ratio.w,
-										win->h * frame_tmp->ratio.h};
-		button_tmp = frame_tmp->buttons;
-		while (button_tmp)
+		f->rect = (SDL_Rect){win->w * f->ratio.x,
+										win->h * f->ratio.y,
+										win->w * f->ratio.w,
+										win->h * f->ratio.h};
+		b = f->buttons;
+		while (b)
 		{
-			button_tmp->rect = (SDL_Rect){button_tmp->ratio.x * frame_tmp->rect.w + frame_tmp->rect.x,
-								button_tmp->ratio.y * frame_tmp->rect.h + frame_tmp->rect.y,
-								button_tmp->ratio.w * frame_tmp->rect.w,
-								button_tmp->ratio.h * frame_tmp->rect.h};
-			button_tmp = button_tmp->next;
+			b->rect = (SDL_Rect){b->ratio.x * f->rect.w + f->rect.x,
+								b->ratio.y * f->rect.h + f->rect.y,
+								b->ratio.w * f->rect.w,
+								b->ratio.h * f->rect.h};
+			b = b->next;
 		}
-		frame_tmp = frame_tmp->next;
+		f = f->next;
 	}
+}
+
+static char			*str_conca(const char *s1, char c)
+{
+	char	*str;
+	int		i;
+
+	if (!(str = (char*)ft_memalloc(sizeof(char) * (ft_strlen(s1) + 2))))
+		return (ret_null_error("str allocation failed in str_conca"));
+	i = 0;
+	if (s1)
+	{
+		while (*s1)
+			str[i++] = *s1++;
+	}
+	str[i++] = c;
+	str[i] = '\0';
+	return (str);
 }
 
 int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
@@ -64,12 +82,13 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	SDL_Event	event;
 	t_linedef	*tmp;
 	t_dot		dot;
+	char		*str;
+
 
 	tmp = NULL;
-	SDL_PumpEvents();
-	mouse_refresh();
 	SDL_PollEvent(&event);
-	if (event.type == SDL_QUIT)
+	mouse_refresh();
+	if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
 		*loop = SDL_FALSE;
 	else if (event.type == SDL_MOUSEMOTION)
 	{
@@ -90,9 +109,23 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			update_ui_rect(win);
 		}
 	}
+	else if (event.type == SDL_TEXTINPUT && map->flags == MAP_TEXT_EDITING)
+	{
+		str = map->selected_sector->name;
+		// printf("event.text = %s\n", event.text.text);
+		if (!(map->selected_sector->name = str_conca(map->selected_sector->name, event.text.text[0])))
+			return (ret_error("ft_strjoin failed in editor_event during TEXTINPUT event"));
+		if (!(win->text_outpout = generate_text(win->rend, win->font, map->selected_sector->name, (SDL_Color){200, 200, 200, 255})))
+			return (ret_error("text generation failed in editor_event during TEXTINPUT event"));
+		
+		ft_strdel(&str);
+		printf("text = %s\n", map->selected_sector->name);
+	}
 	if (win->mouse->button[MOUSE_LEFT].pressing)
 	{
-		if (!win->selected_frame)
+		if (win->selected_frame)
+			resolve_ui_left_press(win, map);
+		else
 		{
 			dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
 			if (!key_pressed(SC_DRAW_FREE))
@@ -123,13 +156,13 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			}
 		}
 	}
-
+	
 	if (win->mouse->button[MOUSE_RIGHT].pressing)
 	{
 		if (!win->selected_frame)
 		{
 			map->rect_util = (SDL_Rect){win->mouse->x, win->mouse->y, 0, 0};
-			map->flags = map->flags | MAP_SELECTING;
+			map->flags = MAP_SELECTING;
 		}
 	}
 	else if (win->mouse->button[MOUSE_RIGHT].releasing)
@@ -172,19 +205,21 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		map->y += dot.y;
 		mouse_drag(win->mouse->x, win->mouse->y, SDL_FALSE);
 	}
-
-	if (key_pressed(SDL_SCANCODE_DELETE))
+	if (!(map->flags & MAP_TEXT_EDITING))
 	{
-		if (map->selected_sector)
-			delete_linedef(&map->selected_sector->lines, LINEDEF_SELECTED);
+		if (key_pressed(SDL_SCANCODE_DELETE))
+		{
+			if (map->selected_sector)
+				delete_linedef(&map->selected_sector->lines, LINEDEF_SELECTED);
+		}
+		if (key_pressed(SDL_SCANCODE_W))
+			map->y += 2;
+		if (key_pressed(SDL_SCANCODE_S))
+			map->y -= 2;
+		if (key_pressed(SDL_SCANCODE_A))
+			map->x += 2;
+		if (key_pressed(SDL_SCANCODE_D))
+			map->x -= 2;
 	}
-	if (key_pressed(SDL_SCANCODE_W))
-		map->y += 2;
-	if (key_pressed(SDL_SCANCODE_S))
-		map->y -= 2;
-	if (key_pressed(SDL_SCANCODE_A))
-		map->x += 2;
-	if (key_pressed(SDL_SCANCODE_D))
-		map->x -= 2;
 	return (1);
 }

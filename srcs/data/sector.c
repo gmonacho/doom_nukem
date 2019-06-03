@@ -6,7 +6,7 @@ t_sector	*new_sector()
 
 	if (!(sector = (t_sector*)ft_memalloc(sizeof(t_sector))))
 		return (ret_null_perror("sector allocation failed in new_sector"));
-	sector->name = "Unnamed";
+	sector->name = NULL;
 	sector->color.selected_color = (SDL_Color){255, 0, 0, 255};
 	sector->color.pos = 0;
 	sector->floor_height = 0;

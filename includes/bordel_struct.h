@@ -166,6 +166,7 @@ typedef struct		s_win
 	SDL_Texture		**sectors_texture;
 	SDL_Texture		**sectors_texture_selected;
 	SDL_Texture		*text_entry_texture;
+	SDL_Texture		*text_outpout;
 
 	t_frame			*frames;
 	t_frame			*selected_frame;
@@ -210,7 +211,7 @@ enum	e_linedef
 	LINEDEF_MOUSE_NEXT = 0b0100
 };
 
-enum	e_flags
+enum	e_glinedef
 {
 	WALL = 0b0001,
 	PORTAL = 0b0010,
@@ -291,6 +292,7 @@ typedef struct		s_player
 
 enum	e_map_editor
 {
+	MAP_NONE = 0b0000,
 	DRAWING_LINE = 0b0001,
 	MAP_SELECTING = 0b0010,
 	MAP_TEXT_EDITING = 0b0100
