@@ -11,7 +11,7 @@
 **	Si les y des projections sont respectivement en dessous des points alors le segment est au dessus
 **	Si un est en dessous et l'autre au dessus alors la droite coupe le segment
 **
-**	Mur sans equations !
+**	Murs sans equations !
 **	Ray sans equation !!
 **
 */
@@ -49,17 +49,22 @@ void			find_wall(t_win *win, t_player *player, t_affine ray, int column)
 	line = player->sector->lines;
 	while (line)
 	{
-		collision.x = (ray.b - line->equation.b) /\
-						(line->equation.a - ray.a);
-		collision.y = ray.a * collision.x + ray.b;
-		if (sign(collision.x - player->pos.x) == sign(cos(player->dir)) &&\
-			(newdist = fdist(player->pos, collision)) < dist)
+		if (line->isequation)
 		{
-			dist = newdist;
-			closest = collision;
-			wall = line;
+			collision.x = (ray.b - line->equation.b) /\
+							(line->equation.a - ray.a);
+			collision.y = ray.a * collision.x + ray.b;
+			if (sign(collision.x - player->pos.x) == sign(cos(player->dir)) &&\
+				(newdist = fdist(player->pos, collision)) < dist)
+			{
+				dist = newdist;
+				closest = collision;
+				wall = line;
+			}
+			line = line->next;
 		}
-		line = line->next;
+		else
+			;
 		printf("Test wall\n");
 	}
 	print_wall(win, wall, dist, column);
@@ -78,10 +83,13 @@ int				raycasting(t_win *win, t_player *player)
 	while (++column < win->w)
 	{
 		//ray = (t_fvector){cos(alpha), sin(alpha)};
-		ray.a = tan(alpha);
-		ray.b = player->pos.y - ray.a * player->pos.x;
-		find_wall(win, player, ray, column);
-		alpha += dangle;
+		if (alpha != M_PI_2 && alpha != -M_PI_2)
+		{
+			ray.a = tan(alpha);
+			ray.b = player->pos.y - ray.a * player->pos.x;
+			find_wall(win, player, ray, column);
+			alpha += dangle;
+		}
 		printf("New x\n");
 	}
 	return (0);
