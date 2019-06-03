@@ -289,7 +289,8 @@ typedef struct		s_player
 enum	e_map_editor
 {
 	DRAWING_LINE = 0b0001,
-	MAP_SELECTING = 0b0010
+	MAP_SELECTING = 0b0010,
+	MAP_TEXT_EDITING = 0b0100
 };
 
 typedef struct	s_map_editor
