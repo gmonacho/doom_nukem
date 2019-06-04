@@ -7,7 +7,6 @@ int		game_loop(t_win *win, t_map *map)
 
 	loop = SDL_TRUE;
 	if (win)
-	{
 		while (loop)
 		{
 			clear_rend(win->rend, 0, 0, 0);
@@ -24,6 +23,5 @@ int		game_loop(t_win *win, t_map *map)
 			draw(win, map, &(map->player));
 			SDL_RenderPresent(win->rend);
 		}
-	}
 	return (1);
 }

@@ -1,4 +1,3 @@
-#include <fcntl.h>
 #include "doom_nukem.h"
 
 static int		find_portal_id(t_map *map, t_linedef *line1, int id)
@@ -58,8 +57,8 @@ static int		init_sectors(t_map *map, t_player *player)
 		sector->height = sector->ceil_height - sector->floor_height;
 		sector = sector->next;
 	}
-	player->numsector = 0;	//A parser
-	player->sector = map->sectors;
+	player->numsector = 1;	//A parser
+	player->sector = map->sectors; //A parser
 	i = -1;
 	while (++i < player->numsector)
 		player->sector = player->sector->next;
@@ -74,12 +73,12 @@ static int		init(t_win *win, t_map *map, t_player *player)
 		return (1);
 	if (init_lines(map))
 		return (1);
-	win->w = 2000;
+	win->w = 1200;
 	win->h = 1000;
-	player->pos = (t_fdot){2 * win->w / 3, win->h / 2 + 100};
+	player->pos = (t_fdot){2 * win->w / 3, win->h / 2};
 	player->const_vel = 1;
-	player->dir = M_PI_2;
-	player->fov = 3 * M_PI_4;
+	player->dir = M_PI;
+	player->fov = M_PI;
 	player->width = 20;
 	player->height = 100;
 
@@ -137,12 +136,15 @@ int			main(int argc, char **argv)
 
 	map.sectors = ft_data_storing(fd, fd1);
 
+	/*printf("fdist : %f\n", fdist((t_fdot){100, 100},\
+								(t_fdot){1000, 1000}));*/
+
 	if (init(&win, &map, &(map.player)))
 		return (ret_error("Init error"));
 	if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
 		return (ret_error(SDL_GetError()));
 
-	if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, 2000, 1000}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
+	if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 		return (0);
 	//SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
 

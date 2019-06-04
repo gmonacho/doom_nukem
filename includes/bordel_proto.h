@@ -222,5 +222,6 @@ double		mag(t_vector vector);
 double		fmag(t_fvector vector);
 int			sign(double nbr);
 double		map(double value, t_dot inter1, t_dot inter2);
+double  	modulo(double nbr, double mod);
 
 #endif

@@ -39,3 +39,9 @@ double		map(double value, t_dot inter1, t_dot inter2)
 	return (inter2.x + ((value - inter1.x) / (inter1.y - inter1.x)) *\
 			(inter2.y - inter2.x));
 }
+
+double  	modulo(double nbr, double mod)
+{
+        return (nbr - (int)(nbr / mod) * mod -\
+                        (mod < 0 ? mod : 0));
+}
