@@ -55,23 +55,22 @@ void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int column)
 			collision.x = (calculs->ray.b - line->equation.b) /\
 							(line->equation.a - calculs->ray.a);
 			collision.y = calculs->ray.a * collision.x + calculs->ray.b;
-			//printf("Coord : %f\t%f\n%f\t%f\n", player->pos.x, player->pos.y, collision.x, collision.y);
 			if (sign(collision.x - player->pos.x) == sign(cos(calculs->alpha)) &&\
 				((calculs->newdist = fdist(player->pos, collision)) < calculs->dist ||\
 				calculs->dist == -1))
 			{
-				//printf("New closest wall : %f\t%f\n", calculs->dist, calculs->newdist);
 				calculs->dist = calculs->newdist;
 				closest = collision;
 				wall = line;
 			}
-			//printf("Sings : %d\t%d\n", sign(collision.x - player->pos.x), sign(cos(calculs->alpha)));
 		}
 		else
 			printf("No equation wall\n");
 		//printf("Test wall\n");
 		line = line->next;
 	}
+	//SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
+	//draw_line(win, (t_dot){(int)player->pos.x, (int)player->pos.y}, (t_dot){(int)closest.x, (int)closest.y});
 	if (wall)
 		print_wall(win, wall, calculs->dist * cos(calculs->alpha - player->dir), column);
 }
@@ -80,24 +79,19 @@ int				raycasting(t_win *win, t_player *player)
 {
 	t_calculs	calculs;
 	int			column;
-	
+			
 	calculs.dangle = player->fov / win->w;
-	calculs.alpha = player->dir + player->fov / 2;
-	//printf("Dir : %f\tLeft : %f\tRight : %f\n", player->dir, calculs.alpha, calculs.alpha - player->fov);
+	calculs.alpha = player->dir - player->fov / 2;
 	column = -1;
 	while (++column < win->w)
 	{
-		//ray = (t_fvector){cos(alpha), sin(alpha)};
-		//printf("Cos : %f\n", cos(calculs.alpha));
-		if (cos(calculs.alpha) > 0.05 || cos(calculs.alpha) < -0.05)
+		if (cos(calculs.alpha) > 0.01 || cos(calculs.alpha) < -0.01)
 		{
 			calculs.ray.a = tan(calculs.alpha);
 			calculs.ray.b = player->pos.y - calculs.ray.a * player->pos.x;
-			//printf("Equation : %f\t%f\n", calculs.ray.a, calculs.ray.b);
 			find_wall(win, player, &calculs, column);
 		}
-		calculs.alpha -= calculs.dangle;
+		calculs.alpha += calculs.dangle;
 	}
-	//printf("New raycasting modulo\n");
 	return (0);
 }

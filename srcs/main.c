@@ -76,9 +76,9 @@ static int		init(t_win *win, t_map *map, t_player *player)
 	win->w = 1200;
 	win->h = 1000;
 	player->pos = (t_fdot){2 * win->w / 3, win->h / 2};
-	player->const_vel = 1;
+	player->const_vel = 10;
 	player->dir = M_PI;
-	player->fov = M_PI;
+	player->fov = 3 * M_PI / 4;
 	player->width = 20;
 	player->height = 100;
 
@@ -135,9 +135,6 @@ int			main(int argc, char **argv)
 		return (ret_error("open error"));
 
 	map.sectors = ft_data_storing(fd, fd1);
-
-	/*printf("fdist : %f\n", fdist((t_fdot){100, 100},\
-								(t_fdot){1000, 1000}));*/
 
 	if (init(&win, &map, &(map.player)))
 		return (ret_error("Init error"));
