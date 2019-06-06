@@ -11,6 +11,7 @@
 
 # include "SDL.h"
 # include "SDL_ttf.h"
+# include "SDL_image.h"
 # include "libft.h"
 
 # define MAX_SECTORS 25

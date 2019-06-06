@@ -1,0 +1,62 @@
+Sector
+{
+	name = 
+	ceilHeight = 0
+	floorHeight = 0
+	Line
+	{
+		dot = (739, 276)
+		dot = (664, 173)
+		flags = NONE
+		id = -1
+	}
+	Line
+	{
+		dot = (683, 406)
+		dot = (739, 276)
+		flags = NONE
+		id = -1
+	}
+	Line
+	{
+		dot = (824, 473)
+		dot = (683, 406)
+		flags = NONE
+		id = -1
+	}
+	Line
+	{
+		dot = (752, 603)
+		dot = (824, 473)
+		flags = NONE
+		id = -1
+	}
+	Line
+	{
+		dot = (578, 590)
+		dot = (752, 603)
+		flags = NONE
+		id = -1
+	}
+	Line
+	{
+		dot = (624, 486)
+		dot = (578, 590)
+		flags = NONE
+		id = -1
+	}
+	Line
+	{
+		dot = (538, 350)
+		dot = (624, 486)
+		flags = NONE
+		id = -1
+	}
+	Line
+	{
+		dot = (664, 173)
+		dot = (538, 350)
+		flags = NONE
+		id = -1
+	}
+}

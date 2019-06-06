@@ -75,7 +75,9 @@ static int		ui_init(t_win *win)
 		return (ret_error("blit_text failed in ui_init"));
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.1, 0.8, 0.05}, t, BUTTON_TEXT_ENTRY));
 	//		color_picker
-	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.85, 0.8, 0.1}, NULL, BUTTON_COLOR_PICKER));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.8, 0.8, 0.05}, NULL, BUTTON_COLOR_PICKER));
+	//		export_button
+	add_button_to_frame(&win->frames, new_button((t_frect){0.7, 0.925, 0.2, 0.03}, NULL, BUTTON_EXPORT));
 	return (1);
 }
 

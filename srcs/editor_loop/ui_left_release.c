@@ -111,6 +111,10 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 				if (map->selected_sector)
 					map->selected_sector->color.selected_color = get_selected_color(map->selected_sector->color.pos);
 			}
+			else if (b->flags & BUTTON_EXPORT)
+			{
+				export_sector(map->selected_sector, "test.sector");
+			}
 		}
 	}
 }

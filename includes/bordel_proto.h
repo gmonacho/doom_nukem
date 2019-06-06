@@ -56,6 +56,12 @@ void		draw_fps();
 */
 
 /*
+**	---------------------------------- texture ----------------------------------
+*/
+
+SDL_Texture		*load_texture(SDL_Renderer *rend, const char *file);
+
+/*
 **	---------------------------------- text ----------------------------------
 */
 
@@ -171,6 +177,14 @@ void		ft_find_coord_p1(t_linedef *line, char *tab);
 void		ft_find_coord_p2(t_linedef *line, char *tab);
 void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
+
+/*
+** =============================================================================
+** ================================== EXPORT ===================================
+** =============================================================================
+*/
+
+int				export_sector(t_sector *sector, const char* filename);
 
 /*
 ** =================================================================================

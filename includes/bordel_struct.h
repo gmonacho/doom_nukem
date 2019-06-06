@@ -110,12 +110,12 @@ typedef struct		s_mouse
 **	---------------------------------- Interface Management ----------------------------------
 */
 
-
 enum	e_button
 {
 	BUTTON_NONE = 0b0000,
 	BUTTON_COLOR_PICKER = 0b0001,
-	BUTTON_TEXT_ENTRY = 0b0010
+	BUTTON_TEXT_ENTRY = 0b0010,
+	BUTTON_EXPORT = 0b0100
 };
 
 typedef struct		s_button

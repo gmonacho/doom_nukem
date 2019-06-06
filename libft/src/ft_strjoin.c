@@ -23,13 +23,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 						+ ft_strlen(s2) + 1))))
 		return (NULL);
 	i = 0;
-	while (*s1)
+	if (s1)
 	{
-		str[i++] = *s1++;
+		while (*s1)
+			str[i++] = *s1++;
 	}
-	while (*s2)
+	if (s2)
 	{
-		str[i++] = *s2++;
+		while (*s2)
+			str[i++] = *s2++;
 	}
 	str[i] = '\0';
 	return (str);
