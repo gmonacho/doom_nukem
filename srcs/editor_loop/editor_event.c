@@ -1,6 +1,6 @@
 #include "doom_nukem.h"
 
-static void		update_selected_ui(t_win *win)
+void		update_selected_ui(t_win *win)
 {
 	t_frame		*f;
 	t_button	*b;
@@ -34,7 +34,7 @@ static void		update_selected_ui(t_win *win)
 	}
 }
 
-static void		update_ui_rect(t_win *win)
+void		update_ui_rect(t_win *win)
 {
 	t_frame		*f;
 	t_button	*b;
@@ -91,9 +91,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
 		*loop = SDL_FALSE;
 	else if (event.type == SDL_MOUSEMOTION)
-	{
 		update_selected_ui(win);
-	}
 	else if(event.type == SDL_MOUSEWHEEL)
 	{
 		if (event.wheel.y > 0)

@@ -125,6 +125,7 @@ int			main(int argc, char **argv)
 {
 	int		fd;
 	int		fd1;
+	int		next_loop;
 	t_win	win;
 	t_map	map;
 
@@ -145,8 +146,11 @@ int			main(int argc, char **argv)
 		return (0);
 	//SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
 
-	editor_loop(&win);
-	// game_loop(&win, &map);
+	next_loop = main_menu(&win);
+	if (next_loop == 2)
+		game_loop(&win, &map);
+	else if (next_loop == 3)
+		editor_loop(&win);
 
 	SDL_DestroyWindow(win.ptr);
 	SDL_DestroyRenderer(win.rend);

@@ -18,3 +18,19 @@ void		add_button(t_button **buttons, t_button *new_button)
 	new_button->next = *buttons;
 	*buttons = new_button;
 }
+
+void		free_buttons(t_button **buttons)
+{
+	t_button *tmp_to_next;
+	t_button *b;
+
+	b = *buttons;
+	while (b)
+	{
+		tmp_to_next = b->next;
+		SDL_DestroyTexture(b->texture);
+		free(b);
+		b = tmp_to_next;
+	}
+	*buttons = NULL;
+}

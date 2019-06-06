@@ -55,6 +55,10 @@ void		draw_fps();
 ** ============================================================================
 */
 
+
+void		update_selected_ui(t_win *win);
+void		update_ui_rect(t_win *win);
+
 /*
 **	---------------------------------- texture ----------------------------------
 */
@@ -75,6 +79,7 @@ SDL_Texture		*blit_text(SDL_Renderer *rend, SDL_Texture *bg_texture, SDL_Texture
 
 t_button	*new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
 void		add_button(t_button **buttons, t_button *new_button);
+void		free_buttons(t_button **buttons);
 
 /*
 **	---------------------------------- frame ----------------------------------
@@ -84,6 +89,7 @@ t_frame		*new_frame(const t_frect ratio, SDL_Texture *texture, Uint32 frame_flag
 void		add_frame(t_frame **frames, t_frame *new_frame);
 void		add_button_to_frame(t_frame **frame, t_button *button);
 void		add_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 added_flags);
+void		free_frames(t_frame **frames);
 
 /*
 **	---------------------------------- Window ----------------------------------
@@ -197,6 +203,17 @@ SDL_bool	is_line_vertical(int x1, int x2, int pitch);
 SDL_bool	is_in_rect(SDL_Rect rect, t_dot p);
 SDL_bool	intersect_line_rect(t_line line, SDL_Rect rect);
 SDL_bool 	is_next_point(t_dot dot, t_dot other, int distance);
+/*
+** =================================================================================
+** ================================== MENU LOOPS ==================================
+** =================================================================================
+*/
+
+/*
+** ================================== main_menu ===================================
+*/
+
+int			main_menu(t_win *win);
 
 /*
 ** =================================================================================

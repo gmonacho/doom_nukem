@@ -63,3 +63,19 @@ void		remove_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 removed_fl
 		f = f->next;
 	}
 }
+
+void		free_frames(t_frame **frames)
+{
+	t_frame		*tmp_to_next;
+	t_frame		*f;
+
+	f = *frames;
+	while (f)
+	{
+		tmp_to_next = f->next;
+		SDL_DestroyTexture(f->texture);
+		free(f);
+		f = tmp_to_next;
+	}
+	*frames = NULL;
+}
