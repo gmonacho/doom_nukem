@@ -29,7 +29,7 @@ INCLUDE_PATH = ./includes
 FW_PATH = ./frameworks
 CC = gcc
 CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address	-I$(INCLUDE_PATH)\
-														-I./$(LIBFT)/includes/\
+														-I$(LIBFT)/includes/\
 														-I$(FW_PATH)/SDL2_image.framework/Headers/\
 														-I$(FW_PATH)/SDL2_ttf.framework/Headers/\
 														-I$(FW_PATH)/SDL2.framework/Headers/

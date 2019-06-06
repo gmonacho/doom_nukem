@@ -20,7 +20,7 @@
 **						et le 'debut' gauche du mur.
 **
 **	test_wall		: 1 si mur, 0 si vide, -1 si bords de map.
-**						Et save des donnees selin le mode de texture.
+**						Et save des donnees selon le mode de texture.
 **
 **	affine_function : Parcourt la droite jusqu'a un mur.
 **
@@ -145,3 +145,57 @@ void			raycasting(t_win *win, t_player *player, t_calculs *calculs)
 		calculs->angle -= dangle;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+size_t		ft_strlenbin(unsigned long long *str)
+{
+	unsigned long long	*save;
+	int					tmp;
+
+	save = str;
+	while (1)
+		if ((tmp = !(*str & 0x00000000000000FF) ? 1 : 0) ||\
+			(tmp = !(*str & 0x000000000000FF00) ? 2 : 0) ||\
+			(tmp = !(*str & 0x0000000000FF0000) ? 3 : 0) ||\
+			(tmp = !(*str & 0x00000000FF000000) ? 4 : 0) ||\
+			(tmp = !(*str & 0x000000FF00000000) ? 5 : 0) ||\
+			(tmp = !(*str & 0x0000FF0000000000) ? 6 : 0) ||\
+			(tmp = !(*str & 0x00FF000000000000) ? 7 : 0) ||\
+			(tmp = !(*str & 0xFF00000000000000) ? 8 : 0))
+			return (str - save + tmp);
+}
+
+
+
+
+
+
+
+

@@ -200,6 +200,17 @@ typedef struct	s_png
 }				t_png;
 
 /*
+**	---------------------------------- color_picker --------------------------------------------
+*/
+
+typedef struct		s_color_picker
+{
+	//Uint16			abs_color;
+	float			pos;
+	SDL_Color		selected_color;
+}					t_color_picker;
+
+/*
 **	---------------------------------- linedef --------------------------------------------
 */
 
@@ -236,15 +247,17 @@ typedef struct				s_linedef
 }						t_linedef;
 
 /*
-**	---------------------------------- color_picker --------------------------------------------
+**	----------------------------------- Raycasting ---------------------------------------
 */
 
-typedef struct		s_color_picker
+typedef struct				s_calculs
 {
-	//Uint16			abs_color;
-	float			pos;
-	SDL_Color		selected_color;
-}					t_color_picker;
+	t_affine				ray;
+	double					dangle;
+	double					alpha;
+	double					dist;
+	double					newdist;
+}							t_calculs;
 
 /*
 **	---------------------------------- sector --------------------------------------------

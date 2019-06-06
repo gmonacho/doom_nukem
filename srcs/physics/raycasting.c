@@ -22,6 +22,7 @@ void			print_wall(t_win *win, t_linedef *wall, double dist, int column)
 	t_dot		bottom;
 	double		h;
 
+	//printf("Adress : %p\t%p\t%f\t%d\n", win, wall, dist, column);
 	h = 10000 / dist;
 	top = (t_dot){column, win->h / 2 - h};
 	bottom = (t_dot){column, win->h / 2 + h};
@@ -37,60 +38,60 @@ void			print_wall(t_win *win, t_linedef *wall, double dist, int column)
 	draw_line(win, top, bottom);
 }
 
-void			find_wall(t_win *win, t_player *player, t_affine ray, int column)
+void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int column)
 {
 	t_linedef	*line;
 	t_linedef	*wall;
 	t_fdot		collision;
 	t_fdot		closest;
-	double		dist;
-	double		newdist;
 
+	calculs->dist = -1;
+	wall = NULL;
 	line = player->sector->lines;
 	while (line)
 	{
 		if (line->isequation)
 		{
-			collision.x = (ray.b - line->equation.b) /\
-							(line->equation.a - ray.a);
-			collision.y = ray.a * collision.x + ray.b;
-			if (sign(collision.x - player->pos.x) == sign(cos(player->dir)) &&\
-				(newdist = fdist(player->pos, collision)) < dist)
+			collision.x = (calculs->ray.b - line->equation.b) /\
+							(line->equation.a - calculs->ray.a);
+			collision.y = calculs->ray.a * collision.x + calculs->ray.b;
+			if (sign(collision.x - player->pos.x) == sign(cos(calculs->alpha)) &&\
+				((calculs->newdist = fdist(player->pos, collision)) < calculs->dist ||\
+				calculs->dist == -1))
 			{
-				dist = newdist;
+				calculs->dist = calculs->newdist;
 				closest = collision;
 				wall = line;
 			}
-			line = line->next;
 		}
 		else
-			;
-		printf("Test wall\n");
+			printf("No equation wall\n");
+		//printf("Test wall\n");
+		line = line->next;
 	}
-	print_wall(win, wall, dist, column);
+	//SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
+	//draw_line(win, (t_dot){(int)player->pos.x, (int)player->pos.y}, (t_dot){(int)closest.x, (int)closest.y});
+	if (wall)
+		print_wall(win, wall, calculs->dist * cos(calculs->alpha - player->dir), column);
 }
 
 int				raycasting(t_win *win, t_player *player)
 {
-	double		dangle;
-	double		alpha;
+	t_calculs	calculs;
 	int			column;
-	t_affine	ray;
-
-	dangle = player->fov / win->w;
-	alpha = player->dir - player->fov / 2;
+			
+	calculs.dangle = player->fov / win->w;
+	calculs.alpha = player->dir - player->fov / 2;
 	column = -1;
 	while (++column < win->w)
 	{
-		//ray = (t_fvector){cos(alpha), sin(alpha)};
-		if (alpha != M_PI_2 && alpha != -M_PI_2)
+		if (cos(calculs.alpha) > 0.01 || cos(calculs.alpha) < -0.01)
 		{
-			ray.a = tan(alpha);
-			ray.b = player->pos.y - ray.a * player->pos.x;
-			find_wall(win, player, ray, column);
-			alpha += dangle;
+			calculs.ray.a = tan(calculs.alpha);
+			calculs.ray.b = player->pos.y - calculs.ray.a * player->pos.x;
+			find_wall(win, player, &calculs, column);
 		}
-		printf("New x\n");
+		calculs.alpha += calculs.dangle;
 	}
 	return (0);
 }

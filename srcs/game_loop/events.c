@@ -25,13 +25,23 @@
 static void	keyboard_dir(t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_LEFT])
-		player->dir += 0.01;
-	if (state[SDL_SCANCODE_RIGHT])
 		player->dir -= 0.01;
+	if (state[SDL_SCANCODE_RIGHT])
+		player->dir += 0.01;
 	if (state[SDL_SCANCODE_UP])
 		player->orientation += 0.01;
 	if (state[SDL_SCANCODE_DOWN])
 		player->orientation -= 0.01;
+
+	/*if (player->dir > 2 * M_PI)
+		player->dir -= 2 * M_PI; 
+	else if (player->dir < 0)
+		player->dir += 2 * M_PI;
+
+	if (player->orientation > 2 * M_PI)
+		player->orientation -= 2 * M_PI;
+	else if (player->orientation < 0)
+		player->orientation += 2 * M_PI;*/
 }
 
 static void	keyboard_move(t_player *player, const Uint8 *state)
