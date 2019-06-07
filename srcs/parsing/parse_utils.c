@@ -42,6 +42,7 @@ void		ft_find_id(char *id, t_linedef *line)		//////agiordan
 {
 	char	*tmp;
 
+	tmp = NULL;
 	tmp = ft_strdup(ft_strrchr(id, '=') + 2);
 	line->id = ft_atoi(tmp);
 	ft_strdel(&tmp);

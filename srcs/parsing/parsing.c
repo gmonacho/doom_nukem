@@ -12,16 +12,16 @@ void		ft_fill_coord(t_sector *sector, char **tab, int i)
 	flag = 0;
 	while (!(ft_strchr(tab[i], '}')))
 	{
-		if (ft_strstr(tab[i], "dot") && flag == 0)
+		if (ft_strstr(tab[i], "dot =") && flag == 0)
 		{
 			ft_find_coord_p1(line, tab[i]);
 			flag++;
 		}
-		else if (ft_strstr(tab[i], "dot") && flag != 0)
+		else if (ft_strstr(tab[i], "dot =") && flag != 0)
 			ft_find_coord_p2(line, tab[i]);
-		else if (ft_strstr(tab[i], "flags"))
+		else if (ft_strstr(tab[i], "flags ="))
 			ft_find_type(tab[i], line);
-		else if (ft_strstr(tab[i], "id"))			//////	Changes : agiordan
+		else if (ft_strstr(tab[i], "id ="))			//////	Changes : agiordan
 			ft_find_id(tab[i], line);
 		i++;
 	}
@@ -65,16 +65,16 @@ char		**ft_fill_map(int fd, int fp1)
 
 void		ft_fill_data(char *tab, t_sector *sector)
 {
-	if (ft_strstr(tab, "floorHeight"))
+	if (ft_strstr(tab, "floorHeight ="))
 		sector->floor_height =
 		ft_atoi(ft_strrchr(tab, '=') + 1);
-	if (ft_strstr(tab, "ceilHeight"))
+	if (ft_strstr(tab, "ceilHeight ="))
 		sector->ceil_height = ft_atoi(ft_strrchr(tab, '=') + 1);
-	if (ft_strstr(tab, "name"))
+	if (ft_strstr(tab, "name ="))
 		sector->name = ft_strdup(ft_strrchr(tab, '=') + 1);
 }
 
-t_sector	*ft_data_storing(int fd, int fp1)
+t_sector	*ft_data_storing(int fd, int fd1, t_player *player)
 {
 	char		**tab;
 	int			i;
@@ -82,8 +82,9 @@ t_sector	*ft_data_storing(int fd, int fp1)
 
 	i = -1;
 	sector = NULL;
-	tab = ft_fill_map(fd, fp1);
+	tab = ft_fill_map(fd, fd1);
 	ft_parse_error(tab);
+	ft_player_data(tab, player);
 	while (tab[++i])
 	{
 		if (ft_strstr(tab[i], "Sector"))
@@ -97,13 +98,14 @@ t_sector	*ft_data_storing(int fd, int fp1)
 				{
 					//add_linedef(&sector->lines, new_void_linedef());
 					ft_fill_coord(sector, tab, i);
-					//printf("floor_heignt = %d\n", sector->floor_height);
-					//printf("ceil_height = %d\n", sector->ceil_height);
-					//printf("name = %s\n", sector->name);
-					//printf("flags = %u\n", sector->lines->flags);
-					//printf("p1.x = %d p1.y = %d\n", sector->lines->p1.x, sector->lines->p1.y);
-					//printf("p2.x = %d p2.y = %d\n", sector->lines->p2.x, sector->lines->p2.y);
-					//printf("\n");
+					printf("floor_heignt = %d\n", sector->floor_height);
+					printf("ceil_height = %d\n", sector->ceil_height);
+					printf("name = %s\n", sector->name);
+					printf("flags = %u\n", sector->lines->flags);
+					printf("p1.x = %d p1.y = %d\n", sector->lines->p1.x, sector->lines->p1.y);
+					printf("p2.x = %d p2.y = %d\n", sector->lines->p2.x, sector->lines->p2.y);
+					printf("id = %d\n", sector->lines->id);
+					printf("\n");
 				}
 				i++;
 			}
