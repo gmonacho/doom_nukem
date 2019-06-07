@@ -112,6 +112,7 @@ void		clear_rend(SDL_Renderer *rend, Uint8 r, Uint8 g, Uint8 b);
 
 
 void		draw_line(t_win *win, t_dot p1, t_dot p2);
+void		draw_column(t_win *win, int x, int ylow, int yup);
 void		draw_rect(t_win *win, SDL_Rect rect);
 void		fill_rect(t_win *win, SDL_Rect rect);
 void		draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio);

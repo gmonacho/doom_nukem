@@ -27,9 +27,9 @@ int				teleportation(t_map *tmap,\
 		M_PI : 0);
 
 		tmap->player.pos = (t_fdot){tmap->player.pos.x +\
-		cos(tmap->player.dir) * (tmap->player.const_vel + tmap->player.width / 2),\
+		cos(tmap->player.dir) * (5 * tmap->player.const_vel + tmap->player.width),\
 									tmap->player.pos.y +\
-		-sin(tmap->player.dir) * (tmap->player.const_vel + tmap->player.width / 2)};
+		sin(tmap->player.dir) * (5 * tmap->player.const_vel + tmap->player.width)};
 
 		tmap->player.sector = line2->sector;
 		return (1);

@@ -9,14 +9,14 @@ int		game_loop(t_win *win, t_map *map)
 	if (win)
 		while (loop)
 		{
-			clear_rend(win->rend, 0xDD, 0xDD, 0xDD);
+			clear_rend(win->rend, 0x40, 0x40, 0x40);
 			SDL_PumpEvents();
 			SDL_PollEvent(&event);
 			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
 				loop = SDL_FALSE;
 			keyboard_state(&(map->player));
 
-			//move(map, &(map->player));
+			move(map, &(map->player));
 			//entiteMove();
 			//orientation();	//Haut bas
 

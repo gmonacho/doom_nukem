@@ -41,7 +41,7 @@
 	}
 	return (0);
 }*/
-/*
+
 static int	actions(t_map *map, t_linedef *portal, t_player *player)
 {
 	if (!(portal->flags & PORTAL) ||\
@@ -139,7 +139,7 @@ static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 	}
 	return (0);
 }
-*/
+
 // static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 // 						t_player *player)
 // {
@@ -173,7 +173,6 @@ static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 
 int		move(t_map *map, t_player *player)
 {
-	/*
 	//int			i;
 	//t_sector	*sector;
 	t_linedef	*line;
@@ -206,8 +205,8 @@ int		move(t_map *map, t_player *player)
 				break ;
 			line = line->next;
 		}
-	}*/
-	map = NULL;
+	}
+	//map = NULL;
 	player->pos = (t_fdot){player->pos.x + player->vel.x,\
 							player->pos.y + player->vel.y};
 	return (0);

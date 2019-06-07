@@ -1,62 +1,48 @@
 Sector
 {
-	name = 
+	name = dddd
 	ceilHeight = 0
 	floorHeight = 0
-	Line
+	line
 	{
-		dot = (739, 276)
-		dot = (664, 173)
-		flags = NONE
+		dot = (1012, 313)
+		dot = (856, 330)
+		flags = WALL
 		id = -1
 	}
-	Line
+	line
 	{
-		dot = (683, 406)
-		dot = (739, 276)
-		flags = NONE
+		dot = (1162, 384)
+		dot = (1012, 313)
+		flags = WALL
 		id = -1
 	}
-	Line
+	line
 	{
-		dot = (824, 473)
-		dot = (683, 406)
-		flags = NONE
+		dot = (1092, 521)
+		dot = (1162, 384)
+		flags = WALL
 		id = -1
 	}
-	Line
+	line
 	{
-		dot = (752, 603)
-		dot = (824, 473)
-		flags = NONE
+		dot = (858, 532)
+		dot = (1092, 521)
+		flags = WALL
 		id = -1
 	}
-	Line
+	line
 	{
-		dot = (578, 590)
-		dot = (752, 603)
-		flags = NONE
+		dot = (711, 460)
+		dot = (858, 532)
+		flags = WALL
 		id = -1
 	}
-	Line
+	line
 	{
-		dot = (624, 486)
-		dot = (578, 590)
-		flags = NONE
-		id = -1
-	}
-	Line
-	{
-		dot = (538, 350)
-		dot = (624, 486)
-		flags = NONE
-		id = -1
-	}
-	Line
-	{
-		dot = (664, 173)
-		dot = (538, 350)
-		flags = NONE
+		dot = (856, 330)
+		dot = (711, 460)
+		flags = WALL
 		id = -1
 	}
 }

@@ -25,13 +25,17 @@
 static void	keyboard_dir(t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_LEFT])
-		player->dir -= 0.01;
+		player->dir -= 0.05;
 	if (state[SDL_SCANCODE_RIGHT])
-		player->dir += 0.01;
+		player->dir += 0.05;
 	if (state[SDL_SCANCODE_UP])
 		player->orientation += 0.01;
 	if (state[SDL_SCANCODE_DOWN])
 		player->orientation -= 0.01;
+	if (state[SDL_SCANCODE_KP_MINUS])
+		player->fov -= 0.03;
+	if (state[SDL_SCANCODE_KP_PLUS])
+		player->fov += 0.03;
 
 	/*if (player->dir > 2 * M_PI)
 		player->dir -= 2 * M_PI; 
@@ -49,22 +53,22 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 	if (state[SDL_SCANCODE_W])
 	{
 		player->vel.x += cos(player->dir) * player->const_vel;
-		player->vel.y += -sin(player->dir) * player->const_vel;
+		player->vel.y += sin(player->dir) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_S])
 	{
 		player->vel.x += cos(player->dir + M_PI) * player->const_vel;
-		player->vel.y += -sin(player->dir + M_PI) * player->const_vel;
+		player->vel.y += sin(player->dir + M_PI) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_A])
 	{
-		player->vel.x += cos(player->dir + M_PI_2) * player->const_vel;
-		player->vel.y += -sin(player->dir + M_PI_2) * player->const_vel;
+		player->vel.x += cos(player->dir - M_PI_2) * player->const_vel;
+		player->vel.y += sin(player->dir - M_PI_2) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_D])
 	{
-		player->vel.x += cos(player->dir - M_PI_2) * player->const_vel;
-		player->vel.y += -sin(player->dir - M_PI_2) * player->const_vel;
+		player->vel.x += cos(player->dir + M_PI_2) * player->const_vel;
+		player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
 	}
 }
 
