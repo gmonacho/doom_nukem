@@ -78,6 +78,7 @@ static int		init(t_win *win, t_map *map, t_player *player)
 	player->pos = (t_fdot){2 * win->w / 3, win->h / 2};
 	player->const_vel = 10;
 	player->dir = M_PI;
+	player->orientation = win->h / 2;
 	player->fov = 3 * M_PI / 4;
 	player->width = 20;
 	player->height = 100;
@@ -135,10 +136,12 @@ int			main(int argc, char **argv)
 	((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 		return (ret_error("open error"));
 
-	map.sectors = ft_data_storing(fd, fd1);
+	map.sectors = ft_data_storing(fd, fd1, &(map.player));
 
 	if (init(&win, &map, &(map.player)))
 		return (ret_error("Init error"));
+
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
 		return (ret_error(SDL_GetError()));
 

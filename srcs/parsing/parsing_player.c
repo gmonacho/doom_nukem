@@ -1,6 +1,6 @@
 #include "doom_nukem.h"
 
-void    ft_player_data(char **tab, t_player *player)
+void	ft_player_data(char **tab, t_player *player)
 {
     int i;
 

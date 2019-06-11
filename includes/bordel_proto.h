@@ -27,7 +27,7 @@ t_dot		mouse_drag(int x, int y, SDL_bool end);
 **	---------------------------------- Event ----------------------------------
 */
 
-int		    keyboard_state(t_player *player);
+int		    keyboard_state(t_win *win, t_player *player);
 int		    key_pressed(Uint32 sdl_keycode);
 
 /*
@@ -179,12 +179,13 @@ void		map_add_line(t_map *map, int n_sector, t_linedef *line);
 */
 
 int 		ft_parse_error(char **tab);
-t_sector	*ft_data_storing(int fd, int fd1);
+t_sector	*ft_data_storing(int fd, int fd1, t_player *player);
 void		ft_find_coord_p1(t_linedef *line, char *tab);
 void		ft_find_coord_p2(t_linedef *line, char *tab);
 void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
 
+void		ft_player_data(char **tab, t_player *player);
 /*
 ** =============================================================================
 ** ================================== EXPORT ===================================

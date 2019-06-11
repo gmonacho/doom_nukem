@@ -5,24 +5,27 @@
 **	.---->
 **	|
 **	v
+**
+**	Trouver la collision :
+**	(b1 - b2) / (a2 - a1)
 */
 
-void			print_wall(t_win *win, t_linedef *wall, double dist, int column)
+static void			print_wall(t_win *win, t_linedef *wall, t_player *player, int column)
 {
-	double		h;
+	double			h;
 
 	//printf("Adress : %p\t%p\t%f\t%d\n", win, wall, dist, column);
-	h = 20000 / dist;
+	h = (HEIGHT_WALL - 20 * ft_abs(win->h / 2 - player->orientation)) / player->lenRay;
 	if (wall->flags & PORTAL)
 		SDL_SetRenderDrawColor(win->rend, 0xDD, 0x40, 0x40, 255);
 	else if (wall->flags & WALL)
 		SDL_SetRenderDrawColor(win->rend, 0x40, 0xDD, 0x40, 255);
 	else
 		SDL_SetRenderDrawColor(win->rend, 0x40, 0x40, 0xDD, 255);
-	draw_column(win, column, win->h / 2 - h, win->h / 2 + h);
+	draw_column(win, column, player->orientation - h, player->orientation + h);
 }
 
-void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int column)
+static void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int column)
 {
 	t_linedef	*line;
 	t_linedef	*wall;
@@ -36,7 +39,7 @@ void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int column)
 	{
 		if (line->isequation)
 		{
-			collision.x = (calculs->ray.b - line->equation.b) /\
+			collision.x = ((player->pos.y - calculs->ray.a * player->pos.x) - line->equation.b) /\
 							(line->equation.a - calculs->ray.a);
 			collision.y = line->equation.a * collision.x + line->equation.b;
 			if (((calculs->newdist = fdist(player->pos, collision)) < calculs->dist ||\
@@ -53,10 +56,11 @@ void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int column)
 		//printf("Test wall\n");
 		line = line->next;
 	}
+	player->lenRay = calculs->dist * cos(calculs->alpha - player->dir);
 	if (wall)
-		print_wall(win, wall, calculs->dist * cos(calculs->alpha - player->dir), column);
-	SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
-	draw_line(win, (t_dot){(int)player->pos.x, (int)player->pos.y}, (t_dot){(int)closest.x, (int)closest.y});
+		print_wall(win, wall, player, column);
+	// SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
+	// draw_line(win, (t_dot){(int)player->pos.x, (int)player->pos.y}, (t_dot){(int)closest.x, (int)closest.y});
 }
 
 int				raycasting(t_win *win, t_player *player)
@@ -72,7 +76,7 @@ int				raycasting(t_win *win, t_player *player)
 		/*if (cos(calculs.alpha) > 0.00001 || cos(calculs.alpha) < -0.00001)
 		{*/
 			calculs.ray.a = tan(calculs.alpha);
-			calculs.ray.b = player->pos.y - calculs.ray.a * player->pos.x;
+			//calculs.ray.b = player->pos.y - calculs.ray.a * player->pos.x;
 			find_wall(win, player, &calculs, column);
 		/*}
 		else

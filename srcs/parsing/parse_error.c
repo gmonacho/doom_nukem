@@ -33,7 +33,7 @@ void	ft_if_value(char **tab)
 	}
 }
 
-void	ft_count_brace(char **tab)
+static void	ft_count_brace(char **tab)
 {
 	int i;
 	int brace;

@@ -297,6 +297,7 @@ typedef struct		s_player
 	double			fov;
 	int				width;
 	int				height;
+	double			lenRay;
 	int				numsector;
 	t_sector		*sector;
 }					t_player;

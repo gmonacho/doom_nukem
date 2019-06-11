@@ -16,6 +16,7 @@
 
 # define MAX_SECTORS 25
 # define NEXT_FACTOR 20
+# define HEIGHT_WALL 20000
 
 # include "bordel_struct.h"
 # include "bordel_proto.h"

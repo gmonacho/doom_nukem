@@ -82,6 +82,7 @@ t_sector	*ft_data_storing(int fd, int fd1, t_player *player)
 
 	i = -1;
 	sector = NULL;
+	//player = NULL;
 	tab = ft_fill_map(fd, fd1);
 	ft_parse_error(tab);
 	ft_player_data(tab, player);
@@ -111,6 +112,7 @@ t_sector	*ft_data_storing(int fd, int fd1, t_player *player)
 			}
 		}
 	}
+	printf("Fin parsing\n");
 	return (sector);
 }
 
