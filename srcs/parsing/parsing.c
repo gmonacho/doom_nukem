@@ -112,7 +112,7 @@ t_sector	*ft_data_storing(int fd, int fd1, t_player *player)
 			}
 		}
 	}
-	printf("Fin parsing\n");
+	printf("Fin parsing\n\n");
 	return (sector);
 }
 

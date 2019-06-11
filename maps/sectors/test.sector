@@ -1,47 +1,140 @@
+Player
+{
+	posx = 750
+	posy = 300
+	width = 9
+	height = 6
+	sector = 0
+	velocity = 2
+}
 Sector
 {
-	name = dddd
-	ceilHeight = 0
+	name = BITEUUH
+	ceilHeight = 200
 	floorHeight = 0
 	line
 	{
-		dot = (1012, 313)
-		dot = (856, 330)
+		dot = (454, 278)
+		dot = (437, 303)
 		flags = WALL
 		id = -1
 	}
 	line
 	{
-		dot = (1162, 384)
-		dot = (1012, 313)
+		dot = (421, 262)
+		dot = (454, 278)
 		flags = WALL
 		id = -1
 	}
 	line
 	{
-		dot = (1092, 521)
-		dot = (1162, 384)
+		dot = (372, 303)
+		dot = (421, 262)
 		flags = WALL
 		id = -1
 	}
 	line
 	{
-		dot = (858, 532)
-		dot = (1092, 521)
+		dot = (351, 345)
+		dot = (372, 303)
 		flags = WALL
 		id = -1
 	}
 	line
 	{
-		dot = (711, 460)
-		dot = (858, 532)
+		dot = (379, 391)
+		dot = (351, 345)
 		flags = WALL
 		id = -1
 	}
 	line
 	{
-		dot = (856, 330)
-		dot = (711, 460)
+		dot = (410, 426)
+		dot = (379, 391)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (449, 406)
+		dot = (410, 426)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (437, 383)
+		dot = (449, 406)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (794, 393)
+		dot = (437, 383)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (848, 436)
+		dot = (794, 393)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (953, 446)
+		dot = (848, 436)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (981, 384)
+		dot = (953, 446)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (939, 342)
+		dot = (981, 384)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (980, 285)
+		dot = (939, 342)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (941, 227)
+		dot = (980, 285)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (834, 233)
+		dot = (941, 227)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (785, 293)
+		dot = (834, 233)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (437, 303)
+		dot = (785, 293)
 		flags = WALL
 		id = -1
 	}

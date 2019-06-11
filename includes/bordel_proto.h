@@ -38,6 +38,7 @@ int		    key_pressed(Uint32 sdl_keycode);
 ** ==================== Error Management ==========================
 */
 
+int			ret_num_error(const char *error_msg, int i);
 int			ret_error(const char *error_msg);
 void		*ret_null_error(const char *error_msg);
 int			ret_perror(const char *error_msg);
