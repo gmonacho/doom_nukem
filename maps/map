@@ -1,11 +1,35 @@
 Player
 {
-	x = 800
-	y = 400
+	posx = 800
+	posy = 400
 	width = 2
 	height = 6
 	sector = 0
 	velocity = 1
+}
+Object
+{
+	posx = 100
+	posy = 150
+	sector = 1
+	id = 8
+	id_texture = 12
+}
+Object
+{
+	posx = 28
+	posy = 141
+	sector = 3
+	id = 4
+	id_texture = 7
+}
+Object
+{
+	posx = 42
+	posy = 101
+	sector = 9
+	id = 2
+	id_texture = 445
 }
 Sector
 {

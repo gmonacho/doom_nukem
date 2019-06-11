@@ -74,7 +74,7 @@ void		ft_fill_data(char *tab, t_sector *sector)
 		sector->name = ft_strdup(ft_strrchr(tab, '=') + 1);
 }
 
-t_sector	*ft_data_storing(int fd, int fd1, t_player *player)
+t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
 {
 	char		**tab;
 	int			i;
@@ -82,7 +82,6 @@ t_sector	*ft_data_storing(int fd, int fd1, t_player *player)
 
 	i = -1;
 	sector = NULL;
-	//player = NULL;
 	tab = ft_fill_map(fd, fd1);
 	ft_parse_error(tab);
 	ft_player_data(tab, player);
@@ -111,6 +110,8 @@ t_sector	*ft_data_storing(int fd, int fd1, t_player *player)
 				i++;
 			}
 		}
+		else if (ft_strstr(tab[i], "Object"))
+			object_data(tab, map->object, i);
 	}
 	printf("Fin parsing\n");
 	return (sector);

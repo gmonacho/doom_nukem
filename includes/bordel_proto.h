@@ -179,13 +179,15 @@ void		map_add_line(t_map *map, int n_sector, t_linedef *line);
 */
 
 int 		ft_parse_error(char **tab);
-t_sector	*ft_data_storing(int fd, int fd1, t_player *player);
+t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player);
 void		ft_find_coord_p1(t_linedef *line, char *tab);
 void		ft_find_coord_p2(t_linedef *line, char *tab);
 void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
 
 void		ft_player_data(char **tab, t_player *player);
+
+void		object_data(char **tab, t_object *object, int i);
 /*
 ** =============================================================================
 ** ================================== EXPORT ===================================

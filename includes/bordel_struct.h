@@ -303,6 +303,18 @@ typedef struct		s_player
 }					t_player;
 
 /*
+**	---------------------------------- object --------------------------------------------
+*/
+	typedef struct s_object
+	{
+		t_fdot				pos;
+		int 				sector;
+		int 				id;
+		int					id_texture;
+		struct s_object		*next;
+	}			t_object;
+
+/*
 **	---------------------------------- map_editor --------------------------------------------
 */
 
@@ -336,6 +348,7 @@ typedef struct		s_map
 {
 	t_sector		*sectors;
 	t_player		player;
+	t_object		*object;
 }					t_map;
 
 /*
