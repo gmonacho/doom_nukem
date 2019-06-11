@@ -62,8 +62,8 @@ static int		init_sectors(t_map *map, t_player *player)
 	i = -1;
 	while (++i < player->numsector)
 		player->sector = player->sector->next;
-	if (player->height > player->sector->height)
-		return (1);
+	/*if (player->height > player->sector->height)
+		return (1);*/
 	return (0);
 }
 
