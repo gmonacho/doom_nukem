@@ -15,7 +15,7 @@ static void			print_wall(t_win *win, t_linedef *wall, t_player *player, int colu
 	double			h;
 
 	//printf("Adress : %p\t%p\t%f\t%d\n", win, wall, dist, column);
-	h = (HEIGHT_WALL - 10 * ft_abs(win->h / 2 - player->orientation)) / player->lenRay;
+	h = (HEIGHT_WALL - 9 * ft_abs(win->h / 2 - player->orientation)) / player->lenRay;
 	if (wall->flags & PORTAL)
 		SDL_SetRenderDrawColor(win->rend, 0xDD, 0x40, 0x40, 255);
 	else if (wall->flags & WALL)
