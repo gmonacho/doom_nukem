@@ -13,7 +13,7 @@ void	ft_player_data(char **tab, t_player *player)
             {   
                 if (ft_strstr(tab[i], "posx ="))
                     player->pos.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-               else if (ft_strstr(tab[i], "posy ="))
+            	else if (ft_strstr(tab[i], "posy ="))
                     player->pos.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
                 else if (ft_strstr(tab[i], "width ="))
                     player->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
@@ -28,11 +28,9 @@ void	ft_player_data(char **tab, t_player *player)
         }
         i++;
     }
-    //printf("x = %f\n", player->pos.x);
-    //printf("y = %f\n", player->pos.y);
-    //printf("width = %d\n", player->width);
-    //printf("heigth = %d\n", player->height);
-    //printf("sector = %d\n", player->numsector);
-    //printf("velocity = %f\n", player->const_vel);
+    printf("x = %f\ty = %f\n", player->pos.x, player->pos.y);
+	printf("width = %d\theight = %d\n", player->width, player->height);
+	printf("Vel = %f\n", player->const_vel);
+	printf("Sector = %d\n", player->numsector);
     //printf("\n");
 }

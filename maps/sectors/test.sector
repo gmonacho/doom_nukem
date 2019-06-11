@@ -1,47 +1,90 @@
+Player
+{
+	posx = 800
+	posy = 400
+	width = 2
+	height = 6
+	sector = 0
+	velocity = 1
+}
 Sector
 {
-	name = dddd
-	ceilHeight = 0
+	name = KJBFH
+	ceilHeight = 200
 	floorHeight = 0
 	line
 	{
-		dot = (1012, 313)
-		dot = (856, 330)
+		dot = (788, 435)
+		dot = (558, 250)
 		flags = WALL
 		id = -1
 	}
 	line
 	{
-		dot = (1162, 384)
-		dot = (1012, 313)
+		dot = (726, 622)
+		dot = (788, 435)
 		flags = WALL
 		id = -1
 	}
 	line
 	{
-		dot = (1092, 521)
-		dot = (1162, 384)
+		dot = (558, 726)
+		dot = (726, 622)
 		flags = WALL
 		id = -1
 	}
 	line
 	{
-		dot = (858, 532)
-		dot = (1092, 521)
+		dot = (379, 510)
+		dot = (558, 726)
+		flags = PORTAL
+		id = 1
+	}
+	line
+	{
+		dot = (399, 352)
+		dot = (379, 510)
 		flags = WALL
 		id = -1
 	}
 	line
 	{
-		dot = (711, 460)
-		dot = (858, 532)
+		dot = (558, 250)
+		dot = (399, 352)
+		flags = WALL
+		id = -1
+	}
+}
+Sector
+{
+	name = KJBFH
+	ceilHeight = 200
+	floorHeight = 0
+	line
+	{
+		dot = (300, 300)
+		dot = (900, 350)
+		flags = PORTAL
+		id = 1
+	}
+	line
+	{
+		dot = (900, 350)
+		dot = (950, 800)
 		flags = WALL
 		id = -1
 	}
 	line
 	{
-		dot = (856, 330)
-		dot = (711, 460)
+		dot = (950, 800)
+		dot = (100, 750)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (100, 750)
+		dot = (300, 300)
 		flags = WALL
 		id = -1
 	}

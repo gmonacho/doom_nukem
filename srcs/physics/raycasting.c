@@ -15,7 +15,7 @@ static void			print_wall(t_win *win, t_linedef *wall, t_player *player, int colu
 	double			h;
 
 	//printf("Adress : %p\t%p\t%f\t%d\n", win, wall, dist, column);
-	h = (HEIGHT_WALL - 20 * ft_abs(win->h / 2 - player->orientation)) / player->lenRay;
+	h = (HEIGHT_WALL - 9 * ft_abs(win->h / 2 - player->orientation)) / player->lenRay;
 	if (wall->flags & PORTAL)
 		SDL_SetRenderDrawColor(win->rend, 0xDD, 0x40, 0x40, 255);
 	else if (wall->flags & WALL)
@@ -44,7 +44,9 @@ static void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int co
 			collision.y = line->equation.a * collision.x + line->equation.b;
 			if (((calculs->newdist = fdist(player->pos, collision)) < calculs->dist ||\
 				calculs->dist == -1) &&\
-				sign(collision.x - player->pos.x) == sign(cos(calculs->alpha)))
+				sign(collision.x - player->pos.x) == sign(cos(calculs->alpha)) &&\
+				((line->p1.x <= collision.x && collision.x <= line->p2.x) ||\
+				(line->p2.x <= collision.x && collision.x <= line->p1.x)))
 			{
 				calculs->dist = calculs->newdist;
 				closest = collision;
@@ -56,7 +58,7 @@ static void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int co
 		//printf("Test wall\n");
 		line = line->next;
 	}
-	player->lenRay = calculs->dist * cos(calculs->alpha - player->dir);
+	player->lenRay = calculs->dist * cos(ft_abs(calculs->alpha - player->dir));
 	if (wall)
 		print_wall(win, wall, player, column);
 	// SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);

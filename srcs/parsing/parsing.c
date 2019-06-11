@@ -113,7 +113,7 @@ t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
 		else if (ft_strstr(tab[i], "Object"))
 			object_data(tab, map->object, i);
 	}
-	printf("Fin parsing\n");
+	printf("Fin parsing\n\n");
 	return (sector);
 }
 
