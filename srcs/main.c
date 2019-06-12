@@ -57,13 +57,13 @@ static int		init_sectors(t_map *map, t_player *player)
 		sector->height = sector->ceil_height - sector->floor_height;
 		sector = sector->next;
 	}
-	player->numsector = 1;	//A parser
+	//player->numsector = 1;	//A parser
 	player->sector = map->sectors; //A parser
 	i = -1;
 	while (++i < player->numsector)
 		player->sector = player->sector->next;
-	if (player->height > player->sector->height)
-		return (1);
+	/*if (player->height > player->sector->height)
+		return (1);*/
 	return (0);
 }
 
@@ -72,15 +72,16 @@ static int		init(t_win *win, t_map *map, t_player *player)
 	if (init_sectors(map, player))
 		return (1);
 	if (init_lines(map))
-		return (1);
+		return (2);
 	win->w = 1200;
 	win->h = 1000;
-	player->pos = (t_fdot){2 * win->w / 3, win->h / 2};
-	player->const_vel = 10;
+	//player->pos = (t_fdot){2 * win->w / 3, win->h / 2};
+	//player->const_vel = 10;
 	player->dir = M_PI;
-	player->fov = 3 * M_PI / 4;
-	player->width = 20;
-	player->height = 100;
+	player->orientation = win->h / 2;
+	player->fov = M_PI / 2;//3 * M_PI / 4;
+	//player->width = 20;
+	//player->height = 100;
 
 	/*add_sector(&map->sectors, new_sector());
 
@@ -126,6 +127,7 @@ int			main(int argc, char **argv)
 	int		fd;
 	int		fd1;
 	int		next_loop;
+	int		ret;
 	t_win	win;
 	t_map	map;
 
@@ -135,10 +137,12 @@ int			main(int argc, char **argv)
 	((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 		return (ret_error("open error"));
 
-	map.sectors = ft_data_storing(fd, fd1, &map.player);
+	map.sectors = ft_data_storing(fd, fd1, &map, &(map.player));
 
-	if (init(&win, &map, &(map.player)))
-		return (ret_error("Init error"));
+	if ((ret = init(&win, &map, &(map.player))))
+		return (ret_num_error("Init error", ret));
+
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
 		return (ret_error(SDL_GetError()));
 

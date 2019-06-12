@@ -27,7 +27,7 @@ t_dot		mouse_drag(int x, int y, SDL_bool end);
 **	---------------------------------- Event ----------------------------------
 */
 
-int		    keyboard_state(t_player *player);
+int		    keyboard_state(t_win *win, t_player *player);
 int		    key_pressed(Uint32 sdl_keycode);
 
 /*
@@ -38,6 +38,7 @@ int		    key_pressed(Uint32 sdl_keycode);
 ** ==================== Error Management ==========================
 */
 
+int			ret_num_error(const char *error_msg, int i);
 int			ret_error(const char *error_msg);
 void		*ret_null_error(const char *error_msg);
 int			ret_perror(const char *error_msg);
@@ -147,9 +148,8 @@ int			get_nb_linedef(t_linedef *lines);
 **	---------------------------------- sector ----------------------------------
 */
 
-t_sector	*new_sector(void);
-t_sector	*new_void_sector(void);
-void		add_sector(t_sector **sectors, t_sector *new_sectors);
+//t_sector	*create_sector(void);
+void		add_sector(t_sector **sectors);
 int			get_nb_sectors(t_sector *sector);
 
 /*
@@ -179,12 +179,15 @@ void		map_add_line(t_map *map, int n_sector, t_linedef *line);
 */
 
 int 		ft_parse_error(char **tab);
-t_sector	*ft_data_storing(int fd, int fd1, t_player *player);
+t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player);
 void		ft_find_coord_p1(t_linedef *line, char *tab);
 void		ft_find_coord_p2(t_linedef *line, char *tab);
 void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
 
+void		ft_player_data(char **tab, t_player *player);
+
+void		object_data(char **tab, t_object *object, int i);
 /*
 ** =============================================================================
 ** ================================== EXPORT ===================================

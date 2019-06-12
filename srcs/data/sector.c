@@ -1,10 +1,10 @@
 #include "doom_nukem.h"
 
-t_sector	*new_sector()
+static t_sector	*create_sector()
 {
-	t_sector *sector;
+	t_sector	*sector;
 
-	if (!(sector = (t_sector*)ft_memalloc(sizeof(t_sector))))
+	if (!(sector = (t_sector *)ft_memalloc(sizeof(t_sector))))
 		return (ret_null_perror("sector allocation failed in new_sector"));
 	sector->name = NULL;
 	sector->color.selected_color = (SDL_Color){255, 0, 0, 255};
@@ -19,17 +19,11 @@ t_sector	*new_sector()
 	return (sector);
 }
 
-t_sector	*new_void_sector(void)
+void			add_sector(t_sector **sectors)
 {
-	t_sector *sector;
+	t_sector	*new_sector;
 
-	if (!(sector = (t_sector *)ft_memalloc(sizeof(t_sector))))
-		return (ret_null_perror("sector allocation failed in new_void_sector"));
-	return (sector);
-}
-
-void		add_sector(t_sector **sectors, t_sector *new_sector)
-{
+	new_sector = create_sector();
 	new_sector->next = *sectors;
 	*sectors = new_sector;
 }

@@ -5,6 +5,7 @@ int		game_loop(t_win *win, t_map *map)
 	SDL_Event	event;
 	SDL_bool    loop;
 
+	printf("Debut game loop\n");
 	loop = SDL_TRUE;
 	if (win)
 		while (loop)
@@ -14,7 +15,7 @@ int		game_loop(t_win *win, t_map *map)
 			SDL_PollEvent(&event);
 			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
 				loop = SDL_FALSE;
-			keyboard_state(&(map->player));
+			keyboard_state(win, &(map->player));
 
 			move(map, &(map->player));
 			//entiteMove();
