@@ -83,12 +83,14 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	t_linedef	*tmp;
 	t_dot		dot;
 	char		*str;
+	SDL_Rect	rect;
+	SDL_Texture	*text;
 
 
 	tmp = NULL;
 	SDL_PollEvent(&event);
 	mouse_refresh();
-	if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+	if (event.type == SDL_QUIT)
 		*loop = SDL_FALSE;
 	else if (event.type == SDL_MOUSEMOTION)
 		update_selected_ui(win);
@@ -107,17 +109,33 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			update_ui_rect(win);
 		}
 	}
-	else if (event.type == SDL_TEXTINPUT && map->flags == MAP_TEXT_EDITING)
+	else if (map->flags == MAP_TEXT_EDITING)
 	{
-		str = map->selected_sector->name;
-		// printf("event.text = %s\n", event.text.text);
-		if (!(map->selected_sector->name = str_conca(map->selected_sector->name, event.text.text[0])))
-			return (ret_error("ft_strjoin failed in editor_event during TEXTINPUT event"));
-		if (!(win->text_outpout = generate_text(win->rend, win->font, map->selected_sector->name, (SDL_Color){200, 200, 200, 255})))
-			return (ret_error("text generation failed in editor_event during TEXTINPUT event"));
-		
-		ft_strdel(&str);
-		printf("text = %s\n", map->selected_sector->name);
+
+		if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_ESCAPE)
+		{
+			win->text_button = NULL;
+			map->flags -= MAP_TEXT_EDITING;
+		}
+		if (event.type == SDL_TEXTINPUT)
+		{
+			str = win->text_button->text;
+			//printf("event.text = %s\n", event.text.text);
+			if (!(win->text_button->text = str_conca(win->text_button->text, event.text.text[0])))
+				return (ret_error("ft_strjoin failed in editor_event during TEXTINPUT event"));
+			SDL_QueryTexture(win->text_button->texture, NULL, NULL, &rect.w, &rect.h);
+			// SDL_Renderer *rend, TTF_Font *font, const char *text, SDL_Color fg
+			if (!(text = generate_text(win->rend, win->font,
+							win->text_button->text, (SDL_Color){200, 200, 200, 255})))
+				return (ret_error("text generation failed in editor_event"));
+			if (!(win->text_button->texture = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){rect.w / 3 + rect.w * 0.01, 0, rect.w / 2, rect.h})))
+				return (ret_error("blit_text failed in editor_event"));
+			SDL_DestroyTexture(text);
+			// if (!(win->text_outpout = generate_text(win->rend, win->font, map->selected_sector->name, (SDL_Color){200, 200, 200, 255})))
+			// 	return (ret_error("text generation failed in editor_event during TEXTINPUT event"));
+			ft_strdel(&str);
+			printf("text = %s\n", win->text_button->text);
+		}
 	}
 	if (win->mouse->button[MOUSE_LEFT].pressing)
 	{
