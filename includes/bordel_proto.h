@@ -148,9 +148,8 @@ int			get_nb_linedef(t_linedef *lines);
 **	---------------------------------- sector ----------------------------------
 */
 
-t_sector	*new_sector(void);
-t_sector	*new_void_sector(void);
-void		add_sector(t_sector **sectors, t_sector *new_sectors);
+//t_sector	*create_sector(void);
+void		add_sector(t_sector **sectors);
 int			get_nb_sectors(t_sector *sector);
 
 /*

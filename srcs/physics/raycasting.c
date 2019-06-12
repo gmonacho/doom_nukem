@@ -34,6 +34,8 @@ static void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int co
 
 	calculs->dist = -1;
 	wall = NULL;
+	//printf("Ad : %p\n", player);
+	//printf("Ad : %p\n\n", player->sector);
 	line = player->sector->lines;
 	while (line)
 	{

@@ -65,8 +65,8 @@ char		**ft_fill_map(int fd, int fp1)
 
 void		ft_fill_data(char **tab, t_sector *sector, int i)
 {	
-	add_sector(&sector, new_void_sector());
-	while ((ft_strchr(tab[i], '}') == NULL ||ft_strchr(tab[i - 1], '}') == NULL))
+	add_sector(&sector);
+	while ((ft_strchr(tab[i], '}') == NULL || ft_strchr(tab[i - 1], '}') == NULL))
 	{
 		if (ft_strstr(tab[i], "floorHeight ="))
 			sector->floor_height =
