@@ -4,7 +4,7 @@ t_mouse		*mouse_refresh()
 {
 	int		i;
 	Uint32	tmp;
-	static t_mouse mouse = (t_mouse){0, 0, 
+	static t_mouse mouse = {0, 0, 
 									SDL_FALSE,
 									{(t_mouse_button){0, 0, 0},
 									(t_mouse_button){0, 0, 0},
