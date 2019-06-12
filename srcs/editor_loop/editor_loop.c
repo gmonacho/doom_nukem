@@ -78,6 +78,8 @@ static int		ui_init(t_win *win)
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.8, 0.8, 0.05}, NULL, BUTTON_COLOR_PICKER));
 	//		export_button
 	add_button_to_frame(&win->frames, new_button((t_frect){0.7, 0.925, 0.2, 0.03}, NULL, BUTTON_EXPORT));
+	//	info linedef frame
+	add_frame_to_window(win, new_frame((t_frect){0.02, 0.55, 0.15, 0.4}, NULL, FRAME_L_INFO, NULL));
 	return (1);
 }
 

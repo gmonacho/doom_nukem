@@ -135,7 +135,7 @@ int			main(int argc, char **argv)
 	((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 		return (ret_error("open error"));
 
-	map.sectors = ft_data_storing(fd, fd1);
+	map.sectors = ft_data_storing(fd, fd1, &map.player);
 
 	if (init(&win, &map, &(map.player)))
 		return (ret_error("Init error"));
