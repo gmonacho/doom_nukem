@@ -163,6 +163,7 @@ typedef struct		s_win
 
 	int				w;
 	int				h;
+	double			middle_print;
 
 	t_mouse			*mouse;
 
@@ -291,6 +292,8 @@ typedef struct				s_sector
 typedef struct		s_player
 {
 	t_fdot			pos;
+	double			z;
+	int				shift;
 	t_fvector		vel;
 	double			const_vel;
 	double			dir;

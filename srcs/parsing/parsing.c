@@ -1,6 +1,6 @@
 #include "doom_nukem.h"
 
-void		ft_fill_coord(t_sector *sector, char **tab, int i)
+void		ft_fill_coord(t_sector **sector, char **tab, int i)
 {
 	t_linedef	*line;
 	int			y;
@@ -25,7 +25,7 @@ void		ft_fill_coord(t_sector *sector, char **tab, int i)
 			ft_find_id(tab[i], line);
 		i++;
 	}
-	add_linedef(&sector->lines, init_linedef(line));
+	add_linedef(&((*sector)->lines), init_linedef(line));
 }
 
 int			count_line(int fp1)
@@ -63,29 +63,29 @@ char		**ft_fill_map(int fd, int fp1)
 	return (tab);
 }
 
-void		ft_fill_data(char **tab, t_sector *sector, int i)
+void		ft_fill_data(char **tab, t_sector **sector, int i)
 {	
-	add_sector(&sector);
+	add_sector(sector);
 	while ((ft_strchr(tab[i], '}') == NULL || ft_strchr(tab[i - 1], '}') == NULL))
 	{
 		if (ft_strstr(tab[i], "floorHeight ="))
-			sector->floor_height =
+			(*sector)->floor_height =
 			ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "ceilHeight ="))
-			sector->ceil_height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+			(*sector)->ceil_height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "name ="))
-			sector->name = ft_strdup(ft_strrchr(tab[i], '=') + 1);
+			(*sector)->name = ft_strdup(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "line"))
 			ft_fill_coord(sector, tab, i);
 		i++;
 	}
-	printf("floor_heignt = %d\n", sector->floor_height);
+	/*printf("floor_heignt = %d\n", sector->floor_height);
 	printf("ceil_height = %d\n", sector->ceil_height);
 	printf("name = %s\n", sector->name);
 	printf("flags = %u\n", sector->lines->flags);
 	printf("p1.x = %d p1.y = %d\n", sector->lines->p1.x, sector->lines->p1.y);
 	printf("p2.x = %d p2.y = %d\n", sector->lines->p2.x, sector->lines->p2.y);
-	printf("id = %d\n", sector->lines->id);
+	printf("id = %d\n", sector->lines->id);*/
 	printf("\n");
 }
 
@@ -103,7 +103,7 @@ t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
 	while (tab[++i])
 	{
 		if (ft_strstr(tab[i], "Sector"))
-			ft_fill_data(tab, sector, i);
+			ft_fill_data(tab, &sector, i);
 		else if (ft_strstr(tab[i], "Object"))
 			object_data(tab, map->object, i);
 	}

@@ -1,34 +1,26 @@
 #include "doom_nukem.h"
 
-static t_sector	*create_sector()
-{
-	t_sector	*sector;
-
-	if (!(sector = (t_sector *)ft_memalloc(sizeof(t_sector))))
-		return (ret_null_perror("sector allocation failed in new_sector"));
-	sector->name = NULL;
-	sector->color.selected_color = (SDL_Color){255, 0, 0, 255};
-	sector->color.pos = 0;
-	sector->floor_height = 0;
-	sector->floor_texture = NULL;
-	sector->ceil_height = 0;
-	sector->ceil_texture = NULL;
-	sector->light_level = 0;
-	sector->lines = NULL;
-	sector->next = NULL;
-	return (sector);
-}
-
 void			add_sector(t_sector **sectors)
 {
 	t_sector	*new_sector;
 
-	new_sector = create_sector();
+	if (!(new_sector = (t_sector *)ft_memalloc(sizeof(t_sector))))
+		return (ft_putendl("sector allocation failed in new_sector"));
+	/*new_sector->name = NULL;
+	new_sector->color.selected_color = (SDL_Color){255, 0, 0, 255};
+	new_sector->color.pos = 0;
+	new_sector->floor_height = 0;
+	new_sector->floor_texture = NULL;
+	new_sector->ceil_height = 0;
+	new_sector->ceil_texture = NULL;
+	new_sector->light_level = 0;
+	new_sector->lines = NULL;*/
+	printf("DEBUT %p\n", new_sector->floor_texture);
 	new_sector->next = *sectors;
 	*sectors = new_sector;
 }
 
-int			get_nb_sectors(t_sector *sector)
+int				get_nb_sectors(t_sector *sector)
 {
 	t_sector	*s;
 	int			i;

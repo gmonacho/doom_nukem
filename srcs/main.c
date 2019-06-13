@@ -64,6 +64,8 @@ static int		init_sectors(t_map *map, t_player *player)
 		player->sector = player->sector->next;
 	/*if (player->height > player->sector->height)
 		return (1);*/
+	printf("Ad : %p\n", map->sectors);
+	printf("Ad : %p\n\n", map->player.sector);
 	return (0);
 }
 
@@ -78,7 +80,7 @@ static int		init(t_win *win, t_map *map, t_player *player)
 	//player->pos = (t_fdot){2 * win->w / 3, win->h / 2};
 	//player->const_vel = 10;
 	player->dir = M_PI;
-	player->orientation = win->h / 2;
+	player->orientation = 2 * win->h / 5;
 	player->fov = M_PI / 2;//3 * M_PI / 4;
 	//player->width = 20;
 	//player->height = 100;
@@ -142,13 +144,13 @@ int			main(int argc, char **argv)
 	if ((ret = init(&win, &map, &(map.player))))
 		return (ret_num_error("Init error", ret));
 
-
 	if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
 		return (ret_error(SDL_GetError()));
 
 	if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 		return (0);
 	//SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
+
 
 	next_loop = main_menu(&win);
 	if (next_loop == 2)
