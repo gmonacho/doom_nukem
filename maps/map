@@ -1,10 +1,10 @@
 Player
 {
-	posx = 800
+	posx = 500
 	posy = 400
-	width = 2
-	height = 6
-	sector = 0
+	width = 30
+	height = 80
+	sector = 1
 	velocity = 1
 }
 Object
@@ -41,7 +41,7 @@ Sector
 		dot = (1000, 400)
 		dot = (200, 200)
 		flags = PORTAL
-		id = 1
+		id = 2
 	}
 	line
 	{
@@ -55,14 +55,14 @@ Sector
 		dot = (600, 500)
 		dot = (1100, 700)
 		flags = WALL
-		id = 2
+		id = -1
 	}
 	line
 	{
 		dot = (1100, 700)
 		dot = (1000, 400)
 		flags = WALL
-		id = 0
+		id = -1
 	}
 }
 Sector
@@ -89,13 +89,13 @@ Sector
 		dot = (1200, 500)
 		dot = (1500, 800)
 		flags = WALL
-		id = 0
+		id = -1
 	}
 	line
 	{
 		dot = (1500, 800)
 		dot = (1800, 400)
 		flags = WALL
-		id = 3
+		id = -1
 	}
 }

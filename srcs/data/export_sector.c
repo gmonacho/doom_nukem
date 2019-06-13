@@ -10,7 +10,7 @@ static char		*get_line_flag(Uint32 flags)
 		return ("DOOR_CLOSE");
 	else if (flags & DOOR_OPEN)
 		return ("DOOR_OPEN");
-	return ("NONE");
+	return ("WALL");
 }
 
 static void		write_line(int fd, int nb_tab, const char *str)
@@ -38,7 +38,7 @@ int				export_sector(t_sector *sector, const char* filename)
 	l = sector->lines;
 	while (l)
 	{
-		write_line(fd, 1, "Line");
+		write_line(fd, 1, "line");
 		write_line(fd, 1, "{");
 		write_line(fd, 2, ft_strjoin("dot = (",
 							ft_strjoin(ft_itoa(l->p1.x),

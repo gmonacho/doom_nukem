@@ -180,6 +180,8 @@ int		move(t_map *map, t_player *player)
 
 	//printf("\nPos : %f\t%f\n", player->pos.x, player->pos.y);
 	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
+	if (player->z > 0)
+		player->z -= 1;
 	if (!player->vel.x && !player->vel.y)
 		return (0);
 	line = player->sector->lines;

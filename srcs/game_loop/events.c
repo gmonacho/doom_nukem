@@ -28,10 +28,16 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 		player->dir -= 0.1;
 	if (state[SDL_SCANCODE_RIGHT])
 		player->dir += 0.1;
-	if (state[SDL_SCANCODE_UP] && player->orientation > 0)
+	if (state[SDL_SCANCODE_DOWN] && player->orientation > 0)
 		player->orientation -= 10;
-	if (state[SDL_SCANCODE_DOWN] && player->orientation < win->h)
+	if (state[SDL_SCANCODE_UP] && player->orientation < win->h)
 		player->orientation += 10;
+	if (state[SDL_SCANCODE_LSHIFT])
+		player->shift = 1;
+	else
+		player->shift = 0;
+	if (state[SDL_SCANCODE_SPACE])
+		player->z += 5;
 	if (state[SDL_SCANCODE_KP_MINUS])
 		player->fov -= 0.03;
 	if (state[SDL_SCANCODE_KP_PLUS])
@@ -68,8 +74,8 @@ int			keyboard_state(t_win *win, t_player *player)
 
 	state = SDL_GetKeyboardState(NULL);
 	player->vel = (t_fvector){0, 0};
-	keyboard_dir(win, player, state);
 	keyboard_move(player, state);
+	keyboard_dir(win, player, state);
 	//mouse_move(player);
 	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
 	return (0);
