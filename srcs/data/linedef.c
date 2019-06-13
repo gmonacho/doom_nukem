@@ -64,7 +64,7 @@ t_linedef	*new_void_linedef(void)
 	return (line);
 }
 
-int			get_nb_linedef(t_linedef *lines)
+int			get_nb_linedef(t_linedef *lines, Uint32 flags)
 {
 	t_linedef	*tmp;
 	int			nb;
@@ -73,7 +73,8 @@ int			get_nb_linedef(t_linedef *lines)
 	tmp = lines;
 	while (tmp)
 	{
-		nb++;
+		if (tmp->flags & flags)
+			nb++;
 		tmp = tmp->next;
 	}
 	return (nb);

@@ -43,6 +43,7 @@ add_executable(${PROJECT_NAME} srcs/data/delete_linedef.c
                                 srcs/parsing/parse_utils.c
                                 srcs/parsing/parsing_player.c
                                 srcs/parsing/parsing.c
+                                srcs/parsing/parsing_object.c
                                 srcs/physics/collisions.c
                                 srcs/physics/raycasting.c
                                 srcs/physics/teleportation.c

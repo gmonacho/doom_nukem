@@ -86,7 +86,7 @@ static int		ui_init(t_win *win)
 		return (ret_error("text generation failed in ui_init"));
 	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
 		return (ret_error("blit_text failed in ui_init"));
-	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.05, 0.4, 0.06}, t, BUTTON_TEXT_ENTRY));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.05, 0.4, 0.06}, t, BUTTON_TEXT_ENTRY | BUTTON_ID));
 	return (1); 
 }
 
