@@ -171,8 +171,6 @@ typedef struct		s_win
 	SDL_Texture		**sectors_texture_selected;
 	SDL_Texture		*text_entry_texture;
 
-	t_button		*text_button;
-
 	t_frame			*frames;
 	t_frame			*selected_frame;
 
