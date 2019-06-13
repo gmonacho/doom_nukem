@@ -125,6 +125,7 @@ typedef struct		s_button
 	t_frect			ratio;
 	SDL_Rect		rect;
 	SDL_Texture		*texture;
+	char			*text;
 	Uint32			flags;
 	struct s_button	*next;
 }					t_button;
@@ -170,7 +171,8 @@ typedef struct		s_win
 	SDL_Texture		**sectors_texture;
 	SDL_Texture		**sectors_texture_selected;
 	SDL_Texture		*text_entry_texture;
-	SDL_Texture		*text_outpout;
+
+	t_button		*text_button;
 
 	t_frame			*frames;
 	t_frame			*selected_frame;

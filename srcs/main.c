@@ -75,8 +75,8 @@ static int		init(t_win *win, t_map *map, t_player *player)
 		return (1);
 	if (init_lines(map))
 		return (2);
-	win->w = 1200;
-	win->h = 1000;
+	win->w = 1000;
+	win->h = 800;
 	//player->pos = (t_fdot){2 * win->w / 3, win->h / 2};
 	//player->const_vel = 10;
 	player->dir = M_PI;
@@ -147,7 +147,7 @@ int			main(int argc, char **argv)
 	if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
 		return (ret_error(SDL_GetError()));
 
-	if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 200, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
+	if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 100, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 		return (0);
 	//SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
 

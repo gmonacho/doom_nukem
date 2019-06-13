@@ -1068,6 +1068,33 @@ srcs/parsing/parsing.c.s:
 	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/parsing/parsing.c.s
 .PHONY : srcs/parsing/parsing.c.s
 
+srcs/parsing/parsing_object.o: srcs/parsing/parsing_object.c.o
+
+.PHONY : srcs/parsing/parsing_object.o
+
+# target to build an object file
+srcs/parsing/parsing_object.c.o:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/parsing/parsing_object.c.o
+.PHONY : srcs/parsing/parsing_object.c.o
+
+srcs/parsing/parsing_object.i: srcs/parsing/parsing_object.c.i
+
+.PHONY : srcs/parsing/parsing_object.i
+
+# target to preprocess a source file
+srcs/parsing/parsing_object.c.i:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/parsing/parsing_object.c.i
+.PHONY : srcs/parsing/parsing_object.c.i
+
+srcs/parsing/parsing_object.s: srcs/parsing/parsing_object.c.s
+
+.PHONY : srcs/parsing/parsing_object.s
+
+# target to generate assembly for a file
+srcs/parsing/parsing_object.c.s:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/parsing/parsing_object.c.s
+.PHONY : srcs/parsing/parsing_object.c.s
+
 srcs/parsing/parsing_player.o: srcs/parsing/parsing_player.c.o
 
 .PHONY : srcs/parsing/parsing_player.o
@@ -1290,6 +1317,9 @@ help:
 	@echo "... srcs/parsing/parsing.o"
 	@echo "... srcs/parsing/parsing.i"
 	@echo "... srcs/parsing/parsing.s"
+	@echo "... srcs/parsing/parsing_object.o"
+	@echo "... srcs/parsing/parsing_object.i"
+	@echo "... srcs/parsing/parsing_object.s"
 	@echo "... srcs/parsing/parsing_player.o"
 	@echo "... srcs/parsing/parsing_player.i"
 	@echo "... srcs/parsing/parsing_player.s"

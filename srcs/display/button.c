@@ -9,6 +9,7 @@ t_button	*new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_fl
 	button->ratio = ratio;
 	button->texture = texture;
 	button->flags = button_flags;
+	button->text = NULL;
 	button->next = NULL;
 	return (button);
 }

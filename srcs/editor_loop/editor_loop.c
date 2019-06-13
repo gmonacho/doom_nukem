@@ -80,7 +80,14 @@ static int		ui_init(t_win *win)
 	add_button_to_frame(&win->frames, new_button((t_frect){0.7, 0.925, 0.2, 0.03}, NULL, BUTTON_EXPORT));
 	//	info linedef frame
 	add_frame_to_window(win, new_frame((t_frect){0.02, 0.55, 0.15, 0.4}, NULL, FRAME_L_INFO, NULL));
-	return (1);
+	//		text_input
+	//			id
+	if (!(text = generate_text(win->rend, win->font, "id",  (SDL_Color){200, 200, 200, 255})))
+		return (ret_error("text generation failed in ui_init"));
+	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
+		return (ret_error("blit_text failed in ui_init"));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.05, 0.4, 0.06}, t, BUTTON_TEXT_ENTRY));
+	return (1); 
 }
 
 static int		editor_init(t_win *win, t_map_editor *map)
