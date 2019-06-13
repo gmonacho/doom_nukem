@@ -141,7 +141,7 @@ t_linedef	*init_linedef(t_linedef *line);
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
 t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags);
 t_linedef	*new_void_linedef(void);
-int			get_nb_linedef(t_linedef *lines);
+int			get_nb_linedef(t_linedef *lines, Uint32 flags);
 
 
 /*

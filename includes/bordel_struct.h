@@ -117,7 +117,8 @@ enum	e_button
 	BUTTON_TEXT_ENTRY = 0b0010,
 	BUTTON_EXPORT = 0b0100,
 	BUTTON_GAMELOOP = 0b1000,
-	BUTTON_EDITORLOOP = 0b10000
+	BUTTON_EDITORLOOP = 0b10000,
+	BUTTON_ID = 0b100000
 };
 
 typedef struct		s_button
@@ -172,7 +173,7 @@ typedef struct		s_win
 	SDL_Texture		**sectors_texture_selected;
 	SDL_Texture		*text_entry_texture;
 
-	t_button		*text_button;
+	char			*text_entry;
 
 	t_frame			*frames;
 	t_frame			*selected_frame;

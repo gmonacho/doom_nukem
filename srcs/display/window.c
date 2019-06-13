@@ -8,7 +8,7 @@ int 			create_window(t_win *win, const char *title, SDL_Rect rect, Uint32 flags)
 	win->h = rect.h;
 	win->mouse = mouse_refresh();
 	win->frames = NULL;
-	win->text_button = NULL;
+	win->text_entry = NULL;
 	if (!(win->rend = SDL_CreateRenderer(win->ptr, 0, SDL_RENDERER_SOFTWARE)))
 		return (ret_error(SDL_GetError()));
 	SDL_SetRenderDrawBlendMode(win->rend, SDL_BLENDMODE_BLEND);
