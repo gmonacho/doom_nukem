@@ -50,7 +50,7 @@ int				export_sector(t_sector *sector, const char* filename)
 							ft_strjoin(", ",
 							ft_strjoin(ft_itoa(l->p2.y),
 							")")))));
-		write_line(fd, 2, ft_strjoin("flags = ", get_line_flag(l->flags)));
+		write_line(fd, 2, ft_strjoin("flags = ", get_line_flag(l->gflags)));
 		write_line(fd, 2, ft_strjoin("id = ", ft_itoa(l->id)));
 		write_line(fd, 1, "}");
 		l = l->next;

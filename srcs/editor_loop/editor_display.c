@@ -14,10 +14,16 @@ static void			display_linedefs(t_win *win, const t_map_editor *map, t_sector *s)
 		else if (l->flags & LINEDEF_MOUSE_POINTED)
 			SDL_SetRenderDrawColor(win->rend, 50, 150, 150, 255);
 		else
-			SDL_SetRenderDrawColor(win->rend, s->color.selected_color.r,
-												s->color.selected_color.g,
-												s->color.selected_color.b,
-												s->color.selected_color.a);
+		{
+			if (l->gflags & WALL)
+				SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
+			else if (l->gflags & PORTAL)
+				SDL_SetRenderDrawColor(win->rend, 200, 0, 200, 255);
+		// 	SDL_SetRenderDrawColor(win->rend, s->color.selected_color.r,
+		// 										s->color.selected_color.g,
+		// 										s->color.selected_color.b,
+		// 										s->color.selected_color.a);
+		}
 		p1 = (t_dot){l->p1.x * map->unit + map->x, l->p1.y * map->unit + map->y};
 		p2 = (t_dot){l->p2.x * map->unit + map->x, l->p2.y * map->unit + map->y};
 		if (is_in_screen(win, p1) || is_in_screen(win, p2))

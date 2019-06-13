@@ -86,8 +86,17 @@ static int		ui_init(t_win *win)
 		return (ret_error("text generation failed in ui_init"));
 	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
 		return (ret_error("blit_text failed in ui_init"));
-	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.05, 0.4, 0.06}, t, BUTTON_TEXT_ENTRY | BUTTON_ID));
-	return (1); 
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.05, 0.4, 0.05}, t, BUTTON_TEXT_ENTRY | BUTTON_ID));
+	//		button_glinedef
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.2, 0.8, 0.05}, NULL, BUTTON_L_TYPE));
+	//		frame_glinedef
+	add_frame_to_window(win, new_frame((t_frect){0.175, 0.63, 0.15, 0.2}, NULL, FRAME_HIDE | FRAME_L_TYPE, NULL));
+	//			linedef_type_buttons
+	add_button_to_frame(&win->frames, new_button((t_frect){0, 0, 1, 0.33}, NULL, BUTTON_NONE));
+	win->frames->buttons->gflags = WALL;
+	add_button_to_frame(&win->frames, new_button((t_frect){0, 0.33, 1, 0.33}, NULL, BUTTON_NONE));
+	win->frames->buttons->gflags = PORTAL;
+	return (1);
 }
 
 static int		editor_init(t_win *win, t_map_editor *map)

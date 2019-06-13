@@ -118,7 +118,9 @@ enum	e_button
 	BUTTON_EXPORT = 0b0100,
 	BUTTON_GAMELOOP = 0b1000,
 	BUTTON_EDITORLOOP = 0b10000,
-	BUTTON_ID = 0b100000
+	BUTTON_ID = 0b100000,
+	BUTTON_L_TYPE = 0b1000000,
+	BUTTON_CLICKED = 0b10000000
 };
 
 typedef struct		s_button
@@ -128,8 +130,10 @@ typedef struct		s_button
 	SDL_Texture		*texture;
 	char			*text;
 	Uint32			flags;
+	Uint32			gflags;
 	struct s_button	*next;
 }					t_button;
+
 
 enum	e_frame
 {
@@ -137,7 +141,8 @@ enum	e_frame
 	FRAME_SECTORS = 0b0001,
 	FRAME_INFO = 0b0010,
 	FRAME_HIDE = 0b0100,
-	FRAME_L_INFO = 0b1000
+	FRAME_L_INFO = 0b1000,
+	FRAME_L_TYPE = 0b10000
 };
 
 typedef struct		s_frame
@@ -247,6 +252,7 @@ typedef struct				s_linedef
 	double				angle;
 	SDL_Texture			*texture;
 	Uint32				flags;
+	Uint32				gflags;
 	int					id;
 	struct s_sector		*sector;
 	struct s_linedef	*destline;

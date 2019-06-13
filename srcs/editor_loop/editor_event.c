@@ -127,8 +127,8 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 					linedef = map->selected_sector->lines;
 					while (linedef)
 					{
-						// if (linedef->flags & PORTAL)
-						linedef->id = id;
+						if (linedef->flags & LINEDEF_SELECTED && linedef->gflags & PORTAL)
+							linedef->id = id;
 						linedef = linedef->next;
 					}
 				}
@@ -189,6 +189,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 				is_next_to_linedef(map, &dot, map->unit * NEXT_FACTOR);
 			if (!(tmp = new_linedef((t_line){dot, dot}, NULL, LINEDEF_NONE)))
 				return (0);
+			tmp->gflags = WALL;
 			if (map->selected_sector)
 				add_linedef(&map->selected_sector->lines, tmp);
 			map->flags = map->flags | DRAWING_LINE;
@@ -213,7 +214,6 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			}
 		}
 	}
-	
 	if (win->mouse->button[MOUSE_RIGHT].pressing)
 	{
 		if (!win->selected_frame)

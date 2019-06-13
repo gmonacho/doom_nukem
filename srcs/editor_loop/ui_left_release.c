@@ -41,6 +41,7 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 	t_frame		*f;
 	t_button	*b;
 	t_sector	*s;
+	t_linedef	*l;
 	int			i;
 	int			i_sector;
 	int			nb_sectors;
@@ -114,6 +115,56 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 			else if (b->flags & BUTTON_EXPORT)
 			{
 				export_sector(map->selected_sector, "test.sector");
+			}
+		}
+	}
+	else if (f->flags & FRAME_L_INFO)
+	{
+		if (win->selected_button)
+		{
+			b = win->selected_button;
+			if (b->flags & BUTTON_L_TYPE)
+			{
+				if (b->flags & BUTTON_CLICKED)
+				{
+					add_frame_flags(&win->frames, FRAME_L_TYPE, FRAME_HIDE);
+					b->flags -= BUTTON_CLICKED;
+				}
+				else
+				{
+					b->flags |= BUTTON_CLICKED;
+					remove_frame_flags(&win->frames, FRAME_L_TYPE, FRAME_HIDE);
+				}
+			}
+		}
+	}
+	else if (f->flags & FRAME_L_TYPE)
+	{
+		if (win->selected_button)
+		{
+			if (map->selected_sector)
+			{
+				l = map->selected_sector->lines;
+				while (l)
+				{
+					if (l->flags & LINEDEF_SELECTED)
+					{
+						if (win->selected_button->flags & BUTTON_CLICKED)
+						{
+							if (l->gflags & win->selected_button->gflags)
+							{
+								l->gflags = WALL;
+								l->id = -1;
+							}
+						}
+						else
+						{
+							if (!(l->gflags & win->selected_button->gflags))
+								l->gflags = win->selected_button->gflags;
+						}
+					}
+					l = l->next;
+				}
 			}
 		}
 	}
