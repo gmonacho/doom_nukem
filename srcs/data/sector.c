@@ -6,12 +6,8 @@ void			add_sector(t_sector **sectors)
 
 	if (!(new_sector = (t_sector *)ft_memalloc(sizeof(t_sector))))
 		return (ft_putendl("sector allocation failed in new_sector"));
-<<<<<<< HEAD
-	new_sector->name = NULL;
-=======
->>>>>>> 228906d2eed771fb08905f5af927652708e7fe0e
 	new_sector->color.selected_color = (SDL_Color){255, 0, 0, 255};
-	/*new_sector->name = NULL;
+	new_sector->name = NULL;
 	new_sector->color.pos = 0;
 	new_sector->floor_height = 0;
 	new_sector->floor_texture = NULL;
