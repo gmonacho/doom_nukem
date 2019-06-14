@@ -5,23 +5,51 @@ Sector
 	floorHeight = 0
 	line
 	{
-		dot = (636, 395)
-		dot = (532, 218)
-		flags = WALL
-		id = 1
+		dot = (808, 461)
+		dot = (825, 498)
+		flags = PORTAL
+		id = 0
 	}
 	line
 	{
-		dot = (425, 334)
-		dot = (636, 395)
+		dot = (785, 513)
+		dot = (825, 498)
 		flags = WALL
 		id = -1
 	}
 	line
 	{
-		dot = (532, 218)
-		dot = (425, 334)
-		flags = PORTAL
-		id = 2
+		dot = (868, 726)
+		dot = (785, 513)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (771, 475)
+		dot = (808, 461)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (735, 379)
+		dot = (771, 475)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (735, 379)
+		dot = (465, 548)
+		flags = WALL
+		id = -1
+	}
+	line
+	{
+		dot = (465, 548)
+		dot = (868, 726)
+		flags = WALL
+		id = -1
 	}
 }

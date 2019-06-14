@@ -149,19 +149,10 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 				{
 					if (l->flags & LINEDEF_SELECTED)
 					{
-						if (win->selected_button->flags & BUTTON_CLICKED)
-						{
-							if (l->gflags & win->selected_button->gflags)
-							{
-								l->gflags = WALL;
-								l->id = -1;
-							}
-						}
-						else
-						{
-							if (!(l->gflags & win->selected_button->gflags))
-								l->gflags = win->selected_button->gflags;
-						}
+						if (!(l->gflags & win->selected_button->gflags))
+							l->gflags = win->selected_button->gflags;
+						if (!(win->selected_button->gflags & PORTAL))
+							l->id = -1;
 					}
 					l = l->next;
 				}
