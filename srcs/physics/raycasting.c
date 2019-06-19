@@ -19,7 +19,9 @@ static void			print_wall(t_win *win, t_linedef *wall, t_player *player, int colu
 	if (wall->flags & PORTAL)
 		SDL_SetRenderDrawColor(win->rend, 0xDD, 0x40, 0x40, 255);
 	else if (wall->flags & WALL)
+	{
 		SDL_SetRenderDrawColor(win->rend, 0x40, 0xDD, 0x40, 255);
+	}
 	else
 		SDL_SetRenderDrawColor(win->rend, 0x40, 0x40, 0xDD, 255);
 	draw_column(win, column, win->middle_print - h, win->middle_print + h);

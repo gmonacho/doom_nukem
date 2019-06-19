@@ -284,13 +284,13 @@ typedef struct				s_sector
 	// SDL_Color				color;
 	int						floor_height;
 	SDL_Texture				*floor_texture;
-
 	int						ceil_height;
 	SDL_Texture				*ceil_texture;
 
 	int						height;
 	int						light_level;
     t_linedef				*lines;
+	t_dot					center;
 	struct	s_sector 		*next;
 }							t_sector;
 
@@ -302,7 +302,8 @@ typedef struct		s_player
 {
 	t_fdot			pos;
 	double			z;
-	int				shift;
+	char			jump;
+	char			shift;
 	t_fvector		vel;
 	double			const_vel;
 	double			dir;

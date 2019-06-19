@@ -1,74 +1,5 @@
 #include "doom_nukem.h"
 
-static int		find_portal_id(t_map *map, t_linedef *line1, int id)
-{
-	t_sector	*sector;
-	t_linedef	*line;
-
-	sector = map->sectors;
-	while (sector)
-	{
-		line = sector->lines;
-		while (line)
-		{
-			if (id == line->id && line1 != line)
-			{
-				line1->destline = line;
-				return (0);
-			}
-			line = line->next;
-		}
-		sector = sector->next;
-	}
-	return (1);
-}
-
-static int		init_lines(t_map *map)
-{
-	t_sector	*sector;
-	t_linedef	*line;
-
-	sector = map->sectors;
-	while (sector)
-	{
-		line = sector->lines;
-		while (line)
-		{
-			line->sector = sector;
-			if (line->flags & PORTAL && find_portal_id(map, line, line->id))
-				return (1);
-			line = line->next;
-		}
-		sector = sector->next;
-	}
-	return (0);
-}
-
-static int		init_sectors(t_map *map, t_player *player)
-{
-	t_sector	*sector;
-	int			i;
-
-	sector = map->sectors;
-	while (sector)
-	{
-		if (sector->floor_height >= sector->ceil_height)
-			return (1);
-		sector->height = sector->ceil_height - sector->floor_height;
-		sector = sector->next;
-	}
-	//player->numsector = 1;	//A parser
-	player->sector = map->sectors; //A parser
-	i = -1;
-	while (++i < player->numsector)
-		player->sector = player->sector->next;
-	/*if (player->height > player->sector->height)
-		return (1);*/
-	printf("Ad : %p\n", map->sectors);
-	printf("Ad : %p\n\n", map->player.sector);
-	return (0);
-}
-
 static int		init(t_win *win, t_map *map, t_player *player)
 {
 	if (init_sectors(map, player))
@@ -77,50 +8,9 @@ static int		init(t_win *win, t_map *map, t_player *player)
 		return (2);
 	win->w = 1000;
 	win->h = 800;
-	//player->pos = (t_fdot){2 * win->w / 3, win->h / 2};
-	//player->const_vel = 10;
 	player->dir = M_PI;
 	player->orientation = 2 * win->h / 5;
-	player->fov = M_PI / 2;//3 * M_PI / 4;
-	//player->width = 20;
-	//player->height = 100;
-
-	/*add_sector(&map->sectors, new_sector());
-
-	tmp = new_linedef((t_line){(t_dot){win->w / 6, win->h / 4},\
-								(t_dot){win->w / 6, 3 * win->h / 4}},\
-						NULL, WALL);
-	add_linedef(&map->sectors->lines, tmp);
-	tmp = new_linedef((t_line){(t_dot){win->w / 6, 3 * win->h / 4},\
-								(t_dot){2 * win->w / 6, 3 * win->h / 4}},\
-						NULL, WALL);
-	add_linedef(&map->sectors->lines, tmp);
-	tmp = new_linedef((t_line){(t_dot){2 * win->w / 6, 3 * win->h / 4},\
-								(t_dot){2 * win->w / 6, win->h / 4}},\
-						NULL, PORTAL);
-	add_linedef(&map->sectors->lines, tmp);
-	tmp = new_linedef((t_line){(t_dot){2 * win->w / 6, win->h / 4},\
-								(t_dot){win->w / 6, win->h / 4}},\
-						NULL, WALL);
-
-	add_linedef(&map->sectors->lines, tmp);
-	tmp = new_linedef((t_line){(t_dot){4 * win->w / 6, win->h / 4},\
-								(t_dot){4 * win->w / 6, 3 * win->h / 4}},\
-						NULL, PORTAL);
-	add_linedef(&map->sectors->lines, tmp);
-	tmp = new_linedef((t_line){(t_dot){4 * win->w / 6, 3 * win->h / 4},\
-								(t_dot){5 * win->w / 6, 3 * win->h / 4}},\
-						NULL, WALL);
-	add_linedef(&map->sectors->lines, tmp);
-	tmp = new_linedef((t_line){(t_dot){5 * win->w / 6, 3 * win->h / 4},\
-								(t_dot){5 * win->w / 6, win->h / 4}},\
-						NULL, WALL);
-	add_linedef(&map->sectors->lines, tmp);
-	tmp = new_linedef((t_line){(t_dot){5 * win->w / 6, win->h / 4},\
-								(t_dot){4 * win->w / 6, win->h / 4}},\
-						NULL, WALL);
-	add_linedef(&map->sectors->lines, tmp);*/
-
+	player->fov = M_PI / 2;
 	return (0);
 }
 
@@ -150,7 +40,6 @@ int			main(int argc, char **argv)
 	if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 100, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 		return (0);
 	//SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
-
 
 	next_loop = main_menu(&win);
 	if (next_loop == 2)

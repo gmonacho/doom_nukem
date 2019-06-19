@@ -36,8 +36,10 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 		player->shift = 1;
 	else
 		player->shift = 0;
-	if (state[SDL_SCANCODE_SPACE])
-		player->z += 5;
+	if (state[SDL_SCANCODE_SPACE] && player->jump)
+		player->z += 9;
+	/*if (state[SDL_SCANCODE_LCTRL])
+		player->z -= 4;*/
 	if (state[SDL_SCANCODE_KP_MINUS])
 		player->fov -= 0.03;
 	if (state[SDL_SCANCODE_KP_PLUS])

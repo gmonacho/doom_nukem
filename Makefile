@@ -9,7 +9,6 @@ SRCS_PATH_5 =	game_loop
 SRCS_PATH_6 =	physics
 SRCS_PATH_7 =   parsing
 SRCS_PATH_8 =   menu_loops
-
 SRCS =		$(wildcard $(SRCS_PATH)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_1)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_2)/*.c)\

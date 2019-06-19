@@ -82,7 +82,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	SDL_Event	event;
 	t_linedef	*tmp;
 	t_dot		dot;
-	char		*str;
+	//char		*str;
 	SDL_Rect	rect;
 	SDL_Texture	*text;
 	int			id;
