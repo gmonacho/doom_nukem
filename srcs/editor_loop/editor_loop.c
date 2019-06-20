@@ -73,7 +73,8 @@ static int		ui_init(t_win *win)
 		return (ret_error("text generation failed in ui_init"));
 	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
 		return (ret_error("blit_text failed in ui_init"));
-	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.1, 0.8, 0.05}, t, BUTTON_TEXT_ENTRY));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.1, 0.8, 0.05}, t, BUTTON_TEXT_ENTRY | BUTTON_SECTOR_NAME));
+	win->frames->buttons->data = new_text_entry("name", 8, NULL, TEXT_ENTRY_ALPHANUM);
 	//		color_picker
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.8, 0.8, 0.05}, NULL, BUTTON_COLOR_PICKER));
 	//		export_button
@@ -87,6 +88,7 @@ static int		ui_init(t_win *win)
 	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
 		return (ret_error("blit_text failed in ui_init"));
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.05, 0.4, 0.05}, t, BUTTON_TEXT_ENTRY | BUTTON_ID));
+	win->frames->buttons->data = new_text_entry("id", 2, NULL, TEXT_ENTRY_DIGITAL | TEXT_ENTRY_TMP);
 	//		button_glinedef
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.2, 0.8, 0.05}, NULL, BUTTON_L_TYPE));
 	//		frame_glinedef
@@ -101,6 +103,7 @@ static int		ui_init(t_win *win)
 
 static int		editor_init(t_win *win, t_map_editor *map)
 {
+	map->name = "Unnamed";
 	map->x = 0;
 	map->y = 0;
 	map->w = 2000;

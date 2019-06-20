@@ -59,13 +59,13 @@ void		update_ui_rect(t_win *win)
 	}
 }
 
-static char			*str_conca(const char *s1, char c)
+static char			*str_cconca(const char *s1, char c)
 {
 	char	*str;
 	int		i;
 
 	if (!(str = (char*)ft_memalloc(sizeof(char) * (ft_strlen(s1) + 2))))
-		return (ret_null_error("str allocation failed in str_conca"));
+		return (ret_null_error("str allocation failed in str_cconca"));
 	i = 0;
 	if (s1)
 	{
@@ -79,14 +79,11 @@ static char			*str_conca(const char *s1, char c)
 
 int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 {
-	SDL_Event	event;
-	t_linedef	*tmp;
-	t_dot		dot;
-	//char		*str;
-	SDL_Rect	rect;
-	SDL_Texture	*text;
-	int			id;
-	t_linedef	*linedef;
+	SDL_Event		event;
+	t_linedef		*tmp;
+	t_dot			dot;
+	//char			*str;
+	t_text_entry	*data;
 
 
 	tmp = NULL;
@@ -116,64 +113,38 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 
 		if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_ESCAPE)
 		{
-			if (win->selected_button->flags & BUTTON_ID)
+			int		int_result;
+			char	*char_result;
+
+			data = (t_text_entry*)win->selected_button->data;
+
+			if (data->flags & TEXT_ENTRY_DIGITAL)
 			{
-				if (win->text_entry)
-					id = ft_atoi(win->text_entry);
-				else
-					id = -1;
-				if (map->selected_sector)
-				{
-					linedef = map->selected_sector->lines;
-					while (linedef)
-					{
-						if (linedef->flags & LINEDEF_SELECTED && linedef->gflags & PORTAL)
-							linedef->id = id;
-						linedef = linedef->next;
-					}
-				}
-				SDL_QueryTexture(win->selected_button->texture, NULL, NULL, &rect.w, &rect.h);
-				if (!(text = generate_text(win->rend, win->font, "id",  (SDL_Color){200, 200, 200, 255})))
-					return (ret_error("text generation failed in ui_init"));
-				if (!(win->selected_button->texture = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){rect.w * 0.03,
-																														rect.h * 0.2,
-																														rect.w * 0.24,
-																														rect.h * 0.7})))
-					return (ret_error("blit_text failed in ui_init"));
-				
+				int_result = ft_atoi(win->text_entry);
+				if (!(fill_variable(win, map, win->selected_button, &int_result)))
+					return (ret_error("fill_variable (int) failed in editor event"));
+			}
+			else if (data->flags & TEXT_ENTRY_ALPHANUM)
+			{
+				char_result = win->text_entry;
+				if (!(fill_variable(win, map, win->selected_button, &char_result)))
+					return (ret_error("fill_variable (char*) failed in editor event"));
 			}
 			win->text_entry = NULL;
 			map->flags -= MAP_TEXT_EDITING;
 		}
 		if (event.type == SDL_TEXTINPUT)
 		{
-			if (win->selected_button->flags & BUTTON_ID)
+			data = (t_text_entry*)win->selected_button->data;
+			if ((int)ft_strlen(win->text_entry) < data->max_size)
 			{
-				if (ft_isdigit(event.text.text[0]))
+				if ((data->flags & TEXT_ENTRY_DIGITAL && ft_isdigit(event.text.text[0])) ||
+					(data->flags & TEXT_ENTRY_ALPHANUM && ft_isalnum(event.text.text[0])))
 				{
-					if (ft_strlen(win->text_entry) < 2)
-					{
-						if (!(win->text_entry = str_conca(win->text_entry, event.text.text[0])))
-							return (ret_error("ft_strjoin failed in editor_event during TEXTINPUT event"));
-						SDL_QueryTexture(win->selected_button->texture, NULL, NULL, &rect.w, &rect.h);
-						if (!(text = generate_text(win->rend, win->font, "id",  (SDL_Color){200, 200, 200, 255})))
-							return (ret_error("text generation failed in ui_init"));
-						if (!(win->selected_button->texture = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){rect.w * 0.03,
-																																rect.h * 0.2,
-																																rect.w * 0.24,
-																																rect.h * 0.7})))
-							return (ret_error("blit_text failed in ui_init"));
-						SDL_DestroyTexture(text);
-						if (!(text = generate_text(win->rend, win->font,
-								win->text_entry, (SDL_Color){225, 225, 225, 255})))
-							return (ret_error("text generation failed in editor_event"));
-						if (!(win->selected_button->texture = blit_text(win->rend, win->selected_button->texture, text, &(SDL_Rect){rect.w * 0.45,
-																																rect.h * 0.2,
-																																rect.w * 0.4,
-																																rect.h * 0.7})))
-							return (ret_error("blit_text failed in editor_event"));
-						SDL_DestroyTexture(text);
-					}
+					if (!(win->text_entry = str_cconca(win->text_entry, event.text.text[0])))
+						return (ret_error("ft_strjoin failed in editor_event during TEXTINPUT event"));
+					if (!update_text_entry_texture(win, win->selected_button, win->text_entry))
+						return (ret_error("update_text_entry_texture failed in editor event"));
 				}
 			}
 		}
