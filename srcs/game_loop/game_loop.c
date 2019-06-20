@@ -22,6 +22,7 @@ int		game_loop(t_win *win, t_map *map)
 			//orientation();	//Haut bas
 
 			draw(win, map, &(map->player));
+			hud(win);
 			SDL_RenderPresent(win->rend);
 		}
 	return (1);
