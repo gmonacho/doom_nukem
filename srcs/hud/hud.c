@@ -19,6 +19,5 @@ void 	hud(t_win *win)
 	{
 		SDL_RenderCopy(win->rend, healthPixel, NULL,(&(SDL_Rect){(win->w / hpPosx), (win->h / 1.13), (win->w / 13.3), (win->h / 10.6)}));
 		hpPosx -= 0.00151;
-		printf("salut\n");
 	}
 }
