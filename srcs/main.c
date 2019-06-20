@@ -9,7 +9,7 @@ static int		init(t_win *win, t_map *map, t_player *player)
 	win->w = 1000;
 	win->h = 800;
 	player->dir = M_PI;
-	player->orientation = 4 * win->h / 5;
+	player->orientation = 2.5 * win->h / 5;
 	player->fov = M_PI / 2;
 	return (0);
 }

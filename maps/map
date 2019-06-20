@@ -1,9 +1,9 @@
 Player
 {
-	posx = 500
+	posx = 650
 	posy = 400
 	width = 30
-	height = 80
+	height = 50
 	sector = 1
 	velocity = 1
 }
@@ -69,7 +69,7 @@ Sector
 {
 	name = jean-ducimet
 	ceilHeight = 200
-	floorHeight = 40
+	floorHeight = 0
 	line
 	{
 		dot = (1800, 400)
