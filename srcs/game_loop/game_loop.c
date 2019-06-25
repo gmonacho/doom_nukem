@@ -19,7 +19,6 @@ int		game_loop(t_win *win, t_map *map)
 
 			move(map, &(map->player));
 			//entiteMove();
-			//orientation();	//Haut bas
 
 			draw(win, map, &(map->player));
 			hud(win);

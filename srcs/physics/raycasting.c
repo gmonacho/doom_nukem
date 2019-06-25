@@ -29,31 +29,61 @@
 // 	draw_column(win, column, win->middle_print - h, win->middle_print + h);
 // }
 
-static void			print_wall(t_win *win, t_linedef *wall, t_player *player, int column)
+// static void			print_wall(t_win *win, t_linedef *wall, t_player *player, int column)
+// {
+// 	double			h;
+// 	double			gliss;
+
+// 	if (wall->flags & PORTAL)
+// 		SDL_SetRenderDrawColor(win->rend, 0xDD, 0x40, 0x40, 255);
+// 	else if (wall->flags & WALL)
+// 		SDL_SetRenderDrawColor(win->rend, 0x40, 0xDD, 0x40, 255);
+// 	else
+// 		SDL_SetRenderDrawColor(win->rend, 0x40, 0x40, 0xDD, 255);
+
+// 	gliss = player->orientation + player->z - (player->shift ? player->height / 2 : 0);
+// 	if (wall->flags & PORTAL)
+// 		win->middle_print = gliss + (player->height - 400 / 2);
+// 	else
+// 		win->middle_print = gliss + (player->height - wall->sector->height / 2);
+// 	h = (10000 - 8 * ft_abs(1 * win->h / 4 - player->orientation)) / player->lenRay;
+
+// 	if (wall->flags & PORTAL)
+// 		draw_column(win, column,	win->middle_print - h - (400 - player->height),\
+// 								win->middle_print + h + wall->sector->height - (wall->sector->floor_height + player->height));
+// 	else
+// 		draw_column(win, column,	win->middle_print - h - (wall->sector->ceil_height - player->height),\
+// 								win->middle_print + h + wall->sector->height - (wall->sector->floor_height + player->height));
+// }
+
+static void			ray_inter_sector(t_win *win, t_calculs *calculs)
 {
-	double			h;
-	double			gliss;
-
-	if (wall->flags & PORTAL)
-		SDL_SetRenderDrawColor(win->rend, 0xDD, 0x40, 0x40, 255);
-	else if (wall->flags & WALL)
-		SDL_SetRenderDrawColor(win->rend, 0x40, 0xDD, 0x40, 255);
-	else
-		SDL_SetRenderDrawColor(win->rend, 0x40, 0x40, 0xDD, 255);
-
-	gliss = player->orientation + player->z - (player->shift ? player->height / 2 : 0);
-	win->middle_print = gliss + (player->height - wall->sector->height / 2);
-	h = (10000 - 8 * ft_abs(1 * win->h / 4 - player->orientation)) / player->lenRay;
-
-	if (wall->flags & PORTAL)
-		draw_column(win, column,	win->middle_print - h - (400 - player->height),\
-								win->middle_print + h + wall->sector->height - (wall->sector->floor_height + player->height));
-	else
-		draw_column(win, column,	win->middle_print - h - (wall->sector->ceil_height - player->height),\
-								win->middle_print + h + wall->sector->height - (wall->sector->floor_height + player->height));
+	win = NULL;
+	calculs = NULL;
 }
 
-static void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int column)
+static void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calculs)
+{
+	double			h;
+
+	if (wall->flags & PORTAL)
+	{
+		// SDL_SetRenderDrawColor(win->rend, 0xDD, 0x40, 0x40, 255);
+		ray_inter_sector(win, calculs);
+	}
+	else
+	{
+		SDL_SetRenderDrawColor(win->rend, 0x40, 0xDD, 0x40, 255);
+
+		win->middle_print = 1 * win->h / 2;
+		h = 10000 / player->lenRay;
+
+		draw_column(win, calculs->column, win->middle_print - h,\
+								win->middle_print + h);
+	}
+}
+
+static void			find_wall(t_win *win, t_player *player, t_calculs *calculs)
 {
 	t_linedef	*line;
 	t_linedef	*wall;
@@ -67,6 +97,7 @@ static void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int co
 	{
 		if (line->isequation)
 		{
+			//(b1 - b2) / (a2 - a1)
 			collision.x = ((player->pos.y - calculs->ray.a * player->pos.x) - line->equation.b) /\
 							(line->equation.a - calculs->ray.a);
 			collision.y = line->equation.a * collision.x + line->equation.b;
@@ -88,7 +119,7 @@ static void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int co
 	}
 	player->lenRay = calculs->dist * cos(ft_abs(calculs->alpha - player->dir));
 	if (wall)
-		print_wall(win, wall, player, column);
+		print_wall(win, wall, player, calculs);
 	// SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
 	// draw_line(win, (t_dot){(int)player->pos.x, (int)player->pos.y}, (t_dot){(int)closest.x, (int)closest.y});
 }
@@ -96,18 +127,17 @@ static void			find_wall(t_win *win, t_player *player, t_calculs *calculs, int co
 int				raycasting(t_win *win, t_player *player)
 {
 	t_calculs	calculs;
-	int			column;
 			
 	calculs.dangle = player->fov / win->w;
 	calculs.alpha = player->dir - player->fov / 2;
-	column = -1;
-	while (++column < win->w)
+	calculs.column = -1;
+	while (++(calculs.column) < win->w)
 	{
 		/*if (cos(calculs.alpha) > 0.00001 || cos(calculs.alpha) < -0.00001)
 		{*/
 			calculs.ray.a = tan(calculs.alpha);
 			//calculs.ray.b = player->pos.y - calculs.ray.a * player->pos.x;
-			find_wall(win, player, &calculs, column);
+			find_wall(win, player, &calculs);
 		/*}
 		else
 			;//printf("No equation ray\n");*/
