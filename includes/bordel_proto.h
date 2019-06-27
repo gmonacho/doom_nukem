@@ -85,6 +85,10 @@ t_button	*new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_fl
 void		add_button(t_button **buttons, t_button *new_button);
 void		free_buttons(t_button **buttons);
 
+t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 flags);
+int     		update_text_entry_texture(t_win *win, t_button *button, const char *text);
+int				fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *result);
+
 /*
 **	---------------------------------- frame ----------------------------------
 */
@@ -236,9 +240,9 @@ int			main_menu(t_win *win);
 int			editor_loop(t_win *win);
 int			editor_event(t_win *win, t_map_editor *map, SDL_bool *loop);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
-void		resolve_ui_left_press(t_win *win, t_map_editor *map);
+int			resolve_ui_left_press(t_win *win, t_map_editor *map);
 void		editor_display(t_win *win, const t_map_editor *map);
-
+	
 /*
 ** ===============================================================================
 ** ================================== GAME LOOP ==================================

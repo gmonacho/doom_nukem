@@ -10,6 +10,7 @@ t_button	*new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_fl
 	button->texture = texture;
 	button->flags = button_flags;
 	button->text = NULL;
+	button->data = NULL;
 	button->next = NULL;
 	return (button);
 }
@@ -34,4 +35,17 @@ void		free_buttons(t_button **buttons)
 		b = tmp_to_next;
 	}
 	*buttons = NULL;
+}
+
+t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 flags)
+{
+	t_text_entry 	*text_entry;
+
+	if (!(text_entry = (t_text_entry*)ft_memalloc(sizeof(t_text_entry))))
+		return (ret_null_error("text_entry allocation failed in t_text_entry"));
+	text_entry->name = name;
+	text_entry->max_size = max_size;
+	text_entry->variable = variable;
+	text_entry->flags = flags;
+	return (text_entry);	
 }

@@ -50,7 +50,7 @@ t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags)
 	}
 	newline->texture = texture;
 	newline->flags = flags;
-	newline->id = flags & PORTAL ? 0 : -1;
+	newline->id = 0;
 	newline->next = NULL;
 	return (newline);
 }

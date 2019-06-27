@@ -1,8 +1,10 @@
 #include "doom_nukem.h"
 
 
-void		resolve_ui_left_press(t_win *win, t_map_editor *map)
+int		resolve_ui_left_press(t_win *win, t_map_editor *map)
 {
+	t_text_entry	*data;
+
 	if (win->selected_button && !(map->flags & MAP_TEXT_EDITING))
 	{
 		if (win->selected_button->flags & BUTTON_TEXT_ENTRY)
@@ -10,6 +12,17 @@ void		resolve_ui_left_press(t_win *win, t_map_editor *map)
 			if (win->mouse->x > win->selected_button->rect.x + win->selected_button->rect.w / 3)
 			{
 				printf("start text_input\n");
+				data = win->selected_button->data;
+				if (win->selected_button->flags & BUTTON_SECTOR_NAME)
+					data->variable = map->selected_sector->name;
+				if (data->variable)
+				{
+					if (data->flags & TEXT_ENTRY_ALPHANUM)
+					{
+						if (!update_text_entry_texture(win, win->selected_button, (char*)data->variable))
+							return(ret_error("update_text_entry_texture failed in resolve_ui_left_press"));
+					}
+				}
 				map->flags = MAP_TEXT_EDITING;
 				SDL_StartTextInput();
 				SDL_SetTextInputRect(&(SDL_Rect){win->selected_button->rect.x + win->selected_button->rect.w / 3,
@@ -19,5 +32,5 @@ void		resolve_ui_left_press(t_win *win, t_map_editor *map)
 			}
 		}
 	}
-	
+	return (1);
 }

@@ -110,6 +110,24 @@ typedef struct		s_mouse
 **	---------------------------------- Interface Management ----------------------------------
 */
 
+enum	e_text_entry
+{
+	TEXT_ENTRY_NONE = 0,
+	TEXT_ENTRY_DIGITAL = 1,
+	TEXT_ENTRY_ALPHANUM = 2,
+	TEXT_ENTRY_TMP = 4,
+	TEXT_ENTRY_LINKED = 8
+};
+
+typedef struct		s_text_entry
+{
+	char			*name;
+	int				max_size;
+	void			*variable;
+	Uint8			flags;
+}					t_text_entry;
+
+
 enum	e_button
 {
 	BUTTON_NONE = 0b0000,
@@ -120,17 +138,23 @@ enum	e_button
 	BUTTON_EDITORLOOP = 0b10000,
 	BUTTON_ID = 0b100000,
 	BUTTON_L_TYPE = 0b1000000,
-	BUTTON_CLICKED = 0b10000000
+	BUTTON_CLICKED = 0b10000000,
+	BUTTON_SECTOR_NAME = 0b100000000
 };
 
 typedef struct		s_button
 {
 	t_frect			ratio;
 	SDL_Rect		rect;
+
 	SDL_Texture		*texture;
 	char			*text;
+
 	Uint32			flags;
 	Uint32			gflags;
+
+	void			*data;
+
 	struct s_button	*next;
 }					t_button;
 
@@ -276,9 +300,10 @@ typedef struct				s_linedef
 
 typedef struct				s_calculs
 {
-	t_affine				ray;
+	int						column;
 	double					dangle;
 	double					alpha;
+	t_affine				ray;
 	double					dist;
 	double					newdist;
 }							t_calculs;
@@ -357,6 +382,7 @@ enum	e_map_editor
 
 typedef struct	s_map_editor
 {
+	char		*name;
 	int			x;
 	int			y;
 	int			w;
