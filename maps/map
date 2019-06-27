@@ -2,8 +2,8 @@ Player
 {
 	posx = 650
 	posy = 400
-	width = 50
-	height = 100
+	width = 20
+	height = 60
 	sector = 1
 	velocity = 1
 }
@@ -19,7 +19,7 @@ Object
 {
 	posx = 28
 	posy = 141
-	sector = 3
+	sector = 0
 	id = 4
 	id_texture = 7
 }
@@ -27,7 +27,7 @@ Object
 {
 	posx = 42
 	posy = 101
-	sector = 9
+	sector = 1
 	id = 2
 	id_texture = 445
 }
@@ -75,7 +75,7 @@ Sector
 		dot = (1800, 400)
 		dot = (1600, 300)
 		flags = WALL
-		id = 1
+		id = -1
 	}
 	line
 	{

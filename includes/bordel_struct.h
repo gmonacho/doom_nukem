@@ -301,9 +301,9 @@ typedef struct				s_linedef
 typedef struct				s_calculs
 {
 	int						column;
-	t_affine				ray;
 	double					dangle;
 	double					alpha;
+	t_affine				ray;
 	double					dist;
 	double					newdist;
 }							t_calculs;
