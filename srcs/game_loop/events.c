@@ -69,6 +69,13 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 		player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
 	}
 }
+ /*static void keyboard_hud(t_player *player, const Uint8 *state)
+{
+	if (state[SDL_SCANCODE_K] && player->currentHp > 0)
+		player->damage = 5;
+	if (state[SDL_SCANCODE_L] && player->currentHp < 100)
+		player->currentHp += 5;
+}*/
 
 int			keyboard_state(t_win *win, t_player *player)
 {
@@ -78,6 +85,7 @@ int			keyboard_state(t_win *win, t_player *player)
 	player->vel = (t_fvector){0, 0};
 	keyboard_move(player, state);
 	keyboard_dir(win, player, state);
+	//keyboard_hud(player, state);
 	//mouse_move(player);
 	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
 	return (0);

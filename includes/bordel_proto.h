@@ -127,7 +127,7 @@ void		draw(t_win *win, t_map *map, t_player *player);
 /*
 **	---------------------------------- texture ----------------------------------
 */
-void 		hud(t_win *win);
+void 		hud(t_win *win, t_player *player);
 /*
 ** ==========================================================================
 ** ================================== DATA ==================================
@@ -164,6 +164,7 @@ int			get_nb_sectors(t_sector *sector);
 */
 
 int			move(t_map *map, t_player *player);
+void    	damage_heal(t_player *player, int damage, int armor, int heal);
 
 /*
 **	---------------------------------- map ----------------------------------

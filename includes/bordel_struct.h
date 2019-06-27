@@ -325,6 +325,10 @@ typedef struct		s_player
 	double			lenRay;
 	int				numsector;
 	t_sector		*sector;
+	int 			currentHp;
+	int 			maxHp;
+	int 			currentArmor;
+	int				maxArmor;
 }					t_player;
 
 /*

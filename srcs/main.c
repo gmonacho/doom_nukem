@@ -11,6 +11,10 @@ static int		init(t_win *win, t_map *map, t_player *player)
 	player->dir = M_PI;
 	player->orientation = 2.5 * win->h / 5;
 	player->fov = M_PI / 2;
+	player->maxHp = 100;
+	player->currentHp = player->maxHp;
+	player->maxArmor = 100;
+	player->currentArmor = player->maxArmor;
 	return (0);
 }
 
