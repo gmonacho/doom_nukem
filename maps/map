@@ -3,7 +3,7 @@ Player
 	posx = 650
 	posy = 400
 	width = 20
-	height = 60
+	height = 50
 	sector = 1
 	velocity = 1
 }
@@ -34,7 +34,7 @@ Object
 Sector
 {
 	name = jean-giordan
-	ceilHeight = 200
+	ceilHeight = 150
 	floorHeight = 0
 	line
 	{

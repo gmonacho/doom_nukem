@@ -74,6 +74,8 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 	if (state[SDL_BUTTON_LEFT])
 		player->ammo -= 1;
 	if (state[SDL_SCANCODE_R])
+		player->ammo = 30;
+	printf("ammo = %d\n", player->ammo);
 }
 
 int			keyboard_state(t_win *win, t_player *player)
@@ -84,7 +86,7 @@ int			keyboard_state(t_win *win, t_player *player)
 	player->vel = (t_fvector){0, 0};
 	keyboard_move(player, state);
 	keyboard_dir(win, player, state);
-	//keyboard_hud(player, state);
+	keyboard_shot(player, state);
 	//mouse_move(player);
 	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
 	return (0);

@@ -26,6 +26,10 @@ void	draw_line(t_win *win, t_dot p1, t_dot p2)
 
 void	draw_column(t_win *win, int x, int ylow, int yup)
 {
+	if (ylow < 0)
+		ylow = 0;
+	if (yup > win->h)
+		yup = win->h;
 	while (ylow <= yup)
 		SDL_RenderDrawPoint(win->rend, x, ylow++);
 }
