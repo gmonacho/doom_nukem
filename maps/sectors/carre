@@ -1,0 +1,77 @@
+Player
+{
+	posx = 700
+	posy = 400
+	width = 20
+	height = 50
+	sector = 0
+	velocity = 1
+}
+Sector
+{
+	name = sector
+	ceilHeight = 200
+	floorHeight = 20
+	line
+	{
+		dot = (50, 200)
+		dot = (400, 200)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (400, 200)
+		dot = (400, 700)
+		flags = PORTAL
+		id = 1
+	}
+	line
+	{
+		dot = (400, 700)
+		dot = (50, 700)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (50, 700)
+		dot = (50, 200)
+		flags = WALL
+		id = 0
+	}
+}
+Sector
+{
+	name = sector
+	ceilHeight = 150
+	floorHeight = 0
+	line
+	{
+		dot = (600, 200)
+		dot = (900, 200)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (900, 200)
+		dot = (900, 700)
+		flags = PORTAL
+		id = 1
+	}
+	line
+	{
+		dot = (900, 700)
+		dot = (600, 700)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (600, 700)
+		dot = (600, 200)
+		flags = WALL
+		id = 0
+	}
+}

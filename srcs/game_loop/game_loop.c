@@ -17,7 +17,7 @@ int		game_loop(t_win *win, t_map *map)
 				loop = SDL_FALSE;
 			keyboard_state(win, &(map->player));
 
-			move(map, &(map->player));
+			move(win, map, &(map->player));
 			//entiteMove();
 
 			draw(win, map, &(map->player));

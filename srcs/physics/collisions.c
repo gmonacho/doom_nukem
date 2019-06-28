@@ -42,11 +42,11 @@
 	return (0);
 }*/
 
-static int	actions(t_map *map, t_linedef *portal, t_player *player)
+static int	actions(t_win *win, t_map *map, t_linedef *portal, t_player *player)
 {
 	if (!(portal->flags & PORTAL) ||\
 		(portal->flags & PORTAL &&\
-		!teleportation(map, portal, portal->destline)))
+		!teleportation(win, map, portal, portal->destline)))
 	{
 		player->vel = (t_fvector){0, 0};
 		return (1);
@@ -54,7 +54,7 @@ static int	actions(t_map *map, t_linedef *portal, t_player *player)
 	return (0);
 }
 
-static int	coef_null(t_map *map, t_linedef *line, t_player *player)
+static int	coef_null(t_win *win, t_map *map, t_linedef *line, t_player *player)
 {
 	int		collisiony;
 
@@ -67,21 +67,22 @@ static int	coef_null(t_map *map, t_linedef *line, t_player *player)
 		{
 			if (player->pos.y < collisiony &&\
 				collisiony <= player->pos.y + player->vel.y + player->width / 2)
-				return (actions(map, line, player));
+				return (actions(win, map, line, player));
 		}
 		else if (player->pos.y > collisiony &&\
 				collisiony >= player->pos.y + player->vel.y - player->width / 2)
-			return (actions(map, line, player));
+			return (actions(win, map, line, player));
 	}
 	return (0);
 }
 
-static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
-						t_player *player)
+static int	collisions(t_win *win, t_map *map, t_linedef *line, t_affine traj)
 {
-	double	collisionx;
-	double	collisiony;
+	t_player	*player;
+	double		collisionx;
+	double		collisiony;
 
+	player = &(map->player);
 	if (traj.a != line->equation.a)
 	{
 		if (line->isequation)
@@ -105,7 +106,7 @@ static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 						collisionx <= player->pos.x + player->vel.x + player->width / 2 && 
 						player->pos.y < collisiony &&\
 						collisiony <= player->pos.y + player->vel.y + player->width / 2)
-						return (actions(map, line, player));
+						return (actions(win, map, line, player));
 				}
 				else
 				{
@@ -113,7 +114,7 @@ static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 						collisionx <= player->pos.x + player->vel.x + player->width / 2 &&\
 						player->pos.y > collisiony &&\
 						collisiony >= player->pos.y + player->vel.y - player->width / 2)
-						return (actions(map, line, player));
+						return (actions(win, map, line, player));
 				}
 			}
 			else
@@ -124,7 +125,7 @@ static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 						collisionx >= player->pos.x + player->vel.x - player->width / 2 &&\
 						player->pos.y < collisiony &&\
 						collisiony <= player->pos.y + player->vel.y + player->width / 2)
-						return (actions(map, line, player));
+						return (actions(win, map, line, player));
 				}
 				else
 				{
@@ -132,7 +133,7 @@ static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 						collisionx >= player->pos.x + player->vel.x - player->width / 2 &&\
 						player->pos.y > collisiony &&\
 						collisiony >= player->pos.y + player->vel.y - player->width / 2)
-						return (actions(map, line, player));
+						return (actions(win, map, line, player));
 				}
 			}
 		}
@@ -171,7 +172,7 @@ static int	collisions(t_map *map, t_linedef *line, t_affine traj,\
 // 	return (0);
 // }
 
-int		move(t_map *map, t_player *player)
+int		move(t_win *win, t_map *map, t_player *player)
 {
 	//int			i;
 	//t_sector	*sector;
@@ -197,7 +198,7 @@ int		move(t_map *map, t_player *player)
 		while (line)
 		{
 			if (!(line->flags & DOOR_OPEN) &&\
-				collisions(map, line, traj, player))
+				collisions(win, map, line, traj))
 				break ;
 			line = line->next;
 		}
@@ -207,7 +208,7 @@ int		move(t_map *map, t_player *player)
 		//printf("Vitesse x == 0 : %f\n", player->vel.x);
 		while (line)
 		{
-			if (!(line->flags & DOOR_OPEN) && coef_null(map, line, player))
+			if (!(line->flags & DOOR_OPEN) && coef_null(win, map, line, player))
 				break ;
 			line = line->next;
 		}

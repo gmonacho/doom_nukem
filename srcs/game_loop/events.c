@@ -69,7 +69,8 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 		player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
 	}
 }
- /*static void keyboard_hud(t_player *player, const Uint8 *state)
+
+/*static void keyboard_hud(t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_K] && player->currentHp > 0)
 		player->damage = 5;
