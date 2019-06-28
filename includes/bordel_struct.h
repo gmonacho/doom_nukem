@@ -354,6 +354,7 @@ typedef struct		s_player
 	int 			maxHp;
 	int 			currentArmor;
 	int				maxArmor;
+	int				ammo;
 }					t_player;
 
 /*

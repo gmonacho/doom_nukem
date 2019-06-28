@@ -15,6 +15,7 @@ static int		init(t_win *win, t_map *map, t_player *player)
 	player->currentHp = player->maxHp;
 	player->maxArmor = 100;
 	player->currentArmor = player->maxArmor;
+	player->ammo = 30;
 	return (0);
 }
 
@@ -29,7 +30,7 @@ int			main(int argc, char **argv)
 
 	if (!argc)
 		argc = 0;
-	if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||\
+	if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||
 	((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 		return (ret_error("open error"));
 

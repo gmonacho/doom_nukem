@@ -69,13 +69,12 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 		player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
 	}
 }
- /*static void keyboard_hud(t_player *player, const Uint8 *state)
+ static void keyboard_shot(t_player *player, const Uint8 *state)
 {
-	if (state[SDL_SCANCODE_K] && player->currentHp > 0)
-		player->damage = 5;
-	if (state[SDL_SCANCODE_L] && player->currentHp < 100)
-		player->currentHp += 5;
-}*/
+	if (state[SDL_BUTTON_LEFT])
+		player->ammo -= 1;
+	if (state[SDL_SCANCODE_R])
+}
 
 int			keyboard_state(t_win *win, t_player *player)
 {

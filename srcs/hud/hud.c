@@ -1,17 +1,28 @@
 #include "doom_nukem.h"
 
+void 	hud_ammo(t_win *win)
+{
+	SDL_Texture 	*ammo;
+	SDL_Texture		*text;
+	TTF_Font		*police;
+	
+	ammo = load_texture(win->rend, "textures/ammo.png");
+	police = TTF_OpenFont("TTF/arial.ttf", 65);
+	text = generate_text(win->rend, police, " = 30 ", (SDL_Color){255, 255, 255, 50});
+	SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(60), (730), 50, 50});
+	SDL_RenderCopy(win->rend, ammo, NULL, &(SDL_Rect){(10), (710), 75, 75});
+}	
 void 	hud_health(t_win *win, t_player *player)
 {	
 	SDL_Texture		*healthBar;
 	SDL_Texture		*healthPixel;
-	int 			i; 
+	int 			i;
 	float			hpPosx;
 
 	i = 0;
 	hpPosx = 857;
 	healthBar = load_texture(win->rend, "textures/healthBar.png");
 	healthPixel = load_texture(win->rend, "textures/healthPixel.png");
-	
 	SDL_RenderCopy(win->rend, healthBar, NULL, (&(SDL_Rect){(win->w * 0.76), (win->h * 0.8875), (win->w * 0.2), (win->h * 0.0875)}));
 	while (i++ < player->currentHp)
 	{
@@ -44,4 +55,5 @@ void	hud(t_win *win, t_player *player)
 {
 	hud_health(win, player);
 	hud_armor(win, player);
+	hud_ammo(win);
 }
