@@ -1,0 +1,34 @@
+Sector
+{
+	name = sector
+	ceilHeight = 0
+	floorHeight = 0
+	line
+	{
+		dot = (381, 179)
+		dot = (261, 186)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (364, 271)
+		dot = (381, 179)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (247, 275)
+		dot = (364, 271)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (261, 186)
+		dot = (247, 275)
+		flags = PORTAL
+		id = 0
+	}
+}
