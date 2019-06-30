@@ -1,0 +1,6 @@
+Sector
+{
+	name = sector
+	ceilHeight = 0
+	floorHeight = 0
+}

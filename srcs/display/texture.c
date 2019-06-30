@@ -12,5 +12,6 @@ SDL_Texture		*load_texture(SDL_Renderer *rend, const char *file)
 		return (ret_null_error("failed to load surface in load_texture"));
 	if (!(texture = SDL_CreateTextureFromSurface(rend, surface)))
 		return (ret_null_error("failed to create texture from surface in load_texture"));
+	SDL_FreeSurface(surface);
 	return (texture);
 }

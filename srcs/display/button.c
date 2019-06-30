@@ -42,10 +42,21 @@ t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 fla
 	t_text_entry 	*text_entry;
 
 	if (!(text_entry = (t_text_entry*)ft_memalloc(sizeof(t_text_entry))))
-		return (ret_null_error("text_entry allocation failed in t_text_entry"));
+		return (ret_null_error("text_entry allocation failed in new_text_entry"));
 	text_entry->name = name;
 	text_entry->max_size = max_size;
 	text_entry->variable = variable;
 	text_entry->flags = flags;
-	return (text_entry);	
+	return (text_entry);
+}
+
+t_simple_button	*new_simple_button(char *name, SDL_bool clicked)
+{
+	t_simple_button	*simple_button;
+
+	if (!(simple_button = (t_simple_button*)ft_memalloc(sizeof(simple_button))))
+		return (ret_null_error("simple_button allocation failed in new_simple_button"));
+	simple_button->name = name;
+	simple_button->clicked = clicked;
+	return (simple_button);
 }

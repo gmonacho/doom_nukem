@@ -1,6 +1,6 @@
 #include "doom_nukem.h"
 
-static int		text_init(t_win *win)
+static int		ui_texture_init(t_win *win)
 {
 	SDL_Surface		*surface;
 	SDL_Texture		*t;
@@ -13,6 +13,14 @@ static int		text_init(t_win *win)
 		return (0);
 	if (!(win->sectors_texture_selected = (SDL_Texture**)ft_memalloc(sizeof(SDL_Texture*) * (MAX_SECTORS + 1))))
 		return (0);
+	if (!(win->ed_texture.frame_texture = load_texture(win->rend, "textures/frame.png")))
+		return (ret_error(SDL_GetError()));
+	if (!(win->ed_texture.button = load_texture(win->rend, "textures/button.png")))
+		return (ret_error(SDL_GetError()));
+	if (!(win->ed_texture.clicked_button = load_texture(win->rend, "textures/clicked_button.png")))
+		return (ret_error(SDL_GetError()));
+	if (!(win->ed_texture.on_mouse_button = load_texture(win->rend, "textures/on_mouse_button.png")))
+		return (ret_error(SDL_GetError()));
 	i = 0;
 	while (i <= MAX_SECTORS)
 	{
@@ -63,10 +71,10 @@ static int		ui_init(t_win *win)
 	SDL_Texture	*t;
 
 	//	sector frame
-	add_frame_to_window(win, new_frame((t_frect){0.05, 0.02, 0.9, 0.05}, NULL, FRAME_SECTORS, NULL));
+	add_frame_to_window(win, new_frame((t_frect){0.05, 0.02, 0.9, 0.05}, win->ed_texture.frame_texture, FRAME_SECTORS, NULL));
 	add_button_to_frame(&win->frames, new_button((t_frect){0, 0, 1.0 / MAX_SECTORS, 1}, win->sectors_texture[MAX_SECTORS], BUTTON_NONE));
 	//	info sector frame
-	add_frame_to_window(win, new_frame((t_frect){0.02, 0.1, 0.15, 0.4}, NULL, FRAME_INFO | FRAME_HIDE, NULL));
+	add_frame_to_window(win, new_frame((t_frect){0.02, 0.1, 0.15, 0.4}, win->ed_texture.frame_texture, FRAME_INFO | FRAME_HIDE, NULL));
 	//		text_input
 	//			name
 	if (!(text = generate_text(win->rend, win->font, "name",  (SDL_Color){200, 200, 200, 255})))
@@ -76,11 +84,14 @@ static int		ui_init(t_win *win)
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.1, 0.8, 0.05}, t, BUTTON_TEXT_ENTRY | BUTTON_SECTOR_NAME));
 	win->frames->buttons->data = new_text_entry("name", 8, NULL, TEXT_ENTRY_ALPHANUM);
 	//		color_picker
-	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.8, 0.8, 0.05}, NULL, BUTTON_COLOR_PICKER));
+	// add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.8, 0.8, 0.05}, NULL, BUTTON_COLOR_PICKER));
 	//		export_button
-	add_button_to_frame(&win->frames, new_button((t_frect){0.7, 0.925, 0.2, 0.03}, NULL, BUTTON_EXPORT));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.65, 0.875, 0.3, 0.04}, win->ed_texture.button, BUTTON_EXPORT | BUTTON_SIMPLE));
+	if (!(win->frames->buttons->data = new_simple_button("export", SDL_FALSE)))
+		return (ret_error("new_simple_button failed export button data"));
+	update_button(win, win->frames->buttons, BUTTON_STATE_NONE);
 	//	info linedef frame
-	add_frame_to_window(win, new_frame((t_frect){0.02, 0.55, 0.15, 0.4}, NULL, FRAME_L_INFO, NULL));
+	add_frame_to_window(win, new_frame((t_frect){0.02, 0.55, 0.15, 0.4}, win->ed_texture.frame_texture, FRAME_L_INFO, NULL));
 	//		text_input
 	//			id
 	if (!(text = generate_text(win->rend, win->font, "id",  (SDL_Color){200, 200, 200, 255})))
@@ -88,15 +99,25 @@ static int		ui_init(t_win *win)
 	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
 		return (ret_error("blit_text failed in ui_init"));
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.05, 0.4, 0.05}, t, BUTTON_TEXT_ENTRY | BUTTON_ID));
-	win->frames->buttons->data = new_text_entry("id", 2, NULL, TEXT_ENTRY_DIGITAL | TEXT_ENTRY_TMP);
+	if (!(win->frames->buttons->data = new_text_entry("id", 2, NULL, TEXT_ENTRY_DIGITAL | TEXT_ENTRY_TMP)))
+		return (ret_error("new_text_entry failed id button data"));
 	//		button_glinedef
-	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.2, 0.8, 0.05}, NULL, BUTTON_L_TYPE));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.2, 0.8, 0.05}, NULL, BUTTON_L_TYPE | BUTTON_SIMPLE));
+	if (!(win->frames->buttons->data = new_simple_button("line type", SDL_FALSE)))
+		return (ret_error("new_simple_button failed glinedef button data"));
+	update_button(win, win->frames->buttons, BUTTON_STATE_NONE);
 	//		frame_glinedef
-	add_frame_to_window(win, new_frame((t_frect){0.175, 0.63, 0.15, 0.2}, NULL, FRAME_HIDE | FRAME_L_TYPE, NULL));
+	add_frame_to_window(win, new_frame((t_frect){0.175, 0.63, 0.15, 0.2}, win->ed_texture.frame_texture, FRAME_HIDE | FRAME_L_TYPE, NULL));
 	//			linedef_type_buttons
-	add_button_to_frame(&win->frames, new_button((t_frect){0, 0, 1, 0.33}, NULL, BUTTON_NONE));
+	add_button_to_frame(&win->frames, new_button((t_frect){0, 0, 1, 0.33}, NULL, BUTTON_NONE | BUTTON_SIMPLE));
+	if (!(win->frames->buttons->data = new_simple_button("WALL", SDL_FALSE)))
+		return (ret_error("new_simple_button failed glinedef button data"));
+	update_button(win, win->frames->buttons, BUTTON_STATE_NONE);
 	win->frames->buttons->gflags = WALL;
-	add_button_to_frame(&win->frames, new_button((t_frect){0, 0.33, 1, 0.33}, NULL, BUTTON_NONE));
+	add_button_to_frame(&win->frames, new_button((t_frect){0, 0.33, 1, 0.33}, NULL, BUTTON_NONE | BUTTON_SIMPLE));
+	if (!(win->frames->buttons->data = new_simple_button("PORTAL", SDL_FALSE)))
+		return (ret_error("new_simple_button failed glinedef button data"));
+	update_button(win, win->frames->buttons, BUTTON_STATE_NONE);
 	win->frames->buttons->gflags = PORTAL;
 	return (1);
 }
@@ -113,9 +134,10 @@ static int		editor_init(t_win *win, t_map_editor *map)
 	map->selected_sector = NULL;
 	map->rect_util = (SDL_Rect){};
 	map->flags = 0;
-	if (!text_init(win))
+	if (!ui_texture_init(win))
 		return (0);
-	ui_init(win);
+	if (!ui_init(win))
+		return (ret_error("ui_init failed in editor_init"));
 	return (1);
 }
 
@@ -126,7 +148,8 @@ int				editor_loop(t_win *win)
 
 	// if (!(parser_png("png_test_800_600.png")))
 	// 	return (0);
-	editor_init(win, &map);
+	if (!editor_init(win, &map))
+		return (ret_error("editor_init failed in editor loop"));
 	loop = SDL_TRUE;
 	while (loop)
 	{
