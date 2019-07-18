@@ -38,7 +38,7 @@ void    little_size(t_player *player)
 }
 void    reload_ammo(t_player *player)
 {
-    if ((player->magazine - 30) > 0)  
+    if ((player->magazine - 29) >= 0)  
         big_size(player);
     else 
         little_size(player); 
