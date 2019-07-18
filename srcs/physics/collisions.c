@@ -184,7 +184,7 @@ int		move(t_win *win, t_map *map, t_player *player)
 	if (player->z > 40)
 		player->jump = 0;
 	if (player->z > 0)
-		player->z -= 3;
+		player->z -= 5;
 	else
 		player->jump = 1;
 	if (!player->vel.x && !player->vel.y)

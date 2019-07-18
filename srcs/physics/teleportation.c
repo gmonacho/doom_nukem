@@ -6,7 +6,7 @@
 **	Selon le sens de la demi-droite [p1p2) j'ajoute PI ou pas a son angle
 **	car le coef directeur est le meme pour les 2
 **
-**	Il faut relancer le keyboard state pour avoir la vrai direction vel
+**	Il faut relancer le keyboard state pour avoir la vrai vel
 */
 
 int				teleportation(t_win *win, t_map *tmap,\
@@ -30,16 +30,10 @@ int				teleportation(t_win *win, t_map *tmap,\
 									(t_dot){line1->p1.y, line1->p2.y},\
 									(t_dot){line2->p2.y, line2->p1.y})};
 
-		printf("Vel : %f\t%f\n", tmap->player.vel.x, tmap->player.vel.y);
-		/*tmap->player.pos = (t_fdot){tmap->player.pos.x +\
-		cos(tmap->player.dir) * (5 * tmap->player.vel.x + tmap->player.width),\
-									tmap->player.pos.y +\
-		sin(tmap->player.dir) * (5 * tmap->player.vel.y + tmap->player.width)};*/
 		tmap->player.pos = (t_fdot){tmap->player.pos.x +\
 									(10 * tmap->player.vel.x),\
 									tmap->player.pos.y +\
 									(10 * tmap->player.vel.y)};
-
 		tmap->player.sector = line2->sector;
 		return (1);
 	}
