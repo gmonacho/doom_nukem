@@ -663,6 +663,33 @@ srcs/editor_loop/editor_loop.c.s:
 	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/editor_loop/editor_loop.c.s
 .PHONY : srcs/editor_loop/editor_loop.c.s
 
+srcs/editor_loop/editor_text_input.o: srcs/editor_loop/editor_text_input.c.o
+
+.PHONY : srcs/editor_loop/editor_text_input.o
+
+# target to build an object file
+srcs/editor_loop/editor_text_input.c.o:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/editor_loop/editor_text_input.c.o
+.PHONY : srcs/editor_loop/editor_text_input.c.o
+
+srcs/editor_loop/editor_text_input.i: srcs/editor_loop/editor_text_input.c.i
+
+.PHONY : srcs/editor_loop/editor_text_input.i
+
+# target to preprocess a source file
+srcs/editor_loop/editor_text_input.c.i:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/editor_loop/editor_text_input.c.i
+.PHONY : srcs/editor_loop/editor_text_input.c.i
+
+srcs/editor_loop/editor_text_input.s: srcs/editor_loop/editor_text_input.c.s
+
+.PHONY : srcs/editor_loop/editor_text_input.s
+
+# target to generate assembly for a file
+srcs/editor_loop/editor_text_input.c.s:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/editor_loop/editor_text_input.c.s
+.PHONY : srcs/editor_loop/editor_text_input.c.s
+
 srcs/editor_loop/ui_left_press.o: srcs/editor_loop/ui_left_press.c.o
 
 .PHONY : srcs/editor_loop/ui_left_press.o
@@ -716,6 +743,33 @@ srcs/editor_loop/ui_left_release.s: srcs/editor_loop/ui_left_release.c.s
 srcs/editor_loop/ui_left_release.c.s:
 	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/editor_loop/ui_left_release.c.s
 .PHONY : srcs/editor_loop/ui_left_release.c.s
+
+srcs/editor_loop/update_button.o: srcs/editor_loop/update_button.c.o
+
+.PHONY : srcs/editor_loop/update_button.o
+
+# target to build an object file
+srcs/editor_loop/update_button.c.o:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/editor_loop/update_button.c.o
+.PHONY : srcs/editor_loop/update_button.c.o
+
+srcs/editor_loop/update_button.i: srcs/editor_loop/update_button.c.i
+
+.PHONY : srcs/editor_loop/update_button.i
+
+# target to preprocess a source file
+srcs/editor_loop/update_button.c.i:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/editor_loop/update_button.c.i
+.PHONY : srcs/editor_loop/update_button.c.i
+
+srcs/editor_loop/update_button.s: srcs/editor_loop/update_button.c.s
+
+.PHONY : srcs/editor_loop/update_button.s
+
+# target to generate assembly for a file
+srcs/editor_loop/update_button.c.s:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/editor_loop/update_button.c.s
+.PHONY : srcs/editor_loop/update_button.c.s
 
 srcs/error.o: srcs/error.c.o
 
@@ -852,6 +906,60 @@ srcs/event/time.c.s:
 	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/event/time.c.s
 .PHONY : srcs/event/time.c.s
 
+srcs/game_loop/ammo.o: srcs/game_loop/ammo.c.o
+
+.PHONY : srcs/game_loop/ammo.o
+
+# target to build an object file
+srcs/game_loop/ammo.c.o:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/game_loop/ammo.c.o
+.PHONY : srcs/game_loop/ammo.c.o
+
+srcs/game_loop/ammo.i: srcs/game_loop/ammo.c.i
+
+.PHONY : srcs/game_loop/ammo.i
+
+# target to preprocess a source file
+srcs/game_loop/ammo.c.i:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/game_loop/ammo.c.i
+.PHONY : srcs/game_loop/ammo.c.i
+
+srcs/game_loop/ammo.s: srcs/game_loop/ammo.c.s
+
+.PHONY : srcs/game_loop/ammo.s
+
+# target to generate assembly for a file
+srcs/game_loop/ammo.c.s:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/game_loop/ammo.c.s
+.PHONY : srcs/game_loop/ammo.c.s
+
+srcs/game_loop/damage.o: srcs/game_loop/damage.c.o
+
+.PHONY : srcs/game_loop/damage.o
+
+# target to build an object file
+srcs/game_loop/damage.c.o:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/game_loop/damage.c.o
+.PHONY : srcs/game_loop/damage.c.o
+
+srcs/game_loop/damage.i: srcs/game_loop/damage.c.i
+
+.PHONY : srcs/game_loop/damage.i
+
+# target to preprocess a source file
+srcs/game_loop/damage.c.i:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/game_loop/damage.c.i
+.PHONY : srcs/game_loop/damage.c.i
+
+srcs/game_loop/damage.s: srcs/game_loop/damage.c.s
+
+.PHONY : srcs/game_loop/damage.s
+
+# target to generate assembly for a file
+srcs/game_loop/damage.c.s:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/game_loop/damage.c.s
+.PHONY : srcs/game_loop/damage.c.s
+
 srcs/game_loop/draw.o: srcs/game_loop/draw.c.o
 
 .PHONY : srcs/game_loop/draw.o
@@ -932,6 +1040,60 @@ srcs/game_loop/game_loop.s: srcs/game_loop/game_loop.c.s
 srcs/game_loop/game_loop.c.s:
 	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/game_loop/game_loop.c.s
 .PHONY : srcs/game_loop/game_loop.c.s
+
+srcs/hud/hud.o: srcs/hud/hud.c.o
+
+.PHONY : srcs/hud/hud.o
+
+# target to build an object file
+srcs/hud/hud.c.o:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/hud/hud.c.o
+.PHONY : srcs/hud/hud.c.o
+
+srcs/hud/hud.i: srcs/hud/hud.c.i
+
+.PHONY : srcs/hud/hud.i
+
+# target to preprocess a source file
+srcs/hud/hud.c.i:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/hud/hud.c.i
+.PHONY : srcs/hud/hud.c.i
+
+srcs/hud/hud.s: srcs/hud/hud.c.s
+
+.PHONY : srcs/hud/hud.s
+
+# target to generate assembly for a file
+srcs/hud/hud.c.s:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/hud/hud.c.s
+.PHONY : srcs/hud/hud.c.s
+
+srcs/init.o: srcs/init.c.o
+
+.PHONY : srcs/init.o
+
+# target to build an object file
+srcs/init.c.o:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/init.c.o
+.PHONY : srcs/init.c.o
+
+srcs/init.i: srcs/init.c.i
+
+.PHONY : srcs/init.i
+
+# target to preprocess a source file
+srcs/init.c.i:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/init.c.i
+.PHONY : srcs/init.c.i
+
+srcs/init.s: srcs/init.c.s
+
+.PHONY : srcs/init.s
+
+# target to generate assembly for a file
+srcs/init.c.s:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/init.c.s
+.PHONY : srcs/init.c.s
 
 srcs/main.o: srcs/main.c.o
 
@@ -1272,12 +1434,18 @@ help:
 	@echo "... srcs/editor_loop/editor_loop.o"
 	@echo "... srcs/editor_loop/editor_loop.i"
 	@echo "... srcs/editor_loop/editor_loop.s"
+	@echo "... srcs/editor_loop/editor_text_input.o"
+	@echo "... srcs/editor_loop/editor_text_input.i"
+	@echo "... srcs/editor_loop/editor_text_input.s"
 	@echo "... srcs/editor_loop/ui_left_press.o"
 	@echo "... srcs/editor_loop/ui_left_press.i"
 	@echo "... srcs/editor_loop/ui_left_press.s"
 	@echo "... srcs/editor_loop/ui_left_release.o"
 	@echo "... srcs/editor_loop/ui_left_release.i"
 	@echo "... srcs/editor_loop/ui_left_release.s"
+	@echo "... srcs/editor_loop/update_button.o"
+	@echo "... srcs/editor_loop/update_button.i"
+	@echo "... srcs/editor_loop/update_button.s"
 	@echo "... srcs/error.o"
 	@echo "... srcs/error.i"
 	@echo "... srcs/error.s"
@@ -1293,6 +1461,12 @@ help:
 	@echo "... srcs/event/time.o"
 	@echo "... srcs/event/time.i"
 	@echo "... srcs/event/time.s"
+	@echo "... srcs/game_loop/ammo.o"
+	@echo "... srcs/game_loop/ammo.i"
+	@echo "... srcs/game_loop/ammo.s"
+	@echo "... srcs/game_loop/damage.o"
+	@echo "... srcs/game_loop/damage.i"
+	@echo "... srcs/game_loop/damage.s"
 	@echo "... srcs/game_loop/draw.o"
 	@echo "... srcs/game_loop/draw.i"
 	@echo "... srcs/game_loop/draw.s"
@@ -1302,6 +1476,12 @@ help:
 	@echo "... srcs/game_loop/game_loop.o"
 	@echo "... srcs/game_loop/game_loop.i"
 	@echo "... srcs/game_loop/game_loop.s"
+	@echo "... srcs/hud/hud.o"
+	@echo "... srcs/hud/hud.i"
+	@echo "... srcs/hud/hud.s"
+	@echo "... srcs/init.o"
+	@echo "... srcs/init.i"
+	@echo "... srcs/init.s"
 	@echo "... srcs/main.o"
 	@echo "... srcs/main.i"
 	@echo "... srcs/main.s"

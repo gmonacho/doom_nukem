@@ -63,7 +63,7 @@ static void			display_frames(t_win *win, const t_map_editor *map)
 		if (!(f->flags & FRAME_HIDE))
 		{
 			if (f->texture)
-				printf("texture\n");
+				SDL_RenderCopy(win->rend, f->texture, NULL, &f->rect);
 			else
 				draw_ratio_rect(win, &(SDL_Rect){0, 0, win->w, win->h}, &f->ratio);
 			display_buttons(win, map, f);

@@ -85,9 +85,13 @@ t_button	*new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_fl
 void		add_button(t_button **buttons, t_button *new_button);
 void		free_buttons(t_button **buttons);
 
+t_simple_button	*new_simple_button(char *name, SDL_bool clicked);
+int     		update_button(t_win *win, t_button *b, t_button_state state);
+
 t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 flags);
 int     		update_text_entry_texture(t_win *win, t_button *button, const char *text);
 int				fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *result);
+
 
 /*
 **	---------------------------------- frame ----------------------------------

@@ -4,8 +4,10 @@ void		update_selected_ui(t_win *win)
 {
 	t_frame		*f;
 	t_button	*b;
+	t_button	*tmp_selected;
 
 	win->selected_frame = NULL;
+	tmp_selected = win->selected_button;
 	win->selected_button = NULL;
 	f = win->frames;
 	while (f)
@@ -21,6 +23,7 @@ void		update_selected_ui(t_win *win)
 					if (is_in_rect(b->rect, (t_dot){win->mouse->x, win->mouse->y}))
 					{
 						win->selected_button = b;
+						update_button(win, b, BUTTON_STATE_ON_MOUSE);
 						b = NULL;
 						f = NULL;
 					}
@@ -32,6 +35,8 @@ void		update_selected_ui(t_win *win)
 		if (f)
 			f = f->next;
 	}
+	if (win->selected_button == NULL && tmp_selected)
+		update_button(win, tmp_selected, BUTTON_STATE_NONE);
 }
 
 void		update_ui_rect(t_win *win)

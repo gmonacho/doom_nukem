@@ -119,14 +119,12 @@ enum	e_text_entry
 	TEXT_ENTRY_LINKED = 8
 };
 
-typedef struct		s_text_entry
+typedef enum	e_button_state
 {
-	char			*name;
-	int				max_size;
-	void			*variable;
-	Uint8			flags;
-}					t_text_entry;
-
+	BUTTON_STATE_NONE = 0,
+	BUTTON_STATE_ON_MOUSE = 1,
+	BUTTON_STATE_CLICKED = 2
+}				t_button_state;
 
 enum	e_button
 {
@@ -139,8 +137,24 @@ enum	e_button
 	BUTTON_ID = 0b100000,
 	BUTTON_L_TYPE = 0b1000000,
 	BUTTON_CLICKED = 0b10000000,
-	BUTTON_SECTOR_NAME = 0b100000000
+	BUTTON_SECTOR_NAME = 0b100000000,
+	BUTTON_SIMPLE = 0b1000000000
 };
+
+typedef struct		s_simple_button
+{
+	char			*name;
+	SDL_bool		clicked;
+}					t_simple_button;
+
+typedef struct		s_text_entry
+{
+	char			*name;
+	int				max_size;
+	void			*variable;
+	Uint8			flags;
+}					t_text_entry;
+
 
 typedef struct		s_button
 {
@@ -187,6 +201,14 @@ typedef struct		s_frame
 **	---------------------------------- Window ----------------------------------
 */
 
+typedef struct		s_ed_texture
+{
+	SDL_Texture		*frame_texture;
+	SDL_Texture		*button;
+	SDL_Texture		*clicked_button;
+	SDL_Texture		*on_mouse_button;
+}					t_ed_texture;
+
 typedef struct		s_win
 {
 	SDL_Window*		ptr;
@@ -199,6 +221,7 @@ typedef struct		s_win
 	t_mouse			*mouse;
 
 	SDL_Texture		**sectors_texture;
+	t_ed_texture	ed_texture;
 	SDL_Texture		**sectors_texture_selected;
 	SDL_Texture		*text_entry_texture;
 
