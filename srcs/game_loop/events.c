@@ -71,11 +71,26 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 }
  static void keyboard_shot(t_player *player, const Uint8 *state)
 {
-	if (state[SDL_BUTTON_LEFT])
+	if (state[SDL_SCANCODE_T] && player->ammo > 0)
 		player->ammo -= 1;
 	if (state[SDL_SCANCODE_R])
-		player->ammo = 30;
-	printf("ammo = %d\n", player->ammo);
+		reload_ammo(player);
+    if (state[SDL_SCANCODE_1])
+        player->selected_slot = 0;
+    if (state[SDL_SCANCODE_2])
+        player->selected_slot = 1;
+    if (state[SDL_SCANCODE_3])
+        player->selected_slot = 2;
+    if (state[SDL_SCANCODE_4])
+        player->selected_slot = 3;
+	if (state[SDL_SCANCODE_I])
+        player->inventory->item[0]->nb += 1;
+	if (state[SDL_SCANCODE_O])
+        player->inventory->item[1]->nb += 1;
+	if (state[SDL_SCANCODE_P])
+        player->inventory->item[2]->nb += 1;
+	if (state[SDL_SCANCODE_E])
+		use_item(player, player->selected_slot);
 }
 
 int			keyboard_state(t_win *win, t_player *player)

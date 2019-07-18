@@ -4,7 +4,10 @@ int		game_loop(t_win *win, t_map *map)
 {
 	SDL_Event	event;
 	SDL_bool    loop;
+	t_texHud	*texHud;
 
+	texHud = define_texHud(win);
+	main_inventory(win, &(map->player));
 	printf("Debut game loop\n");
 	loop = SDL_TRUE;
 	if (win)
@@ -21,8 +24,9 @@ int		game_loop(t_win *win, t_map *map)
 			//entiteMove();
 
 			draw(win, map, &(map->player));
-			//damage_heal(&(map->player), 3, 0, 0);
-			hud(win, &(map->player));
+			//damage_heal(&(map->player), 1, 0, 0);
+			hud(win, &(map->player), texHud);
+            print_content_slot(win, &(map->player), texHud);
 			SDL_RenderPresent(win->rend);
 		}
 	return (1);

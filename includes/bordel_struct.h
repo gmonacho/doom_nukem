@@ -215,14 +215,11 @@ typedef struct		s_win
 /*
 **	---------------------------------- hud --------------------------------------------
 */
-	typedef struct s_hud
-	{
-		int 	x1;
-		int 	x2;
-		int 	y1;
-		int 	y2;
-
-	}				t_hud;
+	typedef struct 	s_texHud
+{
+	SDL_Texture		*tex[10];
+	TTF_Font		*police;
+}				t_texHud;
 /*
 ** ====================================================================================
 ** ================================== DATA ============================================
@@ -331,6 +328,22 @@ typedef struct				s_sector
 }							t_sector;
 
 /*
+**	---------------------------------- Inventory --------------------------------------------
+*/
+
+typedef struct s_item
+{
+	SDL_Texture	*text;
+	SDL_Rect	*pos;
+	int			nb;
+}				t_item;
+
+typedef struct s_inventory
+{
+	t_item		*item[4];
+}				t_inventory;
+
+/*
 **	---------------------------------- player --------------------------------------------
 */
 
@@ -355,19 +368,22 @@ typedef struct		s_player
 	int 			currentArmor;
 	int				maxArmor;
 	int				ammo;
+    int             selected_slot;
+	int 			magazine;
+	t_inventory		*inventory;
 }					t_player;
 
 /*
 **	---------------------------------- object --------------------------------------------
 */
-	typedef struct s_object
-	{
-		t_fdot				pos;
-		int 				sector;
-		int 				id;
-		int					id_texture;
-		struct s_object		*next;
-	}			t_object;
+typedef struct s_object
+{
+	t_fdot				pos;
+	int 				sector;
+	int 				id;
+	int					id_texture;
+	struct s_object		*next;
+}			            t_object;
 
 /*
 **	---------------------------------- map_editor --------------------------------------------

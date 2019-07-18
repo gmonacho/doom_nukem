@@ -86,7 +86,6 @@ void		ft_fill_data(char **tab, t_sector **sector, int i)
 	printf("p1.x = %d p1.y = %d\n", sector->lines->p1.x, sector->lines->p1.y);
 	printf("p2.x = %d p2.y = %d\n", sector->lines->p2.x, sector->lines->p2.y);
 	printf("id = %d\n", sector->lines->id);*/
-	printf("\n");
 }
 
 t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
@@ -110,49 +109,3 @@ t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
 	printf("Fin parsing\n\n");
 	return (sector);
 }
-
-
-/* t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
-{
-	char		**tab;
-	int			i;
-	t_sector	*sector;
-
-	i = -1;
-	sector = NULL;
-	tab = ft_fill_map(fd, fd1);
-	ft_parse_error(tab);
-	ft_player_data(tab, player);
-	while (tab[++i])
-	{
-		if (ft_strstr(tab[i], "Sector"))
-		{
-			add_sector(&sector, new_void_sector());
-			while ((ft_strchr(tab[i], '}') == NULL ||
-			ft_strchr(tab[i - 1], '}') == NULL))
-			{
-				ft_fill_data(tab[i], sector);
-				if (ft_strstr(tab[i], "line"))
-				{
-					//add_linedef(&sector->lines, new_void_linedef());
-					ft_fill_coord(sector, tab, i);
-					printf("floor_heignt = %d\n", sector->floor_height);
-					printf("ceil_height = %d\n", sector->ceil_height);
-					printf("name = %s\n", sector->name);
-					printf("flags = %u\n", sector->lines->flags);
-					printf("p1.x = %d p1.y = %d\n", sector->lines->p1.x, sector->lines->p1.y);
-					printf("p2.x = %d p2.y = %d\n", sector->lines->p2.x, sector->lines->p2.y);
-					printf("id = %d\n", sector->lines->id);
-					printf("\n");
-				}
-				i++;
-			}
-		}
-		else if (ft_strstr(tab[i], "Object"))
-			object_data(tab, map->object, i);
-	}
-	printf("Fin parsing\n\n");
-	return (sector);
-}*/
-
-

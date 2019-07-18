@@ -11,11 +11,12 @@ static int		init(t_win *win, t_map *map, t_player *player)
 	player->dir = M_PI;
 	player->orientation = 1 * win->h / 2;
 	player->fov = M_PI / 2;
-	player->maxHp = 100;
+	player->maxHp = 50;
 	player->currentHp = player->maxHp;
-	player->maxArmor = 100;
+	player->maxArmor = 50;
 	player->currentArmor = player->maxArmor;
 	player->ammo = 30;
+	player->magazine = 60;
 	return (0);
 }
 
@@ -38,7 +39,6 @@ int			main(int argc, char **argv)
 
 	if ((ret = init(&win, &map, &(map.player))))
 		return (ret_num_error("Init error", ret));
-
 	if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
 		return (ret_error(SDL_GetError()));
 

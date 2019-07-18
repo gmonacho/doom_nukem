@@ -131,7 +131,20 @@ void		draw(t_win *win, t_map *map, t_player *player);
 /*
 **	---------------------------------- texture ----------------------------------
 */
-void 		hud(t_win *win, t_player *player);
+void	hud(t_win *win, t_player *player, t_texHud *texHud);
+void    inventory_hud(t_win *win, t_texHud *texHud, t_player *player);
+
+/*
+**	---------------------------------- inventory ----------------------------------
+*/
+
+void   	main_inventory(t_win *win, t_player *player);
+void    add_items(t_inventory *inventory, int id);
+void    print_items(t_win *win, t_inventory *inventory);
+void    print_content_slot(t_win *win, t_player *player, t_texHud *texHud);
+void    use_item(t_player *player, int slotSelected);
+void    reload_ammo(t_player *player);
+
 /*
 ** ==========================================================================
 ** ================================== DATA ==================================
@@ -199,6 +212,7 @@ void		ft_find_id(char *id, t_linedef *line);
 void		ft_player_data(char **tab, t_player *player);
 
 void		object_data(char **tab, t_object *object, int i);
+t_texHud   	*define_texHud(t_win *win);
 /*
 ** =============================================================================
 ** ================================== EXPORT ===================================

@@ -1,13 +1,13 @@
 #include "doom_nukem.h"
 
-void		add_object(t_object **object)
+int		add_object(t_object **object)
 {	
 	t_object *new_object;
-
-	if (!(new_object = (t_object *)ft_memalloc(sizeof(t_object))))
-		return (ft_putendl("object allocation failed in new_void_object"));
+	
+	new_object = (t_object *)ft_memalloc(sizeof(t_object));
 	new_object->next = *object;
 	*object = new_object;
+	return (0);
 }
 
 void	object_data(char **tab, t_object *object, int i)
