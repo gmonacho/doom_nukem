@@ -23,10 +23,10 @@ int				teleportation(t_win *win, t_map *tmap,\
 
 		keyboard_state(win, &(tmap->player));
 
-		tmap->player.pos = (t_fdot){map(tmap->player.pos.x,\
+		tmap->player.pos = (t_fdot){prop(tmap->player.pos.x,\
 									(t_dot){line1->p1.x, line1->p2.x},\
 									(t_dot){line2->p2.x, line2->p1.x}),\
-									map(tmap->player.pos.y,\
+									prop(tmap->player.pos.y,\
 									(t_dot){line1->p1.y, line1->p2.y},\
 									(t_dot){line2->p2.y, line2->p1.y})};
 

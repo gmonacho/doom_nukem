@@ -285,7 +285,7 @@ double		dist(t_dot p1, t_dot p2);
 double		mag(t_vector vector);
 double		fmag(t_fvector vector);
 int			sign(double nbr);
-double		map(double value, t_dot inter1, t_dot inter2);
+double		prop(double value, t_dot inter1, t_dot inter2);
 double  	modulo(double nbr, double mod);
 //void		draw_affine(t_win *win, t_affine function, int xmin, int xmax);
 void		draw_affine(t_win *win, t_affine function);

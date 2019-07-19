@@ -46,6 +46,11 @@ int			main(int argc, char **argv)
 		return (0);
 	//SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
 
+	// t_dot p11 = (t_dot){700, 200};
+	// t_dot p12 = (t_dot){200, 700};
+	// printf("Ret : %f\n", prop(400, p11, p12));
+	// exit(1);
+
 	next_loop = main_menu(&win);
 	if (next_loop == 2)
 		game_loop(&win, &map);

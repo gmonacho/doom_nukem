@@ -1,7 +1,7 @@
 Player
 {
-	posx = 700
-	posy = 400
+	posx = 800
+	posy = 600
 	width = 20
 	height = 50
 	sector = 0

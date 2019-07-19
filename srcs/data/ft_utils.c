@@ -32,7 +32,7 @@ int			sign(double nbr)
 	return (nbr < 0 ? -1 : 1);
 }
 
-double		map(double value, t_dot inter1, t_dot inter2)
+double		prop(double value, t_dot inter1, t_dot inter2)
 {
 	if (inter1.y == inter1.x)
 		return ((inter2.y + inter2.x) / 2);
