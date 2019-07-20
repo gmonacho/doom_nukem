@@ -12,6 +12,8 @@
 
 int		init_lines(t_map *map);
 int		init_sectors(t_map *map, t_player *player);
+void	init_player(t_win *win, t_player *player);
+int		init_textures(t_textures *textures);
 
 /*
 ** =====================================================================================
@@ -167,7 +169,7 @@ int		    parser_png(char *png_file);
 
 t_linedef	*init_linedef(t_linedef *line);
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
-t_linedef	*new_linedef(t_line line, SDL_Texture *texture, Uint32 flags);
+t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags);
 t_linedef	*new_void_linedef(void);
 int			get_nb_linedef(t_linedef *lines, Uint32 flags);
 

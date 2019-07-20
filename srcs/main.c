@@ -2,21 +2,15 @@
 
 static int		init(t_win *win, t_map *map, t_player *player)
 {
-	if (init_sectors(map, player))
-		return (1);
-	if (init_lines(map))
-		return (2);
 	win->w = 1000;
 	win->h = 800;
-	player->dir = M_PI / 2;
-	player->orientation = 1 * win->h / 2;
-	player->fov = M_PI / 2;
-	player->maxHp = 50;
-	player->currentHp = player->maxHp;
-	player->maxArmor = 50;
-	player->currentArmor = player->maxArmor;
-	player->ammo = 30;
-	player->magazine = 60;
+	if (init_textures(&(map->textures)))
+		return (1);
+	if (init_sectors(map, player))
+		return (2);
+	if (init_lines(map))
+		return (3);
+	init_player(win, player);
 	return (0);
 }
 

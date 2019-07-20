@@ -305,7 +305,7 @@ typedef struct				s_linedef
 	t_affine			equation;
 	int					isequation;
 	double				angle;
-	SDL_Texture			*texture;
+	SDL_Surface			*texture;
 	Uint32				flags;
 	Uint32				gflags;
 	int					id;
@@ -347,9 +347,15 @@ typedef struct				s_sector
 	int						height;
 	int						light_level;
     t_linedef				*lines;
-	t_dot					center;
+	// t_dot					center;
 	struct	s_sector 		*next;
 }							t_sector;
+
+typedef struct				s_textures
+{
+	SDL_Surface				*elephantride;
+	SDL_Surface				*tortue;
+}							t_textures;
 
 /*
 **	---------------------------------- Inventory --------------------------------------------
@@ -443,6 +449,7 @@ typedef struct	s_map_editor
 typedef struct		s_map
 {
 	t_sector		*sectors;
+	t_textures		textures;
 	t_player		player;
 	t_object		*object;
 }					t_map;
