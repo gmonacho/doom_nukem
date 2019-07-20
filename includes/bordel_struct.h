@@ -326,6 +326,7 @@ typedef struct				s_calculs
 	t_affine				ray;
 	double					dist;
 	double					newdist;
+	t_fdot					closest;
 }							t_calculs;
 
 /*

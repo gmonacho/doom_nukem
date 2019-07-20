@@ -8,7 +8,7 @@ static int		init(t_win *win, t_map *map, t_player *player)
 		return (2);
 	win->w = 1000;
 	win->h = 800;
-	player->dir = M_PI;
+	player->dir = M_PI / 2;
 	player->orientation = 1 * win->h / 2;
 	player->fov = M_PI / 2;
 	player->maxHp = 50;
@@ -45,11 +45,6 @@ int			main(int argc, char **argv)
 	if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 100, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 		return (0);
 	//SDL_SetRenderDrawColor(win.rend, 255, 255, 255, 255);
-
-	// t_dot p11 = (t_dot){700, 200};
-	// t_dot p12 = (t_dot){200, 700};
-	// printf("Ret : %f\n", prop(400, p11, p12));
-	// exit(1);
 
 	next_loop = main_menu(&win);
 	if (next_loop == 2)
