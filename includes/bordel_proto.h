@@ -124,7 +124,8 @@ void		clear_rend(SDL_Renderer *rend, Uint8 r, Uint8 g, Uint8 b);
 **	---------------------------------- Drawing functon ----------------------------------
 */
 
-
+void		print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calculs);
+void		fill_portals(t_win *win, t_player *player);
 void		draw_line(t_win *win, t_dot p1, t_dot p2);
 void		draw_column(t_win *win, int x, int ylow, int yup);
 void		draw_rect(t_win *win, SDL_Rect rect);
@@ -233,6 +234,7 @@ int				export_sector(t_sector *sector, const char* filename);
 ** =================================================================================
 */
 
+
 SDL_bool	is_line_horizontal(int y1, int y2, int pitch);
 SDL_bool	is_line_vertical(int x1, int x2, int pitch);
 SDL_bool	is_in_rect(SDL_Rect rect, t_dot p);
@@ -273,10 +275,9 @@ void		editor_display(t_win *win, const t_map_editor *map);
 */
 
 int			game_loop(t_win *win, t_map *map);
-int			raycasting(t_win *win, t_player *player);
 int			move(t_win *win, t_map *map, t_player *player);
-int			teleportation(t_win *win, t_map *map,\
-							t_linedef *line1, t_linedef *line2);
+int			actions(t_win *win, t_map *map, t_linedef *portal, t_player *player);
+int			raycasting(t_win *win, t_player *player);
 
 /*
 ** =========================== Math functions ===================================

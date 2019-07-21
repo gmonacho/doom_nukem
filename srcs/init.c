@@ -34,7 +34,7 @@ int		init_lines(t_map *map)
 		line = sector->lines;
 		while (line)
 		{
-			line->texture = map->textures.elephantride;
+			line->texture = map->textures.tortue;
 			line->sector = sector;
 			if (line->flags & PORTAL && find_portal_id(map, line, line->id))
 				return (1);
@@ -97,7 +97,7 @@ int		init_sectors(t_map *map, t_player *player)
 
 void	init_player(t_win *win, t_player *player)
 {
-	player->dir = M_PI / 2;
+	player->dir = -M_PI / 2;
 	player->orientation = 1 * win->h / 2;
 	player->fov = M_PI / 2;
 	player->maxHp = 50;
@@ -110,8 +110,8 @@ void	init_player(t_win *win, t_player *player)
 
 int		init_textures(t_textures *textures)
 {
-	if (!(textures->elephantride = IMG_Load("elephantride.png")) ||\
-		!(textures->tortue = IMG_Load("tortue.png")))
+	if (!(textures->elephantride = IMG_Load("textures/walls/elephantride.png")) ||\
+		!(textures->tortue = IMG_Load("textures/walls/tortue.png")))
 	{
 		ft_putendl(SDL_GetError());
 		return (1);

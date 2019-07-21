@@ -28,9 +28,82 @@ static void	draw_map(t_win *win, t_map *map)
 	}
 }*/
 
+void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calculs)
+{
+	double			haut;
+	double			bas;
+	Uint32			pixel;
+	int				x_texture;
+	double			y_texture;
+	double			dy_texture;
+
+	if (!wall)
+		return ;
+	if (!wall->texture)
+	{
+		printf("Pas de texture sur le mur\n");
+		exit(0);
+	}
+	if (!wall->texture->pixels)
+	{
+		printf("Impossible d'acceder a void* 'pixel' de la texture du mur\n");
+		exit(0);
+	}
+
+	win->middle_print = player->orientation + player->z - (player->shift ? player->height / 2 : 0);
+	haut = -HEIGHT_WALL * (wall->sector->ceil_height - (player->height + player->sector->floor_height)) / player->lenRay;
+	bas = HEIGHT_WALL * (player->height + (player->sector->floor_height - wall->sector->floor_height)) / player->lenRay;
+
+	// SDL_SetRenderDrawColor(win->rend, 0x40, 0xDD, 0x40, 255);
+	// draw_column(win, calculs->column, win->middle_print - haut,\
+	// 									win->middle_print + bas);
+
+	if (wall->p1.x == wall->p2.x)
+		x_texture = (int)prop(calculs->closest.y,\
+					(t_dot){wall->p1.y, wall->p2.y},\
+					(t_dot){0, wall->texture->w - 1});
+	else
+		x_texture = (int)prop(calculs->closest.x,\
+					(t_dot){wall->p1.x, wall->p2.x},\
+					(t_dot){0, wall->texture->w - 1});
+	if (x_texture < 0 || x_texture >= wall->texture->w)
+	{
+		printf("JVOUS BAISE\n");
+		return ;
+	}
+	
+	// printf("Prop : %d\t%d\t%f\n", wall->p1.x, wall->p2.x, calculs->closest.x);
+	// printf("Prop : %d\t%d\t%f\n", wall->p1.y, wall->p2.y, calculs->closest.y);
+
+	dy_texture = wall->texture->h / (bas - haut);
+	y_texture = 0;
+	while (haut++ < bas)
+	{
+		// printf("Coord texture : %d\t%d\t%d\n", x_texture, (int)y_texture, wall->texture->w);
+		pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + x_texture];
+		// pixel = wall->texture->pixels + (int)y_texture * wall->texture->pitch + x_texture * bpp;
+		//if (calculs->column > 980)
+		// printf("Pixel : %d\n", pixel);
+		SDL_SetRenderDrawColor(win->rend,	(pixel >> 24) & 0xFF,\
+											(pixel >> 16) & 0xFF,\
+											(pixel >> 8) & 0xFF,\
+											// pixel & 0x000000FF);
+											calculs->nportals >= 1 ? 100 : 255);
+		
+		// SDL_SetRenderDrawColor(win->rend,	(pixel & 0xFF000000) >> 24,\
+		// 									(pixel & 0x00FF0000) >> 16,\
+		// 									(pixel & 0x0000FF00) >> 8,\
+		// 									// pixel & 0x000000FF);
+		//									calculs->nportals >= 1 ? 100 : 255);
+		SDL_RenderDrawPoint(win->rend, calculs->column, win->middle_print + haut);
+		y_texture += dy_texture;
+	}
+}
+
 void	draw(t_win *win, t_map *map, t_player *player)
 {
 	raycasting(win, player);
+	fill_portals(win, player);
 
 	draw_map(win, map);
 	//draw_sprite(player, map);

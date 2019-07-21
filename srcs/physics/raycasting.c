@@ -22,6 +22,7 @@
 **				Afficher un plafond pour faire disparaitre les autres secteurs
 **				Fix la tp
 **				Fix les rayons
+**				Attention : Reelle collision proche de la source ( < 1) entraine un mauvais choix
 **
 **	-----------------------------------------------------------------------------------------------
 **
@@ -32,48 +33,6 @@
 **	Milieu-Bas	: distance tete/sol		+- distance joueur/mur
 */
 
-
-static void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calculs)
-{
-	double			haut;
-	double			bas;
-	Uint32			*pixel;
-	int				x_texture;
-	double			y_texture;
-	double			dy_texture;
-
-	if (!wall)
-		return ;
-	SDL_SetRenderDrawColor(win->rend, 0x40, 0xDD, 0x40, 255);
-
-	win->middle_print = player->orientation + player->z - (player->shift ? player->height / 2 : 0);
-	haut = HEIGHT_WALL * (wall->sector->height - player->height) / player->lenRay;
-	bas = HEIGHT_WALL * player->height / player->lenRay;
-
-	// draw_column(win, calculs->column, win->middle_print - haut,\
-	//									win->middle_print + bas);
-
-	if (wall->p1.x == wall->p2.x)
-		x_texture = (int)prop(calculs->closest.y,\
-					(t_dot){wall->p1.y, wall->p2.y},\
-					(t_dot){0, wall->texture->pitch});
-	else
-		x_texture = (int)prop(calculs->closest.x,\
-					(t_dot){wall->p1.x, wall->p2.x},\
-					(t_dot){0, wall->texture->pitch});
-	dy_texture = wall->texture->h / (bas - haut);
-	y_texture = wall->texture->h;
-	while (bas++ < haut)
-	{
-		pixel = wall->texture->pixels + (int)(y_texture * wall->texture->pitch) + x_texture;
-		SDL_SetRenderDrawColor(win->rend,	(*pixel & 0xFF000000) >> 24,\
-											(*pixel & 0x00FF0000) >> 16,\
-											(*pixel & 0x0000FF00) >> 8,\
-											*pixel & 0x000000FF);
-		SDL_RenderDrawPoint(win->rend, calculs->column, bas);
-		y_texture -= dy_texture;
-	}
-}
 
 static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, double ray_angle, t_calculs *calculs)
 {
@@ -101,9 +60,11 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 		//printf("Line 2 : x = %d\ty = %d\n", line->p2.x, line->p2.y);
 		//printf("Collision : %f\t%f\n", collision.x, collision.y);
 		//printf("Source : %f\t%f\n", source->x, source->y);
-		// if (calculs->column > 990)
+		// if (collision.x < 0 || collision.y < 0)
 		// {
 		// 	printf("---\n");
+		// 	printf("Source : %f\t%f\n", source->x, source->y);
+		// 	printf("Collision : %f\t%f\n", collision.x, collision.y);
 		// 	if ((calculs->newdist = fdist(*source, collision)) < calculs->dist ||\
 		// 		calculs->dist == -1)
 		// 		printf("1\n");
@@ -116,7 +77,6 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 		// 		printf("4\n");
 		// }
 
-		//Va se debug seul si l'angle du rayon se comporte correctement.
 		if (((calculs->newdist = fdist(*source, collision)) < tmpdist ||\
 			tmpdist == -1) &&\
 			sign(collision.x - source->x) == sign(cos(ray_angle)) &&\
@@ -124,7 +84,7 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 			(line->p2.x <= collision.x && collision.x <= line->p1.x)) &&\
 			((int)collision.x != (int)source->x || (int)collision.y != (int)source->y))
 		{
-			// if (nportals >= 1)
+			// if (calculs->nportals >= 1)
 			// 	printf("Find collision : %f\t%f\tSource : %f\t%f\n", collision.x, collision.y, source->x, source->y);
 			// printf("With : angle = %f pi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);
 			tmpdist = calculs->newdist;
@@ -178,18 +138,18 @@ static void		begin_ray(t_win *win, t_player *player, t_calculs *calculs)
 	t_sector	*sector;
 	t_fdot		source;
 	double		ray_angle;
-	int			nportals = 0;
-
+	
 	//printf("-----------------\n");
+	calculs->nportals = 0;
 	sector = player->sector;
 	source = player->pos;
 	ray_angle = calculs->alpha;
 	calculs->dist = 0;
-	wall = intersection_ray_wall(&sector, &source, ray_angle, calculs);	
-	while (wall && wall->flags & PORTAL && HEIGHT_WALL / calculs->dist > 0.05 && ++nportals)
+	wall = intersection_ray_wall(&sector, &source, ray_angle, calculs);
+	while (wall && wall->flags & PORTAL && HEIGHT_WALL / calculs->dist > 0.005 && ++calculs->nportals)
 	{
 		// printf("Addr first wall : %p\t%p\n", wall, wall->destline);
-		// printf("PORTAL DETECTED : %d\n", nportals);
+		// printf("PORTAL DETECTED : %d\n", calculs->nportals);
 		// printf("Angle = %fpi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);
 		
 		// printf("Wall 1 : x = %d\ty = %d\n", wall->p1.x, wall->p2.x);
@@ -209,11 +169,15 @@ static void		begin_ray(t_win *win, t_player *player, t_calculs *calculs)
 
 		calculs->ray.a = tan(ray_angle);
 		calculs->ray.b = source.y - calculs->ray.a * source.x;
-		// printf("New : Angle = %fpi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);
 		wall = intersection_ray_wall(&sector, &source, ray_angle, calculs);
 		// if (wall)
 		// 	printf("Addr wall : %p\t%p\n", wall, wall->destline);
 	}
+	// if (calculs->closest.x < 0 || calculs->closest.y < 0)
+	// {
+	// 	printf("Collision : %f\t%f\n", calculs->closest.x, calculs->closest.y);
+	// 	printf("New : Angle = %fpi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);
+	// }
 	player->lenRay = calculs->dist * cos(ray_angle - player->dir);
 	// player->lenRay = calculs->dist;
 	print_wall(win, wall, player, calculs);
@@ -228,6 +192,7 @@ int				raycasting(t_win *win, t_player *player)
 	calculs.column = -1;
 	while (++(calculs.column) < win->w)
 	{
+		// printf("New column : %d\n", calculs.column);
 		if (cos(calculs.alpha) > 0.00001 || cos(calculs.alpha) < -0.00001)
 		{
 			calculs.ray.a = tan(calculs.alpha);

@@ -14,7 +14,7 @@
 **	Il faut relancer le keyboard state pour avoir la vrai vel
 */
 
-int				teleportation(t_win *win, t_map *map,\
+static int				teleportation(t_win *win, t_map *map,\
 								t_linedef *line1, t_linedef *line2)
 {
 	printf("Changes sector\n");
@@ -52,5 +52,17 @@ int				teleportation(t_win *win, t_map *map,\
 		return (1);
 	}
 	//printf("Changes sector fin\n");
+	return (0);
+}
+
+int				actions(t_win *win, t_map *map, t_linedef *portal, t_player *player)
+{
+	if (!(portal->flags & PORTAL) ||\
+		(portal->flags & PORTAL &&\
+		!teleportation(win, map, portal, portal->destline)))
+	{
+		player->vel = (t_fvector){0, 0};
+		return (1);
+	}
 	return (0);
 }

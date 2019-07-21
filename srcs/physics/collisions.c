@@ -7,53 +7,6 @@
 **	-
 */
 
-/*static int	actions(t_map *map, t_linedef *portal, t_player *player)
-{
-	t_sector	*sector;
-	t_linedef	*line;
-
-	//printf("Flag : %u\n", portal->flags);
-	if (portal->flags & PORTAL)
-	{
-		sector = map->sectors;
-		while (sector)
-		{
-			line = sector->lines;
-			while (line)
-			{
-				if (portal->id == line->id && portal != line)
-				{
-					//printf("tp\n");
-					if (!teleportation(map, sector, portal, line))
-						player->vel = (t_fvector){0, 0};
-					return (0);
-				}
-				line = line->next;
-			}
-			sector = sector->next;
-		}
-	}
-	else
-	{
-		player->vel = (t_fvector){0, 0};
-		//printf("Rm vitesse\n");
-		return (1);
-	}
-	return (0);
-}*/
-
-static int	actions(t_win *win, t_map *map, t_linedef *portal, t_player *player)
-{
-	if (!(portal->flags & PORTAL) ||\
-		(portal->flags & PORTAL &&\
-		!teleportation(win, map, portal, portal->destline)))
-	{
-		player->vel = (t_fvector){0, 0};
-		return (1);
-	}
-	return (0);
-}
-
 static int	coef_null(t_win *win, t_map *map, t_linedef *line, t_player *player)
 {
 	int		collisiony;
