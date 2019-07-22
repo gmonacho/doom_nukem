@@ -46,7 +46,8 @@ void 	hud_armor(t_win *win, t_player *player, t_texHud *texHud)
 }
 
 void	hud(t_win *win, t_player *player, t_texHud *texHud)
-{
+{	
+	print_weapon(win, player, texHud);
 	hud_health(win, player, texHud);
 	hud_armor(win, player, texHud);
 	hud_ammo(win, player, texHud);
