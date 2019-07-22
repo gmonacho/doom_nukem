@@ -138,8 +138,11 @@ void		draw(t_win *win, t_map *map, t_player *player);
 /*
 **	---------------------------------- texture ----------------------------------
 */
-void	hud(t_win *win, t_player *player, t_texHud *texHud);
-void    inventory_hud(t_win *win, t_texHud *texHud, t_player *player);
+
+SDL_Texture		*load_texture(SDL_Renderer *rend, const char *file);
+void			hud(t_win *win, t_player *player, t_texHud *texHud);
+void    		inventory_hud(t_win *win, t_texHud *texHud, t_player *player);
+void			print_weapon(t_win *win, t_player *player, t_texHud *texHud);
 
 /*
 **	---------------------------------- inventory ----------------------------------
@@ -278,6 +281,13 @@ int			game_loop(t_win *win, t_map *map);
 int			move(t_win *win, t_map *map, t_player *player);
 int			actions(t_win *win, t_map *map, t_linedef *portal, t_player *player);
 int			raycasting(t_win *win, t_player *player);
+
+/*
+** ================================== Time ===================================
+*/
+
+void    start_cooldown(t_timer *timer, Uint32 time);
+int     test_timer(t_timer *timer);
 
 /*
 ** =========================== Math functions ===================================

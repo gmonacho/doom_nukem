@@ -72,7 +72,13 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
  static void keyboard_shot(t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_T] && player->ammo > 0)
-		player->ammo -= 1;
+	{	
+		if (test_timer(&(player->timers.bullet_cd)) == 1)
+		{
+			player->ammo -= 1;
+			player->inventory->weapon = 1;
+		}
+	}
 	if (state[SDL_SCANCODE_R])
 		reload_ammo(player);
     if (state[SDL_SCANCODE_1])
@@ -90,7 +96,10 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 	if (state[SDL_SCANCODE_P])
         player->inventory->item[2]->nb += 1;
 	if (state[SDL_SCANCODE_E])
-		use_item(player, player->selected_slot);
+	{
+		if (test_timer(&(player->timers.item_cd)) == 1)
+			use_item(player, player->selected_slot);
+	}
 }
 
 int			keyboard_state(t_win *win, t_player *player)

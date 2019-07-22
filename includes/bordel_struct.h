@@ -240,7 +240,7 @@ typedef struct		s_win
 */
 	typedef struct 	s_texHud
 {
-	SDL_Texture		*tex[10];
+	SDL_Texture		*tex[12];
 	TTF_Font		*police;
 }				t_texHud;
 /*
@@ -248,6 +248,18 @@ typedef struct		s_win
 ** ================================== DATA ============================================
 ** ====================================================================================
 */
+
+typedef struct	s_timer
+{
+	uint32_t		time;
+	uint32_t		save;
+}				t_timer;
+
+typedef struct s_timers
+{
+	t_timer		bullet_cd;
+	t_timer		item_cd;
+}				t_timers;
 
 /*
 **	---------------------------------- png --------------------------------------------
@@ -372,6 +384,7 @@ typedef struct s_item
 typedef struct s_inventory
 {
 	t_item		*item[4];
+	int			weapon;
 }				t_inventory;
 
 /*
@@ -402,6 +415,7 @@ typedef struct		s_player
     int             selected_slot;
 	int 			magazine;
 	t_inventory		*inventory;
+	t_timers		timers;
 }					t_player;
 
 /*
