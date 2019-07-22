@@ -81,14 +81,6 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 	}
 	if (state[SDL_SCANCODE_R])
 		reload_ammo(player);
-    if (state[SDL_SCANCODE_1])
-        player->selected_slot = 0;
-    if (state[SDL_SCANCODE_2])
-        player->selected_slot = 1;
-    if (state[SDL_SCANCODE_3])
-        player->selected_slot = 2;
-    if (state[SDL_SCANCODE_4])
-        player->selected_slot = 3;
 	if (state[SDL_SCANCODE_I])
         player->inventory->item[0]->nb += 1;
 	if (state[SDL_SCANCODE_O])
@@ -100,6 +92,24 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 		if (test_timer(&(player->timers.item_cd)) == 1)
 			use_item(player, player->selected_slot);
 	}
+}
+void 		mouse_state(t_player *player, SDL_Event event)
+{	
+	//if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT))
+		// player->selected_slot += 1;
+	if (event.type == SDL_MOUSEWHEEL && event.wheel.y > 0 && player->selected_slot != 3 && test_timer(&(player->timers.item_cd)) == 1)
+	{
+		player->selected_slot += 1;
+		event.wheel.y = 514;
+		event.type = 0;
+	}
+	if (event.type == SDL_MOUSEWHEEL && event.wheel.y < 0 && player->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
+	{
+		player->selected_slot -= 1;
+		event.wheel.y = 514;
+		event.type = 0;
+	}
+	printf("w = %d\n", event.wheel.y);
 }
 
 int			keyboard_state(t_win *win, t_player *player)
