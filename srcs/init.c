@@ -34,7 +34,7 @@ int		init_lines(t_map *map)
 		line = sector->lines;
 		while (line)
 		{
-			line->texture = map->textures.tortue;
+			line->texture = map->textures.elephantride;
 			line->sector = sector;
 			if (line->flags & PORTAL && find_portal_id(map, line, line->id))
 				return (1);

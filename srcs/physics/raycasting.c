@@ -138,7 +138,7 @@ static void		begin_ray(t_win *win, t_player *player, t_calculs *calculs)
 	t_sector	*sector;
 	t_fdot		source;
 	double		ray_angle;
-	
+
 	//printf("-----------------\n");
 	calculs->nportals = 0;
 	sector = player->sector;
@@ -148,13 +148,13 @@ static void		begin_ray(t_win *win, t_player *player, t_calculs *calculs)
 	wall = intersection_ray_wall(&sector, &source, ray_angle, calculs);
 	while (wall && wall->flags & PORTAL && HEIGHT_WALL / calculs->dist > 0.005 && ++calculs->nportals)
 	{
-		// printf("Addr first wall : %p\t%p\n", wall, wall->destline);
-		// printf("PORTAL DETECTED : %d\n", calculs->nportals);
-		// printf("Angle = %fpi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);
-		
+		printf("PORTAL DETECTED : %d\n", calculs->nportals);
+		printf("Addr wall : %p\t%p\n", wall, wall->destline);
+		printf("Angle = %fpi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);
+
 		// printf("Wall 1 : x = %d\ty = %d\n", wall->p1.x, wall->p2.x);
 		// printf("Wall 2 : x = %d\ty = %d\n", wall->destline->p2.x, wall->destline->p1.x);
-		
+
 		ray_angle -= wall->destline->angle - wall->angle +\
 		(sign(wall->p2.x - wall->p1.x) == sign(wall->destline->p2.x - wall->destline->p1.x) ?\
 		0 : M_PI);
@@ -186,7 +186,7 @@ static void		begin_ray(t_win *win, t_player *player, t_calculs *calculs)
 int				raycasting(t_win *win, t_player *player)
 {
 	t_calculs	calculs;
-			
+
 	calculs.dangle = player->fov / win->w;
 	calculs.alpha = player->dir - player->fov / 2;
 	calculs.column = -1;

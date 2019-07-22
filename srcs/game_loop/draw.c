@@ -1,5 +1,10 @@
 #include "doom_nukem.h"
 
+/*
+**	Il ne faut pas allonger l'image en largeur mais la repete
+**	En hauteur aussi
+**
+*/
 static void	draw_map(t_win *win, t_map *map)
 {
 	t_sector	*sector;
@@ -68,7 +73,7 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 					(t_dot){0, wall->texture->w - 1});
 	if (x_texture < 0 || x_texture >= wall->texture->w)
 	{
-		printf("JVOUS BAISE\n");
+		// printf("JVOUS BAISE\n");
 		return ;
 	}
 	
@@ -84,9 +89,9 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 		// pixel = wall->texture->pixels + (int)y_texture * wall->texture->pitch + x_texture * bpp;
 		//if (calculs->column > 980)
 		// printf("Pixel : %d\n", pixel);
-		SDL_SetRenderDrawColor(win->rend,	(pixel >> 24) & 0xFF,\
-											(pixel >> 16) & 0xFF,\
+		SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
 											(pixel >> 8) & 0xFF,\
+											(pixel >> 24) & 0xFF,\
 											// pixel & 0x000000FF);
 											calculs->nportals >= 1 ? 100 : 255);
 		

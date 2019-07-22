@@ -20,6 +20,10 @@ static int				teleportation(t_win *win, t_map *map,\
 	printf("Changes sector\n");
 	if (line1->sector->floor_height + map->player.height / 2 >=\
 										line2->sector->floor_height &&\
+		line1->sector->floor_height + map->player.height <=\
+										line2->sector->ceil_height &&\
+		line1->sector->floor_height + 3 * map->player.height / 2 <=\
+										line1->sector->ceil_height &&\
 		map->player.height <= line2->sector->height)
 	{
 		if (line1->p2.x == line1->p1.x || line2->p2.x == line2->p1.x)
