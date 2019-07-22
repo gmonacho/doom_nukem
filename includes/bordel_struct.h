@@ -53,6 +53,7 @@ typedef struct		s_affine
 {
 	double			a;
 	double			b;
+	int				isequation;
 }					t_affine;
 
 typedef struct		s_vector

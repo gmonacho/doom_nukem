@@ -43,7 +43,10 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 	double			dy_texture;
 
 	if (!wall)
+	{
+		printf("WTTFFF ????? Column %d Wall = %p\n", calculs->column, wall);
 		return ;
+	}
 	if (!wall->texture)
 	{
 		printf("Pas de texture sur le mur\n");
