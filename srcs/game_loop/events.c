@@ -1,26 +1,26 @@
 #include "doom_nukem.h"
 
-/*static void	mouse_move(t_player *player)
-{
-	static t_dot	lastpos = (t_dot){-100, -100};
-	t_dot			newpos;
+// static void	mouse_move(t_player *player)
+// {
+// 	static t_dot	lastpos = (t_dot){-100, -100};
+// 	t_dot			newpos;
 
-	SDL_GetMouseState(&newpos.x, &newpos.y);
-	if (!(lastpos.x == -100 && lastpos.y == -100))
-	{
-		if (newpos.x != lastpos.x)
-		{
-			player->dir += (newpos.x - lastpos.x) / (double)400;
-			//printf("Dir : %f\n", player->dir);
-		}
-		if (newpos.y != lastpos.y)
-		{
-			//printf("dy\n");
-			player->orientation -= (newpos.y - lastpos.y) / (double)10;
-		}
-	}
-	lastpos = (t_dot){newpos.x, newpos.y};
-}*/
+// 	SDL_GetMouseState(&newpos.x, &newpos.y);
+// 	if (!(lastpos.x == -100 && lastpos.y == -100))
+// 	{
+// 		if (newpos.x != lastpos.x)
+// 		{
+// 			player->dir += (newpos.x - lastpos.x) / (double)400;
+// 			//printf("Dir : %f\n", player->dir);
+// 		}
+// 		if (newpos.y != lastpos.y)
+// 		{
+// 			//printf("dy\n");
+// 			player->orientation -= (newpos.y - lastpos.y) / (double)10;
+// 		}
+// 	}
+// 	lastpos = (t_dot){newpos.x, newpos.y};
+// }
 
 static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 {
@@ -95,21 +95,22 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 }
 void 		mouse_state(t_player *player, SDL_Event event)
 {	
-	//if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT))
-		// player->selected_slot += 1;
-	if (event.type == SDL_MOUSEWHEEL && event.wheel.y > 0 && player->selected_slot != 3 && test_timer(&(player->timers.item_cd)) == 1)
-	{
-		player->selected_slot += 1;
-		event.wheel.y = 514;
-		event.type = 0;
+
+	if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT) && player->ammo > 0)
+	{	
+		if (test_timer(&(player->timers.bullet_cd)) == 1)
+		{
+			player->ammo -= 1;
+			player->inventory->weapon = 1;
+		}
 	}
-	if (event.type == SDL_MOUSEWHEEL && event.wheel.y < 0 && player->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
-	{
-		player->selected_slot -= 1;
-		event.wheel.y = 514;
-		event.type = 0;
+	if (event.type == SDL_MOUSEWHEEL)
+	{	
+		if (event.wheel.y > 0 && player->selected_slot != 3 && test_timer(&(player->timers.item_cd)) == 1)
+			player->selected_slot += 1;
+		else if (event.wheel.y < 0 && player->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
+			player->selected_slot -= 1;
 	}
-	printf("w = %d\n", event.wheel.y);
 }
 
 int			keyboard_state(t_win *win, t_player *player)
@@ -121,7 +122,7 @@ int			keyboard_state(t_win *win, t_player *player)
 	keyboard_move(player, state);
 	keyboard_dir(win, player, state);
 	keyboard_shot(player, state);
-	//mouse_move(player);
+	// mouse_move(player);
 	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
 	return (0);
 }

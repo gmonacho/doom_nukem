@@ -9,7 +9,7 @@ int		game_loop(t_win *win, t_map *map)
 	texHud = define_texHud(win);
 	main_inventory(win, &(map->player));
 	start_cooldown(&(map->player.timers.bullet_cd), 100);
-	start_cooldown(&(map->player.timers.item_cd), 2000);
+	start_cooldown(&(map->player.timers.item_cd), 200);
 	printf("Debut game loop\n");
 	loop = SDL_TRUE;
 	if (win)
@@ -30,6 +30,7 @@ int		game_loop(t_win *win, t_map *map)
 			hud(win, &(map->player), texHud);
             print_content_slot(win, &(map->player), texHud);
 			mouse_state(&(map->player), event);
+			event.type = SDL_FALSE;
 			SDL_RenderPresent(win->rend);
 		}
 	return (1);
