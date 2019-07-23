@@ -10,6 +10,34 @@ Player
 Sector
 {
 	name = sector
-	ceilHeight = 0
+	ceilHeight = 1
 	floorHeight = 0
+	line
+	{
+		dot = (358, 207)
+		dot = (620, 218)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (620, 218)
+		dot = (656, 413)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (656, 413)
+		dot = (221, 375)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (221, 375)
+		dot = (358, 207)
+		flags = WALL
+		id = 0
+	}
 }
