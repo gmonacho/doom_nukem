@@ -44,7 +44,7 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 
 	if (!wall)
 	{
-		printf("WTTFFF ????? Column %d Wall = %p\n", calculs->column, wall);
+		// printf("WTTFFF ????? Column %d Wall = %p\n", calculs->column, wall);
 		return ;
 	}
 	if (!wall->texture)
@@ -62,6 +62,10 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 	haut = -HEIGHT_WALL * (wall->sector->ceil_height - (player->height + player->sector->floor_height)) / player->lenRay;
 	bas = HEIGHT_WALL * (player->height + (player->sector->floor_height - wall->sector->floor_height)) / player->lenRay;
 
+	// printf("Lenray : %f\n", player->lenRay);
+	// printf("Column : %d\tHaut : %f\tBas : %f\n", calculs->column, haut, bas);
+	// printf("Calcul haut : %d\n", wall->sector->ceil_height - (player->height + player->sector->floor_height));
+	// printf("Bas : %d\n", player->height + (player->sector->floor_height - wall->sector->floor_height));
 	// SDL_SetRenderDrawColor(win->rend, 0x40, 0xDD, 0x40, 255);
 	// draw_column(win, calculs->column, win->middle_print - haut,\
 	// 									win->middle_print + bas);
@@ -85,13 +89,14 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 
 	dy_texture = wall->texture->h / (bas - haut);
 	y_texture = 0;
+	// haut = (haut < 0) ? 0 : haut;
+	// bas = (bas > win->h) ? win->h : bas;
 	while (haut++ < bas)
 	{
 		// printf("Coord texture : %d\t%d\t%d\n", x_texture, (int)y_texture, wall->texture->w);
 		pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + x_texture];
 		// pixel = wall->texture->pixels + (int)y_texture * wall->texture->pitch + x_texture * bpp;
 		//if (calculs->column > 980)
-		// printf("Pixel : %d\n", pixel);
 		SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
 											(pixel >> 8) & 0xFF,\
 											(pixel >> 24) & 0xFF,\

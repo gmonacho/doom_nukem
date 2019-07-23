@@ -97,7 +97,7 @@ int		init_sectors(t_map *map, t_player *player)
 
 void	init_player(t_win *win, t_player *player)
 {
-	player->dir = M_PI;
+	player->dir = M_PI / 2;
 	player->orientation = 1 * win->h / 2;
 	player->fov = M_PI / 2;
 	player->maxHp = 50;
