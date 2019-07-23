@@ -1,0 +1,63 @@
+Player
+{
+	posx = 0
+	posy = 0
+	width = 0
+	height = 0
+	sector = 1
+	velocity = 1
+}
+Sector
+{
+	name = sector
+	ceilHeight = 1
+	floorHeight = 0
+	line
+	{
+		dot = (857, 187)
+		dot = (528, 219)
+		flags = PORTAL
+		id = 1
+	}
+	line
+	{
+		dot = (595, 509)
+		dot = (857, 187)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (528, 219)
+		dot = (595, 509)
+		flags = WALL
+		id = 0
+	}
+}
+Sector
+{
+	name = oui
+	ceilHeight = 1
+	floorHeight = 0
+	line
+	{
+		dot = (735, 545)
+		dot = (477, 212)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (368, 565)
+		dot = (735, 545)
+		flags = PORTAL
+		id = 1
+	}
+	line
+	{
+		dot = (477, 212)
+		dot = (368, 565)
+		flags = WALL
+		id = 0
+	}
+}

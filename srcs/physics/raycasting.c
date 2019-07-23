@@ -211,7 +211,7 @@ static void		begin_ray(t_win *win, t_player *player, t_calculs *calculs)
 		// M_PI : 0);
 		
 		set_ray_angle(&ray_angle, wall, wall->destline);
-		set_ray_equation(ray_angle, &(calculs.ray), source);
+		set_ray_equation(ray_angle, &(calculs->ray), source);
 		printf("Angle = %fpi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);		
 		wall = intersection_ray_wall(&sector, &source, ray_angle, calculs);
 		// if (wall)

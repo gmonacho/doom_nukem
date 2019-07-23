@@ -32,7 +32,7 @@ static void			display_linedefs(t_win *win, const t_map_editor *map, t_sector *s)
 	}
 }
 
-static void			display_buttons(t_win *win, const t_map_editor *map, t_frame *f)
+static void			display_buttons(t_win *win, t_frame *f)
 {
 	t_button	*b;
 
@@ -43,16 +43,11 @@ static void			display_buttons(t_win *win, const t_map_editor *map, t_frame *f)
 			SDL_RenderCopy(win->rend, b->texture, NULL, &b->rect);
 		else
 			draw_ratio_rect(win, &f->rect, &b->ratio);
-		if (b->flags & BUTTON_COLOR_PICKER)
-		{
-			draw_color_picker(win, map->selected_sector->color.pos, b->rect);
-			SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
-		}
 		b = b->next;
 	}
 }
 
-static void			display_frames(t_win *win, const t_map_editor *map)
+static void			display_frames(t_win *win)
 {
 	t_frame		*f;
 
@@ -66,7 +61,7 @@ static void			display_frames(t_win *win, const t_map_editor *map)
 				SDL_RenderCopy(win->rend, f->texture, NULL, &f->rect);
 			else
 				draw_ratio_rect(win, &(SDL_Rect){0, 0, win->w, win->h}, &f->ratio);
-			display_buttons(win, map, f);
+			display_buttons(win, f);
 		}
 		f = f->next;
 	}
@@ -83,7 +78,7 @@ void			editor_display(t_win *win, const t_map_editor *map)
 		s = map->selected_sector;
 		display_linedefs(win, map, s);
 	}
-	display_frames(win, map);
+	display_frames(win);
 	SDL_SetRenderDrawColor(win->rend, 150, 150, 150, 200);
 	if (map->flags & MAP_SELECTING)
 		draw_rect(win, map->rect_util);

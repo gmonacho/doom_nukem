@@ -2,7 +2,7 @@
 
 int     update_text_entry_texture(t_win *win, t_button *button, const char *text)
 {
-	SDL_Texture	*texture;
+	SDL_Texture		*texture;
 	int				w;
 	int				h;
 	t_text_entry	*data;
@@ -22,7 +22,7 @@ int     update_text_entry_texture(t_win *win, t_button *button, const char *text
 	{
 		if (!(texture = generate_text(win->rend, win->font,
 				text, (SDL_Color){225, 225, 225, 255})))
-			return (ret_error("text generation failed in update_text_entry_texture"));
+			return (ret_error("text generation 2 failed in update_text_entry_texture"));
 		if (!(button->texture = blit_text(win->rend, button->texture, texture, &(SDL_Rect){w * 0.45,
 																						h * 0.2,
 																						w * 0.4,
@@ -47,7 +47,7 @@ static void	set_selected_portal_id(t_map_editor *map, int id)
 		l = l->next;
 	}
 }
-
+ 
 int		fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *result)
 {
 	t_text_entry	*data;
@@ -67,6 +67,7 @@ int		fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *
 			else if (data->flags & TEXT_ENTRY_ALPHANUM)
 			{
 				str_variable = data->variable;
+				printf("str_variable = %s\n", str_variable);
 				ft_strcpy(str_variable, *((char**)result));
 			}
 			data->variable = NULL;

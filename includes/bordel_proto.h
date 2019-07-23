@@ -230,7 +230,12 @@ t_texHud   	*define_texHud(t_win *win);
 ** =============================================================================
 */
 
-int				export_sector(t_sector *sector, const char* filename);
+void			write_line(int fd, int nb_tab, const char *str);
+void			write_sector(t_sector *sector, int fd);
+void			write_player(t_player *player, int fd);
+int				export_sector(t_player *player, t_sector *sector, const char* filename);
+int				export_map(t_map_editor *map, const char *filename);
+
 
 /*
 ** =================================================================================

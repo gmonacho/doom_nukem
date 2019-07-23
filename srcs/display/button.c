@@ -54,7 +54,7 @@ t_simple_button	*new_simple_button(char *name, SDL_bool clicked)
 {
 	t_simple_button	*simple_button;
 
-	if (!(simple_button = (t_simple_button*)ft_memalloc(sizeof(simple_button))))
+	if (!(simple_button = (t_simple_button*)ft_memalloc(sizeof(t_simple_button))))
 		return (ret_null_error("simple_button allocation failed in new_simple_button"));
 	simple_button->name = name;
 	simple_button->clicked = clicked;

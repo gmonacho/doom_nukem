@@ -24,15 +24,15 @@
 
 static int  update_simple(t_win *win, t_button *b, t_button_state state)
 {
-    SDL_Texture *text;
-    SDL_Texture *bg;
-    int         w;
-    int         h;
+    SDL_Texture     *text;
+    SDL_Texture     *bg;
+    int             w;
+    int             h;
     t_simple_button *data;
-    
+
     bg = NULL;
     data = (t_simple_button*)b->data;
-    if (!(text = generate_text(win->rend, win->font, data->name,  (SDL_Color){200, 200, 200, 255})))
+    if (!(text = generate_text(win->rend, win->font, data->name, (SDL_Color){200, 200, 200, 255})))
         return (ret_error("text generation failed in update_simple"));
     if (state == BUTTON_STATE_NONE)
         bg = win->ed_texture.button;

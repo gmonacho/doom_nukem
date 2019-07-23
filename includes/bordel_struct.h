@@ -139,7 +139,9 @@ enum	e_button
 	BUTTON_L_TYPE = 0b1000000,
 	BUTTON_CLICKED = 0b10000000,
 	BUTTON_SECTOR_NAME = 0b100000000,
-	BUTTON_SIMPLE = 0b1000000000
+	BUTTON_SIMPLE = 0b1000000000,
+	BUTTON_MAP_NAME = 0b10000000000,
+	BUTTON_MAP_EXPORT = 0b100000000000
 };
 
 typedef struct		s_simple_button
@@ -181,7 +183,9 @@ enum	e_frame
 	FRAME_INFO = 0b0010,
 	FRAME_HIDE = 0b0100,
 	FRAME_L_INFO = 0b1000,
-	FRAME_L_TYPE = 0b10000
+	FRAME_L_TYPE = 0b10000,
+	FRAME_MAP = 0b100000,
+	FRAME_PLAYER = 0b1000000
 };
 
 typedef struct		s_frame
@@ -417,6 +421,7 @@ typedef struct		s_player
 	int 			magazine;
 	t_inventory		*inventory;
 	t_timers		timers;
+	int				i_sector;
 }					t_player;
 
 /*
@@ -456,6 +461,7 @@ typedef struct	s_map_editor
 	SDL_Rect	rect_util;
 	Uint32		flags;
 	int			nb_lines;
+	t_player	player;
 }				t_map_editor;
 
 /*
