@@ -117,7 +117,10 @@ enum	e_text_entry
 	TEXT_ENTRY_DIGITAL = 1,
 	TEXT_ENTRY_ALPHANUM = 2,
 	TEXT_ENTRY_TMP = 4,
-	TEXT_ENTRY_LINKED = 8
+	TEXT_ENTRY_LINKED = 8,
+	TEXT_ENTRY_SECTOR_NAME = 16,
+	TEXT_ENTRY_SECTOR_FLOOR = 32,
+	TEXT_ENTRY_SECTOR_CEIL = 64
 };
 
 typedef enum	e_button_state
@@ -141,7 +144,8 @@ enum	e_button
 	BUTTON_SECTOR_NAME = 0b100000000,
 	BUTTON_SIMPLE = 0b1000000000,
 	BUTTON_MAP_NAME = 0b10000000000,
-	BUTTON_MAP_EXPORT = 0b100000000000
+	BUTTON_MAP_EXPORT = 0b100000000000,
+	BUTTON_SECTOR_INPUT = 0b1000000000000
 };
 
 typedef struct		s_simple_button
@@ -157,7 +161,6 @@ typedef struct		s_text_entry
 	void			*variable;
 	Uint8			flags;
 }					t_text_entry;
-
 
 typedef struct		s_button
 {

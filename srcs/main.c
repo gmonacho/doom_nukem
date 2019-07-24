@@ -5,11 +5,20 @@ static int		init(t_win *win, t_map *map, t_player *player)
 	win->w = 1000;
 	win->h = 800;
 	if (init_textures(&(map->textures)))
+	{
+		ft_putendl("init_textures failed");
 		return (1);
+	}
 	if (init_sectors(map, player))
+	{
+		ft_putendl("init_sectors failed");
 		return (2);
+	}
 	if (init_lines(map))
+	{
+		ft_putendl("init_lines failed");
 		return (3);
+	}
 	init_player(win, player);
 	return (0);
 }

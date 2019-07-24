@@ -81,9 +81,22 @@ static int		ui_init(t_win *win, t_map_editor *map)
 		return (ret_error("text generation failed in ui_init"));
 	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
 		return (ret_error("blit_text failed in ui_init"));
-	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.1, 0.8, 0.05}, t, BUTTON_TEXT_ENTRY | BUTTON_SECTOR_NAME));
-	win->frames->buttons->data = new_text_entry("name", 8, NULL, TEXT_ENTRY_ALPHANUM);
-	// add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.8, 0.8, 0.05}, NULL, BUTTON_COLOR_PICKER));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.1, 0.8, 0.05}, t, BUTTON_TEXT_ENTRY | BUTTON_SECTOR_INPUT));
+	win->frames->buttons->data = new_text_entry("name", 8, NULL, TEXT_ENTRY_ALPHANUM | TEXT_ENTRY_SECTOR_NAME);
+	//		floor_height
+	if (!(text = generate_text(win->rend, win->font, "floor",  (SDL_Color){200, 200, 200, 255})))
+		return (ret_error("text generation failed in ui_init"));
+	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
+		return (ret_error("blit_text failed in ui_init"));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.2, 0.8, 0.05}, t, BUTTON_TEXT_ENTRY | BUTTON_SECTOR_INPUT));
+	win->frames->buttons->data = new_text_entry("floor", 3, NULL, TEXT_ENTRY_DIGITAL | TEXT_ENTRY_SECTOR_FLOOR);
+	//		ceil_height
+	if (!(text = generate_text(win->rend, win->font, "ceil",  (SDL_Color){200, 200, 200, 255})))
+		return (ret_error("text generation failed in ui_init"));
+	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
+		return (ret_error("blit_text failed in ui_init"));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.3, 0.8, 0.05}, t, BUTTON_TEXT_ENTRY | BUTTON_SECTOR_INPUT));
+	win->frames->buttons->data = new_text_entry("ceil", 3, NULL, TEXT_ENTRY_DIGITAL | TEXT_ENTRY_SECTOR_CEIL);
 	//		export_button
 	add_button_to_frame(&win->frames, new_button((t_frect){0.65, 0.875, 0.3, 0.04}, win->ed_texture.button, BUTTON_EXPORT | BUTTON_SIMPLE));
 	if (!(win->frames->buttons->data = new_simple_button("export", SDL_FALSE)))
@@ -144,6 +157,7 @@ static int		ui_init(t_win *win, t_map_editor *map)
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.7, 0.6, 0.2}, t, BUTTON_TEXT_ENTRY | BUTTON_MAP_NAME));
 	if (!(win->frames->buttons->data = new_text_entry("name", 10, map->name, TEXT_ENTRY_ALPHANUM)))
 		return (ret_error("new_text_entry failed map name"));
+	printf("map->name p = %p\n", map->name);
 	//		map export
 	add_button_to_frame(&win->frames, new_button((t_frect){0.75, 0.7, 0.2, 0.2}, win->ed_texture.button, BUTTON_SIMPLE | BUTTON_MAP_EXPORT));
 	if (!(win->frames->buttons->data = new_simple_button("export", SDL_FALSE)))
