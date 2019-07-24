@@ -102,24 +102,24 @@ static int		ui_init(t_win *win, t_map_editor *map)
 	if (!(win->frames->buttons->data = new_simple_button("export", SDL_FALSE)))
 		return (ret_error("new_simple_button failed export button data"));
 	update_button(win, win->frames->buttons, BUTTON_STATE_NONE);
-	//	info linedef frame
-	add_frame_to_window(win, new_frame((t_frect){0.02, 0.55, 0.15, 0.4}, win->ed_texture.frame_texture, FRAME_L_INFO, NULL));
+	//	linedef frame
+	add_frame_to_window(win, new_frame((t_frect){0.02, 0.55, 0.15, 0.15}, win->ed_texture.frame_texture, FRAME_L_INFO, NULL));
 	//		text_input
 	//			id
 	if (!(text = generate_text(win->rend, win->font, "id",  (SDL_Color){200, 200, 200, 255})))
 		return (ret_error("text generation failed in ui_init"));
 	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
 		return (ret_error("blit_text failed in ui_init"));
-	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.05, 0.4, 0.05}, t, BUTTON_TEXT_ENTRY | BUTTON_ID));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.05, 0.4, 0.2}, t, BUTTON_TEXT_ENTRY | BUTTON_ID));
 	if (!(win->frames->buttons->data = new_text_entry("id", 2, NULL, TEXT_ENTRY_DIGITAL | TEXT_ENTRY_TMP)))
 		return (ret_error("new_text_entry failed id button data"));
 	//		button_glinedef
-	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.2, 0.8, 0.05}, NULL, BUTTON_L_TYPE | BUTTON_SIMPLE));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.4, 0.8, 0.2}, NULL, BUTTON_L_TYPE | BUTTON_SIMPLE));
 	if (!(win->frames->buttons->data = new_simple_button("line type", SDL_FALSE)))
 		return (ret_error("new_simple_button failed glinedef button data"));
 	update_button(win, win->frames->buttons, BUTTON_STATE_NONE);
 	//		frame_glinedef
-	add_frame_to_window(win, new_frame((t_frect){0.175, 0.63, 0.15, 0.2}, win->ed_texture.frame_texture, FRAME_HIDE | FRAME_L_TYPE, NULL));
+	add_frame_to_window(win, new_frame((t_frect){0.175, 0.55, 0.15, 0.15}, win->ed_texture.frame_texture, FRAME_HIDE | FRAME_L_TYPE, NULL));
 	//			linedef_type_buttons
 	add_button_to_frame(&win->frames, new_button((t_frect){0, 0, 1, 0.33}, NULL, BUTTON_NONE | BUTTON_SIMPLE));
 	if (!(win->frames->buttons->data = new_simple_button("WALL", SDL_FALSE)))
@@ -131,6 +131,9 @@ static int		ui_init(t_win *win, t_map_editor *map)
 		return (ret_error("new_simple_button failed glinedef button data"));
 	update_button(win, win->frames->buttons, BUTTON_STATE_NONE);
 	win->frames->buttons->gflags = PORTAL;
+	//	portal frame
+	add_frame_to_window(win, new_frame((t_frect){0.02, 0.75, 0.15, 0.15}, win->ed_texture.frame_texture, FRAME_PORTAL, NULL));
+	// add_button_to_frame(win->frames, new_button((t_frect){chec}))
 	//	player frame
 	add_frame_to_window(win, new_frame((t_frect){0.775, 0.4, 0.2, 0.3}, win->ed_texture.frame_texture, FRAME_PLAYER, NULL));
 	//		player x

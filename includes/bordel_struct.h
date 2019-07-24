@@ -162,6 +162,13 @@ typedef struct		s_text_entry
 	Uint8			flags;
 }					t_text_entry;
 
+typedef struct		s_checkbox
+{
+	char			*name;
+	SDL_bool		checked;
+	void			*variable;
+}					t_checkbox;
+
 typedef struct		s_button
 {
 	t_frect			ratio;
@@ -188,7 +195,8 @@ enum	e_frame
 	FRAME_L_INFO = 0b1000,
 	FRAME_L_TYPE = 0b10000,
 	FRAME_MAP = 0b100000,
-	FRAME_PLAYER = 0b1000000
+	FRAME_PLAYER = 0b1000000,
+	FRAME_PORTAL = 0b100000
 };
 
 typedef struct		s_frame

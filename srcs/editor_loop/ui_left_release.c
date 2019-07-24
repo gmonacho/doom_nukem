@@ -2,13 +2,16 @@
 
 void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 {
-	t_frame		*f;
-	t_button	*b;
-	t_sector	*s;
-	t_linedef	*l;
-	int			i;
-	int			i_sector;
-	int			nb_sectors;
+	t_frame			*f;
+	t_frame			*info_sector;
+	t_button		*b_sector;
+	t_button		*b;
+	t_sector		*s;
+	t_linedef		*l;
+	t_text_entry	*data;
+	int				i;
+	int				i_sector;
+	int				nb_sectors;
 
 	nb_sectors = get_nb_sectors(map->sectors);
 	f = win->selected_frame;
@@ -33,6 +36,31 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 			{
 				remove_frame_flags(&win->frames, FRAME_INFO, FRAME_HIDE);
 				map->selected_sector = s;
+				info_sector = get_frame(&win->frames, FRAME_INFO);
+				if (info_sector)
+				{
+					b_sector = info_sector->buttons;
+					while (b_sector)
+					{
+						if (b_sector->data && b_sector->flags & BUTTON_TEXT_ENTRY)
+						{
+							data = (t_text_entry*)b_sector->data;
+							if (data->flags & TEXT_ENTRY_SECTOR_NAME)
+								data->variable = map->selected_sector->name;
+							else if (data->flags & TEXT_ENTRY_SECTOR_FLOOR)
+								data->variable = &map->selected_sector->floor_height;
+							else if (data->flags & TEXT_ENTRY_SECTOR_CEIL)
+								data->variable = &map->selected_sector->ceil_height;
+							if (data->variable)
+								printf("data->variable = %s\n", data->variable);
+							if (data->flags & TEXT_ENTRY_ALPHANUM)
+								update_text_entry_texture(win, b_sector, data->variable);
+							else if (data->flags & TEXT_ENTRY_DIGITAL)
+								update_text_entry_texture(win, b_sector, ft_itoa(*(int*)data->variable));
+						}
+						b_sector = b_sector->next;
+					}
+				}
 			}
 			i = 0;
 			b = f->buttons;

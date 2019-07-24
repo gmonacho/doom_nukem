@@ -105,6 +105,7 @@ void		add_frame(t_frame **frames, t_frame *new_frame);
 void		add_button_to_frame(t_frame **frame, t_button *button);
 void		add_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 added_flags);
 void		free_frames(t_frame **frames);
+t_frame		*get_frame(t_frame **frames, Uint32 flags);
 
 /*
 **	---------------------------------- Window ----------------------------------
