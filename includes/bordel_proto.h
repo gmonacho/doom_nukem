@@ -34,7 +34,7 @@ t_dot		mouse_drag(int x, int y, SDL_bool end);
 
 int		    keyboard_state(t_win *win, t_player *player);
 int		    key_pressed(Uint32 sdl_keycode);
-void 		mouse_state(t_player *player, SDL_Event);
+void 		mouse_state(t_win *win, t_player *player, SDL_Event);
 
 /*
 **	---------------------------------- Time ----------------------------------
@@ -155,7 +155,7 @@ void    add_items(t_inventory *inventory, int id);
 void    print_items(t_win *win, t_inventory *inventory);
 void    print_content_slot(t_win *win, t_player *player, t_texHud *texHud);
 void    use_item(t_player *player, int slotSelected);
-void    reload_ammo(t_player *player);
+void    reload_ammo(t_win *win, t_player *player);
 
 /*
 ** ==========================================================================

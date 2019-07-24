@@ -69,18 +69,18 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 		player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
 	}
 }
- static void keyboard_shot(t_player *player, const Uint8 *state)
-{
+ static void keyboard_shot(t_win *win, t_player *player, const Uint8 *state)
+{	
 	if (state[SDL_SCANCODE_T] && player->ammo > 0)
 	{	
 		if (test_timer(&(player->timers.bullet_cd)) == 1)
-		{
+		{	
 			player->ammo -= 1;
 			player->inventory->weapon = 1;
 		}
 	}
-	if (state[SDL_SCANCODE_R])
-		reload_ammo(player);
+	if (state[SDL_SCANCODE_R] && test_timer(&(player->timers.reload_cd)) == 1)
+		reload_ammo(win, player);
 	if (state[SDL_SCANCODE_I])
         player->inventory->item[0]->nb += 1;
 	if (state[SDL_SCANCODE_O])
@@ -93,22 +93,29 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 			use_item(player, player->selected_slot);
 	}
 }
-void 		mouse_state(t_player *player, SDL_Event event)
+void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
 {	
-	//if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT))
-		// player->selected_slot += 1;
+	SDL_Texture     *text;
+    char            *tmp;
+
+	tmp = ft_strdup("EMPTY AMMO PRESS 'R' ");
+	if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT))
+	{	
+		if (player->ammo == 0)
+        {
+        	text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
+        	SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(300), (650), (250), (50)});
+		}
+		if (test_timer(&(player->timers.bullet_cd)) == 1 && player->ammo > 0)
+		{	
+			player->ammo -= 1;
+			player->inventory->weapon = 1;
+		}
+	}
 	if (event.type == SDL_MOUSEWHEEL && event.wheel.y > 0 && player->selected_slot != 3 && test_timer(&(player->timers.item_cd)) == 1)
-	{
 		player->selected_slot += 1;
-		event.wheel.y = 514;
-		event.type = 0;
-	}
 	if (event.type == SDL_MOUSEWHEEL && event.wheel.y < 0 && player->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
-	{
 		player->selected_slot -= 1;
-		event.wheel.y = 514;
-		event.type = 0;
-	}
 	// printf("w = %d\n", event.wheel.y);
 }
 
@@ -120,7 +127,7 @@ int			keyboard_state(t_win *win, t_player *player)
 	player->vel = (t_fvector){0, 0};
 	keyboard_move(player, state);
 	keyboard_dir(win, player, state);
-	keyboard_shot(player, state);
+	keyboard_shot(win, player, state);
 	//mouse_move(player);
 	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
 	return (0);
