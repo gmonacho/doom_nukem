@@ -1,15 +1,43 @@
 Player
 {
-	posx = 0
-	posy = 0
-	width = 0
-	height = 0
+	posx = 50
+	posy = 20
+	width = 10
+	height = 10
 	sector = 1
 	velocity = 1
 }
 Sector
 {
 	name = test
-	ceilHeight = 200
-	floorHeight = 50
+	ceilHeight = 100
+	floorHeight = 0
+	line
+	{
+		dot = (1401, 670)
+		dot = (813, 304)
+		flags = PORTAL
+		id = 1
+	}
+	line
+	{
+		dot = (996, 1028)
+		dot = (1401, 670)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (588, 771)
+		dot = (996, 1028)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (813, 304)
+		dot = (588, 771)
+		flags = WALL
+		id = 0
+	}
 }

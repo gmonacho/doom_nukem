@@ -63,6 +63,7 @@ int		fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *
 			{
 				int_variable = data->variable;
 				*int_variable = *((int*)result);
+				printf("*int_variable = %d\n", *int_variable);
 			}			
 			else if (data->flags & TEXT_ENTRY_ALPHANUM)
 			{

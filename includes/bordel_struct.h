@@ -402,6 +402,7 @@ typedef struct s_inventory
 typedef struct		s_player
 {
 	t_fdot			pos;
+	t_dot			dpos;
 	double			z;
 	char			jump;
 	char			shift;

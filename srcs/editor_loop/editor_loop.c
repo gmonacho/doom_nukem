@@ -133,20 +133,38 @@ static int		ui_init(t_win *win, t_map_editor *map)
 	win->frames->buttons->gflags = PORTAL;
 	//	player frame
 	add_frame_to_window(win, new_frame((t_frect){0.775, 0.4, 0.2, 0.3}, win->ed_texture.frame_texture, FRAME_PLAYER, NULL));
-	if (!(text = generate_text(win->rend, win->font, "width",  (SDL_Color){200, 200, 200, 255})))
+	//		player x
+	if (!(text = generate_text(win->rend, win->font, "x",  (SDL_Color){200, 200, 200, 255})))
 		return (ret_error("text generation failed in ui_init"));
 	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
 		return (ret_error("blit_text failed in ui_init"));
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.1, 0.8, 0.1}, t, BUTTON_TEXT_ENTRY));
-	if (!(win->frames->buttons->data = new_text_entry("width", 3, &map->player.width, TEXT_ENTRY_DIGITAL)))
-		return (ret_error("player width new_text_entry failed"));
-	if (!(text = generate_text(win->rend, win->font, "height",  (SDL_Color){200, 200, 200, 255})))
+	if (!(win->frames->buttons->data = new_text_entry("x", 4, &map->player.dpos.x, TEXT_ENTRY_DIGITAL)))
+		return (ret_error("player x new_text_entry failed"));
+	//		player y
+	if (!(text = generate_text(win->rend, win->font, "y",  (SDL_Color){200, 200, 200, 255})))
 		return (ret_error("text generation failed in ui_init"));
 	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
 		return (ret_error("blit_text failed in ui_init"));
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.25, 0.8, 0.1}, t, BUTTON_TEXT_ENTRY));
-	if (!(win->frames->buttons->data = new_text_entry("height", 3, &map->player.height, TEXT_ENTRY_DIGITAL)))
+	if (!(win->frames->buttons->data = new_text_entry("y", 4, &map->player.dpos.y, TEXT_ENTRY_DIGITAL)))
+		return (ret_error("player y new_text_entry failed"));
+	//		player width
+	if (!(text = generate_text(win->rend, win->font, "width",  (SDL_Color){200, 200, 200, 255})))
+		return (ret_error("text generation failed in ui_init"));
+	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
+		return (ret_error("blit_text failed in ui_init"));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.40, 0.8, 0.1}, t, BUTTON_TEXT_ENTRY));
+	if (!(win->frames->buttons->data = new_text_entry("width", 3, &map->player.width, TEXT_ENTRY_DIGITAL)))
 		return (ret_error("player width new_text_entry failed"));
+	//		player height
+	if (!(text = generate_text(win->rend, win->font, "height",  (SDL_Color){200, 200, 200, 255})))
+		return (ret_error("text generation failed in ui_init"));
+	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
+		return (ret_error("blit_text failed in ui_init"));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.55, 0.8, 0.1}, t, BUTTON_TEXT_ENTRY));
+	if (!(win->frames->buttons->data = new_text_entry("height", 3, &map->player.height, TEXT_ENTRY_DIGITAL)))
+		return (ret_error("player height new_text_entry failed"));
 	//	map frame
 	add_frame_to_window(win, new_frame((t_frect){0.775, 0.8, 0.2, 0.15}, win->ed_texture.frame_texture, FRAME_MAP, NULL));
 	//		map name
@@ -180,6 +198,8 @@ static int		editor_init(t_win *win, t_map_editor *map)
 	map->flags = 0;
 	map->player.pos.x = 0;
 	map->player.pos.y = 0;
+	map->player.dpos.x = 0;
+	map->player.dpos.y = 0;
 	map->player.width = 0;
 	map->player.height = 0;
 	map->player.vel = (t_fvector){1, 1};

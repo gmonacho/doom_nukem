@@ -1,6 +1,5 @@
 #include "doom_nukem.h"
 
-
 int				export_sector(t_player *player, t_sector *sector, const char* filename)
 {
 	int		fd;
