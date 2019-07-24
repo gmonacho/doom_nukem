@@ -1,69 +1,222 @@
 Player
 {
-	posx = 0
-	posy = 0
-	width = 5
-	height = 10
-	sector = 1
+	posx = 775
+	posy = 270
+	width = 50
+	height = 120
+	sector = 2
 	velocity = 1
 }
 Sector
 {
-	name = test
-	ceilHeight = 100
+	name = kitchen
+	ceilHeight = 1
 	floorHeight = 0
 	line
 	{
-		dot = (445, 528)
-		dot = (842, 290)
+		dot = (896, 241)
+		dot = (784, 253)
+		flags = PORTAL
+		id = 2
+	}
+	line
+	{
+		dot = (891, 492)
+		dot = (896, 241)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (520, 217)
-		dot = (445, 528)
+		dot = (1198, 551)
+		dot = (891, 492)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (507, 401)
-		dot = (520, 217)
+		dot = (988, 662)
+		dot = (1198, 551)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (842, 290)
-		dot = (507, 401)
+		dot = (655, 558)
+		dot = (988, 662)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (782, 492)
+		dot = (655, 558)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (784, 253)
+		dot = (782, 492)
 		flags = WALL
 		id = 0
 	}
 }
 Sector
 {
-	name = test
-	ceilHeight = 100
+	name = hall
+	ceilHeight = 1
 	floorHeight = 0
 	line
 	{
-		dot = (596, 381)
-		dot = (322, 274)
+		dot = (1349, 501)
+		dot = (821, 168)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (339, 588)
-		dot = (596, 381)
+		dot = (1082, 946)
+		dot = (1349, 501)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (322, 274)
-		dot = (339, 588)
+		dot = (407, 775)
+		dot = (1082, 946)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (821, 168)
+		dot = (407, 775)
+		flags = PORTAL
+		id = 1
+	}
+}
+Sector
+{
+	name = entry
+	ceilHeight = 200
+	floorHeight = 0
+	line
+	{
+		dot = (825, 841)
+		dot = (825, 841)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (1112, 300)
+		dot = (1112, 300)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (439, 715)
+		dot = (465, 714)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (439, 474)
+		dot = (439, 715)
+		flags = PORTAL
+		id = 1
+	}
+	line
+	{
+		dot = (465, 474)
+		dot = (439, 474)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (1091, 537)
+		dot = (878, 395)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (1104, 536)
+		dot = (1091, 537)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (1104, 657)
+		dot = (1104, 536)
+		flags = PORTAL
+		id = 2
+	}
+	line
+	{
+		dot = (841, 850)
+		dot = (1089, 733)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (691, 850)
+		dot = (841, 850)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (465, 714)
+		dot = (691, 850)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (726, 394)
+		dot = (465, 474)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (880, 231)
+		dot = (878, 395)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (726, 230)
+		dot = (880, 231)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (726, 230)
+		dot = (726, 394)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (1089, 733)
+		dot = (1089, 656)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (1089, 656)
+		dot = (1104, 657)
 		flags = WALL
 		id = 0
 	}

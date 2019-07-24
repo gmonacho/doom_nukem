@@ -70,7 +70,7 @@ int		fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *
 				str_variable = data->variable;
 				ft_strcpy(str_variable, (char*)result);
 			}
-			data->variable = NULL;
+			// data->variable = NULL;
 		}
 		else
 		{

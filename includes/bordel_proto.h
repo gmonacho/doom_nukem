@@ -271,7 +271,7 @@ int			editor_loop(t_win *win);
 int			editor_event(t_win *win, t_map_editor *map, SDL_bool *loop);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 int			resolve_ui_left_press(t_win *win, t_map_editor *map);
-void		editor_display(t_win *win, const t_map_editor *map);
+void		editor_display(t_win *win, t_map_editor *map);
 	
 /*
 ** ===============================================================================

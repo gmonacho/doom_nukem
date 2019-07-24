@@ -165,6 +165,14 @@ static int		ui_init(t_win *win, t_map_editor *map)
 	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.55, 0.8, 0.1}, t, BUTTON_TEXT_ENTRY));
 	if (!(win->frames->buttons->data = new_text_entry("height", 3, &map->player.height, TEXT_ENTRY_DIGITAL)))
 		return (ret_error("player height new_text_entry failed"));
+	//		player sector
+	if (!(text = generate_text(win->rend, win->font, "sector",  (SDL_Color){200, 200, 200, 255})))
+		return (ret_error("text generation failed in ui_init"));
+	if (!(t = blit_text(win->rend, win->text_entry_texture, text, &(SDL_Rect){10, 24, 80, 75})))
+		return (ret_error("blit_text failed in ui_init"));
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.70, 0.8, 0.1}, t, BUTTON_TEXT_ENTRY));
+	if (!(win->frames->buttons->data = new_text_entry("sector", 2, &map->player.i_sector, TEXT_ENTRY_DIGITAL)))
+		return (ret_error("player sector new_text_entry failed"));
 	//	map frame
 	add_frame_to_window(win, new_frame((t_frect){0.775, 0.8, 0.2, 0.15}, win->ed_texture.frame_texture, FRAME_MAP, NULL));
 	//		map name
