@@ -136,7 +136,7 @@ int		move(t_win *win, t_map *map, t_player *player)
 	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
 	if (player->z > 40)
 		player->jump = 0;
-	if (player->z > 0)
+	if (player->z > 5)
 		player->z -= 5;
 	else
 		player->jump = 1;

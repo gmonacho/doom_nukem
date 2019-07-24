@@ -24,6 +24,7 @@
 **				Fix les rayons
 **				Attention : Reelle collision proche de la source ( < 1) entraine un mauvais choix
 **				Mauvais angle apres la tp de ray !!!
+**				Enlever la hitbox du perso sur les portails
 **
 **	-----------------------------------------------------------------------------------------------
 **
@@ -82,6 +83,7 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 	double		tmpdist;
 
 	// printf("-----------------\n");
+	// printf("Source : %f\t%f\n", source->x, source->y);
 	tmpdist = -1;
 	wall = NULL;
 	line = (*sector)->lines;
@@ -115,7 +117,6 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 		//printf("Line 2 : x = %d\ty = %d\n", line->p2.x, line->p2.y);
 		// printf("--- Line : %s\n", line->flags & PORTAL ? "PORTAL" : "WALL");
 		// printf("Collision : %f\t%f\n", collision.x, collision.y);
-		// printf("Source : %f\t%f\n", source->x, source->y);
 		// printf("With : angle = %f pi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);
 		// if ((calculs->newdist = fdist(*source, collision)) < tmpdist ||\
 		// 	tmpdist == -1)
@@ -134,7 +135,7 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 			sign(collision.x - source->x) == sign(cos(ray_angle)) &&\
 			((line->p1.x <= collision.x && collision.x <= line->p2.x) ||\
 			(line->p2.x <= collision.x && collision.x <= line->p1.x)) &&\
-			((int)collision.x != (int)source->x || (int)collision.y != (int)source->y))
+			(100 * (int)collision.x != 100 * (int)source->x || 100 * (int)collision.y != 100 * (int)source->y))
 		{
 			// if (calculs->nportals >= 1)
 			// 	printf("Find collision : %f\t%f\tSource : %f\t%f\n", collision.x, collision.y, source->x, source->y);
@@ -240,6 +241,7 @@ int				raycasting(t_win *win, t_player *player)
 	calculs.column = -1;
 	while (++(calculs.column) < win->w)
 	{
+		// printf("---------------------\n");
 		set_ray_equation(calculs.alpha, &(calculs.ray), player->pos);
 		begin_ray(win, player, &calculs);
 		calculs.alpha += calculs.dangle;
