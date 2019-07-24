@@ -67,12 +67,36 @@ static void			display_frames(t_win *win)
 	}
 }
 
-void			editor_display(t_win *win, const t_map_editor *map)
+static t_sector			*get_player_sector(t_sector *sectors, int i_sector)
+{
+	t_sector	*s;
+	int			i;
+	int			i_target;
+
+	s = sectors;
+	i = 0;
+	i_target = get_nb_sectors(sectors) - i_sector - 1;
+	while (s && i < i_target)
+	{
+		i++;
+		s = s->next;
+	}
+	return (s);
+}
+
+void			editor_display(t_win *win, t_map_editor *map)
 {
 	t_sector	*s;
 
 	SDL_SetRenderDrawColor(win->rend, 100, 100, 100, 255);
 	draw_rect(win, (SDL_Rect){map->x, map->y, map->w * map->unit, map->h * map->unit});
+	SDL_SetRenderDrawColor(win->rend, 255, 100, 100, 255);
+	map->player.sector = get_player_sector(map->sectors, map->player.i_sector);
+	if (map->player.sector == map->selected_sector)
+		draw_rect(win, (SDL_Rect){map->player.dpos.x * map->unit + map->x,
+									map->player.dpos.y * map->unit + map->y,
+									map->player.width * map->unit,
+									map->player.width * map->unit});
 	if (map->selected_sector)
 	{
 		s = map->selected_sector;

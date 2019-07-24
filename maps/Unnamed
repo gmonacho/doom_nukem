@@ -1,62 +1,76 @@
 Player
 {
-	posx = 0
-	posy = 0
-	width = 0
-	height = 0
-	sector = 1
+	posx = 500
+	posy = 500
+	width = 100
+	height = 50
+	sector = 0
 	velocity = 1
 }
 Sector
 {
-	name = sector
+	name = test
 	ceilHeight = 1
 	floorHeight = 0
 	line
 	{
-		dot = (857, 187)
-		dot = (528, 219)
-		flags = PORTAL
-		id = 1
-	}
-	line
-	{
-		dot = (595, 509)
-		dot = (857, 187)
+		dot = (1317, 661)
+		dot = (731, 328)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (528, 219)
-		dot = (595, 509)
+		dot = (928, 943)
+		dot = (1317, 661)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (348, 858)
+		dot = (928, 943)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (731, 328)
+		dot = (348, 858)
 		flags = WALL
 		id = 0
 	}
 }
 Sector
 {
-	name = oui
-	ceilHeight = 1
+	name = voila
+	ceilHeight = 75
 	floorHeight = 0
 	line
 	{
-		dot = (735, 545)
-		dot = (477, 212)
+		dot = (328, 249)
+		dot = (954, 253)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (368, 565)
-		dot = (735, 545)
-		flags = PORTAL
-		id = 1
+		dot = (954, 253)
+		dot = (940, 958)
+		flags = WALL
+		id = 0
 	}
 	line
 	{
-		dot = (477, 212)
-		dot = (368, 565)
+		dot = (936, 949)
+		dot = (293, 818)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (293, 818)
+		dot = (328, 249)
 		flags = WALL
 		id = 0
 	}

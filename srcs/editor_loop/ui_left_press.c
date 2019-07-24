@@ -13,8 +13,15 @@ int		resolve_ui_left_press(t_win *win, t_map_editor *map)
 			{
 				printf("start text_input\n");
 				data = win->selected_button->data;
-				if (win->selected_button->flags & BUTTON_SECTOR_NAME)
-					data->variable = map->selected_sector->name;
+				// if (win->selected_button->flags & BUTTON_SECTOR_INPUT)
+				// {
+				// 	if (data->flags & TEXT_ENTRY_SECTOR_NAME)
+				// 		data->variable = map->selected_sector->name;
+				// 	else if (data->flags & TEXT_ENTRY_SECTOR_FLOOR)
+				// 		data->variable = &map->selected_sector->floor_height;
+				// 	else if (data->flags & TEXT_ENTRY_SECTOR_CEIL)
+				// 		data->variable = &map->selected_sector->ceil_height;
+				// }
 				if (data->variable)
 				{
 					if (data->flags & TEXT_ENTRY_ALPHANUM)

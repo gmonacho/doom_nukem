@@ -89,6 +89,8 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	t_dot			dot;
 	//char			*str;
 	t_text_entry	*data;
+	int				int_result;
+	char			*char_result;
 
 
 	tmp = NULL;
@@ -115,14 +117,9 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	}
 	else if (map->flags == MAP_TEXT_EDITING)
 	{
-
 		if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_ESCAPE)
 		{
-			int		int_result;
-			char	*char_result;
-
 			data = (t_text_entry*)win->selected_button->data;
-
 			if (data->flags & TEXT_ENTRY_DIGITAL)
 			{
 				int_result = ft_atoi(win->text_entry);
@@ -132,7 +129,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			else if (data->flags & TEXT_ENTRY_ALPHANUM)
 			{
 				char_result = win->text_entry;
-				if (!(fill_variable(win, map, win->selected_button, &char_result)))
+				if (!(fill_variable(win, map, win->selected_button, char_result)))
 					return (ret_error("fill_variable (char*) failed in editor event"));
 			}
 			win->text_entry = NULL;

@@ -59,8 +59,8 @@ void	write_player(t_player *player, int fd)
 {
 	write_line(fd, 0, "Player");
 	write_line(fd, 0, "{");
-	write_line(fd, 1, ft_strjoin("posx = ", ft_itoa(player->pos.x)));
-	write_line(fd, 1, ft_strjoin("posy = ", ft_itoa(player->pos.y)));
+	write_line(fd, 1, ft_strjoin("posx = ", ft_itoa(player->dpos.x)));
+	write_line(fd, 1, ft_strjoin("posy = ", ft_itoa(player->dpos.y)));
 	write_line(fd, 1, ft_strjoin("width = ", ft_itoa(player->width)));
 	write_line(fd, 1, ft_strjoin("height = ", ft_itoa(player->height)));
 	write_line(fd, 1, ft_strjoin("sector = ", ft_itoa(player->i_sector)));

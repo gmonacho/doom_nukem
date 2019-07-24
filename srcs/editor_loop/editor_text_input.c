@@ -63,14 +63,14 @@ int		fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *
 			{
 				int_variable = data->variable;
 				*int_variable = *((int*)result);
+				printf("*int_variable = %d\n", *int_variable);
 			}			
 			else if (data->flags & TEXT_ENTRY_ALPHANUM)
 			{
 				str_variable = data->variable;
-				printf("str_variable = %s\n", str_variable);
-				ft_strcpy(str_variable, *((char**)result));
+				ft_strcpy(str_variable, (char*)result);
 			}
-			data->variable = NULL;
+			// data->variable = NULL;
 		}
 		else
 		{

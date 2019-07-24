@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"loop.h": "c",
-		"doom_nukem.h": "c"
+		"doom_nukem.h": "c",
+		"string.h": "c"
 	}
 }

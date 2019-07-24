@@ -79,3 +79,17 @@ void		free_frames(t_frame **frames)
 	}
 	*frames = NULL;
 }
+
+t_frame		*get_frame(t_frame **frames, Uint32 flags)
+{
+	t_frame		*f;
+
+	f = *frames;
+	while (f)
+	{
+		if (f->flags & flags)
+			return (f);
+		f = f->next;
+	}
+	return (NULL);
+}
