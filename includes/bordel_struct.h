@@ -264,6 +264,7 @@ typedef struct s_timers
 {
 	t_timer		bullet_cd;
 	t_timer		item_cd;
+	t_timer		text_cd;
 }				t_timers;
 
 /*

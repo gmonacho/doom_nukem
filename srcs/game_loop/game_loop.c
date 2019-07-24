@@ -10,6 +10,7 @@ int		game_loop(t_win *win, t_map *map)
 	main_inventory(win, &(map->player));
 	start_cooldown(&(map->player.timers.bullet_cd), 100);
 	start_cooldown(&(map->player.timers.item_cd), 200);
+	start_cooldown(&(map->player.timers.text_cd), 600);
 	printf("Debut game loop\n");
 	loop = SDL_TRUE;
 	if (win)
