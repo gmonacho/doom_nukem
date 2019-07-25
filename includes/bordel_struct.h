@@ -329,11 +329,19 @@ enum	e_glinedef
 	DOOR_OPEN = 0b00001000
 };
 
-typedef struct				s_linedef
+typedef enum	e_portal_side
+{
+	SIDE_NONE = 0,
+	SIDE_RIGHT = 1,
+	SIDE_LEFT = 2
+}				t_portal_side;
+
+typedef struct			s_linedef
 {
 	char				*name;
 	t_dot				p1;
 	t_dot				p2;
+	t_portal_side		side;
 	t_affine			equation;
 	int					isequation;
 	double				angle;

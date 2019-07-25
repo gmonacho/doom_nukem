@@ -15,7 +15,7 @@
 # include "libft.h"
 
 # define MAX_SECTORS 25
-# define NEXT_FACTOR 20
+# define NEXT_FACTOR 50
 # define HEIGHT_WALL 100
 
 # include "bordel_struct.h"

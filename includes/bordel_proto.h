@@ -237,19 +237,17 @@ void			write_player(t_player *player, int fd);
 int				export_sector(t_player *player, t_sector *sector, const char* filename);
 int				export_map(t_map_editor *map, const char *filename);
 
-
 /*
 ** =================================================================================
 ** ================================== PHYSICS ======================================
 ** =================================================================================
 */
 
-
-SDL_bool	is_line_horizontal(int y1, int y2, int pitch);
-SDL_bool	is_line_vertical(int x1, int x2, int pitch);
-SDL_bool	is_in_rect(SDL_Rect rect, t_dot p);
-SDL_bool	intersect_line_rect(t_line line, SDL_Rect rect);
-SDL_bool 	is_next_point(t_dot dot, t_dot other, int distance);
+SDL_bool		is_line_horizontal(int y1, int y2, int pitch);
+SDL_bool		is_line_vertical(int x1, int x2, int pitch);
+SDL_bool		is_in_rect(SDL_Rect rect, t_dot p);
+SDL_bool		intersect_line_rect(t_line line, SDL_Rect rect);
+SDL_bool 		is_next_point(t_dot dot, t_dot other, int distance);
 /*
 ** =================================================================================
 ** ================================== MENU LOOPS ==================================
