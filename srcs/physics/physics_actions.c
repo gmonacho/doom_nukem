@@ -31,10 +31,12 @@ static void				teleportation(t_win *win, t_map *map,\
 
 	map->player.pos = (t_fdot){prop(map->player.pos.x,\
 								(t_dot){line1->p1.x, line1->p2.x},\
-								(t_dot){line2->p2.x, line2->p1.x}),\
+								(t_dot){line2->p2.x, line2->p1.x}) +\
+								map->player.vel.x,\
 								prop(map->player.pos.y,\
 								(t_dot){line1->p1.y, line1->p2.y},\
-								(t_dot){line2->p2.y, line2->p1.y})\
+								(t_dot){line2->p2.y, line2->p1.y}) +\
+								map->player.vel.y\
 								};
 
 	// map->player.pos = (t_fdot){prop(map->player.pos.x,\
@@ -59,6 +61,17 @@ int				actions(t_win *win, t_map *map, t_linedef *line1, double h)
 	t_linedef	*line2;
 
 	line2 = line1->destline;
+	// if (line2)
+	// {
+		// printf("1 : %d\n", line1->sector->floor_height + map->player.height / 2 >=\
+		// 								line2->sector->floor_height);
+		// printf("2 : %d\n", line1->sector->floor_height + map->player.height <=\
+		// 								line2->sector->ceil_height);
+		// printf("3 : %d\n", line1->sector->floor_height + 3 * map->player.height / 2 <=\
+		// 								line1->sector->ceil_height);
+		// printf("4 : %d\n", map->player.height <= line2->sector->height);
+		// printf("5 : %d\n", h < map->player.width / 10);
+	// }
 	if (!(line1->flags & PORTAL) ||\
 	((line1->flags & PORTAL) &&\
 	!(line1->sector->floor_height + map->player.height / 2 >=\
@@ -67,8 +80,7 @@ int				actions(t_win *win, t_map *map, t_linedef *line1, double h)
 									line2->sector->ceil_height &&\
 	line1->sector->floor_height + 3 * map->player.height / 2 <=\
 									line1->sector->ceil_height &&\
-	map->player.height <= line2->sector->height &&\
-	h < map->player.width / 10)))
+	map->player.height <= line2->sector->height)))
 	{
 		map->player.vel = (t_fvector){0, 0};
 		return (1);
