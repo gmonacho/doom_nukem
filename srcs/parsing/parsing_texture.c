@@ -14,7 +14,7 @@ void        attribute_texture(t_texHud *texHud, t_win *win)
     texHud->tex[9] = load_texture(win->rend, "textures/pq.png");
     texHud->tex[10] = load_texture(win->rend, "textures/weaponHud.png");
     texHud->tex[11] = load_texture(win->rend, "textures/crosshairIcon.png");
-    texHud->police = TTF_OpenFont("TTF/arial.ttf", 65);
+    texHud->police = TTF_OpenFont("TTF/DooM.ttf", 65);
 
 }
 
