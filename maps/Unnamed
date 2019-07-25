@@ -1,76 +1,172 @@
 Player
 {
-	posx = 500
+	posx = 350
 	posy = 500
-	width = 100
+	width = 20
 	height = 50
 	sector = 0
 	velocity = 1
 }
 Sector
 {
-	name = test
-	ceilHeight = 1
-	floorHeight = 0
+	name = sector
+	ceilHeight = 200
+	floorHeight = 60
 	line
 	{
-		dot = (1317, 661)
-		dot = (731, 328)
+		dot = (463, 337)
+		dot = (400, 413)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (928, 943)
-		dot = (1317, 661)
+		dot = (400, 413)
+		dot = (348, 410)
+		flags = PORTAL
+		id = 3
+	}
+	line
+	{
+		dot = (348, 410)
+		dot = (293, 346)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (348, 858)
-		dot = (928, 943)
+		dot = (293, 346)
+		dot = (340, 274)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (731, 328)
-		dot = (348, 858)
+		dot = (340, 274)
+		dot = (418, 273)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (418, 273)
+		dot = (463, 337)
 		flags = WALL
 		id = 0
 	}
 }
 Sector
 {
-	name = voila
-	ceilHeight = 75
+	name = sector
+	ceilHeight = 200
+	floorHeight = 40
+	line
+	{
+		dot = (348, 410)
+		dot = (400, 413)
+		flags = PORTAL
+		id = 3
+	}
+	line
+	{
+		dot = (400, 413)
+		dot = (400, 426)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (400, 426)
+		dot = (347, 422)
+		flags = PORTAL
+		id = 2
+	}
+	line
+	{
+		dot = (347, 422)
+		dot = (348, 410)
+		flags = WALL
+		id = 0
+	}
+}
+Sector
+{
+	name = sector
+	ceilHeight = 200
+	floorHeight = 20
+	line
+	{
+		dot = (347, 422)
+		dot = (400, 426)
+		flags = PORTAL
+		id = 2
+	}
+	line
+	{
+		dot = (400, 426)
+		dot = (398, 438)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (398, 438)
+		dot = (345, 435)
+		flags = PORTAL
+		id = 1
+	}
+	line
+	{
+		dot = (345, 435)
+		dot = (347, 422)
+		flags = WALL
+		id = 0
+	}
+}
+Sector
+{
+	name = sector
+	ceilHeight = 200
 	floorHeight = 0
 	line
 	{
-		dot = (328, 249)
-		dot = (954, 253)
+		dot = (345, 435)
+		dot = (398, 438)
+		flags = PORTAL
+		id = 1
+	}
+	line
+	{
+		dot = (444, 478)
+		dot = (420, 566)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (954, 253)
-		dot = (940, 958)
+		dot = (398, 438)
+		dot = (444, 478)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (936, 949)
-		dot = (293, 818)
+		dot = (420, 566)
+		dot = (302, 567)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (293, 818)
-		dot = (328, 249)
+		dot = (302, 567)
+		dot = (307, 483)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (307, 483)
+		dot = (345, 435)
 		flags = WALL
 		id = 0
 	}

@@ -9,14 +9,34 @@ static void	draw_map(t_win *win, t_map *map)
 {
 	t_sector	*sector;
 	t_linedef	*line;
+	// int			xmin;
+	// int			xmax;
+	// int			ymin;
+	// int			ymax;
+	// t_fdotß		p2;
 
 	SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
+	/*sector = map->sectors;
+	while (sector)
+	{
+		line = sector->lines;
+		while (line)
+		{
+			if (line->p1.x < xmin)
+			if (line->p1.x < xmin)
+			if (line->p1.x < xmin)
+			if (line->p1.x < xmin)
+			line = line->next;
+		}
+		sector = sector->next;
+	}*/
 	sector = map->sectors;
 	while (sector)
 	{
 		line = sector->lines;
 		while (line)
 		{
+			// p1 = (t_fdot){line->p1 / };
 			draw_line(win, line->p1, line->p2);
 			line = line->next;
 		}
@@ -58,9 +78,9 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 		exit(0);
 	}
 
-	win->middle_print = player->orientation + player->z - (player->shift ? player->height / 2 : 0);
-	haut = -HEIGHT_WALL * (wall->sector->ceil_height - (player->height + player->sector->floor_height)) / player->lenRay;
-	bas = HEIGHT_WALL * (player->height + (player->sector->floor_height - wall->sector->floor_height)) / player->lenRay;
+	win->middle_print = player->orientation - (player->shift ? player->height / 2 : 0);
+	haut = -HEIGHT_WALL * (wall->sector->ceil_height - (player->height + player->z + player->sector->floor_height)) / player->lenRay;
+	bas = HEIGHT_WALL * (player->height + player->z + (player->sector->floor_height - wall->sector->floor_height)) / player->lenRay;
 
 	// printf("Lenray : %f\n", player->lenRay);
 	// printf("Column : %d\tHaut : %f\tBas : %f\n", calculs->column, haut, bas);
@@ -97,11 +117,11 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 		pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + x_texture];
 		// pixel = wall->texture->pixels + (int)y_texture * wall->texture->pitch + x_texture * bpp;
 		//if (calculs->column > 980)
-		SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
+		SDL_SetRenderDrawColor(win->rend,	(pixel >> 0) & 0xFF,\
 											(pixel >> 8) & 0xFF,\
-											(pixel >> 24) & 0xFF,\
-											// pixel & 0x000000FF);
-											calculs->nportals >= 1 ? 100 : 255);
+											(pixel >> 16) & 0xFF,\
+											(pixel >> 24) & 0x000000FF);
+											// calculs->nportals >= 1 ? 100 : 255);
 		
 		// SDL_SetRenderDrawColor(win->rend,	(pixel & 0xFF000000) >> 24,\
 		// 									(pixel & 0x00FF0000) >> 16,\

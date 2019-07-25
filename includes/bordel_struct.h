@@ -214,6 +214,15 @@ typedef struct		s_frame
 }					t_frame;
 
 /*
+**	---------------------------------- hud --------------------------------------------
+*/
+	typedef struct 	s_texHud
+{
+	SDL_Texture		*tex[12];
+	TTF_Font		*police;
+}					t_texHud;
+
+/*
 **	---------------------------------- Window ----------------------------------
 */
 
@@ -249,16 +258,9 @@ typedef struct		s_win
 	t_button		*selected_button;
 
 	TTF_Font		*font;
+	t_texHud		*texHud;
 }					t_win;
 
-/*
-**	---------------------------------- hud --------------------------------------------
-*/
-	typedef struct 	s_texHud
-{
-	SDL_Texture		*tex[12];
-	TTF_Font		*police;
-}				t_texHud;
 /*
 ** ====================================================================================
 ** ================================== DATA ============================================
@@ -275,6 +277,8 @@ typedef struct s_timers
 {
 	t_timer		bullet_cd;
 	t_timer		item_cd;
+	t_timer		text_cd;
+	t_timer		reload_cd;
 }				t_timers;
 
 /*

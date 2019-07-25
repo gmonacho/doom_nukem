@@ -12,6 +12,7 @@ void 	hud_ammo(t_win *win, t_player *player, t_texHud *texHud)
 	SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(90), (win->h * 0.9125), (win->w * 0.07), (win->h * 0.0725)});
 	SDL_RenderCopy(win->rend, texHud->tex[0], NULL, &(SDL_Rect){(win->w * 0.01), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});
 	free(tmp);
+	free(tmp2);
 }
 
 void 	hud_health(t_win *win, t_player *player, t_texHud *texHud)
