@@ -21,7 +21,6 @@ typedef struct		s_size
 	int				h;
 }					t_size;
 
-
 typedef struct		s_line
 {
 	t_dot			p1;
@@ -99,7 +98,6 @@ typedef struct		s_mouse
 	Uint32			flags;
 	t_mouse_button	button[3];
 }					t_mouse;
-
 
 /*
 ** =======================================================================================
@@ -443,6 +441,7 @@ typedef struct		s_player
 /*
 **	---------------------------------- object --------------------------------------------
 */
+
 typedef struct s_object
 {
 	t_fdot				pos;

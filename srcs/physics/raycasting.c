@@ -25,7 +25,7 @@
 **				Attention : Reelle collision proche de la source ( < 1) entraine un mauvais choix
 **				Mauvais angle apres la tp de ray !!!
 **				Enlever la hitbox du perso sur les portails
-**
+**				Creer une fonction qui retourne la collision entre 2 equations
 **	-----------------------------------------------------------------------------------------------
 **
 **	surface = IMG_Load(file)
@@ -89,30 +89,9 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 	line = (*sector)->lines;
 	while (line)
 	{
-		// printf("Loop wall\n");
-		// printf("Loop new wall : %p\n", line);
-		if (line->isequation)
-		{
-			if (calculs->ray.isequation)
-				collision.x = (calculs->ray.b - line->equation.b) /\
-								(line->equation.a - calculs->ray.a);
-			else
-				collision.x = source->x;
-		}
-		else
-		{
-			if (calculs->ray.isequation)
-				collision.x = line->equation.a;
-			else
-			{
-				line = line->next;
-				continue ;
-			}
-		}
-		if (calculs->ray.isequation)
-			collision.y = calculs->ray.a * collision.x + calculs->ray.b;
-		else
-			collision.y = line->equation.a * collision.x + line->equation.b;
+		if (lines_intersection(&collision, &(line->equation), &(calculs->ray)))
+			continue ;
+		
 		//printf("Line 1 : x = %d\ty = %d\n", line->p1.x, line->p1.y);
 		//printf("Line 2 : x = %d\ty = %d\n", line->p2.x, line->p2.y);
 		// printf("--- Line : %s\n", line->flags & PORTAL ? "PORTAL" : "WALL");
@@ -128,7 +107,6 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 		// 	printf("3\n");
 		// if ((int)collision.x != (int)source->x || (int)collision.y != (int)source->y)
 		// 	printf("4\n");
-
 
 		if (((calculs->newdist = fdist(*source, collision)) < tmpdist ||\
 			tmpdist == -1) &&\
