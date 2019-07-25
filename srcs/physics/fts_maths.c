@@ -23,14 +23,17 @@ void		draw_affine(t_win *win, t_affine function)
 
 int			lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2)
 {
+	// printf("Is : %d\n", line1->isequation);
 	if (line1->isequation)
 	{
 		if (line2->isequation)
 			intersection->x = (line1->b - line2->b) /\
-						(line2->a - line1->a);
+						(double)(line2->a - line1->a);
 		else
 			intersection->x = line2->a;
 		intersection->y = line1->a * intersection->x + line1->b;
+		// printf("Diff a = %f\tDiff b = %f\tIntersectino x = %f\n", line2->a - line1->a, line1->b - line2->b, (line1->b - line2->b) /\
+						// (double)(line2->a - line1->a));
 	}
 	else
 	{

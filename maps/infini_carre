@@ -37,8 +37,8 @@ Sector
 	{
 		dot = (50, 700)
 		dot = (50, 200)
-		flags = WALL
-		id = 0
+		flags = PORTAL
+		id = 2
 	}
 }
 Sector
@@ -57,8 +57,8 @@ Sector
 	{
 		dot = (900, 200)
 		dot = (900, 700)
-		flags = WALL
-		id = 0
+		flags = PORTAL
+		id = 2
 	}
 	line
 	{

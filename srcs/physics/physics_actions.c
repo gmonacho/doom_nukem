@@ -36,13 +36,21 @@ static void				teleportation(t_win *win, t_map *map,\
 								(t_dot){line1->p1.y, line1->p2.y},\
 								(t_dot){line2->p2.y, line2->p1.y})\
 								};
-	map->player.pos = (t_fdot){map->player.pos.x +\
-								(5 * map->player.vel.x) +\
-								sign(map->player.vel.x) * map->player.width / 2,
-								map->player.pos.y +\
-								(5 * map->player.vel.y) +\
-								sign(map->player.vel.y) * map->player.width / 2\
-								};
+
+	// map->player.pos = (t_fdot){prop(map->player.pos.x,\
+	// 							(t_dot){line1->p1.x, line1->p2.x},\
+	// 							(t_dot){line2->p2.x, line2->p1.x}),\
+	// 							prop(map->player.pos.y,\
+	// 							(t_dot){line1->p1.y, line1->p2.y},\
+	// 							(t_dot){line2->p2.y, line2->p1.y})\
+	// 							};
+	// map->player.pos = (t_fdot){map->player.pos.x +\
+	// 							(5 * map->player.vel.x) +\
+	// 							sign(map->player.vel.x) * map->player.width / 2,
+	// 							map->player.pos.y +\
+	// 							(5 * map->player.vel.y) +\
+	// 							sign(map->player.vel.y) * map->player.width / 2\
+	// 							};
 	map->player.sector = line2->sector;
 }
 

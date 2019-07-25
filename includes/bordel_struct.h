@@ -341,7 +341,6 @@ typedef struct			s_linedef
 	t_dot				p2;
 	t_portal_side		side;
 	t_affine			equation;
-	int					isequation;
 	double				angle;
 	SDL_Surface			*texture;
 	Uint32				flags;

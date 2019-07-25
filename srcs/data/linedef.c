@@ -10,7 +10,7 @@ t_linedef	*init_linedef(t_linedef *line)
 {
 	if (line->p2.x - line->p1.x)
 	{
-		line->isequation = 1;
+		line->equation.isequation = 1;
 		line->equation.a = (line->p2.y - line->p1.y) /\
 						(double)(line->p2.x - line->p1.x);
 		line->equation.b = line->p1.y - line->equation.a * line->p1.x;
@@ -18,7 +18,7 @@ t_linedef	*init_linedef(t_linedef *line)
 	}
 	else
 	{
-		line->isequation = 0;
+		line->equation.isequation = 0;
 		line->equation.a = line->p1.x;
 		line->angle = M_PI_2;
 	}
@@ -36,7 +36,7 @@ t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags)
 	newline->p2 = line.p2;
 	if (line.p2.x - line.p1.x)
 	{
-		newline->isequation = 1;
+		newline->equation.isequation = 1;
 		newline->equation.a = (line.p2.y - line.p1.y) /\
 						(double)(line.p2.x - line.p1.x);
 		newline->equation.b = line.p1.y - newline->equation.a * line.p1.x;
@@ -44,7 +44,7 @@ t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags)
 	}
 	else
 	{
-		newline->isequation = 0;
+		newline->equation.isequation = 0;
 		newline->equation.a = line.p1.x;
 		newline->angle = M_PI_2;
 	}
