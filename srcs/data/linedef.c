@@ -79,3 +79,15 @@ int			get_nb_linedef(t_linedef *lines, Uint32 flags)
 	}
 	return (nb);
 }
+
+void		add_linedef_flags(t_linedef **lines, Uint32 flags)
+{
+	t_linedef	*l;
+
+	l = *lines;
+	while (l)
+	{
+		l->flags |= flags;
+		l = l->next;
+	}
+}

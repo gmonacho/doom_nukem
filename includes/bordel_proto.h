@@ -178,7 +178,7 @@ void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
 t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags);
 t_linedef	*new_void_linedef(void);
 int			get_nb_linedef(t_linedef *lines, Uint32 flags);
-
+void		add_linedef_flags(t_linedef **lines, Uint32 flags);
 
 /*
 **	---------------------------------- sector ----------------------------------

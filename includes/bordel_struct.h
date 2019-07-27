@@ -145,7 +145,8 @@ enum	e_button
 	BUTTON_SIMPLE = 0b1000000000,
 	BUTTON_MAP_NAME = 0b10000000000,
 	BUTTON_MAP_EXPORT = 0b100000000000,
-	BUTTON_SECTOR_INPUT = 0b1000000000000
+	BUTTON_SECTOR_INPUT = 0b1000000000000,
+	BUTTON_LINEDEF_SIDE = 0b10000000000000
 };
 
 typedef struct		s_simple_button
@@ -329,19 +330,19 @@ enum	e_glinedef
 	DOOR_OPEN = 0b00001000
 };
 
-typedef enum	e_portal_side
+typedef enum	e_linedef_side
 {
 	SIDE_NONE = 0,
 	SIDE_RIGHT = 1,
 	SIDE_LEFT = 2
-}				t_portal_side;
+}				t_linedef_side;
 
 typedef struct			s_linedef
 {
 	char				*name;
 	t_dot				p1;
 	t_dot				p2;
-	t_portal_side		side;
+	t_linedef_side		side;
 	t_affine			equation;
 	int					isequation;
 	double				angle;
