@@ -49,6 +49,7 @@ void	write_sector(t_sector *sector, int fd)
 							")")))));
 		write_line(fd, 2, ft_strjoin("flags = ", get_line_flag(l->gflags)));
 		write_line(fd, 2, ft_strjoin("id = ", ft_itoa(l->id)));
+		write_line(fd, 2, ft_strjoin("side = ", (l->side == SIDE_RIGHT) ? "RIGHT" : "LEFT"));
 		write_line(fd, 1, "}");
 		l = l->next;
 	}

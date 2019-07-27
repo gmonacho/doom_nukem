@@ -48,20 +48,22 @@ static void			display_linedefs(t_win *win, const t_map_editor *map, t_sector *s)
 	t_dot		p1;
 	t_dot		p2;
 	t_linedef	*l;
+	int			color_shift;
 
+	color_shift = (s != map->selected_sector) ? 50 : 0;
 	l = s->lines;
 	while (l)
 	{
 		if (l->flags & LINEDEF_SELECTED)
-			SDL_SetRenderDrawColor(win->rend, 0, 175, 175, 255);
+			SDL_SetRenderDrawColor(win->rend, 0, 175 - color_shift, 175 - color_shift, 255);
 		else if (l->flags & LINEDEF_MOUSE_POINTED)
-			SDL_SetRenderDrawColor(win->rend, 50, 150, 150, 255);
+			SDL_SetRenderDrawColor(win->rend, 50, 150 - color_shift, 150 - color_shift, 255);
 		else
 		{
 			if (l->gflags & WALL)
-				SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
+				SDL_SetRenderDrawColor(win->rend, 200 - color_shift, 200 - color_shift, 200 - color_shift, 255);
 			else if (l->gflags & PORTAL)
-				SDL_SetRenderDrawColor(win->rend, 200, 0, 200, 255);
+				SDL_SetRenderDrawColor(win->rend, 200 - color_shift, 0, 200 - color_shift, 255);
 		// 	SDL_SetRenderDrawColor(win->rend, s->color.selected_color.r,
 		// 										s->color.selected_color.g,
 		// 										s->color.selected_color.b,
@@ -147,6 +149,13 @@ void			editor_display(t_win *win, t_map_editor *map)
 	{
 		s = map->selected_sector;
 		display_linedefs(win, map, s);
+	}
+	s = map->sectors;
+	while (s)
+	{
+		if (s != map->selected_sector)
+			display_linedefs(win, map, s);
+		s = s->next;
 	}
 	display_frames(win);
 	SDL_SetRenderDrawColor(win->rend, 150, 150, 150, 200);
