@@ -122,6 +122,24 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 					remove_frame_flags(&win->frames, FRAME_L_TYPE, FRAME_HIDE);
 				}
 			}
+			else if (b->flags & BUTTON_LINEDEF_SIDE)
+			{
+				if (map->selected_sector)
+				{
+					l = map->selected_sector->lines;
+					while (l)
+					{
+						if (l->flags & LINEDEF_SELECTED)
+						{
+							if (l->side == SIDE_LEFT)
+								l->side = SIDE_RIGHT;
+							else
+								l->side = SIDE_LEFT;
+						}
+						l = l->next;
+					}
+				}
+			}
 		}
 	}
 	else if (f->flags & FRAME_L_TYPE)

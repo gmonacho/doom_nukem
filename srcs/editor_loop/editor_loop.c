@@ -118,7 +118,12 @@ static int		ui_init(t_win *win, t_map_editor *map)
 	if (!(win->frames->buttons->data = new_simple_button("line type", SDL_FALSE)))
 		return (ret_error("new_simple_button failed glinedef button data"));
 	update_button(win, win->frames->buttons, BUTTON_STATE_NONE);
-	//		frame_glinedef
+	//		button_linedef_side
+	add_button_to_frame(&win->frames, new_button((t_frect){0.1, 0.7, 0.8, 0.2}, NULL, BUTTON_LINEDEF_SIDE | BUTTON_SIMPLE));
+	if (!(win->frames->buttons->data = new_simple_button("swap side", SDL_FALSE)))
+		return (ret_error("new_simple_button failed glinedef button data"));
+	update_button(win, win->frames->buttons, BUTTON_STATE_NONE);
+	//			frame_glinedef
 	add_frame_to_window(win, new_frame((t_frect){0.175, 0.55, 0.15, 0.15}, win->ed_texture.frame_texture, FRAME_HIDE | FRAME_L_TYPE, NULL));
 	//			linedef_type_buttons
 	add_button_to_frame(&win->frames, new_button((t_frect){0, 0, 1, 0.33}, NULL, BUTTON_NONE | BUTTON_SIMPLE));
@@ -131,8 +136,6 @@ static int		ui_init(t_win *win, t_map_editor *map)
 		return (ret_error("new_simple_button failed glinedef button data"));
 	update_button(win, win->frames->buttons, BUTTON_STATE_NONE);
 	win->frames->buttons->gflags = PORTAL;
-	//	portal frame
-	add_frame_to_window(win, new_frame((t_frect){0.02, 0.75, 0.15, 0.15}, win->ed_texture.frame_texture, FRAME_PORTAL, NULL));
 	// add_button_to_frame(win->frames, new_button((t_frect){chec}))
 	//	player frame
 	add_frame_to_window(win, new_frame((t_frect){0.775, 0.4, 0.2, 0.3}, win->ed_texture.frame_texture, FRAME_PLAYER, NULL));

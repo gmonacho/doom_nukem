@@ -1,5 +1,48 @@
 #include "doom_nukem.h"
 
+static void			draw_perpendicular(t_win *win, t_dot p1, t_dot p2, t_linedef_side side)
+{
+	double	a1;
+	double	a2;
+	int		dx;
+	int		dy;
+	double	angle;
+	t_dot	center;
+
+	if (side != SIDE_NONE)
+	{
+		if (p2.x - p1.x != 0)
+		{
+			if (p2.y - p1.y == 0)
+			{
+				dx = 0;
+				dy = (side == SIDE_RIGHT) ? SIDE_LEN : -SIDE_LEN;
+				if (p2.x < p1.x)
+					dy *= -1;
+			}
+			else
+			{
+				a1 = (p2.y - p1.y) / (double)(p2.x - p1.x);
+				a2 = -1 / a1;
+				angle = atan(a2);
+				dx = (side == SIDE_RIGHT) ? cos(angle) * SIDE_LEN : -cos(angle) * SIDE_LEN;
+				if (p2.y > p1.y)
+					dx *= -1;
+				dy = dx * a2;
+
+			}
+		}
+		else
+		{
+			dx = (side == SIDE_RIGHT) ? SIDE_LEN : -SIDE_LEN;
+			dy = 0;
+		}
+		center.x = (p1.x + p2.x) / 2;
+		center.y = (p1.y + p2.y) / 2;
+		draw_line(win, center, (t_dot){center.x + dx, center.y + dy});
+	}
+}
+
 static void			display_linedefs(t_win *win, const t_map_editor *map, t_sector *s)
 {
 	t_dot		p1;
@@ -27,7 +70,10 @@ static void			display_linedefs(t_win *win, const t_map_editor *map, t_sector *s)
 		p1 = (t_dot){l->p1.x * map->unit + map->x, l->p1.y * map->unit + map->y};
 		p2 = (t_dot){l->p2.x * map->unit + map->x, l->p2.y * map->unit + map->y};
 		if (is_in_screen(win, p1) || is_in_screen(win, p2))
+		{
 			draw_line(win, p1, p2);
+			draw_perpendicular(win, p1, p2, l->side);
+		}
 		l = l->next;
 	}
 }

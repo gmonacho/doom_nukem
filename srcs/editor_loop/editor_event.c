@@ -159,7 +159,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		{
 			dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
 			if (!key_pressed(SC_DRAW_FREE))
-				is_next_to_linedef(map, &dot, map->unit * NEXT_FACTOR);
+				is_next_to_linedef(map, &dot, NEXT_FACTOR);
 			if (!(tmp = new_linedef((t_line){dot, dot}, NULL, LINEDEF_NONE)))
 				return (0);
 			tmp->gflags = WALL;
@@ -180,7 +180,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 				if (map->selected_sector)
 				{
 					if (!key_pressed(SC_DRAW_FREE))
-						is_next_to_linedef(map, &dot, map->unit * NEXT_FACTOR);
+						is_next_to_linedef(map, &dot, NEXT_FACTOR);
 					map->selected_sector->lines->p2 = dot;
 				}
 				map->flags -= DRAWING_LINE;
@@ -215,7 +215,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			{
 				map->selected_sector->lines->p2 = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
 				if (!key_pressed(SC_DRAW_FREE))
-					is_next_to_linedef(map, &map->selected_sector->lines->p2, map->unit * NEXT_FACTOR);
+					is_next_to_linedef(map, &map->selected_sector->lines->p2, NEXT_FACTOR);
 			}
 		}
 	}
