@@ -7,10 +7,10 @@ int		game_loop(t_win *win, t_map *map)
 
 	win->texHud = define_texHud(win);
 	main_inventory(win, &(map->player));
-	start_cooldown(&(map->player.timers.bullet_cd), 100);
+	start_cooldown(&(map->player.timers.bullet_cd), 150);
 	start_cooldown(&(map->player.timers.item_cd), 200);
 	start_cooldown(&(map->player.timers.text_cd), 600);
-	start_cooldown(&(map->player.timers.reload_cd), 0);
+	start_cooldown(&(map->player.timers.reload_cd), 2000);
 	printf("Debut game loop\n");
 	loop = SDL_TRUE;
 	if (win)
@@ -21,6 +21,7 @@ int		game_loop(t_win *win, t_map *map)
 			SDL_PollEvent(&event);
 			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
 				loop = SDL_FALSE;
+			mouse_state(win, &(map->player), event);
 			keyboard_state(win, &(map->player));
 
 			move(win, map, &(map->player));
@@ -30,7 +31,6 @@ int		game_loop(t_win *win, t_map *map)
 			//damage_heal(&(map->player), 1, 0, 0);
 			hud(win, &(map->player), win->texHud);
             print_content_slot(win, &(map->player), win->texHud);
-			mouse_state(win, &(map->player), event);
 			event.type = SDL_FALSE;
 			SDL_RenderPresent(win->rend);
 		}

@@ -155,7 +155,7 @@ void    add_items(t_inventory *inventory, int id);
 void    print_items(t_win *win, t_inventory *inventory);
 void    print_content_slot(t_win *win, t_player *player, t_texHud *texHud);
 void    use_item(t_player *player, int slotSelected);
-void    reload_ammo(t_win *win, t_player *player);
+void    reload_ammo(t_player *player);
 
 /*
 ** ==========================================================================
@@ -284,7 +284,7 @@ void		editor_display(t_win *win, t_map_editor *map);
 
 int			game_loop(t_win *win, t_map *map);
 int			move(t_win *win, t_map *map, t_player *player);
-int			actions(t_win *win, t_map *map, t_linedef *portal, t_player *player);
+int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
 int			raycasting(t_win *win, t_player *player);
 
 /*
@@ -305,7 +305,7 @@ double		fmag(t_fvector vector);
 int			sign(double nbr);
 double		prop(double value, t_dot inter1, t_dot inter2);
 double  	modulo(double nbr, double mod);
-//void		draw_affine(t_win *win, t_affine function, int xmin, int xmax);
 void		draw_affine(t_win *win, t_affine function);
+int			lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2);
 
 #endif

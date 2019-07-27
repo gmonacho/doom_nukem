@@ -71,6 +71,10 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 }
  static void keyboard_shot(t_win *win, t_player *player, const Uint8 *state)
 {	
+	char        *tmp;
+    SDL_Texture *text;
+
+	tmp = NULL;
 	if (state[SDL_SCANCODE_T] && player->ammo > 0)
 	{	
 		if (test_timer(&(player->timers.bullet_cd)) == 1)
@@ -79,8 +83,17 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 			player->inventory->weapon = 1;
 		}
 	}
-	if (state[SDL_SCANCODE_R] && test_timer(&(player->timers.reload_cd)) == 1)
-		reload_ammo(win, player);
+	if (state[SDL_SCANCODE_R])
+	{
+		if (player->magazine == 0)
+		{
+			tmp = ft_strdup("NO AMMO LEFT");
+    		text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
+    		SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(50), (650), (250), (50)});
+		}
+		if (test_timer(&(player->timers.reload_cd)) == 1)
+			reload_ammo(player);
+	}
 	if (state[SDL_SCANCODE_I])
         player->inventory->item[0]->nb += 1;
 	if (state[SDL_SCANCODE_O])
@@ -92,6 +105,7 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 		if (test_timer(&(player->timers.item_cd)) == 1)
 			use_item(player, player->selected_slot);
 	}
+	free(tmp);
 }
 void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
 {	
@@ -104,7 +118,7 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
 		if (player->ammo == 0)
         {
         	text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
-        	SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(300), (650), (250), (50)});
+        	SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(330), (650), (280), (50)});
 		}
 		if (test_timer(&(player->timers.bullet_cd)) == 1 && player->ammo > 0)
 		{	
@@ -116,7 +130,7 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
 		player->selected_slot += 1;
 	if (event.type == SDL_MOUSEWHEEL && event.wheel.y < 0 && player->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
 		player->selected_slot -= 1;
-	// printf("w = %d\n", event.wheel.y);
+	free(tmp);
 }
 
 int			keyboard_state(t_win *win, t_player *player)

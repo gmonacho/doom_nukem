@@ -14,59 +14,137 @@
 **	Il faut relancer le keyboard state pour avoir la vrai vel
 */
 
-static int				teleportation(t_win *win, t_map *map,\
+
+static void				teleportation(t_win *win, t_map *map,\
 								t_linedef *line1, t_linedef *line2)
 {
-	printf("Changes sector\n");
-	if (line1->sector->floor_height + map->player.height / 2 >=\
-										line2->sector->floor_height &&\
-		line1->sector->floor_height + map->player.height <=\
-										line2->sector->ceil_height &&\
-		line1->sector->floor_height + 3 * map->player.height / 2 <=\
-										line1->sector->ceil_height &&\
-		map->player.height <= line2->sector->height)
-	{
-		if (line1->p2.x == line1->p1.x || line2->p2.x == line2->p1.x)
-			map->player.dir -= line2->angle - line1->angle +\
-			(sign(line1->p2.y - line1->p1.y) == sign(line2->p2.y - line2->p1.y) ?\
-			M_PI : 0);
-		else
-			map->player.dir -= line2->angle - line1->angle +\
-			(sign(line1->p2.x - line1->p1.x) == sign(line2->p2.x - line2->p1.x) ?\
-			M_PI : 0);
+	if (line1->p2.x == line1->p1.x || line2->p2.x == line2->p1.x)
+		map->player.dir -= line2->angle - line1->angle +\
+		(sign(line1->p2.y - line1->p1.y) == sign(line2->p2.y - line2->p1.y) ?\
+		M_PI : 0);
+	else
+		map->player.dir -= line2->angle - line1->angle +\
+		(sign(line1->p2.x - line1->p1.x) == sign(line2->p2.x - line2->p1.x) ?\
+		M_PI : 0);
 
-		keyboard_state(win, &(map->player));
+	keyboard_state(win, &(map->player));
 
-		map->player.pos = (t_fdot){prop(map->player.pos.x,\
-									(t_dot){line1->p1.x, line1->p2.x},\
-									(t_dot){line2->p2.x, line2->p1.x}),\
-									prop(map->player.pos.y,\
-									(t_dot){line1->p1.y, line1->p2.y},\
-									(t_dot){line2->p2.y, line2->p1.y})\
-									};
+	map->player.pos = (t_fdot){prop(map->player.pos.x,\
+								(t_dot){line1->p1.x, line1->p2.x},\
+								(t_dot){line2->p2.x, line2->p1.x}) +\
+								map->player.vel.x,\
+								prop(map->player.pos.y,\
+								(t_dot){line1->p1.y, line1->p2.y},\
+								(t_dot){line2->p2.y, line2->p1.y}) +\
+								map->player.vel.y\
+								};
 
-		map->player.pos = (t_fdot){map->player.pos.x +\
-									(5 * map->player.vel.x) +\
-									sign(map->player.vel.x) * map->player.width / 2,
-									map->player.pos.y +\
-									(5 * map->player.vel.y) +\
-									sign(map->player.vel.y) * map->player.width / 2\
-									};
-		map->player.sector = line2->sector;
-		return (1);
-	}
-	//printf("Changes sector fin\n");
-	return (0);
+	// map->player.pos = (t_fdot){prop(map->player.pos.x,\
+	// 							(t_dot){line1->p1.x, line1->p2.x},\
+	// 							(t_dot){line2->p2.x, line2->p1.x}),\
+	// 							prop(map->player.pos.y,\
+	// 							(t_dot){line1->p1.y, line1->p2.y},\
+	// 							(t_dot){line2->p2.y, line2->p1.y})\
+	// 							};
+	// map->player.pos = (t_fdot){map->player.pos.x +\
+	// 							(5 * map->player.vel.x) +\
+	// 							sign(map->player.vel.x) * map->player.width / 2,
+	// 							map->player.pos.y +\
+	// 							(5 * map->player.vel.y) +\
+	// 							sign(map->player.vel.y) * map->player.width / 2\
+	// 							};
+	map->player.sector = line2->sector;
 }
 
-int				actions(t_win *win, t_map *map, t_linedef *portal, t_player *player)
+int				actions(t_win *win, t_map *map, t_linedef *line1, double h)
 {
-	if (!(portal->flags & PORTAL) ||\
-		(portal->flags & PORTAL &&\
-		!teleportation(win, map, portal, portal->destline)))
+	t_linedef	*line2;
+
+	line2 = line1->destline;
+	// if (line2)
+	// {
+		// printf("1 : %d\n", line1->sector->floor_height + map->player.height / 2 >=\
+		// 								line2->sector->floor_height);
+		// printf("2 : %d\n", line1->sector->floor_height + map->player.height <=\
+		// 								line2->sector->ceil_height);
+		// printf("3 : %d\n", line1->sector->floor_height + 3 * map->player.height / 2 <=\
+		// 								line1->sector->ceil_height);
+		// printf("4 : %d\n", map->player.height <= line2->sector->height);
+		// printf("5 : %d\n", h < map->player.width / 10);
+	// }
+	if (!(line1->flags & PORTAL) ||\
+	((line1->flags & PORTAL) &&\
+	!(line1->sector->floor_height + map->player.height / 2 >=\
+									line2->sector->floor_height &&\
+	line1->sector->floor_height + map->player.height <=\
+									line2->sector->ceil_height &&\
+	line1->sector->floor_height + 3 * map->player.height / 2 <=\
+									line1->sector->ceil_height &&\
+	map->player.height <= line2->sector->height)))
 	{
-		player->vel = (t_fvector){0, 0};
+		map->player.vel = (t_fvector){0, 0};
 		return (1);
 	}
+	else if (h < map->player.width / 10)
+		teleportation(win, map, line1, line2);
 	return (0);
 }
+
+
+
+// static int				teleportation(t_win *win, t_map *map,\
+// 								t_linedef *line1, t_linedef *line2)
+// {
+// 	printf("Changes sector\n");
+// 	if (line1->sector->floor_height + map->player.height / 2 >=\
+// 										line2->sector->floor_height &&\
+// 		line1->sector->floor_height + map->player.height <=\
+// 										line2->sector->ceil_height &&\
+// 		line1->sector->floor_height + 3 * map->player.height / 2 <=\
+// 										line1->sector->ceil_height &&\
+// 		map->player.height <= line2->sector->height)
+// 	{
+// 		if (line1->p2.x == line1->p1.x || line2->p2.x == line2->p1.x)
+// 			map->player.dir -= line2->angle - line1->angle +\
+// 			(sign(line1->p2.y - line1->p1.y) == sign(line2->p2.y - line2->p1.y) ?\
+// 			M_PI : 0);
+// 		else
+// 			map->player.dir -= line2->angle - line1->angle +\
+// 			(sign(line1->p2.x - line1->p1.x) == sign(line2->p2.x - line2->p1.x) ?\
+// 			M_PI : 0);
+
+// 		keyboard_state(win, &(map->player));
+
+// 		map->player.pos = (t_fdot){prop(map->player.pos.x,\
+// 									(t_dot){line1->p1.x, line1->p2.x},\
+// 									(t_dot){line2->p2.x, line2->p1.x}),\
+// 									prop(map->player.pos.y,\
+// 									(t_dot){line1->p1.y, line1->p2.y},\
+// 									(t_dot){line2->p2.y, line2->p1.y})\
+// 									};
+
+// 		map->player.pos = (t_fdot){map->player.pos.x +\
+// 									(5 * map->player.vel.x) +\
+// 									sign(map->player.vel.x) * map->player.width / 2,
+// 									map->player.pos.y +\
+// 									(5 * map->player.vel.y) +\
+// 									sign(map->player.vel.y) * map->player.width / 2\
+// 									};
+// 		map->player.sector = line2->sector;
+// 		return (1);
+// 	}
+// 	//printf("Changes sector fin\n");
+// 	return (0);
+// }
+
+// int				actions(t_win *win, t_map *map, t_linedef *portal, t_player *player)
+// {
+// 	if (!(portal->flags & PORTAL) ||\
+// 		(portal->flags & PORTAL &&\
+// 		!teleportation(win, map, portal, portal->destline)))
+// 	{
+// 		player->vel = (t_fvector){0, 0};
+// 		return (1);
+// 	}
+// 	return (0);
+// }
