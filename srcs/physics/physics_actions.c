@@ -11,33 +11,142 @@
 **
 **	Attention cercle trigo inverse
 **
-**	Il faut relancer le keyboard state pour avoir la vrai vel
+**	Il faut relancer le keyboard state pour avoir la vrai vel avec la nouvelle dir
+**	On multiplie la vel pour avoir une distance de hitbox / 2
 */
 
+//Enum pour vertical, horizontal, quelquonque
+
+void			set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_sector **sector)
+{
+	double		p;
+
+	if (line1->p2.x == line1->p1.x)
+		p = prop(pos->y,\
+				(t_dot){line1->p1.y, line1->p2.y},\
+				(t_dot){0, 1000});
+	else
+		p = prop(pos->x,\
+				(t_dot){line1->p1.x, line1->p2.x},\
+				(t_dot){0, 1000});
+	// printf("Prop : %f\n", p);
+	pos->x = prop(p,	(t_dot){0, 1000},\
+						(t_dot){line2->p2.x, line2->p1.x});
+	pos->y = prop(p,	(t_dot){0, 1000},\
+						(t_dot){line2->p2.y, line2->p1.y});
+	*sector = line2->sector;
+}
 
 static void				teleportation(t_win *win, t_map *map,\
 								t_linedef *line1, t_linedef *line2)
 {
-	if (line1->p2.x == line1->p1.x || line2->p2.x == line2->p1.x)
-		map->player.dir -= line2->angle - line1->angle +\
-		(sign(line1->p2.y - line1->p1.y) == sign(line2->p2.y - line2->p1.y) ?\
-		M_PI : 0);
-	else
-		map->player.dir -= line2->angle - line1->angle +\
-		(sign(line1->p2.x - line1->p1.x) == sign(line2->p2.x - line2->p1.x) ?\
-		M_PI : 0);
+	double				p;
+
+	p = 0;
+	// if (line1->p2.x == line1->p1.x)
+	// {
+	// 	printf("- 1 \n");
+	// 	p = prop(map->player.pos.y,\
+	// 			(t_dot){line1->p1.y, line1->p2.y},\
+	// 			(t_dot){0, 1000});
+	// 	if (line2->p2.x == line2->p1.x)
+	// 	{
+	// 		printf("-- 1 \n");
+	// 		if (sign(line1->p2.y - line1->p1.y) == sign(line2->p2.y - line2->p1.y))
+	// 			map->player.dir -= line2->angle - line1->angle +\
+	// 								(line1->side == line2->side ? M_PI : 0);
+	// 		else
+	// 			map->player.dir -= line2->angle - line1->angle +\
+	// 								(line1->side == line2->side ? 0 : M_PI);
+	// 		if (sign(line1->p2.y - line1->p1.y) == sign(line2->p2.y - line2->p1.y))
+	// 			printf("--- 1");
+	// 		else
+	// 			printf("--- 2");
+	// 	}
+	// 	else
+	// 	{
+	// 		printf("-- 2 \n");
+	// 		if (sign(line1->p2.y - line1->p1.y) == sign(line2->p2.x - line2->p1.x))
+	// 			map->player.dir -= line2->angle - line1->angle +\
+	// 								(line1->side == line2->side ? M_PI : 0);
+	// 		else
+	// 			map->player.dir -= line2->angle - line1->angle +\
+	// 								(line1->side == line2->side ? 0 : M_PI);
+	// 		if (sign(line1->p2.y - line1->p1.y) == sign(line2->p2.x - line2->p1.x))
+	// 			printf("--- 1");
+	// 		else
+	// 			printf("--- 2");
+	// 	}
+	// }
+	// else
+	// {
+	// 	printf("- 2 \n");
+	// 	p = prop(map->player.pos.x,\
+	// 			(t_dot){line1->p1.x, line1->p2.x},\
+	// 			(t_dot){0, 1000});
+	// 	if (line2->p2.x == line2->p1.x)
+	// 	{
+	// 		printf("-- 1 \n");
+	// 		if (sign(line1->p2.x - line1->p1.x) == sign(line2->p2.y - line2->p1.y))
+	// 			map->player.dir -= line2->angle - line1->angle +\
+	// 								(line1->side == line2->side ? M_PI : 0);
+	// 		else
+	// 			map->player.dir -= line2->angle - line1->angle +\
+	// 								(line1->side == line2->side ? 0 : M_PI);
+	// 		if (sign(line1->p2.x - line1->p1.x) == sign(line2->p2.y - line2->p1.y))
+	// 			printf("--- 1");
+	// 		else
+	// 			printf("--- 2");
+	// 	}
+	// 	else
+	// 	{
+	// 		printf("-- 2 \n");
+	// 		if (sign(line1->p2.x - line1->p1.x) == sign(line2->p2.x - line2->p1.x))
+	// 			map->player.dir -= line2->angle - line1->angle +\
+	// 								(line1->side == line2->side ? M_PI : 0);
+	// 		else
+	// 			map->player.dir -= line2->angle - line1->angle +\
+	// 								(line1->side == line2->side ? 0 : M_PI);
+	// 		if (sign(line1->p2.x - line1->p1.x) == sign(line2->p2.x - line2->p1.x))
+	// 			printf("--- 1");
+	// 		else
+	// 			printf("--- 2");
+	// 	}
+	// }
+	// keyboard_state(win, &(map->player));
+	// map->player.pos = (t_fdot){	prop(p, (t_dot){0, 1000},\
+	// 							(t_dot){line2->p2.x, line2->p1.x}) +\
+	// 							map->player.vel.x * map->player.demipetitaxe * 5,\
+	// 							prop(p, (t_dot){0, 1000},\
+	// 							(t_dot){line2->p2.y, line2->p1.y}) +\
+	// 							map->player.vel.y * map->player.demipetitaxe * 5\
+	// 							};
+
+	// if (line1->p2.x == line1->p1.x || line2->p2.x == line2->p1.x)
+	// 	map->player.dir -= line2->angle - line1->angle +\
+	// 	(sign(line1->p2.y - line1->p1.y) == sign(line2->p2.y - line2->p1.y) ?\
+	// 	M_PI : 0);
+	// else
+	// 	map->player.dir -= line2->angle - line1->angle +\
+	// 	(sign(line1->p2.x - line1->p1.x) == sign(line2->p2.x - line2->p1.x) ?\
+	// 	M_PI : 0);
+
+	set_ray_angle(&(map->player.dir), line1, line2);
 
 	keyboard_state(win, &(map->player));
 
-	map->player.pos = (t_fdot){prop(map->player.pos.x,\
-								(t_dot){line1->p1.x, line1->p2.x},\
-								(t_dot){line2->p2.x, line2->p1.x}) +\
-								map->player.vel.x,\
-								prop(map->player.pos.y,\
-								(t_dot){line1->p1.y, line1->p2.y},\
-								(t_dot){line2->p2.y, line2->p1.y}) +\
-								map->player.vel.y\
-								};
+	set_new_position(&(map->player.pos), line1, line2, &(map->player.sector));
+	map->player.pos.x += map->player.vel.x * map->player.demipetitaxe * 5;
+	map->player.pos.y += map->player.vel.y * map->player.demipetitaxe * 5;
+
+	// if (wall->p1.x == wall->p2.x)
+	// 	x_texture = (int)prop(calculs->closest.y,\
+	// 				(t_dot){wall->p1.y, wall->p2.y},\
+	// 				(t_dot){0, wall->texture->w - 1});
+	// else
+	// 	x_texture = (int)prop(calculs->closest.x,\
+	// 				(t_dot){wall->p1.x, wall->p2.x},\
+	// 				(t_dot){0, wall->texture->w - 1});
 
 	// map->player.pos = (t_fdot){prop(map->player.pos.x,\
 	// 							(t_dot){line1->p1.x, line1->p2.x},\
@@ -53,7 +162,6 @@ static void				teleportation(t_win *win, t_map *map,\
 	// 							(5 * map->player.vel.y) +\
 	// 							sign(map->player.vel.y) * map->player.width / 2\
 	// 							};
-	map->player.sector = line2->sector;
 }
 
 int				actions(t_win *win, t_map *map, t_linedef *line1, double h)
@@ -85,7 +193,7 @@ int				actions(t_win *win, t_map *map, t_linedef *line1, double h)
 		map->player.vel = (t_fvector){0, 0};
 		return (1);
 	}
-	else if (h < map->player.width / 10)
+	else if (h < map->player.demipetitaxe / 10)
 		teleportation(win, map, line1, line2);
 	return (0);
 }

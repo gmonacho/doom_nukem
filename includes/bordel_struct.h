@@ -429,8 +429,9 @@ typedef struct		s_player
 	double			dir;
 	double			orientation;
 	double			fov;
-	int				width;
 	int				height;
+	int				width;
+	double			demipetitaxe;
 	double			lenRay;
 	int				numsector;
 	t_sector		*sector;

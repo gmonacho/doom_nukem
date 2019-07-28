@@ -2,8 +2,8 @@ Player
 {
 	posx = 500
 	posy = 500
-	width = 50
-	height = 130
+	width = 20
+	height = 100
 	sector = 0
 	velocity = 1
 }

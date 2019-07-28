@@ -1,9 +1,10 @@
 #include "doom_nukem.h"
 
-void	check_file(t_win *win, t_map_editor *map)
+void	check_file(t_map_editor *map)
 {
 	t_sector	*sector;
 	t_linedef	*line;
+	t_linedef	*last;
 	t_linedef	*tmp;
 
 	sector = map->sectors;
@@ -15,15 +16,20 @@ void	check_file(t_win *win, t_map_editor *map)
 		{
 			if (line->p1.x == line->p2.x && line->p1.y == line->p2.y)
 			{
-				if (!tmp)
-					sector->lines = line->next;
+				if (last)
+					last->next = line->next;
 				else
-					tmp->next = line->next;
-				ft_strdel(line->name);
+					sector->lines = line->next;
+				ft_strdel(&(line->name));
+				tmp = line;
+				line = line->next;
 				free(line);
 			}
-			tmp = line;
-			line = line->next;
+			else
+			{
+				last = line;
+				line = line->next;
+			}
 		}
 		sector = sector->next;
 	}
