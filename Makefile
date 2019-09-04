@@ -13,6 +13,7 @@ SRCS_PATH_9 =   hud
 SRCS_PATH_10 =  inventory
 SRCS_PATH_11 =  time
 
+#Pas le droit aux wildcards
 SRCS =		$(wildcard $(SRCS_PATH)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_1)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_2)/*.c)\

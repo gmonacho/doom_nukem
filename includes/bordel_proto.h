@@ -266,6 +266,7 @@ int			main_menu(t_win *win);
 ** =================================================================================
 */
 
+void		check_file(t_map_editor *map);
 int			editor_loop(t_win *win);
 int			editor_event(t_win *win, t_map_editor *map, SDL_bool *loop);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
@@ -283,9 +284,11 @@ void		editor_display(t_win *win, t_map_editor *map);
 */
 
 int			game_loop(t_win *win, t_map *map);
-int			move(t_win *win, t_map *map, t_player *player);
+int			physics(t_win *win, t_map *map, t_player *player);
 int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
 int			raycasting(t_win *win, t_player *player);
+void		set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
+void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2);
 
 /*
 ** ================================== Time ===================================

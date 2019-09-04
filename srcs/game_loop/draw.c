@@ -4,44 +4,77 @@
 **	Il ne faut pas allonger l'image en largeur mais la repete
 **	En hauteur aussi
 **
+**	player->orientation est le milieu y du mur sur lecran,
+**	On +/- le y du perso et le snick.
+**	La vision du perso retrecie en haut et en bas (On diminue HEIGHT_WALL)
+**	La taille du mur depend de la distance jusqua lui (1 / lenray)
+**	On alonge ou retrecie haut et bas selon
+**		les diff de hauteurs z entre le secteur et le perso
+**
 */
 static void	draw_map(t_win *win, t_map *map)
 {
 	t_sector	*sector;
 	t_linedef	*line;
-	// int			xmin;
-	// int			xmax;
-	// int			ymin;
-	// int			ymax;
-	// t_fdotß		p2;
+	t_dot		x;
+	t_dot		y;
+	t_dot		width;
+	t_dot		height;
 
 	SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
-	/*sector = map->sectors;
-	while (sector)
-	{
-		line = sector->lines;
-		while (line)
-		{
-			if (line->p1.x < xmin)
-			if (line->p1.x < xmin)
-			if (line->p1.x < xmin)
-			if (line->p1.x < xmin)
-			line = line->next;
-		}
-		sector = sector->next;
-	}*/
+	width = (t_dot){0, win->w};
+	height = (t_dot){0, win->h};
+	x = (t_dot){10000000, -100000000};
+	y = (t_dot){10000000, -100000000};
 	sector = map->sectors;
 	while (sector)
 	{
 		line = sector->lines;
 		while (line)
 		{
-			// p1 = (t_fdot){line->p1 / };
-			draw_line(win, line->p1, line->p2);
+			if (line->p1.x < x.x)
+				x.x = line->p1.x;
+			if (line->p2.x < x.x)
+				x.x = line->p2.x;
+			if (line->p1.x > x.y)
+				x.y = line->p1.x;
+			if (line->p2.x > x.y)
+				x.y = line->p2.x;
+			if (line->p1.y < y.x)
+				y.x = line->p1.y;
+			if (line->p2.y < y.x)
+				y.x = line->p2.y;
+			if (line->p1.y > y.y)
+				y.y = line->p1.y;
+			if (line->p2.y > y.y)
+				y.y = line->p2.y;
 			line = line->next;
 		}
 		sector = sector->next;
 	}
+	sector = map->sectors;
+	while (sector)
+	{
+		line = sector->lines;
+		while (line)
+		{
+			// p1 = ;
+			draw_line(win, (t_dot){prop(line->p1.x, x, width),\
+									prop(line->p1.y, y, height)},\
+							(t_dot){prop(line->p2.x, x, width),\
+									prop(line->p2.y, y, height)});
+			line = line->next;
+		}
+		sector = sector->next;
+	}
+
+	draw_circle(win, (t_circle){prop(map->player.pos.x, x, width),\
+							prop(map->player.pos.y, y, height), map->player.width / 2});
+	draw_line(win,	(t_dot){prop(map->player.pos.x, x, width),\
+							prop(map->player.pos.y, y, height)},\
+					(t_dot){prop(map->player.pos.x + 30 * cos(map->player.dir), x, width),\
+							prop(map->player.pos.y + 30 * sin(map->player.dir), y, height)});
+
 }
 
 /*void	draw_sprite(t_player *player, t_object *object)
@@ -79,9 +112,18 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 	}
 
 	win->middle_print = player->orientation - (player->shift ? player->height / 2 : 0);
-	haut = -HEIGHT_WALL * (wall->sector->ceil_height - (player->height + player->z + player->sector->floor_height)) / player->lenRay;
-	bas = HEIGHT_WALL * (player->height + player->z + (player->sector->floor_height - wall->sector->floor_height)) / player->lenRay;
-
+	if (player->orientation < win->h / 2)
+	{
+		haut = prop(player->orientation, (t_dot){0, win->h / 2}, (t_dot){3 * HEIGHT_WALL / 4, HEIGHT_WALL});
+		bas = prop(player->orientation, (t_dot){0, win->h / 2}, (t_dot){3 * HEIGHT_WALL / 4, HEIGHT_WALL});
+	}
+	else
+	{
+		haut = prop(player->orientation, (t_dot){win->h / 2, win->h}, (t_dot){HEIGHT_WALL, 3 * HEIGHT_WALL / 4});
+		bas = prop(player->orientation, (t_dot){win->h / 2, win->h}, (t_dot){HEIGHT_WALL, 3 * HEIGHT_WALL / 4});
+	}
+	haut *= -(wall->sector->ceil_height - (player->height + player->z + player->sector->floor_height)) / player->lenRay;
+	bas *= (player->height + player->z + (player->sector->floor_height - wall->sector->floor_height)) / player->lenRay;
 	// printf("Lenray : %f\n", player->lenRay);
 	// printf("Column : %d\tHaut : %f\tBas : %f\n", calculs->column, haut, bas);
 	// printf("Calcul haut : %d\n", wall->sector->ceil_height - (player->height + player->sector->floor_height));
@@ -142,8 +184,5 @@ void	draw(t_win *win, t_map *map, t_player *player)
 	//draw_sprite(player, map);
 	
 	SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
-	draw_circle(win, (t_circle){player->pos.x, player->pos.y, player->width / 2});
-	draw_line(win, (t_dot){player->pos.x, player->pos.y}, (t_dot){player->pos.x + 30 * cos(player->dir),\
-																player->pos.y + 30 * sin(player->dir)});
 	draw_fps();
 }

@@ -23,6 +23,56 @@ static int		find_portal_id(t_map *map, t_linedef *line1, int id)
 	return (1);
 }
 
+// static int	set_clockwise(t_map *map, t_sector *sector, t_linedef *line)
+// {
+// 	if (line->next && line->next->side == line->side)
+// 	{
+// 		if (line->next->p1.x == line->p2.x && line->next->p1.y == line->p2.y)
+// 			return (0);
+// 		else
+// 			ft_swap(&(line->next->p1), &(line->next->p2));
+// 	}
+// 	else
+// 	{
+
+// 	}
+// }
+
+static void	check_lines(t_map *map)
+{
+	t_sector	*sector;
+	t_linedef	*line;
+	t_linedef	*last;
+	t_linedef	*tmp;
+
+	sector = map->sectors;
+	while (sector)
+	{
+		last = NULL;
+		line = sector->lines;
+		while (line)
+		{
+			if (line->p1.x == line->p2.x && line->p1.y == line->p2.y)
+			{
+				if (last)
+					last->next = line->next;
+				else
+					sector->lines = line->next;
+				ft_strdel(&(line->name));
+				tmp = line;
+				line = line->next;
+				free(tmp);
+			}
+			else
+			{
+				last = line;
+				line = line->next;
+			}
+		}
+		sector = sector->next;
+	}
+}
+
 int		init_lines(t_map *map)
 {
 	t_sector	*sector;
@@ -36,9 +86,13 @@ int		init_lines(t_map *map)
 		{
 			line->texture = map->textures.tortue;
 			line->sector = sector;
+			line->side = SIDE_RIGHT;
 			if (line->flags & PORTAL && find_portal_id(map, line, line->id))
 				return (1);
 			line = line->next;
+			check_lines(map);
+			// if (set_clockwise(map, sector, line))
+			// 	return ();
 		}
 		sector = sector->next;
 	}
@@ -97,8 +151,8 @@ int		init_sectors(t_map *map, t_player *player)
 
 void	init_player(t_win *win, t_player *player)
 {
-	player->dir = 0;
-	player->orientation = 1 * win->h / 2;
+	player->dir = M_PI;
+	player->orientation = win->h / 2;
 	player->fov = M_PI / 2;
 	player->maxHp = 50;
 	player->currentHp = player->maxHp;
@@ -106,6 +160,7 @@ void	init_player(t_win *win, t_player *player)
 	player->currentArmor = player->maxArmor;
 	player->ammo = 30;
 	player->magazine = 60;
+	player->demipetitaxe = player->width / 10;
 }
 
 int		init_textures(t_textures *textures)

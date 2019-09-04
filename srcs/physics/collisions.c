@@ -18,17 +18,25 @@ static int	collisions(t_win *win, t_map *map, t_linedef *line)
 	double	c;
 	double	h;
 
+	h = 500;
 	// printf("---------\n");
 	newpos = (t_dot){(int)map->player.pos.x + map->player.vel.x,\
 						(int)map->player.pos.y + map->player.vel.y};
+	
 	a = dist(line->p1, line->p2);
 	b = dist(line->p2, newpos);
 	c = dist(newpos, line->p1);
 	// printf("a = %f\tb = %f\tc = %f\n", a, b, c);
-
+	
+	/*
 	h = (a + b + c) / 2;
 	h = (2 * sqrt(h * (h - a) * (h - b) * (h - c))) / a;
 	if (h < map->player.width / 2 + map->player.const_vel)
+		return (actions(win, map, line, h));
+	*/
+	
+	h = b + c - a;
+	if (h < map->player.demipetitaxe)
 		return (actions(win, map, line, h));
 	// printf("Dist wall player : %f\n", h);
 	return (0);
@@ -126,7 +134,7 @@ static int	collisions(t_win *win, t_map *map, t_linedef *line)
 // 	return (0);
 // }
 
-int		move(t_win *win, t_map *map, t_player *player)
+int		physics(t_win *win, t_map *map, t_player *player)
 {
 	//int			i;
 	//t_sector	*sector;

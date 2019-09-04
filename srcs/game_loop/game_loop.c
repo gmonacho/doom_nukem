@@ -24,7 +24,7 @@ int		game_loop(t_win *win, t_map *map)
 			mouse_state(win, &(map->player), event);
 			keyboard_state(win, &(map->player));
 
-			move(win, map, &(map->player));
+			physics(win, map, &(map->player));
 			//entiteMove();
 
 			draw(win, map, &(map->player));

@@ -48,21 +48,21 @@ Sector
 		dot = (200, 200)
 		dot = (600, 500)
 		flags = WALL
-		id = -1
+		id = 0
 	}
 	line
 	{
 		dot = (600, 500)
 		dot = (1100, 700)
 		flags = WALL
-		id = -1
+		id = 0
 	}
 	line
 	{
 		dot = (1100, 700)
 		dot = (1000, 400)
 		flags = WALL
-		id = -1
+		id = 0
 	}
 }
 Sector
@@ -75,7 +75,7 @@ Sector
 		dot = (1800, 400)
 		dot = (1600, 300)
 		flags = WALL
-		id = -1
+		id = 0
 	}
 	line
 	{
@@ -89,13 +89,13 @@ Sector
 		dot = (1200, 500)
 		dot = (1500, 800)
 		flags = WALL
-		id = -1
+		id = 0
 	}
 	line
 	{
 		dot = (1500, 800)
 		dot = (1800, 400)
 		flags = WALL
-		id = -1
+		id = 0
 	}
 }
