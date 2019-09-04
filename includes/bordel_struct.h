@@ -231,7 +231,14 @@ typedef struct		s_ed_texture
 	SDL_Texture		*button;
 	SDL_Texture		*clicked_button;
 	SDL_Texture		*on_mouse_button;
+	SDL_Texture		*digit_tab[10];
 }					t_ed_texture;
+
+typedef struct		s_font
+{
+	TTF_Font		*digital;
+	TTF_Font		*ui;
+}					t_font;
 
 typedef struct		s_win
 {
@@ -256,7 +263,7 @@ typedef struct		s_win
 
 	t_button		*selected_button;
 
-	TTF_Font		*font;
+	t_font			font;
 	t_texHud		*texHud;
 }					t_win;
 
