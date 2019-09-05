@@ -145,6 +145,7 @@ SDL_Texture		*load_texture(SDL_Renderer *rend, const char *file);
 void			hud(t_win *win, t_player *player, t_texHud *texHud);
 void    		inventory_hud(t_win *win, t_texHud *texHud, t_player *player);
 void			print_weapon(t_win *win, t_player *player, t_texHud *texHud);
+void            main_animation(t_map *map, t_win *win, t_texHud *texHud);
 
 /*
 **	---------------------------------- inventory ----------------------------------
@@ -294,8 +295,10 @@ void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2);
 ** ================================== Time ===================================
 */
 
-void    start_cooldown(t_timer *timer, Uint32 time);
 int     test_timer(t_timer *timer);
+void    start_cooldown(t_timer *timer, Uint32 time);
+void    init_cd(t_map *map);
+void    reload_cd(t_map *map);
 
 /*
 ** =========================== Math functions ===================================
@@ -305,11 +308,10 @@ double		fdist(t_fdot p1, t_fdot p2);
 double		dist(t_dot p1, t_dot p2);
 double		mag(t_vector vector);
 double		fmag(t_fvector vector);
-int			sign(double nbr);
-double		prop(double value, t_dot inter1, t_dot inter2);
 double  	modulo(double nbr, double mod);
 void		draw_affine(t_win *win, t_affine function);
 void		draw_ray(t_win *win, t_player *player, t_affine ray);
 int			lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2);
+void		draw_affine(t_win *win, t_affine function);
 
 #endif

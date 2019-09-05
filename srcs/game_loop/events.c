@@ -30,12 +30,14 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 		player->dir += 0.1 + (player->dir + 0.1 > 2 * M_PI ? -2 * M_PI : 0);
 	if (state[SDL_SCANCODE_DOWN] && player->orientation > 0)
 		player->orientation -= 10;
-	if (state[SDL_SCANCODE_UP] && player->orientation < win->h)
-		player->orientation += 10;
 	if (state[SDL_SCANCODE_LSHIFT])
 		player->shift = 1;
 	else
 		player->shift = 0;
+	if (state[SDL_SCANCODE_UP] && player->orientation < win->h)
+	{
+		player->orientation += 10;
+	}
 	if (state[SDL_SCANCODE_SPACE] && player->jump)
 		player->z += 9;
 	/*if (state[SDL_SCANCODE_LCTRL])
@@ -73,26 +75,24 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 {	
 	char        *tmp;
     SDL_Texture *text;
+	int flag;
 
 	tmp = NULL;
-	if (state[SDL_SCANCODE_T] && player->ammo > 0)
-	{	
-		if (test_timer(&(player->timers.bullet_cd)) == 1)
-		{	
-			player->ammo -= 1;
-			player->inventory->weapon = 1;
-		}
-	}
+	flag = 0;
 	if (state[SDL_SCANCODE_R])
-	{
-		if (player->magazine == 0)
+	{	
+		if (player->magazine <= 0)
 		{
 			tmp = ft_strdup("NO AMMO LEFT");
     		text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
     		SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(50), (650), (250), (50)});
 		}
-		if (test_timer(&(player->timers.reload_cd)) == 1)
+		else if (player->inventory->weapon == 1)
+		{	
+			player->inventory->weapon = 2;
+			player->timers.reload_cd.index = 0;
 			reload_ammo(player);
+		}
 	}
 	if (state[SDL_SCANCODE_I])
         player->inventory->item[0]->nb += 1;
@@ -107,6 +107,7 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 	}
 	free(tmp);
 }
+
 void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
 {	
 	SDL_Texture     *text;
@@ -120,11 +121,11 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
         	text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
         	SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(330), (650), (280), (50)});
 		}
-		if (test_timer(&(player->timers.bullet_cd)) == 1 && player->ammo > 0)
+		if (test_timer(&(player->timers.bullet_cd)) == 1 && player->ammo > 0 && player->inventory->weapon == 1)
 		{	
+			player->timers.bullet_cd.index = 0;
 			player->ammo -= 1;
-			player->inventory->weapon = 1;
-		}
+		}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 	}
 	if (event.type == SDL_MOUSEWHEEL && event.wheel.y > 0 && player->selected_slot != 3 && test_timer(&(player->timers.item_cd)) == 1)
 		player->selected_slot += 1;

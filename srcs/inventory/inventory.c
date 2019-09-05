@@ -79,5 +79,6 @@ void        main_inventory(t_win *win, t_player *player)
 {
     player->inventory = define_inventory();
     define_pos_slot(player->inventory, win);
+    player->inventory->weapon = 1;
     ft_putendl("inventory created");
 }

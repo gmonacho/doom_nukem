@@ -22,6 +22,20 @@ void		draw_affine(t_win *win, t_affine function)
 				(t_dot){win->w,	function.a * win->w + function.b});
 }
 
+void		draw_ray(t_win *win, t_player *player, t_affine ray)
+{
+	SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 175);
+	// printf("Ray angle : %f\n", ray.angle);
+	if (ray.angle < M_PI_2 || ray.angle > 3 * M_PI_2)
+		draw_line(	win,\
+					(t_dot){player->pos.x,	ray.a * player->pos.x + ray.b},\
+					(t_dot){win->w,			ray.a * win->w + ray.b});
+	else
+		draw_line(	win,\
+					(t_dot){0,				ray.b},\
+					(t_dot){player->pos.x,	ray.a * player->pos.x + ray.b});
+}
+
 int			lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2)
 {
 	// printf("Is : %d\n", line1->isequation);

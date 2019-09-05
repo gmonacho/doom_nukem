@@ -12,6 +12,7 @@ SRCS_PATH_8 =   menu_loops
 SRCS_PATH_9 =   hud
 SRCS_PATH_10 =  inventory
 SRCS_PATH_11 =  time
+SRCS_PATH_12 =  animation
 
 #Pas le droit aux wildcards
 SRCS =		$(wildcard $(SRCS_PATH)/*.c)\
@@ -25,7 +26,8 @@ SRCS =		$(wildcard $(SRCS_PATH)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_8)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_9)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_10)/*.c)\
-			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_11)/*.c)
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_11)/*.c)\
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_12)/*.c)
 
 OBJS_PATH =	./objs
 OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
@@ -73,6 +75,8 @@ $(OBJS_PATH)/$(SRCS_PATH_10)/%.o : $(SRCS_PATH)/$(SRCS_PATH_10)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 $(OBJS_PATH)/$(SRCS_PATH_11)/%.o : $(SRCS_PATH)/$(SRCS_PATH_11)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_PATH_12)/%.o : $(SRCS_PATH)/$(SRCS_PATH_12)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
 
 
 directory:
@@ -88,6 +92,7 @@ directory:
 		@mkdir $(OBJS_PATH)/$(SRCS_PATH_9) 2> /dev/null || true
 		@mkdir $(OBJS_PATH)/$(SRCS_PATH_10) 2> /dev/null || true
 		@mkdir $(OBJS_PATH)/$(SRCS_PATH_11) 2> /dev/null || true
+		@mkdir $(OBJS_PATH)/$(SRCS_PATH_12) 2> /dev/null || true
 
 clean:
 		rm -rf $(OBJS_PATH)
