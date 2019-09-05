@@ -16,6 +16,7 @@ double  	modulo(double nbr, double mod)
 
 void		draw_affine(t_win *win, t_affine function)
 {
+	SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 175);
 	draw_line(	win,\
 				(t_dot){0,		function.b},\
 				(t_dot){win->w,	function.a * win->w + function.b});
@@ -40,8 +41,8 @@ int			lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2)
 		if (line2->isequation)
 			intersection->x = line1->a;
 		else
-			return (1);
+			return (0);
 		intersection->y = line2->a * intersection->x + line2->b;
 	}
-	return (0);
+	return (1);
 }

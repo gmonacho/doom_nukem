@@ -6,6 +6,9 @@
 **	|
 **	v
 **
+**	Line angle : (-pi/2 ; +pi/2)
+**	Ray  angle  : ( ; )
+**
 **	----------------------------------------------------------------------------------------------
 **	Raycasting :
 **
@@ -37,6 +40,7 @@
 
 void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2)
 {
+	// printf("Angle : %f\n", *ray_angle);
 	if (line1->p2.x == line1->p1.x)
 	{
 		if (line2->p2.x == line2->p1.x)
@@ -59,12 +63,12 @@ void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2)
 			(sign(line1->p2.x - line1->p1.x) == sign(line2->p2.x - line2->p1.x) ?\
 			M_PI : 0);
 	}
+	// printf("Angle : %f\n\n", *ray_angle);
 }
 
-static void		set_ray_equation(double angle, t_affine *ray, t_fdot source)
+static void		set_ray_equation(t_win *win, double angle, t_affine *ray, t_fdot source)
 {
 	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", angle / M_PI, ray->isequation, ray->a, ray->b);
-	// printf("Source : %f\t%f\n", source.x, source.y);
 	if (cos(angle) > 0.00001 || cos(angle) < -0.00001)
 	{
 		ray->isequation = 1;
@@ -77,6 +81,7 @@ static void		set_ray_equation(double angle, t_affine *ray, t_fdot source)
 		ray->isequation = 0;
 		ray->a = source.x;
 	}
+	draw_affine(win, *ray);
 	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", angle / M_PI, ray->isequation, ray->a, ray->b);
 }
 
@@ -96,7 +101,7 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 	line = (*sector)->lines;
 	while (line)
 	{
-		if (lines_intersection(&collision, &(line->equation), &(calculs->ray)))
+		if (!lines_intersection(&collision, &(line->equation), &(calculs->ray)))
 		{
 			line = line->next;	
 			continue ;
@@ -201,7 +206,7 @@ static void		begin_ray(t_win *win, t_player *player, t_calculs *calculs)
 		// M_PI : 0);
 
 		set_ray_angle(&ray_angle, wall, wall->destline);
-		set_ray_equation(ray_angle, &(calculs->ray), source);
+		set_ray_equation(win, ray_angle, &(calculs->ray), source);
 		// printf("New : Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.isequation, calculs->ray.a, calculs->ray.b);		
 		wall = intersection_ray_wall(&sector, &source, ray_angle, calculs);
 		// if (wall)
@@ -230,7 +235,10 @@ int				raycasting(t_win *win, t_player *player)
 	while (++(calculs.column) < win->w)
 	{
 		// printf("---------------------\n");
-		set_ray_equation(calculs.alpha, &(calculs.ray), player->pos);
+		set_ray_equation(win, calculs.alpha, &(calculs.ray), player->pos);
+		printf("Player : %f\t%f\n", player->pos.x, player->pos.y);
+		printf("Source : %f\t%f\n\n", player->pos.y, calculs.ray.a * player->pos.x + calculs.ray.b);
+		
 		begin_ray(win, player, &calculs);
 		calculs.alpha += calculs.dangle;
 	}
