@@ -217,7 +217,9 @@ typedef struct		s_frame
 */
 	typedef struct 	s_texHud
 {
-	SDL_Texture		*tex[12];
+	SDL_Texture		*tex[15];
+	SDL_Texture		*tex_weapon[6];
+	SDL_Texture		*tex_reload[3];
 	TTF_Font		*police;
 }					t_texHud;
 
@@ -270,6 +272,7 @@ typedef struct	s_timer
 {
 	uint32_t		time;
 	uint32_t		save;
+	int 			index;
 }				t_timer;
 
 typedef struct s_timers
@@ -278,6 +281,8 @@ typedef struct s_timers
 	t_timer		item_cd;
 	t_timer		text_cd;
 	t_timer		reload_cd;
+	t_timer		animation_cd;
+	t_timer		shot_cd;
 }				t_timers;
 
 /*
