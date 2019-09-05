@@ -21,19 +21,9 @@
 **
 **	----------------------------------------------------------------------------------------------
 **
-**	A faire :	Textures
-**				Afficher un plafond pour faire disparaitre les autres secteurs
-**				Fix la tp
-**				Fix les rayons
-**				Attention : Reelle collision proche de la source ( < 1) entraine un mauvais choix
-**				Mauvais angle apres la tp de ray !!!
-**				Enlever la hitbox du perso sur les portails
-**				Creer une fonction qui retourne la collision entre 2 equations
-**				Trouver un moyen denlever les facteur 100
+**	A faire :	Afficher un plafond pour faire disparaitre les autres secteurs
 **
 **	-----------------------------------------------------------------------------------------------
-**
-**	surface = IMG_Load(file)
 **
 **	Milieu		: angle de vue + saut + snick
 **	Haut-Milieu	: distance plafond/tete	+- distance joueur/mur
