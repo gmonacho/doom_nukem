@@ -309,6 +309,7 @@ int			sign(double nbr);
 double		prop(double value, t_dot inter1, t_dot inter2);
 double  	modulo(double nbr, double mod);
 void		draw_affine(t_win *win, t_affine function);
+void		draw_ray(t_win *win, t_player *player, t_affine ray);
 int			lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2);
 
 #endif
