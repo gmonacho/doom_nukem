@@ -21,17 +21,9 @@
 **
 **	----------------------------------------------------------------------------------------------
 **
-**	A faire :	Textures
-**				Afficher un plafond pour faire disparaitre les autres secteurs
-**				Fix la tp
-**				Fix les rayons
-**				Attention : Reelle collision proche de la source ( < 1) entraine un mauvais choix
-**				Mauvais angle apres la tp de ray !!!
-**				Enlever la hitbox du perso sur les portails
-**				Creer une fonction qui retourne la collision entre 2 equations
-**	-----------------------------------------------------------------------------------------------
+**	A faire :	Afficher un plafond pour faire disparaitre les autres secteurs
 **
-**	surface = IMG_Load(file)
+**	-----------------------------------------------------------------------------------------------
 **
 **	Milieu		: angle de vue + saut + snick
 **	Haut-Milieu	: distance plafond/tete	+- distance joueur/mur
@@ -66,15 +58,15 @@ void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2)
 	// printf("Angle : %f\n\n", *ray_angle);
 }
 
-static void		set_ray_equation(t_win *win, double angle, t_affine *ray, t_fdot source)
+static void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot source)
 {
-	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", angle / M_PI, ray->isequation, ray->a, ray->b);
-	if (cos(angle) > 0.00001 || cos(angle) < -0.00001)
+	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", ray->angle / M_PI, ray->isequation, ray->a, ray->b);
+	if (cos(ray->angle) > 0.00001 || cos(ray->angle) < -0.00001)
 	{
 		ray->isequation = 1;
-		ray->a = tan(angle);
+		ray->a = tan(ray->angle);
 		ray->b = source.y - ray->a * source.x;
-		// printf("Angle : %f\tCos : %f\tEquation : a = %f\tb = %f\n", angle, cos(angle), ray->a, ray->b);
+		// printf("Angle : %f\tCos : %f\tEquation : a = %f\tb = %f\n", ray->angle, cos(ray->angle), ray->a, ray->b);
 	}
 	else
 	{
@@ -82,11 +74,17 @@ static void		set_ray_equation(t_win *win, double angle, t_affine *ray, t_fdot so
 		ray->a = source.x;
 	}
 	win = NULL;
+<<<<<<< HEAD
 	// draw_affine(win, *ray);
 	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", angle / M_PI, ray->isequation, ray->a, ray->b);
+=======
+	player = NULL;
+	// draw_ray(win, player, *ray);
+	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", ray->angle / M_PI, ray->isequation, ray->a, ray->b);
+>>>>>>> 3f9f595d26aeeb68e18def86c9bd1cec6c6dadf1
 }
 
-static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, double ray_angle, t_calculs *calculs)
+static t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_sector **sector, t_fdot *source, t_calculs *calculs)
 {
 	//Dans le secteur 'sector' un rayon stocker dans 'calculs' est lance depuis 'source'
 	//La fonction renvois le mur que touche le rayon
@@ -95,7 +93,7 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 	t_fdot		collision;
 	double		tmpdist;
 
-	// printf("-----------------\n");
+	// printf("----------------------------\n");
 	// printf("Source : %f\t%f\n", source->x, source->y);
 	tmpdist = -1;
 	wall = NULL;
@@ -114,29 +112,36 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 		// }
 		// printf("--- Line : %s\n", line->flags & PORTAL ? "PORTAL" : "WALL");
 		// printf("Collision : %f\t%f\n", collision.x, collision.y);
-		// printf("With : angle = %f pi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);
-		// if ((calculs->newdist = fdist(*source, collision)) < tmpdist ||\
-		// 	tmpdist == -1)
-		// 	printf("1\n");
-		// if (sign(collision.x - source->x) == sign(cos(ray_angle)))
-		// 	printf("2\n");
-		// if ((line->p1.x <= collision.x && collision.x <= line->p2.x) ||\
-		// 	(line->p2.x <= collision.x && collision.x <= line->p1.x))
-		// 	printf("3\n");
-		// if ((int)collision.x != (int)source->x || (int)collision.y != (int)source->y)
-		// 	printf("4 : %f\t%f | %f\t%f\n", source->x, source->y, collision.x, collision.y);
-		// printf("4\n");
+		// printf("With : angle = %f pi\ta = %f\tb = %f\n", calculs->ray.angle / M_PI, calculs->ray.a, calculs->ray.b);
+		
+		// if (calculs->nportals >= 2)
+		// {
+			// printf("-\n");
+			// if ((calculs->newdist = fdist(*source, collision)) < tmpdist ||\
+			// 	tmpdist == -1)
+			// 	printf("1\n");
+			// if (sign(collision.x - source->x) == sign(cos(calculs->ray.angle)))
+			// 	printf("2\n");
+			// if ((line->p1.x <= collision.x && collision.x <= line->p2.x) ||\
+			// 	(line->p2.x <= collision.x && collision.x <= line->p1.x))
+			// 	printf("3\n");
+			// if ((int)collision.x != (int)source->x || (int)collision.y != (int)source->y)
+			// 	printf("4 : %f\t%f : %u\n", collision.x, collision.y, line->flags);
+		// }
 
 		if (((calculs->newdist = fdist(*source, collision)) < tmpdist ||\
 			tmpdist == -1) &&\
-			sign(collision.x - source->x) == sign(cos(ray_angle)) &&\
+			sign(collision.x - source->x) == sign(cos(calculs->ray.angle)) &&\
 			((line->p1.x <= collision.x && collision.x <= line->p2.x) ||\
 			(line->p2.x <= collision.x && collision.x <= line->p1.x)) &&\
-			(100 * (int)collision.x != 100 * (int)source->x || 100 * (int)collision.y != 100 * (int)source->y))
+			// (collision.x != source->x || collision.y != source->y))
+			((int)collision.x != (int)source->x || (int)collision.y != (int)source->y))
+			// (10 * (int)collision.x != 10 * (int)source->x || 10 * (int)collision.y != 10 * (int)source->y))
+			// (100 * (int)collision.x != 100 * (int)source->x || 100 * (int)collision.y != 100 * (int)source->y))
 		{
 			// if (calculs->nportals >= 1)
 			// 	printf("Find collision : %f\t%f\tSource : %f\t%f\n", collision.x, collision.y, source->x, source->y);
-			// printf("With : angle = %f pi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);
+			// printf("With : angle = %f pi\ta = %f\tb = %f\n", calculs->ray.angle / M_PI, calculs->ray.a, calculs->ray.b);
 			tmpdist = calculs->newdist;
 			calculs->closest = collision;
 			wall = line;
@@ -147,7 +152,7 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 	{
 		// printf("WTTFFF ????? Column %d Wall = %p\n", calculs->column, wall);
 		// printf("Source : %f\t%f\n", source->x, source->y);
-		// printf("With : angle = %f pi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);
+		// printf("With : angle = %f pi\ta = %f\tb = %f\n", calculs->ray.angle / M_PI, calculs->ray.a, calculs->ray.b);
 		line = (*sector)->lines;
 		while (line)
 		{
@@ -157,17 +162,27 @@ static t_linedef	*intersection_ray_wall(t_sector **sector, t_fdot *source, doubl
 		// exit(1);
 		return (NULL);
 	}
-	if (wall->flags & PORTAL)
+	win = NULL;
+	// SDL_SetRenderDrawColor(win->rend, 0xDD, 0xFF, 0xDD, 0xFF);
+	// SDL_RenderDrawPoint(win->rend, collision.x, collision.y);
+	if (wall->flags & PORTAL || wall->flags == 2)
 	{
 		// printf("portal detected\n");
 		// printf("wall = %p\tdestline = %p\n", wall, wall->destline);
 		// printf("Wall collision : p1 : %d\t%d\t p2 : %d\t%d\n", wall->p1.x, wall->p1.y, wall->p2.x, wall->p2.y);
 		// printf("Wall teleporte : p1 : %d\t%d\t p2 : %d\t%d\n", wall->destline->p1.x, wall->destline->p1.y, wall->destline->p2.x, wall->destline->p2.y);
-		set_new_position(source, wall, wall->destline, sector);
-		// printf("New source : %f\t%f\n", source->x, source->y);
+		
+		// if (collision.x < 600)
+		// printf("Collision : %f\t%f\n", collision.x, collision.y);
+		set_new_position(&(calculs->closest), wall, wall->destline, sector);
+		*source = (t_fdot){calculs->closest.x, calculs->closest.y};
+		// printf("New source : %f\t%f\n\n", source->x, source->y);
+		calculs->dist += tmpdist;
 	}
+	else
+		calculs->dist += tmpdist;// * cos(player->dir - calculs->ray.angle);
+	player = NULL;
 	// printf("Tmpdist : %f\n", tmpdist);
-	calculs->dist += tmpdist;
 	// SDL_SetRenderDrawColor(win->rend, 0xDD, 0x40, 0x40, 255);
 	// draw_line(win, (t_dot){(int)source->x, (int)source->y}, (t_dot){(int)collision.x, (int)collision.y});
 	// printf("Collision : %f\t%f\n", collision.x, collision.y);
@@ -182,44 +197,44 @@ static void		begin_ray(t_win *win, t_player *player, t_calculs *calculs)
 	t_linedef	*wall;
 	t_sector	*sector;
 	t_fdot		source;
-	double		ray_angle;
 
 	// printf("-----------------\n");
 	calculs->nportals = 0;
 	sector = player->sector;
 	source = player->pos;
-	ray_angle = calculs->alpha;
 	calculs->dist = 0;
-	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.isequation, calculs->ray.a, calculs->ray.b);		
-	wall = intersection_ray_wall(&sector, &source, ray_angle, calculs);
-	while (wall && wall->flags & PORTAL && HEIGHT_WALL / calculs->dist > 0.005 && ++calculs->nportals)
+	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", calculs->ray.angle / M_PI, calculs->ray.isequation, calculs->ray.a, calculs->ray.b);		
+	wall = intersection_ray_wall(win, player, &sector, &source, calculs);
+	while (wall && wall->flags & PORTAL && HEIGHT_WALL / calculs->dist > 0.005)
 	{
+		(calculs->nportals)++;
 		// if (calculs->nportals > 5)
 		// 	exit(0);
 		// printf("PORTAL DETECTED : %d\n", calculs->nportals);
+		
 		// printf("Source : %f\t%f\n", source.x, source.y);
 		// printf("Addr wall : %p\t%p\n", wall, wall->destline);
 		// printf("Wall 1 : x = %d\ty = %d\n", wall->p1.x, wall->p2.x);
 		// printf("Wall 2 : x = %d\ty = %d\n", wall->destline->p2.x, wall->destline->p1.x);
 
-		// ray_angle -= wall->destline->angle - wall->angle +\
+		// calculs->ray.angle -= wall->destline->angle - wall->angle +\
 		// (sign(wall->p2.x - wall->p1.x) == sign(wall->destline->p2.x - wall->destline->p1.x) ?\
 		// M_PI : 0);
 
-		set_ray_angle(&ray_angle, wall, wall->destline);
-		set_ray_equation(win, ray_angle, &(calculs->ray), source);
-		// printf("New : Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.isequation, calculs->ray.a, calculs->ray.b);		
-		wall = intersection_ray_wall(&sector, &source, ray_angle, calculs);
+		set_ray_angle(&(calculs->ray.angle), wall, wall->destline);
+		set_ray_equation(win, player, &(calculs->ray), source);
+		// printf("New : Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", calculs->ray.angle / M_PI, calculs->ray.isequation, calculs->ray.a, calculs->ray.b);		
+		wall = intersection_ray_wall(win, player, &sector, &source, calculs);
 		// if (wall)
 		// 	printf("Portal : %d\tAddr wall : %p\t%p\n", wall->flags & PORTAL ? 1 : 0, wall, wall->destline);
 	}
 	// if (calculs->closest.x < 0 || calculs->closest.y < 0)
 	// {
 	// 	printf("Collision : %f\t%f\n", calculs->closest.x, calculs->closest.y);
-	// 	printf("New : Angle = %fpi\ta = %f\tb = %f\n", ray_angle / M_PI, calculs->ray.a, calculs->ray.b);
+	// 	printf("New : Angle = %fpi\ta = %f\tb = %f\n", calculs->ray.angle / M_PI, calculs->ray.a, calculs->ray.b);
 	// }
-	// printf("Ray angle : %f\tDir : %f\n", ray_angle, player->dir);
-	player->lenRay = calculs->dist/* * cos(ray_angle - player->dir)*/;
+	// printf("Ray angle : %f\tDir : %f\n", calculs->ray.angle, player->dir);
+	player->lenRay = calculs->dist/* * cos(calculs->ray.angle - player->dir)*/;
 	// printf("Lenray : %f\n", player->lenRay);
 	// player->lenRay = calculs->dist;
 	print_wall(win, wall, player, calculs);
@@ -236,7 +251,12 @@ int				raycasting(t_win *win, t_player *player)
 	while (++(calculs.column) < win->w)
 	{
 		// printf("---------------------\n");
+<<<<<<< HEAD
 		set_ray_equation(win, calculs.alpha, &(calculs.ray), player->pos);
+=======
+		calculs.ray.angle = calculs.alpha;
+		set_ray_equation(win, player, &(calculs.ray), player->pos);
+>>>>>>> 3f9f595d26aeeb68e18def86c9bd1cec6c6dadf1
 		// printf("Player : %f\t%f\n", player->pos.x, player->pos.y);
 		// printf("Source : %f\t%f\n\n", player->pos.y, calculs.ray.a * player->pos.x + calculs.ray.b);
 		

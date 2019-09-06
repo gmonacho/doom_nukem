@@ -25,9 +25,9 @@
 static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_LEFT])
-		player->dir -= 0.1;
+		player->dir -= 0.1 + (player->dir - 0.1 < 0 ? 2 * M_PI : 0);
 	if (state[SDL_SCANCODE_RIGHT])
-		player->dir += 0.1;
+		player->dir += 0.1 + (player->dir + 0.1 > 2 * M_PI ? -2 * M_PI : 0);
 	if (state[SDL_SCANCODE_DOWN] && player->orientation > 0)
 		player->orientation -= 10;
 	if (state[SDL_SCANCODE_LSHIFT])
