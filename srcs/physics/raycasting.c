@@ -74,14 +74,8 @@ static void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdo
 		ray->a = source.x;
 	}
 	win = NULL;
-<<<<<<< HEAD
 	// draw_affine(win, *ray);
 	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", angle / M_PI, ray->isequation, ray->a, ray->b);
-=======
-	player = NULL;
-	// draw_ray(win, player, *ray);
-	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", ray->angle / M_PI, ray->isequation, ray->a, ray->b);
->>>>>>> 3f9f595d26aeeb68e18def86c9bd1cec6c6dadf1
 }
 
 static t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_sector **sector, t_fdot *source, t_calculs *calculs)
