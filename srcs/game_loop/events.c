@@ -87,7 +87,7 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
     		text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
     		SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(50), (650), (250), (50)});
 		}
-		else if (player->inventory->weapon == 1)
+		else if (player->inventory->weapon == 1 && player->ammo < 30)
 		{	
 			player->inventory->weapon = 2;
 			player->timers.reload_cd.index = 0;

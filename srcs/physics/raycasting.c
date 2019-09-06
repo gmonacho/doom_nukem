@@ -81,7 +81,8 @@ static void		set_ray_equation(t_win *win, double angle, t_affine *ray, t_fdot so
 		ray->isequation = 0;
 		ray->a = source.x;
 	}
-	draw_affine(win, *ray);
+	win = NULL;
+	// draw_affine(win, *ray);
 	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", angle / M_PI, ray->isequation, ray->a, ray->b);
 }
 
@@ -236,8 +237,8 @@ int				raycasting(t_win *win, t_player *player)
 	{
 		// printf("---------------------\n");
 		set_ray_equation(win, calculs.alpha, &(calculs.ray), player->pos);
-		printf("Player : %f\t%f\n", player->pos.x, player->pos.y);
-		printf("Source : %f\t%f\n\n", player->pos.y, calculs.ray.a * player->pos.x + calculs.ray.b);
+		// printf("Player : %f\t%f\n", player->pos.x, player->pos.y);
+		// printf("Source : %f\t%f\n\n", player->pos.y, calculs.ray.a * player->pos.x + calculs.ray.b);
 		
 		begin_ray(win, player, &calculs);
 		calculs.alpha += calculs.dangle;

@@ -24,9 +24,11 @@ void    attribute_texture_weapon(t_texHud *texHud, t_win *win)
     texHud->tex_weapon[3] = load_texture(win->rend, "textures/weaponHud_2.png");
     texHud->tex_weapon[4] = load_texture(win->rend, "textures/weaponHud.png");
     texHud->tex_weapon[5] = load_texture(win->rend, "textures/weaponHud.png");
-    texHud->tex_reload[0] = load_texture(win->rend, "textures/weaponLoad.png");
-    texHud->tex_reload[1] = load_texture(win->rend, "textures/weaponLoad.png");
-    texHud->tex_reload[2] = load_texture(win->rend, "textures/weaponLoad.png");
+    texHud->tex_reload[0] = load_texture(win->rend, "textures/weaponLoad_1.png");
+    texHud->tex_reload[1] = load_texture(win->rend, "textures/weaponLoad_2.png");
+    texHud->tex_reload[2] = load_texture(win->rend, "textures/weaponLoad_3.png");
+    texHud->tex_reload[3] = load_texture(win->rend, "textures/weaponLoad_4.png");
+    texHud->tex_reload[4] = load_texture(win->rend, "textures/weaponLoad_1.png");
 }
 
 t_texHud     *define_texHud(t_win *win)
