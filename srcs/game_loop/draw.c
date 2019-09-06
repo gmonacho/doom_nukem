@@ -7,6 +7,7 @@
 **	player->orientation est le milieu y du mur sur lecran,
 **	On +/- le y du perso et le snick.
 **	La vision du perso retrecie en haut et en bas (On diminue HEIGHT_WALL)
+**	On multiplie car prop() joue un role de facteur d'agrandissement
 **	La taille du mur depend de la distance jusqua lui (1 / lenray)
 **	On alonge ou retrecie haut et bas selon
 **		les diff de hauteurs z entre le secteur et le perso
@@ -95,11 +96,12 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 	Uint32			pixel;
 	int				x_texture;
 	double			y_texture;
+	int				n_texture;
 	double			dy_texture;
 
 	if (!wall)
 	{
-		// printf("WTTFFF ????? Column %d Wall = %p\n", calculs->column, wall);
+		printf("WTTFFF ????? Column %d Wall = %p\n", calculs->column, wall);
 		return ;
 	}
 	if (!wall->texture)
@@ -117,12 +119,12 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 	if (player->orientation < win->h / 2)
 	{
 		haut = prop(player->orientation, (t_dot){0, win->h / 2}, (t_dot){3 * HEIGHT_WALL / 4, HEIGHT_WALL});
-		bas = prop(player->orientation, (t_dot){0, win->h / 2}, (t_dot){3 * HEIGHT_WALL / 4, HEIGHT_WALL});
+		bas = haut;//prop(player->orientation, (t_dot){0, win->h / 2}, (t_dot){3 * HEIGHT_WALL / 4, HEIGHT_WALL});
 	}
 	else
 	{
 		haut = prop(player->orientation, (t_dot){win->h / 2, win->h}, (t_dot){HEIGHT_WALL, 3 * HEIGHT_WALL / 4});
-		bas = prop(player->orientation, (t_dot){win->h / 2, win->h}, (t_dot){HEIGHT_WALL, 3 * HEIGHT_WALL / 4});
+		bas = haut;//prop(player->orientation, (t_dot){win->h / 2, win->h}, (t_dot){HEIGHT_WALL, 3 * HEIGHT_WALL / 4});
 	}
 	haut *= -(wall->sector->ceil_height - (player->height + player->z + player->sector->floor_height)) / player->lenRay;
 	bas *= (player->height + player->z + (player->sector->floor_height - wall->sector->floor_height)) / player->lenRay;
@@ -142,29 +144,37 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 		x_texture = (int)prop(calculs->closest.x,\
 					(t_dot){wall->p1.x, wall->p2.x},\
 					(t_dot){0, wall->texture->w - 1});
-	if (x_texture < 0 || x_texture >= wall->texture->w)
+
+	//Ratio : 1 pixel = 1u^2 dans le plan
+	// if (wall->p1.x == wall->p2.x)
+	// {
+	// 	n_texture = ft_abs(calculs->closest.y - wall->p1.y) / wall->texture->w;
+	// 	x_texture = ft_abs(calculs->closest.y - wall->p1.y) % wall->texture->w;
+	// }
+	// else
+	// {
+	// 	n_texture = ft_abs(calculs->closest.x - wall->p1.x) / wall->texture->w;
+	// 	x_texture = ft_abs(calculs->closest.x - wall->p1.x) % wall->texture->w;
+	// }
+
+	if (x_texture < 0 || x_texture >= wall->texture->w)	//Pansement MOCHE A ENLEVER mais necessaire
 	{
-		// printf("JVOUS BAISE\n");
+		printf("JVOUS BAISE : %f\t%d\t%d\n", calculs->closest.y, wall->p1.y, wall->p2.y);
 		return ;
 	}
-	
-	// printf("Prop : %d\t%d\t%f\n", wall->p1.x, wall->p2.x, calculs->closest.x);
-	// printf("Prop : %d\t%d\t%f\n", wall->p1.y, wall->p2.y, calculs->closest.y);
+
 
 	dy_texture = wall->texture->h / (bas - haut);
 	y_texture = 0;
-	// haut = (haut < 0) ? 0 : haut;
-	// bas = (bas > win->h) ? win->h : bas;
-	while (haut++ < bas)
+	while (haut++ < bas && y_texture < wall->texture->h)
 	{
-		// printf("Coord texture : %d\t%d\t%d\n", x_texture, (int)y_texture, wall->texture->w);
+		// printf("Coord texture : %d\t%d\t%d\n", x_texture, (int)y_texture, wall->texture->h);
 		pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + x_texture];
 		// pixel = wall->texture->pixels + (int)y_texture * wall->texture->pitch + x_texture * bpp;
-		//if (calculs->column > 980)
-		SDL_SetRenderDrawColor(win->rend,	(pixel >> 0) & 0xFF,\
+		SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
 											(pixel >> 8) & 0xFF,\
-											(pixel >> 16) & 0xFF,\
-											(pixel >> 24) & 0x000000FF);
+											(pixel >> 0) & 0xFF,\
+											(pixel >> 24) & 0xFF);
 											// calculs->nportals >= 1 ? 100 : 255);
 		
 		// SDL_SetRenderDrawColor(win->rend,	(pixel & 0xFF000000) >> 24,\
