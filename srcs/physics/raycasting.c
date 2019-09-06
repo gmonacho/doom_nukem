@@ -157,10 +157,9 @@ static t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_sector *
 		// exit(1);
 		return (NULL);
 	}
-	win = NULL;
 	// SDL_SetRenderDrawColor(win->rend, 0xDD, 0xFF, 0xDD, 0xFF);
 	// SDL_RenderDrawPoint(win->rend, collision.x, collision.y);
-	if (wall->flags & PORTAL || wall->flags == 2)
+	if (wall->flags & PORTAL)
 	{
 		// printf("portal detected\n");
 		// printf("wall = %p\tdestline = %p\n", wall, wall->destline);
@@ -172,15 +171,14 @@ static t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_sector *
 		set_new_position(&(calculs->closest), wall, wall->destline, sector);
 		*source = (t_fdot){calculs->closest.x, calculs->closest.y};
 		// printf("New source : %f\t%f\n\n", source->x, source->y);
-		calculs->dist += tmpdist;
 	}
-	else
-		calculs->dist += tmpdist;// * cos(player->dir - calculs->ray.angle);
-	player = NULL;
+	calculs->dist += tmpdist * (calculs->nportals == 0 ? cos(player->dir - calculs->ray.angle) : 1);
 	// printf("Tmpdist : %f\n", tmpdist);
 	// SDL_SetRenderDrawColor(win->rend, 0xDD, 0x40, 0x40, 255);
 	// draw_line(win, (t_dot){(int)source->x, (int)source->y}, (t_dot){(int)collision.x, (int)collision.y});
 	// printf("Collision : %f\t%f\n", collision.x, collision.y);
+	win = NULL;
+	player = NULL;
 	return (wall);	
 }
 
