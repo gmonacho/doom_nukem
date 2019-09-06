@@ -220,7 +220,7 @@ typedef struct		s_frame
 {
 	SDL_Texture		*tex[15];
 	SDL_Texture		*tex_weapon[6];
-	SDL_Texture		*tex_reload[3];
+	SDL_Texture		*tex_reload[5];
 	TTF_Font		*police;
 }					t_texHud;
 

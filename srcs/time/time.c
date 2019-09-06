@@ -22,9 +22,9 @@ void    reload_cd(t_map *map)
 {   
     if (test_timer(&(map->player.timers.shot_cd)) == 1 && map->player.timers.bullet_cd.index < 5)
 		map->player.timers.bullet_cd.index++;
-	if (test_timer(&(map->player.timers.reload_cd)) == 1 && map->player.timers.reload_cd.index < 2)
+	if (test_timer(&(map->player.timers.reload_cd)) == 1 && map->player.timers.reload_cd.index < 4)
 		map->player.timers.reload_cd.index++;
-	if (map->player.timers.reload_cd.index == 2)
+	if (map->player.timers.reload_cd.index == 4)
 		map->player.inventory->weapon = 1;
 }
 
@@ -36,6 +36,6 @@ void    init_cd(t_map *map)
 	start_cooldown(&(map->player.timers.reload_cd), 600);
 	start_cooldown(&(map->player.timers.animation_cd), 1000);
 	start_cooldown(&(map->player.timers.shot_cd), 50);
-    map->player.timers.reload_cd.index = 2;
+    map->player.timers.reload_cd.index = 4;
     map->player.timers.bullet_cd.index = 5;
 }
