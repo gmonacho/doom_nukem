@@ -96,7 +96,7 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 	Uint32			pixel;
 	int				x_texture;
 	double			y_texture;
-	int				n_texture;
+	// int				n_texture;
 	double			dy_texture;
 
 	if (!wall)

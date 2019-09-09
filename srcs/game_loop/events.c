@@ -131,6 +131,11 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
 		player->selected_slot += 1;
 	if (event.type == SDL_MOUSEWHEEL && event.wheel.y < 0 && player->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
 		player->selected_slot -= 1;
+	if(event.window.event == SDL_WINDOWEVENT_RESIZED)
+		{
+			SDL_GetWindowSize(win->ptr, &win->w, &win->h);
+			update_ui_rect(win);
+		}
 	free(tmp);
 }
 

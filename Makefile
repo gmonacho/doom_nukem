@@ -12,7 +12,7 @@ SRCS_PATH_8 =   menu_loops
 SRCS_PATH_9 =   hud
 SRCS_PATH_10 =  inventory
 SRCS_PATH_11 =  time
-SRCS_PATH_12 =  animation
+SRCS_PATH_12 =  sounds
 
 #Pas le droit aux wildcards
 SRCS =		$(wildcard $(SRCS_PATH)/*.c)\
