@@ -10,7 +10,7 @@ int     update_text_entry_texture(t_win *win, t_button *button, const char *text
 	data = button->data;
 	SDL_QueryTexture(button->texture, NULL, NULL, &w, &h);
 	SDL_DestroyTexture(button->texture);
-	if (!(texture = generate_text(win->rend, win->font, data->name, (SDL_Color){200, 200, 200, 255})))
+	if (!(texture = generate_text(win->rend, win->font.ui, data->name, (SDL_Color){200, 200, 200, 255})))
 		return (ret_error("text generation failed in update_text_entry_texture"));
 	if (!(button->texture = blit_text(win->rend, win->text_entry_texture, texture, &(SDL_Rect){w * 0.03,
 																							h * 0.2,
@@ -20,7 +20,7 @@ int     update_text_entry_texture(t_win *win, t_button *button, const char *text
 	SDL_DestroyTexture(texture);
 	if (text)
 	{
-		if (!(texture = generate_text(win->rend, win->font,
+		if (!(texture = generate_text(win->rend, win->font.ui,
 				text, (SDL_Color){225, 225, 225, 255})))
 			return (ret_error("text generation 2 failed in update_text_entry_texture"));
 		if (!(button->texture = blit_text(win->rend, button->texture, texture, &(SDL_Rect){w * 0.45,
@@ -59,6 +59,7 @@ int		fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *
 	{
 		if (data->variable)
 		{
+			printf("data->variable = %p\n", data->variable);
 			if (data->flags & TEXT_ENTRY_DIGITAL)
 			{
 				int_variable = data->variable;
@@ -67,7 +68,7 @@ int		fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *
 			}			
 			else if (data->flags & TEXT_ENTRY_ALPHANUM)
 			{
-				str_variable = data->variable;
+				str_variable = (char*)data->variable;
 				ft_strcpy(str_variable, (char*)result);
 			}
 			// data->variable = NULL;

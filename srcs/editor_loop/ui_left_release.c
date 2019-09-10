@@ -170,6 +170,7 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 			b = win->selected_button;
 			if (b->flags & BUTTON_MAP_EXPORT)
 			{
+				printf("map->name = %s\n", map->name);
 				export_map(map, map->name);
 			}
 		}

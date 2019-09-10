@@ -87,7 +87,9 @@ SRCS = ./src/ft_atoi.c\
 	./src/ft_countnumbers.c \
 	./src/ft_round.c \
 	./src/ft_intdel.c \
-	./src/ft_2dstrdel.c
+	./src/ft_2dstrdel.c \
+	./src/ft_2dputendl.c \
+	./src/ft_2dstrpushback.c
 
 HEADER = ./includes/libft.h
 
