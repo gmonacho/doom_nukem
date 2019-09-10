@@ -480,9 +480,10 @@ typedef struct s_object
 enum	e_map_editor
 {
 	MAP_NONE = 0b0000,
-	DRAWING_LINE = 0b0001,
-	MAP_SELECTING = 0b0010,
-	MAP_TEXT_EDITING = 0b0100
+	DRAWING_LINE = 1,
+	MAP_SELECTING = 2,
+	MAP_TEXT_EDITING = 4,
+	MAP_MOVING_PLAYER = 8
 };
 
 typedef struct	s_map_editor

@@ -91,6 +91,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	t_text_entry	*data;
 	int				int_result;
 	char			*char_result;
+	t_button		*b;
 
 
 	tmp = NULL;
@@ -99,7 +100,17 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	if (event.type == SDL_QUIT)
 		*loop = SDL_FALSE;
 	else if (event.type == SDL_MOUSEMOTION && !(map->flags & MAP_TEXT_EDITING))
-		update_selected_ui(win);
+	{
+		if (map->flags & MAP_MOVING_PLAYER)
+		{
+			map->player.dpos.x += event.motion.xrel / map->unit;
+			map->player.dpos.y += event.motion.yrel / map->unit;
+			// if (!(fill_variable(win, map, win->selected_button, &int_result)))
+			// 		return (ret_error("fill_variable (int) failed in editor event"));
+		}
+		else
+			update_selected_ui(win);
+	}
 	else if(event.type == SDL_MOUSEWHEEL)
 	{
 		if (event.wheel.y > 0)
@@ -158,14 +169,19 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		else
 		{
 			dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
-			if (!key_pressed(SC_DRAW_FREE))
-				is_next_to_linedef(map, &dot, NEXT_FACTOR);
-			if (!(tmp = new_linedef((t_line){dot, dot}, NULL, LINEDEF_NONE)))
-				return (0);
-			tmp->gflags = WALL;
-			if (map->selected_sector)
-				add_linedef(&map->selected_sector->lines, tmp);
-			map->flags = map->flags | DRAWING_LINE;
+			if (is_next_point(dot, map->player.dpos, map->player.width * map->unit))
+				map->flags |= MAP_MOVING_PLAYER;
+			else
+			{
+				if (!key_pressed(SC_DRAW_FREE))
+					is_next_to_linedef(map, &dot, NEXT_FACTOR);
+				if (!(tmp = new_linedef((t_line){dot, dot}, NULL, LINEDEF_NONE)))
+					return (0);
+				tmp->gflags = WALL;
+				if (map->selected_sector)
+					add_linedef(&map->selected_sector->lines, tmp);
+				map->flags = map->flags | DRAWING_LINE;
+			}
 		}
 	}
 	else if (win->mouse->button[MOUSE_LEFT].releasing)
@@ -174,7 +190,9 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			resolve_ui_left_release(win, map);
 		else
 		{
-			if (map->flags & DRAWING_LINE)
+			if (map->flags & MAP_MOVING_PLAYER)
+				map->flags -= MAP_MOVING_PLAYER;
+			else if (map->flags & DRAWING_LINE)
 			{
 				dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
 				if (map->selected_sector)
@@ -206,7 +224,6 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	}
 	if (win->mouse->button[MOUSE_MIDDLE].pressing)
 		mouse_drag(win->mouse->x, win->mouse->y, SDL_FALSE);
-
 	if (win->mouse->button[MOUSE_LEFT].pressed)
 	{
 		if (map->flags & DRAWING_LINE)
