@@ -6,6 +6,7 @@ int 			create_window(t_win *win, const char *title, SDL_Rect rect, Uint32 flags)
 		return (ret_error(SDL_GetError()));
 	win->w = rect.w;
 	win->h = rect.h;
+	printf("w = %d| h = %d\n", win->w, win->h);
 	win->mouse = mouse_refresh();
 	win->frames = NULL;
 	win->text_entry = NULL;

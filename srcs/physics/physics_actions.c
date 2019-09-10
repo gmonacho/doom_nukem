@@ -29,7 +29,7 @@ void			set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_secto
 		p = prop(pos->x,\
 				(t_dot){line1->p1.x, line1->p2.x},\
 				(t_dot){0, 1000});
-	// printf("Prop : %f\n", p);
+	// printf("Prop : %f\tposy = %f\tx = %d\ty = %d\n", p, pos->y, line1->p1.y, line1->p2.y);
 	pos->x = prop(p,	(t_dot){0, 1000},\
 						(t_dot){line2->p2.x, line2->p1.x});
 	pos->y = prop(p,	(t_dot){0, 1000},\
@@ -133,7 +133,7 @@ static void				teleportation(t_win *win, t_map *map,\
 
 	set_ray_angle(&(map->player.dir), line1, line2);
 
-	keyboard_state(win, &(map->player));
+	keyboard_state(win, &(map->player));	//Reupere la nouvelle direction grace au nouvel angle
 
 	set_new_position(&(map->player.pos), line1, line2, &(map->player.sector));
 	map->player.pos.x += map->player.vel.x * map->player.demipetitaxe * 5;
