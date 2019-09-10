@@ -154,6 +154,10 @@ static int		ui_update_text_entry_texture(t_win *win)
 							return (ret_error("ui_update_text_entry_texture : update_text_entry_texture failed"));
 					}
 				}
+				else
+					if (!update_text_entry_texture(win, b, NULL))
+							return (ret_error("ui_update_text_entry_texture : update_text_entry_texture failed"));
+				
 			}
 			b = b->next;
 		}
@@ -205,10 +209,10 @@ static int		editor_init(t_win *win, t_map_editor *map)
 	map->flags = 0;
 	map->player.pos.x = 0;
 	map->player.pos.y = 0;
-	map->player.dpos.x = 0;
-	map->player.dpos.y = 0;
-	map->player.width = 0;
-	map->player.height = 0;
+	map->player.dpos.x = 50;
+	map->player.dpos.y = 50;
+	map->player.width = 50;
+	map->player.height = 50;
 	map->player.vel = (t_fvector){1, 1};
 	map->player.i_sector = 0;
 	if (!ui_texture_init(win))

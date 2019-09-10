@@ -141,9 +141,8 @@ void			editor_display(t_win *win, t_map_editor *map)
 	SDL_SetRenderDrawColor(win->rend, 255, 100, 100, 255);
 	map->player.sector = get_player_sector(map->sectors, map->player.i_sector);
 	if (map->player.sector == map->selected_sector)
-		draw_rect(win, (SDL_Rect){map->player.dpos.x * map->unit + map->x,
+		draw_circle(win, (t_circle){map->player.dpos.x * map->unit + map->x,
 									map->player.dpos.y * map->unit + map->y,
-									map->player.width * map->unit,
 									map->player.width * map->unit});
 	if (map->selected_sector)
 	{
