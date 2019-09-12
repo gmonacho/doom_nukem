@@ -75,7 +75,8 @@ static void			display_linedefs(t_win *win, const t_map_editor *map, t_sector *s)
 		if (is_in_screen(win, p1) || is_in_screen(win, p2))
 		{
 			draw_line(win, p1, p2);
-			draw_perpendicular(win, p1, p2, l->side);
+			if (l->gflags & PORTAL)
+				draw_perpendicular(win, p1, p2, l->side);
 		}
 		l = l->next;
 	}
