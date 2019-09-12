@@ -132,7 +132,7 @@ typedef enum	e_button_state
 enum	e_button
 {
 	BUTTON_NONE = 0,
-	BUTTON_COLOR_PICKER = 1,
+	// 1 ici
 	BUTTON_TEXT_ENTRY = 2,
 	BUTTON_EXPORT = 4,
 	BUTTON_GAMELOOP = 8,

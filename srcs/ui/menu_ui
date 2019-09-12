@@ -97,17 +97,6 @@ frame // linedef
             name : line type
         }
     }
-    button
-    {
-        ratio : 0.1 0.7 0.8 0.2
-        text : swap side
-        flags : 8704
-        gflags : 0
-        data :
-        {
-            name : swap side
-        }
-    }
 }
 frame // glinedef
 {

@@ -38,6 +38,28 @@ void		add_button_to_frame(t_frame **frame, t_button *button)
 	(*frame)->nb_buttons++;
 }
 
+t_button	*get_text_entry_by_name(t_frame **frames, const char *name)
+{
+	t_frame			*f;
+	t_button		*b;
+	t_text_entry	*data;
+
+	f = *frames;
+	while (f)
+	{
+		b = f->buttons;
+		while (b)
+		{
+			data = (t_text_entry*)b->data;
+			if (ft_strcmp(data->name, name) == 0)
+				return (b);
+			b = b->next;
+		}
+		f = f->next;
+	}
+	return (NULL);
+}
+
 void		add_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 added_flags)
 {
 	t_frame		*f;

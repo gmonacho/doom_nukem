@@ -21,22 +21,6 @@ void		add_button(t_button **buttons, t_button *new_button)
 	*buttons = new_button;
 }
 
-t_button	*get_text_button_by_name(t_button **buttons, const char *name)
-{
-	t_button		*b;
-	t_text_entry	*data;
-
-	b = *buttons;
-	while (b)
-	{
-		data = (t_text_entry*)b->data;
-		if (ft_strcmp(data->name, name) == 0)
-			return (b);
-		b = b->next;
-	}
-	return (NULL);
-}
-
 void		free_buttons(t_button **buttons)
 {
 	t_button *tmp_to_next;

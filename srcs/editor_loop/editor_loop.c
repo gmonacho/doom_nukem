@@ -222,15 +222,37 @@ static int		editor_init(t_win *win, t_map_editor *map)
 	return (1);
 }
 
-int				editor_loop(t_win *win)
+int				editor_loop(t_win *win, t_map *game_map)
 {
 	SDL_bool			loop;
 	t_map_editor		map;
+	t_sector			*s;
+	t_linedef			*l;
 
 	// if (!(parser_png("png_test_800_600.png")))
 	// 	return (0);
 	if (!editor_init(win, &map))
 		return (ret_error("editor_init failed in editor loop"));
+	if (game_map)
+	{
+		map.sectors = game_map->sectors;
+		reverse_sectors(&map.sectors);
+		s = map.sectors;
+		while (s)
+		{
+			l = s->lines;
+			while (l)
+			{
+				l->gflags = l->flags;
+				l->flags = LINEDEF_NONE;
+				l = l->next;
+			}
+			s = s->next;
+		}
+		map.player = game_map->player;
+		map.player.dpos.x = game_map->player.pos.x;
+		map.player.dpos.y = game_map->player.pos.y;
+	}
 	loop = SDL_TRUE;
 	while (loop)
 	{

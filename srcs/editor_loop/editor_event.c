@@ -91,7 +91,6 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	t_text_entry	*data;
 	int				int_result;
 	char			*char_result;
-	t_button		*b;
 
 
 	tmp = NULL;
@@ -105,8 +104,8 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		{
 			map->player.dpos.x += event.motion.xrel / map->unit;
 			map->player.dpos.y += event.motion.yrel / map->unit;
-			// if (!(fill_variable(win, map, win->selected_button, &int_result)))
-			// 		return (ret_error("fill_variable (int) failed in editor event"));
+			update_text_entry_texture(win, get_text_entry_by_name(&win->frames, "x"), ft_itoa(map->player.dpos.x));
+			update_text_entry_texture(win, get_text_entry_by_name(&win->frames, "y"), ft_itoa(map->player.dpos.y));
 		}
 		else
 			update_selected_ui(win);
@@ -169,7 +168,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		else
 		{
 			dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
-			if (is_next_point(dot, map->player.dpos, map->player.width * map->unit))
+			if (is_next_point(dot, map->player.dpos, map->player.width))
 				map->flags |= MAP_MOVING_PLAYER;
 			else
 			{

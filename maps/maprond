@@ -1,0 +1,269 @@
+Player
+{
+	posx = 844
+	posy = 369
+	width = 25
+	height = 50
+	sector = 0
+	velocity = 1
+}
+Sector
+{
+	name = sector
+	ceilHeight = 75
+	floorHeight = 0
+	line
+	{
+		dot = (791, 599)
+		dot = (791, 749)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (899, 599)
+		dot = (899, 749)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (791, 599)
+		dot = (899, 599)
+		flags = PORTAL
+		id = 1
+		side = RIGHT
+	}
+	line
+	{
+		dot = (791, 749)
+		dot = (619, 794)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (619, 794)
+		dot = (501, 871)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (501, 871)
+		dot = (418, 997)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (418, 997)
+		dot = (384, 1144)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (384, 1144)
+		dot = (364, 1273)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (364, 1273)
+		dot = (367, 1382)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (367, 1382)
+		dot = (415, 1531)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (415, 1531)
+		dot = (519, 1671)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (519, 1671)
+		dot = (676, 1752)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (676, 1752)
+		dot = (834, 1780)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (834, 1780)
+		dot = (997, 1795)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (997, 1795)
+		dot = (1149, 1777)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (1149, 1777)
+		dot = (1353, 1688)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (1353, 1688)
+		dot = (1445, 1582)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (1445, 1582)
+		dot = (1525, 1382)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (1525, 1382)
+		dot = (1519, 1207)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (1519, 1207)
+		dot = (1448, 1038)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (1448, 1038)
+		dot = (1370, 914)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (1370, 914)
+		dot = (1241, 843)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (1241, 843)
+		dot = (1072, 774)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (1072, 774)
+		dot = (899, 749)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+}
+Sector
+{
+	name = sector
+	ceilHeight = 75
+	floorHeight = 0
+	line
+	{
+		dot = (899, 599)
+		dot = (990, 676)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (791, 599)
+		dot = (899, 599)
+		flags = PORTAL
+		id = 1
+		side = LEFT
+	}
+	line
+	{
+		dot = (709, 659)
+		dot = (791, 599)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (632, 457)
+		dot = (709, 659)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+	line
+	{
+		dot = (1030, 436)
+		dot = (990, 676)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (836, 227)
+		dot = (1030, 436)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (836, 227)
+		dot = (632, 457)
+		flags = WALL
+		id = 0
+		side = LEFT
+	}
+}

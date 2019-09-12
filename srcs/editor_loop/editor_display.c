@@ -64,6 +64,7 @@ static void			display_linedefs(t_win *win, const t_map_editor *map, t_sector *s)
 				SDL_SetRenderDrawColor(win->rend, 200 - color_shift, 200 - color_shift, 200 - color_shift, 255);
 			else if (l->gflags & PORTAL)
 				SDL_SetRenderDrawColor(win->rend, 200 - color_shift, 0, 200 - color_shift, 255);
+			
 		// 	SDL_SetRenderDrawColor(win->rend, s->color.selected_color.r,
 		// 										s->color.selected_color.g,
 		// 										s->color.selected_color.b,
