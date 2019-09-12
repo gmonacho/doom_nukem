@@ -14,6 +14,7 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 	int				nb_sectors;
 
 	nb_sectors = get_nb_sectors(map->sectors);
+	printf("nb_sectors = %d\n", nb_sectors);
 	f = win->selected_frame;
 	if (f->flags & FRAME_SECTORS)
 	{
@@ -78,7 +79,8 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 				win->mouse->x < f->rect.x + (f->rect.w / MAX_SECTORS) * f->nb_buttons)
 		{
 			add_button_to_frame(&win->selected_frame, new_button((t_frect){1.0 / MAX_SECTORS * f->nb_buttons, 0, 1.0 / MAX_SECTORS, 1}, NULL, 0));
-			add_sector(&map->sectors);
+			if (get_nb_buttons(&f->buttons) == nb_sectors + 1)
+				add_sector(&map->sectors);
 			b = f->buttons;
 			i = 0;
 			b->texture = win->sectors_texture[MAX_SECTORS];

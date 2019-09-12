@@ -84,9 +84,10 @@ SDL_Texture		*blit_text(SDL_Renderer *rend, SDL_Texture *bg_texture, SDL_Texture
 **	---------------------------------- button ----------------------------------
 */
 
-t_button	*new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
-void		add_button(t_button **buttons, t_button *new_button);
-void		free_buttons(t_button **buttons);
+t_button	    *new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
+void		    add_button(t_button **buttons, t_button *new_button);
+void		    free_buttons(t_button **buttons);
+int             get_nb_buttons(t_button **buttons);
 
 t_simple_button	*new_simple_button(char *name, SDL_bool clicked);
 int     		update_button(t_win *win, t_button *b, t_button_state state);
