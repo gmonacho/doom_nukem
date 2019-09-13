@@ -252,6 +252,7 @@ int				editor_loop(t_win *win, t_map *game_map)
 		map.player = game_map->player;
 		map.player.dpos.x = game_map->player.pos.x;
 		map.player.dpos.y = game_map->player.pos.y;
+		map.player.vel = (t_fvector){1, 1};
 	}
 	loop = SDL_TRUE;
 	while (loop)
