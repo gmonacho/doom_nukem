@@ -37,6 +37,21 @@ void		free_buttons(t_button **buttons)
 	*buttons = NULL;
 }
 
+int			get_nb_buttons(t_button **buttons)
+{
+	t_button	*b;
+	int			nb_buttons;
+
+	b = *buttons;
+	nb_buttons = 0;
+	while (b)
+	{
+		b = b->next;
+		nb_buttons++;
+	}
+	return (nb_buttons);
+}
+
 t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 flags)
 {
 	t_text_entry 	*text_entry;

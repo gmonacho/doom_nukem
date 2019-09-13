@@ -6,7 +6,7 @@ void		ft_fill_coord(t_sector **sector, char **tab, int i)
 	int			y;
 	int			flag;
 
-	if (!(line = (t_linedef *)ft_memalloc(sizeof(t_linedef))))
+	if (!(line = (t_linedef*)ft_memalloc(sizeof(t_linedef))))
 		exit(0);
 	y = 0;
 	flag = 0;

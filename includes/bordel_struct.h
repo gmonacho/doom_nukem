@@ -131,21 +131,21 @@ typedef enum	e_button_state
 
 enum	e_button
 {
-	BUTTON_NONE = 0b0000,
-	BUTTON_COLOR_PICKER = 0b0001,
-	BUTTON_TEXT_ENTRY = 0b0010,
-	BUTTON_EXPORT = 0b0100,
-	BUTTON_GAMELOOP = 0b1000,
-	BUTTON_EDITORLOOP = 0b10000,
-	BUTTON_ID = 0b100000,
-	BUTTON_L_TYPE = 0b1000000,
-	BUTTON_CLICKED = 0b10000000,
-	BUTTON_SECTOR_NAME = 0b100000000,
-	BUTTON_SIMPLE = 0b1000000000,
-	BUTTON_MAP_NAME = 0b10000000000,
-	BUTTON_MAP_EXPORT = 0b100000000000,
-	BUTTON_SECTOR_INPUT = 0b1000000000000,
-	BUTTON_LINEDEF_SIDE = 0b10000000000000
+	BUTTON_NONE = 0,
+	// 1 ici
+	BUTTON_TEXT_ENTRY = 2,
+	BUTTON_EXPORT = 4,
+	BUTTON_GAMELOOP = 8,
+	BUTTON_EDITORLOOP = 16,
+	BUTTON_ID = 32,
+	BUTTON_L_TYPE = 64,
+	BUTTON_CLICKED = 128,
+	BUTTON_SECTOR_NAME = 256,
+	BUTTON_SIMPLE = 512,
+	BUTTON_MAP_NAME = 1024,
+	BUTTON_MAP_EXPORT = 2048,
+	BUTTON_SECTOR_INPUT = 4096,
+	BUTTON_LINEDEF_SIDE = 8192
 };
 
 typedef struct		s_simple_button
@@ -188,15 +188,15 @@ typedef struct		s_button
 
 enum	e_frame
 {
-	FRAME_NONE = 0b0000,
-	FRAME_SECTORS = 0b0001,
-	FRAME_INFO = 0b0010,
-	FRAME_HIDE = 0b0100,
-	FRAME_L_INFO = 0b1000,
-	FRAME_L_TYPE = 0b10000,
-	FRAME_MAP = 0b100000,
-	FRAME_PLAYER = 0b1000000,
-	FRAME_PORTAL = 0b100000
+	FRAME_NONE = 0,
+	FRAME_SECTORS = 1,
+	FRAME_INFO = 2,
+	FRAME_HIDE = 4,
+	FRAME_L_INFO = 8,
+	FRAME_L_TYPE = 16,
+	FRAME_MAP = 32,
+	FRAME_PLAYER = 64,
+	FRAME_PORTAL = 128
 };
 
 typedef struct		s_frame
@@ -234,7 +234,14 @@ typedef struct		s_ed_texture
 	SDL_Texture		*button;
 	SDL_Texture		*clicked_button;
 	SDL_Texture		*on_mouse_button;
+	SDL_Texture		*digit_tab[10];
 }					t_ed_texture;
+
+typedef struct		s_font
+{
+	TTF_Font		*digital;
+	TTF_Font		*ui;
+}					t_font;
 
 typedef struct		s_win
 {
@@ -259,7 +266,7 @@ typedef struct		s_win
 
 	t_button		*selected_button;
 
-	TTF_Font		*font;
+	t_font			font;
 	t_texHud		*texHud;
 }					t_win;
 
@@ -494,9 +501,10 @@ typedef struct s_object
 enum	e_map_editor
 {
 	MAP_NONE = 0b0000,
-	DRAWING_LINE = 0b0001,
-	MAP_SELECTING = 0b0010,
-	MAP_TEXT_EDITING = 0b0100
+	DRAWING_LINE = 1,
+	MAP_SELECTING = 2,
+	MAP_TEXT_EDITING = 4,
+	MAP_MOVING_PLAYER = 8
 };
 
 typedef struct	s_map_editor

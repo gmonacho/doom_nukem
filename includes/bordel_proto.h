@@ -84,9 +84,10 @@ SDL_Texture		*blit_text(SDL_Renderer *rend, SDL_Texture *bg_texture, SDL_Texture
 **	---------------------------------- button ----------------------------------
 */
 
-t_button	*new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
-void		add_button(t_button **buttons, t_button *new_button);
-void		free_buttons(t_button **buttons);
+t_button	    *new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
+void		    add_button(t_button **buttons, t_button *new_button);
+void		    free_buttons(t_button **buttons);
+int             get_nb_buttons(t_button **buttons);
 
 t_simple_button	*new_simple_button(char *name, SDL_bool clicked);
 int     		update_button(t_win *win, t_button *b, t_button_state state);
@@ -103,6 +104,7 @@ int				fill_variable(t_win *win, t_map_editor *map, t_button *button, const void
 t_frame		*new_frame(const t_frect ratio, SDL_Texture *texture, Uint32 frame_flags, t_button *buttons);
 void		add_frame(t_frame **frames, t_frame *new_frame);
 void		add_button_to_frame(t_frame **frame, t_button *button);
+t_button	*get_text_entry_by_name(t_frame **frames, const char *name);
 void		add_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 added_flags);
 void		free_frames(t_frame **frames);
 t_frame		*get_frame(t_frame **frames, Uint32 flags);
@@ -195,6 +197,7 @@ void		add_linedef_flags(t_linedef **lines, Uint32 flags);
 //t_sector	*create_sector(void);
 void		add_sector(t_sector **sectors);
 int			get_nb_sectors(t_sector *sector);
+void	    reverse_sectors(t_sector **sectors);
 
 /*
 **	---------------------------------- player ----------------------------------
@@ -279,11 +282,13 @@ int			main_menu(t_win *win);
 */
 
 void		check_file(t_map_editor *map);
-int			editor_loop(t_win *win);
+int			editor_loop(t_win *win, t_map *map);
 int			editor_event(t_win *win, t_map_editor *map, SDL_bool *loop);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 int			resolve_ui_left_press(t_win *win, t_map_editor *map);
 void		editor_display(t_win *win, t_map_editor *map);
+int		    load_ui(int fd, t_win *win);
+int		    add_sector_button(t_win *win, t_frame *f, int nb_sectors);
 	
 /*
 ** ===============================================================================

@@ -65,6 +65,7 @@ void	write_player(t_player *player, int fd)
 	write_line(fd, 1, ft_strjoin("width = ", ft_itoa(player->width)));
 	write_line(fd, 1, ft_strjoin("height = ", ft_itoa(player->height)));
 	write_line(fd, 1, ft_strjoin("sector = ", ft_itoa(player->i_sector)));
+	printf("player->vel.x = %f\n", player->vel.x);
 	write_line(fd, 1, ft_strjoin("velocity = ", ft_itoa(player->vel.x)));
 	write_line(fd, 0, "}");
 }

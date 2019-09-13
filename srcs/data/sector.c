@@ -35,3 +35,38 @@ int				get_nb_sectors(t_sector *sector)
 	}
 	return (i);
 }
+
+void	reverse_sectors(t_sector **sectors)
+{
+	t_sector	*start;
+	t_sector	*s;
+	t_sector	*moving;
+	t_sector	*limit;
+
+	start = *sectors;
+	s = start;
+	moving  = NULL;
+	while (s->next)
+		s = s->next;
+	limit = s;
+	while (start != moving)
+	{
+		s = start;
+		while (s->next != limit)
+			s = s->next;
+		moving = s;
+		s = start;
+		if (start != moving)
+		{
+			while (s->next != moving)
+				s = s->next;
+			s->next = limit;
+		}
+		s = limit;
+		while (s->next)
+			s = s->next;
+		s->next = moving;
+		moving->next = NULL;
+	}
+	*sectors = limit;
+}

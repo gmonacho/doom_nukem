@@ -29,6 +29,8 @@ int		resolve_ui_left_press(t_win *win, t_map_editor *map)
 						if (!update_text_entry_texture(win, win->selected_button, (char*)data->variable))
 							return(ret_error("update_text_entry_texture failed in resolve_ui_left_press"));
 					}
+					// else if (data->flags & TEXT_ENTRY_DIGITAL)
+					// 	update_text_entry_texture(win, win->selected_button, ft_itoa(*(int*)data->variable));
 				}
 				map->flags = MAP_TEXT_EDITING;
 				SDL_StartTextInput();

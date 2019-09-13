@@ -14,6 +14,7 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 	int				nb_sectors;
 
 	nb_sectors = get_nb_sectors(map->sectors);
+	printf("nb_sectors = %d\n", nb_sectors);
 	f = win->selected_frame;
 	if (f->flags & FRAME_SECTORS)
 	{
@@ -51,8 +52,6 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 								data->variable = &map->selected_sector->floor_height;
 							else if (data->flags & TEXT_ENTRY_SECTOR_CEIL)
 								data->variable = &map->selected_sector->ceil_height;
-							if (data->variable)
-								printf("data->variable = %s\n", data->variable);
 							if (data->flags & TEXT_ENTRY_ALPHANUM)
 								update_text_entry_texture(win, b_sector, data->variable);
 							else if (data->flags & TEXT_ENTRY_DIGITAL)
@@ -80,7 +79,8 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 				win->mouse->x < f->rect.x + (f->rect.w / MAX_SECTORS) * f->nb_buttons)
 		{
 			add_button_to_frame(&win->selected_frame, new_button((t_frect){1.0 / MAX_SECTORS * f->nb_buttons, 0, 1.0 / MAX_SECTORS, 1}, NULL, 0));
-			add_sector(&map->sectors);
+			if (get_nb_buttons(&f->buttons) == nb_sectors + 2)
+				add_sector(&map->sectors);
 			b = f->buttons;
 			i = 0;
 			b->texture = win->sectors_texture[MAX_SECTORS];
@@ -99,9 +99,7 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 		{
 			b = win->selected_button;
 			if (b->flags & BUTTON_EXPORT)
-			{
 				export_sector(&map->player, map->selected_sector, map->selected_sector->name);
-			}
 		}
 	}
 	else if (f->flags & FRAME_L_INFO)
@@ -169,9 +167,7 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 		{
 			b = win->selected_button;
 			if (b->flags & BUTTON_MAP_EXPORT)
-			{
 				export_map(map, map->name);
-			}
 		}
 	}
 }
