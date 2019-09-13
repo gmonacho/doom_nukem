@@ -79,7 +79,7 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 				win->mouse->x < f->rect.x + (f->rect.w / MAX_SECTORS) * f->nb_buttons)
 		{
 			add_button_to_frame(&win->selected_frame, new_button((t_frect){1.0 / MAX_SECTORS * f->nb_buttons, 0, 1.0 / MAX_SECTORS, 1}, NULL, 0));
-			if (get_nb_buttons(&f->buttons) == nb_sectors + 1)
+			if (get_nb_buttons(&f->buttons) == nb_sectors + 2)
 				add_sector(&map->sectors);
 			b = f->buttons;
 			i = 0;

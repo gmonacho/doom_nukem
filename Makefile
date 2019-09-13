@@ -36,7 +36,8 @@ OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
 
 LIBSDL2 = -framework SDL2 -F $(FW_PATH) -framework SDL2_image -framework SDL2_ttf -rpath $(FW_PATH)
 LIBFT = libft
-LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
+LIBSDLMIXER = libsdl
+LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a ./$(LIBSDLMIXER)/libSDL2_mixer.a
 
 INCLUDE_PATH = ./includes
 FW_PATH = ./frameworks
@@ -45,7 +46,8 @@ CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address	-I$(INCLUDE_PATH)\
 														-I$(LIBFT)/includes/\
 														-I$(FW_PATH)/SDL2_image.framework/Headers/\
 														-I$(FW_PATH)/SDL2_ttf.framework/Headers/\
-														-I$(FW_PATH)/SDL2.framework/Headers/
+														-I$(FW_PATH)/SDL2.framework/Headers/\
+														-I$(LIBSDLMIXER)
 
 all:	directory $(NAME)
 
