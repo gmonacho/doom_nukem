@@ -146,6 +146,11 @@ void			hud(t_win *win, t_player *player, t_texHud *texHud);
 void    		inventory_hud(t_win *win, t_texHud *texHud, t_player *player);
 void			print_weapon(t_win *win, t_player *player, t_texHud *texHud);
 void            main_animation(t_map *map, t_win *win, t_texHud *texHud);
+void 			print_shot(t_win *win, t_player *player);
+void 			define_line_shot(t_win *win, t_player *player);
+void 	        print_shot(t_win *win, t_player *player);
+void		    add_bullet(t_player *player);
+void	        del_bullet(t_player *player);
 
 /*
 **	---------------------------------- inventory ----------------------------------
@@ -157,6 +162,8 @@ void    print_items(t_win *win, t_inventory *inventory);
 void    print_content_slot(t_win *win, t_player *player, t_texHud *texHud);
 void    use_item(t_player *player, int slotSelected);
 void    reload_ammo(t_player *player);
+t_inventory     *define_inventory();
+
 
 /*
 ** ==========================================================================
@@ -195,6 +202,10 @@ int			get_nb_sectors(t_sector *sector);
 
 void    	damage_heal(t_player *player, int damage, int armor, int heal);
 
+/*
+**	---------------------------------- mob ----------------------------------
+*/
+void    fill_mob_data(t_mob **mob, char **tab, int i);   
 /*
 **	---------------------------------- map ----------------------------------
 */

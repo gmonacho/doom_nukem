@@ -6,8 +6,8 @@ void 	hud_ammo(t_win *win, t_player *player, t_texHud *texHud)
 	char 			*tmp;
 	char			*tmp2;
 	
-	tmp = ft_strjoin(ft_itoa(player->ammo), " | ");
-	tmp2 = ft_strjoin(tmp, ft_itoa(player->magazine));
+	tmp = ft_strjoin(ft_itoa(player->inventory->ammo), " | ");
+	tmp2 = ft_strjoin(tmp, ft_itoa(player->inventory->magazine));
 	text = generate_text(win->rend, texHud->police, tmp2, (SDL_Color){255, 255, 255, 50});
 	SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(win->w * 0.09), (win->h * 0.9125), (win->w * 0.07), (win->h * 0.0725)});
 	SDL_RenderCopy(win->rend, texHud->tex[0], NULL, &(SDL_Rect){(win->w * 0.01), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});

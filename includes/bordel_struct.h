@@ -216,7 +216,7 @@ typedef struct		s_frame
 /*
 **	---------------------------------- hud --------------------------------------------
 */
-	typedef struct 	s_texHud
+typedef struct 	s_texHud
 {
 	SDL_Texture		*tex[15];
 	SDL_Texture		*tex_weapon[6];
@@ -269,12 +269,16 @@ typedef struct		s_win
 ** ====================================================================================
 */
 
+/*
+**	---------------------------------- Timer --------------------------------------------
+*/
+
 typedef struct	s_timer
 {
 	uint32_t		time;
 	uint32_t		save;
 	int 			index;
-}				t_timer;
+}					t_timer;
 
 typedef struct s_timers
 {
@@ -284,8 +288,22 @@ typedef struct s_timers
 	t_timer		reload_cd;
 	t_timer		animation_cd;
 	t_timer		shot_cd;
+	t_timer		animation_shot_cd;
 }				t_timers;
 
+/*
+**	---------------------------------- mob --------------------------------------------
+*/
+	typedef struct s_mob
+	{	
+		t_dot			pos;
+		int 			live;
+		int 			nmob;
+		int				sector;
+		int 			id;
+		char 			*name;
+		struct s_mob	*next;
+	}					t_mob;
 /*
 **	---------------------------------- png --------------------------------------------
 */
@@ -417,6 +435,9 @@ typedef struct s_inventory
 {
 	t_item		*item[4];
 	int			weapon;
+	int 		magazine;
+	int			ammo;
+	int         selected_slot;
 }				t_inventory;
 
 /*
@@ -445,12 +466,12 @@ typedef struct		s_player
 	int 			maxHp;
 	int 			currentArmor;
 	int				maxArmor;
-	int				ammo;
-    int             selected_slot;
-	int 			magazine;
 	t_inventory		*inventory;
 	t_timers		timers;
 	int				i_sector;
+	t_line			l[5];
+	int 			*bullet_drop;
+	int 			len_bullet;
 }					t_player;
 
 /*
@@ -504,6 +525,7 @@ typedef struct		s_map
 	t_textures		textures;
 	t_player		player;
 	t_object		*object;
+	t_mob			*mob;
 }					t_map;
 
 /*
