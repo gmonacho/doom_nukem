@@ -15,6 +15,9 @@ t_linedef	*init_linedef(t_linedef *line)
 						(double)(line->p2.x - line->p1.x);
 		line->equation.b = line->p1.y - line->equation.a * line->p1.x;
 		line->angle = atan(line->equation.a);
+		if (line->angle < 0)
+			line->angle += _2_PI;
+		
 	}
 	else
 	{

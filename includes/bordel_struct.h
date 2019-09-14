@@ -364,10 +364,11 @@ typedef struct			s_linedef
 
 typedef struct				s_calculs
 {
+	int						raycast;
 	int						column;
 	int						nportals;
-	double					dangle;
 	double					alpha;
+	double					dangle;
 	t_affine				ray;
 	double					dist;
 	double					newdist;
@@ -437,7 +438,8 @@ typedef struct		s_player
 	double			fov;
 	int				height;
 	int				width;
-	double			demipetitaxe;
+	double			width_2;
+	double			width_10;
 	double			lenRay;
 	int				numsector;
 	t_sector		*sector;

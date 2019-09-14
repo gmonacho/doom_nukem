@@ -2,15 +2,15 @@ Player
 {
 	posx = 800
 	posy = 400
-	width = 50
-	height = 200
+	width = 40
+	height = 80
 	sector = 0
-	velocity = 2
+	velocity = 1
 }
 Sector
 {
 	name = sector
-	ceilHeight = 400
+	ceilHeight = 200
 	floorHeight = 50
 	line
 	{
@@ -44,8 +44,8 @@ Sector
 Sector
 {
 	name = sector
-	ceilHeight = 500
-	floorHeight = 150
+	ceilHeight = 180
+	floorHeight = 80
 	line
 	{
 		dot = (600, 200)

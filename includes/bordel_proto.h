@@ -3,7 +3,6 @@
 
 # include "SDL.h"
 
-
 /*
 ** =====================================================================================
 ** ================================== MAIN ============================================
@@ -288,8 +287,11 @@ int			game_loop(t_win *win, t_map *map);
 int			physics(t_win *win, t_map *map, t_player *player);
 int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
 int			raycasting(t_win *win, t_player *player);
+void		begin_ray(t_win *win, t_player *player, t_calculs *calculs);
 void		set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
 void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2);
+void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot source);
+t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 
 /*
 ** ================================== Time ===================================
@@ -304,11 +306,12 @@ void    reload_cd(t_map *map);
 ** =========================== Math functions ===================================
 */
 
-double		dist(t_dot p1, t_dot p2);
+// double		dist(t_dot p1, t_dot p2);
 double		fdist(t_fdot p1, t_fdot p2);
-double		mag(t_vector vector);
-double		fmag(t_fvector vector);
+// double		mag(t_vector vector);
+// double		fmag(t_fvector vector);
 int			sign(double nbr);
+void		normalize(double *angle);
 
 double		prop(double value, t_dot inter1, t_dot inter2);
 double  	modulo(double nbr, double mod);

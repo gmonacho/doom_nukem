@@ -25,9 +25,9 @@
 static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_LEFT])
-		player->dir -= 0.1 + (player->dir - 0.1 < 0 ? 2 * M_PI : 0);
+		player->dir += -0.1 + (player->dir - 0.1 < 0 ? _2_PI : 0);
 	if (state[SDL_SCANCODE_RIGHT])
-		player->dir += 0.1 + (player->dir + 0.1 > 2 * M_PI ? -2 * M_PI : 0);
+		player->dir +=	0.1 - (player->dir + 0.1 > _2_PI ? _2_PI : 0);
 	if (state[SDL_SCANCODE_DOWN] && player->orientation > 0)
 		player->orientation -= 10;
 	if (state[SDL_SCANCODE_LSHIFT])
@@ -35,17 +35,15 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 	else
 		player->shift = 0;
 	if (state[SDL_SCANCODE_UP] && player->orientation < win->h)
-	{
 		player->orientation += 10;
-	}
 	if (state[SDL_SCANCODE_SPACE] && player->jump)
 		player->z += 9;
 	/*if (state[SDL_SCANCODE_LCTRL])
 		player->z -= 4;*/
 	if (state[SDL_SCANCODE_KP_MINUS])
-		player->fov -= 0.03;
+		player->fov += -0.03 + (player->fov - 0.03 < 0 ? _2_PI : 0);
 	if (state[SDL_SCANCODE_KP_PLUS])
-		player->fov += 0.03;
+		player->fov +=  0.03 - (player->fov + 0.03 > _2_PI ? _2_PI : 0);
 }
 
 static void	keyboard_move(t_player *player, const Uint8 *state)

@@ -160,13 +160,15 @@ void	init_player(t_win *win, t_player *player)
 	player->currentArmor = player->maxArmor;
 	player->ammo = 30;
 	player->magazine = 120;
-	player->demipetitaxe = player->width / 10;
+    player->width_2 = player->width / 2;
+	player->width_10 = player->width / 10;
 }
 
 int		init_textures(t_textures *textures)
 {
 	if (!(textures->elephantride = IMG_Load("textures/walls/elephantride.png")) ||
 		!(textures->tortue = IMG_Load("textures/walls/tortue.png")))
+		// !(textures->tortue = IMG_Load("textures/walls/google.png")))
 	{
 		ft_putendl(SDL_GetError());
 		return (1);
