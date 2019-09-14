@@ -7,6 +7,25 @@ Player
 	sector = 0
 	velocity = 1
 }
+Mob
+{	
+	soldat
+	{
+		nbmob = 1
+		posx = 500
+		posy = 300
+		sector = 1
+		live = 1
+	}
+	mercenaire
+	{
+		nbmob = 1
+		posx = 900
+		posy = 101
+		sector = 2
+		live = 1
+	}
+}
 Sector
 {
 	name = sector

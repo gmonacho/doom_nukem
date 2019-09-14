@@ -21,27 +21,6 @@ Sector
 	}
 	line
 	{
-		dot = (951, 614)
-		dot = (951, 614)
-		flags = WALL
-		id = 0
-	}
-	line
-	{
-		dot = (951, 614)
-		dot = (951, 614)
-		flags = WALL
-		id = 0
-	}
-	line
-	{
-		dot = (951, 614)
-		dot = (951, 614)
-		flags = WALL
-		id = 0
-	}
-	line
-	{
 		dot = (970, 591)
 		dot = (951, 614)
 		flags = WALL

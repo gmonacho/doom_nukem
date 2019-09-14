@@ -12,7 +12,8 @@ SRCS_PATH_8 =   menu_loops
 SRCS_PATH_9 =   hud
 SRCS_PATH_10 =  inventory
 SRCS_PATH_11 =  time
-SRCS_PATH_12 =  animation
+SRCS_PATH_12 =  ui
+SRCS_PATH_13 =  sounds
 
 #Pas le droit aux wildcards
 SRCS =		$(wildcard $(SRCS_PATH)/*.c)\
@@ -27,14 +28,16 @@ SRCS =		$(wildcard $(SRCS_PATH)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_9)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_10)/*.c)\
 			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_11)/*.c)\
-			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_12)/*.c)
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_12)/*.c)\
+			$(wildcard $(SRCS_PATH)/$(SRCS_PATH_13)/*.c)
 
 OBJS_PATH =	./objs
 OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
 
 LIBSDL2 = -framework SDL2 -F $(FW_PATH) -framework SDL2_image -framework SDL2_ttf -rpath $(FW_PATH)
 LIBFT = libft
-LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
+LIBSDLMIXER = libsdl
+LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a ./$(LIBSDLMIXER)/libSDL2_mixer.a
 
 INCLUDE_PATH = ./includes
 FW_PATH = ./frameworks
@@ -43,7 +46,8 @@ CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address	-I$(INCLUDE_PATH)\
 														-I$(LIBFT)/includes/\
 														-I$(FW_PATH)/SDL2_image.framework/Headers/\
 														-I$(FW_PATH)/SDL2_ttf.framework/Headers/\
-														-I$(FW_PATH)/SDL2.framework/Headers/
+														-I$(FW_PATH)/SDL2.framework/Headers/\
+														-I$(LIBSDLMIXER)
 
 all:	directory $(NAME)
 
@@ -77,6 +81,8 @@ $(OBJS_PATH)/$(SRCS_PATH_11)/%.o : $(SRCS_PATH)/$(SRCS_PATH_11)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 $(OBJS_PATH)/$(SRCS_PATH_12)/%.o : $(SRCS_PATH)/$(SRCS_PATH_12)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_PATH_13)/%.o : $(SRCS_PATH)/$(SRCS_PATH_13)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
 
 
 directory:
@@ -93,6 +99,7 @@ directory:
 		@mkdir $(OBJS_PATH)/$(SRCS_PATH_10) 2> /dev/null || true
 		@mkdir $(OBJS_PATH)/$(SRCS_PATH_11) 2> /dev/null || true
 		@mkdir $(OBJS_PATH)/$(SRCS_PATH_12) 2> /dev/null || true
+		@mkdir $(OBJS_PATH)/$(SRCS_PATH_13) 2> /dev/null || true
 
 clean:
 		rm -rf $(OBJS_PATH)

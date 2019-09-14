@@ -39,7 +39,7 @@ void        print_value_item(t_win *win, t_texHud *texHud, int nb, int slotposx)
 
     tmp = ft_strjoin( " X ", ft_itoa(nb));
     text = generate_text(win->rend, texHud->police, tmp, (SDL_Color){255, 255, 255, 50});
-    SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(slotposx + 50), (760), (35), (35)});
+    SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(slotposx), (win->h * 0.95), (win->w * 0.035), (win->h * 0.04375)});
     free(tmp);
 }
 
@@ -49,7 +49,7 @@ void        print_content_slot(t_win *win, t_player *player, t_texHud *texHud)
    int slotPosx;
 
    i = 0;
-   slotPosx = 240;
+   slotPosx = win->w * 0.24;
    while (i <= 2)
    {    
        if (player->inventory->item[i]->nb != 0)
@@ -70,14 +70,13 @@ void        print_content_slot(t_win *win, t_player *player, t_texHud *texHud)
                 print_value_item(win, texHud, player->inventory->item[i]->nb, slotPosx);
            }
        }
-       slotPosx += 80;
+       slotPosx += win->w * 0.08;
        i++;
    }
 }
 
 void        main_inventory(t_win *win, t_player *player)
 {
-    player->inventory = define_inventory();
     define_pos_slot(player->inventory, win);
     player->inventory->weapon = 1;
     ft_putendl("inventory created");

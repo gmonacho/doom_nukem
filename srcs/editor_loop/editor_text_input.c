@@ -10,7 +10,7 @@ int     update_text_entry_texture(t_win *win, t_button *button, const char *text
 	data = button->data;
 	SDL_QueryTexture(button->texture, NULL, NULL, &w, &h);
 	SDL_DestroyTexture(button->texture);
-	if (!(texture = generate_text(win->rend, win->font, data->name, (SDL_Color){200, 200, 200, 255})))
+	if (!(texture = generate_text(win->rend, win->font.ui, data->name, (SDL_Color){200, 200, 200, 255})))
 		return (ret_error("text generation failed in update_text_entry_texture"));
 	if (!(button->texture = blit_text(win->rend, win->text_entry_texture, texture, &(SDL_Rect){w * 0.03,
 																							h * 0.2,
@@ -18,18 +18,17 @@ int     update_text_entry_texture(t_win *win, t_button *button, const char *text
 																							h * 0.7})))
 		return (ret_error("blit_text failed in update_text_entry_texture"));
 	SDL_DestroyTexture(texture);
-	if (text)
-	{
-		if (!(texture = generate_text(win->rend, win->font,
-				text, (SDL_Color){225, 225, 225, 255})))
-			return (ret_error("text generation 2 failed in update_text_entry_texture"));
-		if (!(button->texture = blit_text(win->rend, button->texture, texture, &(SDL_Rect){w * 0.45,
-																						h * 0.2,
-																						w * 0.4,
-																						h * 0.7})))
-			return (ret_error("blit_text failed in update_text_entry_texture"));
-		SDL_DestroyTexture(texture);
-	}
+	if (!text)
+		text = "_";
+	if (!(texture = generate_text(win->rend, win->font.ui,
+			text, (SDL_Color){225, 225, 225, 255})))
+		return (ret_error("text generation 2 failed in update_text_entry_texture"));
+	if (!(button->texture = blit_text(win->rend, button->texture, texture, &(SDL_Rect){w * 0.45,
+																					h * 0.2,
+																					w * 0.4,
+																					h * 0.7})))
+		return (ret_error("blit_text failed in update_text_entry_texture"));
+	SDL_DestroyTexture(texture);
 	return (1);
 }
 
@@ -63,11 +62,10 @@ int		fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *
 			{
 				int_variable = data->variable;
 				*int_variable = *((int*)result);
-				printf("*int_variable = %d\n", *int_variable);
 			}			
 			else if (data->flags & TEXT_ENTRY_ALPHANUM)
 			{
-				str_variable = data->variable;
+				str_variable = (char*)data->variable;
 				ft_strcpy(str_variable, (char*)result);
 			}
 			// data->variable = NULL;

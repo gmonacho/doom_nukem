@@ -9,7 +9,7 @@ int		game_loop(t_win *win, t_map *map)
 	i = 0;
 	win->texHud = define_texHud(win);
 	main_inventory(win, &(map->player));
-	init_cd(map);
+	//init_cd(map);
 	printf("Debut game loop\n");
 	loop = SDL_TRUE;
 	if (win)

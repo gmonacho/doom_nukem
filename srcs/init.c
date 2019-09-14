@@ -150,7 +150,8 @@ int		init_sectors(t_map *map, t_player *player)
 }
 
 void	init_player(t_win *win, t_player *player)
-{
+{	
+	player->inventory = define_inventory();
 	player->dir = M_PI_2;
 	player->orientation = win->h / 2;
 	player->fov = M_PI / 2;
@@ -158,10 +159,19 @@ void	init_player(t_win *win, t_player *player)
 	player->currentHp = player->maxHp;
 	player->maxArmor = 50;
 	player->currentArmor = player->maxArmor;
-	player->ammo = 30;
-	player->magazine = 120;
-    player->width_2 = player->width / 2;
-	player->width_10 = player->width / 10;
+	player->inventory->ammo = 30;
+	player->inventory->magazine = 120;
+	player->demipetitaxe = player->width / 10;
+	start_cooldown(&(player->timers.bullet_cd), 130);
+	start_cooldown(&(player->timers.item_cd), 200);
+	start_cooldown(&(player->timers.text_cd), 600);
+	start_cooldown(&(player->timers.reload_cd), 600);
+	start_cooldown(&(player->timers.animation_cd), 1000);
+	start_cooldown(&(player->timers.shot_cd), 50);
+	start_cooldown(&(player->timers.animation_shot_cd), 10);
+    player->timers.reload_cd.index = 4;
+    player->timers.bullet_cd.index = 5;
+	define_line_shot(win, player);
 }
 
 int		init_textures(t_textures *textures)

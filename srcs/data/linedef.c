@@ -52,6 +52,7 @@ t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags)
 		newline->angle = M_PI_2;
 	}
 	newline->texture = texture;
+	newline->side = SIDE_RIGHT;
 	newline->flags = flags;
 	newline->id = 0;
 	newline->next = NULL;

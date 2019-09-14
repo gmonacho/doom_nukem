@@ -79,13 +79,13 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 	flag = 0;
 	if (state[SDL_SCANCODE_R])
 	{	
-		if (player->magazine <= 0)
+		if (player->inventory->magazine <= 0)
 		{
 			tmp = ft_strdup("NO AMMO LEFT");
     		text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
-    		SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(50), (650), (250), (50)});
+    		SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(win->w * 0.05), (win->h * 0.8125), (win->w * 0.25), (win->h * 0.0625)});
 		}
-		else if (player->inventory->weapon == 1 && player->ammo < 30)
+		else if (player->inventory->weapon == 1 && player->inventory->ammo < 30)
 		{	
 			player->inventory->weapon = 2;
 			player->timers.reload_cd.index = 0;
@@ -101,7 +101,7 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 	if (state[SDL_SCANCODE_E])
 	{
 		if (test_timer(&(player->timers.item_cd)) == 1)
-			use_item(player, player->selected_slot);
+			use_item(player, player->inventory->selected_slot);
 	}
 	free(tmp);
 }
@@ -114,21 +114,28 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
 	tmp = ft_strdup("EMPTY AMMO PRESS 'R' ");
 	if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT))
 	{	
-		if (player->ammo == 0)
+		if (player->inventory->ammo == 0)
         {
         	text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
-        	SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(330), (650), (280), (50)});
+        	SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(win->w * 0.33), (win->h * 0.8125), (win->w * 0.28), (win->h * 0.0625)});
 		}
-		if (test_timer(&(player->timers.bullet_cd)) == 1 && player->ammo > 0 && player->inventory->weapon == 1)
+		if (test_timer(&(player->timers.bullet_cd)) == 1 && player->inventory->ammo > 0 && player->inventory->weapon == 1)
 		{	
 			player->timers.bullet_cd.index = 0;
-			player->ammo -= 1;
+			player->inventory->ammo -= 1;
+			add_bullet(player);
 		}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 	}
-	if (event.type == SDL_MOUSEWHEEL && event.wheel.y > 0 && player->selected_slot != 3 && test_timer(&(player->timers.item_cd)) == 1)
-		player->selected_slot += 1;
-	if (event.type == SDL_MOUSEWHEEL && event.wheel.y < 0 && player->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
-		player->selected_slot -= 1;
+	if (event.type == SDL_MOUSEWHEEL && event.wheel.y > 0 && player->inventory->selected_slot != 3 && test_timer(&(player->timers.item_cd)) == 1)
+		player->inventory->selected_slot += 1;
+	if (event.type == SDL_MOUSEWHEEL && event.wheel.y < 0 && player->inventory->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
+		player->inventory->selected_slot -= 1;
+	if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+		{
+			SDL_GetWindowSize(win->ptr, &win->w, &win->h);
+			update_ui_rect(win);
+			define_line_shot(win, player);
+		}
 	free(tmp);
 }
 

@@ -6,7 +6,7 @@ void		ft_fill_coord(t_sector **sector, char **tab, int i)
 	int			y;
 	int			flag;
 
-	if (!(line = (t_linedef *)ft_memalloc(sizeof(t_linedef))))
+	if (!(line = (t_linedef*)ft_memalloc(sizeof(t_linedef))))
 		exit(0);
 	y = 0;
 	flag = 0;
@@ -105,6 +105,8 @@ t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
 			ft_fill_data(tab, &sector, i);
 		else if (ft_strstr(tab[i], "Object"))
 			object_data(tab, map->object, i);
+		else if (ft_strstr(tab[i], "Mob"))
+			fill_mob_data(&(map->mob), tab, i);
 	}
 	printf("Fin parsing\n\n");
 	return (sector);
