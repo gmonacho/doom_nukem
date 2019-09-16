@@ -481,6 +481,7 @@ typedef struct		s_player
 	t_line			l[5];
 	int 			*bullet_drop;
 	int 			len_bullet;
+	double			demipetitaxe;
 }					t_player;
 
 /*
