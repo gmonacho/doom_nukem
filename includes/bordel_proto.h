@@ -85,7 +85,9 @@ SDL_Texture		*blit_text(SDL_Renderer *rend, SDL_Texture *bg_texture, SDL_Texture
 
 t_button	    *new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
 void		    add_button(t_button **buttons, t_button *new_button);
+void	        remove_button(t_button **button, t_button *button_del);
 void		    free_buttons(t_button **buttons);
+void	        free_button(t_button *button);
 int             get_nb_buttons(t_button **buttons);
 
 t_simple_button	*new_simple_button(char *name, SDL_bool clicked);
@@ -94,6 +96,7 @@ int     		update_button(t_win *win, t_button *b, t_button_state state);
 t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 flags);
 int     		update_text_entry_texture(t_win *win, t_button *button, const char *text);
 int				fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *result);
+t_button		*get_button_by_flags(t_button **buttons, Uint32 flags);
 
 
 /*
@@ -188,6 +191,9 @@ t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags);
 t_linedef	*new_void_linedef(void);
 int			get_nb_linedef(t_linedef *lines, Uint32 flags);
 void		add_linedef_flags(t_linedef **lines, Uint32 flags);
+void	    remove_sector(t_sector **sector, t_sector *del_sector);
+void		free_linedef(t_linedef *linedef);
+void		free_linedefs(t_linedef **lines);
 
 /*
 **	---------------------------------- sector ----------------------------------
@@ -197,6 +203,8 @@ void		add_linedef_flags(t_linedef **lines, Uint32 flags);
 void		add_sector(t_sector **sectors);
 int			get_nb_sectors(t_sector *sector);
 void	    reverse_sectors(t_sector **sectors);
+void			free_sector(t_sector *sector);
+void			free_sectors(t_sector **sectors);
 
 /*
 **	---------------------------------- player ----------------------------------

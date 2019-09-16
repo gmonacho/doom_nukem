@@ -132,7 +132,7 @@ typedef enum	e_button_state
 enum	e_button
 {
 	BUTTON_NONE = 0,
-	// 1 ici
+	BUTTON_DEL_SECTOR = 1,
 	BUTTON_TEXT_ENTRY = 2,
 	BUTTON_EXPORT = 4,
 	BUTTON_GAMELOOP = 8,
@@ -145,7 +145,8 @@ enum	e_button
 	BUTTON_MAP_NAME = 1024,
 	BUTTON_MAP_EXPORT = 2048,
 	BUTTON_SECTOR_INPUT = 4096,
-	BUTTON_LINEDEF_SIDE = 8192
+	BUTTON_LINEDEF_SIDE = 8192,
+	BUTTON_ADD_SECTOR = 16384
 };
 
 typedef struct		s_simple_button

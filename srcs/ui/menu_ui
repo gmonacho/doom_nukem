@@ -6,7 +6,7 @@ frame // sector selection
     {
         ratio : 0.0 0.0 0.045 1.0
         text : +
-        flags : 512
+        flags : 16896
         gflags : 0
         data :
         {
@@ -59,13 +59,24 @@ frame // info sector
     }
     button
     {
-        ratio : 0.65 0.875 0.3 0.04
+        ratio : 0.6 0.875 0.3 0.04
         text : export
         flags : 516
         gflags : 0
         data :
         {
             name : export
+        }
+    }
+    button
+    {
+        ratio : 0.1 0.875 0.3 0.04
+        text : delete
+        flags : 513
+        gflags : 0
+        data :
+        {
+            name : delete
         }
     }
 }

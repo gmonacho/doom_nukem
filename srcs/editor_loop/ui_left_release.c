@@ -14,7 +14,6 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 	int				nb_sectors;
 
 	nb_sectors = get_nb_sectors(map->sectors);
-	printf("nb_sectors = %d\n", nb_sectors);
 	f = win->selected_frame;
 	if (f->flags & FRAME_SECTORS)
 	{
@@ -23,11 +22,8 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 			i_sector = (win->mouse->x - f->rect.x) / (f->rect.w / MAX_SECTORS);
 			s = map->sectors;
 			i = 0;
-			while (i < nb_sectors - i_sector - 1)
-			{
+			while (i++ < nb_sectors - i_sector - 1)
 				s = s->next;
-				i++;
-			}
 			if (map->selected_sector == s)
 			{
 				add_frame_flags(&win->frames, FRAME_INFO, FRAME_HIDE);
@@ -61,36 +57,28 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 					}
 				}
 			}
-			i = 0;
-			b = f->buttons;
-			b->texture = win->sectors_texture[MAX_SECTORS];
-			b = b->next;
-			while (b)
-			{
-				if (is_in_rect(b->rect, (t_dot){win->mouse->x, win->mouse->y}) && map->selected_sector)
-					b->texture = win->sectors_texture_selected[nb_sectors - i - 1];
-				else
-					b->texture = win->sectors_texture[nb_sectors - i - 1];
-				b = b->next;
-				i++;
-			}
 		}
-		else if (win->mouse->x > f->rect.x + (f->rect.w / MAX_SECTORS) * (f->nb_buttons - 1) &&
-				win->mouse->x < f->rect.x + (f->rect.w / MAX_SECTORS) * f->nb_buttons)
+		else if (win->selected_button && win->selected_button->flags & BUTTON_ADD_SECTOR)
 		{
-			add_button_to_frame(&win->selected_frame, new_button((t_frect){1.0 / MAX_SECTORS * f->nb_buttons, 0, 1.0 / MAX_SECTORS, 1}, NULL, 0));
+			add_button_to_frame(&win->selected_frame, new_button((t_frect){1.0 / MAX_SECTORS * (f->nb_buttons - 1), 0, 1.0 / MAX_SECTORS, 1}, NULL, 512));
+			win->selected_frame->buttons->data = new_simple_button(ft_itoa(f->nb_buttons - 1), SDL_FALSE);
+			update_button(win, win->selected_frame->buttons, BUTTON_STATE_NONE);
+			b = get_button_by_flags(&f->buttons, BUTTON_ADD_SECTOR);
+			if (b)
+				b->ratio.x += 1.0 / MAX_SECTORS;
+			update_ui_rect(win);
 			if (get_nb_buttons(&f->buttons) == nb_sectors + 2)
 				add_sector(&map->sectors);
-			b = f->buttons;
-			i = 0;
-			b->texture = win->sectors_texture[MAX_SECTORS];
-			b = b->next;
-			while (b)
-			{
-				b->texture = win->sectors_texture[nb_sectors - i];
-				b = b->next;
-				i++;
-			}
+			// b = f->buttons;
+			// i = 0;
+			// b->texture = win->sectors_texture[MAX_SECTORS];
+			// b = b->next;
+			// while (b)
+			// {
+			// 	b->texture = win->sectors_texture[nb_sectors - i];
+			// 	b = b->next;
+			// 	i++;
+			// }
 		}
 	}
 	else if (f->flags & FRAME_INFO)
@@ -100,6 +88,11 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 			b = win->selected_button;
 			if (b->flags & BUTTON_EXPORT)
 				export_sector(&map->player, map->selected_sector, map->selected_sector->name);
+			else if (b->flags & BUTTON_DEL_SECTOR)
+			{
+				remove_sector(&map->sectors, map->selected_sector);
+				map->selected_sector = NULL;
+			}
 		}
 	}
 	else if (f->flags & FRAME_L_INFO)

@@ -59,6 +59,32 @@ t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags)
 	return (newline);
 }
 
+void		free_linedef(t_linedef *linedef)
+{
+	if (linedef)
+	{
+		ft_strdel(&linedef->name);
+		SDL_FreeSurface(linedef->texture);
+		free(linedef);
+	}
+	linedef = NULL; 
+}
+
+void		free_linedefs(t_linedef **lines)
+{
+	t_linedef	*l;
+	t_linedef	*tmp_next;
+
+	l = *lines;
+	while (l)
+	{
+		tmp_next = l->next;
+		free_linedef(l);
+		l = tmp_next;
+	}
+	*lines = NULL;
+}
+
 t_linedef	*new_void_linedef(void)
 {
 	t_linedef	*line;

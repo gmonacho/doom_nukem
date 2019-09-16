@@ -1,10 +1,10 @@
 Player
 {
-	posx = 0
-	posy = 0
-	width = 600
-	height = 200
-	sector = 1
+	posx = 50
+	posy = 50
+	width = 50
+	height = 50
+	sector = 0
 	velocity = 1
 }
 Sector
