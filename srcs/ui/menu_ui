@@ -1,10 +1,10 @@
 frame // sector selection
 {
-    ratio : 0.05 0.02 0.9 0.05
+    ratio : 0.0 0.0 1.0 0.03
     flags : 1
     button
     {
-        ratio : 0.0 0.0 0.045 1.0
+        ratio : 0.0 0.0 0.025 1.0
         text : +
         flags : 16896
         gflags : 0

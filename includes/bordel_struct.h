@@ -110,6 +110,13 @@ typedef struct		s_mouse
 **	---------------------------------- Interface Management ----------------------------------
 */
 
+
+typedef enum	e_button_flag
+{
+	SIMPLE_BUTTON_NONE = 0,
+	SIMPLE_BUTTON_NAME = 1
+}				t_button_flag;
+
 enum	e_text_entry
 {
 	TEXT_ENTRY_NONE = 0,
@@ -129,7 +136,8 @@ typedef enum	e_button_state
 	BUTTON_STATE_CLICKED = 2
 }				t_button_state;
 
-enum	e_button
+
+typedef enum	e_button
 {
 	BUTTON_NONE = 0,
 	BUTTON_DEL_SECTOR = 1,
@@ -147,12 +155,14 @@ enum	e_button
 	BUTTON_SECTOR_INPUT = 4096,
 	BUTTON_LINEDEF_SIDE = 8192,
 	BUTTON_ADD_SECTOR = 16384
-};
+}				t_button_f;
 
 typedef struct		s_simple_button
 {
 	char			*name;
+	void			*link;
 	SDL_bool		clicked;
+	t_button_flag	flags;
 }					t_simple_button;
 
 typedef struct		s_text_entry

@@ -32,10 +32,16 @@ void			remove_sector(t_sector **sector, t_sector *del_sector)
 		while (s && s->next != del_sector)
 			s = s->next;
 	}
-	if (s)
+	if (s && s != del_sector)
 	{
 		tmp = s->next;
 		s->next = tmp->next;
+		free_sector(tmp);
+	}
+	else if (s == del_sector)
+	{
+		tmp = s;
+		*sector = (*sector)->next;
 		free_sector(tmp);
 	}
 }

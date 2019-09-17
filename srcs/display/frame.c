@@ -60,6 +60,37 @@ t_button	*get_text_entry_by_name(t_frame **frames, const char *name)
 	return (NULL);
 }
 
+int		update_frame_button_texture_by_flags(t_win *win, t_button_f flags, t_button_flag data_flags)
+{
+	t_frame			*f;
+	t_button		*b;
+	t_simple_button	*s_data;
+
+	f = win->frames;
+	while (f)
+	{
+		b = f->buttons;
+		while (b)
+		{
+			if (b->flags & flags)
+			{
+				if (b->flags & BUTTON_SIMPLE)
+				{
+					s_data = (t_simple_button*)b->data;
+					if (s_data->flags & data_flags)
+					{
+						if (!update_button(win, b, BUTTON_STATE_NONE))
+							return (ret_error("update_frame_button_texture_by_flags : udpate_button failed (1)"));
+					}
+				}
+			}
+			b = b->next;
+		}
+		f = f->next;
+	}
+	return (1);
+}
+
 void		add_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 added_flags)
 {
 	t_frame		*f;

@@ -36,18 +36,18 @@ void	remove_button(t_button **button, t_button *button_del)
 	{
 		tmp = b->next;
 		b->next = tmp->next;
-		free_button(tmp);
+		free_button(&tmp);
 	}
 }
 
-void	free_button(t_button *button)
+void	free_button(t_button **button)
 {
 	if (button)
 	{
-		SDL_DestroyTexture(button->texture);
-		free(button);
+		SDL_DestroyTexture((*button)->texture);
+		free(*button);
+		*button = NULL;
 	}
-	button = NULL;
 }
 
 void		free_buttons(t_button **buttons)
@@ -59,7 +59,7 @@ void		free_buttons(t_button **buttons)
 	while (b)
 	{
 		tmp_to_next = b->next;
-		free_button(b);
+		free_button(&b);
 		b = tmp_to_next;
 	}
 	*buttons = NULL;
@@ -108,13 +108,15 @@ t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 fla
 	return (text_entry);
 }
 
-t_simple_button	*new_simple_button(char *name, SDL_bool clicked)
+t_simple_button	*new_simple_button(char *name, t_button_flag flags, void *link)
 {
 	t_simple_button	*simple_button;
 
 	if (!(simple_button = (t_simple_button*)ft_memalloc(sizeof(t_simple_button))))
 		return (ret_null_error("simple_button allocation failed in new_simple_button"));
 	simple_button->name = name;
-	simple_button->clicked = clicked;
+	simple_button->clicked = SDL_FALSE;
+	simple_button->flags = flags;
+	simple_button->link = link;
 	return (simple_button);
 }

@@ -60,15 +60,15 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 		}
 		else if (win->selected_button && win->selected_button->flags & BUTTON_ADD_SECTOR)
 		{
+			if (get_nb_buttons(&f->buttons) == nb_sectors + 1)
+				add_sector(&map->sectors);
 			add_button_to_frame(&win->selected_frame, new_button((t_frect){1.0 / MAX_SECTORS * (f->nb_buttons - 1), 0, 1.0 / MAX_SECTORS, 1}, NULL, 512));
-			win->selected_frame->buttons->data = new_simple_button(ft_itoa(f->nb_buttons - 1), SDL_FALSE);
+			win->selected_frame->buttons->data = new_simple_button(ft_itoa(f->nb_buttons - 1), SIMPLE_BUTTON_NAME, map->sectors);
 			update_button(win, win->selected_frame->buttons, BUTTON_STATE_NONE);
 			b = get_button_by_flags(&f->buttons, BUTTON_ADD_SECTOR);
 			if (b)
 				b->ratio.x += 1.0 / MAX_SECTORS;
 			update_ui_rect(win);
-			if (get_nb_buttons(&f->buttons) == nb_sectors + 2)
-				add_sector(&map->sectors);
 			// b = f->buttons;
 			// i = 0;
 			// b->texture = win->sectors_texture[MAX_SECTORS];
@@ -90,8 +90,11 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 				export_sector(&map->player, map->selected_sector, map->selected_sector->name);
 			else if (b->flags & BUTTON_DEL_SECTOR)
 			{
+				remove_link_sector_button(win, &get_frame(&win->frames, FRAME_SECTORS)->buttons, map->selected_sector);
+				get_frame(&win->frames, FRAME_SECTORS)->nb_buttons--;
 				remove_sector(&map->sectors, map->selected_sector);
 				map->selected_sector = NULL;
+				win->selected_frame->flags |= FRAME_HIDE;
 			}
 		}
 	}
