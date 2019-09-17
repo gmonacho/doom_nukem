@@ -398,6 +398,7 @@ typedef struct				s_calculs
 	double					dist;
 	double					newdist;
 	t_fdot					closest;
+	t_linedef				*collision_wall;
 }							t_calculs;
 
 /*
