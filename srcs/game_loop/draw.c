@@ -54,8 +54,8 @@ static void	draw_map(t_win *win, t_map *map)
 		}
 		sector = sector->next;
 	}
-	// x = (t_dot){0, win->w};	//Pour annuler le rescale
-	// y = (t_dot){0, win->h};
+	x = (t_dot){0, win->w};	//Pour annuler le rescale
+	y = (t_dot){0, win->h};
 	sector = map->sectors;
 	while (sector)
 	{

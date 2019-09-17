@@ -66,6 +66,8 @@ static int	collisions(t_win *win, t_map *map, t_player *player)
 	set_ray_equation(win, player, &(calculs.ray), player->pos);
 	calculs.dist = 0;
 	collision = intersection_ray_wall(win, player, &player->pos, player->sector, &calculs);
+	if (!collision)
+		printf("WTTFFF ??? WALL NULL collision : %p\n", collision);
 
 	// printf("Dist wall : %f\t%p\n", calculs.dist, collision);
 	// printf("Angle 2 : %f pi\ta = %f\tb = %f\n", calculs.ray.angle / M_PI, calculs.ray.a, calculs.ray.b);

@@ -21,6 +21,59 @@ void			add_sector(t_sector **sectors)
 	*sectors = new_sector;
 }
 
+void			remove_sector(t_sector **sector, t_sector *del_sector)
+{
+	t_sector	*s;
+	t_sector	*tmp;
+
+	s = *sector;
+	if (s != del_sector)
+	{
+		while (s && s->next != del_sector)
+			s = s->next;
+	}
+	if (s && s != del_sector)
+	{
+		tmp = s->next;
+		s->next = tmp->next;
+		free_sector(tmp);
+	}
+	else if (s == del_sector)
+	{
+		tmp = s;
+		*sector = (*sector)->next;
+		free_sector(tmp);
+	}
+}
+
+void			free_sector(t_sector *sector)
+{
+	if (sector)
+	{
+		ft_strdel(&sector->name);
+		SDL_DestroyTexture(sector->floor_texture);
+		SDL_DestroyTexture(sector->ceil_texture);
+		free_linedefs(&sector->lines);
+		free(sector);
+	}
+	sector = NULL;
+}
+
+void			free_sectors(t_sector **sectors)
+{
+	t_sector	*s;
+	t_sector	*tmp_next;
+
+	s = *sectors;
+	while (s)
+	{
+		tmp_next = s->next;
+		free_sector(s);
+		s = tmp_next;
+	}
+	*sectors = NULL;
+}
+
 int				get_nb_sectors(t_sector *sector)
 {
 	t_sector	*s;
@@ -44,29 +97,32 @@ void	reverse_sectors(t_sector **sectors)
 	t_sector	*limit;
 
 	start = *sectors;
-	s = start;
-	moving  = NULL;
-	while (s->next)
-		s = s->next;
-	limit = s;
-	while (start != moving)
+	if (start->next)
 	{
 		s = start;
-		while (s->next != limit)
-			s = s->next;
-		moving = s;
-		s = start;
-		if (start != moving)
-		{
-			while (s->next != moving)
-				s = s->next;
-			s->next = limit;
-		}
-		s = limit;
+		moving  = NULL;
 		while (s->next)
 			s = s->next;
-		s->next = moving;
-		moving->next = NULL;
+		limit = s;
+		while (start != moving)
+		{
+			s = start;
+			while (s->next != limit)
+				s = s->next;
+			moving = s;
+			s = start;
+			if (start != moving)
+			{
+				while (s->next != moving)
+					s = s->next;
+				s->next = limit;
+			}
+			s = limit;
+			while (s->next)
+				s = s->next;
+			s->next = moving;
+			moving->next = NULL;
+		}
+		*sectors = limit;
 	}
-	*sectors = limit;
 }

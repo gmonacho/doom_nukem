@@ -1,9 +1,0 @@
-Player
-{
-	posx = 0
-	posy = 0
-	width = 0
-	height = 0
-	sector = 0
-	velocity = 1
-}

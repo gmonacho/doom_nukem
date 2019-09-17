@@ -141,6 +141,11 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 				char_result = win->text_entry;
 				if (!(fill_variable(win, map, win->selected_button, char_result)))
 					return (ret_error("fill_variable (char*) failed in editor event"));
+				if (win->selected_button->flags & BUTTON_SECTOR_INPUT && (ft_strcmp(win->selected_button->text, "name") == 0))
+				{
+					if (!update_frame_button_texture_by_flags(win, BUTTON_SIMPLE, SIMPLE_BUTTON_NAME))
+						ft_putendl_fd("editor_event : update_frame_button_texture_by_flags failed", 2);
+				}
 			}
 			win->text_entry = NULL;
 			map->flags -= MAP_TEXT_EDITING;

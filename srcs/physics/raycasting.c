@@ -32,7 +32,14 @@
 
 void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2)
 {
-	// printf("Angle line1 : %f pi\tAngle : %f\n", line1->angle / M_PI, *ray_angle / M_PI);
+	// int	t;
+
+	// if (fabs(line1->angle - *ray_angle) - M_PI_2 < 0.1 * M_PI ||\
+	// 	fabs(line1->angle - *ray_angle + M_PI) - M_PI_2 < 0.1 * M_PI)
+	// 	t = 1;
+	// else
+	// 	t = 0;
+	// printf("Angle line1 : %f pi\tAngle : %f pi\n", line1->angle / M_PI, *ray_angle / M_PI);
 	if (line1->p2.x == line1->p1.x)
 	{
 		if (line2->p2.x == line2->p1.x)
@@ -51,12 +58,15 @@ void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2)
 			(sign(line1->p2.x - line1->p1.x) == sign(line2->p2.y - line2->p1.y) ?\
 			0 : M_PI);
 		else
-			*ray_angle -= line2->angle - line1->angle +\
+			*ray_angle += line2->angle - line1->angle +\
 			(sign(line1->p2.x - line1->p1.x) == sign(line2->p2.x - line2->p1.x) ?\
-			M_PI : 0);
+			0 : M_PI);
+			// *ray_angle -= line2->angle - line1->angle +\
+			// (sign(line1->p2.x - line1->p1.x) == sign(line2->p2.x - line2->p1.x) ?\
+			// M_PI : 0);
 	}
 	normalize(ray_angle);
-	// printf("Angle line2 : %f pi\tAngle : %f\n\n", line2->angle / M_PI, *ray_angle / M_PI);
+	// printf("Angle line2 : %f pi\tAngle : %f pi\n\n", line2->angle / M_PI, *ray_angle / M_PI);
 }
 
 void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot source)
@@ -85,14 +95,23 @@ t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t
 	//Dans le secteur 'sector' un rayon stocker dans 'calculs' est lance depuis 'source'
 	//La fonction renvois le mur que touche le rayon
 	t_linedef	*line;
-	t_linedef	*wall;
 	t_fdot		collision;
 	double		tmpdist;
+	double		newdirplayer;
 
 	// printf("----------------------------\n");
 	// printf("Source : %f\t%f\n", source->x, source->y);
+	// printf("nportal = %d\n", calculs->nportals);
+	newdirplayer = player->dir;
+	if (calculs->nportals && calculs->raycast)
+	{
+		set_ray_angle(&newdirplayer, calculs->collision_wall, calculs->collision_wall->destline);
+		// printf("Column : %d\nPlayer = %f\nNewlpayer = %f\n\n", calculs->column,\
+		// 								fabs(cos(player->dir - calculs->ray.angle)),\
+		// 								fabs(cos(newdirplayer - calculs->ray.angle)));
+	}
+	calculs->collision_wall = NULL;
 	tmpdist = -1;
-	wall = NULL;
 	line = sector->lines;
 	while (line)
 	{
@@ -140,13 +159,13 @@ t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t
 			// printf("With : angle = %f pi\ta = %f\tb = %f\n", calculs->ray.angle / M_PI, calculs->ray.a, calculs->ray.b);
 			tmpdist = calculs->newdist;
 			calculs->closest = collision;
-			wall = line;
+			calculs->collision_wall = line;
 		}
 		line = line->next;
 	}
-	if (!wall)
+	if (!calculs->collision_wall)
 	{
-		// printf("WTTFFF ????? Column %d Wall = %p\n", calculs->column, wall);
+		// printf("WTTFFF ????? Column %d calculs->collision_wall = %p\n", calculs->column, calculs->collision_wall);
 		// printf("Source : %f\t%f\t%p\n", source->x, source->y, sector);
 		// printf("With : angle = %f pi\ta = %f\tb = %f\n", calculs->ray.angle / M_PI, calculs->ray.a, calculs->ray.b);
 		line = sector->lines;
@@ -160,25 +179,30 @@ t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t
 	}
 	// SDL_SetRenderDrawColor(win->rend, 0xDD, 0xFF, 0xDD, 0xFF);
 	// SDL_RenderDrawPoint(win->rend, collision.x, collision.y);
-	if (wall->flags & PORTAL)
+	if (calculs->collision_wall->flags & PORTAL)
 	{
 		// printf("portal detected\n");
-		// printf("wall = %p\tdestline = %p\n", wall, wall->destline);
-		// printf("Wall collision : p1 : %d\t%d\t p2 : %d\t%d\n", wall->p1.x, wall->p1.y, wall->p2.x, wall->p2.y);
-		// printf("Wall teleporte : p1 : %d\t%d\t p2 : %d\t%d\n", wall->destline->p1.x, wall->destline->p1.y, wall->destline->p2.x, wall->destline->p2.y);	
+		// printf("collision_wall = %p\tdestline = %p\n", calculs->collision_wall, wall->destline);
+		// printf("collision_wall collision : p1 : %d\t%d\t p2 : %d\t%d\n", calculs->collision_wall->p1.x, calculs->collision_wall->p1.y, calculs->collision_wall->p2.x, calculs->collision_wall->p2.y);
+		// printf("collision_wall teleporte : p1 : %d\t%d\t p2 : %d\t%d\n", calculs->collision_wall->destline->p1.x, calculs->collision_wall->destline->p1.y, calculs->collision_wall->destline->p2.x, calculs->collision_wall->destline->p2.y);	
 		// if (collision.x < 600)
 		// printf("Collision : %f\t%f\n", collision.x, collision.y);
 		// printf("New source : %f\t%f\n\n", source->x, source->y);
 	}
-	calculs->dist += tmpdist * (calculs->nportals == 0 && calculs->raycast ? fabs(cos(player->dir - calculs->ray.angle)) : 1);
+	// calculs->dist += tmpdist * (calculs->raycast ?\
+	// 							fabs(cos(newdirplayer - calculs->ray.angle)) : 1);
+	// calculs->dist += tmpdist * (calculs->nportal == 0 && calculs->raycast ?\
+	// 							fabs(cos(newdirplayer - calculs->ray.angle)) : 1);
+	calculs->dist += tmpdist;
 
 	// printf("Tmpdist : %f\n", tmpdist);
 	// SDL_SetRenderDrawColor(win->rend, 0xDD, 0x40, 0x40, 255);
-	// draw_line(win, (t_dot){(int)source->x, (int)source->y}, (t_dot){(int)collision.x, (int)collision.y});
+	// draw_line(win, (t_dot){(int)source->x, (int)source->y},\
+	// 				(t_dot){(int)calculs->closest.x, (int)calculs->closest.y});
 	// printf("Collision : %f\t%f\n", collision.x, collision.y);
 	win = NULL;
 	player = NULL;
-	return (wall);	
+	return (calculs->collision_wall);	//C'est ssaaaaalle
 }
 
 void		begin_ray(t_win *win, t_player *player, t_calculs *calculs)
