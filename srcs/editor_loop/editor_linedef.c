@@ -102,3 +102,48 @@ void	fill_abscissa_ordinate(t_map_editor *map, t_dot mouse)
 	if (!o_filled)
 		map->ordinate = (t_line){(t_dot){0, 0}, (t_dot){0, 0}};
 }
+
+SDL_bool		is_line_horizontally(t_dot lp1, t_dot lp2, double angle)
+{
+	t_dot	p1;
+	t_dot	p2;
+	int		dx;
+	int		dy;
+	double	line_angle;
+
+	if (lp1.x == lp2.x)
+		return (SDL_FALSE);
+	if (lp1.x < lp2.x)
+	{
+		p1 = lp1;
+		p2 = lp2;
+	}
+	else
+	{
+		p1 = lp2;
+		p2 = lp1;
+	}
+	if (p1.y > p2.y)
+	{
+		lp1 = p1;
+		p1.y = p2.y;
+		p2.y = lp1.y;
+	}
+	dy = p2.y - p1.y;
+	dx = p2.x - p1.x;
+	line_angle = atan(dy/(double)dx) * 180 / M_PI;
+	return ((line_angle < angle) ? SDL_TRUE : SDL_FALSE);
+}
+
+
+SDL_bool		is_line_vertically(t_dot lp1, t_dot lp2, double angle)
+{
+	t_dot	p1;
+	t_dot	p2;
+
+	p1.x = lp1.y;
+	p1.y = lp1.x;
+	p2.x = lp2.y;
+	p2.y = lp2.x;
+	return (is_line_horizontally(p1, p2, angle));
+}
