@@ -55,6 +55,8 @@ static void			draw_perpendicular(t_win *win, t_linedef l, double unit)
 		{
 			dx = (l.side == SIDE_RIGHT) ? len : -len;
 			dy = 0;
+			if (l.p1.y < l.p2.y)
+				dx *= -1;
 		}
 		center.x = (l.p1.x + l.p2.x) / 2;
 		center.y = (l.p1.y + l.p2.y) / 2;
