@@ -109,6 +109,8 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		}
 		else
 			update_selected_ui(win);
+		dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
+		fill_abscissa_ordinate(map, dot);
 	}
 	else if(event.type == SDL_MOUSEWHEEL)
 	{

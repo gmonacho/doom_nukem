@@ -57,3 +57,48 @@ SDL_bool 		is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius)
 		*dot = target;
 	return (is_next);
 }
+
+void	fill_abscissa_ordinate(t_map_editor *map, t_dot mouse)
+{
+	t_sector	*s;
+	t_linedef	*l;
+	SDL_bool	a_filled;
+	SDL_bool	o_filled;
+
+	s = map->sectors;
+	a_filled = SDL_FALSE;
+	o_filled = SDL_FALSE;
+	while (s)
+	{
+		l = s->lines;
+		while (l)
+		{
+			if (mouse.x == l->p1.x)
+			{
+				map->abscissa = (t_line){mouse, l->p1};
+				a_filled = SDL_TRUE;
+			}
+			if ( mouse.y == l->p1.y)
+			{
+				map->ordinate = (t_line){mouse, l->p1};
+				o_filled = SDL_TRUE;
+			}
+			if (mouse.x == l->p2.x)
+			{
+				map->abscissa = (t_line){mouse, l->p2};
+				a_filled = SDL_TRUE;
+			}
+			if (mouse.y == l->p2.y)
+			{
+				map->ordinate = (t_line){mouse, l->p2};
+				o_filled = SDL_TRUE;
+			}
+			l = l->next;
+		}
+		s = s->next;
+	}
+	if (!a_filled)
+		map->abscissa = (t_line){(t_dot){0, 0}, (t_dot){0, 0}};
+	if (!o_filled)
+		map->ordinate = (t_line){(t_dot){0, 0}, (t_dot){0, 0}};
+}

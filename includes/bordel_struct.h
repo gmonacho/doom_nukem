@@ -536,6 +536,8 @@ typedef struct	s_map_editor
 	Uint32		flags;
 	int			nb_lines;
 	t_player	player;
+	t_line		ordinate;
+	t_line		abscissa;
 }				t_map_editor;
 
 /*
