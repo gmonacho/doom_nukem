@@ -22,8 +22,9 @@
 # define SIDE_LEN			40
 # define ID_SIZE            20
 
-# define _2_PI			    6.28318530718
+# define _PI_4				0.78539816339
 # define _3_PI_2		    4.71238898038
+# define _2_PI			    6.28318530718
 
 # include "bordel_struct.h"
 # include "bordel_proto.h"
