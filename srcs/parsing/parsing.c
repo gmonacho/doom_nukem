@@ -7,7 +7,10 @@ void		ft_fill_coord(t_sector **sector, char **tab, int i)
 	int			flag;
 
 	if (!(line = (t_linedef*)ft_memalloc(sizeof(t_linedef))))
+	{	
+		ft_putendl("Error malloc parsing.c l.11\n");
 		exit(0);
+	}
 	y = 0;
 	flag = 0;
 	while (!(ft_strchr(tab[i], '}')))

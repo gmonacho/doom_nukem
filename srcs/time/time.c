@@ -39,6 +39,10 @@ void    reload_cd(t_map *map)
         map->player.timers.reload_cd.index++;
 	if (map->player.timers.reload_cd.index == 4)
 		map->player.inventory->weapon = 1;
+    if (test_timer(&(map->player.timers.mouse)) == 1)
+       map->player.timers.mouse.index = 0;
+
+
 }
 
 // void    init_cd(t_map *map)
