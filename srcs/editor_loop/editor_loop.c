@@ -215,6 +215,8 @@ static int		editor_init(t_win *win, t_map_editor *map)
 	map->player.height = 50;
 	map->player.vel = (t_fvector){1, 1};
 	map->player.i_sector = 0;
+	map->ordinate = (t_line){(t_dot){0, 0}, (t_dot){0, 0}};
+	map->abscissa = (t_line){(t_dot){0, 0}, (t_dot){0, 0}};
 	if (!ui_texture_init(win))
 		return (0);
 	if (!ui_init(win, map))

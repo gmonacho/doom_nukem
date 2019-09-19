@@ -307,6 +307,7 @@ typedef struct s_timers
 	t_timer		animation_cd;
 	t_timer		shot_cd;
 	t_timer		animation_shot_cd;
+    t_timer     mouse;
 }				t_timers;
 
 /*
@@ -536,6 +537,8 @@ typedef struct	s_map_editor
 	Uint32		flags;
 	int			nb_lines;
 	t_player	player;
+	t_line		ordinate;
+	t_line		abscissa;
 }				t_map_editor;
 
 /*

@@ -161,6 +161,11 @@ void			editor_display(t_win *win, t_map_editor *map)
 
 	SDL_SetRenderDrawColor(win->rend, 100, 100, 100, 255);
 	draw_rect(win, (SDL_Rect){map->x, map->y, map->w * map->unit, map->h * map->unit});
+	SDL_SetRenderDrawColor(win->rend, 0, 0, 100, 255);
+	draw_line(win, (t_dot){map->abscissa.p1.x * map->unit + map->x, map->abscissa.p1.y * map->unit + map->y},
+					(t_dot){map->abscissa.p2.x * map->unit + map->x, map->abscissa.p2.y * map->unit + map->y});
+	draw_line(win, (t_dot){map->ordinate.p1.x * map->unit + map->x, map->ordinate.p1.y * map->unit + map->y},
+					(t_dot){map->ordinate.p2.x * map->unit + map->x, map->ordinate.p2.y * map->unit + map->y});
 	SDL_SetRenderDrawColor(win->rend, 255, 100, 100, 255);
 	map->player.sector = get_player_sector(map->sectors, map->player.i_sector);
 	if (map->player.sector == map->selected_sector)

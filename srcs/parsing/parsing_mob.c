@@ -16,7 +16,8 @@ void    fill_mob_data(t_mob **mob, char **tab, int i)
     while (ft_strchr(tab[i], '}') == NULL || ft_strchr(tab[i - 1], '}') == NULL)
     {
         add_mob(mob);
-        (*mob)->name = ft_strdup(tab[i]);
+        if (ft_strstr(tab[i], "name ="))
+            (*mob)->name = ft_strdup(ft_strrchr(tab[i], '=') + 1);
         while (!(ft_strchr(tab[i], '}')))
         {
             if (ft_strstr(tab[i], "nbmob = "))

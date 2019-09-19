@@ -109,6 +109,8 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		}
 		else
 			update_selected_ui(win);
+		dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
+		fill_abscissa_ordinate(map, dot);
 	}
 	else if(event.type == SDL_MOUSEWHEEL)
 	{
@@ -236,7 +238,15 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			{
 				map->selected_sector->lines->p2 = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
 				if (!key_pressed(SC_DRAW_FREE))
-					is_next_to_linedef(map, &map->selected_sector->lines->p2, NEXT_FACTOR);
+				{
+					if(!is_next_to_linedef(map, &map->selected_sector->lines->p2, NEXT_FACTOR))
+					{
+						if(is_line_horizontally(map->selected_sector->lines->p1, map->selected_sector->lines->p2, ANG_HOR_VER))
+							map->selected_sector->lines->p2.y = map->selected_sector->lines->p1.y;
+						else if (is_line_vertically(map->selected_sector->lines->p1, map->selected_sector->lines->p2, ANG_HOR_VER))
+							map->selected_sector->lines->p2.x = map->selected_sector->lines->p1.x;
+					}
+				}
 			}
 		}
 	}

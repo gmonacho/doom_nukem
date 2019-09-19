@@ -228,6 +228,9 @@ void		delete_linedef(t_linedef **lines, Uint32 delete_flags);
 void		delete_sector_linedef(t_sector *sectors, Uint32 delete_flags);
 
 SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
+void	    fill_abscissa_ordinate(t_map_editor *map, t_dot mouse);
+SDL_bool	is_line_horizontally(t_dot lp1, t_dot lp2, double angle);
+SDL_bool	is_line_vertically(t_dot lp1, t_dot lp2, double angle);
 void		map_zoom(t_map_editor *map, double zoom);
 void		map_add_line(t_map *map, int n_sector, t_linedef *line);
 

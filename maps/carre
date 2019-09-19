@@ -9,7 +9,7 @@ Player
 }
 Mob
 {	
-	soldat
+	name = soldat
 	{
 		nbmob = 1
 		posx = 500
@@ -17,7 +17,7 @@ Mob
 		sector = 1
 		live = 1
 	}
-	mercenaire
+	name = mercenaire
 	{
 		nbmob = 1
 		posx = 900
