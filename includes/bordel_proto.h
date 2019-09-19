@@ -3,7 +3,6 @@
 
 # include "SDL.h"
 
-
 /*
 ** =====================================================================================
 ** ================================== MAIN ============================================
@@ -86,16 +85,19 @@ SDL_Texture		*blit_text(SDL_Renderer *rend, SDL_Texture *bg_texture, SDL_Texture
 
 t_button	    *new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
 void		    add_button(t_button **buttons, t_button *new_button);
+void	        remove_button(t_button **button, t_button *button_del);
 void		    free_buttons(t_button **buttons);
+void	        free_button(t_button **button);
 int             get_nb_buttons(t_button **buttons);
 
-t_simple_button	*new_simple_button(char *name, SDL_bool clicked);
+t_simple_button	*new_simple_button(char *name, t_button_flag flags, void *link);
 int     		update_button(t_win *win, t_button *b, t_button_state state);
 
 t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 flags);
 int     		update_text_entry_texture(t_win *win, t_button *button, const char *text);
 int				fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *result);
-
+t_button		*get_button_by_flags(t_button **buttons, Uint32 flags);
+void	        remove_link_sector_button(t_win *win, t_button **buttons, t_sector *sector);
 
 /*
 **	---------------------------------- frame ----------------------------------
@@ -108,6 +110,7 @@ t_button	*get_text_entry_by_name(t_frame **frames, const char *name);
 void		add_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 added_flags);
 void		free_frames(t_frame **frames);
 t_frame		*get_frame(t_frame **frames, Uint32 flags);
+int		    update_frame_button_texture_by_flags(t_win *win, t_button_f flags, t_button_flag data_flags);
 
 /*
 **	---------------------------------- Window ----------------------------------
@@ -189,6 +192,9 @@ t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags);
 t_linedef	*new_void_linedef(void);
 int			get_nb_linedef(t_linedef *lines, Uint32 flags);
 void		add_linedef_flags(t_linedef **lines, Uint32 flags);
+void	    remove_sector(t_sector **sector, t_sector *del_sector);
+void		free_linedef(t_linedef *linedef);
+void		free_linedefs(t_linedef **lines);
 
 /*
 **	---------------------------------- sector ----------------------------------
@@ -198,6 +204,8 @@ void		add_linedef_flags(t_linedef **lines, Uint32 flags);
 void		add_sector(t_sector **sectors);
 int			get_nb_sectors(t_sector *sector);
 void	    reverse_sectors(t_sector **sectors);
+void			free_sector(t_sector *sector);
+void			free_sectors(t_sector **sectors);
 
 /*
 **	---------------------------------- player ----------------------------------
@@ -220,6 +228,9 @@ void		delete_linedef(t_linedef **lines, Uint32 delete_flags);
 void		delete_sector_linedef(t_sector *sectors, Uint32 delete_flags);
 
 SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
+void	    fill_abscissa_ordinate(t_map_editor *map, t_dot mouse);
+SDL_bool	is_line_horizontally(t_dot lp1, t_dot lp2, double angle);
+SDL_bool	is_line_vertically(t_dot lp1, t_dot lp2, double angle);
 void		map_zoom(t_map_editor *map, double zoom);
 void		map_add_line(t_map *map, int n_sector, t_linedef *line);
 
@@ -304,8 +315,11 @@ int			game_loop(t_win *win, t_map *map);
 int			physics(t_win *win, t_map *map, t_player *player);
 int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
 int			raycasting(t_win *win, t_player *player);
+void		begin_ray(t_win *win, t_player *player, t_calculs *calculs);
 void		set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
 void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2);
+void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot source);
+t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 
 /*
 ** ================================== Time ===================================
@@ -320,11 +334,12 @@ void    reload_cd(t_map *map);
 ** =========================== Math functions ===================================
 */
 
-double		dist(t_dot p1, t_dot p2);
+// double		dist(t_dot p1, t_dot p2);
 double		fdist(t_fdot p1, t_fdot p2);
-double		mag(t_vector vector);
-double		fmag(t_fvector vector);
+// double		mag(t_vector vector);
+// double		fmag(t_fvector vector);
 int			sign(double nbr);
+void		normalize(double *angle);
 
 double		prop(double value, t_dot inter1, t_dot inter2);
 double  	modulo(double nbr, double mod);

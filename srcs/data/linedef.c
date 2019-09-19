@@ -1,5 +1,9 @@
 #include "doom_nukem.h"
 
+/*
+**	Angle e [0, pi]
+*/
+
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef)
 {
 	new_linedef->next = *lines;
@@ -15,6 +19,8 @@ t_linedef	*init_linedef(t_linedef *line)
 						(double)(line->p2.x - line->p1.x);
 		line->equation.b = line->p1.y - line->equation.a * line->p1.x;
 		line->angle = atan(line->equation.a);
+		if (line->angle < 0)
+			line->angle += M_PI;
 	}
 	else
 	{
@@ -54,6 +60,32 @@ t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags)
 	newline->id = 0;
 	newline->next = NULL;
 	return (newline);
+}
+
+void		free_linedef(t_linedef *linedef)
+{
+	if (linedef)
+	{
+		ft_strdel(&linedef->name);
+		SDL_FreeSurface(linedef->texture);
+		free(linedef);
+	}
+	linedef = NULL; 
+}
+
+void		free_linedefs(t_linedef **lines)
+{
+	t_linedef	*l;
+	t_linedef	*tmp_next;
+
+	l = *lines;
+	while (l)
+	{
+		tmp_next = l->next;
+		free_linedef(l);
+		l = tmp_next;
+	}
+	*lines = NULL;
 }
 
 t_linedef	*new_void_linedef(void)

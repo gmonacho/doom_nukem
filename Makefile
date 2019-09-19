@@ -32,12 +32,12 @@ SRCS =      $(wildcard $(SRCS_PATH)/*.c)\
 OBJS_PATH = ./objs
 OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
 
+FW_PATH = ./frameworks
 LIBSDL2 = -framework SDL2 -F $(FW_PATH) -framework SDL2_image -framework SDL2_ttf -rpath $(FW_PATH)
 LIBFT = libft
 LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
 
 INCLUDE_PATH = ./includes
-FW_PATH = ./frameworks
 CC = gcc
 CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address   -I$(INCLUDE_PATH)\
                                                         -I$(LIBFT)/includes/\

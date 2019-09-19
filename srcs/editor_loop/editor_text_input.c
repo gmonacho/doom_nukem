@@ -1,37 +1,5 @@
 #include "doom_nukem.h"
 
-int     update_text_entry_texture(t_win *win, t_button *button, const char *text)
-{
-	SDL_Texture		*texture;
-	int				w;
-	int				h;
-	t_text_entry	*data;
-
-	data = button->data;
-	SDL_QueryTexture(button->texture, NULL, NULL, &w, &h);
-	SDL_DestroyTexture(button->texture);
-	if (!(texture = generate_text(win->rend, win->font.ui, data->name, (SDL_Color){200, 200, 200, 255})))
-		return (ret_error("text generation failed in update_text_entry_texture"));
-	if (!(button->texture = blit_text(win->rend, win->text_entry_texture, texture, &(SDL_Rect){w * 0.03,
-																							h * 0.2,
-																							w * 0.24,
-																							h * 0.7})))
-		return (ret_error("blit_text failed in update_text_entry_texture"));
-	SDL_DestroyTexture(texture);
-	if (!text)
-		text = "_";
-	if (!(texture = generate_text(win->rend, win->font.ui,
-			text, (SDL_Color){225, 225, 225, 255})))
-		return (ret_error("text generation 2 failed in update_text_entry_texture"));
-	if (!(button->texture = blit_text(win->rend, button->texture, texture, &(SDL_Rect){w * 0.45,
-																					h * 0.2,
-																					w * 0.4,
-																					h * 0.7})))
-		return (ret_error("blit_text failed in update_text_entry_texture"));
-	SDL_DestroyTexture(texture);
-	return (1);
-}
-
 static void	set_selected_portal_id(t_map_editor *map, int id)
 {
 	t_linedef		*l;

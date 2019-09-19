@@ -13,6 +13,7 @@
 **		les diff de hauteurs z entre le secteur et le perso
 **
 */
+
 static void	draw_map(t_win *win, t_map *map)
 {
 	t_sector	*sector;
@@ -53,8 +54,8 @@ static void	draw_map(t_win *win, t_map *map)
 		}
 		sector = sector->next;
 	}
-	// x = (t_dot){0, win->w};	//Pour annuler le rescale
-	// y = (t_dot){0, win->h};
+	x = (t_dot){0, win->w};	//Pour annuler le rescale
+	y = (t_dot){0, win->h};
 	sector = map->sectors;
 	while (sector)
 	{
@@ -98,10 +99,17 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 	double			y_texture;
 	// int				n_texture;
 	double			dy_texture;
+	int				n_texture_y;
+	int				i;
+	int				n_pixels;
 
 	if (!wall)
 	{
-		printf("WTTFFF ????? Column %d Wall = %p\n", calculs->column, wall);
+		// SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
+		// i = -1;
+		// while (++i < win->h)
+		// 	SDL_RenderDrawPoint(win->rend, calculs->column, i);
+		// printf("WTTFFF ????? Column %d Wall = %p\n", calculs->column, wall);
 		return ;
 	}
 	if (!wall->texture)
@@ -136,7 +144,108 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 	// draw_column(win, calculs->column, win->middle_print - haut,\
 	// 									win->middle_print + bas);
 
+	// if (wall->p1.x == wall->p2.x)
+	// 	x_texture = (int)prop(calculs->closest.y,\
+	// 				(t_dot){wall->p1.y, wall->p2.y},\
+	// 				(t_dot){0, wall->texture->w - 1});
+	// else
+	// 	x_texture = (int)prop(calculs->closest.x,\
+	// 				(t_dot){wall->p1.x, wall->p2.x},\
+	// 				(t_dot){0, wall->texture->w - 1});
+
+	//Ratio : 1 pixel = 1u^2 dans le plan
+	int ratio = 1;
 	if (wall->p1.x == wall->p2.x)
+	{
+		// n_texture_x = (int)ft_abs(calculs->closest.y - wall->p1.y) / wall->texture->w;
+		// x_texture = (int)ft_abs(calculs->closest.y - wall->p1.y) % (int)(wall->texture->w / ratio);
+		// printf("Inter : %f\t%d\n", calculs->closest.y, wall->p1.y);
+	}
+	else
+	{
+		// x_texture = (int)ft_abs(calculs->closest.x - wall->p1.x) / (int)(wall->texture->w / ratio);
+		// printf("Inter : %f\t%d\n", calculs->closest.x, wall->p1.x);
+	}
+	x_texture = (int)fdist((t_fdot){wall->p1.x, wall->p1.y}, calculs->closest) %\
+				(int)(wall->texture->w / ratio);
+	// printf("\nDist : %f\t%d\n", fdist((t_fdot){wall->p1.x, wall->p1.y}, calculs->closest), x_texture);
+	// printf("Size img : %d/%d\n", wall->texture->w, wall->texture->h);
+	// printf("Haut/bas : %f\t%f\n", haut, bas);
+
+	// if (x_texture < 0 || x_texture >= wall->texture->w)
+	// {
+	// 	printf("JVOUS BAISE : %f\t%d\t%d\n", calculs->closest.y, wall->p1.y, wall->p2.y);
+	// 	return ;
+	// }
+
+	// for (int p = 0; p < wall->texture->w; p++)
+	// 	for (int p2 = 0; p2 < wall->texture->h; p2++)
+	// 	{
+	// 		printf("x/y : %d/%d\t", p, p2);
+	// 		printf("Color : %d\n", (int)(((int *)wall->texture->pixels)[p2 * wall->texture->w + p]));
+	// 	}
+
+	n_texture_y = 0;
+	n_pixels = fabs(bas) + fabs(haut);
+	dy_texture = (float)wall->sector->height / n_pixels;
+	// printf("\nDy : %f\n", dy_texture);
+	i = -1;
+	while (++i < n_pixels)
+	{
+		y_texture = (int)(i * dy_texture) % (int)(wall->texture->h / ratio);
+		// printf("Coord : %d\t%d\n", x_texture, y_texture);
+		// printf("Coord : %d\t%d\t%d\t%d\n", x_texture, y_texture, wall->texture->w, wall->texture->h);
+		// pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + x_texture];
+		pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + (int)x_texture];
+		SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
+											(pixel >> 8) & 0xFF,\
+											(pixel >> 0) & 0xFF,\
+											(pixel >> 24) & 0xFF);
+											// calculs->nportals >= 1 ? 100 : 255);
+
+		SDL_RenderDrawPoint(win->rend, calculs->column, win->middle_print + haut + i);
+		//y_texture += 1 + (y_texture + 1 == wall->texture->h ? -wall->texture->h : 0);
+		// y_texture += dy_texture;
+	}
+	// n_texture_y = wall->sector->height / wall->texture->h;
+	// dy_texture = (n_texture_y * wall->texture->h + wall->sector->height % wall->texture->h) / (bas - haut);
+	// y_texture = 0;
+	// while (haut++ < bas)
+	// {
+	// 	if (y_texture >= wall->texture->h)
+	// 		y_texture -= wall->texture->h;
+	// 	// printf("Coord : %d\t%d\t%d\t%d\n", x_texture, y_texture, wall->texture->w, wall->texture->h);
+	// 	// pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + x_texture];
+	// 	pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + x_texture];
+	// 	SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
+	// 										(pixel >> 8) & 0xFF,\
+	// 										(pixel >> 0) & 0xFF,\
+	// 										(pixel >> 24) & 0xFF);
+	// 										// calculs->nportals >= 1 ? 100 : 255);
+
+	// 	SDL_RenderDrawPoint(win->rend, calculs->column, win->middle_print + haut);
+	// 	//y_texture += 1 + (y_texture + 1 == wall->texture->h ? -wall->texture->h : 0);
+	// 	y_texture += dy_texture;
+	// }
+}
+
+void	draw(t_win *win, t_map *map, t_player *player)
+{
+	raycasting(win, player);
+	fill_portals(win, player);
+
+	draw_map(win, map);
+	//draw_sprite(player, map);
+	
+	SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
+	draw_fps();
+}
+
+
+
+/*
+
+if (wall->p1.x == wall->p2.x)
 		x_texture = (int)prop(calculs->closest.y,\
 					(t_dot){wall->p1.y, wall->p2.y},\
 					(t_dot){0, wall->texture->w - 1});
@@ -185,16 +294,4 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 		SDL_RenderDrawPoint(win->rend, calculs->column, win->middle_print + haut);
 		y_texture += dy_texture;
 	}
-}
-
-void	draw(t_win *win, t_map *map, t_player *player)
-{
-	raycasting(win, player);
-	fill_portals(win, player);
-
-	draw_map(win, map);
-	//draw_sprite(player, map);
-	
-	SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
-	draw_fps();
-}
+*/

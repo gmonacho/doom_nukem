@@ -1,11 +1,11 @@
 Player
 {
-	posx = 650
-	posy = 400
+	posx = 260
+	posy = 180
 	width = 20
-	height = 50
+	height = 80
 	sector = 1
-	velocity = 1
+	velocity = 2
 }
 Object
 {
@@ -34,33 +34,33 @@ Object
 Sector
 {
 	name = jean-giordan
-	ceilHeight = 150
+	ceilHeight = 100
 	floorHeight = 0
 	line
 	{
-		dot = (1000, 400)
-		dot = (200, 200)
+		dot = (120, 120)
+		dot = (600, 240)
 		flags = PORTAL
-		id = 2
+		id = 1
 	}
 	line
 	{
-		dot = (200, 200)
-		dot = (600, 500)
+		dot = (600, 240)
+		dot = (660, 420)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (600, 500)
-		dot = (1100, 700)
+		dot = (660, 420)
+		dot = (360, 300)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (1100, 700)
-		dot = (1000, 400)
+		dot = (360, 300)
+		dot = (120, 120)
 		flags = WALL
 		id = 0
 	}
@@ -72,30 +72,30 @@ Sector
 	floorHeight = 0
 	line
 	{
-		dot = (1800, 400)
-		dot = (1600, 300)
+		dot = (840, 180)
+		dot = (1080, 240)
 		flags = WALL
 		id = 0
 	}
 	line
 	{
-		dot = (1600, 300)
-		dot = (1200, 500)
+		dot = (1080, 240)
+		dot = (900, 480)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (900, 480)
+		dot = (720, 300)
+		flags = WALL
+		id = 0
+	}
+	line
+	{
+		dot = (720, 300)
+		dot = (840, 180)
 		flags = PORTAL
-		id = 2
-	}
-	line
-	{
-		dot = (1200, 500)
-		dot = (1500, 800)
-		flags = WALL
-		id = 0
-	}
-	line
-	{
-		dot = (1500, 800)
-		dot = (1800, 400)
-		flags = WALL
-		id = 0
+		id = 1
 	}
 }
