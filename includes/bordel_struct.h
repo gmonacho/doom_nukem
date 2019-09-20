@@ -307,6 +307,7 @@ typedef struct s_timers
 	t_timer		animation_cd;
 	t_timer		shot_cd;
 	t_timer		animation_shot_cd;
+    t_timer     mouse;
 }				t_timers;
 
 /*

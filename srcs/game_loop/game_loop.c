@@ -3,14 +3,13 @@
 int		game_loop(t_win *win, t_map *map)
 {
 	SDL_Event	event;
-	SDL_bool    loop;
-	int 		i;
+	SDL_bool    loop;	
 
-	i = 0;
 	win->texHud = define_texHud(win);
 	main_inventory(win, &(map->player));
 	//init_cd(map);
 	printf("Debut game loop\n");
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 	loop = SDL_TRUE;
 	if (win)
 		while (loop)
@@ -23,7 +22,7 @@ int		game_loop(t_win *win, t_map *map)
 				loop = SDL_FALSE;
 
 			physics(win, map, &(map->player));
-			//entiteMove();
+			//entiteMove();a
 
 			draw(win, map, &(map->player));
 			//damage_heal(&(map->player), 1, 0, 0);
@@ -31,10 +30,10 @@ int		game_loop(t_win *win, t_map *map)
 			mouse_state(win, &(map->player), event);
 			keyboard_state(win, &(map->player));
             print_content_slot(win, &(map->player), win->texHud);
-			//main_animation(map, win, win->texHud);
 			event.type = SDL_FALSE;
 			SDL_RenderPresent(win->rend);
-			//printf("index = %d\n", map->player.timers.reload_cd.index);
+			SDL_GetRelativeMouseState(&(win->mouse->x), &(win->mouse->y));
+			//printf("xrel = %d \t | yrel = %d \n", event.motion.xrel, event.motion.yrel);
 		}
 	return (1);
 }

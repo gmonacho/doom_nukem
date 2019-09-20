@@ -22,8 +22,9 @@
 // static int	collisions(t_win *win, t_map *map, t_player *player, t_linedef *line)
 static int	collisions(t_win *win, t_map *map, t_player *player)
 {
-	t_calculs calculs;
+	t_calculs	calculs;
 	t_linedef	*collision;
+	t_fdot		newpos;
 
 	calculs.raycast = 0;
 	// printf("Vel = %f\t%f\n", player->vel.x, player->vel.y);
@@ -38,42 +39,45 @@ static int	collisions(t_win *win, t_map *map, t_player *player)
 	else if (calculs.ray.angle < 0)
 		calculs.ray.angle += _2_PI;
 
-	// if (player->vel.x)
-	// 	calculs.ray.angle = atan(fabs(player->vel.y / player->vel.x));
-	// else
-	// 	calculs.ray.angle = M_PI_2;
-	// if (player->vel.x)
-	// 	calculs.ray.angle = atan(fabs(player->vel.y / player->vel.x));
-	// else
-	// 	calculs.ray.angle = M_PI_2;
-	// // printf("Angle 1 : %f pi\n", calculs.ray.angle / M_PI);
-	// if (player->vel.x > 0)
+	newpos = (t_fdot){player->pos.x + player->vel.x,\
+						player->pos.y + player->vel.y};
+	int i = -1;
+	while (++i < 8)	//lance 8 rayons autour de la nouvelle pos du player
+	{
+		set_ray_equation(win, player, &(calculs.ray), newpos);
+		calculs.dist = 0;
+		collision = intersection_ray_wall(win, player, &newpos, player->sector, &calculs);
+		// if (!collision)
+		// printf("Angle 2 : %f pi\ta = %f\tb = %f\t%f\n", calculs.ray.angle / M_PI, calculs.ray.a, calculs.ray.b, player->width_2);
+		// 	printf("WTTFFF ??? WALL NULL collision : %p\n", collision);
+		if (calculs.dist < player->width_2 && collision)
+			return (actions(win, map, collision, calculs.dist));
+		calculs.ray.angle += _PI_4;
+		if (calculs.ray.angle >= _2_PI)
+			calculs.ray.angle -= _2_PI;
+	}
+	return (0);
+
+
+	// calculs.dist = 0;
+	// set_ray_equation(win, player, &(calculs.ray), player->pos);
+	// printf("Angle 2 : %f pi\ta = %f\tb = %f\t%d\t%f\n", calculs.ray.angle / M_PI, calculs.ray.a, calculs.ray.b, -1, player->width_2);
+	// calculs.ray.b += player->width_2;
+	// int i = -1;
+	// while (++i < 3)	//lance 3 rayons
 	// {
-	// 	if (player->vel.y > 0)
-	// 		calculs.ray.angle = calculs.ray.angle;
-	// 	else
-	// 		calculs.ray.angle = _2_PI - calculs.ray.angle;
+	// 	calculs.ray.b -= i * player->width_2;
+	// 	collision = intersection_ray_wall(win, player, &player->pos, player->sector, &calculs);
+	// 	if (!collision)
+	// 	printf("Angle 2 : %f pi\ta = %f\tb = %f\t%d\t%f\n", calculs.ray.angle / M_PI, calculs.ray.a, calculs.ray.b, i, player->width_2);
+	// 		printf("WTTFFF ??? WALL NULL collision : %p\n", collision);
+
+	// 	// printf("Dist wall : %f\t%p\n", calculs.dist, collision);
+	// 	if (calculs.dist < (i == 1 ? player->width_2 : 3 * map->player.const_vel) && collision)
+	// 		return (actions(win, map, collision, calculs.dist));
 	// }
-	// else
-	// {
-	// 	if (player->vel.y > 0)
-	// 		calculs.ray.angle = M_PI - calculs.ray.angle;
-	// 	else
-	// 		calculs.ray.angle = M_PI + calculs.ray.angle;
-	// }
-
-
-	set_ray_equation(win, player, &(calculs.ray), player->pos);
-	calculs.dist = 0;
-	collision = intersection_ray_wall(win, player, &player->pos, player->sector, &calculs);
-	if (!collision)
-		printf("WTTFFF ??? WALL NULL collision : %p\n", collision);
-
-	// printf("Dist wall : %f\t%p\n", calculs.dist, collision);
-	// printf("Angle 2 : %f pi\ta = %f\tb = %f\n", calculs.ray.angle / M_PI, calculs.ray.a, calculs.ray.b);
-	if (calculs.dist < player->width_2 && collision)
-		return (actions(win, map, collision, calculs.dist));
-	// printf("\n\n");
+	// calculs.ray.b += player->width_2;
+	// // printf("\n\n");
 	return (0);
 }
 

@@ -1,26 +1,60 @@
 #include "doom_nukem.h"
 
-/*static void	mouse_move(t_player *player)
-{
-	static t_dot	lastpos = (t_dot){-100, -100};
-	t_dot			newpos;
 
-	SDL_GetMouseState(&newpos.x, &newpos.y);
-	if (!(lastpos.x == -100 && lastpos.y == -100))
-	{
-		if (newpos.x != lastpos.x)
-		{
-			player->dir += (newpos.x - lastpos.x) / (double)400;
-			//printf("Dir : %f\n", player->dir);
-		}
-		if (newpos.y != lastpos.y)
-		{
-			//printf("dy\n");
-			player->orientation -= (newpos.y - lastpos.y) / (double)10;
-		}
-	}
-	lastpos = (t_dot){newpos.x, newpos.y};
-}*/
+// static void	mouse_move(t_win *win ,t_player *player, int vx, int vy)
+// {
+// 	if (vx > 0)
+// 		player->dir += (double)vx / 800 + ((player->dir + (double)vx / 800 > 2 * M_PI) ? -2 * M_PI : 0);
+// 	if (vx < 0)
+// 		player->dir += (double)vx / 800 + ((player->dir - (double)vx / 800 < 0) ? 2 * M_PI : 0);
+
+// 	if (vy > 0 && player->orientation > 15)
+// 		player->orientation -= 10 * (double)vy / 10;
+// 	if (vy < 0 && player->orientation < win->h - 15)
+// 		player->orientation -= 10 * (double)vy / 10;
+// }
+// static void	mouse_move(t_win *win ,t_player *player)
+// {
+// 	static t_dot	lastpos = (t_dot){-100, -100};
+// 	t_dot			newpos;
+// 	// float x;
+// 	// float y;
+
+// 	SDL_GetMouseState(&newpos.x, &newpos.y);
+// 	printf("x = %d | y = %d\n", newpos.x , newpos.y);
+// 	// x = (newpos.x - lastpos.x) / 1000;
+// 	// y = (newpos.y - lastpos.y) / 1000;
+// 	if (!(lastpos.x == -100 && lastpos.y == -100))
+// 	{
+// 		if (newpos.x > lastpos.x)
+// 			player->dir += 0.1 + ((player->dir + 0.1 > 2 * M_PI) ? -2 * M_PI : 0);
+// 		else if (newpos.x < lastpos.x)
+// 			player->dir -= 0.1 + ((player->dir - 0.1 < 0) ? 2 * M_PI : 0);
+
+// 		if (newpos.y > lastpos.y)
+// 			player->orientation -= 15;
+// 		else if (newpos.y < lastpos.y && player->orientation < win->h)
+// 			player->orientation += 15;
+
+// 		// printf("orientation = %f\n", player->orientation);
+// 		// printf("x = %f | y = %f\n", x ,y);
+// 	}
+// 	lastpos = (t_dot){newpos.x, newpos.y};
+// }
+
+static void	mouse_move(t_win *win ,t_player *player)
+{	
+
+	if (win->mouse->x > 0)
+		player->dir += 0.1 + ((player->dir + 0.1 > 2 * M_PI) ? -2 * M_PI : 0);
+	if (win->mouse->x < 0)
+		player->dir -= 0.1 + ((player->dir - 0.1 < 0) ? 2 * M_PI : 0);
+
+	if (win->mouse->y > 0 && player->orientation > 15)
+		player->orientation -= 15;
+	if (win->mouse->y < 0 && player->orientation < win->h - 15)
+		player->orientation += 15;
+}
 
 static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 {
@@ -73,10 +107,8 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 {	
 	char        *tmp;
     SDL_Texture *text;
-	int flag;
 
 	tmp = NULL;
-	flag = 0;
 	if (state[SDL_SCANCODE_R])
 	{	
 		if (player->inventory->magazine <= 0)
@@ -112,6 +144,17 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
     char            *tmp;
 
 	tmp = ft_strdup("EMPTY AMMO PRESS 'R' ");
+	if (event.motion.xrel || event.motion.yrel)
+	{
+		mouse_move(win, player);
+		player->timers.mouse.index = 1;
+	}
+	if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+		{
+			SDL_GetWindowSize(win->ptr, &win->w, &win->h);
+			update_ui_rect(win);
+			define_line_shot(win, player);
+		}
 	if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT))
 	{	
 		if (player->inventory->ammo == 0)
@@ -130,12 +173,6 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
 		player->inventory->selected_slot += 1;
 	if (event.type == SDL_MOUSEWHEEL && event.wheel.y < 0 && player->inventory->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
 		player->inventory->selected_slot -= 1;
-	if (event.window.event == SDL_WINDOWEVENT_RESIZED)
-		{
-			SDL_GetWindowSize(win->ptr, &win->w, &win->h);
-			update_ui_rect(win);
-			define_line_shot(win, player);
-		}
 	free(tmp);
 }
 

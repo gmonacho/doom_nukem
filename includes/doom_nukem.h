@@ -7,12 +7,12 @@
 # include <string.h>
 # include <fcntl.h>
 # include <math.h>
-# include <stdio.h>//////////////////////////////////////////////////////////////
+# include <stdio.h>
 
 # include "SDL.h"
 # include "SDL_ttf.h"
 # include "SDL_image.h"
-// # include "SDL_mixer.h"
+//# include "SDL_mixer.h"
 # include "libft.h"
 
 # define MAX_SECTORS		25
@@ -23,8 +23,9 @@
 # define ID_SIZE            20
 # define ANG_HOR_VER        5
 
-# define _2_PI			    6.28318530718
+# define _PI_4				0.78539816339
 # define _3_PI_2		    4.71238898038
+# define _2_PI			    6.28318530718
 
 # include "bordel_struct.h"
 # include "bordel_proto.h"
