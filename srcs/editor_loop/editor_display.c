@@ -71,7 +71,7 @@ static void			display_linedefs(t_win *win, const t_map_editor *map, t_sector *s)
 	t_linedef	l_tmp;
 	int			color_shift;
 
-	color_shift = (s != map->selected_sector) ? 50 : 0;
+	color_shift = (s != map->selected_sector) ? 80 : 0;
 	l = s->lines;
 	while (l)
 	{
