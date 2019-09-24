@@ -190,5 +190,4 @@ void			editor_display(t_win *win, t_map_editor *map)
 	SDL_SetRenderDrawColor(win->rend, 150, 150, 150, 200);
 	if (map->flags & MAP_SELECTING)
 		draw_rect(win, map->rect_util);
-	// draw_fps();
 }

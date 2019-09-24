@@ -80,7 +80,7 @@ static int	main_menu_event(t_win *win, int *loop)
 static int	main_menu_init(t_win *win)
 {
 	//	menu frame
-	add_frame_to_window(win, new_frame((t_frect){0.2, 0.2, 0.6, 0.6}, NULL, FRAME_NONE, NULL));
+	add_frame_to_window(win, new_frame((t_frect){0, 0, 1, 1}, NULL, FRAME_NONE, NULL));
 	//		game_loop_button
 	add_button_to_frame(&win->frames, new_button((t_frect){0.3, 0.4, 0.15, 0.1}, NULL, BUTTON_GAMELOOP));
 	//		editor_loop_button

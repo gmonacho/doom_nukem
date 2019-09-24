@@ -180,11 +180,11 @@ void	init_player(t_win *win, t_player *player)
 int		init_textures(t_textures *textures)
 {
 	if (!(textures->elephantride = IMG_Load("textures/walls/elephantride.png")) ||
-		!(textures->tortue = IMG_Load("textures/walls/tortue.png")))
-		// !(textures->tortue = IMG_Load("textures/walls/google.png")))
+		!(textures->tortue = IMG_Load("textures/walls/randomPNG/YellowSandStone.png")))
 	{
 		ft_putendl(SDL_GetError());
 		return (1);
 	}
+	printf("chat ptr = %p, w = %d, h = %d\n", textures->tortue, textures->tortue->w, textures->tortue->w);
 	return (0);
 }
