@@ -23,12 +23,14 @@ static int		init(t_win *win, t_map *map, t_player *player)
 
 int			main(int argc, char **argv)
 {
-	int		fd;
-	int		fd1;
-	int		next_loop;
-	int		ret;
-	t_win	win;
-	t_map	map;
+	int			fd;
+	int			fd1;
+	int			next_loop;
+	int			ret;
+	t_win		win;
+	t_map		map;
+	SDL_bool	loop;
+	SDL_Event	event;
 
 	if (argc == 1 || argc == 2)
 	{
@@ -43,18 +45,24 @@ int			main(int argc, char **argv)
 		win.h = 800;
 		if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 100, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 			return (0);
+		loop = SDL_TRUE;
 		if (argc == 1)
 			editor_loop(&win, NULL);
-		else
+		while (loop)
 		{
 			if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||
 			((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 				return (ret_error("open error"));
+			SDL_PollEvent(&event);
+			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+				loop = SDL_FALSE;
 			map.sectors = ft_data_storing(fd, fd1, &map, &(map.player));
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));
 			next_loop = main_menu(&win);
-			if (next_loop == 2)
+			if (next_loop == 1)
+				loop = SDL_FALSE;
+			else if (next_loop == 2)
 				game_loop(&win, &map);
 			else if (next_loop == 3)
 				editor_loop(&win, &map);
