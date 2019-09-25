@@ -171,7 +171,7 @@ void	init_player(t_win *win, t_player *player)
 	start_cooldown(&(player->timers.shot_cd), 50);
 	start_cooldown(&(player->timers.animation_shot_cd), 10);
     start_cooldown(&(player->timers.mouse), 10);
-    player->timers.reload_cd.index = 4;
+    player->timers.reload_cd.index = 5;
     player->timers.bullet_cd.index = 5;
     player->timers.bullet_cd.index = 0;
 	define_line_shot(win, player);

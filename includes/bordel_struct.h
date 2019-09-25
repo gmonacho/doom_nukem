@@ -136,6 +136,13 @@ typedef enum	e_button_state
 	BUTTON_STATE_CLICKED = 2
 }				t_button_state;
 
+typedef enum	e_menu_button
+{
+	BUTTON_MENU_NONE = 0,
+	BUTTON_MENU_CREDIT = 1,
+	BUTTON_MENU_QUIT = 2
+
+}				t_menu_button;
 
 typedef enum	e_button
 {

@@ -9,7 +9,7 @@ static int		ui_texture_init(t_win *win)
 
 	if (!(win->font.digital = TTF_OpenFont("font/font.ttf", 18)))
 		return (0);
-	if (!(win->font.ui = TTF_OpenFont("font/BebasNeue-Regular.ttf", 25)))
+	if (!(win->font.ui = TTF_OpenFont("TTF/DooM.ttf", 25)))
 		return (0);
 	if (!(win->sectors_texture = (SDL_Texture**)ft_memalloc(sizeof(SDL_Texture*) * (MAX_SECTORS + 1))))
 		return (0);

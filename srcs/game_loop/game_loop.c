@@ -10,6 +10,7 @@ int		game_loop(t_win *win, t_map *map)
 	//init_cd(map);
 	printf("Debut game loop\n");
 	SDL_SetRelativeMouseMode(SDL_TRUE);
+	define_line_shot(win, &(map->player));
 	loop = SDL_TRUE;
 	if (win)
 		while (loop)
