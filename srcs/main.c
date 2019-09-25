@@ -53,6 +53,8 @@ int			main(int argc, char **argv)
 				game_loop(&win, &map);
 			else if (next_loop == 3)
 				editor_loop(&win, &map);
+			else if (next_loop == 5)
+				print_credit(&win);
 		}
 		SDL_DestroyWindow(win.ptr);
 		SDL_DestroyRenderer(win.rend);

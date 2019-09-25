@@ -44,6 +44,10 @@ static int	main_menu_click(t_win *win)
 			return (2);
 		else if (win->selected_button->flags & BUTTON_EDITORLOOP)
 			return (3);
+		else if (win->selected_button->flags & BUTTON_MENU_QUIT)
+			return (4);
+		else if(win->selected_button->flags & BUTTON_MENU_CREDIT)
+			return (5);
 	}
 	return (1);
 }
@@ -51,6 +55,7 @@ static int	main_menu_click(t_win *win)
 static int	main_menu_event(t_win *win, int *loop)
 {
 	SDL_Event	event;
+	
 
 	if (win)
 	{
@@ -76,28 +81,42 @@ static int	main_menu_event(t_win *win, int *loop)
 	return (1);
 }
 
-
 static int	main_menu_init(t_win *win)
-{
+{	
+	SDL_Texture *text[4];
+	TTF_Font	*police;
+
+	police = TTF_OpenFont("TTF/DooM.ttf", 65);
+	text[0] = generate_text(win->rend, police, "Play", (SDL_Color){255, 0, 0, 50});
+	text[1] = generate_text(win->rend, police, "Map Editor", (SDL_Color){255, 0, 0, 50});
+	text[2] = generate_text(win->rend, police, "Credits", (SDL_Color){255, 0, 0, 50});
+	text[3] = generate_text(win->rend, police, "Quit", (SDL_Color){255, 0, 0, 50});
 	//	menu frame
-	add_frame_to_window(win, new_frame((t_frect){0.2, 0.2, 0.6, 0.6}, NULL, FRAME_NONE, NULL));
-	//		game_loop_button
-	add_button_to_frame(&win->frames, new_button((t_frect){0.3, 0.4, 0.15, 0.1}, NULL, BUTTON_GAMELOOP));
-	//		editor_loop_button
-	add_button_to_frame(&win->frames, new_button((t_frect){0.55, 0.4, 0.15, 0.1}, NULL, BUTTON_EDITORLOOP));
+	add_frame_to_window(win, new_frame((t_frect){-0.01, -0.01, 1.01, 1.01}, NULL, FRAME_NONE, NULL));
+	//	game_loop_button
+	add_button_to_frame(&win->frames, new_button((t_frect){0.35, 0.5, 0.3, 0.08}, text[0], BUTTON_GAMELOOP));
+	//	editor_loop_button
+	add_button_to_frame(&win->frames, new_button((t_frect){0.35, 0.6, 0.3, 0.08}, text[1], BUTTON_EDITORLOOP));
+	//	credit menu button
+	add_button_to_frame(&win->frames, new_button((t_frect){0.35, 0.7, 0.3, 0.08}, text[2], BUTTON_MENU_CREDIT));
+	// quit menu button
+	add_button_to_frame(&win->frames, new_button((t_frect){0.35, 0.8, 0.3, 0.08}, text[3], BUTTON_MENU_QUIT));
 	return (1);
 }
 
 int			main_menu(t_win *win)
 {
-	int		loop;
-	int		next_loop;
+	int			loop;
+	int			next_loop;
+	SDL_Texture	*background;
 
+	background = load_texture(win->rend, "textures/imageMenu.png");
 	main_menu_init(win);
 	loop = SDL_TRUE;
 	while (loop)
 	{
 		clear_rend(win->rend, 30, 30, 30);
+		SDL_RenderCopy(win->rend, background, NULL, &(SDL_Rect){(0), (0.25 * win->h), (win->w), (0.5 * win->h)});
 		main_menu_display(win);
 		next_loop = main_menu_event(win, &loop);
 		if (next_loop > 1)
