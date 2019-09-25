@@ -87,6 +87,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	SDL_Event		event;
 	t_linedef		*tmp;
 	t_dot			dot;
+
 	//char			*str;
 	t_text_entry	*data;
 	int				int_result;
@@ -96,6 +97,22 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 	tmp = NULL;
 	SDL_PollEvent(&event);
 	mouse_refresh();
+	if (!(map->flags & MAP_TEXT_EDITING))
+	{
+		if (key_pressed(SDL_SCANCODE_DELETE))
+		{
+			if (map->selected_sector)
+				delete_linedef(&map->selected_sector->lines, LINEDEF_SELECTED);
+		}
+		if (key_pressed(SDL_SCANCODE_W))
+			map->y += 2;
+		if (key_pressed(SDL_SCANCODE_S))
+			map->y -= 2;
+		if (key_pressed(SDL_SCANCODE_A))
+			map->x += 2;
+		if (key_pressed(SDL_SCANCODE_D))
+			map->x -= 2;
+	}
 	if (event.type == SDL_QUIT)
 		*loop = SDL_FALSE;
 	else if (event.type == SDL_MOUSEMOTION && !(map->flags & MAP_TEXT_EDITING))
@@ -110,7 +127,7 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		else
 			update_selected_ui(win);
 		dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
-		fill_abscissa_ordinate(map, dot);
+		fill_abscissa_ordinate(map, dot, 3);
 	}
 	else if(event.type == SDL_MOUSEWHEEL)
 	{
@@ -174,7 +191,8 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 			resolve_ui_left_press(win, map);
 		else
 		{
-			dot = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
+			dot.y = (map->ordinate_b) ? map->ordinate.p1.y : (win->mouse->y - map->y) / map->unit;
+			dot.x = (map->abscissa_b) ? map->abscissa.p1.x : (win->mouse->x - map->x) / map->unit;
 			if (is_next_point(dot, map->player.dpos, map->player.width))
 				map->flags |= MAP_MOVING_PLAYER;
 			else
@@ -236,7 +254,10 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		{
 			if (map->selected_sector)
 			{
-				map->selected_sector->lines->p2 = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
+				dot.y = (map->ordinate_b && !key_pressed(SC_DRAW_FREE)) ? map->ordinate.p1.y : (win->mouse->y - map->y) / map->unit;
+				dot.x = (map->abscissa_b && !key_pressed(SC_DRAW_FREE)) ? map->abscissa.p1.x : (win->mouse->x - map->x) / map->unit;
+				map->selected_sector->lines->p2 = dot;
+				// map->selected_sector->lines->p2 = (t_dot){(win->mouse->x - map->x) / map->unit, (win->mouse->y - map->y) / map->unit};
 				if (!key_pressed(SC_DRAW_FREE))
 				{
 					if(!is_next_to_linedef(map, &map->selected_sector->lines->p2, NEXT_FACTOR))
@@ -265,22 +286,6 @@ int				editor_event(t_win *win, t_map_editor *map, SDL_bool *loop)
 		map->x += dot.x;
 		map->y += dot.y;
 		mouse_drag(win->mouse->x, win->mouse->y, SDL_FALSE);
-	}
-	if (!(map->flags & MAP_TEXT_EDITING))
-	{
-		if (key_pressed(SDL_SCANCODE_DELETE))
-		{
-			if (map->selected_sector)
-				delete_linedef(&map->selected_sector->lines, LINEDEF_SELECTED);
-		}
-		if (key_pressed(SDL_SCANCODE_W))
-			map->y += 2;
-		if (key_pressed(SDL_SCANCODE_S))
-			map->y -= 2;
-		if (key_pressed(SDL_SCANCODE_A))
-			map->x += 2;
-		if (key_pressed(SDL_SCANCODE_D))
-			map->x -= 2;
 	}
 	return (1);
 }

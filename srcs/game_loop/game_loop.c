@@ -17,11 +17,9 @@ int		game_loop(t_win *win, t_map *map)
 		{
 			reload_cd(map);
 			clear_rend(win->rend, 0x40, 0x40, 0x40);
-			SDL_PumpEvents();
 			SDL_PollEvent(&event);
-			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				loop = SDL_FALSE;
-
 			physics(win, map, &(map->player));
 			//entiteMove();a
 

@@ -546,6 +546,8 @@ typedef struct	s_map_editor
 	t_player	player;
 	t_line		ordinate;
 	t_line		abscissa;
+	SDL_bool	abscissa_b;
+	SDL_bool	ordinate_b;
 }				t_map_editor;
 
 /*

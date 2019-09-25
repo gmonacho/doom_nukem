@@ -34,6 +34,11 @@ int			main(int argc, char **argv)
 	{
 		if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
 			return (ret_error(SDL_GetError()));
+		if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
+			return (ret_error(SDL_GetError()));
+		// if ((Mix_Init(MIX_INIT_MP3) & MIX_INIT_MP3) != MIX_INIT_MP3) // !! MARCHE PAS !!
+		// 	return (ret_error(SDL_GetError()));
+		Mix_Init(MIX_INIT_MP3);
 		win.w = 1000;
 		win.h = 800;
 		if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 100, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))

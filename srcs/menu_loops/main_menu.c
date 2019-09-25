@@ -62,8 +62,11 @@ static int	main_menu_event(t_win *win, int *loop)
 		while (SDL_PollEvent(&event))
 		{
 			mouse_refresh();
-			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+			{
 				*loop = SDL_FALSE;
+				printf("QUIT\n");
+			}
 			else if (event.type == SDL_MOUSEMOTION)
 				update_selected_ui(win);
 			else if(event.type == SDL_WINDOWEVENT)
@@ -92,6 +95,7 @@ static int	main_menu_init(t_win *win)
 	text[2] = generate_text(win->rend, police, "Credits", (SDL_Color){255, 0, 0, 50});
 	text[3] = generate_text(win->rend, police, "Quit", (SDL_Color){255, 0, 0, 50});
 	//	menu frame
+<<<<<<< HEAD
 	add_frame_to_window(win, new_frame((t_frect){-0.01, -0.01, 1.01, 1.01}, NULL, FRAME_NONE, NULL));
 	//	game_loop_button
 	add_button_to_frame(&win->frames, new_button((t_frect){0.35, 0.5, 0.3, 0.08}, text[0], BUTTON_GAMELOOP));
@@ -101,6 +105,13 @@ static int	main_menu_init(t_win *win)
 	add_button_to_frame(&win->frames, new_button((t_frect){0.35, 0.7, 0.3, 0.08}, text[2], BUTTON_MENU_CREDIT));
 	// quit menu button
 	add_button_to_frame(&win->frames, new_button((t_frect){0.35, 0.8, 0.3, 0.08}, text[3], BUTTON_MENU_QUIT));
+=======
+	add_frame_to_window(win, new_frame((t_frect){0, 0, 1, 1}, NULL, FRAME_NONE, NULL));
+	//		game_loop_button
+	add_button_to_frame(&win->frames, new_button((t_frect){0.3, 0.4, 0.15, 0.1}, NULL, BUTTON_GAMELOOP));
+	//		editor_loop_button
+	add_button_to_frame(&win->frames, new_button((t_frect){0.55, 0.4, 0.15, 0.1}, NULL, BUTTON_EDITORLOOP));
+>>>>>>> 42dc125c1d965efbf5d7bfb235076d9c8b6dce6f
 	return (1);
 }
 

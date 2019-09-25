@@ -259,7 +259,7 @@ int				editor_loop(t_win *win, t_map *game_map)
 	loop = SDL_TRUE;
 	while (loop)
 	{
-		clear_rend(win->rend, 30, 30, 30);
+		clear_rend(win->rend, 30, 30, 35);
 		editor_display(win, &map);
 		editor_event(win, &map, &loop);
 		SDL_RenderPresent(win->rend);

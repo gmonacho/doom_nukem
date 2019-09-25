@@ -71,7 +71,7 @@ static void			display_linedefs(t_win *win, const t_map_editor *map, t_sector *s)
 	t_linedef	l_tmp;
 	int			color_shift;
 
-	color_shift = (s != map->selected_sector) ? 50 : 0;
+	color_shift = (s != map->selected_sector) ? 80 : 0;
 	l = s->lines;
 	while (l)
 	{
@@ -190,5 +190,4 @@ void			editor_display(t_win *win, t_map_editor *map)
 	SDL_SetRenderDrawColor(win->rend, 150, 150, 150, 200);
 	if (map->flags & MAP_SELECTING)
 		draw_rect(win, map->rect_util);
-	// draw_fps();
 }
