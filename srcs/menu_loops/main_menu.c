@@ -57,8 +57,11 @@ static int	main_menu_event(t_win *win, int *loop)
 		while (SDL_PollEvent(&event))
 		{
 			mouse_refresh();
-			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+			{
 				*loop = SDL_FALSE;
+				printf("QUIT\n");
+			}
 			else if (event.type == SDL_MOUSEMOTION)
 				update_selected_ui(win);
 			else if(event.type == SDL_WINDOWEVENT)
