@@ -119,7 +119,7 @@ int			main_menu(t_win *win)
 	while (loop)
 	{
 		clear_rend(win->rend, 30, 30, 30);
-		SDL_RenderCopy(win->rend, background, NULL, &(SDL_Rect){(0), (0.25 * win->h), (win->w), (0.5 * win->h)});
+		SDL_RenderCopy(win->rend, background, NULL, &(SDL_Rect){(0), (0.15 * win->h), (win->w), (0.7 * win->h)});
 		main_menu_display(win);
 		next_loop = main_menu_event(win, &loop);
 		if (next_loop > 1)
