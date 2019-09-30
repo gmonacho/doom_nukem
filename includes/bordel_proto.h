@@ -285,12 +285,8 @@ SDL_bool 		is_next_point(t_dot dot, t_dot other, int distance);
 */
 
 int			main_menu(t_win *win);
-
-/*
-** ================================== main_menu ===================================
-*/
-
 void        print_credit(t_win *win);
+//static int	main_menu_event(t_win *win, int *loop);
 
 /*
 ** =================================================================================

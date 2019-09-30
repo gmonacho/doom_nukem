@@ -48,6 +48,8 @@ static int	main_menu_click(t_win *win)
 			return (4);
 		else if(win->selected_button->flags & BUTTON_MENU_CREDIT)
 			return (5);
+		else if(win->selected_button->flags & BUTTON_CREDIT_RETURN)
+			return (6);
 	}
 	return (1);
 }
@@ -62,11 +64,8 @@ static int	main_menu_event(t_win *win, int *loop)
 		while (SDL_PollEvent(&event))
 		{
 			mouse_refresh();
-			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-			{
+			if (event.type == SDL_QUIT || event.key.keysym.scancode  == SDL_SCANCODE_ESCAPE)
 				*loop = SDL_FALSE;
-				printf("QUIT\n");
-			}
 			else if (event.type == SDL_MOUSEMOTION)
 				update_selected_ui(win);
 			else if(event.type == SDL_WINDOWEVENT)
@@ -127,5 +126,5 @@ int			main_menu(t_win *win)
 		SDL_RenderPresent(win->rend);
 	}
 	main_menu_quit(win);
-	return (next_loop);
+	return (next_loop);                      
 }

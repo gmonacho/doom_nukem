@@ -224,6 +224,13 @@ static int		editor_init(t_win *win, t_map_editor *map)
 	return (1);
 }
 
+int				editor_quit(t_win *win, t_map_editor *map)
+{
+	free_frames(&win->frames);
+	free_sectors(&map->sectors);
+	return (1);
+}
+
 int				editor_loop(t_win *win, t_map *game_map)
 {
 	SDL_bool			loop;
@@ -264,5 +271,6 @@ int				editor_loop(t_win *win, t_map *game_map)
 		editor_event(win, &map, &loop);
 		SDL_RenderPresent(win->rend);
 	}
+	editor_quit(win, &map);
 	return (1);
 }

@@ -1,5 +1,19 @@
 #include "doom_nukem.h"
 
+// static int      credit_menu_init(t_win *win)
+// {
+//     TTF_Font    *police;
+//     SDL_Texture *text;
+
+//     police = TTF_OpenFont("TTF/DooM.ttf", 65);
+//     text = generate_text(win->rend, police, "Return", (SDL_Color){255, 0, 0, 50});
+//     //menu_frame
+//     add_frame_to_window(win, new_frame((t_frect){-0.01, -0.01, 1.01, 1.01}, NULL, FRAME_NONE, NULL));
+//     //return menu button
+//     add_frame_to_window(win, new_button((t_frect){0.35, 0.8, 0.3, 0.08}, text, BUTTON_CREDIT_RETURN)); 
+//     return (1);
+// }
+
 SDL_Texture    *define_credit(t_win *win)
 {
     SDL_Texture *text;

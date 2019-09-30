@@ -140,7 +140,8 @@ typedef enum	e_menu_button
 {
 	BUTTON_MENU_NONE = 0,
 	BUTTON_MENU_CREDIT = 1,
-	BUTTON_MENU_QUIT = 2
+	BUTTON_MENU_QUIT = 2,
+	BUTTON_CREDIT_RETURN = 4
 
 }				t_menu_button;
 
@@ -161,7 +162,8 @@ typedef enum	e_button
 	BUTTON_MAP_EXPORT = 2048,
 	BUTTON_SECTOR_INPUT = 4096,
 	BUTTON_LINEDEF_SIDE = 8192,
-	BUTTON_ADD_SECTOR = 16384
+	BUTTON_ADD_SECTOR = 16384,
+	BUTTON_LOAD_TEXTURE = 32768
 }				t_button_f;
 
 typedef struct		s_simple_button
@@ -214,7 +216,8 @@ enum	e_frame
 	FRAME_L_TYPE = 16,
 	FRAME_MAP = 32,
 	FRAME_PLAYER = 64,
-	FRAME_PORTAL = 128
+	FRAME_PORTAL = 128,
+	FRAME_TEXTURE = 256
 };
 
 typedef struct		s_frame

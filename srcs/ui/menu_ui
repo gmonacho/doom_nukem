@@ -235,3 +235,19 @@ frame // map
         }
     }
 }
+frame // texture
+{
+    ratio : 0.05 0.04 0.9 0.045
+    flags : 256
+	button
+    {
+        ratio : 0.96 0.0 0.04 1.0
+        text : load
+        flags : 33280
+        gflags : 0
+        data :
+        {
+            name : load
+        }
+    }
+}
