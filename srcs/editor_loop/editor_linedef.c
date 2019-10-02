@@ -58,7 +58,7 @@ SDL_bool 		is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius)
 	return (is_next);
 }
 
-void	fill_abscissa_ordinate(t_map_editor *map, t_dot mouse)
+void	fill_abscissa_ordinate(t_map_editor *map, t_dot mouse, int gap)
 {
 	t_sector	*s;
 	t_linedef	*l;
@@ -73,30 +73,32 @@ void	fill_abscissa_ordinate(t_map_editor *map, t_dot mouse)
 		l = s->lines;
 		while (l)
 		{
-			if (mouse.x == l->p1.x)
+			if (mouse.x > l->p1.x - gap / map->unit && mouse.x < l->p1.x + gap / map->unit)
 			{
-				map->abscissa = (t_line){mouse, l->p1};
+				map->abscissa = (t_line){(t_dot){l->p1.x, mouse.y}, l->p1};
 				a_filled = SDL_TRUE;
 			}
-			if ( mouse.y == l->p1.y)
+			if (mouse.y > l->p1.y - gap / map->unit && mouse.y < l->p1.y + gap / map->unit)
 			{
-				map->ordinate = (t_line){mouse, l->p1};
+				map->ordinate = (t_line){(t_dot){mouse.x, l->p1.y}, l->p1};
 				o_filled = SDL_TRUE;
 			}
-			if (mouse.x == l->p2.x)
+			if (mouse.x > l->p2.x - gap / map->unit && mouse.x < l->p2.x + gap / map->unit)
 			{
-				map->abscissa = (t_line){mouse, l->p2};
+				map->abscissa = (t_line){(t_dot){l->p2.x, mouse.y}, l->p2};
 				a_filled = SDL_TRUE;
 			}
-			if (mouse.y == l->p2.y)
+			if (mouse.y > l->p2.y - gap / map->unit && mouse.y < l->p2.y + gap / map->unit)
 			{
-				map->ordinate = (t_line){mouse, l->p2};
+				map->ordinate = (t_line){(t_dot){mouse.x, l->p2.y}, l->p2};
 				o_filled = SDL_TRUE;
 			}
 			l = l->next;
 		}
 		s = s->next;
 	}
+	map->abscissa_b = a_filled;
+	map->ordinate_b = o_filled;
 	if (!a_filled)
 		map->abscissa = (t_line){(t_dot){0, 0}, (t_dot){0, 0}};
 	if (!o_filled)

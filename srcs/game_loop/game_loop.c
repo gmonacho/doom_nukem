@@ -10,17 +10,16 @@ int		game_loop(t_win *win, t_map *map)
 	//init_cd(map);
 	printf("Debut game loop\n");
 	SDL_SetRelativeMouseMode(SDL_TRUE);
+	define_line_shot(win, &(map->player));
 	loop = SDL_TRUE;
 	if (win)
 		while (loop)
 		{
 			reload_cd(map);
 			clear_rend(win->rend, 0x40, 0x40, 0x40);
-			SDL_PumpEvents();
 			SDL_PollEvent(&event);
-			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				loop = SDL_FALSE;
-
 			physics(win, map, &(map->player));
 			//entiteMove();
 

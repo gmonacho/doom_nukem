@@ -33,7 +33,7 @@ OBJS_PATH = ./objs
 OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
 
 FW_PATH = ./frameworks
-LIBSDL2 = -framework SDL2 -F $(FW_PATH) -framework SDL2_image -framework SDL2_ttf -rpath $(FW_PATH)
+LIBSDL2 = -framework SDL2 -F $(FW_PATH) -framework SDL2_image -framework SDL2_ttf -framework SDL2_mixer -rpath $(FW_PATH)
 LIBFT = libft
 LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
 
@@ -42,9 +42,11 @@ CC = gcc
 # CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address   -I$(INCLUDE_PATH)
 CFLAGS += -Wall -Wextra -Werror -g   -I$(INCLUDE_PATH)\
                                                         -I$(LIBFT)/includes/\
+														-I./$(LIBSDLMIXER)/\
                                                         -I$(FW_PATH)/SDL2_image.framework/Headers/\
                                                         -I$(FW_PATH)/SDL2_ttf.framework/Headers/\
-                                                        -I$(FW_PATH)/SDL2.framework/Headers/
+                                                        -I$(FW_PATH)/SDL2.framework/Headers/\
+                                                        -I$(FW_PATH)/SDL2_mixer.framework/Headers/
 
 #Enlever le flag -fsanitize=address
 

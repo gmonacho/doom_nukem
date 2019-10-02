@@ -191,13 +191,14 @@ void			print_column(t_win *win, t_linedef *wall, t_player *player, t_calculs *ca
 	// printf("Height : %d\n", wall->sector->height);
 	// printf("\nDy : %f\n", dy_texture);
 	i = -1;
+	// printf("wall->texture ptr = %p\n", wall->texture);
 	while (++i < n_pixels)
 	{
 		y_texture = (int)(i * dy_texture) % (int)(wall->texture->h / ratio);
 		// printf("Coord : %d\t%d\n", x_texture, y_texture);
 		// printf("Coord : %d\t%f\t%d\t%d\n", x_texture, y_texture, wall->texture->w, wall->texture->h);
 		// pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + x_texture];
-		pixel = ((Uint32*)wall->texture->pixels)[(int)y_texture * wall->texture->w + (int)x_texture];
+		pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + (int)x_texture];
 		SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
 											(pixel >> 8) & 0xFF,\
 											(pixel >> 0) & 0xFF,\
