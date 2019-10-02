@@ -56,6 +56,24 @@ typedef struct		s_affine
 	double			angle;
 }					t_affine;
 
+typedef struct		s_plan
+{
+	double			a;
+	double			b;
+	double			c;
+	double			d;
+}					t_plan;
+
+typedef struct		s_cartesienne
+{
+	double			ox;
+	double			oy;
+	double			oz;
+	double			vx;
+	double			vy;
+	double			vz;
+}					t_cartesienne;
+
 typedef struct		s_vector
 {
 	int				x;
@@ -406,11 +424,14 @@ typedef struct				s_calculs
 	int						nportals;
 	double					alpha;
 	double					dangle;
+	double					dangle_up;
 	t_affine				ray;
 	double					dist;
 	double					newdist;
 	t_fdot					closest;
 	t_linedef				*collision_wall;
+	double					up_wall;
+	double					low_wall;
 }							t_calculs;
 
 /*
@@ -424,8 +445,10 @@ typedef struct				s_sector
 	t_color_picker			color;
 	// SDL_Color				color;
 	int						floor_height;
+	t_plan					floor_equation;
 	SDL_Texture				*floor_texture;
 	int						ceil_height;
+	t_plan					ceil_equation;
 	SDL_Texture				*ceil_texture;
 
 	int						height;
@@ -475,8 +498,9 @@ typedef struct		s_player
 	t_fvector		vel;
 	double			const_vel;
 	double			dir;
-	double			orientation;
+	double			dir_up;
 	double			fov;
+	double			fov_up;
 	int				height;
 	int				width;
 	double			width_2;

@@ -32,7 +32,7 @@ int			main(int argc, char **argv)
 
 	if (argc == 1 || argc == 2)
 	{
-		if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
+		if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1 || (IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
 			return (ret_error(SDL_GetError()));
 		win.w = 1000;
 		win.h = 800;

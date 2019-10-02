@@ -140,6 +140,8 @@ int		init_sectors(t_map *map, t_player *player)
 		if (sector->floor_height >= sector->ceil_height)
 			return (1);
 		sector->height = sector->ceil_height - sector->floor_height;
+		sector->ceil_equation =		(t_plan){0, 0, 1, -sector->ceil_height};
+		sector->floor_equation =	(t_plan){0, 0, 1, -sector->floor_height};
 		sector = sector->next;
 	}
 	player->sector = map->sectors;
@@ -152,9 +154,10 @@ int		init_sectors(t_map *map, t_player *player)
 void	init_player(t_win *win, t_player *player)
 {	
 	player->inventory = define_inventory();
-	player->dir = M_PI;
-	player->orientation = win->h / 2;
-	player->fov = M_PI / 2;
+	player->dir = M_PI_2;
+	player->dir_up = 0;
+	player->fov = _PI_4;
+	player->fov_up = M_PI_2;
 	player->maxHp = 50;
 	player->currentHp = player->maxHp;
 	player->maxArmor = 50;
@@ -180,8 +183,9 @@ void	init_player(t_win *win, t_player *player)
 int		init_textures(t_textures *textures)
 {
 	if (!(textures->elephantride = IMG_Load("textures/walls/elephantride.png")) ||
+		// !(textures->tortue = IMG_Load("textures/walls/Mario/Mario_Ghost.png")))
+		// !(textures->tortue = IMG_Load("textures/walls/moine.png")))
 		!(textures->tortue = IMG_Load("textures/walls/tortue.png")))
-		// !(textures->tortue = IMG_Load("textures/walls/google.png")))
 	{
 		ft_putendl(SDL_GetError());
 		return (1);

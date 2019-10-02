@@ -22,7 +22,7 @@ int		game_loop(t_win *win, t_map *map)
 				loop = SDL_FALSE;
 
 			physics(win, map, &(map->player));
-			//entiteMove();a
+			//entiteMove();
 
 			draw(win, map, &(map->player));
 			//damage_heal(&(map->player), 1, 0, 0);

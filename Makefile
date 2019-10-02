@@ -39,7 +39,8 @@ LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
 
 INCLUDE_PATH = ./includes
 CC = gcc
-CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address   -I$(INCLUDE_PATH)\
+# CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address   -I$(INCLUDE_PATH)
+CFLAGS += -Wall -Wextra -Werror -g   -I$(INCLUDE_PATH)\
                                                         -I$(LIBFT)/includes/\
                                                         -I$(FW_PATH)/SDL2_image.framework/Headers/\
                                                         -I$(FW_PATH)/SDL2_ttf.framework/Headers/\
