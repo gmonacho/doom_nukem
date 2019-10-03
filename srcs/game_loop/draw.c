@@ -121,11 +121,11 @@ void			print_column(t_win *win, t_linedef *wall, t_player *player, t_calculs *ca
 		exit(0);
 	}
 
-	printf("Dir up : %fpi\n", player->dir_up / M_PI);
+	// printf("Dir up : %fpi\n", player->dir_up / M_PI);
 	win->middle_print = fprop(player->dir_up,\
 							(t_fdot){-player->fov_up / 2, player->fov_up / 2},\
 							(t_fdot){win->h, 0});
-	printf("win->middle_print : %f\n", win->middle_print);
+	// printf("win->middle_print : %f\n", win->middle_print);
 	win->middle_print -= (player->shift ? player->height / 2 : 0);
 
 	calculs->up_wall = (player->dir_up < win->h / 2) ?\
@@ -135,6 +135,7 @@ void			print_column(t_win *win, t_linedef *wall, t_player *player, t_calculs *ca
 
 	calculs->up_wall *= -(wall->sector->ceil_height - (player->height + player->z + player->sector->floor_height)) / player->lenRay;
 	calculs->low_wall *= (player->height + player->z + (player->sector->floor_height - wall->sector->floor_height)) / player->lenRay;
+	// printf(" : %f\n", calculs->up_wall);
 	// printf("Lenray : %f\n", player->lenRay);
 	// printf("Column : %d\haut : %f\tBas : %f\n", calculs->column, calculs->up_wall, bas);
 	// printf("Calcul haut : %d\n", wall->sector->ceil_height - (player->height + player->sector->floor_height));
@@ -233,6 +234,7 @@ void			print_column(t_win *win, t_linedef *wall, t_player *player, t_calculs *ca
 
 void	draw(t_win *win, t_map *map, t_player *player)
 {
+	// raycasting_3d(win, player);
 	raycasting(win, player);
 	fill_portals(win, player);
 

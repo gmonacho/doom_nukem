@@ -15,6 +15,13 @@ typedef struct		s_fdot
 	double			y;
 }					t_fdot;
 
+typedef struct		s_fdot_3d
+{
+	double			x;
+	double			y;
+	double			z;
+}					t_fdot_3d;
+
 typedef struct		s_size
 {
 	int				w;
@@ -412,6 +419,7 @@ typedef struct			s_linedef
 	t_dot				p2;
 	t_linedef_side		side;
 	t_affine			equation;
+	t_plan				equation_2;
 	double				angle;
 	SDL_Surface			*texture;
 	Uint32				flags;
@@ -432,12 +440,16 @@ typedef struct				s_calculs
 	int						column;
 	int						nportals;
 	double					alpha;
+	double					alpha_up;
+	double					alpha_up_copy;
 	double					dangle;
 	double					dangle_up;
 	t_affine				ray;
+	t_cartesienne			ray_2;
 	double					dist;
 	double					newdist;
 	t_fdot					closest;
+	t_fdot_3d				closest_2;
 	t_linedef				*collision_wall;
 	double					up_wall;
 	double					low_wall;
@@ -455,10 +467,10 @@ typedef struct				s_sector
 	// SDL_Color				color;
 	int						floor_height;
 	t_plan					floor_equation;
-	SDL_Texture				*floor_texture;
+	SDL_Surface				*floor_texture;
 	int						ceil_height;
 	t_plan					ceil_equation;
-	SDL_Texture				*ceil_texture;
+	SDL_Surface				*ceil_texture;
 
 	int						height;
 	int						light_level;
@@ -500,6 +512,7 @@ typedef struct s_inventory
 typedef struct		s_player
 {
 	t_fdot			pos;
+	t_fdot_3d		pos_up;
 	t_dot			dpos;
 	double			z;
 	char			jump;

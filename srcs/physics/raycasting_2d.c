@@ -83,10 +83,10 @@ void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot sourc
 		ray->isequation = 0;
 		ray->a = source.x;
 	}
-	win = NULL;
-	player = NULL;
 	// draw_ray(win, player, *ray);
 	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", ray->angle / M_PI, ray->isequation, ray->a, ray->b);
+	win = NULL;
+	player = NULL;
 }
 
 t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs)
@@ -220,7 +220,7 @@ void		launch_ray_2d(t_win *win, t_player *player, t_calculs *calculs)
 	// printf("-----------------\n");
 	calculs->nportals = 0;
 	sector = player->sector;
-	source = player->pos;
+	source = (t_fdot){player->pos.x, player->pos.y};
 	calculs->dist = 0;
 	// printf("Dir : %f\n", player->dir);
 	// printf("Angle = %fpi\tEquation : %d\ta = %f\tb = %f\n", calculs->ray.angle / M_PI, calculs->ray.isequation, calculs->ray.a, calculs->ray.b);		

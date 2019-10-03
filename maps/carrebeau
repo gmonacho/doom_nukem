@@ -3,7 +3,7 @@ Player
 	posx = 435
 	posy = 329
 	width = 50
-	height = 50
+	height = 80
 	sector = 0
 	velocity = 1
 }
@@ -85,7 +85,6 @@ Sector
 	floorHeight = 30
 	line
 	{
-<<<<<<< HEAD
 		dot = (1756, 966)
 		dot = (1756, 966)
 		flags = WALL
@@ -120,17 +119,12 @@ Sector
 	{
 		dot = (1428, 76)
 		dot = (1910, 76)
-=======
-		dot = (1428, 1094)
-		dot = (1428, 1010)
->>>>>>> eaad1fdefe7336f2c17d727c6ac4e47c5e105851
 		flags = WALL
 		id = 0
 		side = RIGHT
 	}
 	line
 	{
-<<<<<<< HEAD
 		dot = (1910, 76)
 		dot = (1910, 1094)
 		flags = WALL
@@ -143,17 +137,10 @@ Sector
 		dot = (1491, 124)
 		flags = WALL
 		id = 0
-=======
-		dot = (1910, 1094)
-		dot = (1428, 1094)
-		flags = PORTAL
-		id = 3
->>>>>>> eaad1fdefe7336f2c17d727c6ac4e47c5e105851
 		side = RIGHT
 	}
 	line
 	{
-<<<<<<< HEAD
 		dot = (1491, 124)
 		dot = (1428, 158)
 		flags = WALL
@@ -172,61 +159,30 @@ Sector
 		dot = (1428, 1010)
 		flags = PORTAL
 		id = 2
-=======
-		dot = (1428, 1010)
-		dot = (1428, 158)
-		flags = PORTAL
-		id = 2
 		side = RIGHT
 	}
 	line
 	{
-		dot = (1428, 76)
-		dot = (1910, 76)
-		flags = WALL
-		id = 0
->>>>>>> eaad1fdefe7336f2c17d727c6ac4e47c5e105851
-		side = RIGHT
-	}
-	line
-	{
-<<<<<<< HEAD
 		dot = (798, 1010)
 		dot = (1428, 1010)
-=======
-		dot = (1910, 76)
-		dot = (1910, 1094)
->>>>>>> eaad1fdefe7336f2c17d727c6ac4e47c5e105851
 		flags = WALL
 		id = 0
 		side = RIGHT
 	}
 	line
 	{
-<<<<<<< HEAD
 		dot = (798, 158)
 		dot = (1428, 158)
-=======
-		dot = (1428, 76)
-		dot = (1491, 124)
->>>>>>> eaad1fdefe7336f2c17d727c6ac4e47c5e105851
 		flags = WALL
 		id = 0
 		side = RIGHT
 	}
 	line
 	{
-<<<<<<< HEAD
 		dot = (798, 909)
 		dot = (798, 251)
 		flags = PORTAL
 		id = 1
-=======
-		dot = (1491, 124)
-		dot = (1428, 158)
-		flags = WALL
-		id = 0
->>>>>>> eaad1fdefe7336f2c17d727c6ac4e47c5e105851
 		side = RIGHT
 	}
 }

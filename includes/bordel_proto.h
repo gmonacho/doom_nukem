@@ -327,6 +327,10 @@ void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2);
 void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot source);
 t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 
+int			sence(t_cartesienne ray, t_fdot_3d collision);
+void		set_new_position_3d(t_fdot_3d *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
+// void		launch_ray_3d(t_win *win, t_player *player, t_calculs *calculs);
+
 /*
 ** ================================== Time ===================================
 */
@@ -343,6 +347,7 @@ void    reload_cd(t_map *map);
 // double		dist(t_dot p1, t_dot p2);
 double  	modulo(double nbr, double mod);
 double		fdist(t_fdot p1, t_fdot p2);
+double      fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
 // double		mag(t_vector vector);
 // double		fmag(t_fvector vector);
 int			sign(double nbr);

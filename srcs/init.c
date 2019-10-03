@@ -137,9 +137,16 @@ int		init_sectors(t_map *map, t_player *player)
 	sector = map->sectors;
 	while (sector)
 	{
+		if (!(sector->ceil_texture = IMG_Load("textures/walls/elephantride.png")) ||
+			!(sector->floor_texture = IMG_Load("textures/walls/elephantride.png")))
+		{
+			ft_putendl(SDL_GetError());
+			return (1);
+		}
 		if (sector->floor_height >= sector->ceil_height)
 			return (1);
 		sector->height = sector->ceil_height - sector->floor_height;
+		// printf("Ceil height = %d\n", sector->ceil_height);
 		sector->ceil_equation =		(t_plan){0, 0, 1, -sector->ceil_height};
 		sector->floor_equation =	(t_plan){0, 0, 1, -sector->floor_height};
 		sector = sector->next;
@@ -152,11 +159,14 @@ int		init_sectors(t_map *map, t_player *player)
 }
 
 void	init_player(t_win *win, t_player *player)
-{	
+{
+	player->pos_up.x = player->pos.x;
+	player->pos_up.y = player->pos.y;
+	player->pos_up.z = player->sector->floor_height + player->height;
 	player->inventory = define_inventory();
 	player->dir = M_PI_2;
-	player->dir_up = 0;
 	player->fov = _PI_4;
+	player->dir_up = 0;
 	player->fov_up = M_PI_2;
 	player->maxHp = 50;
 	player->currentHp = player->maxHp;
