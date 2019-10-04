@@ -15,10 +15,10 @@ static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, t_fdo
 	if (calculs->column > 990)
 	{
 	// 	printf("Player x y : %f %f\n", player->pos.x, player->pos.y);
-		printf("x w : %f %d\n", dot.x, player->sector->ceil_texture->w);
-		printf("y h : %f %d\n", dot.y, player->sector->ceil_texture->h);
-		printf("Pixel : %d %d\n\n", x, y_texture);
-		printf("Put pixel screen : %d %d\n\n", calculs->column, y);
+		// printf("x w : %f %d\n", dot.x, player->sector->ceil_texture->w);
+		// printf("y h : %f %d\n", dot.y, player->sector->ceil_texture->h);
+		// printf("Pixel : %d %d\n\n", x, y_texture);
+		// printf("Put pixel screen : %d %d\n\n", calculs->column, y);
 	}
 	pixel = ((Uint32 *)player->sector->ceil_texture->pixels)[y_texture * player->sector->ceil_texture->w + x];
 	SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
@@ -108,6 +108,40 @@ static void			set_cartesienne(t_calculs *calculs, t_cartesienne *ray, t_fdot_3d 
 	// 	printf("dir = %fpi\tdir_up = %fpi\tvx vy vz : %f %f %f\n", dir / M_PI, dir_up / M_PI, ray->vx, ray->vy, ray->vz);
 }
 
+static t_linedef	*test_floor_ceil(t_calculs *calculs, t_fdot_3d source, t_sector *sector)
+{
+	t_fdot_3d		collision;
+	double			tmpdist;
+
+	if (intersection_plan_line(source, calculs, sector->floor_equation, &collision))
+	{
+		printf("Parallole !!! : %d\n", calculs->column);
+		return (NULL);
+	}
+	if (((tmpdist = fdist_3d(source, collision)) < calculs->dist) &&\
+		sence(calculs->ray_2, collision) &&\
+		((int)collision.x != (int)source.x || (int)collision.y != (int)source.y))
+	{
+		calculs->collision_wall = NULL;
+		calculs->closest_2 = collision;
+		calculs->dist = tmpdist;
+	}
+	if (intersection_plan_line(source, calculs, sector->ceil_equation, &collision))
+	{
+		printf("Parallole !!! : %d\n", calculs->column);
+		return (NULL);
+	}
+	if ((((tmpdist = fdist_3d(source, collision)) < calculs->dist) &&\
+		sence(calculs->ray_2, collision) &&\
+		((int)collision.x != (int)source.x || (int)collision.y != (int)source.y)))
+	{
+		calculs->collision_wall = NULL;
+		calculs->closest_2 = collision;
+		calculs->dist = tmpdist;
+	}
+	return (calculs->collision_wall);
+}
+
 static t_linedef	*launch_ray_3d(t_win *win, t_player *player, t_calculs *calculs, t_fdot_3d source, t_sector *sector)
 {
 	t_linedef		*line;
@@ -145,6 +179,7 @@ static t_linedef	*launch_ray_3d(t_win *win, t_player *player, t_calculs *calculs
 		// 	collision.y *= -1;
 		line = line->next;
 	}
+	test_floor_ceil(calculs, source, sector);
 	win = NULL;
 	player = NULL;
 	return (calculs->collision_wall);
@@ -182,7 +217,7 @@ static void			raycasting_vertical(t_win *win, t_player *player, t_calculs *calcu
 	z = -1;
 	while (++z < win->h)
 	{
-		// printf("Debut launch 3d : %fpi %fpi %fpi\t%fpi\n", player->dir_up / M_PI, player->fov_up / M_PI, calculs->dangle_up / M_PI, angle / M_PI);
+		printf("Debut launch 3d : %fpi %fpi %fpi\t%fpi\n", player->dir / M_PI, calculs->alpha / M_PI, calculs->alpha_up / M_PI, player->dir_up / M_PI);
 		calculs->alpha_up_copy = calculs->alpha_up;
 		collision = begin_launch(win, player, calculs);
 		draw_point(win, calculs, player, collision, z);

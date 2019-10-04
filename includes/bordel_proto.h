@@ -327,6 +327,7 @@ void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2);
 void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot source);
 t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 
+int			raycasting_3d(t_win *win, t_player *player);
 int			sence(t_cartesienne ray, t_fdot_3d collision);
 void		set_new_position_3d(t_fdot_3d *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
 // void		launch_ray_3d(t_win *win, t_player *player, t_calculs *calculs);
