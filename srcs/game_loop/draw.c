@@ -4,7 +4,7 @@
 **	Il ne faut pas allonger l'image en largeur mais la repete
 **	En hauteur aussi
 **
-**	player->orientation est le milieu y du mur sur lecran,
+**	player->dir_up est le milieu y du mur sur lecran,
 **	On +/- le y du perso et le snick.
 **	La vision du perso retrecie en haut et en bas (On diminue HEIGHT_WALL)
 **	On multiplie car prop() joue un role de facteur d'agrandissement
@@ -90,10 +90,8 @@ static void	draw_map(t_win *win, t_map *map)
 	}
 }*/
 
-void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calculs)
+void			print_column(t_win *win, t_linedef *wall, t_player *player, t_calculs *calculs)
 {
-	double			haut;
-	double			bas;
 	Uint32			pixel;
 	int				x_texture;
 	double			y_texture;
@@ -123,25 +121,27 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 		exit(0);
 	}
 
-	win->middle_print = player->orientation - (player->shift ? player->height / 2 : 0);
-	if (player->orientation < win->h / 2)
-	{
-		haut = prop(player->orientation, (t_dot){0, win->h / 2}, (t_dot){3 * HEIGHT_WALL / 4, HEIGHT_WALL});
-		bas = haut;//prop(player->orientation, (t_dot){0, win->h / 2}, (t_dot){3 * HEIGHT_WALL / 4, HEIGHT_WALL});
-	}
-	else
-	{
-		haut = prop(player->orientation, (t_dot){win->h / 2, win->h}, (t_dot){HEIGHT_WALL, 3 * HEIGHT_WALL / 4});
-		bas = haut;//prop(player->orientation, (t_dot){win->h / 2, win->h}, (t_dot){HEIGHT_WALL, 3 * HEIGHT_WALL / 4});
-	}
-	haut *= -(wall->sector->ceil_height - (player->height + player->z + player->sector->floor_height)) / player->lenRay;
-	bas *= (player->height + player->z + (player->sector->floor_height - wall->sector->floor_height)) / player->lenRay;
+	// printf("Dir up : %fpi\n", player->dir_up / M_PI);
+	win->middle_print = fprop(player->dir_up,\
+							(t_fdot){-player->fov_up / 2, player->fov_up / 2},\
+							(t_fdot){win->h, 0});
+	// printf("win->middle_print : %f\n", win->middle_print);
+	win->middle_print -= (player->shift ? player->height / 2 : 0);
+
+	calculs->up_wall = (player->dir_up < win->h / 2) ?\
+						prop(player->dir_up, (t_dot){0, win->h / 2}, (t_dot){3 * HEIGHT_WALL / 4, HEIGHT_WALL}) :\
+						prop(player->dir_up, (t_dot){win->h / 2, win->h}, (t_dot){HEIGHT_WALL, 3 * HEIGHT_WALL / 4});
+	calculs->low_wall = calculs->up_wall;
+
+	calculs->up_wall *= -(wall->sector->ceil_height - (player->height + player->z + player->sector->floor_height)) / player->lenRay;
+	calculs->low_wall *= (player->height + player->z + (player->sector->floor_height - wall->sector->floor_height)) / player->lenRay;
+	// printf(" : %f\n", calculs->up_wall);
 	// printf("Lenray : %f\n", player->lenRay);
-	// printf("Column : %d\tHaut : %f\tBas : %f\n", calculs->column, haut, bas);
+	// printf("Column : %d\haut : %f\tBas : %f\n", calculs->column, calculs->up_wall, bas);
 	// printf("Calcul haut : %d\n", wall->sector->ceil_height - (player->height + player->sector->floor_height));
 	// printf("Bas : %d\n", player->height + (player->sector->floor_height - wall->sector->floor_height));
 	// SDL_SetRenderDrawColor(win->rend, 0x40, 0xDD, 0x40, 255);
-	// draw_column(win, calculs->column, win->middle_print - haut,\
+	// draw_column(win, calculs->column, win->middle_print - calculs->up_wall,\
 	// 									win->middle_print + bas);
 
 	// if (wall->p1.x == wall->p2.x)
@@ -186,8 +186,10 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 	// 	}
 
 	n_texture_y = 0;
-	n_pixels = fabs(bas) + fabs(haut);
+	n_pixels = fabs(calculs->low_wall) + fabs(calculs->up_wall);
+	// dy_texture = (float)wall->texture->h / n_pixels;
 	dy_texture = (float)wall->sector->height / n_pixels;
+	// printf("Height : %d\n", wall->sector->height);
 	// printf("\nDy : %f\n", dy_texture);
 	i = -1;
 	// printf("wall->texture ptr = %p\n", wall->texture);
@@ -195,9 +197,8 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 	{
 		y_texture = (int)(i * dy_texture) % (int)(wall->texture->h / ratio);
 		// printf("Coord : %d\t%d\n", x_texture, y_texture);
-		// printf("Coord : %d\t%d\t%d\t%d\n", x_texture, y_texture, wall->texture->w, wall->texture->h);
+		// printf("Coord : %d\t%f\t%d\t%d\n", x_texture, y_texture, wall->texture->w, wall->texture->h);
 		// pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + x_texture];
-		// printf("x = %d, y = %d\n", (int)y_texture, (int)x_texture);
 		pixel = ((Uint32 *)wall->texture->pixels)[(int)y_texture * wall->texture->w + (int)x_texture];
 		SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
 											(pixel >> 8) & 0xFF,\
@@ -205,7 +206,7 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 											(pixel >> 24) & 0xFF);
 											// calculs->nportals >= 1 ? 100 : 255);
 
-		SDL_RenderDrawPoint(win->rend, calculs->column, win->middle_print + haut + i);
+		SDL_RenderDrawPoint(win->rend, calculs->column, win->middle_print + calculs->up_wall + i);
 		//y_texture += 1 + (y_texture + 1 == wall->texture->h ? -wall->texture->h : 0);
 		// y_texture += dy_texture;
 	}
@@ -233,6 +234,7 @@ void			print_wall(t_win *win, t_linedef *wall, t_player *player, t_calculs *calc
 
 void	draw(t_win *win, t_map *map, t_player *player)
 {
+	// raycasting_3d(win, player);
 	raycasting(win, player);
 	fill_portals(win, player);
 

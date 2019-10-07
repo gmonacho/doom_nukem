@@ -17,7 +17,7 @@
 
 # define MAX_SECTORS		25
 # define NEXT_FACTOR		50
-# define HEIGHT_WALL		150
+# define HEIGHT_WALL		200
 # define RENDER_DISTANCE	HEIGHT_WALL * 200
 # define SIDE_LEN			40
 # define ID_SIZE            20

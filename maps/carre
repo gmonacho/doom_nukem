@@ -1,0 +1,47 @@
+Player
+{
+	posx = 300
+	posy = 300
+	width = 30
+	height = 90
+	sector = 0
+	velocity = 3
+}
+Sector
+{
+	name =     carre
+	ceilHeight = 400
+	floorHeight = 50
+	line
+	{
+		dot = (200, 100)
+		dot = (600, 200)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (600, 200)
+		dot = (500, 800)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (500, 800)
+		dot = (100, 700)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (100, 700)
+		dot = (200, 100)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+}

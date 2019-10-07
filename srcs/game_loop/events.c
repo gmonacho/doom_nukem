@@ -50,10 +50,14 @@ static void	mouse_move(t_win *win ,t_player *player)
 	if (win->mouse->x < 0)
 		player->dir -= 0.1 + ((player->dir - 0.1 < 0) ? 2 * M_PI : 0);
 
-	if (win->mouse->y > 0 && player->orientation > 15)
-		player->orientation -= 15;
-	if (win->mouse->y < 0 && player->orientation < win->h - 15)
-		player->orientation += 15;
+	// if (win->mouse->y > 0 && player->dir_up > 15)
+	// 	player->dir_up -= 15;
+	// if (win->mouse->y < 0 && player->dir_up < win->h - 15)
+	// 	player->dir_up += 15;
+	if (win->mouse->y < 0 && player->dir_up > -player->fov_up / 2)
+		player->dir_up -= 0.08;
+	if (win->mouse->y > 0 && player->dir_up < player->fov_up / 2)
+		player->dir_up += 0.08;
 }
 
 static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
@@ -62,14 +66,14 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 		player->dir += -0.1 + (player->dir - 0.1 < 0 ? _2_PI : 0);
 	if (state[SDL_SCANCODE_RIGHT])
 		player->dir +=	0.1 - (player->dir + 0.1 > _2_PI ? _2_PI : 0);
-	if (state[SDL_SCANCODE_DOWN] && player->orientation > 0)
-		player->orientation -= 10;
+	if (state[SDL_SCANCODE_DOWN] && player->dir_up > 0)
+		player->dir_up -= 10;
 	if (state[SDL_SCANCODE_LSHIFT])
 		player->shift = 1;
 	else
 		player->shift = 0;
-	if (state[SDL_SCANCODE_UP] && player->orientation < win->h)
-		player->orientation += 10;
+	if (state[SDL_SCANCODE_UP] && player->dir_up < win->h)
+		player->dir_up += 10;
 	if (state[SDL_SCANCODE_SPACE] && player->jump)
 		player->z += 9;
 	/*if (state[SDL_SCANCODE_LCTRL])

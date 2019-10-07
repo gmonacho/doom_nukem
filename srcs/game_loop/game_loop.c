@@ -21,7 +21,7 @@ int		game_loop(t_win *win, t_map *map)
 			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				loop = SDL_FALSE;
 			physics(win, map, &(map->player));
-			//entiteMove();a
+			//entiteMove();
 
 			draw(win, map, &(map->player));
 			//damage_heal(&(map->player), 1, 0, 0);

@@ -28,6 +28,10 @@ t_linedef	*init_linedef(t_linedef *line)
 		line->equation.a = line->p1.x;
 		line->angle = M_PI_2;
 	}
+	line->equation_2 = (t_plan){cos(line->angle - M_PI_2),\
+								sin(line->angle - M_PI_2),\
+								0,\
+								0};
 	line->next = NULL;
 	return (line);
 }

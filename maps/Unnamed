@@ -1,70 +1,21 @@
 Player
 {
-	posx = 435
-	posy = 329
+	posx = 482
+	posy = 573
 	width = 50
-	height = 80
+	height = 50
 	sector = 0
 	velocity = 1
 }
 Sector
 {
-	name =     rec3
+	name =      rec3
 	ceilHeight = 115
 	floorHeight = 30
 	line
 	{
-		dot = (1428, 1094)
-		dot = (1428, 1010)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1320, 1094)
-		dot = (1428, 1010)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1974, 1019)
-		dot = (1910, 1094)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1910, 1094)
-		dot = (2037, 1094)
-		dot = (1974, 1019)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1320, 1094)
-		dot = (1320, 1659)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1320, 1659)
-		dot = (2037, 1659)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (2037, 1094)
-		dot = (2037, 1659)
+		dot = (1788, 1263)
+		dot = (1788, 1263)
 		flags = WALL
 		id = 0
 		side = RIGHT
@@ -75,36 +26,84 @@ Sector
 		dot = (1910, 1094)
 		flags = PORTAL
 		id = 3
+		side = RIGHT
+	}
+	line
+	{
+		dot = (1323, 1149)
+		dot = (1428, 1094)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (1323, 1497)
+		dot = (1323, 1149)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (1982, 1497)
+		dot = (1323, 1497)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (1982, 1152)
+		dot = (1982, 1497)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (1910, 1094)
+		dot = (1982, 1152)
+		flags = WALL
+		id = 0
 		side = RIGHT
 	}
 }
 Sector
 {
-	name =       rec2
+	name =        rec2
 	ceilHeight = 115
 	floorHeight = 30
 	line
 	{
-		dot = (1756, 966)
-		dot = (1756, 966)
+		dot = (1491, 124)
+		dot = (1428, 158)
 		flags = WALL
 		id = 0
 		side = RIGHT
 	}
 	line
 	{
-		dot = (1428, 1094)
-		dot = (1428, 1010)
+		dot = (1428, 76)
+		dot = (1491, 124)
 		flags = WALL
 		id = 0
 		side = RIGHT
 	}
 	line
 	{
+		dot = (1910, 76)
 		dot = (1910, 1094)
-		dot = (1428, 1094)
-		flags = PORTAL
-		id = 3
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (1428, 76)
+		dot = (1910, 76)
+		flags = WALL
+		id = 0
 		side = RIGHT
 	}
 	line
@@ -117,32 +116,16 @@ Sector
 	}
 	line
 	{
-		dot = (1428, 76)
-		dot = (1910, 76)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1910, 76)
 		dot = (1910, 1094)
-		flags = WALL
-		id = 0
+		dot = (1428, 1094)
+		flags = PORTAL
+		id = 3
 		side = RIGHT
 	}
 	line
 	{
-		dot = (1428, 76)
-		dot = (1491, 124)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1491, 124)
-		dot = (1428, 158)
+		dot = (1428, 1094)
+		dot = (1428, 1010)
 		flags = WALL
 		id = 0
 		side = RIGHT
@@ -150,21 +133,61 @@ Sector
 }
 Sector
 {
-	name =       rec1
+	name =        rec1
 	ceilHeight = 100
 	floorHeight = 15
 	line
 	{
-		dot = (1428, 158)
-		dot = (1428, 1010)
-		flags = PORTAL
-		id = 2
+		dot = (1190, 490)
+		dot = (981, 488)
+		flags = WALL
+		id = 0
 		side = RIGHT
 	}
 	line
 	{
+		dot = (1190, 751)
+		dot = (1190, 490)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (981, 751)
+		dot = (1190, 751)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (981, 488)
+		dot = (981, 751)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (881, 950)
 		dot = (798, 1010)
-		dot = (1428, 1010)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (798, 909)
+		dot = (881, 950)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (903, 230)
+		dot = (798, 251)
 		flags = WALL
 		id = 0
 		side = RIGHT
@@ -172,7 +195,7 @@ Sector
 	line
 	{
 		dot = (798, 158)
-		dot = (1428, 158)
+		dot = (903, 230)
 		flags = WALL
 		id = 0
 		side = RIGHT
@@ -185,112 +208,66 @@ Sector
 		id = 1
 		side = RIGHT
 	}
-}
-Sector
-{
-	name =       rec1
-	ceilHeight = 100
-	floorHeight = 15
 	line
 	{
 		dot = (798, 158)
-		dot = (903, 230)
+		dot = (1428, 158)
 		flags = WALL
 		id = 0
 		side = RIGHT
 	}
 	line
 	{
-		dot = (903, 230)
-		dot = (798, 251)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (798, 909)
-		dot = (881, 950)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (881, 950)
 		dot = (798, 1010)
+		dot = (1428, 1010)
 		flags = WALL
 		id = 0
 		side = RIGHT
 	}
 	line
 	{
-		dot = (981, 488)
-		dot = (981, 751)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (981, 751)
-		dot = (1190, 751)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1190, 751)
-		dot = (1190, 490)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1190, 490)
-		dot = (981, 488)
-		flags = WALL
-		id = 0
+		dot = (1428, 158)
+		dot = (1428, 1010)
+		flags = PORTAL
+		id = 2
 		side = RIGHT
 	}
 }
 Sector
 {
-	name =       rec0
+	name =        rec0
 	ceilHeight = 75
 	floorHeight = 0
 	line
 	{
+		dot = (362, 909)
+		dot = (798, 909)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (362, 251)
+		dot = (362, 909)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (362, 251)
+		dot = (798, 251)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
 		dot = (798, 251)
 		dot = (798, 909)
 		flags = PORTAL
 		id = 1
-		side = RIGHT
-	}
-	line
-	{
-		dot = (362, 251)
-		dot = (798, 251)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (362, 251)
-		dot = (362, 909)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (362, 909)
-		dot = (798, 909)
-		flags = WALL
-		id = 0
 		side = RIGHT
 	}
 }
