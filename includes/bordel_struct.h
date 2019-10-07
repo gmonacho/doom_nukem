@@ -246,6 +246,18 @@ typedef struct 	s_texHud
 }					t_texHud;
 
 /*
+**	---------------------------------- main_menu --------------------------------------------
+*/
+
+typedef struct s_main_menu
+{
+	SDL_Texture *text[4];
+	SDL_Texture	*textb[4];
+	TTF_Font	*police;
+
+}				t_main_menu;
+
+/*
 **	---------------------------------- Window ----------------------------------
 */
 
@@ -289,6 +301,7 @@ typedef struct		s_win
 
 	t_font			font;
 	t_texHud		*texHud;
+	t_main_menu		*main_menu;
 }					t_win;
 
 /*
@@ -564,6 +577,7 @@ typedef struct		s_map
 	t_player		player;
 	t_object		*object;
 	t_mob			*mob;
+	t_main_menu		main_menu;
 }					t_map;
 
 /*

@@ -31,7 +31,9 @@ void    print_credit(t_win *win)
 {
     SDL_Event   event;
     SDL_bool    loop;
+    SDL_Texture *background;
     
+    background = load_texture(win->rend, "textures/creditBack.png");
     loop = SDL_TRUE;
     if (win)
     {
@@ -40,9 +42,12 @@ void    print_credit(t_win *win)
             clear_rend(win->rend, 197, 50, 250);
             SDL_PumpEvents();
 			SDL_PollEvent(&event);
-            SDL_RenderCopy(win->rend, define_credit(win), NULL, &(SDL_Rect){(500), (400), (250), (75)});
+            SDL_RenderCopy(win->rend, background, NULL, &(SDL_Rect){(0), (0), (win->w), (win->h)});
             if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+            {
                 loop = SDL_FALSE;
+                main_menu(win);
+            }
             SDL_RenderPresent(win->rend);
         }
     }
