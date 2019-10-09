@@ -14,8 +14,9 @@ int		game_loop(t_win *win, t_map *map)
 	loop = SDL_TRUE;
 	if (win)
 		while (loop)
-		{
+		{	
 			reload_cd(map);
+			SDL_GetWindowSize(win->ptr, &win->w, &win->h);
 			clear_rend(win->rend, 0x40, 0x40, 0x40);
 			SDL_PollEvent(&event);
 			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)

@@ -39,6 +39,7 @@ void    print_credit(t_win *win)
     {
         while (loop)
         {   
+            SDL_GetWindowSize(win->ptr, &win->w, &win->h);
             clear_rend(win->rend, 197, 50, 250);
             SDL_PumpEvents();
 			SDL_PollEvent(&event);

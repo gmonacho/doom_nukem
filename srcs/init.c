@@ -172,7 +172,7 @@ void	init_player(t_win *win, t_player *player)
 	player->currentHp = player->maxHp;
 	player->maxArmor = 50;
 	player->currentArmor = player->maxArmor;
-	player->inventory->ammo = 30;
+	player->inventory->ammo = 15;
 	player->inventory->magazine = 120;
 	player->width_2 = player->width / 2;
 	player->width_10 = player->width / 10;
