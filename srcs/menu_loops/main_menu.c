@@ -136,6 +136,7 @@ int			main_menu(t_win *win)
 	background = load_texture(win->rend, "textures/imageMenu.png");
 	main_menu_init(win);
 	loop = SDL_TRUE;
+	SDL_SetRelativeMouseMode(SDL_FALSE);
 	while (loop)
 	{
 		clear_rend(win->rend, 71, 27, 27);

@@ -40,7 +40,9 @@ int			main(int argc, char **argv)
 			return (ret_error(SDL_GetError()));
 		// if ((Mix_Init(MIX_INIT_MP3) & MIX_INIT_MP3) != MIX_INIT_MP3) // !! MARCHE PAS !!
 		// 	return (ret_error(SDL_GetError()));
-		Mix_Init(MIX_INIT_MP3);
+		//Mix_Init(MIX_INIT_MP3);
+		if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
+			ft_putendl("erreur mixer ");
 		win.w = 1000;
 		win.h = 800;
 		if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 100, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))

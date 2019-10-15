@@ -8,7 +8,7 @@
             "name": "gcc build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${./doom_nukem}",
+            "program": "/Users/aducimet/Desktop/doom_nukem/doom-nukem",
             "args": ["maps/Polygon"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
