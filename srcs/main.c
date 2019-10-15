@@ -17,6 +17,11 @@ static int		init(t_win *win, t_map *map, t_player *player)
 		ft_putendl("init_lines failed");
 		return (3);
 	}
+	if (!init_music(&win->music))
+	{
+		ft_putendl("init_music failed");
+		return (4);
+	}
 	init_player(win, player);
 	return (0);
 }
@@ -34,13 +39,14 @@ int			main(int argc, char **argv)
 
 	if (argc == 1 || argc == 2)
 	{
-		if (SDL_Init(SDL_INIT_VIDEO) < 0 || TTF_Init() == -1)
+		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == -1 || TTF_Init() == -1)
 			return (ret_error(SDL_GetError()));
 		if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
 			return (ret_error(SDL_GetError()));
-		// if ((Mix_Init(MIX_INIT_MP3) & MIX_INIT_MP3) != MIX_INIT_MP3) // !! MARCHE PAS !!
-		// 	return (ret_error(SDL_GetError()));
-		Mix_Init(MIX_INIT_MP3);
+		if (Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
+			return (ret_error(SDL_GetError()));
+		if ((Mix_Init(MIX_INIT_MP3) & MIX_INIT_MP3) != MIX_INIT_MP3)
+			return (ret_error(SDL_GetError()));
 		win.w = 1000;
 		win.h = 800;
 		if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 100, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))

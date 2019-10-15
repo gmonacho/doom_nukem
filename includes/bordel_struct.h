@@ -162,7 +162,8 @@ typedef enum	e_button
 	BUTTON_SECTOR_INPUT = 4096,
 	BUTTON_LINEDEF_SIDE = 8192,
 	BUTTON_ADD_SECTOR = 16384,
-	BUTTON_LOAD_TEXTURE = 32768
+	BUTTON_LOAD_TEXTURE = 32768,
+	BUTTON_SCALE_BOX = 65536
 }				t_button_f;
 
 typedef struct		s_simple_button
@@ -187,6 +188,19 @@ typedef struct		s_checkbox
 	SDL_bool		checked;
 	void			*variable;
 }					t_checkbox;
+
+typedef enum		e_scaleboxf
+{
+	SCALEBOX_NONE = 0,
+	SCALEBOX_MUSIC_VOLUME = 1
+}					t_scaleboxf;
+
+typedef struct		s_scalebox
+{
+	int				percent;
+	int				flags;
+}					t_scalebox;
+
 
 typedef struct		s_button
 {
@@ -216,7 +230,8 @@ enum	e_frame
 	FRAME_MAP = 32,
 	FRAME_PLAYER = 64,
 	FRAME_PORTAL = 128,
-	FRAME_TEXTURE = 256
+	FRAME_TEXTURE = 256,
+	FRAME_MUSIC = 512
 };
 
 typedef struct		s_frame
@@ -252,6 +267,7 @@ typedef struct		s_ed_texture
 {
 	SDL_Texture		*frame_texture;
 	SDL_Texture		*button;
+	SDL_Texture		*clear;
 	SDL_Texture		*clicked_button;
 	SDL_Texture		*on_mouse_button;
 	SDL_Texture		*digit_tab[10];
@@ -262,6 +278,12 @@ typedef struct		s_font
 	TTF_Font		*digital;
 	TTF_Font		*ui;
 }					t_font;
+
+typedef struct		s_doom_music
+{
+	Mix_Music		*editor_music;
+}					t_doom_music;
+
 
 typedef struct		s_win
 {
@@ -288,6 +310,8 @@ typedef struct		s_win
 
 	t_font			font;
 	t_texHud		*texHud;
+
+	t_doom_music	music;
 }					t_win;
 
 /*

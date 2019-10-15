@@ -17,9 +17,7 @@ static void	main_menu_display(t_win *win)
 	{
 		if (!(f->flags & FRAME_HIDE))
 		{
-			if (f->texture)
-				printf("texture\n");
-			else
+			if (!f->texture)
 				draw_ratio_rect(win, &(SDL_Rect){0, 0, win->w, win->h}, &f->ratio);
 			b = f->buttons;
 			while (b)

@@ -12,6 +12,7 @@
 int		init_lines(t_map *map);
 int		init_sectors(t_map *map, t_player *player);
 void	init_player(t_win *win, t_player *player);
+int		init_music(t_doom_music	*music);
 int		init_textures(t_textures *textures);
 
 /*
@@ -91,6 +92,7 @@ void	        free_button(t_button **button);
 int             get_nb_buttons(t_button **buttons);
 
 t_simple_button	*new_simple_button(char *name, t_button_flag flags, void *link);
+int		        update_buttons(t_win *win, t_button_state state);
 int     		update_button(t_win *win, t_button *b, t_button_state state);
 
 t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 flags);
