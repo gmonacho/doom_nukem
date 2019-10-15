@@ -4,7 +4,7 @@ void    all_reload(t_player *player)
 {
     int nb;
 
-    nb = 30 - player->inventory->ammo;
+    nb = 15 - player->inventory->ammo;
     if (player->inventory->magazine - nb > 0)
     {
         player->inventory->magazine -= nb;

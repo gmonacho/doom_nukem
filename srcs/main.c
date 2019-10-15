@@ -43,7 +43,7 @@ int			main(int argc, char **argv)
 			return (ret_error(SDL_GetError()));
 		if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
 			return (ret_error(SDL_GetError()));
-		if (Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
+		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
 			return (ret_error(SDL_GetError()));
 		if ((Mix_Init(MIX_INIT_MP3) & MIX_INIT_MP3) != MIX_INIT_MP3)
 			return (ret_error(SDL_GetError()));
@@ -72,8 +72,12 @@ int			main(int argc, char **argv)
 				game_loop(&win, &map);
 			else if (next_loop == 3)
 				editor_loop(&win, &map);
+			else if (next_loop == 4)
+				loop = SDL_FALSE;
 			else if (next_loop == 5)
 				print_credit(&win);
+			// else if (next_loop == 6)
+			// 	next_loop = main_menu(&win);
 		}
 		SDL_DestroyWindow(win.ptr);
 		SDL_DestroyRenderer(win.rend);

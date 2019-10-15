@@ -51,8 +51,8 @@ void			free_sector(t_sector *sector)
 	if (sector)
 	{
 		ft_strdel(&sector->name);
-		SDL_DestroyTexture(sector->floor_texture);
-		SDL_DestroyTexture(sector->ceil_texture);
+		// SDL_DestroyTexture(sector->floor_texture);
+		// SDL_DestroyTexture(sector->ceil_texture);
 		free_linedefs(&sector->lines);
 		free(sector);
 	}

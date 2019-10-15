@@ -1,5 +1,19 @@
 #include "doom_nukem.h"
 
+// static int      credit_menu_init(t_win *win)
+// {
+//     TTF_Font    *police;
+//     SDL_Texture *text;
+
+//     police = TTF_OpenFont("TTF/DooM.ttf", 65);
+//     text = generate_text(win->rend, police, "Return", (SDL_Color){255, 0, 0, 50});
+//     //menu_frame
+//     add_frame_to_window(win, new_frame((t_frect){-0.01, -0.01, 1.01, 1.01}, NULL, FRAME_NONE, NULL));
+//     //return menu button
+//     add_frame_to_window(win, new_button((t_frect){0.35, 0.8, 0.3, 0.08}, text, BUTTON_CREDIT_RETURN)); 
+//     return (1);
+// }
+
 SDL_Texture    *define_credit(t_win *win)
 {
     SDL_Texture *text;
@@ -17,18 +31,24 @@ void    print_credit(t_win *win)
 {
     SDL_Event   event;
     SDL_bool    loop;
+    SDL_Texture *background;
     
+    background = load_texture(win->rend, "textures/creditBack.png");
     loop = SDL_TRUE;
     if (win)
     {
         while (loop)
         {   
+            SDL_GetWindowSize(win->ptr, &win->w, &win->h);
             clear_rend(win->rend, 197, 50, 250);
             SDL_PumpEvents();
 			SDL_PollEvent(&event);
-            SDL_RenderCopy(win->rend, define_credit(win), NULL, &(SDL_Rect){(500), (400), (250), (75)});
+            SDL_RenderCopy(win->rend, background, NULL, &(SDL_Rect){(0), (0), (win->w), (win->h)});
             if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+            {
                 loop = SDL_FALSE;
+                main_menu(win);
+            }
             SDL_RenderPresent(win->rend);
         }
     }

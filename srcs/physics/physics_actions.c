@@ -42,7 +42,9 @@ static void				teleportation(t_win *win, t_map *map,\
 								t_linedef *line1, t_linedef *line2)
 {
 	double				p;
+    t_music     *music;
 
+    music = NULL;
 	// printf("Teleportation\n");
 	p = 0;
 	// if (line1->p2.x == line1->p1.x)
@@ -137,9 +139,10 @@ static void				teleportation(t_win *win, t_map *map,\
 	set_ray_angle(&(map->player.dir), line1, line2);
 	// printf("Angle : %f pi\n\n", map->player.dir / M_PI);
 
-	keyboard_state(win, &(map->player));	//Reupere la nouvelle direction grace au nouvel angle
+	keyboard_state(win, &(map->player), music);	//Reupere la nouvelle direction grace au nouvel angle
 
 	set_new_position(&(map->player.pos), line1, line2, &(map->player.sector));
+	// set_new_position_3d(&(map->player.pos_up), line1, line2, &(map->player.sector));
 	map->player.pos.x += (map->player.vel.x / map->player.const_vel) * map->player.width_2;
 	map->player.pos.y += (map->player.vel.y / map->player.const_vel) * map->player.width_2;
 

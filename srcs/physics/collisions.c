@@ -4,7 +4,7 @@
 **	Antoine t'es un encule le cercle trigo EST INVERSE oublie pas, wtf t debile
 **
 **	Ajouts :
-**	- Collisions sur les cotes des la hitbox
+**	- Limite la recherche de mur a la taille de la hitbox ! opti
 **	- Gliss sur les murs
 **
 **	s = perimetre / 2 = somme des trois cotes / 2
@@ -25,6 +25,7 @@ static int	collisions(t_win *win, t_map *map, t_player *player)
 	t_calculs	calculs;
 	t_linedef	*collision;
 	t_fdot		newpos;
+	int			i;
 
 	calculs.raycast = 0;
 	// printf("Vel = %f\t%f\n", player->vel.x, player->vel.y);
@@ -41,7 +42,7 @@ static int	collisions(t_win *win, t_map *map, t_player *player)
 
 	newpos = (t_fdot){player->pos.x + player->vel.x,\
 						player->pos.y + player->vel.y};
-	int i = -1;
+	i = -1;
 	while (++i < 8)	//lance 8 rayons autour de la nouvelle pos du player
 	{
 		set_ray_equation(win, player, &(calculs.ray), newpos);
@@ -212,7 +213,7 @@ int		physics(t_win *win, t_map *map, t_player *player)
 	// t_linedef	*line;
 	// t_affine	traj;
 
-	//printf("\nPos : %f\t%f\n", player->pos.x, player->pos.y);
+	// printf("\nPos : %f\t%f\n", player->pos.x, player->pos.y);
 	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
 	if (player->z > 40)
 		player->jump = 0;
@@ -246,8 +247,12 @@ int		physics(t_win *win, t_map *map, t_player *player)
 	// }
 	collisions(win, map, player);
 	
-	player->pos = (t_fdot){player->pos.x + player->vel.x,\
-							player->pos.y + player->vel.y};
+	player->pos_up = (t_fdot_3d){	player->pos_up.x + player->vel.x,\
+									player->pos_up.y + player->vel.y,\
+									player->pos_up.z};
+	// player->pos = (t_fdot_3d){	player->pos.x + player->vel.x,\
+	// 							player->pos.y + player->vel.y,\
+	// 							player->pos.z};
 	return (0);
 }
 

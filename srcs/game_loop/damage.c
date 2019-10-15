@@ -31,16 +31,18 @@ void    apply_heal_armor(t_player *player, int heal, int armor)
         player->currentHp += heal; 
 }
 
-void    use_item(t_player *player, int slotSelected)
+void    use_item(t_player *player, t_music *music, int slotSelected)
 {
     if (slotSelected == 0 && player->inventory->item[0]->nb > 0)
     {
         player->inventory->item[0]->nb -= 1;
+         Mix_PlayChannel(4, music->tmusic[2], 0);
         apply_heal_armor(player, 15, 0);
     }
     if (slotSelected == 1 && player->inventory->item[1]->nb > 0)
     {
         player->inventory->item[1]->nb -= 1;
+         Mix_PlayChannel(5, music->tmusic[3], 0);
         apply_heal_armor(player, 0, 15);
     }
     if (slotSelected == 2 && player->inventory->item[2]->nb > 0)

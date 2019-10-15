@@ -4,14 +4,16 @@ double		prop(double value, t_dot inter1, t_dot inter2)
 {
 	if (inter1.y == inter1.x)
 		return ((inter2.y + inter2.x) / 2);
-	return (inter2.x + ((value - inter1.x) / (inter1.y - inter1.x)) *\
+	return (inter2.x + ((value - inter1.x) / (double)(inter1.y - inter1.x)) *\
 			(inter2.y - inter2.x));
 }
 
-double  	modulo(double nbr, double mod)
+double		fprop(double value, t_fdot inter1, t_fdot inter2)
 {
-        return (nbr - (int)(nbr / mod) * mod -\
-                        (mod < 0 ? mod : 0));
+	if (inter1.y == inter1.x)
+		return ((inter2.y + inter2.x) / 2);
+	return (inter2.x + ((value - inter1.x) / (inter1.y - inter1.x)) *\
+			(inter2.y - inter2.x));
 }
 
 void		draw_affine(t_win *win, t_affine function)

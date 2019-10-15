@@ -15,6 +15,13 @@ typedef struct		s_fdot
 	double			y;
 }					t_fdot;
 
+typedef struct		s_fdot_3d
+{
+	double			x;
+	double			y;
+	double			z;
+}					t_fdot_3d;
+
 typedef struct		s_size
 {
 	int				w;
@@ -55,6 +62,24 @@ typedef struct		s_affine
 	int				isequation;
 	double			angle;
 }					t_affine;
+
+typedef struct		s_plan
+{
+	double			a;
+	double			b;
+	double			c;
+	double			d;
+}					t_plan;
+
+typedef struct		s_cartesienne
+{
+	double			ox;
+	double			oy;
+	double			oz;
+	double			vx;
+	double			vy;
+	double			vz;
+}					t_cartesienne;
 
 typedef struct		s_vector
 {
@@ -140,7 +165,8 @@ typedef enum	e_menu_button
 {
 	BUTTON_MENU_NONE = 0,
 	BUTTON_MENU_CREDIT = 1,
-	BUTTON_MENU_QUIT = 2
+	BUTTON_MENU_QUIT = 2,
+	BUTTON_CREDIT_RETURN = 4
 
 }				t_menu_button;
 
@@ -260,6 +286,18 @@ typedef struct 	s_texHud
 }					t_texHud;
 
 /*
+**	---------------------------------- main_menu --------------------------------------------
+*/
+
+typedef struct s_main_menu
+{
+	SDL_Texture *text[4];
+	SDL_Texture	*textb[4];
+	TTF_Font	*police;
+
+}				t_main_menu;
+
+/*
 **	---------------------------------- Window ----------------------------------
 */
 
@@ -312,6 +350,7 @@ typedef struct		s_win
 	t_texHud		*texHud;
 
 	t_doom_music	music;
+	t_main_menu		*main_menu;
 }					t_win;
 
 /*
@@ -319,6 +358,15 @@ typedef struct		s_win
 ** ================================== DATA ============================================
 ** ====================================================================================
 */
+
+/*
+**	---------------------------------- Music --------------------------------------------
+*/
+
+typedef struct s_music
+{
+	Mix_Chunk 	*tmusic[5];
+}				t_music;
 
 /*
 **	---------------------------------- Timer --------------------------------------------
@@ -418,6 +466,7 @@ typedef struct			s_linedef
 	t_dot				p2;
 	t_linedef_side		side;
 	t_affine			equation;
+	t_plan				equation_2;
 	double				angle;
 	SDL_Surface			*texture;
 	Uint32				flags;
@@ -438,12 +487,19 @@ typedef struct				s_calculs
 	int						column;
 	int						nportals;
 	double					alpha;
+	double					alpha_up;
+	double					alpha_up_copy;
 	double					dangle;
+	double					dangle_up;
 	t_affine				ray;
+	t_cartesienne			ray_2;
 	double					dist;
 	double					newdist;
 	t_fdot					closest;
+	t_fdot_3d				closest_2;
 	t_linedef				*collision_wall;
+	double					up_wall;
+	double					low_wall;
 }							t_calculs;
 
 /*
@@ -457,9 +513,11 @@ typedef struct				s_sector
 	t_color_picker			color;
 	// SDL_Color				color;
 	int						floor_height;
-	SDL_Texture				*floor_texture;
+	t_plan					floor_equation;
+	SDL_Surface				*floor_texture;
 	int						ceil_height;
-	SDL_Texture				*ceil_texture;
+	t_plan					ceil_equation;
+	SDL_Surface				*ceil_texture;
 
 	int						height;
 	int						light_level;
@@ -501,6 +559,7 @@ typedef struct s_inventory
 typedef struct		s_player
 {
 	t_fdot			pos;
+	t_fdot_3d		pos_up;
 	t_dot			dpos;
 	double			z;
 	char			jump;
@@ -508,8 +567,9 @@ typedef struct		s_player
 	t_fvector		vel;
 	double			const_vel;
 	double			dir;
-	double			orientation;
+	double			dir_up;
 	double			fov;
+	double			fov_up;
 	int				height;
 	int				width;
 	double			width_2;
@@ -587,6 +647,7 @@ typedef struct		s_map
 	t_player		player;
 	t_object		*object;
 	t_mob			*mob;
+	t_main_menu		main_menu;
 }					t_map;
 
 /*

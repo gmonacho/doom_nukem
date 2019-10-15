@@ -50,10 +50,14 @@ static void	mouse_move(t_win *win ,t_player *player)
 	if (win->mouse->x < 0)
 		player->dir -= 0.1 + ((player->dir - 0.1 < 0) ? 2 * M_PI : 0);
 
-	if (win->mouse->y > 0 && player->orientation > 15)
-		player->orientation -= 15;
-	if (win->mouse->y < 0 && player->orientation < win->h - 15)
-		player->orientation += 15;
+	// if (win->mouse->y > 0 && player->dir_up > 15)
+	// 	player->dir_up -= 15;
+	// if (win->mouse->y < 0 && player->dir_up < win->h - 15)
+	// 	player->dir_up += 15;
+	if (win->mouse->y < 0 && player->dir_up > -player->fov_up / 2)
+		player->dir_up -= 0.08;
+	if (win->mouse->y > 0 && player->dir_up < player->fov_up / 2)
+		player->dir_up += 0.08;
 }
 
 static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
@@ -62,14 +66,14 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 		player->dir += -0.1 + (player->dir - 0.1 < 0 ? _2_PI : 0);
 	if (state[SDL_SCANCODE_RIGHT])
 		player->dir +=	0.1 - (player->dir + 0.1 > _2_PI ? _2_PI : 0);
-	if (state[SDL_SCANCODE_DOWN] && player->orientation > 0)
-		player->orientation -= 10;
+	if (state[SDL_SCANCODE_DOWN] && player->dir_up > 0)
+		player->dir_up -= 10;
 	if (state[SDL_SCANCODE_LSHIFT])
 		player->shift = 1;
 	else
 		player->shift = 0;
-	if (state[SDL_SCANCODE_UP] && player->orientation < win->h)
-		player->orientation += 10;
+	if (state[SDL_SCANCODE_UP] && player->dir_up < win->h)
+		player->dir_up += 10;
 	if (state[SDL_SCANCODE_SPACE] && player->jump)
 		player->z += 9;
 	/*if (state[SDL_SCANCODE_LCTRL])
@@ -83,7 +87,7 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 static void	keyboard_move(t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_W])
-	{
+	{	
 		player->vel.x += cos(player->dir) * player->const_vel;
 		player->vel.y += sin(player->dir) * player->const_vel;
 	}
@@ -103,7 +107,7 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 		player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
 	}
 }
- static void keyboard_shot(t_win *win, t_player *player, const Uint8 *state)
+ static void keyboard_shot(t_win *win, t_player *player, const Uint8 *state, t_music *music)
 {	
 	char        *tmp;
     SDL_Texture *text;
@@ -121,6 +125,7 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 		{	
 			player->inventory->weapon = 2;
 			player->timers.reload_cd.index = 0;
+             Mix_PlayChannel(3, music->tmusic[1], 0);
 			reload_ammo(player);
 		}
 	}
@@ -133,12 +138,12 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 	if (state[SDL_SCANCODE_E])
 	{
 		if (test_timer(&(player->timers.item_cd)) == 1)
-			use_item(player, player->inventory->selected_slot);
+			use_item(player, music, player->inventory->selected_slot);
 	}
 	free(tmp);
 }
 
-void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
+void 		mouse_state(t_win *win, t_player *player, SDL_Event event, t_music *music)
 {	
 	SDL_Texture     *text;
     char            *tmp;
@@ -165,26 +170,37 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event)
 		if (test_timer(&(player->timers.bullet_cd)) == 1 && player->inventory->ammo > 0 && player->inventory->weapon == 1)
 		{	
 			player->timers.bullet_cd.index = 0;
+            Mix_PlayChannel(2, music->tmusic[0], 0);
+			//Mix_PlayMusic(music->tmusic[0], 1);
 			player->inventory->ammo -= 1;
 			add_bullet(player);
 		}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 	}
 	if (event.type == SDL_MOUSEWHEEL && event.wheel.y > 0 && player->inventory->selected_slot != 3 && test_timer(&(player->timers.item_cd)) == 1)
+    {
 		player->inventory->selected_slot += 1;
+        Mix_PlayChannel(1, music->tmusic[4], 0);
+        //Mix_PlayMusic(music->tmusic[4], 1);
+    }
 	if (event.type == SDL_MOUSEWHEEL && event.wheel.y < 0 && player->inventory->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
+    {
 		player->inventory->selected_slot -= 1;
+        Mix_PlayChannel(1, music->tmusic[4], 0);
+        // Mix_PlayMusic(music->tmusic[4], 1);
+    }
 	free(tmp);
 }
 
-int			keyboard_state(t_win *win, t_player *player)
+int			keyboard_state(t_win *win, t_player *player, t_music *music)
 {
 	const Uint8	*state;
 
 	state = SDL_GetKeyboardState(NULL);
 	player->vel = (t_fvector){0, 0};
 	keyboard_move(player, state);
+	
 	keyboard_dir(win, player, state);
-	keyboard_shot(win, player, state);
+	keyboard_shot(win, player, state, music);
 	//mouse_move(player);
 	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
 	return (0);
