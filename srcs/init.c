@@ -212,6 +212,8 @@ int		init_music(t_doom_music	*music)
 			return (ret_error(SDL_GetError()));
 		if (!(music->credit_music = Mix_LoadMUS("sounds/Remember_chill.mp3")))
 			return (ret_error(SDL_GetError()));
+		if (!(music->menu_music = Mix_LoadMUS("sounds/doomMenu.wav")))
+			return (ret_error(SDL_GetError()));
 	}
 	return (1);
 }

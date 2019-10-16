@@ -321,6 +321,7 @@ typedef struct		s_doom_music
 {
 	Mix_Music		*editor_music;
 	Mix_Music		*credit_music;
+	Mix_Music		*menu_music;
 }					t_doom_music;
 
 
