@@ -251,3 +251,20 @@ frame // texture
         }
     }
 }
+frame // music
+{
+    ratio : 0.775 0.9575 0.2 0.035
+    flags : 512
+    button
+    {
+        ratio : 0.225 0.05 0.7 0.9
+        text : casertarien
+        flags : 65536
+        gflags : 0
+        data :
+        {
+            start_value : 50
+            flags : 1
+        }
+    }
+}

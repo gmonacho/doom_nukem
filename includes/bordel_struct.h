@@ -320,6 +320,7 @@ typedef struct		s_font
 typedef struct		s_doom_music
 {
 	Mix_Music		*editor_music;
+	Mix_Music		*credit_music;
 }					t_doom_music;
 
 

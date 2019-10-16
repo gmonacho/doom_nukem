@@ -53,31 +53,33 @@ int			main(int argc, char **argv)
 			return (0);
 		loop = SDL_TRUE;
 		if (argc == 1)
-			editor_loop(&win, NULL);
-		while (loop)
 		{
-			if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||
-			((fd1 = open(argv[1], O_RDONLY)) <= 0)))
-				return (ret_error("open error"));
-			SDL_PollEvent(&event);
-			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-				loop = SDL_FALSE;
-			map.sectors = ft_data_storing(fd, fd1, &map, &(map.player));
-			if ((ret = init(&win, &map, &(map.player))))
-				return (ret_num_error("Init error", ret));
-			next_loop = main_menu(&win);
-			if (next_loop == 1)
-				loop = SDL_FALSE;
-			else if (next_loop == 2)
-				game_loop(&win, &map);
-			else if (next_loop == 3)
-				editor_loop(&win, &map);
-			else if (next_loop == 4)
-				loop = SDL_FALSE;
-			else if (next_loop == 5)
-				print_credit(&win);
-			// else if (next_loop == 6)
-			// 	next_loop = main_menu(&win);
+			init_music(&win.music);
+			editor_loop(&win, NULL);
+		}
+		else
+		{
+			while (loop)
+			{
+				if ((((fd = open(argv[1], O_RDONLY)) <= 0) || ((
+					fd1 = open(argv[1], O_RDONLY)) <= 0)))
+					return (ret_error("open error"));
+				SDL_PollEvent(&event);
+				if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+					loop = SDL_FALSE;
+				map.sectors = ft_data_storing(fd, fd1, &map, &(map.player));
+				if ((ret = init(&win, &map, &(map.player))))
+					return (ret_num_error("Init error", ret));
+				next_loop = main_menu(&win);
+				if (next_loop == 2)
+					game_loop(&win, &map);
+				else if (next_loop == 3)
+					editor_loop(&win, &map);
+				else if (next_loop == 4)
+					loop = SDL_FALSE;
+				else if (next_loop == 5)
+					print_credit(&win);
+			}
 		}
 		SDL_DestroyWindow(win.ptr);
 		SDL_DestroyRenderer(win.rend);

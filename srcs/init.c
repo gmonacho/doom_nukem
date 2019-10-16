@@ -208,7 +208,9 @@ int		init_music(t_doom_music	*music)
 {
 	if (music)
 	{
-		if (!(music->editor_music = Mix_LoadMUS("musics/editor_music.mp3")))
+		if (!(music->editor_music = Mix_LoadMUS("sounds/map_editor.wav")))
+			return (ret_error(SDL_GetError()));
+		if (!(music->credit_music = Mix_LoadMUS("sounds/Remember_chill.mp3")))
 			return (ret_error(SDL_GetError()));
 	}
 	return (1);

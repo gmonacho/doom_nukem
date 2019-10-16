@@ -112,6 +112,19 @@ static t_text_entry	*parse_text_entry(char **data_str)
 	return (text_entry);
 }
 
+static t_scalebox	*parse_scalebox(char **data_str)
+{
+	t_scalebox		*scalebox;
+
+	if (!(scalebox = (t_scalebox*)ft_memalloc(sizeof(t_scalebox))))
+		return (ret_null_error("parse_scalebox : scalebox allocation failed"));
+	if (!(parse_int(data_str[2], &scalebox->percent)))
+		return (ret_null_error("parse_scalebox : invalid percent"));
+	if (!(parse_int(data_str[2], &scalebox->flags)))
+		return (ret_null_error("parse_scalebox : invalid flags"));
+	return (scalebox);
+}
+
 static int				parse_data(char **data_str, void **data, Uint32 flags)
 {
 	if (flags & BUTTON_SIMPLE)
@@ -123,6 +136,11 @@ static int				parse_data(char **data_str, void **data, Uint32 flags)
 	{
 		if (!(*data = parse_text_entry(data_str)))
 			return (ret_error("parse_data : parse_text_entry failed"));
+	}
+	else if (flags & BUTTON_SCALE_BOX)
+	{
+		if (!(*data = parse_scalebox(data_str)))
+			return (ret_error("parse_data : parse_scalebox failed"));
 	}
 	return (1);
 }
@@ -148,7 +166,7 @@ static t_button		*parse_button(char **button_str)
 	return (b);
 }
 
-static t_frame		*parse_frame(t_win *win, char **frame_str)
+static t_frame		*parse_frame(char **frame_str)
 {
 	int			i;
 	t_frame		*f;
@@ -167,7 +185,6 @@ static t_frame		*parse_frame(t_win *win, char **frame_str)
 		{
 			if (!(b = parse_button(&frame_str[i])))
 				return (ret_null_error("parse_frame : parse_button failed"));
-			update_button(win, b, BUTTON_STATE_NONE);
 			add_button(&f->buttons, b);
 			f->nb_buttons++;
 		}
@@ -216,7 +233,7 @@ int		load_ui(int fd, t_win *win)
 	{
 		if (!(block = read_block(fd)))
 			return (ret_error("load_ui : read_block failed"));
-		if (!(f = parse_frame(win, block)))
+		if (!(f = parse_frame(block)))
 			return (ret_error("load_ui : parse_frame failed"));
 		f->texture = win->ed_texture.frame_texture;
 		add_frame(&win->frames, f);
