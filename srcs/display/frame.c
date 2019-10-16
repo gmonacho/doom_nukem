@@ -50,9 +50,12 @@ t_button	*get_text_entry_by_name(t_frame **frames, const char *name)
 		b = f->buttons;
 		while (b)
 		{
-			data = (t_text_entry*)b->data;
-			if (ft_strcmp(data->name, name) == 0)
-				return (b);
+			if (b->flags & BUTTON_TEXT_ENTRY)
+			{
+				data = (t_text_entry*)b->data;
+				if (ft_strcmp(data->name, name) == 0)
+					return (b);
+			}
 			b = b->next;
 		}
 		f = f->next;
