@@ -71,7 +71,8 @@ void		free_linedef(t_linedef *linedef)
 	if (linedef)
 	{
 		ft_strdel(&linedef->name);
-		SDL_FreeSurface(linedef->texture);
+		if (linedef->texture)
+			SDL_FreeSurface(linedef->texture);
 		free(linedef);
 	}
 	linedef = NULL; 

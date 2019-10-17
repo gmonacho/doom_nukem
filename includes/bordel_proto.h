@@ -34,7 +34,7 @@ t_dot		mouse_drag(int x, int y, SDL_bool end);
 
 int		    keyboard_state(t_win *win, t_player *player, t_music *music);
 int		    key_pressed(Uint32 sdl_keycode);
-void 		mouse_state(t_win *win, t_player *player, SDL_Event event, t_music *music);
+void 		    mouse_state(t_win *win, t_player *player, SDL_Event event, t_music *music);
 
 /*
 **	---------------------------------- Time ----------------------------------
