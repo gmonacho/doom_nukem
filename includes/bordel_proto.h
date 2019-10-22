@@ -11,7 +11,7 @@
 
 int		init_lines(t_map *map);
 int		init_sectors(t_map *map, t_player *player);
-void	init_player(t_win *win, t_player *player);
+void	        init_player(t_win *win, t_player *player);
 int		init_music(t_doom_music	*music);
 int		init_textures(t_textures *textures);
 

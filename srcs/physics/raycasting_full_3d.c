@@ -62,6 +62,14 @@ static int			intersection_plan_line(t_fdot_3d source, t_calculs *calculs, t_plan
 	// 	return (1);
 	t = (-source.x - source.y - source.z - plan.d) /\
 		(plan.a * calculs->ray_2.vx + plan.b * calculs->ray_2.vy + plan.c * calculs->ray_2.vz);
+	
+	if (calculs->column >= 1000)
+	{
+		t = -(plan.a * source.x + plan.b * source.y + plan.c * source.z + plan.d) /\
+		(double)(plan.a * calculs->ray_2.vx + plan.b * calculs->ray_2.vy + plan.c * calculs->ray_2.vz);
+		printf("t = %f\n", t);
+	}
+
 	collision->x = source.x + calculs->ray_2.vx * t;
 	collision->y = source.y + calculs->ray_2.vy * t;
 	collision->z = source.z + calculs->ray_2.vz * t;
@@ -206,6 +214,14 @@ static t_fdot_3d	begin_launch(t_win *win, t_player *player, t_calculs *calculs)
 	return (calculs->closest_2);
 }
 
+
+
+
+
+
+
+
+
 static void			raycasting_vertical(t_win *win, t_player *player, t_calculs *calculs)
 {
 	int				z;
@@ -217,7 +233,6 @@ static void			raycasting_vertical(t_win *win, t_player *player, t_calculs *calcu
 	z = -1;
 	while (++z < win->h)
 	{
-		printf("Debut launch 3d : %fpi %fpi %fpi\t%fpi\n", player->dir / M_PI, calculs->alpha / M_PI, calculs->alpha_up / M_PI, player->dir_up / M_PI);
 		calculs->alpha_up_copy = calculs->alpha_up;
 		collision = begin_launch(win, player, calculs);
 		draw_point(win, calculs, player, collision, z);
@@ -225,21 +240,7 @@ static void			raycasting_vertical(t_win *win, t_player *player, t_calculs *calcu
 		if (calculs->alpha_up < 0)
 			calculs->alpha_up += _2_PI;
 	}
-	win = NULL;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -252,20 +253,29 @@ int				raycasting_3d(t_win *win, t_player *player)
 	t_calculs	calculs;
 
 	calculs.raycast = 1;
-	calculs.dangle = player->fov / win->w;
-	calculs.dangle_up = player->fov_up / win->h;
 	calculs.alpha = player->dir - player->fov / 2;
 	if (calculs.alpha < 0)
 		calculs.alpha += _2_PI;
+	calculs.dangle = player->fov / win->w;
+	calculs.dangle_up = player->fov_up / win->h;
 
 	calculs.column = -1;
 	while (++(calculs.column) < win->w)
 	{
+		// printf("Dir a dirup aup %fpi %fpi\t%fpi %fpi\n", player->dir / M_PI, calculs.alpha / M_PI, player->dir_up / M_PI, calculs.alpha_up / M_PI);
 		raycasting_vertical(win, player, &calculs);
 		calculs.alpha += calculs.dangle;
 		if (calculs.alpha > _2_PI)
 			calculs.alpha -= _2_PI;
 	}
+
+	t_plan		plan = (t_plan){-2, -6, 2, -34};
+	t_fdot_3d	collision;
+	t_fdot_3d	source = (t_fdot_3d){3, 0, 4};
+
+	calculs.ray_2 = (t_cartesienne){source.x, source.y, source.z, 6, 2, 4};
+	intersection_plan_line(source, &calculs, plan, &collision);
+	printf("Collision : %f %f %f\n", collision.x, collision.y, collision.z);
 	return (0);
 }
 
