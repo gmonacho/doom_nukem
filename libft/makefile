@@ -89,7 +89,9 @@ SRCS = ./src/ft_atoi.c\
 	./src/ft_intdel.c \
 	./src/ft_2dstrdel.c \
 	./src/ft_2dputendl.c \
-	./src/ft_2dstrpushback.c
+	./src/ft_2dstrpushback.c \
+	./src/ft_2dstrlen.c \
+	./src/ft_strrev.c
 
 HEADER = ./includes/libft.h
 

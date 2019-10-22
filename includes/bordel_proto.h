@@ -79,27 +79,29 @@ SDL_Texture		*load_texture(SDL_Renderer *rend, const char *file);
 SDL_Texture		*generate_text(SDL_Renderer *rend, TTF_Font *font, const char *text, SDL_Color fg);
 SDL_Texture		*create_bg_text_input(t_win *win, SDL_Rect rect, SDL_Color l_color, SDL_Color r_color);
 SDL_Texture		*blit_text(SDL_Renderer *rend, SDL_Texture *bg_texture, SDL_Texture *text, SDL_Rect *text_rect);
-
+int			display_text(t_win *win, t_dot pos, int max_width, char *text);
+t_dot			get_text_size(t_win *win, char *text);
 /*
 **	---------------------------------- button ----------------------------------
 */
 
-t_button	    *new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
-void		    add_button(t_button **buttons, t_button *new_button);
-void	        remove_button(t_button **button, t_button *button_del);
-void		    free_buttons(t_button **buttons);
-void	        free_button(t_button **button);
-int             get_nb_buttons(t_button **buttons);
+t_button	        *new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
+void		        add_button(t_button **buttons, t_button *new_button);
+void	                remove_button(t_button **button, t_button *button_del);
+void		        free_buttons(t_button **buttons);
+void	                free_button(t_button **button);
+int                     get_nb_buttons(t_button **buttons);
 
-t_simple_button	*new_simple_button(char *name, t_button_flag flags, void *link);
+t_simple_button	        *new_simple_button(char *name, t_button_flag flags, void *link);
 int		        update_buttons(t_win *win, t_button_state state);
 int     		update_button(t_win *win, t_button *b, t_button_state state);
 
-t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 flags);
+t_text_entry	        *new_text_entry(char *name, int max_size, void *variable, Uint8 flags);
 int     		update_text_entry_texture(t_win *win, t_button *button, const char *text);
-int				fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *result);
+int			fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *result);
 t_button		*get_button_by_flags(t_button **buttons, Uint32 flags);
-void	        remove_link_sector_button(t_win *win, t_button **buttons, t_sector *sector);
+void	                remove_link_sector_button(t_win *win, t_button **buttons, t_sector *sector);
+
 
 /*
 **	---------------------------------- frame ----------------------------------
@@ -269,6 +271,7 @@ t_texHud   	*define_texHud(t_win *win);
 ** =============================================================================
 */
 
+void			check_map(t_win *win, t_map_editor *map);
 void			write_line(int fd, int nb_tab, const char *str);
 void			write_sector(t_sector *sector, int fd);
 void			write_player(t_player *player, int fd);

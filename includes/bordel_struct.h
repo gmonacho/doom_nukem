@@ -257,7 +257,8 @@ enum	e_frame
 	FRAME_PLAYER = 64,
 	FRAME_PORTAL = 128,
 	FRAME_TEXTURE = 256,
-	FRAME_MUSIC = 512
+	FRAME_MUSIC = 512,
+	FRAME_ERROR = 1024
 };
 
 typedef struct		s_frame
@@ -353,6 +354,9 @@ typedef struct		s_win
 
 	t_doom_music	music;
 	t_main_menu		*main_menu;
+
+	char			**error_msg;
+	int				nb_error_msg;
 }					t_win;
 
 /*

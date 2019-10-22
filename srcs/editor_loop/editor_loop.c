@@ -199,6 +199,8 @@ static int		ui_init(t_win *win, t_map_editor *map)
 
 static int		editor_init(t_win *win, t_map_editor *map)
 {
+	win->error_msg = NULL;
+	win->nb_error_msg = 0;
 	if (!(map->name = (char*)ft_memalloc(sizeof(char) * 11)))
 		return (ret_error("allocation failed in add_sector"));
 	ft_strcpy(map->name, "Unnamed");
@@ -275,6 +277,7 @@ int				editor_loop(t_win *win, t_map *game_map)
 	while (loop)
 	{
 		clear_rend(win->rend, 30, 30, 35);
+		check_map(win, &map);
 		editor_display(win, &map);
 		editor_event(win, &map, &loop);
 		SDL_RenderPresent(win->rend);
