@@ -22,6 +22,8 @@
 # define SIDE_LEN			40
 # define ID_SIZE            20
 # define ANG_HOR_VER        5
+# define MIN_TEXT_SIZE      10
+# define TEXT_RATIO         0.021
 
 # define _PI_4				0.78539816339
 # define _3_PI_2		    4.71238898038

@@ -157,6 +157,29 @@ static t_sector			*get_player_sector(t_sector *sectors, int i_sector)
 	return (s);
 }
 
+static void				display_errors(t_win *win)
+{
+	t_frame		*f;
+	t_dot		pos;
+	int			i;
+	int			nb_lines;
+
+
+	f = get_frame(&win->frames, FRAME_ERROR);
+	pos.x = f->rect.x;
+	pos.y = f->rect.y;
+	if (win->nb_error_msg != 0 && f)
+	{
+		i = 0;
+		while (win->error_msg[i])
+		{
+			nb_lines = display_text(win, pos, f->rect.w, win->error_msg[i]);
+			pos.y += win->h * TEXT_RATIO * nb_lines;
+			i++;
+		}
+	}
+}
+
 void			editor_display(t_win *win, t_map_editor *map)
 {
 	t_sector	*s;
@@ -190,4 +213,5 @@ void			editor_display(t_win *win, t_map_editor *map)
 	SDL_SetRenderDrawColor(win->rend, 150, 150, 150, 200);
 	if (map->flags & MAP_SELECTING)
 		draw_rect(win, map->rect_util);
+	display_errors(win);
 }

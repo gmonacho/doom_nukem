@@ -63,6 +63,7 @@ void				ft_2dintdel(int ***atab, int len);
 void				ft_2dputint(int **tab, int ilen, int jlen);
 int					**ft_2dintpushback(int **tab, int size_i, int size_j, int *line);
 char				**ft_2dstrpushback(char **tab, int size_i, char *line);
+int     			ft_2dstrlen(char **tab);
 
 char				*ft_strdup(const char *s1);
 char				*ft_strcpy(char *dst, const char *src);
@@ -83,6 +84,7 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strmap(char const *s, char (*f)(char));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_strrchr(const char *s, int c);
+char    			*ft_strrev(char *str);
 
 size_t				ft_strlen(const char *s);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);

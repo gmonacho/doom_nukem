@@ -34,7 +34,6 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map)
 				remove_frame_flags(&win->frames, FRAME_INFO, FRAME_HIDE);
 				map->selected_sector = s;
 				info_sector = get_frame(&win->frames, FRAME_INFO);
-				printf("info_sector = %p\n", info_sector);
 				if (info_sector)
 				{
 					b_sector = info_sector->buttons;
