@@ -49,8 +49,13 @@ void    use_item(t_player *player, t_music *music, int slotSelected)
         player->inventory->item[2]->nb -= 1;
 }
 
-void    damage_heal(t_player *player, int damage, int armor, int heal)
+void    damage_heal(t_player *player, t_music *music, int armor, int heal)
 {
-    apply_damage(player, damage);
+    if (player->damage > 0)
+    {
+        apply_damage(player, player->damage);
+        Mix_PlayChannel(4, music->tmusic[5], 0);
+    }
     apply_heal_armor(player, heal, armor);
+    player->damage = 0;
 }

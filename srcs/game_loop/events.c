@@ -44,12 +44,10 @@
 
 static void	mouse_move(t_win *win ,t_player *player)
 {	
-
 	if (win->mouse->x > 0)
 		player->dir += 0.1 + ((player->dir + 0.1 > 2 * M_PI) ? -2 * M_PI : 0);
 	if (win->mouse->x < 0)
 		player->dir -= 0.1 + ((player->dir - 0.1 < 0) ? 2 * M_PI : 0);
-
 	// if (win->mouse->y > 0 && player->dir_up > 15)
 	// 	player->dir_up -= 15;
 	// if (win->mouse->y < 0 && player->dir_up < win->h - 15)
@@ -106,6 +104,10 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 		player->vel.x += cos(player->dir + M_PI_2) * player->const_vel;
 		player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
 	}
+	if (state[SDL_SCANCODE_L])
+	{
+		player->damage = 5;
+	}
 }
  static void keyboard_shot(t_win *win, t_player *player, const Uint8 *state, t_music *music)
 {	
@@ -125,7 +127,7 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 		{	
 			player->inventory->weapon = 2;
 			player->timers.reload_cd.index = 0;
-             Mix_PlayChannel(3, music->tmusic[1], 0);
+            Mix_PlayChannel(3, music->tmusic[1], 0);
 			reload_ammo(player);
 		}
 	}
@@ -148,60 +150,66 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event, t_music *music
 	SDL_Texture     *text;
     char            *tmp;
 
-	tmp = ft_strdup("EMPTY AMMO PRESS 'R' ");
-	if (event.motion.xrel || event.motion.yrel)
-	{
-		mouse_move(win, player);
-		player->timers.mouse.index = 1;
-	}
-	if (event.window.event == SDL_WINDOWEVENT_RESIZED)
-		{
-			SDL_GetWindowSize(win->ptr, &win->w, &win->h);
-			update_ui_rect(win);
-			define_line_shot(win, player);
-		}
-	if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT))
+	if (player->currentHp > 0)
 	{	
-		if (player->inventory->ammo == 0)
-        {
-        	text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
-        	SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(win->w * 0.33), (win->h * 0.8125), (win->w * 0.28), (win->h * 0.0625)});
+		tmp = ft_strdup("EMPTY AMMO PRESS 'R' ");
+		if (event.motion.xrel || event.motion.yrel)
+		{
+			mouse_move(win, player);
+			player->timers.mouse.index = 1;
 		}
-		if (test_timer(&(player->timers.bullet_cd)) == 1 && player->inventory->ammo > 0 && player->inventory->weapon == 1)
+		if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+			{
+				SDL_GetWindowSize(win->ptr, &win->w, &win->h);
+				update_ui_rect(win);
+				define_line_shot(win, player);
+			}
+		if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT))
 		{	
-			player->timers.bullet_cd.index = 0;
-            Mix_PlayChannel(2, music->tmusic[0], 0);
-			//Mix_PlayMusic(music->tmusic[0], 1);
-			player->inventory->ammo -= 1;
-			add_bullet(player);
-		}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+			if (player->inventory->ammo == 0)
+			{
+				text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
+				SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(win->w * 0.33), (win->h * 0.8125), (win->w * 0.28), (win->h * 0.0625)});
+			}
+			if (test_timer(&(player->timers.bullet_cd)) == 1 && player->inventory->ammo > 0 && player->inventory->weapon == 1)
+			{	
+				player->timers.bullet_cd.index = 0;
+				Mix_PlayChannel(2, music->tmusic[0], 0);
+				//Mix_PlayMusic(music->tmusic[0], 1);
+				player->inventory->ammo -= 1;
+				add_bullet(player);
+			}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+		}
+		if (event.type == SDL_MOUSEWHEEL && event.wheel.y > 0 && player->inventory->selected_slot != 3 && test_timer(&(player->timers.item_cd)) == 1)
+		{
+			player->inventory->selected_slot += 1;
+			Mix_PlayChannel(1, music->tmusic[4], 0);
+			//Mix_PlayMusic(music->tmusic[4], 1);
+		}
+		if (event.type == SDL_MOUSEWHEEL && event.wheel.y < 0 && player->inventory->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
+		{
+			player->inventory->selected_slot -= 1;
+			Mix_PlayChannel(1, music->tmusic[4], 0);
+			// Mix_PlayMusic(music->tmusic[4], 1);
+		}
+		free(tmp);
 	}
-	if (event.type == SDL_MOUSEWHEEL && event.wheel.y > 0 && player->inventory->selected_slot != 3 && test_timer(&(player->timers.item_cd)) == 1)
-    {
-		player->inventory->selected_slot += 1;
-        Mix_PlayChannel(1, music->tmusic[4], 0);
-        //Mix_PlayMusic(music->tmusic[4], 1);
-    }
-	if (event.type == SDL_MOUSEWHEEL && event.wheel.y < 0 && player->inventory->selected_slot != 0 && test_timer(&(player->timers.item_cd)) == 1)
-    {
-		player->inventory->selected_slot -= 1;
-        Mix_PlayChannel(1, music->tmusic[4], 0);
-        // Mix_PlayMusic(music->tmusic[4], 1);
-    }
-	free(tmp);
 }
 
 int			keyboard_state(t_win *win, t_player *player, t_music *music)
 {
 	const Uint8	*state;
 
-	state = SDL_GetKeyboardState(NULL);
-	player->vel = (t_fvector){0, 0};
-	keyboard_move(player, state);
-	
-	keyboard_dir(win, player, state);
-	keyboard_shot(win, player, state, music);
-	//mouse_move(player);
-	//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
+	if (player->currentHp > 0)
+	{
+		state = SDL_GetKeyboardState(NULL);
+		player->vel = (t_fvector){0, 0};
+		keyboard_move(player, state);
+		
+		keyboard_dir(win, player, state);
+		keyboard_shot(win, player, state, music);
+		//mouse_move(player);
+		//printf("Vel : %f\t%f\n", player->vel.x, player->vel.y);
+	}
 	return (0);
 }

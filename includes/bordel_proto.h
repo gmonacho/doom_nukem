@@ -211,7 +211,8 @@ void			free_sectors(t_sector **sectors);
 **	---------------------------------- player ----------------------------------
 */
 
-void    	damage_heal(t_player *player, int damage, int armor, int heal);
+void    	damage_heal(t_player *player, t_music *music, int armor, int heal);
+int             dead_moment(t_win *win, t_player *player, t_texHud *texHud, SDL_Event event);
 
 /*
 **	---------------------------------- mob ----------------------------------

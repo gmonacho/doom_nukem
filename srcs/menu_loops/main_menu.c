@@ -90,7 +90,7 @@ static int	main_menu_init(t_win *win)
 		ft_putendl("Error malloc main_menu.c l.94\n");
 		exit(0);
 	}
-	win->main_menu->police = TTF_OpenFont("TTF/DooM.ttf", 65);
+	win->main_menu->police = TTF_OpenFont("TTF/DooM.ttf", 100);
 	win->main_menu->text[0] = generate_text(win->rend, win->main_menu->police, "Play", (SDL_Color){255, 0, 0, 50});
 	win->main_menu->text[1] = generate_text(win->rend, win->main_menu->police, "Map Editor", (SDL_Color){255, 0, 0, 50});
 	win->main_menu->text[2] = generate_text(win->rend, win->main_menu->police, "Credits", (SDL_Color){255, 0, 0, 50});
@@ -139,7 +139,7 @@ int			main_menu(t_win *win)
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	while (loop)
 	{
-		clear_rend(win->rend, 71, 27, 27);
+		clear_rend(win->rend, 71, 27, 27); 
 		SDL_RenderCopy(win->rend, background, NULL, &(SDL_Rect){(0), (0.15 * win->h), (win->w), (0.7 * win->h)});
 		print_back_text(win);
 		main_menu_display(win);
