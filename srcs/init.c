@@ -200,6 +200,20 @@ int		init_textures(t_textures *textures)
 		ft_putendl(SDL_GetError());
 		return (1);
 	}
-	printf("chat ptr = %p, w = %d, h = %d\n", textures->tortue, textures->tortue->w, textures->tortue->w);
 	return (0);
+}
+
+
+int		init_music(t_doom_music	*music)
+{
+	if (music)
+	{
+		if (!(music->editor_music = Mix_LoadMUS("sounds/map_editor.wav")))
+			return (ret_error(SDL_GetError()));
+		if (!(music->credit_music = Mix_LoadMUS("sounds/Remember_chill.mp3")))
+			return (ret_error(SDL_GetError()));
+		if (!(music->menu_music = Mix_LoadMUS("sounds/doomMenu.wav")))
+			return (ret_error(SDL_GetError()));
+	}
+	return (1);
 }

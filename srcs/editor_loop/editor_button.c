@@ -115,11 +115,40 @@ static int  update_simple(t_win *win, t_button *b, t_button_state state)
         bg = win->ed_texture.on_mouse_button;
     else if (state == BUTTON_STATE_CLICKED)
         bg = win->ed_texture.clicked_button;
-    if (SDL_QueryTexture(bg, NULL, NULL, &w, &h) < 0)
-        printf("tamere : %s\n", SDL_GetError());
-    if (!(b->texture = blit_text(win->rend, bg, text, &(SDL_Rect){w / 6, h / 6, w - w / 6 * 2, h - h / 6 * 2})))
-        return (ret_error("blit text failed in update simple"));
-    return (1);
+    if (SDL_QueryTexture(bg, NULL, NULL, &w, &h) == 0)
+	{
+    	if (!(b->texture = blit_text(win->rend, bg, text, &(SDL_Rect){w / 6, h / 6, w - w / 6 * 2, h - h / 6 * 2})))
+     	  	 return (ret_error("blit text failed in update simple"));
+	}
+	else
+		b->texture = NULL;
+	
+	return (1);
+}
+
+static int	update_scalebox(t_win *win, t_button *b)
+{
+	t_scalebox *data;
+
+	if (b && win)
+	{
+		data = (t_scalebox*)b->data;
+		SDL_DestroyTexture(b->texture);
+		if (!(b->texture = SDL_CreateTexture(win->rend,  SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, b->rect.w, b->rect.h)))
+		{
+			ft_putendl_fd("update_scalebox : SDL_CreateTexture failed", 2);	
+			return (ret_error(SDL_GetError()));
+		}
+		SDL_SetTextureBlendMode(b->texture, SDL_BLENDMODE_BLEND);
+		SDL_SetRenderTarget(win->rend, b->texture);
+		SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 0);
+		SDL_RenderClear(win->rend);
+		SDL_SetRenderDrawColor(win->rend, 220, 220, 220, 255);
+		fill_rect(win, (SDL_Rect){0, 0.3 * b->rect.h, b->rect.w, 0.4 * b->rect.h});
+		draw_circle(win, (t_circle){data->percent * b->rect.w / 100, b->rect.h / 2, b->rect.h / 2});
+		SDL_SetRenderTarget(win->rend, NULL);
+	}
+	return (1);
 }
 
 int     update_button(t_win *win, t_button *b, t_button_state state)
@@ -129,11 +158,36 @@ int     update_button(t_win *win, t_button *b, t_button_state state)
 		if (!update_simple(win, b, state))
 			return (ret_error("update_button : update_simple failed"));
 	}
+	else if (b->flags & BUTTON_SCALE_BOX)
+	{
+		if (!update_scalebox(win, b))
+			return (ret_error("update_button : update_scalebox failed"));
+	}
 	// else if (b->flags & BUTTON_TEXT_ENTRY)
 	// {
 	// 	t_data = (t_text_entry*)b->data;
 	// 	if (!update_text_entry_texture(win, b, (char*)t_data->variable))
 	// 		return (ret_error("update_button : update_text_entry failed"));
 	// }
+	return (1);
+}
+
+int		update_buttons(t_win *win, t_button_state state)
+{
+	t_frame		*f;
+	t_button	*b;
+
+	f = win->frames;
+	while (f)
+	{
+		b = f->buttons;
+		while (b)
+		{
+			if (!update_button(win, b, state))
+				return (ret_error("update_buttons : update_button failed"));
+			b = b->next;
+		}
+		f = f->next;
+	}
 	return (1);
 }

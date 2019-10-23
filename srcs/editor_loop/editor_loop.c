@@ -23,6 +23,8 @@ static int		ui_texture_init(t_win *win)
 		return (ret_error(SDL_GetError()));
 	if (!(win->ed_texture.on_mouse_button = load_texture(win->rend, "textures/on_mouse_button.png")))
 		return (ret_error(SDL_GetError()));
+	if (!(win->ed_texture.clear = load_texture(win->rend, "textures/clear.png")))
+		return (ret_error(SDL_GetError()));
 	i = 0;
 	while (i < 10)
 	{
@@ -188,6 +190,8 @@ static int		ui_init(t_win *win, t_map_editor *map)
 		return (ret_error("ui_init : load_ui failed"));
 	ui_init_variable(win, map);
 	update_ui_rect(win);
+
+	update_buttons(win, BUTTON_STATE_NONE);
 	ui_update_text_entry_texture(win);
 	ui_update_text_entry_texture(win);
 	return (1);
@@ -195,6 +199,8 @@ static int		ui_init(t_win *win, t_map_editor *map)
 
 static int		editor_init(t_win *win, t_map_editor *map)
 {
+	win->error_msg = NULL;
+	win->nb_error_msg = 0;
 	if (!(map->name = (char*)ft_memalloc(sizeof(char) * 11)))
 		return (ret_error("allocation failed in add_sector"));
 	ft_strcpy(map->name, "Unnamed");
@@ -226,8 +232,10 @@ static int		editor_init(t_win *win, t_map_editor *map)
 
 int				editor_quit(t_win *win, t_map_editor *map)
 {
-	free_frames(&win->frames);
-	free_sectors(&map->sectors);
+	free_frames(&(win->frames));
+	free_sectors(&(map->sectors));
+	Mix_FadeOutMusic(1000);
+	// Mix_HaltMusic();
 	return (1);
 }
 
@@ -263,10 +271,13 @@ int				editor_loop(t_win *win, t_map *game_map)
 		map.player.dpos.y = game_map->player.pos.y;
 		map.player.vel = (t_fvector){1, 1};
 	}
+	if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
+		ft_putendl_fd("editor loop : Impossible to play map_editor.wav", 2);
 	loop = SDL_TRUE;
 	while (loop)
 	{
 		clear_rend(win->rend, 30, 30, 35);
+		check_map(win, &map);
 		editor_display(win, &map);
 		editor_event(win, &map, &loop);
 		SDL_RenderPresent(win->rend);

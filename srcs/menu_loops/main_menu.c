@@ -3,6 +3,8 @@
 static void	main_menu_quit(t_win *win)
 {
 	free_frames(&win->frames);
+	Mix_FadeOutMusic(1000);
+	SDL_Delay(1000);
 }
 
 
@@ -17,9 +19,7 @@ static void	main_menu_display(t_win *win)
 	{
 		if (!(f->flags & FRAME_HIDE))
 		{
-			if (f->texture)
-				printf("texture\n");
-			else
+			if (!f->texture)
 				draw_ratio_rect(win, &(SDL_Rect){0, 0, win->w, win->h}, &f->ratio);
 			b = f->buttons;
 			while (b)
@@ -137,6 +137,8 @@ int			main_menu(t_win *win)
 	main_menu_init(win);
 	loop = SDL_TRUE;
 	SDL_SetRelativeMouseMode(SDL_FALSE);
+	if (Mix_PlayMusic(win->music.menu_music, -1) == -1)
+		ft_putendl_fd("editor loop : Impossible to play doomMusic.wav", 2);
 	while (loop)
 	{
 		clear_rend(win->rend, 71, 27, 27); 

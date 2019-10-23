@@ -21,7 +21,7 @@ int				raycasting(t_win *win, t_player *player)
 		// printf("Source : %f\t%f\n\n", player->pos.y, calculs.ray.a * player->pos.x + calculs.ray.b);
 		
 		launch_ray_2d(win, player, &calculs);
-		// launch_ray_3d(win, player, &calculs);
+		////////////// launch_ray_3d(win, player, &calculs);
 		calculs.alpha += calculs.dangle;
 		if (calculs.alpha > _2_PI)
 			calculs.alpha -= _2_PI;
