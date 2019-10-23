@@ -13,6 +13,7 @@ void        attribute_texture(t_texHud *texHud, t_win *win)
     texHud->tex[8] = load_texture(win->rend, "textures/shieldPotion.png");
     texHud->tex[9] = load_texture(win->rend, "textures/pq.png");
     texHud->tex[11] = load_texture(win->rend, "textures/crosshairIcon.png");
+    texHud->tex[12] = load_texture(win->rend, "textures/gameOverScreen.png");
     texHud->police = TTF_OpenFont("TTF/DooM.ttf", 65);
 
 }

@@ -166,8 +166,9 @@ typedef enum	e_menu_button
 	BUTTON_MENU_NONE = 0,
 	BUTTON_MENU_CREDIT = 1,
 	BUTTON_MENU_QUIT = 2,
-	BUTTON_CREDIT_RETURN = 4
-
+	BUTTON_CREDIT_RETURN = 4,
+	BUTTON_DEAD_RETRY = 8,
+	BUTTON_DEAD_MENU = 16
 }				t_menu_button;
 
 typedef enum	e_button
@@ -280,7 +281,7 @@ typedef struct		s_frame
 */
 typedef struct 	s_texHud
 {
-	SDL_Texture		*tex[15];
+	SDL_Texture		*tex[13];
 	SDL_Texture		*tex_weapon[6];
 	SDL_Texture		*tex_reload[5];
 	TTF_Font		*police;
@@ -371,7 +372,7 @@ typedef struct		s_win
 
 typedef struct s_music
 {
-	Mix_Chunk 	*tmusic[5];
+	Mix_Chunk 	*tmusic[6];
 }				t_music;
 
 /*
@@ -595,6 +596,7 @@ typedef struct		s_player
 	int 			*bullet_drop;
 	int 			len_bullet;
 	double			demipetitaxe;
+	int 			damage;
 }					t_player;
 
 /*
