@@ -19,7 +19,7 @@ void			set_new_position_3d(t_fdot_3d *pos, t_linedef *line1, t_linedef *line2, t
 {
 	double		p;
 
-	// printf("New position\n");
+	printf("New position : %p %p\n", line1, line2);
 	if (line1->p2.x == line1->p1.x)
 		p = prop(pos->y,\
 				(t_dot){line1->p1.y, line1->p2.y},\
