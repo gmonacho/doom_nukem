@@ -23,9 +23,9 @@ static void	draw_map(t_win *win, t_map *map)
 	t_dot		width;
 	t_dot		height;
 
-	SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
-	width = (t_dot){0, win->w};
-	height = (t_dot){0, win->h};
+	SDL_SetRenderDrawColor(win->rend, 192, 244, 238, 255);
+	width = (t_dot){win->w * 0.72, win->w * 0.97};
+	height = (t_dot){win->h * 0.025, win->h * 0.275};
 	x = (t_dot){10000000, -100000000};
 	y = (t_dot){10000000, -100000000};
 	sector = map->sectors;
@@ -54,7 +54,7 @@ static void	draw_map(t_win *win, t_map *map)
 		}
 		sector = sector->next;
 	}
-	// x = (t_dot){0, win->w};	//Pour annuler le rescale
+	// x = (t_dot){500, win->w};	//Pour annuler le rescale
 	// y = (t_dot){0, win->h};
 	sector = map->sectors;
 	while (sector)

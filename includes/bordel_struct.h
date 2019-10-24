@@ -281,7 +281,7 @@ typedef struct		s_frame
 */
 typedef struct 	s_texHud
 {
-	SDL_Texture		*tex[13];
+	SDL_Texture		*tex[14];
 	SDL_Texture		*tex_weapon[6];
 	SDL_Texture		*tex_reload[5];
 	TTF_Font		*police;
