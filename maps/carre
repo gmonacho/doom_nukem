@@ -22,14 +22,6 @@ Sector
 	}
 	line
 	{
-		dot = (649, 537)
-		dot = (850, 537)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
 		dot = (649, 347)
 		dot = (649, 537)
 		flags = WALL
@@ -38,8 +30,16 @@ Sector
 	}
 	line
 	{
-		dot = (850, 347)
+		dot = (649, 537)
 		dot = (850, 537)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (850, 537)
+		dot = (850, 347)
 		flags = PORTAL
 		id = 1
 		side = RIGHT
@@ -60,7 +60,7 @@ Sector
 	}
 	line
 	{
-		dot = (850, 537)
+		dot = (1122, 347)
 		dot = (1122, 537)
 		flags = WALL
 		id = 0
@@ -68,8 +68,8 @@ Sector
 	}
 	line
 	{
-		dot = (1122, 347)
 		dot = (1122, 537)
+		dot = (850, 537)
 		flags = WALL
 		id = 0
 		side = RIGHT

@@ -14,13 +14,14 @@ static int		find_portal_id(t_map *map, t_linedef *line1, int id)
 			if (id == line->id && line1 != line)
 			{
 				line1->destline = line;
-				return (0);
+				printf("Dest : %p\n", line1->destline);
+				return (1);
 			}
 			line = line->next;
 		}
 		sector = sector->next;
 	}
-	return (1);
+	return (0);
 }
 
 // static int	set_clockwise(t_map *map, t_sector *sector, t_linedef *line)
@@ -87,15 +88,15 @@ int		init_lines(t_map *map)
 			line->texture = map->textures.tortue;
 			line->sector = sector;
 			line->side = SIDE_RIGHT;
-			if (line->flags & PORTAL && find_portal_id(map, line, line->id))
+			if (line->flags & PORTAL && !find_portal_id(map, line, line->id))
 				return (1);
 			line = line->next;
-			check_lines(map);
 			// if (set_clockwise(map, sector, line))
 			// 	return ();
 		}
 		sector = sector->next;
 	}
+	check_lines(map);
 	return (0);
 }
 
@@ -160,9 +161,9 @@ int		init_sectors(t_map *map, t_player *player)
 
 void	init_player(t_win *win, t_player *player)
 {
-	player->pos_up.x = player->pos.x;
-	player->pos_up.y = player->pos.y;
-	player->pos_up.z = player->sector->floor_height + player->height;
+	player->pos_up = (t_fdot_3d){	player->pos.x,\
+									player->pos.y,\
+									player->sector->floor_height + player->height};
 	player->inventory = define_inventory();
 	player->dir = M_PI_2;
 	player->fov = _PI_4;

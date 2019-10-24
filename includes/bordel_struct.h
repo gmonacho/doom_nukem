@@ -494,8 +494,9 @@ typedef struct				s_calculs
 	int						column;
 	int						nportals;
 	double					alpha;
+	double					alpha_tmp;
 	double					alpha_up;
-	double					alpha_up_copy;
+	// double					alpha_up_tmp;
 	double					dangle;
 	double					dangle_up;
 	t_affine				ray;

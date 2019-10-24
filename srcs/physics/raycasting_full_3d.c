@@ -102,10 +102,10 @@ static void			set_cartesienne(t_calculs *calculs, t_cartesienne *ray, t_fdot_3d 
 {
 	t_fvector		vector;
 
-	vector = get_vector_by_angle(calculs, calculs->alpha, 0);
+	vector = get_vector_by_angle(calculs, calculs->alpha_tmp, 0);
 	ray->vx = vector.x;
 	ray->vy = vector.y;
-	vector = get_vector_by_angle(calculs, calculs->alpha_up_copy, 1);
+	vector = get_vector_by_angle(calculs, calculs->alpha_up, 1);
 	ray->vz = vector.y;
 
 	ray->ox = origin.x;
@@ -205,9 +205,10 @@ static t_fdot_3d	begin_launch(t_win *win, t_player *player, t_calculs *calculs)
 	wall = launch_ray_3d(win, player, calculs, source, sector);
 	while (wall && wall->flags & PORTAL && calculs->dist < RENDER_DISTANCE)
 	{
-		set_new_position_3d(&(calculs->closest_2), wall, wall->destline, &sector);
-		source = calculs->closest_2;
-		set_ray_angle(&(calculs->alpha_up_copy), wall, wall->destline);
+		printf("Wall collision : %p\n", wall);
+		source = (t_fdot_3d){calculs->closest_2.x, calculs->closest_2.y, calculs->closest_2.z};
+		set_new_position_3d(&source, wall, wall->destline, &sector);
+		set_ray_angle(&(calculs->alpha_tmp), wall, wall->destline);
 		set_cartesienne(calculs, &(calculs->ray_2), source);
 		wall = launch_ray_3d(win, player, calculs, source, sector);
 	}
@@ -233,7 +234,7 @@ static void			raycasting_vertical(t_win *win, t_player *player, t_calculs *calcu
 	z = -1;
 	while (++z < win->h)
 	{
-		calculs->alpha_up_copy = calculs->alpha_up;
+		// calculs->alpha_up_tmp = calculs->alpha_up;
 		collision = begin_launch(win, player, calculs);
 		draw_point(win, calculs, player, collision, z);
 		calculs->alpha_up -= calculs->dangle_up;
@@ -263,19 +264,23 @@ int				raycasting_3d(t_win *win, t_player *player)
 	while (++(calculs.column) < win->w)
 	{
 		// printf("Dir a dirup aup %fpi %fpi\t%fpi %fpi\n", player->dir / M_PI, calculs.alpha / M_PI, player->dir_up / M_PI, calculs.alpha_up / M_PI);
+		calculs.alpha_tmp = calculs.alpha;
 		raycasting_vertical(win, player, &calculs);
 		calculs.alpha += calculs.dangle;
 		if (calculs.alpha > _2_PI)
 			calculs.alpha -= _2_PI;
 	}
 
-	t_plan		plan = (t_plan){-2, -6, 2, -34};
-	t_fdot_3d	collision;
+	// t_plan		plan = (t_plan){-2, -6, 2, -34};
+	// t_fdot_3d	collision;
 	t_fdot_3d	source = (t_fdot_3d){3, 0, 4};
 
-	calculs.ray_2 = (t_cartesienne){source.x, source.y, source.z, 6, 2, 4};
-	intersection_plan_line(source, &calculs, plan, &collision);
-	printf("Collision : %f %f %f\n", collision.x, collision.y, collision.z);
+	// calculs.ray_2 = (t_cartesienne){source.x, source.y, source.z, 6, 2, 4};
+	calculs.alpha = 3 * _PI_4;
+	calculs.alpha_up = M_PI_2;
+	set_cartesienne(&calculs, &(calculs.ray_2), source);
+	// printf("Collision : %f %f %f\n", collision.x, collision.y, collision.z);
+	printf("Collision : %f %f %f\n", calculs.ray_2.vx, calculs.ray_2.vy, calculs.ray_2.vz);
 	return (0);
 }
 

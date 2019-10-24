@@ -62,7 +62,6 @@ static void	draw_map(t_win *win, t_map *map)
 		line = sector->lines;
 		while (line)
 		{
-			// p1 = ;
 			draw_line(win, (t_dot){prop(line->p1.x, x, width),\
 									prop(line->p1.y, y, height)},\
 							(t_dot){prop(line->p2.x, x, width),\
@@ -234,8 +233,8 @@ void			print_column(t_win *win, t_linedef *wall, t_player *player, t_calculs *ca
 
 void	draw(t_win *win, t_map *map, t_player *player)
 {
-	// raycasting_3d(win, player);
-	raycasting(win, player);
+	raycasting_3d(win, player);
+	// raycasting(win, player);
 	fill_portals(win, player);
 
 	draw_map(win, map);
