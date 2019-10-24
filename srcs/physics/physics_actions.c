@@ -38,11 +38,11 @@ void			set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_secto
 	*sector = line2->sector;
 }
 
-static void				teleportation(t_win *win, t_map *map,\
+static void		teleportation(t_win *win, t_map *map,\
 								t_linedef *line1, t_linedef *line2)
 {
-	double				p;
-    t_music     *music;
+	double		p;
+    t_music		*music;
 
     music = NULL;
 	// printf("Teleportation\n");

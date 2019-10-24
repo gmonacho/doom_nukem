@@ -14,7 +14,6 @@ static int		find_portal_id(t_map *map, t_linedef *line1, int id)
 			if (id == line->id && line1 != line)
 			{
 				line1->destline = line;
-				printf("Dest : %p\n", line1->destline);
 				return (1);
 			}
 			line = line->next;
@@ -85,11 +84,13 @@ int		init_lines(t_map *map)
 		line = sector->lines;
 		while (line)
 		{
+			line->destline = NULL;
 			line->texture = map->textures.tortue;
 			line->sector = sector;
 			line->side = SIDE_RIGHT;
 			if (line->flags & PORTAL && !find_portal_id(map, line, line->id))
 				return (1);
+			printf("Line : %p %p\n", line, line->destline);
 			line = line->next;
 			// if (set_clockwise(map, sector, line))
 			// 	return ();
@@ -168,7 +169,7 @@ void	init_player(t_win *win, t_player *player)
 	player->dir = M_PI_2;
 	player->fov = _PI_4;
 	player->dir_up = 0;
-	player->fov_up = M_PI_2;
+	player->fov_up = _PI_4;
 	player->maxHp = 50;
 	player->currentHp = player->maxHp;
 	player->maxArmor = 50;

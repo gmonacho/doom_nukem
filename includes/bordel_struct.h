@@ -330,7 +330,7 @@ typedef struct		s_doom_music
 typedef struct		s_win
 {
 	SDL_Window*		ptr;
-	SDL_Renderer*	rend;
+	SDL_Renderer	*rend;
 
 	int				w;
 	int				h;
