@@ -6,12 +6,14 @@
 
 static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, int y)
 {
+	//SDL_Surface		*texture;
 	Uint32			pixel;
 	int				x_texture;
 	int				y_texture;
 
 	if (calculs->collision_wall)
 	{
+// 		texture = calculs->collision_wall->texture;
 		x_texture = modulo(	fdist(	(t_fdot){calculs->collision_wall->p1.x,\
 											calculs->collision_wall->p1.y},
 									(t_fdot){calculs->closest_2.x,\
@@ -28,15 +30,11 @@ static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, int y
 		x_texture =	modulo(calculs->closest_2.x, player->sector->ceil_texture->w);
 		y_texture =	modulo(calculs->closest_2.y, player->sector->ceil_texture->h);
 // 		if (calculs->closest_2.z == player->sector->ceil_height)
-// 		{
-// 			x_texture =	modulo(calculs->closest_2.x, player->sector->ceil_texture->w);
-// 			y_texture =	modulo(calculs->closest_2.y, player->sector->ceil_texture->h);
-// 		}
+// 			texture = player->sector->ceil_texture;
 // 		else
-// 		{
-// 			x_texture =	modulo(calculs->closest_2.x, player->sector->floor_texture->w);
-// 			y_texture =	modulo(calculs->closest_2.y, player->sector->floor_texture->h);
-// 		}
+// 			texture = player->sector->ceil_texture;
+// 		x_texture =	modulo(calculs->closest_2.x, texture->w);
+// 		y_texture =	modulo(calculs->closest_2.y, texture->h);
 	}
 	// if (calculs->column > 990)
 	// {
@@ -46,6 +44,7 @@ static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, int y
 		// printf("Pixel : %d %d\n\n", x, y_texture);
 		// printf("Put pixel screen : %d %d\n\n", calculs->column, y);
 	// }
+// 	pixel = ((Uint32 *)texture->pixels)[y_texture * texture->w + x_texture];
 	pixel = ((Uint32 *)player->sector->ceil_texture->pixels)[y_texture * player->sector->ceil_texture->w + x_texture];
 	SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
 										(pixel >> 8) & 0xFF,\
