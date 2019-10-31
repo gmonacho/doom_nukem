@@ -24,8 +24,19 @@ static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, int y
 	}
 	else
 	{
+
 		x_texture =	modulo(calculs->closest_2.x, player->sector->ceil_texture->w);
 		y_texture =	modulo(calculs->closest_2.y, player->sector->ceil_texture->h);
+// 		if (calculs->closest_2.z == player->sector->ceil_height)
+// 		{
+// 			x_texture =	modulo(calculs->closest_2.x, player->sector->ceil_texture->w);
+// 			y_texture =	modulo(calculs->closest_2.y, player->sector->ceil_texture->h);
+// 		}
+// 		else
+// 		{
+// 			x_texture =	modulo(calculs->closest_2.x, player->sector->floor_texture->w);
+// 			y_texture =	modulo(calculs->closest_2.y, player->sector->floor_texture->h);
+// 		}
 	}
 	// if (calculs->column > 990)
 	// {
