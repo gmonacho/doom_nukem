@@ -17,8 +17,10 @@ static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, int y
 									(t_fdot){calculs->closest_2.x,\
 											calculs->closest_2.y}),
 							calculs->collision_wall->texture->w);
-		y_texture = modulo(calculs->closest_2.z, calculs->collision_wall->sector->height -\
-												calculs->collision_wall->texture->h);
+		y_texture = modulo(calculs->collision_wall->sector->ceil_height - calculs->closest_2.z,\
+				   calculs->collision_wall->texture->h);
+// 		y_texture = modulo(calculs->closest_2.z, calculs->collision_wall->sector->height -\
+// 												calculs->collision_wall->texture->h);
 	}
 	else
 	{
