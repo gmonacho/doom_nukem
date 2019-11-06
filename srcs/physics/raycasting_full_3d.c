@@ -13,18 +13,28 @@ static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, int y
 	// printf("Coll : %f %f %f\n", calculs->closest_2.x, calculs->closest_2.y, calculs->closest_2.z);
 	if (calculs->collision_wall)
 	{
+// 		texture = calculs->collision_wall->texture;
 		x_texture = modulo(	fdist(	(t_fdot){calculs->collision_wall->p1.x,\
 											calculs->collision_wall->p1.y},
 									(t_fdot){calculs->closest_2.x,\
 											calculs->closest_2.y}),
 							calculs->collision_wall->texture->w);
-		y_texture = modulo(calculs->closest_2.z, calculs->collision_wall->sector->height -\
-												calculs->collision_wall->texture->h);
+		y_texture = modulo(calculs->collision_wall->sector->ceil_height - calculs->closest_2.z,\
+				   calculs->collision_wall->texture->h);
+// 		y_texture = modulo(calculs->closest_2.z, calculs->collision_wall->sector->height -\
+// 												calculs->collision_wall->texture->h);
 	}
 	else
 	{
+
 		x_texture =	modulo(calculs->closest_2.x, player->sector->ceil_texture->w);
 		y_texture =	modulo(calculs->closest_2.y, player->sector->ceil_texture->h);
+// 		if (calculs->closest_2.z == player->sector->ceil_height)
+// 			texture = player->sector->ceil_texture;
+// 		else
+// 			texture = player->sector->ceil_texture;
+// 		x_texture =	modulo(calculs->closest_2.x, texture->w);
+// 		y_texture =	modulo(calculs->closest_2.y, texture->h);
 	}
 	// if (calculs->column > 990)
 	// {
@@ -32,6 +42,7 @@ static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, int y
 		// printf("x w : %f %d\n", dot.x, player->sector->ceil_texture->w);
 		// printf("y h : %f %d\n", dot.y, player->sector->ceil_texture->h);
 	// }
+<<<<<<< HEAD
 	// 	printf("addr : %p\tw %d\n", player->sector->ceil_texture->pixels, player->sector->ceil_texture->w);
 	// printf("%d %d %d\n", x_texture, y_texture, y_texture * player->sector->ceil_texture->w + x_texture);
 	// printf("screen %d %d\n\n", calculs->column, y);
@@ -51,6 +62,10 @@ static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, int y
 	// pixel = ((int *)player->sector->ceil_texture->pixels)[0];
 	pixel = ((int *)player->sector->ceil_texture->pixels)[y_texture * player->sector->ceil_texture->w + x_texture];
 
+=======
+// 	pixel = ((Uint32 *)texture->pixels)[y_texture * texture->w + x_texture];
+	pixel = ((Uint32 *)player->sector->ceil_texture->pixels)[y_texture * player->sector->ceil_texture->w + x_texture];
+>>>>>>> e5dc3eeab4071b35963de696f982ae8445e5d969
 	SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
 										(pixel >> 8) & 0xFF,\
 										(pixel >> 0) & 0xFF,\
