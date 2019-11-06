@@ -30,8 +30,9 @@ t_linedef	*init_linedef(t_linedef *line)
 	}
 	line->equation_2 = (t_plan){cos(line->angle - M_PI_2),\
 								sin(line->angle - M_PI_2),\
-								0,\
-								0};
+								0, 0};
+	line->equation_2.d = -(line->equation_2.a * line->p1.x + line->equation_2.b * line->p1.y);
+	printf("Equation : %f pi\t%f %f %f %f\n", line->angle / M_PI, line->equation_2.a, line->equation_2.b, line->equation_2.c, line->equation_2.d);
 	line->next = NULL;
 	return (line);
 }

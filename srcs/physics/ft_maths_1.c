@@ -7,8 +7,8 @@
 
 double  	modulo(double nbr, double mod)
 {
-        return (nbr - (int)(nbr / mod) * mod -\
-                        (mod < 0 ? mod : 0));
+	return (nbr - (int)(nbr / mod) * mod -\
+					(mod < 0 ? mod : 0));
 }
 // double		dist(t_dot p1, t_dot p2)
 // {

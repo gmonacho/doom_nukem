@@ -15,7 +15,7 @@
 **	On multiplie la vel pour avoir une distance de hitbox / 2
 */
 
-//Enum pour vertical, horizontal, quelquonque
+//Enum pour vertical, horizontal, quelquonque ????
 
 void			set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_sector **sector)
 {

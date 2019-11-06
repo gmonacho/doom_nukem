@@ -195,9 +195,9 @@ void	init_player(t_win *win, t_player *player)
 int		init_textures(t_textures *textures)
 {
 	if (!(textures->elephantride = IMG_Load("textures/walls/elephantride.png")) ||
-		// !(textures->tortue = IMG_Load("textures/walls/Mario/Mario_Ghost.png")))
+		!(textures->tortue = IMG_Load("textures/walls/randomPNG/Brick.png")))
 		// !(textures->tortue = IMG_Load("textures/walls/moine.png")))
-		!(textures->tortue = IMG_Load("textures/walls/tortue.png")))
+		// !(textures->tortue = IMG_Load("textures/walls/tortue.png")))
 	{
 		ft_putendl(SDL_GetError());
 		return (1);

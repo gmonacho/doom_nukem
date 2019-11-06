@@ -1,85 +1,85 @@
 Player
 {
-	posx = 711
-	posy = 404
+	posx = 350
+	posy = 400
 	width = 30
 	height = 50
-	sector = 0
+	sector = 1
 	velocity = 1
 }
 Sector
 {
 	name =  carre
-	ceilHeight = 75
-	floorHeight = 0
+	ceilHeight = 150
+	floorHeight = 50
 	line
 	{
-		dot = (850, 347)
-		dot = (649, 347)
+		dot = (100, 650)
+		dot = (100, 150)
 		flags = WALL
 		id = 0
 		side = RIGHT
 	}
 	line
 	{
-		dot = (649, 347)
-		dot = (649, 537)
+		dot = (100, 150)
+		dot = (600, 150)
 		flags = WALL
 		id = 0
 		side = RIGHT
 	}
 	line
 	{
-		dot = (649, 537)
-		dot = (850, 537)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (850, 537)
-		dot = (850, 347)
+		dot = (600, 150)
+		dot = (600, 650)
 		flags = PORTAL
 		id = 1
+		side = RIGHT
+	}
+	line
+	{
+		dot = (600, 650)
+		dot = (100, 650)
+		flags = WALL
+		id = 0
 		side = RIGHT
 	}
 }
 Sector
 {
 	name =  carre
-	ceilHeight = 75
-	floorHeight = 0
+	ceilHeight = 160
+	floorHeight = 60
 	line
 	{
-		dot = (850, 347)
-		dot = (1122, 347)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1122, 347)
-		dot = (1122, 537)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1122, 537)
-		dot = (850, 537)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (850, 537)
-		dot = (850, 347)
+		dot = (700, 650)
+		dot = (700, 150)
 		flags = PORTAL
 		id = 1
+		side = RIGHT
+	}
+	line
+	{
+		dot = (700, 150)
+		dot = (1200, 150)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (1200, 150)
+		dot = (1200, 650)
+		flags = WALL
+		id = 0
+		side = RIGHT
+	}
+	line
+	{
+		dot = (1200, 650)
+		dot = (700, 650)
+		flags = WALL
+		id = 0
 		side = RIGHT
 	}
 }
