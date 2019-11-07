@@ -5,7 +5,7 @@ Player
 	width = 30
 	height = 50
 	sector = 1
-	velocity = 1
+	velocity = 4
 }
 Sector
 {

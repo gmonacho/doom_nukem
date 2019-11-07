@@ -485,32 +485,6 @@ typedef struct			s_linedef
 }						t_linedef;
 
 /*
-**	----------------------------------- Raycasting ---------------------------------------
-*/
-
-typedef struct				s_calculs
-{
-	int						raycast;
-	int						column;
-	int						nportals;
-	double					alpha;
-	double					alpha_tmp;
-	double					alpha_up;
-	// double					alpha_up_tmp;
-	double					dangle;
-	double					dangle_up;
-	t_affine				ray;
-	t_cartesienne			ray_2;
-	double					dist;
-	double					newdist;
-	t_fdot					closest;
-	t_fdot_3d				closest_2;
-	t_linedef				*collision_wall;
-	double					up_wall;
-	double					low_wall;
-}							t_calculs;
-
-/*
 **	---------------------------------- sector --------------------------------------------
 */
 
@@ -539,6 +513,35 @@ typedef struct				s_textures
 	SDL_Surface				*elephantride;
 	SDL_Surface				*tortue;
 }							t_textures;
+
+/*
+**	----------------------------------- Raycasting ---------------------------------------
+*/
+
+typedef struct				s_calculs
+{
+	int						raycast;
+	int						column;
+	int						nportals;
+	double					alpha;
+	double					alpha_tmp;
+	double					alpha_up;
+	// double					alpha_up_tmp;
+	double					dangle;
+	double					dangle_up;
+	t_affine				ray;
+	t_cartesienne			ray_2;
+	double					dist;
+	double					dist_sum;
+	double					newdist;
+	t_fdot					closest;
+	t_fdot_3d				closest_2;
+	t_linedef				*collision_wall;
+	t_sector				*collision_sector;
+	int						collision_type;
+	double					up_wall;
+	double					low_wall;
+}							t_calculs;
 
 /*
 **	---------------------------------- Inventory --------------------------------------------

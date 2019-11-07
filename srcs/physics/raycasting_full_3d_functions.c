@@ -10,12 +10,12 @@ double          fdist_3d(t_fdot_3d p1, t_fdot_3d p2)
 int             sence(t_cartesienne ray, t_fdot_3d collision)
 {
     return (fdist_3d(collision, (t_fdot_3d){ray.ox, ray.oy, ray.oz}) >\
-            // fdist_3d(collision, (t_fdot_3d){ray.ox + 0.01 * ray.vx,\
-            //                                 ray.oy + 0.01 * ray.vy,\
-            //                                 ray.oz + 0.01 * ray.vz,}) ? 1 : 0);
-            fdist_3d(collision, (t_fdot_3d){ray.ox + ray.vx,\
-                                            ray.oy + ray.vy,\
-                                            ray.oz + ray.vz,}) ? 1 : 0);
+            fdist_3d(collision, (t_fdot_3d){ray.ox + 0.01 * ray.vx,\
+                                            ray.oy + 0.01 * ray.vy,\
+                                            ray.oz + 0.01 * ray.vz,}) ? 1 : 0);
+            // fdist_3d(collision, (t_fdot_3d){ray.ox + ray.vx,\
+            //                                 ray.oy + ray.vy,\
+            //                                 ray.oz + ray.vz,}) ? 1 : 0);
 }
 
 void			set_new_position_3d(t_fdot_3d *pos, t_linedef *line1, t_linedef *line2, t_sector **sector)

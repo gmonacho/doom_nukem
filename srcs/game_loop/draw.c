@@ -235,7 +235,7 @@ void	draw(t_win *win, t_map *map, t_player *player)
 {
 	raycasting_3d(win, player);
 	// raycasting(win, player);
-	fill_portals(win, player);
+	// fill_portals(win, player);
 
 	draw_map(win, map);
 	//draw_sprite(player, map);

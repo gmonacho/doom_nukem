@@ -85,11 +85,20 @@ int		init_lines(t_map *map)
 		while (line)
 		{
 			line->destline = NULL;
-			line->texture = map->textures.tortue;
 			line->sector = sector;
 			line->side = SIDE_RIGHT;
 			if (line->flags & PORTAL && !find_portal_id(map, line, line->id))
 				return (1);
+			if (line->flags & PORTAL)
+			{
+				if (!(line->texture = IMG_Load("textures/sol.png")))
+				{
+					ft_putendl(SDL_GetError());
+					return (1);
+				}
+			}
+			else
+				line->texture = map->textures.tortue;
 			printf("Line : %p %p\n", line, line->destline);
 			line = line->next;
 			// if (set_clockwise(map, sector, line))
@@ -139,8 +148,8 @@ int		init_sectors(t_map *map, t_player *player)
 	sector = map->sectors;
 	while (sector)
 	{
-		if (!(sector->ceil_texture = IMG_Load("textures/walls/elephantride.png")) ||
-			!(sector->floor_texture = IMG_Load("textures/walls/elephantride.png")))
+		if (!(sector->ceil_texture = IMG_Load("textures/mur_pierre.png")) ||
+			!(sector->floor_texture = IMG_Load("textures/sol.png")))
 		{
 			ft_putendl(SDL_GetError());
 			return (1);
@@ -166,7 +175,7 @@ void	init_player(t_win *win, t_player *player)
 									player->pos.y,\
 									player->sector->floor_height + player->height};
 	player->inventory = define_inventory();
-	player->dir = M_PI_2;
+	player->dir = 0;
 	player->fov = _PI_4;
 	player->dir_up = 0;
 	player->fov_up = _PI_4;

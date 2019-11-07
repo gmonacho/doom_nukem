@@ -52,10 +52,10 @@ static void	mouse_move(t_win *win ,t_player *player)
 	// 	player->dir_up -= 15;
 	// if (win->mouse->y < 0 && player->dir_up < win->h - 15)
 	// 	player->dir_up += 15;
-	if (win->mouse->y < 0 && player->dir_up > -player->fov_up / 2)
-		player->dir_up -= 0.08;
-	if (win->mouse->y > 0 && player->dir_up < player->fov_up / 2)
-		player->dir_up += 0.08;
+	if (win->mouse->y > 0)
+		player->dir_up -= 0.1 + ((player->dir_up - 0.1 < 0) ? 2 * M_PI : 0);
+	if (win->mouse->y < 0)
+		player->dir_up += 0.1 + ((player->dir_up + 0.1 > 2 * M_PI) ? -2 * M_PI : 0);
 }
 
 static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
