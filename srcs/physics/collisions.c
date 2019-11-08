@@ -250,6 +250,7 @@ int		physics(t_win *win, t_map *map, t_player *player)
 	player->pos_up = (t_fdot_3d){	player->pos_up.x + player->vel.x,\
 									player->pos_up.y + player->vel.y,\
 									player->pos_up.z};
+	set_origin_rays(player->rays, player->pos_up);
 	// player->pos = (t_fdot_3d){	player->pos.x + player->vel.x,\
 	// 							player->pos.y + player->vel.y,\
 	// 							player->pos.z};

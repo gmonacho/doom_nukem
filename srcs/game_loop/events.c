@@ -42,20 +42,33 @@
 // 	lastpos = (t_dot){newpos.x, newpos.y};
 // }
 
-static void	mouse_move(t_win *win ,t_player *player)
+static void	mouse_move(t_win *win, t_player *player)
 {	
 	if (win->mouse->x > 0)
-		player->dir += 0.1 + ((player->dir + 0.1 > 2 * M_PI) ? -2 * M_PI : 0);
+	{
+		player->dir += player->ddir + ((player->dir + player->ddir > 2 * M_PI) ? -2 * M_PI : 0);
+		rotate(player->rays, player->rz);
+	}
 	if (win->mouse->x < 0)
-		player->dir -= 0.1 + ((player->dir - 0.1 < 0) ? 2 * M_PI : 0);
+	{
+		player->dir -= player->ddir + ((player->dir - player->ddir < 0) ? 2 * M_PI : 0);
+		rotate(player->rays, player->rz_inv);
+	}
 	// if (win->mouse->y > 0 && player->dir_up > 15)
 	// 	player->dir_up -= 15;
 	// if (win->mouse->y < 0 && player->dir_up < win->h - 15)
 	// 	player->dir_up += 15;
 	if (win->mouse->y > 0)
-		player->dir_up -= 0.1 + ((player->dir_up - 0.1 < 0) ? 2 * M_PI : 0);
+	{
+		player->dir_up -= player->ddir + ((player->dir_up - player->ddir < 0) ? 2 * M_PI : 0);
+		rotate(player->rays, player->ry_inv);
+	}
 	if (win->mouse->y < 0)
-		player->dir_up += 0.1 + ((player->dir_up + 0.1 > 2 * M_PI) ? -2 * M_PI : 0);
+	{
+		player->dir_up += player->ddir + ((player->dir_up + player->ddir > 2 * M_PI) ? -2 * M_PI : 0);
+		rotate(player->rays, player->ry);
+	}
+
 }
 
 static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
@@ -98,11 +111,13 @@ static void	keyboard_move(t_player *player, const Uint8 *state)
 	{
 		player->vel.x += cos(player->dir - M_PI_2) * player->const_vel;
 		player->vel.y += sin(player->dir - M_PI_2) * player->const_vel;
+		// set_origin_rays(player->rays, player->pos_up);
 	}
 	if (state[SDL_SCANCODE_D])
 	{
 		player->vel.x += cos(player->dir + M_PI_2) * player->const_vel;
 		player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
+		// set_origin_rays(player->rays, player->pos_up);
 	}
 	if (state[SDL_SCANCODE_L])
 	{

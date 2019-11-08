@@ -2,9 +2,17 @@
 
 /*
 **	Attention a la teleportation du ray ! GALEEEEEREE
+**
+**	Nouvelle methode :
+**
+**	Calculer tout les rayons au debut du programme.
+**	Pour chaque mouvements je les modifies :
+**		-	Source si deplacement
+**		-	Vecteur directeur si rotations
+**	Toujours les stockers dans une liste chainee
 */
 
-static void			draw_point(t_win *win, t_calculs *calculs/*, t_player *player*/, int y)
+static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, int y)
 {
 	int			pixel;
 	int				x_texture;
@@ -42,12 +50,13 @@ static void			draw_point(t_win *win, t_calculs *calculs/*, t_player *player*/, i
 
 	// if (y_texture * player->sector->ceil_texture->w + x_texture < 0)
 	// 	printf("negatif\n");
-	// if (y_texture < 0 || x_texture < 0)
-	// {
-	// 	printf("Seg fault x y %d %d\tColl %f %f %f\twh %d %d\n", x_texture, y_texture, calculs->closest_2.x, calculs->closest_2.y, calculs->closest_2.z, player->sector->ceil_texture->w, player->sector->ceil_texture->h);
-	// 	printf("Source %f %f %f\n", player->pos_up.x, player->pos_up.y, player->pos_up.z);
-	// 	printf("Vector %f %f %f\n", calculs->ray_2.vx, calculs->ray_2.vy, calculs->ray_2.vz);
-	// }
+	if (y_texture < 0 || x_texture < 0)
+	{
+		printf("Coll type : %d\n", calculs->collision_type);
+		printf("Seg fault x y %d %d\tColl %f %f %f\twh %d %d\n", x_texture, y_texture, calculs->closest_2.x, calculs->closest_2.y, calculs->closest_2.z, player->sector->ceil_texture->w, player->sector->ceil_texture->h);
+		printf("Source %f %f %f\n", player->pos_up.x, player->pos_up.y, player->pos_up.z);
+		printf("Vector %f %f %f\n", calculs->ray_2.vx, calculs->ray_2.vy, calculs->ray_2.vz);
+	}
 	// printf("Seg fault x y %d %d w h %d %d\n", x_texture, y_texture, calculs->collision_wall->texture->w, calculs->collision_wall->texture->h);
 
 	// if (y_texture * calculs->collision_wall->texture->w + x_texture > calculs->collision_wall->texture->w * calculs->collision_wall->texture->h)
@@ -114,6 +123,7 @@ static void			draw_point(t_win *win, t_calculs *calculs/*, t_player *player*/, i
 	// 	printf("Up wall : %d, %f\n", y, calculs->up_wall);
 	SDL_RenderDrawPoint(win->rend, calculs->column, y);
 	calculs = NULL;
+	player = NULL;
 }
 
 
@@ -195,32 +205,7 @@ static int			intersection_plan_line(t_fdot_3d source, t_calculs *calculs, t_plan
 // 	z_axis = 0;
 // }
 
-static void			set_cartesienne(t_calculs *calculs, t_cartesienne *ray, t_fdot_3d origin)
-{
-	// t_fvector		vector;
-	// t_fvector		vector1;
-	// t_fvector		vector2;
 
-	// vector1 = get_vector_by_angle(calculs, calculs->alpha_up, 1);
-	// vector2 = get_vector_by_angle(calculs, calculs->alpha_tmp, 0);
-	// ray->vz = vector1.y;
-	// ray->vx = vector1.x * vector2.x;
-	// ray->vy = vector1.x * vector2.y;
-
-	ray->vx = cos(calculs->alpha_up) * cos(calculs->alpha_tmp);
-	ray->vy = cos(calculs->alpha_up) * sin(calculs->alpha_tmp);
-	ray->vz = sin(calculs->alpha_up);
-	
-	// if (calculs->column >= 1000)
-	// 	printf("alpha up -> vz %f pi %f\n", calculs->alpha_up / M_PI, ray->vz);
-
-	ray->ox = origin.x;
-	ray->oy = origin.y;
-	ray->oz = origin.z;
-	// printf("vz = %f\n", ray->vz);
-	// if (calculs->column > 990)
-	// 	printf("dir = %fpi\tdir_up = %fpi\tvx vy vz : %f %f %f\n", dir / M_PI, dir_up / M_PI, ray->vx, ray->vy, ray->vz);
-}
 
 
 
@@ -371,7 +356,7 @@ static t_fdot_3d	begin_launch(t_win *win, t_player *player, t_calculs *calculs, 
 	calculs->dist_sum = 0;
 	sector = player->sector;
 	source = (t_fdot_3d){player->pos_up.x, player->pos_up.y, player->pos_up.z};
-	set_cartesienne(calculs, &(calculs->ray_2), source);
+	set_cartesienne(&(calculs->ray_2), source, calculs->alpha, calculs->alpha_up);
 	if (calculs->column == 0 && !y)
 	{
 		// printf("Angles : %f %f\n", calculs->alpha_tmp / M_PI, calculs->alpha_up / M_PI);
@@ -387,7 +372,7 @@ static t_fdot_3d	begin_launch(t_win *win, t_player *player, t_calculs *calculs, 
 		source = (t_fdot_3d){calculs->closest_2.x, calculs->closest_2.y, calculs->closest_2.z};
 		set_new_position_3d(&source, wall, wall->destline, &sector);
 		set_ray_angle(&(calculs->alpha_tmp), wall, wall->destline);
-		set_cartesienne(calculs, &(calculs->ray_2), source);
+		set_cartesienne(&(calculs->ray_2), source, calculs->alpha, calculs->alpha_up);
 		wall = launch_ray_3d(win, player, calculs, source, sector, y);
 	}
 
@@ -418,7 +403,7 @@ static void			raycasting_vertical(t_win *win, t_player *player, t_calculs *calcu
 	{
 		// collision = begin_launch(win, player, calculs);
 		begin_launch(win, player, calculs, y);
-		draw_point(win, calculs/*, player*/, y);
+		draw_point(win, calculs, player, y);
 		// printf("Coord screen : %d %d\tCol : %f %f %f\n", calculs->column, y, calculs->closest_2.x, calculs->closest_2.y, calculs->closest_2.z);
 		calculs->alpha_up -= calculs->dangle_up;
 		if (calculs->alpha_up < 0)
@@ -445,14 +430,15 @@ int				raycasting_3d(t_win *win, t_player *player)
 
 	calculs.column = -1;
 	while (++(calculs.column) < win->w)
-	{
-		// printf("Dir a dirup aup %fpi %fpi\t%fpi %fpi\n", player->dir / M_PI, calculs.alpha / M_PI, player->dir_up / M_PI, calculs.alpha_up / M_PI);
-		calculs.alpha_tmp = calculs.alpha;
-		raycasting_vertical(win, player, &calculs);
-		calculs.alpha += calculs.dangle;
-		if (calculs.alpha > _2_PI)
-			calculs.alpha -= _2_PI;
-	}
+		if (calculs.column % 2)
+		{	
+			// printf("Dir a dirup aup %fpi %fpi\t%fpi %fpi\n", player->dir / M_PI, calculs.alpha / M_PI, player->dir_up / M_PI, calculs.alpha_up / M_PI);
+			calculs.alpha_tmp = calculs.alpha;
+			raycasting_vertical(win, player, &calculs);
+			calculs.alpha += calculs.dangle;
+			if (calculs.alpha > _2_PI)
+				calculs.alpha -= _2_PI;
+		}
 
 	// t_plan		plan = (t_plan){-2, -6, 2, -34};
 	// t_fdot_3d	collision;
@@ -461,7 +447,6 @@ int				raycasting_3d(t_win *win, t_player *player)
 	// calculs.ray_2 = (t_cartesienne){source.x, source.y, source.z, 6, 2, 4};
 	// calculs.alpha_tmp = M_PI_2;
 	// calculs.alpha_up = 0.2;
-	// set_cartesienne(&calculs, &(calculs.ray_2), source);
 	// printf("Collision : %f %f %f\n", collision.x, collision.y, collision.z);
 	// printf("Vector : %f %f %f\n", calculs.ray_2.vx, calculs.ray_2.vy, calculs.ray_2.vz);
 
@@ -469,4 +454,3 @@ int				raycasting_3d(t_win *win, t_player *player)
 
 	return (0);
 }
-

@@ -10,6 +10,16 @@ void				set_cartesienne(t_cartesienne *ray, t_fdot_3d origin, double alpha, doub
 	ray->vz = sin(alpha_up);
 }
 
+void				set_cartesienne_static(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up)
+{
+	ray->ox = origin.x;
+	ray->oy = origin.y;
+	ray->oz = origin.z;
+	ray->vx = cos(alpha_up) * cos(alpha);
+	ray->vy = cos(alpha_up) * sin(alpha);
+	ray->vz = sin(alpha_up);
+}
+
 static int			create_ray(t_player *player, t_cartesienne *ray_last, t_cartesienne **ray, t_fdot angle)
 {
 	if (!(*ray = (t_cartesienne *)malloc(sizeof(t_cartesienne))))
@@ -31,7 +41,7 @@ static int			create_ray(t_player *player, t_cartesienne *ray_last, t_cartesienne
 		(*ray)->x = 0;
 		(*ray)->y = 0;
 	}
-	set_cartesienne(*ray, player->pos_up,	player->dir + angle.x,\
+	set_cartesienne_static(*ray, 	player->pos_up,	player->dir + angle.x,\
 											player->dir_up + angle.y);
 	return (0);
 }

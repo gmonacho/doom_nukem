@@ -10,7 +10,7 @@ Player
 Sector
 {
 	name =  carre
-	ceilHeight = 150
+	ceilHeight = 200
 	floorHeight = 50
 	line
 	{
@@ -48,8 +48,8 @@ Sector
 Sector
 {
 	name =  carre
-	ceilHeight = 160
-	floorHeight = 60
+	ceilHeight = 150
+	floorHeight = 70
 	line
 	{
 		dot = (700, 650)
