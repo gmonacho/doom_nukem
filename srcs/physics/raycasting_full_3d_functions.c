@@ -38,3 +38,24 @@ void			set_new_position_3d(t_fdot_3d *pos, t_linedef *line1, t_linedef *line2, t
 						(t_dot){line2->p2.y, line2->p1.y});
 	*sector = line2->sector;
 }
+
+void			teleportation_ray(t_cartesienne *ray, t_linedef *line1, t_linedef *line2, t_sector **sector)
+{
+	double		p;
+
+	// printf("New position : %p %p\n", line1, line2);
+	if (line1->p2.x == line1->p1.x)
+		p = prop(ray->oy,\
+				(t_dot){line1->p1.y, line1->p2.y},\
+				(t_dot){0, 10000});
+	else
+		p = prop(ray->ox,\
+				(t_dot){line1->p1.x, line1->p2.x},\
+				(t_dot){0, 10000});
+	// printf("Prop : %f\tposy = %f\tx = %d\ty = %d\n", p, pos->y, line1->p1.y, line1->p2.y);
+	ray->ox = prop(p,	(t_dot){0, 10000},\
+						(t_dot){line2->p2.x, line2->p1.x});
+	ray->oy = prop(p,	(t_dot){0, 10000},\
+						(t_dot){line2->p2.y, line2->p1.y});
+	*sector = line2->sector;
+}

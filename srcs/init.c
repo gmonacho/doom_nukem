@@ -171,6 +171,8 @@ int		init_sectors(t_map *map, t_player *player)
 
 void	init_player(t_win *win, t_player *player)
 {
+	player->win_w = win->w;
+	player->win_h = win->h;
 	player->pos_up = (t_fdot_3d){	player->pos.x,\
 									player->pos.y,\
 									player->sector->floor_height + player->height};
@@ -179,6 +181,9 @@ void	init_player(t_win *win, t_player *player)
 	player->fov = _PI_4;
 	player->dir_up = 0;
 	player->fov_up = _PI_4;
+	player->ddir = 0.1;
+	if (init_rays(win, player))
+		return (ft_putendl("Erreur malloc rays"));
 	player->maxHp = 50;
 	player->currentHp = player->maxHp;
 	player->maxArmor = 50;
@@ -199,6 +204,14 @@ void	init_player(t_win *win, t_player *player)
     player->timers.bullet_cd.index = 5;
     player->timers.bullet_cd.index = 0;
 	define_line_shot(win, player);
+
+
+
+	t_cartesienne line = (t_cartesienne){0, 0, 0, 1, 1, 1, 0, 0, NULL};
+	rotate(&line, player->rz);
+	set_origin_rays(player->rays, player->pos_up);
+	printf("V %f %f %f / %f %f %f\n", line.ox, line.oy, line.oz, line.vx, line.vy, line.vz);
+	exit(0);
 }
 
 int		init_textures(t_textures *textures)
