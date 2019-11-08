@@ -329,20 +329,36 @@ void		check_file(t_map_editor *map);
 ** ================================== Physics ===================================
 */
 
-int		game_loop(t_win *win, t_map *map);
-int		physics(t_win *win, t_map *map, t_player *player);
-int		actions(t_win *win, t_map *map, t_linedef *portal, double h);
-int		raycasting(t_win *win, t_player *player);
+int			game_loop(t_win *win, t_map *map);
+int			physics(t_win *win, t_map *map, t_player *player);
+int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
+int			raycasting(t_win *win, t_player *player);
 void		launch_ray_2d(t_win *win, t_player *player, t_calculs *calculs);
 void		set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
 void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2);
 void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot source);
 t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 
-int		raycasting_3d(t_win *win, t_player *player);
-int		sence(t_cartesienne ray, t_fdot_3d collision);
+int			raycasting_3d(t_win *win, t_player *player);
+int			sence(t_cartesienne ray, t_fdot_3d collision);
 void		set_new_position_3d(t_fdot_3d *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
-// void		launch_ray_3d(t_win *win, t_player *player, t_calculs *calculs);
+
+
+int				raycasting_3d_static_rays(t_win *win, t_player *player);
+void			teleportation_ray(t_cartesienne *ray, t_linedef *line1, t_linedef *line2, t_sector **sector);
+
+int					init_rays(t_win *win, t_player *player);
+void				rotate(t_cartesienne *line, t_matrice matrice);
+void				set_origin_rays(t_cartesienne *rays, t_fdot_3d origin);
+void				set_cartesienne(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);
+
+void				create_matrice(double angle);
+void				init_matrice_rx(t_player *player);
+void				init_matrice_rx_inv(t_player *player);
+void				init_matrice_ry(t_player *player);
+void				init_matrice_ry_inv(t_player *player);
+void				init_matrice_rz(t_player *player);
+void				init_matrice_rz_inv(t_player *player);
 
 /*
 ** ================================== Time ===================================
@@ -371,5 +387,6 @@ void		draw_affine(t_win *win, t_affine function);
 void		draw_ray(t_win *win, t_player *player, t_affine ray);
 double		fprop(double value, t_fdot inter1, t_fdot inter2);
 double		prop(double value, t_dot inter1, t_dot inter2);
+int			intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
 
 #endif

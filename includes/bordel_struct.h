@@ -22,6 +22,19 @@ typedef struct		s_fdot_3d
 	double			z;
 }					t_fdot_3d;
 
+typedef struct		s_matrice
+{
+	double			_00;
+	double			_01;
+	double			_02;
+	double			_10;
+	double			_11;
+	double			_12;
+	double			_20;
+	double			_21;
+	double			_22;
+}					t_matrice;
+
 typedef struct		s_size
 {
 	int				w;
@@ -79,6 +92,10 @@ typedef struct		s_cartesienne
 	double			vx;
 	double			vy;
 	double			vz;
+
+	int				x;
+	int				y;
+	struct s_cartesienne	*next;
 }					t_cartesienne;
 
 typedef struct		s_vector
@@ -569,6 +586,8 @@ typedef struct s_inventory
 
 typedef struct		s_player
 {
+	int				win_w;
+	int				win_h;
 	t_fdot			pos;
 	t_fdot_3d		pos_up;
 	t_dot			dpos;
@@ -581,6 +600,7 @@ typedef struct		s_player
 	double			dir_up;
 	double			fov;
 	double			fov_up;
+	double			ddir;
 	int				height;
 	int				width;
 	double			width_2;
@@ -600,6 +620,14 @@ typedef struct		s_player
 	int 			len_bullet;
 	double			demipetitaxe;
 	int 			damage;
+
+	t_cartesienne	*rays;
+	t_matrice		rx;
+	t_matrice		rx_inv;
+	t_matrice		ry;
+	t_matrice		ry_inv;
+	t_matrice		rz;
+	t_matrice		rz_inv;
 }					t_player;
 
 /*
