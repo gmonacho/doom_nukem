@@ -387,6 +387,6 @@ void		draw_affine(t_win *win, t_affine function);
 void		draw_ray(t_win *win, t_player *player, t_affine ray);
 double		fprop(double value, t_fdot inter1, t_fdot inter2);
 double		prop(double value, t_dot inter1, t_dot inter2);
-int			intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
+int			intersection_plan_line_static(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
 
 #endif
