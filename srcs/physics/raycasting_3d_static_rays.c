@@ -59,7 +59,7 @@
 // 	t_fdot_3d		collision;
 // 	double			tmpdist;
 
-// 	if (!intersection_plan_line(&collision, sector->floor_equation, ray))
+// 	if (!intersection_plan_line_static(&collision, sector->floor_equation, ray))
 // 	{
 // 		printf("Parallole !!! : %d\n", ray->x);
 // 		return (NULL);
@@ -74,7 +74,7 @@
 // 		calculs->dist = tmpdist;
 // 	}
 
-// 	if (!intersection_plan_line(&collision, sector->ceil_equation, ray))
+// 	if (!intersection_plan_line_static(&collision, sector->ceil_equation, ray))
 // 	{
 // 		printf("Parallole !!! : %d\n", ray->x);
 // 		return (NULL);
@@ -103,7 +103,7 @@
 // 	line = sector->lines;
 // 	while (line)
 // 	{
-// 		if (!intersection_plan_line(&collision, sector->ceil_equation, ray))
+// 		if (!intersection_plan_line_static(&collision, sector->ceil_equation, ray))
 // 		{
 // 			printf("Parallole !!! : %d\n", ray->x);
 // 			return (NULL);
