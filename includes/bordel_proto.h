@@ -352,7 +352,7 @@ void				rotate(t_cartesienne *line, t_matrice matrice);
 void				set_origin_rays(t_cartesienne *rays, t_fdot_3d origin);
 void				set_cartesienne(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);
 void				set_cartesienne_static(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);
-void				create_matrice(double angle);
+t_matrice			create_matrice(double angle);
 void				init_matrice_rx(t_player *player);
 void				init_matrice_rx_inv(t_player *player);
 void				init_matrice_ry(t_player *player);
@@ -387,6 +387,6 @@ void		draw_affine(t_win *win, t_affine function);
 void		draw_ray(t_win *win, t_player *player, t_affine ray);
 double		fprop(double value, t_fdot inter1, t_fdot inter2);
 double		prop(double value, t_dot inter1, t_dot inter2);
-int			intersection_plan_line_static(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
+int		intersection_plan_line_static(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
 
 #endif
