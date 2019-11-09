@@ -16,7 +16,7 @@ double		fprop(double value, t_fdot inter1, t_fdot inter2)
 			(inter2.y - inter2.x));
 }
 
-int			intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
+int			intersection_plan_line_static(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
 {
 	double			t;
 	
