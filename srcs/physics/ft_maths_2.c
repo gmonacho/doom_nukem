@@ -20,13 +20,13 @@ int			intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *r
 {
 	double			t;
 	
-	if (plan.a * ray.vx + plan.b * ray.vy + plan.c * ray.vz == 0)
+	if (plan.a * ray->vx + plan.b * ray->vy + plan.c * ray->vz == 0)
 		return (0);
-	t = -(plan.a * source.x + plan.b * source.y + plan.c * source.z + plan.d) /\
-			(double)(plan.a * ray.vx + plan.b * ray.vy + plan.c * ray.vz);
-	collision->x = ray.vx * t + ray.ox;
-	collision->y = ray.vy * t + ray.oy;
-	collision->z = ray.vz * t + ray.oz;
+	t = -(plan.a * ray->ox + plan.b * ray->oy + plan.c * ray->oz + plan.d) /\
+			(double)(plan.a * ray->vx + plan.b * ray->vy + plan.c * ray->vz);
+	collision->x = ray->vx * t + ray->ox;
+	collision->y = ray->vy * t + ray->oy;
+	collision->z = ray->vz * t + ray->oz;
 	return (1);
 }
 
