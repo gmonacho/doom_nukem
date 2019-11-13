@@ -156,7 +156,9 @@ static int			intersection_plan_line(t_fdot_3d source, t_calculs *calculs, t_plan
 
 	// if (line.vz > -0.00001 && line.vz < 0.00001)
 	// 	return (1);
-
+	
+	// if (!(calculs->ray_2.vz < -0.01 || calculs->ray_2.vz > 0.01))
+	// 	printf("Plan %f %f %f %f\tRay %f %f %f\n", plan.a, plan.b, plan.c, plan.d, calculs->ray_2.vx, calculs->ray_2.vy, calculs->ray_2.vz);
 	denominateur = plan.a * calculs->ray_2.vx + plan.b * calculs->ray_2.vy + plan.c * calculs->ray_2.vz;	
 	// if (!(denominateur > 0.000001 || denominateur < -0.000001))
 	// {

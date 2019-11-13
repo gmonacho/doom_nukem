@@ -234,7 +234,8 @@ void			print_column(t_win *win, t_linedef *wall, t_player *player, t_calculs *ca
 void	draw(t_win *win, t_map *map, t_player *player)
 {
 	// raycasting(win, player);
-	raycasting_3d(win, player);
+	// raycasting_3d(win, player);
+	// printf("Debut draw\n");
 	raycasting_3d_static_rays(win, player);
 	
 	// fill_portals(win, player);

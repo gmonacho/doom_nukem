@@ -207,11 +207,11 @@ void	init_player(t_win *win, t_player *player)
 
 
 
-	t_cartesienne line = (t_cartesienne){0, 0, 0, 1, 1, 1, 0, 0, NULL};
-	rotate(&line, player->rz);
-	set_origin_rays(player->rays, player->pos_up);
-	printf("V %f %f %f / %f %f %f\n", line.ox, line.oy, line.oz, line.vx, line.vy, line.vz);
-	exit(0);
+	// t_cartesienne	ray = (t_cartesienne){0, 0, 0, 1, 1, 1, 0, 0, NULL};
+	// t_fdot_3d		collision = (t_fdot_3d){0, 0, 0};
+	// printf("Sence %d\n", sence(ray, collision));
+	// printf("V %f %f %f / %f %f %f\n", line.ox, line.oy, line.oz, line.vx, line.vy, line.vz);
+	// exit(0);
 }
 
 int		init_textures(t_textures *textures)

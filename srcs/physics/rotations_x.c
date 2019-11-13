@@ -11,9 +11,9 @@ void				init_matrice_rx(t_player *player)
 	player->rx._02 = 0;
 	player->rx._10 = 0;
 	player->rx._11 = cos(player->ddir);
-	player->rx._12 = sin(player->ddir);
+	player->rx._12 = -sin(player->ddir);
 	player->rx._20 = 0;
-	player->rx._21 = -sin(player->ddir);
+	player->rx._21 = sin(player->ddir);
 	player->rx._22 = cos(player->ddir);
 }
 
@@ -24,9 +24,9 @@ void				init_matrice_rx_inv(t_player *player)
 	player->rx_inv._02 = 0;
 	player->rx_inv._10 = 0;
 	player->rx_inv._11 = cos(-player->ddir);
-	player->rx_inv._12 = sin(-player->ddir);
+	player->rx_inv._12 = -sin(-player->ddir);
 	player->rx_inv._20 = 0;
-	player->rx_inv._21 = -sin(-player->ddir);
+	player->rx_inv._21 = sin(-player->ddir);
 	player->rx_inv._22 = cos(-player->ddir);
 }
 
