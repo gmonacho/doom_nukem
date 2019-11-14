@@ -10,27 +10,12 @@ double  	modulo(double nbr, double mod)
 	return (nbr - (int)(nbr / mod) * mod -\
 					(mod < 0 ? mod : 0));
 }
-// double		dist(t_dot p1, t_dot p2)
-// {
-// 	return (sqrt((p2.x - p1.x) * (p2.x - p1.x) +\
-// 					(p2.y - p1.y) * (p2.y - p1.y)));
-// }
 
 double		fdist(t_fdot p1, t_fdot p2)
 {
 	return (sqrt((p2.x - p1.x) * (p2.x - p1.x) +\
 					(p2.y - p1.y) * (p2.y - p1.y)));
 }
-
-// double		mag(t_vector vector)
-// {
-// 	return (sqrt(vector.x * vector.x + vector.y * vector.y));
-// }
-
-// double		fmag(t_fvector vector)
-// {
-// 	return (sqrt(vector.x * vector.x + vector.y * vector.y));
-// }
 
 int			sign(double nbr)
 {

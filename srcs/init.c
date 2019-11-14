@@ -173,9 +173,10 @@ void	init_player(t_win *win, t_player *player)
 {
 	player->win_w = win->w;
 	player->win_h = win->h;
-	player->pos_up = (t_fdot_3d){	player->pos.x,\
-									player->pos.y,\
-									player->sector->floor_height + player->height};
+	player->pos_up = (t_fdot_3d){0, 0, 0};
+	// player->pos_up = (t_fdot_3d){	player->pos.x,\
+	// 								player->pos.y,\
+	// 								player->sector->floor_height + player->height};
 	player->inventory = define_inventory();
 	player->dir = 0;
 	player->fov = _PI_4;

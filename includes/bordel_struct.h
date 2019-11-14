@@ -78,11 +78,16 @@ typedef struct		s_affine
 
 typedef struct		s_plan
 {
-	double			a;
-	double			b;
-	double			c;
+	t_fdot_3d		v;
 	double			d;
 }					t_plan;
+// typedef struct		s_plan
+// {
+// 	double			a;
+// 	double			b;
+// 	double			c;
+// 	double			d;
+// }					t_plan;
 
 typedef struct		s_cartesienne
 {
@@ -346,6 +351,8 @@ typedef struct		s_doom_music
 
 typedef struct		s_win
 {
+	t_map			*map;
+
 	SDL_Window*		ptr;
 	SDL_Renderer	*rend;
 
@@ -486,11 +493,10 @@ typedef enum	e_linedef_side
 typedef struct			s_linedef
 {
 	char				*name;
-	t_dot				p1;
-	t_dot				p2;
+	t_fdot_3d			p1;
+	t_fdot_3d			p2;
 	t_linedef_side		side;
-	t_affine			equation;
-	t_plan				equation_2;
+	t_plan				equation;
 	double				angle;
 	SDL_Surface			*texture;
 	Uint32				flags;
