@@ -48,13 +48,13 @@ static void	mouse_move(t_win *win, t_player *player)
 	{
 		printf("event x>0\n");
 		player->dir += player->ddir + ((player->dir + player->ddir > _2_PI) ? -_2_PI : 0);
-		rotate_all(player->rays, player->rz);
+		// rotate_all(player->rays, player->rz);
 	}
 	if (win->mouse->x < 0)
 	{
 		printf("event x<0\n");
 		player->dir -= player->ddir + ((player->dir - player->ddir < 0) ? _2_PI : 0);
-		rotate_all(player->rays, player->rz_inv);
+		// rotate_all(player->rays, player->rz_inv);
 	}
 	// if (win->mouse->y > 0 && player->dir_up > 15)
 	// 	player->dir_up -= 15;
@@ -64,15 +64,15 @@ static void	mouse_move(t_win *win, t_player *player)
 	{
 		printf("event y>0\n");
 		player->dir_up -= player->ddir + ((player->dir_up - player->ddir < 0) ? _2_PI : 0);
-		rotate_all(player->rays, player->ry_inv);
-		rotate_all(player->rays, player->rx);
+		// rotate_all(player->rays, player->ry_inv);
+		// rotate_all(player->rays, player->rx);
 	}
 	if (win->mouse->y < 0)
 	{
 		printf("event y<0\n");
 		player->dir_up += player->ddir + ((player->dir_up + player->ddir > _2_PI) ? -_2_PI : 0);
-		rotate_all(player->rays, player->ry);
-		rotate_all(player->rays, player->rx_inv);
+		// rotate_all(player->rays, player->ry);
+		// rotate_all(player->rays, player->rx_inv);
 	}
 
 }
