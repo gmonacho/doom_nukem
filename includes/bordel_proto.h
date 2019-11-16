@@ -290,6 +290,7 @@ SDL_bool	is_line_vertical(int x1, int x2, int pitch);
 SDL_bool	is_in_rect(SDL_Rect rect, t_dot p);
 SDL_bool	intersect_line_rect(t_line line, SDL_Rect rect);
 SDL_bool 	is_next_point(t_dot dot, t_dot other, int distance);
+
 /*
 ** =================================================================================
 ** ================================== MENU LOOPS ==================================
@@ -332,28 +333,29 @@ void		check_file(t_map_editor *map);
 int			game_loop(t_win *win, t_map *map);
 int			physics(t_win *win, t_map *map, t_player *player);
 int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
-int			raycasting(t_win *win, t_player *player);
-void		launch_ray_2d(t_win *win, t_player *player, t_calculs *calculs);
-void		set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
-void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2);
-void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot source);
+// int			raycasting(t_win *win, t_player *player);
+// void		launch_ray_2d(t_win *win, t_player *player, t_calculs *calculs);
+// void		set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
+// void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2);
+// void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot source);
 t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 
-int			raycasting_3d(t_win *win, t_player *player);
+// int			raycasting_3d(t_win *win, t_player *player);
 int			sence(t_cartesienne ray, t_fdot_3d collision);
-void		set_new_position_3d(t_fdot_3d *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
+// void		set_new_position_3d(t_fdot_3d *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
 
-
-int				raycasting_3d_static_rays(t_win *win, t_player *player);
+int         raycasting_3d_static_rays_static_axes(t_win *win, t_player *player);
+// int				raycasting_3d_static_rays(t_win *win, t_player *player);
 void			teleportation_ray(t_cartesienne *ray, t_linedef *line1, t_linedef *line2, t_sector **sector);
 
 int					init_rays(t_win *win, t_player *player);
-void				rotate(t_cartesienne *line, t_matrice matrice);
-void				rotate_all(t_cartesienne *line, t_matrice matrice);
+void				rotate_ray(t_cartesienne *ray, t_matrice matrice);
+void				rotate_dot(t_fdot_3d *dot, t_matrice matrice);
+void				rotate_all(t_sector *sector, t_matrice matrice);
 
-void				set_origin_rays(t_cartesienne *rays, t_fdot_3d origin);
-void				set_cartesienne(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);
-void				set_cartesienne_static(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);
+// void				set_origin_rays(t_cartesienne *rays, t_fdot_3d origin);
+// void				set_cartesienne(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);
+// void				set_cartesienne_static(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);
 t_matrice			create_matrice(double angle);
 void				init_matrice_rx(t_player *player);
 void				init_matrice_rx_inv(t_player *player);
@@ -376,19 +378,20 @@ void            reload_cd(t_map *map);
 */
 
 // double		dist(t_dot p1, t_dot p2);
-double  	modulo(double nbr, double mod);
-double		fdist(t_fdot p1, t_fdot p2);
+double  		modulo(double nbr, double mod);
+double			fdist(t_fdot p1, t_fdot p2);
 double          fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
 // double	mag(t_vector vector);
-// double	fmag(t_fvector vector);
-int		sign(double nbr);
-void		normalize(double *angle);
+double			fmag(t_fdot_3d dot);
+int				sign(double nbr);
+void			normalize(double *angle);
+int				is_null(double nbr, double precision);
 
-int	        lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2);
-void		draw_affine(t_win *win, t_affine function);
-void		draw_ray(t_win *win, t_player *player, t_affine ray);
-double		fprop(double value, t_fdot inter1, t_fdot inter2);
-double		prop(double value, t_dot inter1, t_dot inter2);
-int		intersection_plan_line_static(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
+int	        	lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2);
+void			draw_affine(t_win *win, t_affine function);
+void			draw_ray(t_win *win, t_player *player, t_affine ray);
+double			fprop(double value, t_fdot inter1, t_fdot inter2);
+double			prop(double value, t_dot inter1, t_dot inter2);
+int				intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
 
 #endif

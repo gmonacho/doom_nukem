@@ -74,7 +74,19 @@ int					init_rays(t_win *win, t_player *player)
 
 
 
-void				rotate(t_fdot_3d *dot, t_matrice matrice)
+void				rotate_ray(t_cartesienne *ray, t_matrice matrice)
+{
+	double			save_vx;
+	double			save_vy;
+
+	save_vx = ray->vx * matrice._00 + ray->vy * matrice._10 + ray->vz * matrice._20;
+	save_vy = ray->vx * matrice._01 + ray->vy * matrice._11 + ray->vz * matrice._21;
+	ray->vz = ray->vx * matrice._02 + ray->vy * matrice._12 + ray->vz * matrice._22;
+	ray->vx = save_vx;
+	ray->vy = save_vy;
+}
+
+void				rotate_dot(t_fdot_3d *dot, t_matrice matrice)
 {
 	double			save_vx;
 	double			save_vy;
@@ -88,14 +100,14 @@ void				rotate(t_fdot_3d *dot, t_matrice matrice)
 
 void				rotate_all(t_sector *sector, t_matrice matrice)
 {
-	t_line			*line;
+	t_linedef		*line;
 
 	while (sector)
 	{
-		line = sector->line;
+		line = sector->lines;
 		while (line)
 		{
-			rotate(&(line->equation.v), matrice);
+			rotate_dot(&(line->equation.v), matrice);
 			line = line->next;
 		}
 		sector = sector->next;

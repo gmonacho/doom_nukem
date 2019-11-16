@@ -86,6 +86,9 @@ int		init_lines(t_map *map)
 		{
 			line->destline = NULL;
 			line->sector = sector;
+			line->origin = (t_fdot_3d){line->p1.x, line->p1.y, sector->ceil_height};
+			line->i = (t_fdot_3d){line->p2.x - line->p1.x, line->p2.y - line->p1.y, 0};
+			line->j = (t_fdot_3d){0, 0, -sector->height};
 			line->side = SIDE_RIGHT;
 			if (line->flags & PORTAL && !find_portal_id(map, line, line->id))
 				return (1);
@@ -158,8 +161,8 @@ int		init_sectors(t_map *map, t_player *player)
 			return (1);
 		sector->height = sector->ceil_height - sector->floor_height;
 		// printf("Ceil height = %d\n", sector->ceil_height);
-		sector->ceil_equation =		(t_plan){0, 0, 1, -sector->ceil_height};
-		sector->floor_equation =	(t_plan){0, 0, 1, -sector->floor_height};
+		sector->ceil_equation =		(t_plan){(t_fdot_3d){0, 0, 1}, -sector->ceil_height};
+		sector->floor_equation =	(t_plan){(t_fdot_3d){0, 0, 1}, -sector->floor_height};
 		sector = sector->next;
 	}
 	player->sector = map->sectors;
@@ -207,11 +210,24 @@ void	init_player(t_win *win, t_player *player)
 	define_line_shot(win, player);
 
 
+	
+	// t_fdot_3d		p1 = (t_fdot_3d){1, 1, 1};
+	// t_fdot_3d		p2 = (t_fdot_3d){5, 5, 5};
+	// t_fdot_3d		v = (t_fdot_3d){4, 4, 4};
+	// for (int i = 0; i < 50; i++)
+	// {
+	// 	rotate_dot(&p1, player->rz);
+	// 	rotate_dot(&p2, player->rz);
+	// 	rotate_dot(&v, player->rz);
 
-	// t_cartesienne	ray = (t_cartesienne){0, 0, 0, 1, 1, 1, 0, 0, NULL};
-	// t_fdot_3d		collision = (t_fdot_3d){0, 0, 0};
-	// printf("Sence %d\n", sence(ray, collision));
-	// printf("V %f %f %f / %f %f %f\n", line.ox, line.oy, line.oz, line.vx, line.vy, line.vz);
+	// 	rotate_dot(&p1, player->ry);
+	// 	rotate_dot(&p2, player->ry);
+	// 	rotate_dot(&v, player->ry);
+	// }
+	// printf("p1 %f %f %f\n", p1.x, p1.y, p1.z);
+	// printf("p2 %f %f %f\n", p2.x, p2.y, p2.z);
+	// printf("Diff %f %f %f\n", p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
+	// printf("Vector %f %f %f\n\n", v.x, v.y, v.z);
 	// exit(0);
 }
 

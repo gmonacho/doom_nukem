@@ -29,3 +29,8 @@ void		normalize(double *angle)
 	while (*angle >= _2_PI)
 		*angle -= _2_PI;
 }
+
+int			is_null(double nbr, double precision)
+{
+	return (!(nbr > precision || nbr < -precision) ? 1 : 0);
+}

@@ -16,14 +16,19 @@ double		fprop(double value, t_fdot inter1, t_fdot inter2)
 			(inter2.y - inter2.x));
 }
 
-int			intersection_plan_line_static(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
+double		fmag(t_fdot_3d dot)
+{
+	return (sqrt(dot.x * dot.x + dot.y * dot.y + dot.z * dot.z));
+}
+
+int			intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
 {
 	double			t;
 
-	if (plan.a * ray->vx + plan.b * ray->vy + plan.c * ray->vz == 0)
+	if (plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz == 0)
 		return (0);
-	t = -(plan.a * ray->ox + plan.b * ray->oy + plan.c * ray->oz + plan.d) /\
-			(double)(plan.a * ray->vx + plan.b * ray->vy + plan.c * ray->vz);
+	t = -(plan.v.x * ray->ox + plan.v.y * ray->oy + plan.v.z * ray->oz + plan.d) /\
+			(double)(plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz);
 	collision->x = ray->vx * t + ray->ox;
 	collision->y = ray->vy * t + ray->oy;
 	collision->z = ray->vz * t + ray->oz;

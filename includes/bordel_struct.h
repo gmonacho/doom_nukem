@@ -81,6 +81,7 @@ typedef struct		s_plan
 	t_fdot_3d		v;
 	double			d;
 }					t_plan;
+
 // typedef struct		s_plan
 // {
 // 	double			a;
@@ -351,7 +352,7 @@ typedef struct		s_doom_music
 
 typedef struct		s_win
 {
-	t_map			*map;
+	struct s_map	*map;
 
 	SDL_Window*		ptr;
 	SDL_Renderer	*rend;
@@ -493,11 +494,14 @@ typedef enum	e_linedef_side
 typedef struct			s_linedef
 {
 	char				*name;
-	t_fdot_3d			p1;
-	t_fdot_3d			p2;
+	t_dot	    		p1;
+	t_dot               p2;
+	double				angle;
 	t_linedef_side		side;
 	t_plan				equation;
-	double				angle;
+	t_fdot_3d			origin;
+	t_fdot_3d           i;
+	t_fdot_3d  			j;
 	SDL_Surface			*texture;
 	Uint32				flags;
 	Uint32				gflags;
@@ -544,26 +548,26 @@ typedef struct				s_textures
 typedef struct				s_calculs
 {
 	int						raycast;
-	int						column;
-	int						nportals;
-	double					alpha;
-	double					alpha_tmp;
-	double					alpha_up;
+	// int						column;
+	// int						nportals;
+	// double					alpha;
+	// double					alpha_tmp;
+	// double					alpha_up;
 	// double					alpha_up_tmp;
-	double					dangle;
-	double					dangle_up;
-	t_affine				ray;
-	t_cartesienne			ray_2;
+	// double					dangle;
+	// double					dangle_up;
+	// t_affine				    ray;
+	// t_cartesienne			ray;
 	double					dist;
 	double					dist_sum;
-	double					newdist;
-	t_fdot					closest;
-	t_fdot_3d				closest_2;
+	// double					newdist;
+	// t_fdot					closest;
+	t_fdot_3d				closest;
 	t_linedef				*collision_wall;
 	t_sector				*collision_sector;
 	int						collision_type;
-	double					up_wall;
-	double					low_wall;
+	// double					up_wall;
+	// double					low_wall;
 }							t_calculs;
 
 /*
