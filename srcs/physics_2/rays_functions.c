@@ -1,5 +1,17 @@
 #include "doom_nukem.h"
 
+/*
+**	OA . v = d
+**
+**	OA' = OA + t
+**
+**	(OA' - t) . v = d
+**	OA' . v - d - v . t = 0
+**	Mon d est egal a -d dans cette equation du a la premiere relation
+**	Resultat on enleve a d le produit scalaire du vecteur normal et
+**	de la translation
+*/
+
 // void				set_cartesienne(t_cartesienne *ray, double alpha, double alpha_up)
 // {
 // 	ray->vx = cos(alpha_up) * cos(alpha);
@@ -128,7 +140,7 @@ void				translate_all(t_sector *sector, t_fdot_3d translation)
 		line = sector->lines;
 		while (line)
 		{
-			printf("dd %f\n", scalar_product(line->equation.v, translation));
+			// printf("dd %f\n", -scalar_product(line->equation.v, translation));
 			line->equation.d -= scalar_product(line->equation.v, translation);
 			line = line->next;
 		}
