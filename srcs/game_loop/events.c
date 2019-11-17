@@ -5,25 +5,21 @@ static void	mouse_move(t_win *win, t_player *player)
 	if (win->mouse->x > 0)
 	{
 		printf("event x>0\n");
-		player->dir += player->ddir + ((player->dir + player->ddir > _2_PI) ? -_2_PI : 0);
 		rotate_all(win->map->sectors, player->rz);
 	}
 	if (win->mouse->x < 0)
 	{
 		printf("event x<0\n");
-		player->dir -= player->ddir + ((player->dir - player->ddir < 0) ? _2_PI : 0);
 		rotate_all(win->map->sectors, player->rz_inv);
 	}
 	if (win->mouse->y > 0)
 	{
 		printf("event y>0\n");
-		player->dir_up -= player->ddir + ((player->dir_up - player->ddir < 0) ? _2_PI : 0);
 		rotate_all(win->map->sectors, player->ry_inv);
 	}
 	if (win->mouse->y < 0)
 	{
 		printf("event y<0\n");
-		player->dir_up += player->ddir + ((player->dir_up + player->ddir > _2_PI) ? -_2_PI : 0);
 		rotate_all(win->map->sectors, player->ry);
 	}
 
@@ -32,19 +28,17 @@ static void	mouse_move(t_win *win, t_player *player)
 static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_LEFT])
-		player->dir += -0.1 + (player->dir - 0.1 < 0 ? _2_PI : 0);
+		rotate_all(win->map->sectors, player->rz_inv);
 	if (state[SDL_SCANCODE_RIGHT])
-		player->dir +=	0.1 - (player->dir + 0.1 > _2_PI ? _2_PI : 0);
-	if (state[SDL_SCANCODE_DOWN] && player->dir_up > 0)
-		player->dir_up -= 10;
+		rotate_all(win->map->sectors, player->rz);
+	if (state[SDL_SCANCODE_UP])
+		rotate_all(win->map->sectors, player->ry);
+	if (state[SDL_SCANCODE_DOWN])
+		rotate_all(win->map->sectors, player->ry_inv);
 	if (state[SDL_SCANCODE_LSHIFT])
-		player->shift = 1;
-	else
-		player->shift = 0;
-	if (state[SDL_SCANCODE_UP] && player->dir_up < win->h)
-		player->dir_up += 10;
-	if (state[SDL_SCANCODE_SPACE] && player->jump)
-		player->z += 9;
+		translate_all(win->map->sectors, (t_fdot_3d){0, 0, -1});
+	if (state[SDL_SCANCODE_SPACE])
+		translate_all(win->map->sectors, (t_fdot_3d){0, 0, 1});
 	/*if (state[SDL_SCANCODE_LCTRL])
 		player->z -= 4;*/
 	if (state[SDL_SCANCODE_KP_MINUS])
@@ -53,28 +47,32 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 		player->fov +=  0.03 - (player->fov + 0.03 > _2_PI ? _2_PI : 0);
 }
 
-static void	keyboard_move(t_player *player, const Uint8 *state)
+static void	keyboard_move(t_win *win, t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_W])
 	{	
-		player->vel.x += cos(player->dir) * player->const_vel;
-		player->vel.y += sin(player->dir) * player->const_vel;
+		translate_all(win->map->sectors, (t_fdot_3d){1, 0, 0});
+		// player->vel.x += cos(player->dir) * player->const_vel;
+		// player->vel.y += sin(player->dir) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_S])
 	{
-		player->vel.x += cos(player->dir + M_PI) * player->const_vel;
-		player->vel.y += sin(player->dir + M_PI) * player->const_vel;
+		translate_all(win->map->sectors, (t_fdot_3d){-1, 0, 0});
+		// player->vel.x += cos(player->dir + M_PI) * player->const_vel;
+		// player->vel.y += sin(player->dir + M_PI) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_A])
 	{
-		player->vel.x += cos(player->dir - M_PI_2) * player->const_vel;
-		player->vel.y += sin(player->dir - M_PI_2) * player->const_vel;
+		translate_all(win->map->sectors, (t_fdot_3d){0, -1, 0});
+		// player->vel.x += cos(player->dir - M_PI_2) * player->const_vel;
+		// player->vel.y += sin(player->dir - M_PI_2) * player->const_vel;
 		// set_origin_rays(player->rays, player->pos_up);
 	}
 	if (state[SDL_SCANCODE_D])
 	{
-		player->vel.x += cos(player->dir + M_PI_2) * player->const_vel;
-		player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
+		translate_all(win->map->sectors, (t_fdot_3d){0, 1, 0});
+		// player->vel.x += cos(player->dir + M_PI_2) * player->const_vel;
+		// player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
 		// set_origin_rays(player->rays, player->pos_up);
 	}
 	if (state[SDL_SCANCODE_L])
@@ -177,7 +175,7 @@ int			keyboard_state(t_win *win, t_player *player, t_music *music)
 	{
 		state = SDL_GetKeyboardState(NULL);
 		player->vel = (t_fvector){0, 0};
-		keyboard_move(player, state);
+		keyboard_move(win, player, state);
 		
 		keyboard_dir(win, player, state);
 		keyboard_shot(win, player, state, music);

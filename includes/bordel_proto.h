@@ -198,7 +198,7 @@ void		free_linedef(t_linedef *linedef);
 void		free_linedefs(t_linedef **lines);
 t_linedef	*new_void_linedef(void);
 t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags);
-t_linedef	*init_linedef(t_linedef *line);
+t_linedef	*init_equation(t_linedef *line);
 
 /*
 **	---------------------------------- sector ----------------------------------
@@ -349,9 +349,11 @@ int         raycasting_3d_static_rays_static_axes(t_win *win, t_player *player);
 void			teleportation_ray(t_cartesienne *ray, t_linedef *line1, t_linedef *line2, t_sector **sector);
 
 int					init_rays(t_win *win, t_player *player);
+void				translate_all(t_sector *sector, t_fdot_3d translation);
+void				rotate_all(t_sector *sector, t_matrice matrice);
 void				rotate_ray(t_cartesienne *ray, t_matrice matrice);
 void				rotate_dot(t_fdot_3d *dot, t_matrice matrice);
-void				rotate_all(t_sector *sector, t_matrice matrice);
+double				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
 
 // void				set_origin_rays(t_cartesienne *rays, t_fdot_3d origin);
 // void				set_cartesienne(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);

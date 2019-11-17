@@ -92,7 +92,7 @@ typedef struct		s_plan
 
 typedef struct		s_cartesienne
 {
-	double			ox;
+	double			ox;	//Utilise pour les tp de ray intersecteur
 	double			oy;
 	double			oz;
 	double			vx;
@@ -481,7 +481,9 @@ enum	e_glinedef
 	WALL = 0b0001,
 	PORTAL = 0b0010,
 	FLOOR = 0b0100,
-	CEIL = 0b1000
+	CEIL = 0b1000,
+	DOOR_OPEN = 0b00010000,
+	DOOR_CLOSE = 0b00100000
 };
 
 typedef enum	e_linedef_side
@@ -517,27 +519,29 @@ typedef struct			s_linedef
 typedef struct				s_sector
 {
 	char					*name;
+    t_linedef				*lines;
+	int						floor_height;
+	int						ceil_height;
+	int						height;
+
+	// SDL_Color				color;
+	// t_plan					floor_equation;
+	// SDL_Surface				*floor_texture;
+	// t_plan					ceil_equation;
+	// SDL_Surface				*ceil_texture;
 
 	t_color_picker			color;
-	// SDL_Color				color;
-	int						floor_height;
-	t_plan					floor_equation;
-	SDL_Surface				*floor_texture;
-	int						ceil_height;
-	t_plan					ceil_equation;
-	SDL_Surface				*ceil_texture;
-
-	int						height;
 	int						light_level;
-    t_linedef				*lines;
 	// t_dot					center;
 	struct	s_sector 		*next;
 }							t_sector;
 
 typedef struct				s_textures
 {
-	SDL_Surface				*elephantride;
-	SDL_Surface				*tortue;
+	SDL_Surface				*wall_1;
+	SDL_Surface				*wall_2;
+	SDL_Surface				*floor;
+	SDL_Surface				*ceil;
 }							t_textures;
 
 /*
@@ -599,14 +603,15 @@ typedef struct		s_player
 	int				win_h;
 	t_fdot			pos;
 	t_fdot_3d		pos_up;
+	t_sector		*sector;
 	t_dot			dpos;
-	double			z;
-	char			jump;
-	char			shift;
+	// double			z;
+	// char			jump;
+	// char			shift;
 	t_fvector		vel;
 	double			const_vel;
-	double			dir;
-	double			dir_up;
+	// double			dir;
+	// double			dir_up;
 	double			fov;
 	double			fov_up;
 	double			ddir;
@@ -614,9 +619,8 @@ typedef struct		s_player
 	int				width;
 	double			width_2;
 	double			width_10;
-	double			lenRay;
+	// double			lenRay;
 	int				numsector;
-	t_sector		*sector;
 	int 			currentHp;
 	int 			maxHp;
 	int 			currentArmor;

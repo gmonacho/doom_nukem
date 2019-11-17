@@ -10,9 +10,8 @@ void		add_linedef(t_linedef **lines, t_linedef *new_linedef)
 	*lines = new_linedef;
 }
 
-t_linedef	*init_linedef(t_linedef *line)
+t_linedef	*init_equation(t_linedef *line)	//init_linedef() a la base
 {
-	double	a;
 	double	alpha;
 
 	alpha = line->p2.x - line->p1.x ? atan((line->p2.y - line->p1.y) /\
@@ -25,16 +24,13 @@ t_linedef	*init_linedef(t_linedef *line)
 								        0},\
                                 0};
 	line->equation.d = -(line->equation.v.x * line->p1.x + line->equation.v.y * line->p1.y);
-	line->next = NULL;
-	// printf("Equation : %f pi\t%f %f %f %f\n", alpha / M_PI, line->equation_2.a, line->equation_2.b, line->equation_2.c, line->equation_2.d);
+	printf("Equation : %f %f %f %f\n", line->equation.v.x, line->equation.v.y, line->equation.v.z, line->equation.d);
 	return (line);
 }
 
 t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags)
 {
 	t_linedef	*newline;
-    double      a;
-	double		alpha;
 
 	if (!(newline = (t_linedef *)ft_memalloc(sizeof(t_linedef))))
 		return (ret_null_perror("lines allocation failed in new_linedef"));
@@ -44,7 +40,7 @@ t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags)
 	newline->side = SIDE_RIGHT;
 	newline->flags = flags;
 	newline->id = 0;
-	init_linedef(newline);
+	init_equation(newline);
 	return (newline);
 }
 

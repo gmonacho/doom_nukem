@@ -11,10 +11,10 @@ void			add_sector(t_sector **sectors)
 		return (ft_putendl("allocation failed in add_sector"));
 	ft_strcpy(new_sector->name, "sector");
 	new_sector->color.pos = 0;
-	new_sector->floor_height = 0;
-	new_sector->floor_texture = NULL;
-	new_sector->ceil_height = 1;
-	new_sector->ceil_texture = NULL;
+	// new_sector->floor_height = 0;
+	// new_sector->floor_texture = NULL;
+	// new_sector->ceil_height = 1;
+	// new_sector->ceil_texture = NULL;
 	new_sector->light_level = 0;
 	new_sector->lines = NULL;
 	new_sector->next = *sectors;

@@ -11,13 +11,13 @@
 
 
 
-static int			create_ray(t_player *player, t_cartesienne **ray, t_fdot angle, t_dot coord)
+static int			create_ray(t_cartesienne **ray, t_fdot angle, t_dot coord)
 {
 	double			alpha_up;
 	double			alpha;
 
-	alpha = 	player->dir + angle.x;
-	alpha_up =	player->dir_up + angle.y;
+	alpha = 	angle.x;
+	alpha_up =	angle.y;
 	if (!(*ray = (t_cartesienne *)malloc(sizeof(t_cartesienne))))
 		return (1);
 	(*ray)->ox = 0;
@@ -57,7 +57,7 @@ int					init_rays(t_win *win, t_player *player)
 		coord.y = -1;
 		while (++coord.y < win->h)
 		{
-			if (create_ray(player, &ray, angle, coord))
+			if (create_ray(&ray, angle, coord))
 				return (1);
 			// printf("%d %d|", coord.x, coord.y);
 			if (ray_last)
@@ -108,6 +108,28 @@ void				rotate_all(t_sector *sector, t_matrice matrice)
 		while (line)
 		{
 			rotate_dot(&(line->equation.v), matrice);
+			line = line->next;
+		}
+		sector = sector->next;
+	}
+}
+
+double				scalar_product(t_fdot_3d v1, t_fdot_3d v2)
+{
+	return ((double)(v1.x * v2.x + v1.y * v2.y + v1.z + v2.z));
+}
+
+void				translate_all(t_sector *sector, t_fdot_3d translation)
+{
+	t_linedef		*line;
+
+	while (sector)
+	{
+		line = sector->lines;
+		while (line)
+		{
+			printf("dd %f\n", scalar_product(line->equation.v, translation));
+			line->equation.d -= scalar_product(line->equation.v, translation);
 			line = line->next;
 		}
 		sector = sector->next;
