@@ -480,8 +480,8 @@ enum	e_glinedef
 {
 	WALL = 0b0001,
 	PORTAL = 0b0010,
-	DOOR_CLOSE = 0b0100,
-	DOOR_OPEN = 0b00001000
+	FLOOR = 0b0100,
+	CEIL = 0b1000
 };
 
 typedef enum	e_linedef_side
@@ -493,10 +493,9 @@ typedef enum	e_linedef_side
 
 typedef struct			s_linedef
 {
-	char				*name;
-	t_dot	    		p1;
-	t_dot               p2;
-	double				angle;
+	char				*name;		//Inutile
+	t_dot	    		p1;			//Stocke les donnees du fichier
+	t_dot               p2;			//
 	t_linedef_side		side;
 	t_plan				equation;
 	t_fdot_3d			origin;

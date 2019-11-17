@@ -73,9 +73,51 @@ static void	check_lines(t_map *map)
 	}
 }
 
+static int		add_floor(t_map *map, t_sector *sector, t_linedef **last)
+{
+	t_linedef	*new;
+
+	if (!(new = (t_linedef *)malloc(sizeof(t_linedef))))
+		return (1);
+	new->equation = (t_plan){(t_fdot_3d){0, 0, 1}, -sector->floor_height};
+	new->origin = (t_fdot_3d){0, 0, sector->floor_height};
+	new->i = (t_fdot_3d){1, 0, 0};
+	new->j = (t_fdot_3d){0, 1, 0};
+	new->id = 0;
+	new->flags = FLOOR;
+	if (!(sector->floor_texture = IMG_Load("textures/sol.png")))
+	{
+		ft_putendl(SDL_GetError());
+		return (1);
+	}
+	(*last)->next = new;
+	*last = new;
+	return (0);
+}
+
+static int		add_ceil(t_map *map, t_sector *sector, t_linedef *last)
+{
+	if (!(new = (t_linedef *)malloc(sizeof(t_linedef))))
+		return (1);
+	new->equation = (t_plan){(t_fdot_3d){0, 0, 1}, -sector->ceil_height};
+	new->origin = (t_fdot_3d){0, 0, sector->ceil_height};
+	new->i = (t_fdot_3d){1, 0, 0};
+	new->j = (t_fdot_3d){0, 1, 0};
+	new->id = 0;
+	new->flags = CEIL;
+	if (!(sector->ceil_texture = IMG_Load("textures/mur_pierre.png")))
+	{
+		ft_putendl(SDL_GetError());
+		return (1);
+	}
+	last->next = new;
+	return (0);
+}
+
 int		init_lines(t_map *map)
 {
 	t_sector	*sector;
+	t_linedef	*last_line;
 	t_linedef	*line;
 
 	sector = map->sectors;
@@ -104,9 +146,13 @@ int		init_lines(t_map *map)
 				line->texture = map->textures.tortue;
 			printf("Line : %p %p\n", line, line->destline);
 			line = line->next;
+			last_line = line;
 			// if (set_clockwise(map, sector, line))
 			// 	return ();
 		}
+		if (add_floor(map, sector, &last_line) ||\
+			add_ceil(map, sector, last_line))
+			return (1);
 		sector = sector->next;
 	}
 	check_lines(map);
@@ -151,18 +197,12 @@ int		init_sectors(t_map *map, t_player *player)
 	sector = map->sectors;
 	while (sector)
 	{
-		if (!(sector->ceil_texture = IMG_Load("textures/mur_pierre.png")) ||
-			!(sector->floor_texture = IMG_Load("textures/sol.png")))
-		{
-			ft_putendl(SDL_GetError());
-			return (1);
-		}
 		if (sector->floor_height >= sector->ceil_height)
 			return (1);
 		sector->height = sector->ceil_height - sector->floor_height;
 		// printf("Ceil height = %d\n", sector->ceil_height);
-		sector->ceil_equation =		(t_plan){(t_fdot_3d){0, 0, 1}, -sector->ceil_height};
-		sector->floor_equation =	(t_plan){(t_fdot_3d){0, 0, 1}, -sector->floor_height};
+		// sector->ceil_equation =		(t_plan){(t_fdot_3d){0, 0, 1}, -sector->ceil_height};
+		// sector->floor_equation =	(t_plan){(t_fdot_3d){0, 0, 1}, -sector->floor_height};
 		sector = sector->next;
 	}
 	player->sector = map->sectors;
