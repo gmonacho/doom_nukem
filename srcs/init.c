@@ -1,5 +1,10 @@
 #include "doom_nukem.h"
 
+/*
+**	Le floor et ceil ont une forme quelconque donc
+**	le plan est infini -> Origin : 0,0,h
+*/
+
 static int		find_portal_id(t_map *map, t_linedef *line1, int id)
 {
 	t_sector	*sector;
@@ -218,7 +223,7 @@ void	init_player(t_win *win, t_player *player)
 {
 	player->win_w = win->w;
 	player->win_h = win->h;
-	printf("pos player 2d %f %f\n", player->pos.x, player->pos.y);
+	printf("Pos player 2d %f %f\n", player->pos.x, player->pos.y);
 	player->pos_up = (t_fdot_3d){0, 0, 0};
 	translate_all(win->map->sectors, (t_fdot_3d){-player->pos.x, -player->pos.y, -player->sector->floor_height - player->height});
 
@@ -230,7 +235,7 @@ void	init_player(t_win *win, t_player *player)
 		line = sector->lines;
 		while (line)
 		{
-			printf("Equation %f %f %f %f\n", line->equation.v.x, line->equation.v.y, line->equation.v.z, line->equation.d);
+			printf("Equation %f x + %f y + %f z + %f = 0\n", line->equation.v.x, line->equation.v.y, line->equation.v.z, line->equation.d);
 			line = line->next;
 		}
 		sector = sector->next;
@@ -266,24 +271,12 @@ void	init_player(t_win *win, t_player *player)
 	define_line_shot(win, player);
 
 
-	
-	// t_fdot_3d		p1 = (t_fdot_3d){1, 1, 1};
-	// t_fdot_3d		p2 = (t_fdot_3d){5, 5, 5};
-	// t_fdot_3d		v = (t_fdot_3d){4, 4, 4};
-	// for (int i = 0; i < 50; i++)
-	// {
-	// 	rotate_dot(&p1, player->rz);
-	// 	rotate_dot(&p2, player->rz);
-	// 	rotate_dot(&v, player->rz);
+	printf("Modulo %f\n", modulo(-92, 32));
+	// t_plan		p = (t_plan){(t_fdot_3d){-1, 0, 0}, 250};
+	// t_fdot_3d	translation = (t_fdot_3d){100, 100, 100};
 
-	// 	rotate_dot(&p1, player->ry);
-	// 	rotate_dot(&p2, player->ry);
-	// 	rotate_dot(&v, player->ry);
-	// }
-	// printf("p1 %f %f %f\n", p1.x, p1.y, p1.z);
-	// printf("p2 %f %f %f\n", p2.x, p2.y, p2.z);
-	// printf("Diff %f %f %f\n", p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
-	// printf("Vector %f %f %f\n\n", v.x, v.y, v.z);
+	// p.d -= scalar_product(p.v, translation);
+	// printf("Plan %f %f %f %f\tScalar product : %f\n", p.v.x, p.v.y, p.v.z, p.d, scalar_product(p.v, translation));
 	// exit(0);
 }
 

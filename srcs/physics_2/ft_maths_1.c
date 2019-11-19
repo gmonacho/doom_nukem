@@ -7,6 +7,8 @@
 
 double  	modulo(double nbr, double mod)
 {
+	if (nbr < 0)
+		return (mod - modulo(-nbr, mod));
 	return (nbr - (int)(nbr / mod) * mod -\
 					(mod < 0 ? mod : 0));
 }

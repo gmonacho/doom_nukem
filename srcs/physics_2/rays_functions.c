@@ -41,6 +41,11 @@ static int			create_ray(t_cartesienne **ray, t_fdot angle, t_dot coord)
 	(*ray)->x = coord.x;
 	(*ray)->y = coord.y;
 	(*ray)->next = NULL;
+	if ((coord.x == 0 && coord.y == 0) ||\
+		(coord.x == 999 && coord.y == 0) ||\
+		(coord.x == 0 && coord.y == 799) ||\
+		(coord.x == 999 && coord.y == 799))
+		printf("Ray (%f, %f, %f)\n", (*ray)->vx, (*ray)->vy, (*ray)->vz);
 	return (0);
 }
 
@@ -128,7 +133,7 @@ void				rotate_all(t_sector *sector, t_matrice matrice)
 
 double				scalar_product(t_fdot_3d v1, t_fdot_3d v2)
 {
-	return ((double)(v1.x * v2.x + v1.y * v2.y + v1.z + v2.z));
+	return ((double)(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z));
 }
 
 void				translate_all(t_sector *sector, t_fdot_3d translation)
@@ -142,6 +147,9 @@ void				translate_all(t_sector *sector, t_fdot_3d translation)
 		{
 			// printf("dd %f\n", -scalar_product(line->equation.v, translation));
 			line->equation.d -= scalar_product(line->equation.v, translation);
+			// line->origin.x += translation.x;
+			// line->origin.y += translation.y;
+			line->origin.z += translation.z;
 			line = line->next;
 		}
 		sector = sector->next;

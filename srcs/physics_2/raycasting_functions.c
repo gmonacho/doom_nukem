@@ -14,10 +14,7 @@ double          fdist_3d(t_fdot_3d p1, t_fdot_3d p2)
 
 int             sence(t_cartesienne ray, t_fdot_3d collision)
 {
-    // return (fdist_3d(collision, (t_fdot_3d){ray.ox, ray.oy, ray.oz}) >\
-    //         fdist_3d(collision, (t_fdot_3d){ray.ox + ray.vx,\
-    //                                         ray.oy + ray.vy,\
-                                            // ray.oz + ray.vz,}) ? 1 : 0);
+	// return (scalar_product((t_fdot_3d){ray->vx, ray->vy, ray->vz}, collision) > 0);
 	if (ray.vx)
 	{
 		if (collision.x < ray.ox && ray.ox + ray.vx < ray.ox)

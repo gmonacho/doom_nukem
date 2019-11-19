@@ -2,12 +2,21 @@
 
 static void			find_coord(t_fdot *coord, t_fdot_3d collision, t_fdot_3d i, t_fdot_3d j)
 {
-	if (is_null(i.x * j.y - i.y * j.x, 0.005))
+	if (!is_null(i.x * j.y - i.y * j.x, 0.005))
+	{
+		// printf("coord y 1 non null\n");
 		coord->y = (collision.y * i.x - collision.x * i.y) / (i.x * j.y - i.y * j.x);
-	else if (is_null(i.y * j.z - i.z * j.y, 0.005))
+	}
+	else if (!is_null(i.y * j.z - i.z * j.y, 0.005))
+	{
+		// printf("coord y 2 non null\n");
 		coord->y = (collision.z * i.y - collision.y * i.z) / (i.y * j.z - i.z * j.y);
-	else if (is_null(i.z * j.x - i.x * j.z, 0.005))
+	}
+	else if (!is_null(i.z * j.x - i.x * j.z, 0.005))
+	{
+		// printf("coord y 3 non null\n");
 		coord->y = (collision.x * i.z - collision.z * i.x) / (i.z * j.x - i.x * j.z);
+	}
 	else
 	{
 		printf("Impossible vecteur unitaire null ???\n");
@@ -15,18 +24,27 @@ static void			find_coord(t_fdot *coord, t_fdot_3d collision, t_fdot_3d i, t_fdot
 	}
 
 	// printf("Coord y %f\n", coord->y);
-	if (coord->y < 0)
-	{
-		printf("Coord negative dans le mur\n");
-		exit(0);
-	}
+	// if (coord->y < 0)
+	// {
+	// 	printf("Coord y negative dans le mur %f\n", coord->y);
+	// 	exit(0);
+	// }
 
 	if (!is_null(i.x, 0.005))
+	{
+		// printf("coord x 1 non null\n");
 		coord->x = (collision.x - j.x * coord->y) / i.x;
+	}
 	else if (!is_null(i.y, 0.005))
+	{
+		// printf("coord y 2 non null\n");
 		coord->x = (collision.y - j.y * coord->y) / i.y;
+	}
 	else if (!is_null(i.z, 0.005))
+	{
+		// printf("coord z 3 non null\n");
 		coord->x = (collision.z - j.z * coord->y) / i.z;
+	}
 	else
 	{
 		printf("Impossible vecteur unitaire i null ???\n");
@@ -34,11 +52,11 @@ static void			find_coord(t_fdot *coord, t_fdot_3d collision, t_fdot_3d i, t_fdot
 	}
 
 	// printf("Coord x %f\n", coord->x);
-	if (coord->x < 0)
-	{
-		printf("Coord negative dans le mur x=%f\n", coord->x);
-		exit(0);
-	}
+	// if (coord->x < 0)
+	// {
+	// 	printf("Coord x negative dans le mur %f\n", coord->x);
+	// 	exit(0);
+	// }
 }
 
 static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, t_cartesienne *ray)
@@ -47,12 +65,24 @@ static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, t_car
 	t_fdot			coord_plan;
 	t_dot			coord_texture;
 
+
+	// printf("Origin %f %f %f\n", calculs->collision_wall->origin.x, calculs->collision_wall->origin.y, calculs->collision_wall->origin.z);
 	find_coord(&coord_plan, (t_fdot_3d){calculs->closest.x - calculs->collision_wall->origin.x,\
 									calculs->closest.y - calculs->collision_wall->origin.y,\
 									calculs->closest.z - calculs->collision_wall->origin.z},\
 							calculs->collision_wall->i,\
 							calculs->collision_wall->j);
-	
+
+	if ((ray->x == 0 && ray->y == 0) ||\
+		(ray->x == 999 && ray->y == 0) ||\
+		(ray->x == 0 && ray->y == 799) ||\
+		(ray->x == 999 && ray->y == 799))
+	{
+		printf("Col (%f, %f, %f)\t%d\n", calculs->closest.x, calculs->closest.y, calculs->closest.z, calculs->collision_wall->flags);
+		printf("Origin %f %f %f\n", calculs->collision_wall->origin.x, calculs->collision_wall->origin.y, calculs->collision_wall->origin.z);
+		printf("Coord plan %f %f\n", coord_plan.x, coord_plan.y);
+	}
+
 	coord_texture = (t_dot){(int)modulo(coord_plan.x * fmag(calculs->collision_wall->i), calculs->collision_wall->texture->w),\
 							(int)modulo(coord_plan.y * fmag(calculs->collision_wall->j), calculs->collision_wall->texture->h)};
 	
@@ -85,7 +115,7 @@ static t_linedef	*launch_ray_3d(t_calculs *calculs, t_cartesienne *ray, t_sector
 	t_fdot_3d		collision;
 	double			tmpdist;
 
-	printf("Ray %f %f %f\n", ray->vx, ray->vy, ray->vz);
+	// printf("Ray %f %f %f\n", ray->vx, ray->vy, ray->vz);
 	calculs->dist = -1;
 	calculs->collision_wall = NULL;
 	line = sector->lines;
@@ -97,20 +127,21 @@ static t_linedef	*launch_ray_3d(t_calculs *calculs, t_cartesienne *ray, t_sector
 			return (NULL);
 		}
 
-		printf("----> %d\n", line->flags);
-		printf("Line %d %d / %d %d\n", line->p1.x, line->p1.y, line->p2.x, line->p2.y);
-		printf("Equation %f %f %f %f\n", line->equation.v.x, line->equation.v.y, line->equation.v.z, line->equation.d);
-		printf("%d\n", ((tmpdist = fdist_3d((t_fdot_3d){ray->ox, ray->oy, ray->oz}, collision)) < calculs->dist ||\
-						calculs->dist == -1));
-		printf("%d\n", sence(*ray, collision));
-		printf("%d\n", ((int)collision.x != (int)ray->ox || (int)collision.y != (int)ray->oy || (int)collision.z != (int)ray->oz));
+		// printf("----> %d\n", line->flags);
+		// printf("Line %d %d / %d %d\n", line->p1.x, line->p1.y, line->p2.x, line->p2.y);
+		// printf("Collision : %f %f %f\n", collision.x, collision.y, collision.z);
+		// printf("Equation %f %f %f %f\n", line->equation.v.x, line->equation.v.y, line->equation.v.z, line->equation.d);
+		// printf("%d\n", ((tmpdist = fdist_3d((t_fdot_3d){ray->ox, ray->oy, ray->oz}, collision)) < calculs->dist ||\
+		// 				calculs->dist == -1));
+		// printf("%d\n", sence(*ray, collision));
+		// printf("%d\n", ((int)collision.x != (int)ray->ox || (int)collision.y != (int)ray->oy || (int)collision.z != (int)ray->oz));
 
 		if (((tmpdist = fdist_3d((t_fdot_3d){ray->ox, ray->oy, ray->oz}, collision)) < calculs->dist ||\
 			calculs->dist == -1) &&\
 			sence(*ray, collision) &&\
 			((int)collision.x != (int)ray->ox || (int)collision.y != (int)ray->oy || (int)collision.z != (int)ray->oz))
  		{
-			printf("New collision : %f %f %f\n", collision.x, collision.y, collision.z);
+			// printf("New collision : %f %f %f\n", collision.x, collision.y, collision.z);
 			calculs->collision_wall = line;
 			calculs->collision_sector = line->sector;
 			calculs->closest = (t_fdot_3d){collision.x, collision.y, collision.z};
