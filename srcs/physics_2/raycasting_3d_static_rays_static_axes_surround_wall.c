@@ -102,29 +102,12 @@ static void			draw_point(t_win *win, t_calculs *calculs, t_player *player, t_car
 
 	pixel = ((int *)calculs->collision_wall->texture->pixels)[coord_texture.y * calculs->collision_wall->texture->w +\
 																coord_texture.x];
-	
-	// int r = ((pixel >> 16) & 0xFF) * 2;
-	// int g = ((pixel >> 8) & 0xFF) * 2;
-	// int b = (pixel & 0xFF) * 2;
-	// int a = 255; //(pixel >> 24) & 0xFF;
-	// if (r > 255)
-	// 	r = 255;
-	// if (g > 255)
-	// 	g = 255;
-	// if (b > 255)
-	// 	b = 255;
-	// SDL_SetRenderDrawColor(win->rend,	r,
-	// 									g,
-	// 									b,
-	// 									a);
+
 	SDL_SetRenderDrawColor(win->rend,	(pixel >> 16) & 0xFF,\
 										(pixel >> 8) & 0xFF,\
 										(pixel >> 0) & 0xFF,\
 										(pixel >> 24) & 0xFF);
 	SDL_RenderDrawPoint(win->rend, ray->x, ray->y);
-	// SDL_RenderDrawPoint(win->rend, ray->x, ray->y + 1);
-	// SDL_RenderDrawPoint(win->rend, ray->x + 1, ray->y);
-	// SDL_RenderDrawPoint(win->rend, ray->x + 1, ray->y + 1);
 	player = NULL;
 }
 
@@ -213,34 +196,32 @@ static t_fdot_3d	begin_launch(t_player *player, t_calculs *calculs, t_cartesienn
 	return (calculs->closest);
 }
 
-
-
-int				raycasting_3d_static_rays_static_axes(t_win *win, t_player *player)
+static void			square_tracing(t_player *player, t_linedef *line)
 {
-	t_calculs	calculs;
-	t_cartesienne	*ray;
-
-	calculs.raycast = 1;
-	ray = player->rays;
-	// printf("Debut moteur\n");
-	while (ray)
+	int				x;
+	int				y;
+	
+	y = -1;
+	while (++y < line->poly_h)
 	{
-		// if (!(ray->x % 2 || ray->y % 2))
-		// {
-		begin_launch(player, &calculs, ray);
-		draw_point(win, &calculs, player, ray);
-		ray = ray->next;
-		// if (!ray)
-		// 	break ;
-		// begin_launch(player, &calculs, ray);
-		// draw_point(win, &calculs, player, ray);
-		// ray = ray->next;
-		// if (!ray)
-		// 	break ;
-		// begin_launch(player, &calculs, ray);
-		// draw_point(win, &calculs, player, ray);
-		// ray = ray->next;
-		// }
-	} 
+		x = -1;
+		while (++x < line->poly_w)
+		{
+			begin_launch(player, calculs, &(player->rays[line->origin.y + y][line->origin.x + x]));
+		}
+	}
+}
+
+int					raycasting_3d_static_rays_static_axes_surround_wall(t_win *win, t_player *player)
+{
+	t_calculs		calculs;
+	t_linedef		*line;
+
+	line = player->sector;
+	while (line)
+	{
+		square_tracing(player);
+		line = line->next;
+	}
 	return (0);
 }

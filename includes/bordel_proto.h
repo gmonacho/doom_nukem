@@ -345,6 +345,8 @@ int			sence(t_cartesienne ray, t_fdot_3d collision);
 // void		set_new_position_3d(t_fdot_3d *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
 
 int         raycasting_3d_static_rays_static_axes(t_win *win, t_player *player);
+int			raycasting_3d_static_rays_static_axes_surround_wall(t_win *win, t_player *player);
+
 // int				raycasting_3d_static_rays(t_win *win, t_player *player);
 void			teleportation_ray(t_cartesienne *ray, t_linedef *line1, t_linedef *line2, t_sector **sector);
 
@@ -388,6 +390,8 @@ double			fmag(t_fdot_3d dot);
 int				sign(double nbr);
 void			normalize(double *angle);
 int				is_null(double nbr, double precision);
+double			square(t_fdot_3d p1, t_fdot_3d p2);
+
 
 int	        	lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2);
 void			draw_affine(t_win *win, t_affine function);

@@ -125,6 +125,13 @@ void				rotate_all(t_sector *sector, t_matrice matrice)
 		while (line)
 		{
 			rotate_dot(&(line->equation.v), matrice);
+			rotate_dot(&(line->i), matrice);
+			rotate_dot(&(line->j), matrice);
+			
+			rotate_dot(&(line->poly_3d[0]), matrice);
+			rotate_dot(&(line->poly_3d[1]), matrice);
+			rotate_dot(&(line->poly_3d[2]), matrice);
+			rotate_dot(&(line->poly_3d[3]), matrice);
 			line = line->next;
 		}
 		sector = sector->next;

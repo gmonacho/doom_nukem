@@ -15,6 +15,9 @@
 # include "SDL_mixer.h"
 # include "libft.h"
 
+# define WIDTH				1000
+# define HEIGHT				800
+
 # define MAX_SECTORS		25
 # define NEXT_FACTOR		50
 # define HEIGHT_WALL		40

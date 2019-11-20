@@ -12,6 +12,13 @@ double          fdist_3d(t_fdot_3d p1, t_fdot_3d p2)
                     (p2.z - p1.z) * (p2.z - p1.z)));
 }
 
+double			square(t_fdot_3d p1, t_fdot_3d p2)
+{
+    return ((p2.x - p1.x) * (p2.x - p1.x) +\
+			(p2.y - p1.y) * (p2.y - p1.y) +\
+            (p2.z - p1.z) * (p2.z - p1.z));
+}
+
 int             sence(t_cartesienne ray, t_fdot_3d collision)
 {
 	// return (scalar_product((t_fdot_3d){ray->vx, ray->vy, ray->vz}, collision) > 0);

@@ -92,6 +92,9 @@ typedef struct		s_plan
 
 typedef struct		s_cartesienne
 {
+	int				x;
+	int				y;
+
 	double			ox;	//Utilise pour les tp de ray intersecteur
 	double			oy;
 	double			oz;
@@ -99,9 +102,9 @@ typedef struct		s_cartesienne
 	double			vy;
 	double			vz;
 
-	int				x;
-	int				y;
-	struct s_cartesienne	*next;
+	double			dist;
+	int				color;
+	// struct s_cartesienne	*next;
 }					t_cartesienne;
 
 typedef struct		s_vector
@@ -499,14 +502,23 @@ typedef struct			s_linedef
 	t_dot	    		p1;			//Stocke les donnees du fichier
 	t_dot               p2;			//
 	t_linedef_side		side;
+	
 	t_plan				equation;
 	t_fdot_3d			origin;
 	t_fdot_3d           i;
 	t_fdot_3d  			j;
+	
 	SDL_Surface			*texture;
 	Uint32				flags;
 	Uint32				gflags;
 	int					id;
+	
+	t_fdot_3d			poly_3d[4];
+	t_dot				poly_2d[4];
+	t_dot				poly_2d_origin;
+	int					poly_w;
+	int					poly_h;
+	
 	struct s_sector		*sector;
 	struct s_linedef	*destline;
 	struct s_linedef	*next;
@@ -613,7 +625,9 @@ typedef struct		s_player
 	// double			dir;
 	// double			dir_up;
 	double			fov;
+	double			fov_2;
 	double			fov_up;
+	double			fov_up_2;
 	double			ddir;
 	int				height;
 	int				width;
@@ -634,7 +648,8 @@ typedef struct		s_player
 	double			demipetitaxe;
 	int 			damage;
 
-	t_cartesienne	*rays;
+	// t_cartesienne	*rays;
+	t_cartesienne	rays[HEIGHT][WIDTH];
 	t_matrice		rx;
 	t_matrice		rx_inv;
 	t_matrice		ry;

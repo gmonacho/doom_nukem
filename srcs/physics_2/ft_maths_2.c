@@ -24,11 +24,13 @@ double		fmag(t_fdot_3d dot)
 int			intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
 {
 	double			t;
+	double			denominateur;
 
-	if (plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz == 0)
+	denominateur = plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz;
+	if (denominateur == 0)
 		return (0);
 	t = -(plan.v.x * ray->ox + plan.v.y * ray->oy + plan.v.z * ray->oz + plan.d) /\
-			(double)(plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz);
+			(double)(denominateur);
 	collision->x = ray->vx * t + ray->ox;
 	collision->y = ray->vy * t + ray->oy;
 	collision->z = ray->vz * t + ray->oz;

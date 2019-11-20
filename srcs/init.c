@@ -146,6 +146,12 @@ int		init_lines(t_map *map)
 			line->origin = (t_fdot_3d){line->p1.x, line->p1.y, sector->ceil_height};
 			line->i = (t_fdot_3d){line->p2.x - line->p1.x, line->p2.y - line->p1.y, 0};
 			line->j = (t_fdot_3d){0, 0, -sector->height};
+
+			line->poly_3d[0] = (t_fdot_3d){line->p1.x, line->p1.y, sector->ceil_height};
+			line->poly_3d[1] = (t_fdot_3d){line->p2.x, line->p2.y, sector->ceil_height};
+			line->poly_3d[2] = (t_fdot_3d){line->p1.x, line->p1.y, sector->floor_height};
+			line->poly_3d[3] = (t_fdot_3d){line->p2.x, line->p2.y, sector->floor_height};
+
 			line->side = SIDE_RIGHT;
 			if (line->flags & PORTAL && !find_portal_id(map, line, line->id))
 				return (1);
@@ -243,7 +249,9 @@ void	init_player(t_win *win, t_player *player)
 
 	player->inventory = define_inventory();
 	player->fov = _PI_4;
+	player->fov_2 = _PI_4 / 2;
 	player->fov_up = _PI_4;
+	player->fov_up_2 = _PI_4 / 2;
 	// player->dir = 0;
 	// player->dir_up = 0;
 	player->ddir = 0.1;
@@ -271,7 +279,7 @@ void	init_player(t_win *win, t_player *player)
 	define_line_shot(win, player);
 
 
-	printf("Modulo %f\n", modulo(-92, 32));
+	printf("Modulo %f\n", modulo(-46, 32));
 	// t_plan		p = (t_plan){(t_fdot_3d){-1, 0, 0}, 250};
 	// t_fdot_3d	translation = (t_fdot_3d){100, 100, 100};
 

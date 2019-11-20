@@ -47,8 +47,8 @@ int			main(int argc, char **argv)
 			return (ret_error(SDL_GetError()));
 		if ((Mix_Init(MIX_INIT_MP3) & MIX_INIT_MP3) != MIX_INIT_MP3)
 			return (ret_error(SDL_GetError()));
-		win.w = 1000;
-		win.h = 800;
+		win.w = WIDTH;
+		win.h = HEIGHT;
 		win.map = &map;
 		if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 100, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 			return (0);

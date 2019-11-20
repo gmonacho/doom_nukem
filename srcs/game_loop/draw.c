@@ -84,7 +84,7 @@
 
 void	draw(t_win *win, t_map *map, t_player *player)
 {
-	raycasting_3d_static_rays_static_axes(win, player);
+	raycasting_3d_static_rays_static_axes_surround_wall(win, player);
 	// draw_map(win, map);
 	
 	// SDL_SetRenderDrawColor(win->rend, 0, 0, 0, 255);
