@@ -326,29 +326,18 @@ void		check_file(t_map_editor *map);
 ** ===============================================================================
 */
 
+int			game_loop(t_win *win, t_map *map);
+
 /*
 ** ================================== Physics ===================================
 */
 
-int			game_loop(t_win *win, t_map *map);
-int			physics(t_win *win, t_map *map, t_player *player);
-int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
-// int			raycasting(t_win *win, t_player *player);
-// void		launch_ray_2d(t_win *win, t_player *player, t_calculs *calculs);
-// void		set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
-// void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2);
-// void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot source);
-t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
+int					raycasting_3d(t_win *win, t_player *player);
+t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
+int					sence(t_cartesienne ray, t_fdot_3d collision);
 
-// int			raycasting_3d(t_win *win, t_player *player);
-int			sence(t_cartesienne ray, t_fdot_3d collision);
-// void		set_new_position_3d(t_fdot_3d *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
-
-int         raycasting_3d_static_rays_static_axes(t_win *win, t_player *player);
-int			raycasting_3d_static_rays_static_axes_surround_wall(t_win *win, t_player *player);
-
-// int				raycasting_3d_static_rays(t_win *win, t_player *player);
-void			teleportation_ray(t_cartesienne *ray, t_linedef *line1, t_linedef *line2, t_sector **sector);
+// int			physics(t_win *win, t_map *map, t_player *player);
+// int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
 
 int					init_rays(t_win *win, t_player *player);
 void				translate_all(t_sector *sector, t_fdot_3d translation);
@@ -357,9 +346,6 @@ void				rotate_ray(t_cartesienne *ray, t_matrice matrice);
 void				rotate_dot(t_fdot_3d *dot, t_matrice matrice);
 double				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
 
-// void				set_origin_rays(t_cartesienne *rays, t_fdot_3d origin);
-// void				set_cartesienne(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);
-// void				set_cartesienne_static(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);
 t_matrice			create_matrice(double angle);
 void				init_matrice_rx(t_player *player);
 void				init_matrice_rx_inv(t_player *player);
@@ -385,7 +371,7 @@ void            reload_cd(t_map *map);
 double  		modulo(double nbr, double mod);
 double			fdist(t_fdot p1, t_fdot p2);
 double          fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
-// double	mag(t_vector vector);
+// double		mag(t_vector vector);
 double			fmag(t_fdot_3d dot);
 int				sign(double nbr);
 void			normalize(double *angle);

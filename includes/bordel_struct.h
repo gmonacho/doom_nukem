@@ -35,23 +35,17 @@ typedef struct		s_matrice
 	double			_22;
 }					t_matrice;
 
-typedef struct		s_size
-{
-	int				w;
-	int				h;
-}					t_size;
+// typedef struct		s_size
+// {
+// 	int				w;
+// 	int				h;
+// }					t_size;
 
 typedef struct		s_line
 {
 	t_dot			p1;
 	t_dot			p2;
 }					t_line;
-
-typedef struct		s_fline
-{
-	t_fdot			p1;
-	t_fdot			p2;
-}					t_fline;
 
 typedef struct 		s_frect
 {
@@ -82,19 +76,8 @@ typedef struct		s_plan
 	double			d;
 }					t_plan;
 
-// typedef struct		s_plan
-// {
-// 	double			a;
-// 	double			b;
-// 	double			c;
-// 	double			d;
-// }					t_plan;
-
 typedef struct		s_cartesienne
 {
-	int				x;
-	int				y;
-
 	double			ox;	//Utilise pour les tp de ray intersecteur
 	double			oy;
 	double			oz;
@@ -102,22 +85,10 @@ typedef struct		s_cartesienne
 	double			vy;
 	double			vz;
 
+	int				first;
 	double			dist;
 	int				color;
-	// struct s_cartesienne	*next;
 }					t_cartesienne;
-
-typedef struct		s_vector
-{
-	int				x;
-	int				y;
-}					t_vector;
-
-typedef struct		s_fvector
-{
-	double			x;
-	double			y;
-}					t_fvector;
 
 /*
 ** =====================================================================================
@@ -352,6 +323,12 @@ typedef struct		s_doom_music
 	Mix_Music		*menu_music;
 }					t_doom_music;
 
+typedef enum		e_view
+{
+	RAYCASTING_VIEW = 0b0001,
+	SQUARED_VIEW = 0b0010,
+	TEXTURE_VIEW = 0b0100
+}					t_view;
 
 typedef struct		s_win
 {
@@ -359,6 +336,7 @@ typedef struct		s_win
 
 	SDL_Window*		ptr;
 	SDL_Renderer	*rend;
+	int				view;
 
 	int				w;
 	int				h;
@@ -560,29 +538,30 @@ typedef struct				s_textures
 **	----------------------------------- Raycasting ---------------------------------------
 */
 
+typedef	struct				s_poly
+{
+	int						inf;	//Plan ou polygone ?
+	t_fdot_3d				d1;
+	t_fdot_3d				d2;
+	t_fdot_3d				d3;
+	t_fdot_3d				d4;
+	double					dist12;
+	double					dist13;
+
+	t_plan					equation;
+	t_fdot_3d				i;
+	t_fdot_3d				j;
+
+	t_dot					poly_2d_origin;
+	int						poly_2d_w;
+	int						poly_2d_h;
+
+	SDL_Surface				*texture;
+	struct s_poly			*next;
+}							t_poly;
+
 typedef struct				s_calculs
 {
-	int						raycast;
-	// int						column;
-	// int						nportals;
-	// double					alpha;
-	// double					alpha_tmp;
-	// double					alpha_up;
-	// double					alpha_up_tmp;
-	// double					dangle;
-	// double					dangle_up;
-	// t_affine				    ray;
-	// t_cartesienne			ray;
-	double					dist;
-	double					dist_sum;
-	// double					newdist;
-	// t_fdot					closest;
-	t_fdot_3d				closest;
-	t_linedef				*collision_wall;
-	t_sector				*collision_sector;
-	int						collision_type;
-	// double					up_wall;
-	// double					low_wall;
 }							t_calculs;
 
 /*
@@ -710,7 +689,8 @@ typedef struct	s_map_editor
 
 typedef struct		s_map
 {
-	t_sector		*sectors;
+	t_poly			*polys;
+	// t_sector		*sectors;
 	t_textures		textures;
 	t_player		player;
 	t_object		*object;

@@ -39,12 +39,16 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 		translate_all(win->map->sectors, (t_fdot_3d){0, 0, -1});
 	if (state[SDL_SCANCODE_SPACE])
 		translate_all(win->map->sectors, (t_fdot_3d){0, 0, 1});
-	/*if (state[SDL_SCANCODE_LCTRL])
-		player->z -= 4;*/
 	if (state[SDL_SCANCODE_KP_MINUS])
 		player->fov += -0.03 + (player->fov - 0.03 < 0 ? _2_PI : 0);
 	if (state[SDL_SCANCODE_KP_PLUS])
 		player->fov +=  0.03 - (player->fov + 0.03 > _2_PI ? _2_PI : 0);
+	if (state[SDL_SCANCODE_1])
+		view += (view & 0b0001 ? -0b0001 : 0b0001);
+	if (state[SDL_SCANCODE_2])
+		view += (view & 0b0010 ? -0b0010 : 0b0010);
+	if (state[SDL_SCANCODE_3])
+		view += (view & 0b0100 ? -0b0100 : 0b0100);
 }
 
 static void	keyboard_move(t_win *win, t_player *player, const Uint8 *state)

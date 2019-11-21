@@ -12,16 +12,6 @@
 **	de la translation
 */
 
-// void				set_cartesienne(t_cartesienne *ray, double alpha, double alpha_up)
-// {
-// 	ray->vx = cos(alpha_up) * cos(alpha);
-// 	ray->vy = cos(alpha_up) * sin(alpha);
-// 	ray->vz = sin(alpha_up);
-// }
-
-
-
-
 
 static int			create_ray(t_cartesienne **ray, t_fdot angle, t_dot coord)
 {
