@@ -219,7 +219,7 @@ static int		editor_init(t_win *win, t_map_editor *map)
 	map->player.dpos.y = 50;
 	map->player.width = 50;
 	map->player.height = 50;
-	map->player.vel = (t_fvector){1, 1};
+	map->player.vel = (t_fdot){1, 1};
 	map->player.i_sector = 0;
 	map->ordinate = (t_line){(t_dot){0, 0}, (t_dot){0, 0}};
 	map->abscissa = (t_line){(t_dot){0, 0}, (t_dot){0, 0}};
@@ -252,7 +252,7 @@ int				editor_loop(t_win *win, t_map *game_map)
 		return (ret_error("editor_init failed in editor loop"));
 	if (game_map)
 	{
-		map.sectors = game_map->sectors;
+		map.sectors = game_map->polys;
 		reverse_sectors(&map.sectors);
 		s = map.sectors;
 		while (s)
@@ -269,7 +269,7 @@ int				editor_loop(t_win *win, t_map *game_map)
 		map.player = game_map->player;
 		map.player.dpos.x = game_map->player.pos.x;
 		map.player.dpos.y = game_map->player.pos.y;
-		map.player.vel = (t_fvector){1, 1};
+		map.player.vel = (t_fdot){1, 1};
 	}
 	if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
 		ft_putendl_fd("editor loop : Impossible to play map_editor.wav", 2);

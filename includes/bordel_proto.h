@@ -160,6 +160,7 @@ void 	        print_shot(t_win *win, t_player *player);
 void		add_bullet(t_player *player);
 void	        del_bullet(t_player *player);
 SDL_Texture	*load_texture(SDL_Renderer *rend, const char *file);
+void		define_poly_shot(t_win *win, t_player *player);
 
 /*
 **	---------------------------------- inventory ----------------------------------
@@ -342,8 +343,8 @@ void				draw_projection(t_win *win);
 // int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
 
 int					init_rays(t_win *win, t_player *player);
-void				translate_all(t_sector *sector, t_fdot_3d translation);
-void				rotate_all(t_sector *sector, t_matrice matrice);
+void				translate_all(t_poly *sector, t_fdot_3d translation);
+void				rotate_all(t_poly *sector, t_matrice matrice);
 void				rotate_ray(t_cartesienne *ray, t_matrice matrice);
 void				rotate_dot(t_fdot_3d *dot, t_matrice matrice);
 double				scalar_product(t_fdot_3d v1, t_fdot_3d v2);

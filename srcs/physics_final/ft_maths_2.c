@@ -1,5 +1,26 @@
 #include "doom_nukem.h"
 
+double				scalar_product(t_fdot_3d v1, t_fdot_3d v2)
+{
+	return ((double)(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z));
+}
+
+int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
+{
+	double			t;
+	double			denominateur;
+
+	denominateur = plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz;
+	if (denominateur == 0)
+		return (0);
+	t = -(plan.v.x * ray->ox + plan.v.y * ray->oy + plan.v.z * ray->oz + plan.d) /\
+			(double)(denominateur);
+	collision->x = ray->vx * t + ray->ox;
+	collision->y = ray->vy * t + ray->oy;
+	collision->z = ray->vz * t + ray->oz;
+	return (1);
+}
+
 // double		prop(double value, t_dot inter1, t_dot inter2)
 // {
 // 	if (inter1.y == inter1.x)
@@ -20,22 +41,6 @@
 // {
 // 	return (sqrt(dot.x * dot.x + dot.y * dot.y + dot.z * dot.z));
 // }
-
-int			intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
-{
-	double			t;
-	double			denominateur;
-
-	denominateur = plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz;
-	if (denominateur == 0)
-		return (0);
-	t = -(plan.v.x * ray->ox + plan.v.y * ray->oy + plan.v.z * ray->oz + plan.d) /\
-			(double)(denominateur);
-	collision->x = ray->vx * t + ray->ox;
-	collision->y = ray->vy * t + ray->oy;
-	collision->z = ray->vz * t + ray->oz;
-	return (1);
-}
 
 // int			lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2)
 // {

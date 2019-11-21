@@ -9,7 +9,7 @@ static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
     // physics(win, map, &(map->player));
     //entiteMove();
 
-    draw(win, map, &(map->player));
+    raycasting_3d(win, &(map->player));
     hud(win, &(map->player), win->texHud);
     mouse_state(win, &(map->player), *event, music);
     keyboard_state(win, &(map->player), music);

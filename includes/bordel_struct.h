@@ -35,11 +35,11 @@ typedef struct		s_matrice
 	double			_22;
 }					t_matrice;
 
-// typedef struct		s_size
-// {
-// 	int				w;
-// 	int				h;
-// }					t_size;
+typedef struct		s_size
+{
+	int				w;
+	int				h;
+}					t_size;
 
 typedef struct		s_line
 {
@@ -406,16 +406,18 @@ typedef struct s_timers
 /*
 **	---------------------------------- mob --------------------------------------------
 */
-	typedef struct s_mob
-	{	
-		t_dot			pos;
-		int 			live;
-		int 			nmob;
-		int				sector;
-		int 			id;
-		char 			*name;
-		struct s_mob	*next;
-	}					t_mob;
+
+typedef struct s_mob
+{	
+	t_dot			pos;
+	int 			live;
+	int 			nmob;
+	int				sector;
+	int 			id;
+	char 			*name;
+	struct s_mob	*next;
+}					t_mob;
+
 /*
 **	---------------------------------- png --------------------------------------------
 */
@@ -598,7 +600,7 @@ typedef struct		s_player
 	// double			z;
 	// char			jump;
 	// char			shift;
-	t_fvector		vel;
+	t_fdot			vel;
 	double			const_vel;
 	// double			dir;
 	// double			dir_up;

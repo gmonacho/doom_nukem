@@ -10,24 +10,6 @@ void		add_linedef(t_linedef **lines, t_linedef *new_linedef)
 	*lines = new_linedef;
 }
 
-t_linedef	*init_equation(t_linedef *line)	//init_linedef() a la base
-{
-	double	alpha;
-
-	alpha = line->p2.x - line->p1.x ? atan((line->p2.y - line->p1.y) /\
-									(double)(line->p2.x - line->p1.x)) :\
-									M_PI_2;
-	if (alpha < 0)
-		alpha += M_PI;
-	line->equation = (t_plan){(t_fdot_3d){cos(alpha - M_PI_2),\
-								        sin(alpha - M_PI_2),\
-								        0},\
-                                0};
-	line->equation.d = -(line->equation.v.x * line->p1.x + line->equation.v.y * line->p1.y);
-	printf("Equation : %f %f %f %f\n", line->equation.v.x, line->equation.v.y, line->equation.v.z, line->equation.d);
-	return (line);
-}
-
 t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags)
 {
 	t_linedef	*newline;
