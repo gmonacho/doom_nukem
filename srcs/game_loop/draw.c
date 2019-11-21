@@ -79,15 +79,3 @@
 // 							prop(map->player.pos.y + 30 * sin(map->player.dir), y, height)});
 
 // }
-
-
-
-void	draw(t_win *win, t_map *map, t_player *player)
-{
-	raycasting_3d();
-
-	draw_fps();
-	win = NULL;
-	map = NULL;
-	player = NULL;
-}

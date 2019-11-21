@@ -144,7 +144,7 @@ void		fill_rect(t_win *win, SDL_Rect rect);
 void		draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio);
 void		draw_circle(t_win *win, t_circle circle);
 void	        draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
-void		draw(t_win *win, t_map *map, t_player *player);
+void		draw(t_win *win, t_player *player);
 
 /*
 **	---------------------------------- texture ----------------------------------
@@ -335,6 +335,8 @@ int			game_loop(t_win *win, t_map *map);
 int					raycasting_3d(t_win *win, t_player *player);
 t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
+void				draw_all_square(t_win *win, t_poly *poly);
+void				draw_projection(t_win *win);
 
 // int			physics(t_win *win, t_map *map, t_player *player);
 // int			actions(t_win *win, t_map *map, t_linedef *portal, double h);

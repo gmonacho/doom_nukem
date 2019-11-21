@@ -85,7 +85,6 @@ typedef struct		s_cartesienne
 	double			vy;
 	double			vz;
 
-	int				first;
 	double			dist;
 	int				color;
 }					t_cartesienne;
@@ -325,9 +324,9 @@ typedef struct		s_doom_music
 
 typedef enum		e_view
 {
-	RAYCASTING_VIEW = 0b0001,
-	SQUARED_VIEW = 0b0010,
-	TEXTURE_VIEW = 0b0100
+	TEXTURE_VIEW = 0b0001,
+	WALL_VIEW = 0b0010,
+	SQUARED_VIEW = 0b0100
 }					t_view;
 
 typedef struct		s_win

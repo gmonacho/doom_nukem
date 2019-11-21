@@ -7,6 +7,31 @@
 **	y = sqrt(fdist1 * fdist1 - x * x)
 */
 
+static void		draw(t_win *win, t_player *player)
+{
+	t_cartesienne	ray;
+	int		x;
+	int		y;
+
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		while (++x < WIDTH)
+		{
+			ray = player->rays[y][x];
+			SDL_SetRenderDrawColor(win->rend,	(ray >> 16) & 0xFF,\
+												(ray >> 8) & 0xFF,\
+												(ray >> 0) & 0xFF,\
+												(ray >> 24) & 0xFF);
+			SDL_RenderDrawPoint(win->rend, x, y);
+			ray->dist = -1;
+		}
+	}
+}
+
+
+
 static int			find_coord(t_fdot *coord, t_fdot_3d collision, t_fdot_3d i, t_fdot_3d j)
 {
 	double			denominateur;
@@ -69,10 +94,9 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 		printf("Parallole !!! : %d\n", ray->x);
 		exit(1);
 	}
-	if (!ray->first &&\
-		(newdist = fdist_3d((t_fdot_3d){ray->ox, ray->oy, ray->oz}, collision)) > calculs->dist)
+	if (ray->dist != -1 &&\
+		(newdist = fdist_3d((t_fdot_3d){ray->ox, ray->oy, ray->oz}, collision)) > ray->dist)
 		return ;
-	ray->first = 0;
 	ray->dist = newdist;
 	ray->color = find_pixel(poly, collision);
 }
@@ -101,12 +125,20 @@ void		raycasting_3d(t_win *win, t_player *player)
 {
 	t_poly	*poly;
 
-	reset_rays(player);
 	surround_walls(win, win->map, player);
-	poly = win->map->polys;
-	while (poly)
+	if (win->view & TEXTURE_VIEW)
 	{
-		square_tracing(poly);
-		poly = poly->next;
+		poly = win->map->polys;
+		while (poly)
+		{
+			square_tracing(poly);
+			poly = poly->next;
+		}
+		draw(win, player);
 	}
+	if (win->view & WALL_VIEW)
+		draw_projection(win, player);
+	if (win->view & SQUARED_VIEW)
+		draw_all_square(poly);
+	draw_fps();
 }

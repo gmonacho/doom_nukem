@@ -9,13 +9,36 @@
 // {
 // }
 
-static void		draw_square(t_win *win, t_poly *poly)
+void			draw_projection(t_win *win)
 {
-	SDL_SetRenderDrawColor(win->rend, 0xDD, 0x20, 0x20, 0xFF);
-	draw_line(win, poly->poly_2d_origin, (t_dot){poly->poly_2d_origin.x + poly->poly_2d_w, poly->poly_2d_origin.y});
-	draw_line(win, poly->poly_2d_origin, (t_dot){poly->poly_2d_origin.x, poly->poly_2d_origin.y + poly->poly_2d_h});
-	draw_line(win, (t_dot){poly->poly_2d_origin.x + poly->poly_2d_w, poly->poly_2d_origin.y}, (t_dot){poly->poly_2d_origin.x + poly->poly_2d_w, poly->poly_2d_origin.y + poly->poly_2d_h});
-	draw_line(win, (t_dot){poly->poly_2d_origin.x, poly->poly_2d_origin.y + poly->poly_2d_h}, (t_dot){poly->poly_2d_origin.x + poly->poly_2d_w, poly->poly_2d_origin.y + poly->poly_2d_h});
+	t_poly		*poly;
+
+	poly = win->map->polys;
+	while (poly)
+	{
+		SDL_SetRenderDrawColor(win->rend, 0xDD, 0x20, 0x20, 0xFF);
+		draw_line(win, poly->d1, poly->d2);
+		draw_line(win, poly->d2, poly->d3);
+		draw_line(win, poly->d3, poly->d4);
+		draw_line(win, poly->d4, poly->d1);
+		poly = poly->next;
+	}
+}
+
+void			draw_all_square(t_win *win)
+{
+	t_poly		*poly;
+
+	poly = win->map->polys;
+	while (poly)
+	{
+		SDL_SetRenderDrawColor(win->rend, 0xDD, 0x20, 0x20, 0x20);
+		draw_line(win, poly->poly_2d_origin, (t_dot){poly->poly_2d_origin.x + poly->poly_2d_w, poly->poly_2d_origin.y});
+		draw_line(win, poly->poly_2d_origin, (t_dot){poly->poly_2d_origin.x, poly->poly_2d_origin.y + poly->poly_2d_h});
+		draw_line(win, (t_dot){poly->poly_2d_origin.x + poly->poly_2d_w, poly->poly_2d_origin.y}, (t_dot){poly->poly_2d_origin.x + poly->poly_2d_w, poly->poly_2d_origin.y + poly->poly_2d_h});
+		draw_line(win, (t_dot){poly->poly_2d_origin.x, poly->poly_2d_origin.y + poly->poly_2d_h}, (t_dot){poly->poly_2d_origin.x + poly->poly_2d_w, poly->poly_2d_origin.y + poly->poly_2d_h});
+		poly = poly->next;
+	}
 }
 
 static void		_3d_to_2d(t_win *win, t_player *player, t_poly *poly, t_fdot_3d dot_3d)
@@ -50,8 +73,6 @@ void			surround_walls(t_win *win, t_map *map, t_player *player)
 		_3d_to_2d(win, player, poly, poly->d2);
 		_3d_to_2d(win, player, poly, poly->d3);
 		_3d_to_2d(win, player, poly, poly->d4);
-		if (win->view & SQUARED_VIEW)
-			draw_square(poly);
 		poly = poly->next;
 	}
 }
