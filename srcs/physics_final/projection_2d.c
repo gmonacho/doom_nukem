@@ -17,10 +17,10 @@ void			draw_projection(t_win *win)
 	while (poly)
 	{
 		SDL_SetRenderDrawColor(win->rend, 0xDD, 0x20, 0x20, 0xFF);
-		draw_line(win, poly->d1, poly->d2);
-		draw_line(win, poly->d2, poly->d3);
-		draw_line(win, poly->d3, poly->d4);
-		draw_line(win, poly->d4, poly->d1);
+		draw_line(win, poly->proj_d1, poly->proj_d2);
+		draw_line(win, poly->proj_d2, poly->proj_d3);
+		draw_line(win, poly->proj_d3, poly->proj_d4);
+		draw_line(win, poly->proj_d4, poly->proj_d1);
 		poly = poly->next;
 	}
 }
@@ -41,25 +41,23 @@ void			draw_all_square(t_win *win)
 	}
 }
 
-static void		_3d_to_2d(t_win *win, t_player *player, t_poly *poly, t_fdot_3d dot_3d)
+static void		_3d_to_2d(t_win *win, t_poly *poly, t_fdot_3d dot_3d, t_dot *proj)
 {
-	t_dot		proj;
+	proj->x = (win->map->player.fov_2 + dot_3d.y / dot_3d.x) * win->w / win->map->player.fov;
+	proj->y = (win->map->player.fov_up_2 - dot_3d.z / dot_3d.x) * win->h / win->map->player.fov_up;
 
-	proj.x = (player->fov_2 + dot_3d.y / dot_3d.x) * win->w / player->fov;
-	proj.y = (player->fov_up_2 - dot_3d.z / dot_3d.x) * win->h / player->fov_up;
+	if (proj->x < poly->poly_2d_origin.x)
+		poly->poly_2d_origin.x = proj->x;
+	if (proj->y < poly->poly_2d_origin.y)
+		poly->poly_2d_origin.y = proj->y;
 
-	if (proj.x < poly->poly_2d_origin.x)
-		poly->poly_2d_origin.x = proj.x;
-	if (proj.y < poly->poly_2d_origin.y)
-		poly->poly_2d_origin.y = proj.y;
-
-	if (proj.x - poly->poly_2d_origin.x > poly->poly_2d_w)
-		poly->poly_2d_w = proj.x - poly->poly_2d_origin.x;
-	if (proj.y - poly->poly_2d_origin.y > poly->poly_2d_h)
-		poly->poly_2d_h = proj.y - poly->poly_2d_origin.y;
+	if (proj->x - poly->poly_2d_origin.x > poly->poly_2d_w)
+		poly->poly_2d_w = proj->x - poly->poly_2d_origin.x;
+	if (proj->y - poly->poly_2d_origin.y > poly->poly_2d_h)
+		poly->poly_2d_h = proj->y - poly->poly_2d_origin.y;
 }
 
-void			surround_walls(t_win *win, t_map *map, t_player *player)
+void			surround_walls(t_win *win, t_map *map)
 {
 	t_poly		*poly;
 
@@ -69,10 +67,10 @@ void			surround_walls(t_win *win, t_map *map, t_player *player)
 		poly->poly_2d_origin = (t_dot){win->w, win->h};
 		poly->poly_2d_w = 0;
 		poly->poly_2d_h = 0;
-		_3d_to_2d(win, player, poly, poly->d1);
-		_3d_to_2d(win, player, poly, poly->d2);
-		_3d_to_2d(win, player, poly, poly->d3);
-		_3d_to_2d(win, player, poly, poly->d4);
+		_3d_to_2d(win, poly, poly->d1, &(poly->proj_d1));
+		_3d_to_2d(win, poly, poly->d2, &(poly->proj_d2));
+		_3d_to_2d(win, poly, poly->d3, &(poly->proj_d3));
+		_3d_to_2d(win, poly, poly->d4, &(poly->proj_d4));
 		poly = poly->next;
 	}
 }

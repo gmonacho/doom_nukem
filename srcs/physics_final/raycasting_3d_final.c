@@ -9,7 +9,7 @@
 
 static void		draw(t_win *win, t_player *player)
 {
-	t_cartesienne	ray;
+	t_cartesienne	*ray;
 	int		x;
 	int		y;
 
@@ -19,11 +19,11 @@ static void		draw(t_win *win, t_player *player)
 		x = -1;
 		while (++x < WIDTH)
 		{
-			ray = player->rays[y][x];
-			SDL_SetRenderDrawColor(win->rend,	(ray >> 16) & 0xFF,\
-												(ray >> 8) & 0xFF,\
-												(ray >> 0) & 0xFF,\
-												(ray >> 24) & 0xFF);
+			ray = &(player->rays[y][x]);
+			SDL_SetRenderDrawColor(win->rend,	(ray->color >> 16) & 0xFF,\
+												(ray->color >> 8) & 0xFF,\
+												(ray->color >> 0) & 0xFF,\
+												(ray->color >> 24) & 0xFF);
 			SDL_RenderDrawPoint(win->rend, x, y);
 			ray->dist = -1;
 		}
@@ -32,7 +32,7 @@ static void		draw(t_win *win, t_player *player)
 
 
 
-static int			find_coord(t_fdot *coord, t_fdot_3d collision, t_fdot_3d i, t_fdot_3d j)
+static int			find_coord_plan(t_fdot *coord, t_fdot_3d collision, t_fdot_3d i, t_fdot_3d j)
 {
 	double			denominateur;
 
@@ -64,22 +64,22 @@ static int			find_coord(t_fdot *coord, t_fdot_3d collision, t_fdot_3d i, t_fdot_
 
 
 
-static int			*find_pixel(t_poly *poly, t_fdot_3d collision)
+static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 {
 	t_fdot			coord_plan;
 	t_dot			coord_texture;
 
 	find_coord_plan(&coord_plan, collision, poly->i, poly->j);
 	coord_texture = (t_dot){modulo(coord_plan.x * poly->dist12, poly->texture->w),\
-							modulo(coord_plan.y * polu->dist13, poly->texture->h)};
+							modulo(coord_plan.y * poly->dist13, poly->texture->h)};
 	if (coord_texture.x < 0 || coord_texture.y < 0)
 	{
 		printf("\nSeg fault !\n");
-		printf("Collision %f %f %f\n", calculs->closest.x, calculs->closest.y, calculs->closest.z);
+		printf("Collision %f %f %f\n", collision.x, collision.y, collision.z);
 		printf("Coord texture/plan %d %d / %f %f\n", coord_texture.x, coord_texture.y, coord_plan.x, coord_plan.y);
 		exit(0);
 	}
-	return ((int *)(poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
+	return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
 }
 
 
@@ -89,13 +89,13 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 	t_fdot_3d		collision;
 	double			newdist;
 
-	if (!intersection_plan_line(&collision, line->equation, ray))
+	if (!intersection_plan_line(&collision, poly->equation, ray))
 	{
-		printf("Parallole !!! : %d\n", ray->x);
+		printf("Parallole !!!\n");
 		exit(1);
 	}
-	if (ray->dist != -1 &&\
-		(newdist = fdist_3d((t_fdot_3d){ray->ox, ray->oy, ray->oz}, collision)) > ray->dist)
+	if ((newdist = fdist_3d((t_fdot_3d){ray->ox, ray->oy, ray->oz}, collision)) > ray->dist &&\
+		ray->dist != -1)
 		return ;
 	ray->dist = newdist;
 	ray->color = find_pixel(poly, collision);
@@ -114,7 +114,7 @@ static void			square_tracing(t_player *player, t_poly *poly)
 		x = -1;
 		while (++x < poly->poly_2d_w)
 		{
-			launch_ray_3d(player, poly, &(player->rays[poly->poly_2d_origin.y + y][poly->poly_2d_origin.x + x]));
+			launch_ray_3d(poly, &(player->rays[poly->poly_2d_origin.y + y][poly->poly_2d_origin.x + x]));
 		}
 	}
 }
@@ -125,20 +125,20 @@ void		raycasting_3d(t_win *win, t_player *player)
 {
 	t_poly	*poly;
 
-	surround_walls(win, win->map, player);
+	surround_walls(win, win->map);
 	if (win->view & TEXTURE_VIEW)
 	{
 		poly = win->map->polys;
 		while (poly)
 		{
-			square_tracing(poly);
+			square_tracing(player, poly);
 			poly = poly->next;
 		}
 		draw(win, player);
 	}
 	if (win->view & WALL_VIEW)
-		draw_projection(win, player);
+		draw_projection(win);
 	if (win->view & SQUARED_VIEW)
-		draw_all_square(poly);
+		draw_all_square(win);
 	draw_fps();
 }

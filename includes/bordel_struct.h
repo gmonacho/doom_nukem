@@ -553,6 +553,11 @@ typedef	struct				s_poly
 	t_fdot_3d				i;
 	t_fdot_3d				j;
 
+	t_dot					proj_d1;
+	t_dot					proj_d2;
+	t_dot					proj_d3;
+	t_dot					proj_d4;
+
 	t_dot					poly_2d_origin;
 	int						poly_2d_w;
 	int						poly_2d_h;
@@ -563,6 +568,7 @@ typedef	struct				s_poly
 
 typedef struct				s_calculs
 {
+
 }							t_calculs;
 
 /*

@@ -13,7 +13,7 @@ static int			create_ray(t_cartesienne *ray, t_fdot angle, t_dot coord)
 		(coord.x == 999 && coord.y == 0) ||\
 		(coord.x == 0 && coord.y == 799) ||\
 		(coord.x == 999 && coord.y == 799))
-		printf("Ray (%f, %f, %f)\n", (*ray)->vx, (*ray)->vy, (*ray)->vz);
+		printf("Ray (%f, %f, %f)\n", ray->vx, ray->vy, ray->vz);
 	return (0);
 }
 
@@ -45,4 +45,56 @@ int					init_rays(t_win *win, t_player *player)
 		angle.x += dangle.x;
 	}
 	return (0);
+}
+
+
+t_poly				*polys_a_la_mano()		//En attendant le nouveau parsing
+{
+	t_poly		*save;
+	t_poly		*poly;
+
+	poly = malloc(sizeof(t_poly));
+	save = poly;
+
+	poly->d1 = (t_fdot_3d){100, 650, 200};
+	poly->d2 = (t_fdot_3d){100, 150, 200};
+	poly->d3 = (t_fdot_3d){100, 650, 50};
+	poly->d4 = (t_fdot_3d){100, 150, 50};
+	poly->next = malloc(sizeof(t_poly));
+	poly = poly->next;
+
+	poly->d1 = (t_fdot_3d){100, 150, 200};
+	poly->d2 = (t_fdot_3d){600, 150, 200};
+	poly->d3 = (t_fdot_3d){100, 150, 50};
+	poly->d4 = (t_fdot_3d){600, 150, 50};
+	poly->next = malloc(sizeof(t_poly));
+	poly = poly->next;
+
+	poly->d1 = (t_fdot_3d){600, 150, 200};
+	poly->d2 = (t_fdot_3d){600, 650, 200};
+	poly->d3 = (t_fdot_3d){600, 150, 50};
+	poly->d4 = (t_fdot_3d){600, 650, 50};
+	poly->next = malloc(sizeof(t_poly));
+	poly = poly->next;
+
+	poly->d1 = (t_fdot_3d){600, 650, 200};
+	poly->d2 = (t_fdot_3d){100, 650, 200};
+	poly->d3 = (t_fdot_3d){600, 650, 50};
+	poly->d4 = (t_fdot_3d){100, 650, 50};
+	poly->next = malloc(sizeof(t_poly));
+	poly = poly->next;
+
+	poly->d1 = (t_fdot_3d){100, 650, 50};
+	poly->d2 = (t_fdot_3d){100, 150, 50};
+	poly->d3 = (t_fdot_3d){600, 650, 50};
+	poly->d4 = (t_fdot_3d){600, 150, 50};
+	poly->next = malloc(sizeof(t_poly));
+	poly = poly->next;
+
+	poly->d1 = (t_fdot_3d){100, 650, 200};
+	poly->d2 = (t_fdot_3d){100, 150, 200};
+	poly->d3 = (t_fdot_3d){600, 650, 200};
+	poly->d4 = (t_fdot_3d){600, 150, 200};
+	poly->next = NULL;
+	return (save);
 }

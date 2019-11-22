@@ -7,16 +7,6 @@ static int		init(t_win *win, t_map *map, t_player *player)
 		ft_putendl("init_textures failed");
 		return (1);
 	}
-	if (init_sectors(map, player))
-	{
-		ft_putendl("init_sectors failed");
-		return (2);
-	}
-	if (init_lines(map))
-	{
-		ft_putendl("init_lines failed");
-		return (3);
-	}
 	if (!init_music(&win->music))
 	{
 		ft_putendl("init_music failed");
@@ -68,7 +58,8 @@ int			main(int argc, char **argv)
 				SDL_PollEvent(&event);
 				if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 					loop = SDL_FALSE;
-				map.polys = ft_data_storing(fd, fd1, &map, &(map.player));
+				map.polys = polys_a_la_mano();
+				// map.polys = ft_data_storing(fd, fd1, &map, &(map.player));
 				if ((ret = init(&win, &map, &(map.player))))
 					return (ret_num_error("Init error", ret));
 				next_loop = main_menu(&win);

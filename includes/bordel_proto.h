@@ -9,10 +9,8 @@
 ** =====================================================================================
 */
 
-int		init_lines(t_map *map);
-int		init_sectors(t_map *map, t_player *player);
-int		init_music(t_doom_music	*music);
-int		init_textures(t_textures *textures);
+int				init_music(t_doom_music	*music);
+int				init_textures(t_textures *textures);
 void	        init_player(t_win *win, t_player *player);
 
 /*
@@ -143,8 +141,7 @@ void		draw_rect(t_win *win, SDL_Rect rect);
 void		fill_rect(t_win *win, SDL_Rect rect);
 void		draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio);
 void		draw_circle(t_win *win, t_circle circle);
-void	        draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
-void		draw(t_win *win, t_player *player);
+void		draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
 
 /*
 **	---------------------------------- texture ----------------------------------
@@ -333,11 +330,14 @@ int			game_loop(t_win *win, t_map *map);
 ** ================================== Physics ===================================
 */
 
-int					raycasting_3d(t_win *win, t_player *player);
+t_poly				*polys_a_la_mano();
+
+void				raycasting_3d(t_win *win, t_player *player);
 t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
-void				draw_all_square(t_win *win, t_poly *poly);
+void				draw_all_square(t_win *win);
 void				draw_projection(t_win *win);
+void				surround_walls(t_win *win, t_map *map);
 
 // int			physics(t_win *win, t_map *map, t_player *player);
 // int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
@@ -345,8 +345,7 @@ void				draw_projection(t_win *win);
 int					init_rays(t_win *win, t_player *player);
 void				translate_all(t_poly *sector, t_fdot_3d translation);
 void				rotate_all(t_poly *sector, t_matrice matrice);
-void				rotate_ray(t_cartesienne *ray, t_matrice matrice);
-void				rotate_dot(t_fdot_3d *dot, t_matrice matrice);
+// void				rotate_dot(t_fdot_3d *dot, t_matrice matrice);
 double				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
 
 t_matrice			create_matrice(double angle);

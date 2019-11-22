@@ -252,7 +252,7 @@ int				editor_loop(t_win *win, t_map *game_map)
 		return (ret_error("editor_init failed in editor loop"));
 	if (game_map)
 	{
-		map.sectors = game_map->polys;
+		// map.sectors = game_map->polys;
 		reverse_sectors(&map.sectors);
 		s = map.sectors;
 		while (s)
