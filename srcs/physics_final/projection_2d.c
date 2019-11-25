@@ -112,16 +112,22 @@ static t_fdot_3d	intersection_axe_x(t_fdot_3d d1, t_fdot_3d d2)
 
 
 
-static void			set_box(t_win *win, t_dot *box_x, t_dot *box_y, t_fdot_3d dot, t_dot *proj)
+static void			set_box(t_win *win, t_dot *box_x, t_dot *box_y, t_fdot_3d proj[N_DOTS_POLY * 2])
 {
-	if (proj->x < box_x->x)
-		box_x->x = proj->x;
-	if (proj->x > box_x->y)
-		box_x->y = proj->x;
-	if (proj->y < box_y->x)
-		box_y->x = proj->y;
-	if (proj->y > box_y->y)
-		box_y->y = proj->y;
+	int				i;
+
+	i = -1;
+	while (++i < N_DOTS_POLY * 2)
+	{
+		if (proj[i].x < box_x->x)
+			box_x->x = proj[i].x;
+		if (proj[i].x > box_x->y)
+			box_x->y = proj[i].x;
+		if (proj[i].y < box_y->x)
+			box_y->x = proj[i].y;
+		if (proj[i].y > box_y->y)
+			box_y->y = proj[i].y;
+	}
 }
 
 static int		intersection(t_win *win, t_dot *collision, t_dot d1, t_dot d2, int choice)
@@ -267,71 +273,9 @@ void			surround_walls(t_win *win, t_map *map)
 
 		poly_reduction(poly);
 
-		set_box(win, &(poly->box_x), &(poly->box_y), poly->dots[], poly->dots_proj[]);
-		set_box(win, &(poly->box_x), &(poly->box_y), poly->dots[], poly->dots_proj[]);
-		set_box(win, &(poly->box_x), &(poly->box_y), poly->dots[], poly->dots_proj[]);
-		set_box(win, &(poly->box_x), &(poly->box_y), poly->dots[], poly->dots_proj[]);
+		set_box(win, &(poly->box_x), &(poly->box_y), &(poly->dots_proj));
 
 		printf("box xy %d %d / %d %d\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
 		poly = poly->next;
 	}
 }
-// static void			set_box(t_win *win, t_dot *box_x, t_dot *box_y, t_fdot_3d dot, t_dot *proj)
-// {
-// 	proj->x = (win->map->player.fov_2 + dot.y / dot.x) * win->w / win->map->player.fov;
-// 	proj->y = (win->map->player.fov_up_2 - dot.z / dot.x) * win->h / win->map->player.fov_up;
-// 	if (proj->x < box_x->x)
-// 		box_x->x = proj->x;
-// 	if (proj->x > box_x->y)
-// 		box_x->y = proj->x;
-// 	if (proj->y < box_y->x)
-// 		box_y->x = proj->y;
-// 	if (proj->y > box_y->y)
-// 		box_y->y = proj->y;
-// }
-
-// static void		set_proj(t_win *win, t_poly *poly, t_fdot_3d d1, t_fdot_3d d2, t_dot *proj_d1)
-// {
-// 	t_fdot_3d	tmp;
-
-// 	if (d1.x > 0)
-// 	{
-// 		set_box(win, &(poly->box_x), &(poly->box_y), d1, proj_d1);
-// 		if (d2.x < 0)
-// 		{
-// 			set_box(win, &(poly->box_x), &(poly->box_y), tmp = intersection_axe_x(d1, d2), &(poly->proj_tmp[poly->index_proj++]));
-// 			printf("Dot %f %f %f\n", tmp.x, tmp.y, tmp.z);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		if (d2.x > 0)
-// 		{
-// 			set_box(win, &(poly->box_x), &(poly->box_y), tmp = intersection_axe_x(d1, d2), &(poly->proj_tmp[poly->index_proj++]));
-// 			printf("Dot %f %f %f\n", tmp.x, tmp.y, tmp.z);
-// 		}
-// 		else
-// 			return ;
-// 	}
-// }
-
-// void			surround_walls(t_win *win, t_map *map)
-// {
-// 	t_poly		*poly;
-// 	int			i;
-
-// 	poly = map->polys;
-// 	i = -1;
-// 	while (poly && ++i)
-// 	{
-// 		poly->box_x = (t_dot){win->w, 0};
-// 		poly->box_y = (t_dot){win->h, 0};
-// 		poly->index_proj = 0;
-// 		set_proj(win, poly, poly->dots[0], poly->dots[1], &(poly->dots_proj[0]));
-// 		set_proj(win, poly, poly->dots[1], poly->dots[2], &(poly->dots_proj[1]));
-// 		set_proj(win, poly, poly->dots[2], poly->dots[3], &(poly->dots_proj[2]));
-// 		set_proj(win, poly, poly->dots[3], poly->dots[0], &(poly->dots_proj[3]));
-// 		printf("box xy %d %d / %d %d\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
-// 		poly = poly->next;
-// 	}
-// }
