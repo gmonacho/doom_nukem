@@ -541,26 +541,21 @@ typedef struct				s_textures
 
 typedef	struct				s_poly
 {
-	int						inf;	//Plan ou polygone ?
-	t_fdot_3d				d1;
-	t_fdot_3d				d2;
-	t_fdot_3d				d3;
-	t_fdot_3d				d4;
+	t_fdot_3d				dots[N_DOTS_POLY + 2];	//Un poly ne peut passe que 2 fois sur x
+	t_fdot_3d				dots_state[N_DOTS_POLY + 2];
+	int						n_dot;
+
 	double					dist12;
 	double					dist13;
-
 	t_plan					equation;
 	t_fdot_3d				i;
 	t_fdot_3d				j;
 
-	t_dot					proj_d1;
-	t_dot					proj_d2;
-	t_dot					proj_d3;
-	t_dot					proj_d4;
+	t_fdot_3d				dots_proj[N_DOTS_POLY * 2];
+	int						n_proj;	//*2 car une droite ne peut couper que 2 fois le bord de l'ecran
 
-	t_dot					poly_2d_origin;
-	int						poly_2d_w;
-	int						poly_2d_h;
+	t_dot					box_x;
+	t_dot					box_y;
 
 	SDL_Surface				*texture;
 	struct s_poly			*next;
@@ -568,7 +563,7 @@ typedef	struct				s_poly
 
 typedef struct				s_calculs
 {
-
+	int 					dist;
 }							t_calculs;
 
 /*
@@ -635,7 +630,7 @@ typedef struct		s_player
 	int 			damage;
 
 	// t_cartesienne	*rays;
-	t_cartesienne	rays[HEIGHT][WIDTH];
+	t_cartesienne	**rays;
 	t_matrice		rx;
 	t_matrice		rx_inv;
 	t_matrice		ry;

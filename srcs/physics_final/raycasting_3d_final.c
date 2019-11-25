@@ -107,14 +107,14 @@ static void			square_tracing(t_player *player, t_poly *poly)
 {
 	int				x;
 	int				y;
-	
-	y = -1;
-	while (++y < poly->poly_2d_h)
+
+	y = poly->box_y.x;
+	while (++y < poly->box_y.y)
 	{
-		x = -1;
-		while (++x < poly->poly_2d_w)
+		x = poly->box_x.x;
+		while (++x < poly->box_x.y)
 		{
-			launch_ray_3d(poly, &(player->rays[poly->poly_2d_origin.y + y][poly->poly_2d_origin.x + x]));
+			launch_ray_3d(poly, &(player->rays[y][x]));
 		}
 	}
 }
@@ -136,9 +136,12 @@ void		raycasting_3d(t_win *win, t_player *player)
 		}
 		draw(win, player);
 	}
+	// printf("1\n");
 	if (win->view & WALL_VIEW)
 		draw_projection(win);
+	// printf("2\n");
 	if (win->view & SQUARED_VIEW)
 		draw_all_square(win);
+	// printf("3\n\n");
 	draw_fps();
 }

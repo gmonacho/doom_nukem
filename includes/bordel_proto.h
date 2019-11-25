@@ -355,6 +355,7 @@ void				init_matrice_ry(t_player *player);
 void				init_matrice_ry_inv(t_player *player);
 void				init_matrice_rz(t_player *player);
 void				init_matrice_rz_inv(t_player *player);
+void				init_polygone(t_poly *poly);
 
 /*
 ** ================================== Time ===================================

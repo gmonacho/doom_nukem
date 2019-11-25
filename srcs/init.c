@@ -37,9 +37,11 @@ void	init_player(t_win *win, t_player *player)
 {
 	player->win_w = win->w;
 	player->win_h = win->h;
-	printf("Pos player 2d %f %f\n", player->pos.x, player->pos.y);
-	player->pos_up = (t_fdot_3d){0, 0, 0};
-	translate_all(win->map->polys, (t_fdot_3d){-player->pos.x, -player->pos.y, -player->sector->floor_height - player->height});
+	win->view = WALL_VIEW | SQUARED_VIEW;
+	// win->view = TEXTURE_VIEW | WALL_VIEW | SQUARED_VIEW;
+	// player->pos = (t_fdot){300, 300};
+	// printf("Pos player 2d %f %f\n", player->pos_up.x, player->pos_up.y);
+	translate_all(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
 
 	t_poly	*poly = win->map->polys;
 	while (poly)
@@ -55,7 +57,7 @@ void	init_player(t_win *win, t_player *player)
 	player->fov_up_2 = _PI_4 / 2;
 	// player->dir = 0;
 	// player->dir_up = 0;
-	player->ddir = 0.1;
+	player->ddir = 0.05;
 	if (init_rays(win, player))
 		return (ft_putendl("Erreur malloc rays"));
 	player->maxHp = 50;

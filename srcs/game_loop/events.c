@@ -54,26 +54,26 @@ static void	keyboard_move(t_win *win, t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_W])
 	{	
-		translate_all(win->map->polys, (t_fdot_3d){-30, 0, 0});
+		translate_all(win->map->polys, (t_fdot_3d){-8, 0, 0});
 		// player->vel.x += cos(player->dir) * player->const_vel;
 		// player->vel.y += sin(player->dir) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_S])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){30, 0, 0});
+		translate_all(win->map->polys, (t_fdot_3d){8, 0, 0});
 		// player->vel.x += cos(player->dir + M_PI) * player->const_vel;
 		// player->vel.y += sin(player->dir + M_PI) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_A])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){0, 30, 0});
+		translate_all(win->map->polys, (t_fdot_3d){0, 8, 0});
 		// player->vel.x += cos(player->dir - M_PI_2) * player->const_vel;
 		// player->vel.y += sin(player->dir - M_PI_2) * player->const_vel;
 		// set_origin_rays(player->rays, player->pos_up);
 	}
 	if (state[SDL_SCANCODE_D])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){0, -30, 0});
+		translate_all(win->map->polys, (t_fdot_3d){0, -8, 0});
 		// player->vel.x += cos(player->dir + M_PI_2) * player->const_vel;
 		// player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
 		// set_origin_rays(player->rays, player->pos_up);
