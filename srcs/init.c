@@ -1,34 +1,32 @@
 #include "doom_nukem.h"
 
 /*
-**	Le floor et ceil ont une forme quelconque donc
-**	le plan est infini -> Origin : 0,0,h
+**	Produit vectoriel des vecteurs unitaire i et j
+**	pour trouver le vecteur normal au plan
 */
 
-void	init_polygone(t_poly *poly)		//ATTENTION NE MARCHE PAS POUR LES PLANS INCLINE !!!
+void	init_polygone(t_poly *poly)
 {
-	double	alpha;
+	// double	alpha;
 
 	while (poly)
 	{
-		poly->dist12 = fdist_3d(poly->d1, poly->d2);
-		poly->dist13 = fdist_3d(poly->d1, poly->d3);
-		poly->i = (t_fdot_3d){	poly->d2.x - poly->d1.x,\
-								poly->d2.y - poly->d1.y,\
-								poly->d2.z - poly->d1.z};
-		poly->j = (t_fdot_3d){	poly->d3.x - poly->d1.x,\
-								poly->d3.y - poly->d1.y,\
-								poly->d3.z - poly->d1.z};
-		alpha = poly->d2.x - poly->d1.x ? atan((poly->d2.y - poly->d1.y) /\
-										(double)(poly->d2.x - poly->d1.x)) :\
-										M_PI_2;
-		if (alpha < 0)
-			alpha += M_PI;
-		poly->equation = (t_plan){(t_fdot_3d){cos(alpha - M_PI_2),\
-											sin(alpha - M_PI_2),\
-											0},\
+		printf("Poly 3 pts : %f %f %f / %f %f %f / %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z,\
+																poly->dots[1].x, poly->dots[1].y, poly->dots[1].z,\
+																poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
+		poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
+		poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
+		poly->i = (t_fdot_3d){	poly->dots[0].x - poly->dots[1].x,\
+								poly->dots[0].y - poly->dots[1].y,\
+								poly->dots[0].z - poly->dots[1].z};
+		poly->j = (t_fdot_3d){	poly->dots[0].x - poly->dots[N_DOTS_POLY - 1].x,\
+								poly->dots[0].y - poly->dots[N_DOTS_POLY - 1].y,\
+								poly->dots[0].z - poly->dots[N_DOTS_POLY - 1].z};
+		poly->equation = (t_plan){(t_fdot_3d){	(poly->i.y * poly->j.z - poly->i.z * poly->j.y) / 10000,\
+												(poly->i.z * poly->j.x - poly->i.x * poly->j.z) / 10000,\
+												(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000},\
 									0};
-		poly->equation.d = -(poly->equation.v.x * poly->d1.x + poly->equation.v.y * poly->d1.y);
+		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x + poly->equation.v.y * poly->dots[0].y + poly->equation.v.z * poly->dots[0].z);
 		poly = poly->next;
 	}
 }

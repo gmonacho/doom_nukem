@@ -541,17 +541,17 @@ typedef struct				s_textures
 
 typedef	struct				s_poly
 {
-	t_fdot_3d				dots[N_DOTS_POLY + 2];	//Un poly ne peut passe que 2 fois sur x
-	t_fdot_3d				dots_state[N_DOTS_POLY + 2];
+	t_fdot_3d				dots[N_DOTS_POLY];	//Un poly ne peut passe que 2 fois sur x
+	t_fdot_3d				dots_new[N_DOTS_POLY + 2];
 	int						n_dot;
 
 	double					dist12;
-	double					dist13;
+	double					dist14;
 	t_plan					equation;
 	t_fdot_3d				i;
 	t_fdot_3d				j;
 
-	t_fdot_3d				dots_proj[N_DOTS_POLY * 2];
+	t_dot					dots_proj[N_DOTS_POLY * 2];
 	int						n_proj;	//*2 car une droite ne peut couper que 2 fois le bord de l'ecran
 
 	t_dot					box_x;

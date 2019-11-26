@@ -30,17 +30,17 @@ int					init_rays(t_win *win, t_player *player)
 	init_matrice_ry_inv(player);
 	init_matrice_rz_inv(player);
 	dangle = (t_fdot){player->fov / win->w, player->fov_up / win->h};
-	angle.x = -player->fov / 2;
-	coord.x = -1;
 	if (!(player->rays = (t_cartesienne **)malloc(sizeof(t_cartesienne *) * (HEIGHT + 1))))
 		return (1);
 	player->rays[HEIGHT] = NULL;
+	angle.y = player->fov_up / 2;
+	coord.y = -1;
 	while (++coord.y < win->h)
 	{
 		if (!(player->rays[coord.y] = (t_cartesienne *)malloc(sizeof(t_cartesienne) * (WIDTH + 1))))
 			return (1);
-		angle.y = player->fov_up / 2;
-		coord.y = -1;
+		angle.x = -player->fov / 2;
+		coord.x = -1;
 		while (++coord.x < win->w)
 		{
 			if (create_ray(&(player->rays[coord.y][coord.x]), angle, coord))
@@ -59,62 +59,62 @@ t_poly				*polys_a_la_mano(t_player *player)		//En attendant le nouveau parsing
 	t_poly		*poly;
 
 	printf("Debut init polygones\n");
-	player->pos_up = (t_fdot_3d){300, 300, 0};
+	player->pos_up = (t_fdot_3d){300, 300, 100};
 
 	if (!(poly = malloc(sizeof(t_poly))))
 		return (NULL);
 	save = poly;
 
-	poly->d1 = (t_fdot_3d){100, 650, 200};
-	poly->d2 = (t_fdot_3d){100, 150, 200};
-	poly->d3 = (t_fdot_3d){100, 650, 50};
-	poly->d4 = (t_fdot_3d){100, 150, 50};
+	poly->dots[0] = (t_fdot_3d){100, 650, 200};
+	poly->dots[1] = (t_fdot_3d){100, 150, 200};
+	poly->dots[2] = (t_fdot_3d){100, 150, 50};
+	poly->dots[3] = (t_fdot_3d){100, 650, 50};
 	// poly->equation = (t_plan){(t_fdot_3d){100, 0, 0}, -100};
 	if (!(poly->next = malloc(sizeof(t_poly))))
 		return (NULL);
 	poly = poly->next;
 
-	poly->d1 = (t_fdot_3d){100, 150, 200};
-	poly->d2 = (t_fdot_3d){600, 150, 200};
-	poly->d3 = (t_fdot_3d){100, 150, 50};
-	poly->d4 = (t_fdot_3d){600, 150, 50};
+	poly->dots[0] = (t_fdot_3d){100, 150, 200};
+	poly->dots[1] = (t_fdot_3d){600, 150, 200};
+	poly->dots[2] = (t_fdot_3d){600, 150, 50};
+	poly->dots[3] = (t_fdot_3d){100, 150, 50};
 	// poly->equation = (t_plan){(t_fdot_3d){0, 150, 0}, -150};
 	if (!(poly->next = malloc(sizeof(t_poly))))
 		return (NULL);
 	poly = poly->next;
 
-	poly->d1 = (t_fdot_3d){600, 150, 200};
-	poly->d2 = (t_fdot_3d){600, 650, 200};
-	poly->d3 = (t_fdot_3d){600, 150, 50};
-	poly->d4 = (t_fdot_3d){600, 650, 50};
+	poly->dots[0] = (t_fdot_3d){600, 150, 200};
+	poly->dots[1] = (t_fdot_3d){600, 650, 200};
+	poly->dots[2] = (t_fdot_3d){600, 650, 50};
+	poly->dots[3] = (t_fdot_3d){600, 150, 50};
 	// poly->equation = (t_plan){(t_fdot_3d){600, 0, 0}, -600};
 	if (!(poly->next = malloc(sizeof(t_poly))))
 		return (NULL);
 	poly = poly->next;
 
-	poly->d1 = (t_fdot_3d){600, 650, 200};
-	poly->d2 = (t_fdot_3d){100, 650, 200};
-	poly->d3 = (t_fdot_3d){600, 650, 50};
-	poly->d4 = (t_fdot_3d){100, 650, 50};
+	poly->dots[0] = (t_fdot_3d){600, 650, 200};
+	poly->dots[1] = (t_fdot_3d){100, 650, 200};
+	poly->dots[2] = (t_fdot_3d){100, 650, 50};
+	poly->dots[3] = (t_fdot_3d){600, 650, 50};
 	// poly->equation = (t_plan){(t_fdot_3d){0, 650, 0}, -650};
 	if (!(poly->next = malloc(sizeof(t_poly))))
 		return (NULL);
 	poly = poly->next;
 
-	poly->d1 = (t_fdot_3d){100, 650, 50};
-	poly->d2 = (t_fdot_3d){100, 150, 50};
-	poly->d3 = (t_fdot_3d){600, 650, 50};
-	poly->d4 = (t_fdot_3d){600, 150, 50};
+	poly->dots[0] = (t_fdot_3d){100, 650, 50};
+	poly->dots[1] = (t_fdot_3d){100, 150, 50};
+	poly->dots[2] = (t_fdot_3d){600, 150, 50};
+	poly->dots[3] = (t_fdot_3d){600, 650, 50};
 	// poly->equation = (t_plan){(t_fdot_3d){0, 0, 50}, -50};
 	if (!(poly->next = malloc(sizeof(t_poly))))
 		return (NULL);
 	poly = poly->next;
 
-	poly->d1 = (t_fdot_3d){100, 650, 200};
-	poly->d2 = (t_fdot_3d){100, 150, 200};
-	poly->d3 = (t_fdot_3d){600, 650, 200};
-	poly->d4 = (t_fdot_3d){600, 150, 200};
-	// poly->equation = (t_plan){(t_fdot_3d){0, 0, 0}, -200};
+	poly->dots[0] = (t_fdot_3d){100, 650, 200};
+	poly->dots[1] = (t_fdot_3d){100, 150, 200};
+	poly->dots[2] = (t_fdot_3d){600, 150, 200};
+	poly->dots[3] = (t_fdot_3d){600, 650, 200};
+	// poly->equation = (t_plan){(t_fdot_3d){0, 0, 200}, -200};
 	poly->next = NULL;
 	return (save);
 }

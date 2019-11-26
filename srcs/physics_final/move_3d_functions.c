@@ -42,17 +42,17 @@ void				rotate_all(t_poly *poly, t_matrice matrice)
 	{
 		rotate_dot(&(poly->equation.v), matrice);
 		
-		rotate_dot(&(poly->d1), matrice);
-		rotate_dot(&(poly->d2), matrice);
-		rotate_dot(&(poly->d3), matrice);
-		rotate_dot(&(poly->d4), matrice);
+		rotate_dot(&(poly->dots[0]), matrice);
+		rotate_dot(&(poly->dots[1]), matrice);
+		rotate_dot(&(poly->dots[2]), matrice);
+		rotate_dot(&(poly->dots[3]), matrice);
 
-		poly->i = (t_fdot_3d){	poly->d2.x - poly->d1.x,\
-								poly->d2.y - poly->d1.y,\
-								poly->d2.z - poly->d1.z};
-		poly->j = (t_fdot_3d){	poly->d3.x - poly->d1.x,\
-								poly->d3.y - poly->d1.y,\
-								poly->d3.z - poly->d1.z};
+		poly->i = (t_fdot_3d){	poly->dots[0].x - poly->dots[1].x,\
+								poly->dots[0].y - poly->dots[1].y,\
+								poly->dots[0].z - poly->dots[1].z};
+		poly->j = (t_fdot_3d){	poly->dots[0].x - poly->dots[N_DOTS_POLY - 1].x,\
+								poly->dots[0].y - poly->dots[N_DOTS_POLY - 1].y,\
+								poly->dots[0].z - poly->dots[N_DOTS_POLY - 1].z};
 		poly = poly->next;
 	}
 }
@@ -70,17 +70,17 @@ void				translate_all(t_poly *poly, t_fdot_3d translation)
 	{
 		poly->equation.d -= scalar_product(poly->equation.v, translation);
 
-		translate_dot(&(poly->d1), translation);
-		translate_dot(&(poly->d2), translation);
-		translate_dot(&(poly->d3), translation);
-		translate_dot(&(poly->d4), translation);
+		translate_dot(&(poly->dots[0]), translation);
+		translate_dot(&(poly->dots[1]), translation);
+		translate_dot(&(poly->dots[2]), translation);
+		translate_dot(&(poly->dots[3]), translation);
 
-		poly->i = (t_fdot_3d){	poly->d2.x - poly->d1.x,\
-								poly->d2.y - poly->d1.y,\
-								poly->d2.z - poly->d1.z};
-		poly->j = (t_fdot_3d){	poly->d3.x - poly->d1.x,\
-								poly->d3.y - poly->d1.y,\
-								poly->d3.z - poly->d1.z};
+		// poly->i = (t_fdot_3d){	poly->d2.x - poly->d1.x,\
+		// 						poly->d2.y - poly->d1.y,\
+		// 						poly->d2.z - poly->d1.z};
+		// poly->j = (t_fdot_3d){	poly->d3.x - poly->d1.x,\
+		// 						poly->d3.y - poly->d1.y,\
+		// 						poly->d3.z - poly->d1.z};
 		poly = poly->next;
 	}
 }

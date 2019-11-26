@@ -71,7 +71,7 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 
 	find_coord_plan(&coord_plan, collision, poly->i, poly->j);
 	coord_texture = (t_dot){modulo(coord_plan.x * poly->dist12, poly->texture->w),\
-							modulo(coord_plan.y * poly->dist13, poly->texture->h)};
+							modulo(coord_plan.y * poly->dist14, poly->texture->h)};
 	if (coord_texture.x < 0 || coord_texture.y < 0)
 	{
 		printf("\nSeg fault !\n");
@@ -136,12 +136,12 @@ void		raycasting_3d(t_win *win, t_player *player)
 		}
 		draw(win, player);
 	}
-	// printf("1\n");
+	printf("1\n");
 	if (win->view & WALL_VIEW)
 		draw_projection(win);
-	// printf("2\n");
+	printf("2\n");
 	if (win->view & SQUARED_VIEW)
 		draw_all_square(win);
-	// printf("3\n\n");
+	printf("3\n\n");
 	draw_fps();
 }
