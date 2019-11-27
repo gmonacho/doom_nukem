@@ -1,47 +1,50 @@
 Player
 {
-	posx = 200
-	posy = 200
+	x = 200
+	y = 200
+	z = 200
 	width = 20
 	height = 50
-	sector = 0
 	velocity = 1
 }
-Sector
+Object
 {
-	name =  sector
-	ceilHeight = 100
-	floorHeight = 0
-	line
-	{
-		dot = (100, 100)
-		dot = (500, 100)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (500, 100)
-		dot = (500, 500)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (500, 500)
-		dot = (100, 500)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (100, 500)
-		dot = (100, 100)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
+	x = 100
+	y = 100
+	z = 100
+	width = 10
+	height = 10
+	texture = Papier.png
+}
+Polygon
+{
+	dot = (100, 100)
+	dot = (500, 100)
+	dot = (100, 100)
+	dot = (500, 100)
+	texture = Brique.png
+}
+Polygon
+{
+	dot = (500, 100)
+	dot = (500, 500)
+	dot = (500, 100)
+	dot = (500, 500)
+	texture = Pierre.png
+}
+Polygon
+{
+	dot = (500, 500)
+	dot = (100, 500)
+	dot = (500, 500)
+	dot = (100, 500)
+	texture = Pierre.png
+}
+Polygon
+{
+	dot = (100, 500)
+	dot = (100, 100)
+	dot = (100, 500)
+	dot = (100, 100)
+	texture = Pierre.png
 }
