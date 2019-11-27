@@ -52,7 +52,7 @@ int			main(int argc, char **argv)
 		}
 		else
 		{
-			if (!(map.polys = polys_a_la_mano()))
+			if (!(map.polys = polys_a_la_mano(&(map.player))))
 				return (1);
 			if ((((fd = open(argv[1], O_RDONLY)) <= 0) || ((
 				fd1 = open(argv[1], O_RDONLY)) <= 0)))

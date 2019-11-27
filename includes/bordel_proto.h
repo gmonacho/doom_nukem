@@ -330,7 +330,7 @@ int			game_loop(t_win *win, t_map *map);
 ** ================================== Physics ===================================
 */
 
-t_poly				*polys_a_la_mano();
+t_poly				*polys_a_la_mano(t_player *player);
 
 void				raycasting_3d(t_win *win, t_player *player);
 t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
