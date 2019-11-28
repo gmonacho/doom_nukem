@@ -13,6 +13,10 @@
 /*
 **	ATTENTION, il faut prendre en compte le bas et le haut de lecran
 **	si les traits passent seulement par les bords gauche et droits !
+**
+**	tester pour les 4 cote chaque segments, si un segment est dessus
+**	alors new point et suppr lancien (Comme pour ramener les y<0 devant soi)
+**	On fais ca 4 fois au lieu de 1
 */
 
 void			draw_projection(t_win *win)
@@ -120,38 +124,54 @@ static int		intersection(t_win *win, t_dot *collision, t_dot d1, t_dot d2, int c
 	if (choice == 0)
 	{
 		result = num ? -b / a : -1;
+		if (result < 0)
+			result = 0;
+		else if (result > win->w)
+			result = win->w;
 		*collision = (t_dot){result, 0};
 		printf("Collision haut %d %d", collision->x, collision->y);
-		return (((d1.x < collision->x && collision->x < d2.x) ||\
-				(d1.x > collision->x && collision->x > d2.x)) &&\
-				0 < result && result < win->w ? 1 : 0);
+		return ((d1.x < collision->x && collision->x < d2.x) ||\
+				(d1.x > collision->x && collision->x > d2.x) ? 1 : 0);
+				// 0 < result && result < win->w ? 1 : 0);
 	}
 	else if (choice == 1)
 	{
 		result = a * win->w + b;
+		if (result < 0)
+			result = 0;
+		else if (result > win->h)
+			result = win->h;
 		*collision = (t_dot){win->w, result};
 		printf("Collision droite %d %d / %d %d / %d %d", d1.x, d1.y, collision->x, collision->y, d2.x, d2.y);
-		return (((d1.x < collision->x && collision->x < d2.x) ||\
-				(d1.x > collision->x && collision->x > d2.x)) &&\
-				0 < result && result < win->h ? 1 : 0);
+		return ((d1.x < collision->x && collision->x < d2.x) ||\
+				(d1.x > collision->x && collision->x > d2.x) ? 1 : 0);
+				// 0 < result && result < win->h ? 1 : 0);
 	}
 	else if (choice == 2)
 	{
 		result = num ? (win->h - b) / a : -1;
+		if (result < 0)
+			result = 0;
+		else if (result > win->w)
+			result = win->w;
 		*collision = (t_dot){result, win->h};
 		printf("Collision bas %d %d", collision->x, collision->y);
-		return (((d1.x < collision->x && collision->x < d2.x) ||\
-				(d1.x > collision->x && collision->x > d2.x)) &&\
-				0 < result && result < win->w ? 1 : 0);
+		return ((d1.x < collision->x && collision->x < d2.x) ||\
+				(d1.x > collision->x && collision->x > d2.x) ? 1 : 0);
+				// 0 < result && result < win->w ? 1 : 0);
 	}
 	else if (choice == 3)
 	{
 		result = b;
+		if (result < 0)
+			result = 0;
+		else if (result > win->h)
+			result = win->h;
 		*collision = (t_dot){0, result};
 		printf("Collision gauche %d %d", collision->x, collision->y);
-		return (((d1.x < collision->x && collision->x < d2.x) ||\
-				(d1.x > collision->x && collision->x > d2.x)) &&\
-				0 < result && result < win->h ? 1 : 0);
+		return ((d1.x < collision->x && collision->x < d2.x) ||\
+				(d1.x > collision->x && collision->x > d2.x) ? 1 : 0);
+				// 0 < result && result < win->h ? 1 : 0);
 	}
 	else
 		return (0);
