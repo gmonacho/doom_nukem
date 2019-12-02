@@ -18,33 +18,33 @@ Object
 }
 Polygon
 {
-	dot = (100, 100)
-	dot = (500, 100)
-	dot = (100, 100)
-	dot = (500, 100)
+	dot = (100, 100, 50)
+	dot = (500, 100, 50)
+	dot = (500, 100, 50)
+	dot = (500, 100, 50)
 	texture = Brique.png
 }
 Polygon
 {
-	dot = (500, 100)
-	dot = (500, 500)
-	dot = (500, 100)
-	dot = (500, 500)
+	dot = (500, 100, 50)
+	dot = (500, 100, 50)
+	dot = (500, 100, 50)
+	dot = (500, 100, 50)
 	texture = Pierre.png
 }
 Polygon
 {
-	dot = (500, 500)
-	dot = (100, 500)
-	dot = (500, 500)
-	dot = (100, 500)
+	dot = (500, 100, 50)
+	dot = (500, 100, 50)
+	dot = (500, 100, 50)
+	dot = (500, 100, 50)
 	texture = Pierre.png
 }
 Polygon
 {
-	dot = (100, 500)
-	dot = (100, 100)
-	dot = (100, 500)
-	dot = (100, 100)
+	dot = (500, 100, 50)
+	dot = (500, 100, 50)
+	dot = (500, 100, 50)
+	dot = (500, 100, 50)
 	texture = Pierre.png
 }

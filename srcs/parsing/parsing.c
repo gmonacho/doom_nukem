@@ -65,21 +65,32 @@ char		**ft_fill_map(int fd, int fp1)
 	tab[i] = NULL;
 	return (tab);
 }
-
-void		ft_fill_data(char **tab, t_sector **sector, int i)
+void 		ft_find_coord(t_poly *poly, char *tab)
 {	
-	add_sector(sector);
-	while ((ft_strchr(tab[i], '}') == NULL || ft_strchr(tab[i - 1], '}') == NULL))
+	int i;
+
+	i = 0;
+	while (tab[i])
 	{
-		if (ft_strstr(tab[i], "floorHeight ="))
-			(*sector)->floor_height =
-			ft_atoi(ft_strrchr(tab[i], '=') + 1);
-		if (ft_strstr(tab[i], "ceilHeight ="))
-			(*sector)->ceil_height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-		if (ft_strstr(tab[i], "name ="))
-			(*sector)->name = ft_strdup(ft_strrchr(tab[i], '=') + 1);
-		if (ft_strstr(tab[i], "line"))
+		while (ft_isdigit(tab[i]))
+		
+	
+		i++;
+	}
+}
+void		ft_fill_data(char **tab, t_poly **poly, int i)
+{	
+	
+	int index;
+
+	index = 0;
+	add_poly(poly);
+	while ((ft_strchr(tab[i], '}') == NULL)
+	{
+		if (ft_strstr(tab[i], "dot = "))
+			(*poly)->dots[index] = ;
 			ft_fill_coord(sector, tab, i);
+		index++;
 		i++;
 	}
 	/*printf("floor_heignt = %d\n", sector->floor_height);
@@ -95,17 +106,17 @@ t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
 {
 	char		**tab;
 	int			i;
-	t_sector	*sector;
+	t_poly		*poly;
 
 	i = -1;
-	sector = NULL;
+	poly = NULL;
 	tab = ft_fill_map(fd, fd1);
 	ft_parse_error(tab);
 	ft_player_data(tab, player);
 	while (tab[++i])
 	{
-		if (ft_strstr(tab[i], "Sector"))
-			ft_fill_data(tab, &sector, i);
+		if (ft_strstr(tab[i], "Polygon"))
+			ft_fill_data(tab, &poly, i);
 		else if (ft_strstr(tab[i], "Object"))
 			object_data(tab, map->object, i);
 		else if (ft_strstr(tab[i], "Mob"))
