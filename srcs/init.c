@@ -5,15 +5,14 @@
 **	pour trouver le vecteur normal au plan
 */
 
-void	init_polygone(t_poly *poly)
+int		init_polygone(t_poly *poly)
 {
-	// double	alpha;
-
 	while (poly)
 	{
 		printf("Poly 3 pts : %f %f %f / %f %f %f / %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z,\
 																poly->dots[1].x, poly->dots[1].y, poly->dots[1].z,\
 																poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
+		
 		poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
 		poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
 		poly->i = (t_fdot_3d){	poly->dots[0].x - poly->dots[1].x,\
@@ -27,15 +26,19 @@ void	init_polygone(t_poly *poly)
 												(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000},\
 									0};
 		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x + poly->equation.v.y * poly->dots[0].y + poly->equation.v.z * poly->dots[0].z);
+		// if (!(poly->dots_proj = (t_dot *)malloc(sizeof(t_dot) * (N_DOTS_POLY + 1))))
+		// 	return (ft_putendl_ret("Malloc dots_proj error\n", 1));
+		// poly->dots_proj[N_DOTS_POLY] = NULL;
 		poly = poly->next;
 	}
+	return (0);
 }
 
 void	init_player(t_win *win, t_player *player)
 {
 	player->win_w = win->w;
 	player->win_h = win->h;
-	win->view = WALL_VIEW | SQUARED_VIEW;
+	win->view = TEXTURE_VIEW | WALL_VIEW | SQUARED_VIEW;
 	// win->view = TEXTURE_VIEW | WALL_VIEW | SQUARED_VIEW;
 	// player->pos = (t_fdot){300, 300};
 	// printf("Pos player %f %f %f\n", player->pos_up.x, player->pos_up.y, player->pos_up.z);

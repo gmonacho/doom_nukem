@@ -152,7 +152,7 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event, t_music *music
 				//Mix_PlayMusic(music->tmusic[0], 1);
 				player->inventory->ammo -= 1;
 				add_bullet(player);
-			}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+			}
 		}
 		if (event.type == SDL_MOUSEWHEEL && event.wheel.y > 0 && player->inventory->selected_slot != 3 && test_timer(&(player->timers.item_cd)) == 1)
 		{

@@ -70,6 +70,7 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	t_dot			coord_texture;
 
 	find_coord_plan(&coord_plan, collision, poly->i, poly->j);
+	printf("addr : %p %p\n", poly, poly->texture);
 	coord_texture = (t_dot){modulo(coord_plan.x * poly->dist12, poly->texture->w),\
 							modulo(coord_plan.y * poly->dist14, poly->texture->h)};
 	if (coord_texture.x < 0 || coord_texture.y < 0)
