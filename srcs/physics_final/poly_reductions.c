@@ -177,50 +177,17 @@ void			poly_reduction(t_win *win, t_poly *poly)
 	// }
 	ft_memcpy(proj, poly->dots_proj, sizeof(t_dot) * N_DOTS_POLY * 2);
 	poly_reduction_up(win, poly, proj);
-	print_poly(poly, 2);
+	// print_poly(poly, 2);
 
 	ft_memcpy(proj, poly->dots_proj, sizeof(t_dot) * N_DOTS_POLY * 2);
 	poly_reduction_right(win, poly, proj);
-	print_poly(poly, 2);
+	// print_poly(poly, 2);
 
 	ft_memcpy(proj, poly->dots_proj, sizeof(t_dot) * N_DOTS_POLY * 2);
 	poly_reduction_down(win, poly, proj);
-	print_poly(poly, 2);
+	// print_poly(poly, 2);
 
 	ft_memcpy(proj, poly->dots_proj, sizeof(t_dot) * N_DOTS_POLY * 2);
 	poly_reduction_left(win, poly, proj);
-	print_poly(poly, 2);
+	// print_poly(poly, 2);
 }
-
-
-// static void		poly_reduction(t_win *win, t_poly *poly)
-// {
-// 	t_dot		dot;
-// 	t_dot		new_proj[N_DOTS_POLY * 2];
-// 	int			i;
-// 	int			i2;
-// 		int	save;
-
-// 	poly->n_proj = 0;
-// 	i = -1;
-// 	while (++i < poly->n_dot)
-// 	{
-// 		i2 = i ? i - 1 : poly->n_dot - 1;
-// 		dot = poly->dots_proj[i];
-// 		save = poly->n_proj;
-// 		if (intersection(win, &(new_proj[poly->n_proj]), dot, poly->dots_proj[i2], 0))
-// 			poly->n_proj++;
-// 		if (intersection(win, &(new_proj[poly->n_proj]), dot, poly->dots_proj[i2], 1))
-// 			poly->n_proj++;
-// 		if (intersection(win, &(new_proj[poly->n_proj]), dot, poly->dots_proj[i2], 2))
-// 			poly->n_proj++;
-// 		if (intersection(win, &(new_proj[poly->n_proj]), dot, poly->dots_proj[i2], 3))
-// 			poly->n_proj++;
-// 		if (dot.x > 0 && dot.x < win->w &&\
-// 			dot.y > 0 && dot.y < win->h)
-// 			new_proj[poly->n_proj++] = dot;
-// 	}
-// 	i = -1;
-// 	while (++i < poly->n_proj)
-// 		poly->dots_proj[i] = new_proj[i];
-// }

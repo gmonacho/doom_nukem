@@ -13,13 +13,27 @@ int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne 
 	denominateur = plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz;
 	if (denominateur == 0)
 		return (0);
-	t = -(plan.v.x * ray->ox + plan.v.y * ray->oy + plan.v.z * ray->oz + plan.d) /\
-			(double)(denominateur);
-	collision->x = ray->vx * t + ray->ox;
-	collision->y = ray->vy * t + ray->oy;
-	collision->z = ray->vz * t + ray->oz;
+	t = -plan.d / (double)(denominateur);
+	collision->x = ray->vx * t;
+	collision->y = ray->vy * t;
+	collision->z = ray->vz * t;
 	return (1);
 }
+// int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
+// {
+// 	double			t;
+// 	double			denominateur;
+
+// 	denominateur = plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz;
+// 	if (denominateur == 0)
+// 		return (0);
+// 	t = -(plan.v.x * ray->ox + plan.v.y * ray->oy + plan.v.z * ray->oz + plan.d) /\
+// 			(double)(denominateur);
+// 	collision->x = ray->vx * t + ray->ox;
+// 	collision->y = ray->vy * t + ray->oy;
+// 	collision->z = ray->vz * t + ray->oz;
+// 	return (1);
+// }
 
 // double		prop(double value, t_dot inter1, t_dot inter2)
 // {

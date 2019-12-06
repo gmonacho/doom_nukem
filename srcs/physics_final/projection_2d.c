@@ -1,4 +1,5 @@
 #include "doom_nukem.h"
+#include <time.h>
 
 /*
 **	tan(a) = dx / dy;
@@ -177,8 +178,8 @@ static void		set_proj(t_win *win, t_poly *poly)
 	i = -1;
 	while (++i < poly->n_dot)
 	{
-		poly->dots_proj[i].x = (win->map->player.fov_2 + poly->dots_new[i].y / poly->dots_new[i].x) * win->w / win->map->player.fov;
-		poly->dots_proj[i].y = (win->map->player.fov_up_2 - poly->dots_new[i].z / poly->dots_new[i].x) * win->h / win->map->player.fov_up;
+		poly->dots_proj[i].x = (win->map->player.fov_2 + poly->dots_new[i].y / poly->dots_new[i].x) * win->w_div_fov;
+		poly->dots_proj[i].y = (win->map->player.fov_up_2 - poly->dots_new[i].z / poly->dots_new[i].x) * win->h_div_fov;
 		// printf("Proj 2d %d %d of 3d dot %f %f %f\n", poly->dots_proj[i].x, poly->dots_proj[i].y, poly->dots_new[i].x, poly->dots_new[i].y , poly->dots_new[i].z);
 	}
 	poly->n_proj = poly->n_dot;
@@ -232,25 +233,30 @@ static void		create_dot_on_axe_y(t_poly *poly)
 void			surround_walls(t_win *win, t_map *map)
 {
 	t_poly		*poly;
+	// clock_t			t1;
+	// clock_t			t2;
 
 	poly = map->polys;
 	// printf("\n\nMap polys %p\n", map->polys);
 	while (poly)
 	{
+		// t1 = clock();
 		poly->box_x = (t_dot){win->w, 0};
 		poly->box_y = (t_dot){win->h, 0};
 
-		print_poly(poly, 0);
+		// print_poly(poly, 0);
 		create_dot_on_axe_y(poly);
-		print_poly(poly, 1);
+		// print_poly(poly, 1);
 		set_proj(win, poly);
-		print_poly(poly, 2);
+		// print_poly(poly, 2);
 		poly_reduction(win, poly);
 		// print_poly(poly, 2);
 		set_box(poly, &(poly->box_x), &(poly->box_y), poly->dots_proj);
+		// t2 = clock();
+		// printf("In %lf\n", ((double)t2 - t1) / (double)CLOCKS_PER_SEC);
 
-		printf("BOX xy %d %d / %d %d\n\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
+		// printf("BOX xy %d %d / %d %d\n\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
 		poly = poly->next;
 	}
-	printf("\n\n");
+	// printf("\n\n");
 }

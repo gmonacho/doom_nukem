@@ -358,7 +358,7 @@ void				init_matrice_ry(t_player *player);
 void				init_matrice_ry_inv(t_player *player);
 void				init_matrice_rz(t_player *player);
 void				init_matrice_rz_inv(t_player *player);
-int					init_polygone(t_poly *poly);
+int					init_polygone(t_poly *poly, t_textures *textures);
 
 /*
 ** ================================== Time ===================================
@@ -382,7 +382,7 @@ double			fmag(t_fdot_3d dot);
 int				sign(double nbr);
 void			normalize(double *angle);
 int				is_null(double nbr, double precision);
-double			square(t_fdot_3d p1, t_fdot_3d p2);
+double			fdist_3d_squared(t_fdot_3d p1, t_fdot_3d p2);
 
 
 t_dot			intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge);

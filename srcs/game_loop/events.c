@@ -35,9 +35,9 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 	if (state[SDL_SCANCODE_DOWN])
 		rotate_all(win->map->polys, player->ry);
 	if (state[SDL_SCANCODE_LSHIFT])
-		translate_all(win->map->polys, (t_fdot_3d){0, 0, -1});
+		translate_all(win->map->polys, (t_fdot_3d){0, 0, 3});
 	if (state[SDL_SCANCODE_SPACE])
-		translate_all(win->map->polys, (t_fdot_3d){0, 0, 1});
+		translate_all(win->map->polys, (t_fdot_3d){0, 0, -3});
 	if (state[SDL_SCANCODE_KP_MINUS])
 		player->fov += -0.03 + (player->fov - 0.03 < 0 ? _2_PI : 0);
 	if (state[SDL_SCANCODE_KP_PLUS])
@@ -53,27 +53,27 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 static void	keyboard_move(t_win *win, t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_W])
-	{	
-		translate_all(win->map->polys, (t_fdot_3d){-8, 0, 0});
+	{
+		translate_all(win->map->polys, (t_fdot_3d){-10, 0, 0});
 		// player->vel.x += cos(player->dir) * player->const_vel;
 		// player->vel.y += sin(player->dir) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_S])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){8, 0, 0});
+		translate_all(win->map->polys, (t_fdot_3d){10, 0, 0});
 		// player->vel.x += cos(player->dir + M_PI) * player->const_vel;
 		// player->vel.y += sin(player->dir + M_PI) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_A])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){0, 8, 0});
+		translate_all(win->map->polys, (t_fdot_3d){0, 10, 0});
 		// player->vel.x += cos(player->dir - M_PI_2) * player->const_vel;
 		// player->vel.y += sin(player->dir - M_PI_2) * player->const_vel;
 		// set_origin_rays(player->rays, player->pos_up);
 	}
 	if (state[SDL_SCANCODE_D])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){0, -8, 0});
+		translate_all(win->map->polys, (t_fdot_3d){0, -10, 0});
 		// player->vel.x += cos(player->dir + M_PI_2) * player->const_vel;
 		// player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
 		// set_origin_rays(player->rays, player->pos_up);
