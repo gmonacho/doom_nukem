@@ -10,7 +10,7 @@
 */
 
 int				init_music(t_doom_music	*music);
-int				init_textures(t_textures *textures);
+int				init_textures(t_win *win, t_textures *textures);
 void	        init_player(t_win *win, t_player *player);
 
 /*

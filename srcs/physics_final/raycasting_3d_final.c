@@ -1,5 +1,4 @@
 #include "doom_nukem.h"
-#include <time.h>
 
 /*
 **	Triangulation (avec 2 points) :
@@ -9,21 +8,28 @@
 */
 
 /*
-**	- Times of 'raycasting_3d()' :
+**	- Times of 'raycasting_3d()' : ~120-140 . 10e-3
 **	Surround wall :		0.0
-**	Raycasting :		~245
-**		Square_tracing	0 - 0 - ~78 - 0 - ~33 - ~9 = always ~120
-**		Draw			~123
+**	Raycasting :		~120-140
+**		nSquare_tracing	0 - 0 - ~78 - 0 - ~33 - ~9 = always ~115-125
+**		Draw			~8
 **	Projection draw :	1
 **	Square draw :		2
+**
 */
+
+// if (!(sdl->renderer = SDL_CreateRenderer(sdl->win, -1, SDL_RENDERER_SOFTWARE)))
+//         printf("Error creating renderer.\n");
 
 static void		draw(t_win *win, t_player *player)
 {
+	// Uint32		pixels[HEIGHT * WIDTH];
+	// uint32_t	*pixels = (Uint32 *)malloc(sizeof(uint32_t) * WIDTH * HEIGHT);
+	// SDL_Texture	*texture;
 	t_cartesienne	**rays;
 	t_cartesienne	*ray;
-	int		x;
-	int		y;
+	int			x;
+	int			y;
 
 	rays = player->rays;
 	y = -1;
@@ -33,27 +39,57 @@ static void		draw(t_win *win, t_player *player)
 		x = -1;
 		while (++x < WIDTH)
 		{
-			SDL_SetRenderDrawColor(win->rend,	(ray->color >> 16) & 0xFF,\
-												(ray->color >> 8) & 0xFF,\
-												ray->color & 0xFF,\
-												(ray->color >> 24) & 0xFF);
-			// if (ray->color == -1 || (ray->dist < -0.9 && ray->dist > -1.1))
-			// 	SDL_SetRenderDrawColor(win->rend, 50, 50, 50, 255);
-			// else
-			// {
-			// 	SDL_SetRenderDrawColor(win->rend,	(ray->color >> 16) & 0xFF,\
-			// 										(ray->color >> 8) & 0xFF,\
-			// 										ray->color & 0xFF,\
-			// 										(ray->color >> 24) & 0xFF);
-			// }
-			SDL_RenderDrawPoint(win->rend, x, y);
+			// pixels[y * WIDTH + x] =	(((ray->color >> 16) & 0xFF) << 24) |\
+			// 							(((ray->color >> 8) & 0xFF) << 16) |\
+			// 							(((ray->color >> 0) & 0xFF) << 8) |\
+			// 							(((ray->color >> 24) & 0xFF) << 0);
+			win->pixels[y * WIDTH + x] = ray->color;
 			ray->dist = -1;
-			ray->color = 0x20202020;
+			ray->color = 0x505050FF;
 			ray++;
 		}
 		rays++;
 	}
+	SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, WIDTH * sizeof(uint32_t));
+	SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
+	// SDL_RenderPresent(win->rend);
 }
+// static void		draw(t_win *win, t_player *player)
+// {
+// 	t_cartesienne	**rays;
+// 	t_cartesienne	*ray;
+// 	int		x;
+// 	int		y;
+
+// 	rays = player->rays;
+// 	y = -1;
+// 	while (++y < HEIGHT)
+// 	{
+// 		ray = *rays;
+// 		x = -1;
+// 		while (++x < WIDTH)
+// 		{
+// 			SDL_SetRenderDrawColor(win->rend,	(ray->color >> 16) & 0xFF,\
+// 												(ray->color >> 8) & 0xFF,\
+// 												ray->color & 0xFF,\
+// 												(ray->color >> 24) & 0xFF);
+// 			// if (ray->color == -1 || (ray->dist < -0.9 && ray->dist > -1.1))
+// 			// 	SDL_SetRenderDrawColor(win->rend, 50, 50, 50, 255);
+// 			// else
+// 			// {
+// 			// 	SDL_SetRenderDrawColor(win->rend,	(ray->color >> 16) & 0xFF,\
+// 			// 										(ray->color >> 8) & 0xFF,\
+// 			// 										ray->color & 0xFF,\
+// 			// 										(ray->color >> 24) & 0xFF);
+// 			// }
+// 			SDL_RenderDrawPoint(win->rend, x, y);
+// 			ray->dist = -1;
+// 			ray->color = 0x20202020;
+// 			ray++;
+// 		}
+// 		rays++;
+// 	}
+// }
 
 
 
@@ -93,12 +129,8 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 {
 	t_fdot			coord_plan;
 	t_dot			coord_texture;
-	// clock_t			t1;
-	// clock_t			t2;
 
-	// t1 = clock();
 	find_coord_plan(&coord_plan, collision, poly->i, poly->j);
-	// t2 = clock();
 	// printf("find coord %lf\n", ((double)t2 - t1) / (double)CLOCKS_PER_SEC);
 	// if (coord_plan.x < 0 || coord_plan.x > 1 || coord_plan.y < 0 || coord_plan.y > 1)
 	// {
@@ -106,9 +138,13 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	// 	// printf("C %f %f\n", coord_plan.x, coord_plan.y);
 	// 	return (0x20202020);
 	// }
-	// printf("chibrax\n");
 	coord_texture = (t_dot){modulo(coord_plan.x * poly->dist12, poly->texture->w),\
 							modulo(coord_plan.y * poly->dist14, poly->texture->h)};
+
+	
+	coord_texture = (t_dot){modulo(coord_plan.x * poly->dist12, poly->texture->w),\
+							modulo(coord_plan.y * poly->dist14, poly->texture->h)};
+	
 	// if (coord_texture.x < 0 || coord_texture.y < 0)
 	// {
 	// 	printf("\nSeg fault !\n");
@@ -181,22 +217,21 @@ void		raycasting_3d(t_win *win, t_player *player)
 	// clock_t			t2;
 
 	// printf("1\n");
-	// t1 = clock();
 	surround_walls(win, win->map);
 	
 	// printf("2\n");
 	if (win->view & TEXTURE_VIEW)
 	{
+	// t1 = clock();
 		poly = win->map->polys;
 		while (poly)
 		{
 			square_tracing(player, poly);
 			poly = poly->next;
 		}
-	// t1 = clock();
-		draw(win, player);
 	// t2 = clock();
 	// printf("sur %lf\n", ((double)t2 - t1) / (double)CLOCKS_PER_SEC);
+		draw(win, player);
 	}
 
 	// t1 = clock();

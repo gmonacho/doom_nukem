@@ -336,6 +336,8 @@ typedef struct		s_win
 
 	SDL_Window*		ptr;
 	SDL_Renderer	*rend;
+	Uint32			pixels[HEIGHT * WIDTH];
+	SDL_Texture		*rend_texture;
 	int				view;
 
 	int				w;

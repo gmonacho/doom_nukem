@@ -14,6 +14,7 @@
 # include "SDL_image.h"
 # include "SDL_mixer.h"
 # include "libft.h"
+# include <time.h>////////////////////////////
 
 # define WIDTH				1000
 # define HEIGHT				800

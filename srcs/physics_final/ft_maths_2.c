@@ -65,7 +65,7 @@ t_dot			intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge)
 
 	num = d1.y - d2.y;
 	if (!(denom = d1.x - d2.x))
-		return ((t_dot){d1.x, edge ? win->h : 0});
+		return ((t_dot){d1.x, edge ? win->h - 1 : 0});
 	a = num / denom;
 	b = d1.y - a * d1.x;
 	// printf("Line inter screen : y = %f * x + %f\n", a, b);
@@ -77,12 +77,12 @@ t_dot			intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge)
 	else if (edge == 1)
 	{
 		// printf("Collision droite %d %d / %d %d / %d %d", d1.x, d1.y, collision->x, collision->y, d2.x, d2.y);
-		return ((t_dot){win->w, a * win->w + b});
+		return ((t_dot){win->w - 1, a * (win->w - 1) + b});
 	}
 	else if (edge == 2)
 	{
 		// printf("Collision bas %d %d", collision->x, collision->y);
-		return ((t_dot){(win->h - b) / a, win->h});
+		return ((t_dot){(win->h - 1 - b) / a, win->h - 1});
 	}
 	else
 	{

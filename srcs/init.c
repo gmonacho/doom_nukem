@@ -36,8 +36,8 @@ int		init_polygone(t_poly *poly, t_textures *textures)
 
 void	init_player(t_win *win, t_player *player)
 {
+	// win->view = TEXTURE_VIEW;
 	win->view = TEXTURE_VIEW | WALL_VIEW | SQUARED_VIEW;
-	// win->view = TEXTURE_VIEW | WALL_VIEW | SQUARED_VIEW;
 	// player->pos = (t_fdot){300, 300};
 	// printf("Pos player %f %f %f\n", player->pos_up.x, player->pos_up.y, player->pos_up.z);
 
@@ -96,12 +96,13 @@ void	init_player(t_win *win, t_player *player)
 	// exit(0);
 }
 
-int		init_textures(t_textures *textures)
+int		init_textures(t_win *win, t_textures *textures)
 {
 	if (!(textures->wall_1 = IMG_Load("textures/walls/elephantride.png")) ||\
 		!(textures->wall_2 = IMG_Load("textures/walls/randomPNG/Brick.png")) ||\
 		!(textures->floor = IMG_Load("textures/sol.png")) ||\
-		!(textures->ceil = IMG_Load("textures/mur_pierre.png")))
+		!(textures->ceil = IMG_Load("textures/mur_pierre.png")) ||\
+		!(win->rend_texture = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT)))
 	{
 		ft_putendl(SDL_GetError());
 		return (1);
