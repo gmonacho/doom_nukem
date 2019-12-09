@@ -2,12 +2,14 @@
 
 void    attribute_music(t_music *music)
 {
+    music->tmusic = Mix_LoadMUS("sounds/shotGun.mp3");
     music->tmusic[0] = Mix_LoadWAV("sounds/shotGun.mp3");
     music->tmusic[1] = Mix_LoadWAV("sounds/reload.mp3");
     music->tmusic[2] = Mix_LoadWAV("sounds/healsound.mp3");
     music->tmusic[3] = Mix_LoadWAV("sounds/shieldsound.mp3");
     music->tmusic[4] = Mix_LoadWAV("sounds/slotsound.mp3");
     music->tmusic[5] = Mix_LoadWAV("sounds/damageSound.mp3");
+
 }
 
 t_music     *define_music()

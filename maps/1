@@ -18,33 +18,49 @@ Object
 }
 Polygon
 {
-	dot = (100, 100, 50)
-	dot = (500, 100, 50)
-	dot = (500, 100, 50)
-	dot = (500, 100, 50)
+	dot = x:100, y:650, z:200
+	dot = x:100, y:150, z:200
+	dot = x:100, y:150, z:50
+	dot = x:100, y:600, z:50
 	texture = Brique.png
 }
 Polygon
 {
-	dot = (500, 100, 50)
-	dot = (500, 100, 50)
-	dot = (500, 100, 50)
-	dot = (500, 100, 50)
+	dot = x:100, y:150, z:200
+	dot = x:600, y:150, z:200
+	dot = x:600, y:150, z:50
+	dot = x:100, y:150, z:50
 	texture = Pierre.png
 }
 Polygon
 {
-	dot = (500, 100, 50)
-	dot = (500, 100, 50)
-	dot = (500, 100, 50)
-	dot = (500, 100, 50)
+	dot = x:600, y:150, z:200
+	dot = x:600, y:650, z:200
+	dot = x:600, y:650, z:50
+	dot = x:600, y:150, z:50
 	texture = Pierre.png
 }
 Polygon
 {
-	dot = (500, 100, 50)
-	dot = (500, 100, 50)
-	dot = (500, 100, 50)
-	dot = (500, 100, 50)
+	dot = x:600, y:650, z:200
+	dot = x:100, y:650, z:200
+	dot = x:100, y:650, z:50
+	dot = x:600, y:650, z:50
+	texture = Pierre.png
+}
+Polygon
+{
+	dot = x:100, y:650, z:50
+	dot = x:100, y:150, z:50
+	dot = x:600, y:150, z:50
+	dot = x:600, y:650, z:50
+	texture = Pierre.png
+}
+Polygon
+{
+	dot = x:100, y:650, z:200
+	dot = x:100, y:150, z:200
+	dot = x:600, y:150, z:200
+	dot = x:600, y:650, z:200
 	texture = Pierre.png
 }

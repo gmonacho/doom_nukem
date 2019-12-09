@@ -59,21 +59,27 @@ void				rotate_all(t_poly *poly, t_matrice matrice)
 
 static void			translate_dot(t_fdot_3d *dot, t_fdot_3d translation)
 {
+	// printf("\t\tDot %f %f %f\n", dot->x, dot->y, dot->z);
 	dot->x += translation.x;
 	dot->y += translation.y;
 	dot->z += translation.z;
+	// printf("\t\tDot %f %f %f\n", dot->x, dot->y, dot->z);
 }
 
 void				translate_all(t_poly *poly, t_fdot_3d translation)
 {
+	// printf("Trans %f %f %f\n", translation.x, translation.y, translation.z);
 	while (poly)
-	{
+	{	
+		printf("poly = %p\n", poly);
 		poly->equation.d -= scalar_product(poly->equation.v, translation);
 
+	// printf("\t\tDot %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
 		translate_dot(&(poly->dots[0]), translation);
 		translate_dot(&(poly->dots[1]), translation);
 		translate_dot(&(poly->dots[2]), translation);
 		translate_dot(&(poly->dots[3]), translation);
+	// printf("\t\tDot %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
 
 		// poly->i = (t_fdot_3d){	poly->d2.x - poly->d1.x,\
 		// 						poly->d2.y - poly->d1.y,\

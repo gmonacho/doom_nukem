@@ -38,13 +38,18 @@ void	init_player(t_win *win, t_player *player)
 	win->view = WALL_VIEW | SQUARED_VIEW;
 	// win->view = TEXTURE_VIEW | WALL_VIEW | SQUARED_VIEW;
 	// player->pos = (t_fdot){300, 300};
-	// printf("Pos player 2d %f %f\n", player->pos_up.x, player->pos_up.y);
+	// printf("Pos player %f %f %f\n", player->pos_up.x, player->pos_up.y, player->pos_up.z);
+
 	translate_all(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
 
-	t_poly	*poly = win->map->polys;
+	t_poly *poly = win->map->polys;
 	while (poly)
 	{
 		printf("Equation %f x + %f y + %f z + %f = 0\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
+		printf("D1 %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
+		printf("D2 %f %f %f\n", poly->dots[1].x, poly->dots[1].y, poly->dots[1].z);
+		printf("D3 %f %f %f\n", poly->dots[2].x, poly->dots[2].y, poly->dots[2].z);
+		printf("D4 %f %f %f\n", poly->dots[3].x, poly->dots[3].y, poly->dots[3].z);
 		poly = poly->next;
 	}
 
@@ -55,7 +60,7 @@ void	init_player(t_win *win, t_player *player)
 	player->fov_up_2 = _PI_4 / 2;
 	// player->dir = 0;
 	// player->dir_up = 0;
-	player->ddir = 0.05;
+	player->ddir = 0.02;
 	if (init_rays(win, player))
 		return (ft_putendl("Erreur malloc rays"));
 	player->maxHp = 50;

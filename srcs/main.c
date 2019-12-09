@@ -13,7 +13,7 @@ static int		init(t_win *win, t_map *map, t_player *player)
 		ft_putendl("init_music failed");
 		return (4);
 	}
-	init_polygone(map->polys);
+	// /init_polygone(map->polys);
 	init_player(win, player);
 	return (0);
 }
@@ -52,15 +52,16 @@ int			main(int argc, char **argv)
 		}
 		else
 		{
-			if (!(map.polys = polys_a_la_mano()))
-				return (1);
+			// if (!(map.polys = polys_a_la_mano(&(map.player))))
+			// 	return (1);
 			if ((((fd = open(argv[1], O_RDONLY)) <= 0) || ((
 				fd1 = open(argv[1], O_RDONLY)) <= 0)))
 				return (ret_error("open error"));
 			SDL_PollEvent(&event);
 			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				loop = SDL_FALSE;
-			// map.polys = ft_data_storing(fd, fd1, &map, &(map.player));
+			win.map->polys = ft_data_storing(fd, fd1, &map, &(map.player));
+			//exit(0);
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));
 			next_loop = main_menu(&win);

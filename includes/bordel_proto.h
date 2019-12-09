@@ -259,7 +259,7 @@ void		ft_find_coord_p1(t_linedef *line, char *tab);
 void		ft_find_coord_p2(t_linedef *line, char *tab);
 void	        ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
-t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player);
+t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_player *player);
 
 void		ft_player_data(char **tab, t_player *player);
 
@@ -336,7 +336,7 @@ int			game_loop(t_win *win, t_map *map);
 ** ================================== Physics ===================================
 */
 
-t_poly				*polys_a_la_mano();
+t_poly				*polys_a_la_mano(t_player *player);
 
 void				raycasting_3d(t_win *win, t_player *player);
 t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
