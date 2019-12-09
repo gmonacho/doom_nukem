@@ -38,8 +38,8 @@ void	init_player(t_win *win, t_player *player)
 {
 	// win->view = TEXTURE_VIEW;
 	win->view = TEXTURE_VIEW | WALL_VIEW | SQUARED_VIEW;
-	// player->pos = (t_fdot){300, 300};
-	// printf("Pos player %f %f %f\n", player->pos_up.x, player->pos_up.y, player->pos_up.z);
+	player->pos_up = (t_fdot_3d){300, 300, 125};
+	printf("Pos player %f %f %f\n", player->pos_up.x, player->pos_up.y, player->pos_up.z);
 
 	translate_all(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
 	// translate_all(win->map->polys, (t_fdot_3d){1000, 0, 0});
@@ -98,8 +98,8 @@ void	init_player(t_win *win, t_player *player)
 
 int		init_textures(t_win *win, t_textures *textures)
 {
-	if (!(textures->wall_1 = IMG_Load("textures/walls/elephantride.png")) ||\
-		!(textures->wall_2 = IMG_Load("textures/walls/randomPNG/Brick.png")) ||\
+	if (!(textures->wall_1 = IMG_Load("textures/elephantride.png")) ||\
+		!(textures->wall_2 = IMG_Load("textures/randomPNG/Brick.png")) ||\
 		!(textures->floor = IMG_Load("textures/sol.png")) ||\
 		!(textures->ceil = IMG_Load("textures/mur_pierre.png")) ||\
 		!(win->rend_texture = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT)))

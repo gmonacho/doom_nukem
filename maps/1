@@ -1,8 +1,8 @@
 Player
 {
-	x = 200
-	y = 200
-	z = 200
+	x = 300
+	y = 300
+	z = 125
 	width = 20
 	height = 50
 	velocity = 1
