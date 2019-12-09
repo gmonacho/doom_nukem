@@ -5,42 +5,44 @@
 **	pour trouver le vecteur normal au plan
 */
 
-void	init_polygone(t_poly *poly)
+int		init_polygone(t_poly *poly, t_textures *textures)
 {
-	// double	alpha;
-
 	while (poly)
 	{
 		printf("Poly 3 pts : %f %f %f / %f %f %f / %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z,\
 																poly->dots[1].x, poly->dots[1].y, poly->dots[1].z,\
 																poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
+		poly->texture = textures->wall_2;
 		poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
 		poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
-		poly->i = (t_fdot_3d){	poly->dots[0].x - poly->dots[1].x,\
-								poly->dots[0].y - poly->dots[1].y,\
-								poly->dots[0].z - poly->dots[1].z};
-		poly->j = (t_fdot_3d){	poly->dots[0].x - poly->dots[N_DOTS_POLY - 1].x,\
-								poly->dots[0].y - poly->dots[N_DOTS_POLY - 1].y,\
-								poly->dots[0].z - poly->dots[N_DOTS_POLY - 1].z};
+		poly->i = (t_fdot_3d){	poly->dots[1].x - poly->dots[0].x,\
+								poly->dots[1].y - poly->dots[0].y,\
+								poly->dots[1].z - poly->dots[0].z};
+		poly->j = (t_fdot_3d){	poly->dots[N_DOTS_POLY - 1].x - poly->dots[0].x,\
+								poly->dots[N_DOTS_POLY - 1].y - poly->dots[0].y,\
+								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
 		poly->equation = (t_plan){(t_fdot_3d){	(poly->i.y * poly->j.z - poly->i.z * poly->j.y) / 10000,\
 												(poly->i.z * poly->j.x - poly->i.x * poly->j.z) / 10000,\
 												(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000},\
 									0};
 		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x + poly->equation.v.y * poly->dots[0].y + poly->equation.v.z * poly->dots[0].z);
+		// if (!(poly->dots_proj = (t_dot *)malloc(sizeof(t_dot) * (N_DOTS_POLY + 1))))
+		// 	return (ft_putendl_ret("Malloc dots_proj error\n", 1));
+		// poly->dots_proj[N_DOTS_POLY] = NULL;
 		poly = poly->next;
 	}
+	return (0);
 }
 
 void	init_player(t_win *win, t_player *player)
 {
-	player->win_w = win->w;
-	player->win_h = win->h;
-	win->view = WALL_VIEW | SQUARED_VIEW;
+	win->view = TEXTURE_VIEW | WALL_VIEW | SQUARED_VIEW;
 	// win->view = TEXTURE_VIEW | WALL_VIEW | SQUARED_VIEW;
 	// player->pos = (t_fdot){300, 300};
 	// printf("Pos player %f %f %f\n", player->pos_up.x, player->pos_up.y, player->pos_up.z);
 
 	translate_all(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
+	// translate_all(win->map->polys, (t_fdot_3d){1000, 0, 0});
 
 	t_poly *poly = win->map->polys;
 	while (poly)
@@ -54,13 +56,15 @@ void	init_player(t_win *win, t_player *player)
 	}
 
 	player->inventory = define_inventory();
-	player->fov = _PI_4;
-	player->fov_2 = _PI_4 / 2;
-	player->fov_up = _PI_4;
-	player->fov_up_2 = _PI_4 / 2;
-	// player->dir = 0;
-	// player->dir_up = 0;
-	player->ddir = 0.02;
+	player->fov = M_PI_4;
+	player->fov_2 = player->fov / 2;
+	player->fov_up = M_PI_4;
+	player->fov_up_2 = player->fov_up / 2;
+	player->ddir = 0.03;
+	player->win_w = win->w;
+	player->win_h = win->h;
+	win->w_div_fov = win->w / player->fov;
+	win->h_div_fov = win->h / player->fov_up;
 	if (init_rays(win, player))
 		return (ft_putendl("Erreur malloc rays"));
 	player->maxHp = 50;

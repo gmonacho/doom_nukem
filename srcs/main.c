@@ -42,7 +42,8 @@ int			main(int argc, char **argv)
 		win.w = WIDTH;
 		win.h = HEIGHT;
 		win.map = &map;
-		if (!(create_window(&win, "doom_nukem", (SDL_Rect){200, 100, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
+		// if (!(create_window(&win, "doom_nukem", (SDL_Rect){0, 0, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
+		if (!(create_window(&win, "doom_nukem", (SDL_Rect){400, 400, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 			return (0);
 		loop = SDL_TRUE;
 		if (argc == 1)

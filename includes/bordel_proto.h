@@ -344,6 +344,7 @@ int					sence(t_cartesienne ray, t_fdot_3d collision);
 void				draw_all_square(t_win *win);
 void				draw_projection(t_win *win);
 void				surround_walls(t_win *win, t_map *map);
+void				poly_reduction(t_win *win, t_poly *poly);
 
 // int			physics(t_win *win, t_map *map, t_player *player);
 // int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
@@ -354,6 +355,8 @@ void				rotate_all(t_poly *sector, t_matrice matrice);
 // void				rotate_dot(t_fdot_3d *dot, t_matrice matrice);
 double				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
 
+void 				print_poly(t_poly *poly, int arg);
+
 t_matrice			create_matrice(double angle);
 void				init_matrice_rx(t_player *player);
 void				init_matrice_rx_inv(t_player *player);
@@ -361,7 +364,7 @@ void				init_matrice_ry(t_player *player);
 void				init_matrice_ry_inv(t_player *player);
 void				init_matrice_rz(t_player *player);
 void				init_matrice_rz_inv(t_player *player);
-void				init_polygone(t_poly *poly);
+int					init_polygone(t_poly *poly, t_textures *textures);
 
 /*
 ** ================================== Time ===================================
@@ -385,10 +388,10 @@ double			fmag(t_fdot_3d dot);
 int				sign(double nbr);
 void			normalize(double *angle);
 int				is_null(double nbr, double precision);
-double			square(t_fdot_3d p1, t_fdot_3d p2);
+double			fdist_3d_squared(t_fdot_3d p1, t_fdot_3d p2);
 
 
-int	        	lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2);
+t_dot			intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge);
 void			draw_affine(t_win *win, t_affine function);
 void			draw_ray(t_win *win, t_player *player, t_affine ray);
 double			fprop(double value, t_fdot inter1, t_fdot inter2);

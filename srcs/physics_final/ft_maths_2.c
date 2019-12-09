@@ -13,13 +13,27 @@ int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne 
 	denominateur = plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz;
 	if (denominateur == 0)
 		return (0);
-	t = -(plan.v.x * ray->ox + plan.v.y * ray->oy + plan.v.z * ray->oz + plan.d) /\
-			(double)(denominateur);
-	collision->x = ray->vx * t + ray->ox;
-	collision->y = ray->vy * t + ray->oy;
-	collision->z = ray->vz * t + ray->oz;
+	t = -plan.d / (double)(denominateur);
+	collision->x = ray->vx * t;
+	collision->y = ray->vy * t;
+	collision->z = ray->vz * t;
 	return (1);
 }
+// int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
+// {
+// 	double			t;
+// 	double			denominateur;
+
+// 	denominateur = plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz;
+// 	if (denominateur == 0)
+// 		return (0);
+// 	t = -(plan.v.x * ray->ox + plan.v.y * ray->oy + plan.v.z * ray->oz + plan.d) /\
+// 			(double)(denominateur);
+// 	collision->x = ray->vx * t + ray->ox;
+// 	collision->y = ray->vy * t + ray->oy;
+// 	collision->z = ray->vz * t + ray->oz;
+// 	return (1);
+// }
 
 // double		prop(double value, t_dot inter1, t_dot inter2)
 // {
@@ -42,24 +56,37 @@ int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne 
 // 	return (sqrt(dot.x * dot.x + dot.y * dot.y + dot.z * dot.z));
 // }
 
-// int			lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2)
-// {
-// 	if (line1->isequation)
-// 	{
-// 		if (line2->isequation)
-// 			intersection->x = (line1->b - line2->b) /\
-// 						(double)(line2->a - line1->a);
-// 		else
-// 			intersection->x = line2->a;
-// 		intersection->y = line1->a * intersection->x + line1->b;
-// 	}
-// 	else
-// 	{
-// 		if (line2->isequation)
-// 			intersection->x = line1->a;
-// 		else
-// 			return (0);
-// 		intersection->y = line2->a * intersection->x + line2->b;
-// 	}
-// 	return (1);
-// }
+t_dot			intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge)
+{
+	double		a;
+	double		b;
+	double		num;
+	double		denom;
+
+	num = d1.y - d2.y;
+	if (!(denom = d1.x - d2.x))
+		return ((t_dot){d1.x, edge ? win->h : 0});
+	a = num / denom;
+	b = d1.y - a * d1.x;
+	// printf("Line inter screen : y = %f * x + %f\n", a, b);
+	if (edge == 0)
+	{
+		// printf("Collision haut %d %d", collision->x, collision->y);
+		return ((t_dot){-b / a, 0});
+	}
+	else if (edge == 1)
+	{
+		// printf("Collision droite %d %d / %d %d / %d %d", d1.x, d1.y, collision->x, collision->y, d2.x, d2.y);
+		return ((t_dot){win->w, a * win->w + b});
+	}
+	else if (edge == 2)
+	{
+		// printf("Collision bas %d %d", collision->x, collision->y);
+		return ((t_dot){(win->h - b) / a, win->h});
+	}
+	else
+	{
+		// printf("Collision gauche %d %d", collision->x, collision->y);
+		return ((t_dot){0, b});
+	}
+}

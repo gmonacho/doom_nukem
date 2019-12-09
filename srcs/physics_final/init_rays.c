@@ -9,6 +9,7 @@ static int			create_ray(t_cartesienne *ray, t_fdot angle, t_dot coord)
 	ray->vy = cos(angle.y) * sin(angle.x);
 	ray->vz = sin(angle.y);
 	ray->dist = -1;
+	ray->color = -1;
 	if ((coord.x == 0 && coord.y == 0) ||\
 		(coord.x == 999 && coord.y == 0) ||\
 		(coord.x == 0 && coord.y == 799) ||\
@@ -59,7 +60,7 @@ t_poly				*polys_a_la_mano(t_player *player)		//En attendant le nouveau parsing
 	t_poly		*poly;
 
 	printf("Debut init polygones\n");
-	player->pos_up = (t_fdot_3d){300, 300, 100};
+	player->pos_up = (t_fdot_3d){300, 300, 125};
 
 	if (!(poly = malloc(sizeof(t_poly))))
 		return (NULL);

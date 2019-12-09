@@ -87,6 +87,7 @@ typedef struct		s_cartesienne
 
 	double			dist;
 	int				color;
+	struct s_cartesienne	*next;
 }					t_cartesienne;
 
 /*
@@ -339,7 +340,8 @@ typedef struct		s_win
 
 	int				w;
 	int				h;
-	double			middle_print;
+	double			w_div_fov;
+	double			h_div_fov;
 
 	t_mouse			*mouse;
 
