@@ -1,35 +1,35 @@
 #include "doom_nukem.h"
 
-void		ft_fill_coord(t_sector **sector, char **tab, int i)
-{
-	t_linedef	*line;
-	int			y;
-	int			flag;
+// void		ft_fill_coord(t_sector **sector, char **tab, int i)
+// {
+// 	t_linedef	*line;
+// 	int			y;
+// 	int			flag;
 
-	if (!(line = (t_linedef*)ft_memalloc(sizeof(t_linedef))))
-	{	
-		ft_putendl("Error malloc parsing.c l.11\n");
-		exit(0);
-	}
-	y = 0;
-	flag = 0;
-	while (!(ft_strchr(tab[i], '}')))
-	{
-		if (ft_strstr(tab[i], "dot =") && flag == 0)
-		{
-			ft_find_coord_p1(line, tab[i]);
-			flag++;
-		}
-		else if (ft_strstr(tab[i], "dot =") && flag != 0)
-			ft_find_coord_p2(line, tab[i]);
-		else if (ft_strstr(tab[i], "flags ="))
-			ft_find_type(tab[i], line);
-		else if (ft_strstr(tab[i], "id ="))			//////	Changes : agiordan le gros dep
-			ft_find_id(tab[i], line);
-		i++;
-	}
-	add_linedef(&((*sector)->lines), line);
-}
+// 	if (!(line = (t_linedef*)ft_memalloc(sizeof(t_linedef))))
+// 	{	
+// 		ft_putendl("Error malloc parsing.c l.11\n");
+// 		exit(0);
+// 	}
+// 	y = 0;
+// 	flag = 0;
+// 	while (!(ft_strchr(tab[i], '}')))
+// 	{
+// 		if (ft_strstr(tab[i], "dot =") && flag == 0)
+// 		{
+// 			ft_find_coord_p1(line, tab[i]);
+// 			flag++;
+// 		}
+// 		else if (ft_strstr(tab[i], "dot =") && flag != 0)
+// 			ft_find_coord_p2(line, tab[i]);
+// 		else if (ft_strstr(tab[i], "flags ="))
+// 			ft_find_type(tab[i], line);
+// 		else if (ft_strstr(tab[i], "id ="))			//////	Changes : agiordan le gros dep
+// 			ft_find_id(tab[i], line);
+// 		i++;
+// 	}
+// 	add_linedef(&((*sector)->lines), line);
+// }
 
 int			count_line(int fp1)
 {
@@ -66,20 +66,26 @@ char		**ft_fill_map(int fd, int fp1)
 	return (tab);
 }
 
-void		ft_fill_data(char **tab, t_sector **sector, int i)
+void		ft_fill_data(char **tab, t_poly **poly, int i)
 {	
-	add_sector(sector);
-	while ((ft_strchr(tab[i], '}') == NULL || ft_strchr(tab[i - 1], '}') == NULL))
-	{
-		if (ft_strstr(tab[i], "floorHeight ="))
-			(*sector)->floor_height =
-			ft_atoi(ft_strrchr(tab[i], '=') + 1);
-		if (ft_strstr(tab[i], "ceilHeight ="))
-			(*sector)->ceil_height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-		if (ft_strstr(tab[i], "name ="))
-			(*sector)->name = ft_strdup(ft_strrchr(tab[i], '=') + 1);
-		if (ft_strstr(tab[i], "line"))
-			ft_fill_coord(sector, tab, i);
+	
+	int index;
+
+	index = 0;
+	add_poly(poly);
+	while ((ft_strchr(tab[i], '}') == NULL && index < 4))
+	{	
+		if (ft_strstr(tab[i], "dot = "))
+		{	
+			(*poly)->dots[index].x = ft_atoi(ft_strrchr(tab[i], 'x') + 2);;
+			(*poly)->dots[index].y = ft_atoi(ft_strrchr(tab[i], 'y') + 2);;
+			(*poly)->dots[index].z = ft_atoi(ft_strrchr(tab[i], 'z') + 2);;
+			// printf("x = %f\n", (*poly)->dots[index].x);
+			// printf("y = %f\n", (*poly)->dots[index].y);
+			// printf("z = %f\n", (*poly)->dots[index].z);
+			//ft_fill_coord(sector, tab, i);
+		index++;
+		}
 		i++;
 	}
 	/*printf("floor_heignt = %d\n", sector->floor_height);
@@ -91,26 +97,28 @@ void		ft_fill_data(char **tab, t_sector **sector, int i)
 	printf("id = %d\n", sector->lines->id);*/
 }
 
-t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
+t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
 {
 	char		**tab;
 	int			i;
-	t_sector	*sector;
+	t_poly		*poly;
 
 	i = -1;
-	sector = NULL;
+	poly = ft_memalloc(sizeof(t_poly));
 	tab = ft_fill_map(fd, fd1);
 	ft_parse_error(tab);
 	ft_player_data(tab, player);
 	while (tab[++i])
 	{
-		if (ft_strstr(tab[i], "Sector"))
-			ft_fill_data(tab, &sector, i);
+		if (ft_strstr(tab[i], "Polygon"))
+		{
+			ft_fill_data(tab, &poly, i);
+		}
 		else if (ft_strstr(tab[i], "Object"))
 			object_data(tab, map->object, i);
 		else if (ft_strstr(tab[i], "Mob"))
 			fill_mob_data(&(map->mob), tab, i);
 	}
 	printf("Fin parsing\n\n");
-	return (sector);
+	return (poly);
 }

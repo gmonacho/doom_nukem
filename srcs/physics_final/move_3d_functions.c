@@ -70,7 +70,8 @@ void				translate_all(t_poly *poly, t_fdot_3d translation)
 {
 	// printf("Trans %f %f %f\n", translation.x, translation.y, translation.z);
 	while (poly)
-	{
+	{	
+		printf("poly = %p\n", poly);
 		poly->equation.d -= scalar_product(poly->equation.v, translation);
 
 	// printf("\t\tDot %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
