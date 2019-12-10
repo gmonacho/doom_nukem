@@ -66,26 +66,45 @@ char		**ft_fill_map(int fd, int fp1)
 	return (tab);
 }
 
-void		ft_fill_data(char **tab, t_poly **poly, int i)
+SDL_Texture *find_texture(char *tab, t_win *win)
+{	
+	SDL_Texture *tmp;
+
+	tmp = NULL;
+	if (ft_strstr(tab, "texture = Brique.png"))
+	{
+		printf("brique\n");
+	}
+	else if (ft_strstr(tab, "Papier.png"))
+	{
+		printf("Papier\n");
+	}
+		else if (ft_strstr(tab, "Pierre.png"))
+	{
+		printf("Pierre\n");
+	}
+
+	return (tmp);
+}
+
+void		ft_fill_data(char **tab, t_poly **poly, t_win *win, int i)
 {	
 	
 	int index;
 
 	index = 0;
 	add_poly(poly);
-	while ((ft_strchr(tab[i], '}') == NULL && index < 4))
+	while ((ft_strchr(tab[i], '}') == NULL))
 	{	
 		if (ft_strstr(tab[i], "dot = "))
 		{	
-			(*poly)->dots[index].x = ft_atoi(ft_strrchr(tab[i], 'x') + 2);;
-			(*poly)->dots[index].y = ft_atoi(ft_strrchr(tab[i], 'y') + 2);;
-			(*poly)->dots[index].z = ft_atoi(ft_strrchr(tab[i], 'z') + 2);;
-			// printf("x = %f\n", (*poly)->dots[index].x);
-			// printf("y = %f\n", (*poly)->dots[index].y);
-			// printf("z = %f\n", (*poly)->dots[index].z);
-			//ft_fill_coord(sector, tab, i);
-		index++;
+			(*poly)->dots[index].x = ft_atoi(ft_strrchr(tab[i], 'x') + 2);
+			(*poly)->dots[index].y = ft_atoi(ft_strrchr(tab[i], 'y') + 2);
+			(*poly)->dots[index].z = ft_atoi(ft_strrchr(tab[i], 'z') + 2);
+			index++;
 		}
+		if (ft_strstr(tab[i], "texture ="))
+			find_texture(tab[i], win);
 		i++;
 	}
 	/*printf("floor_heignt = %d\n", sector->floor_height);
@@ -97,7 +116,7 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 	printf("id = %d\n", sector->lines->id);*/
 }
 
-t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
+t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 {
 	char		**tab;
 	int			i;
@@ -107,15 +126,17 @@ t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
 	poly = ft_memalloc(sizeof(t_poly));
 	tab = ft_fill_map(fd, fd1);
 	ft_parse_error(tab);
-	ft_player_data(tab, player);
+	win->texHud = define_texHud(win);
 	while (tab[++i])
 	{
 		if (ft_strstr(tab[i], "Polygon"))
 		{
-			ft_fill_data(tab, &poly, i);
+			ft_fill_data(tab, &poly, win, i);
 		}
 		else if (ft_strstr(tab[i], "Object"))
 			object_data(tab, map->object, i);
+		else if (ft_strstr(tab[i], "Player"))
+			player_data(tab, &(map->player), i);
 		else if (ft_strstr(tab[i], "Mob"))
 			fill_mob_data(&(map->mob), tab, i);
 	}

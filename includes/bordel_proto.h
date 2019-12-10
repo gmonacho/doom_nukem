@@ -257,11 +257,11 @@ SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 int 		ft_parse_error(char **tab);
 void		ft_find_coord_p1(t_linedef *line, char *tab);
 void		ft_find_coord_p2(t_linedef *line, char *tab);
-void	        ft_find_type(char *tab, t_linedef *line);
+void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
-t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_player *player);
+t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_win *win);
 
-void		ft_player_data(char **tab, t_player *player);
+void		player_data(char **tab, t_player *player, int i);
 
 void		object_data(char **tab, t_object *object, int i);
 t_texHud   	*define_texHud(t_win *win);

@@ -1,17 +1,17 @@
 Player
 {
-	x = 200
-	y = 200
-	z = 200
+	posx = 200
+	posy = 200
+	posz = 200
 	width = 20
 	height = 50
 	velocity = 1
 }
 Object
 {
-	x = 100
-	y = 100
-	z = 100
+	posx = 100
+	posy = 100
+	posz = 100
 	width = 10
 	height = 10
 	texture = Papier.png
