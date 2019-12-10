@@ -1,8 +1,14 @@
 Player
 {
+<<<<<<< HEAD
 	posx = 200
 	posy = 200
 	posz = 200
+=======
+	x = 300
+	y = 300
+	z = 125
+>>>>>>> 677a07592995733f37e936e74252c585d0c239b6
 	width = 20
 	height = 50
 	velocity = 1

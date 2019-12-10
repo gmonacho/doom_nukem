@@ -20,7 +20,7 @@ void	draw_line(t_win *win, t_dot p1, t_dot p2)
 		pixel = (t_fdot){	.x = p1.x + delta.x * i,\
 							.y = p1.y + delta.y * i};
 		if (0 <= pixel.y && pixel.y < win->h && 0 <= pixel.x && pixel.x < win->w)
-			SDL_RenderDrawPoint(win->rend, pixel.x == win->w ? win->w - 1 : pixel.x, pixel.y == win->h ? win->h - 1 : pixel.y);
+			SDL_RenderDrawPoint(win->rend, pixel.x, pixel.y);
 	}
 }
 

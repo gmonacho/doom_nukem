@@ -1,7 +1,7 @@
 #include "doom_nukem.h"
 
 static void	mouse_move(t_win *win, t_player *player)
-{	
+{
 	if (win->mouse->x > 0)
 	{
 		// printf("event x>0\n");
