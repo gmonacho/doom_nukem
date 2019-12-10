@@ -66,28 +66,20 @@ char		**ft_fill_map(int fd, int fp1)
 	return (tab);
 }
 
-SDL_Texture *find_texture(char *tab, t_win *win)
+void find_texture(char *tab, t_poly *poly)
 {	
 	SDL_Texture *tmp;
 
 	tmp = NULL;
 	if (ft_strstr(tab, "texture = Brique.png"))
-	{
-		printf("brique\n");
-	}
+		poly->texture = IMG_Load("textures/randomPNG/Brick.png");
 	else if (ft_strstr(tab, "Papier.png"))
-	{
 		printf("Papier\n");
-	}
-		else if (ft_strstr(tab, "Pierre.png"))
-	{
-		printf("Pierre\n");
-	}
-
-	return (tmp);
+	else if (ft_strstr(tab, "Pierre.png"))
+		poly->texture = IMG_Load("textures/mur_pierre.png");
 }
 
-void		ft_fill_data(char **tab, t_poly **poly, t_win *win, int i)
+void		ft_fill_data(char **tab, t_poly **poly, int i)
 {	
 	
 	int index;
@@ -104,7 +96,7 @@ void		ft_fill_data(char **tab, t_poly **poly, t_win *win, int i)
 			index++;
 		}
 		if (ft_strstr(tab[i], "texture ="))
-			find_texture(tab[i], win);
+			find_texture(tab[i], *poly);
 		i++;
 	}
 	/*printf("floor_heignt = %d\n", sector->floor_height);
@@ -130,9 +122,7 @@ t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 	while (tab[++i])
 	{
 		if (ft_strstr(tab[i], "Polygon"))
-		{
-			ft_fill_data(tab, &poly, win, i);
-		}
+			ft_fill_data(tab, &poly, i);
 		else if (ft_strstr(tab[i], "Object"))
 			object_data(tab, map->object, i);
 		else if (ft_strstr(tab[i], "Player"))

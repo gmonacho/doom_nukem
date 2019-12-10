@@ -61,7 +61,7 @@ int			main(int argc, char **argv)
 			SDL_PollEvent(&event);
 			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				loop = SDL_FALSE;
-			win.map->polys = ft_data_storing(fd, fd1, &map, win);
+			win.map->polys = ft_data_storing(fd, fd1, &map, &win);
 			//exit(0);
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));
