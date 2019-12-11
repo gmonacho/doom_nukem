@@ -33,7 +33,6 @@ int		game_loop(t_win *win, t_map *map)
 	SDL_bool    loop;
 	t_music 	*music;
 
-	win->texHud = define_texHud(win);
 	map->player.currentHp = 100;
 	main_inventory(win, &(map->player));
 	music = define_music();
