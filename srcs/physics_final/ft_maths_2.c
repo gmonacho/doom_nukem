@@ -60,13 +60,11 @@ t_dot			intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge)
 {
 	double		a;
 	double		b;
-	double		num;
 	double		denom;
 
-	num = d1.y - d2.y;
 	if (!(denom = d1.x - d2.x))
 		return ((t_dot){d1.x, edge ? win->h - 1 : 0});
-	a = num / denom;
+	a = (d1.y - d2.y) / denom;
 	b = d1.y - a * d1.x;
 	// printf("Line inter screen : y = %f * x + %f\n", a, b);
 	if (edge == 0)

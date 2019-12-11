@@ -345,7 +345,7 @@ void				draw_all_square(t_win *win);
 void				draw_projection(t_win *win);
 void				surround_walls(t_win *win, t_map *map);
 void				poly_reduction(t_win *win, t_poly *poly);
-
+t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
 // int			physics(t_win *win, t_map *map, t_player *player);
 // int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
 

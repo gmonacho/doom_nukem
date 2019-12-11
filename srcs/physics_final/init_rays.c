@@ -38,7 +38,7 @@ int					init_rays(t_win *win, t_player *player)
 	coord.y = -1;
 	while (++coord.y < win->h)
 	{
-		if (!(player->rays[coord.y] = (t_cartesienne *)malloc(sizeof(t_cartesienne) * (WIDTH + 1))))
+		if (!(player->rays[coord.y] = (t_cartesienne *)malloc(sizeof(t_cartesienne) * (WIDTH))))
 			return (1);
 		angle.x = -player->fov / 2;
 		coord.x = -1;

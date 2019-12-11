@@ -71,102 +71,22 @@ void			draw_all_square(t_win *win)
 
 
 
-static void			set_box(t_poly *poly, t_dot *box_x, t_dot *box_y, t_dot proj[N_DOTS_POLY * 2])
-{
-	int				i;
-
-	i = -1;
-	while (++i < poly->n_proj)
-	{
-		if (proj[i].x < box_x->x)
-			box_x->x = proj[i].x;
-		if (proj[i].x > box_x->y)
-			box_x->y = proj[i].x;
-		if (proj[i].y < box_y->x)
-			box_y->x = proj[i].y;
-		if (proj[i].y > box_y->y)
-			box_y->y = proj[i].y;
-	}
-}
-
-
-
-// static int		intersection(t_win *win, t_dot *collision, t_dot d1, t_dot d2, int choice)
+// static void			set_box(t_poly *poly, t_dot *box_x, t_dot *box_y, t_dot proj[N_DOTS_POLY * 2])
 // {
-// 	double		a;
-// 	double		b;
-// 	double		num;
-// 	double		denom;
-// 	double		result;
+// 	int				i;
 
-// 	num = d1.y - d2.y;
-// 	if (!(denom = d1.x - d2.x))
+// 	i = -1;
+// 	while (++i < poly->n_proj)
 // 	{
-// 		if (choice % 2)
-// 			return (0);
-// 		result = choice ? win->h : 0;
-// 		*collision = (t_dot){d1.x, result};
-// 		return ((0 < d1.x && d1.x < win->w &&\
-// 				((d1.y < result && result < d2.y) ||\
-// 				(d1.y > result && result > d2.y))) ? 1 : 0);
+// 		if (proj[i].x < box_x->x)
+// 			box_x->x = proj[i].x;
+// 		if (proj[i].x > box_x->y)
+// 			box_x->y = proj[i].x;
+// 		if (proj[i].y < box_y->x)
+// 			box_y->x = proj[i].y;
+// 		if (proj[i].y > box_y->y)
+// 			box_y->y = proj[i].y;
 // 	}
-// 	a = num / denom;
-// 	b = d1.y - a * d1.x;
-// 	// printf("Line inter screen : y = %f * x + %f\n", a, b);
-// 	if (choice == 0)
-// 	{
-// 		result = num ? -b / a : -1;
-// 		if (result < 0)
-// 			result = 0;
-// 		else if (result > win->w)
-// 			result = win->w;
-// 		*collision = (t_dot){result, 0};
-// 		printf("Collision haut %d %d", collision->x, collision->y);
-// 		return ((d1.x < collision->x && collision->x < d2.x) ||\
-// 				(d1.x > collision->x && collision->x > d2.x) ? 1 : 0);
-// 				// 0 < result && result < win->w ? 1 : 0);
-// 	}
-// 	else if (choice == 1)
-// 	{
-// 		result = a * win->w + b;
-// 		if (result < 0)
-// 			result = 0;
-// 		else if (result > win->h)
-// 			result = win->h;
-// 		*collision = (t_dot){win->w, result};
-// 		printf("Collision droite %d %d / %d %d / %d %d", d1.x, d1.y, collision->x, collision->y, d2.x, d2.y);
-// 		return ((d1.x < collision->x && collision->x < d2.x) ||\
-// 				(d1.x > collision->x && collision->x > d2.x) ? 1 : 0);
-// 				// 0 < result && result < win->h ? 1 : 0);
-// 	}
-// 	else if (choice == 2)
-// 	{
-// 		result = num ? (win->h - b) / a : -1;
-// 		if (result < 0)
-// 			result = 0;
-// 		else if (result > win->w)
-// 			result = win->w;
-// 		*collision = (t_dot){result, win->h};
-// 		printf("Collision bas %d %d", collision->x, collision->y);
-// 		return ((d1.x < collision->x && collision->x < d2.x) ||\
-// 				(d1.x > collision->x && collision->x > d2.x) ? 1 : 0);
-// 				// 0 < result && result < win->w ? 1 : 0);
-// 	}
-// 	else if (choice == 3)
-// 	{
-// 		result = b;
-// 		if (result < 0)
-// 			result = 0;
-// 		else if (result > win->h)
-// 			result = win->h;
-// 		*collision = (t_dot){0, result};
-// 		printf("Collision gauche %d %d", collision->x, collision->y);
-// 		return ((d1.x < collision->x && collision->x < d2.x) ||\
-// 				(d1.x > collision->x && collision->x > d2.x) ? 1 : 0);
-// 				// 0 < result && result < win->h ? 1 : 0);
-// 	}
-// 	else
-// 		return (0);
 // }
 
 
@@ -244,14 +164,11 @@ void			surround_walls(t_win *win, t_map *map)
 		poly->box_x = (t_dot){win->w, 0};
 		poly->box_y = (t_dot){win->h, 0};
 
-		// print_poly(poly, 0);
 		create_dot_on_axe_y(poly);
-		// print_poly(poly, 1);
 		set_proj(win, poly);
-		// print_poly(poly, 2);
 		poly_reduction(win, poly);
-		// print_poly(poly, 2);
-		set_box(poly, &(poly->box_x), &(poly->box_y), poly->dots_proj);
+		// set_box(poly, &(poly->box_x), &(poly->box_y), poly->dots_proj);
+		
 		// t2 = clock();
 		// printf("In %lf\n", ((double)t2 - t1) / (double)CLOCKS_PER_SEC);
 
