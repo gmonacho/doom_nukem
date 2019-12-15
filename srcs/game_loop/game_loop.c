@@ -15,19 +15,6 @@ static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
     // physics(win, map, &(map->player));
     //entiteMove();
 
-    //Je bloque 2cycle d'event sur 3 pour faire 3 fois la commande demande
-    raycasting_3d(win, &(map->player));
-    hud(win, &(map->player), win->texHud);
-    mouse_state(win, &(map->player), *event, music);
-    keyboard_state(win, &(map->player), music);
-    print_content_slot(win, &(map->player), win->texHud);
-
-    raycasting_3d(win, &(map->player));
-    hud(win, &(map->player), win->texHud);
-    mouse_state(win, &(map->player), *event, music);
-    keyboard_state(win, &(map->player), music);
-    print_content_slot(win, &(map->player), win->texHud);
-
     raycasting_3d(win, &(map->player));
     hud(win, &(map->player), win->texHud);
     mouse_state(win, &(map->player), *event, music);
@@ -57,6 +44,7 @@ int		game_loop(t_win *win, t_map *map)
 	loop = SDL_TRUE;
     while (loop)
     {
+        SDL_PollEvent(&event);
         game(win, map, &event, music);
         if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE || dead_moment(win, &(map->player), win->texHud, event) == 2)
         {

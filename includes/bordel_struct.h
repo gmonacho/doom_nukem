@@ -347,7 +347,6 @@ typedef struct		s_win
 	float			w_div_fov;
 	float			h_div_fov;
 
-	const Uint8		*keyboard_state;
 	t_mouse			*mouse;
 
 	SDL_Texture		**sectors_texture;

@@ -188,24 +188,18 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event, t_music *music
 
 int			keyboard_state(t_win *win, t_player *player, t_music *music)
 {
-	// const Uint8	*state;
+	const Uint8	*state;
 	t_poly		*poly;
-	static int	n_passage = 3;
 
-    //Je bloque 2cycle d'event sur 3 pour faire 3 fois la commande demande
-	if (!n_passage--)
-	{
-		win->keyboard_state = SDL_GetKeyboardState(NULL);
-		n_passage = 3;
-	}
+	state = SDL_GetKeyboardState(NULL);
 	poly = win->map->polys;
 	if (player->currentHp > 0)
 	{
-		keyboard_move(win, player, win->keyboard_state);
-		keyboard_dir(win, player, win->keyboard_state);
-		keyboard_shot(win, player, win->keyboard_state, music);
+		keyboard_move(win, player, state);
+		keyboard_dir(win, player, state);
+		keyboard_shot(win, player, state, music);
 
-		if (win->keyboard_state[SDL_SCANCODE_P])
+		if (state[SDL_SCANCODE_P])
 		{
 			printf("\n\n");
 			while (poly)

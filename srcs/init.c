@@ -74,7 +74,7 @@ void	init_player(t_win *win, t_player *player)
 	player->fov_up = M_PI_4;
 	player->fov_up_2 = player->fov_up / 2;
 	player->rot_y = 0;
-	player->ddir = 0.01;
+	player->ddir = 0.05;
 	player->win_w = win->w;
 	player->win_h = win->h;
 	win->w_div_fov = win->w / player->fov;
