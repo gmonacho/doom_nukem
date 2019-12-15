@@ -71,23 +71,23 @@ void			draw_all_square(t_win *win)
 
 
 
-// static void			set_box(t_poly *poly, t_dot *box_x, t_dot *box_y, t_dot proj[N_DOTS_POLY * 2])
-// {
-// 	int				i;
+static void			set_box(t_poly *poly, t_dot *box_x, t_dot *box_y, t_dot proj[N_DOTS_POLY * 2])
+{
+	int				i;
 
-// 	i = -1;
-// 	while (++i < poly->n_proj)
-// 	{
-// 		if (proj[i].x < box_x->x)
-// 			box_x->x = proj[i].x;
-// 		if (proj[i].x > box_x->y)
-// 			box_x->y = proj[i].x;
-// 		if (proj[i].y < box_y->x)
-// 			box_y->x = proj[i].y;
-// 		if (proj[i].y > box_y->y)
-// 			box_y->y = proj[i].y;
-// 	}
-// }
+	i = -1;
+	while (++i < poly->n_proj)
+	{
+		if (proj[i].x < box_x->x)
+			box_x->x = proj[i].x;
+		if (proj[i].x > box_x->y)
+			box_x->y = proj[i].x;
+		if (proj[i].y < box_y->x)
+			box_y->x = proj[i].y;
+		if (proj[i].y > box_y->y)
+			box_y->y = proj[i].y;
+	}
+}
 
 
 
@@ -109,7 +109,7 @@ static void		set_proj(t_win *win, t_poly *poly)
 
 static t_fdot_3d	intersection_axe_y(t_fdot_3d d1, t_fdot_3d d2)
 {
-	double			t;
+	float			t;
 
 	t = (1 - d1.x) / (d2.x - d1.x);
 	// printf("t = %f\n", t);
@@ -167,10 +167,10 @@ void			surround_walls(t_win *win, t_map *map)
 		create_dot_on_axe_y(poly);
 		set_proj(win, poly);
 		poly_reduction(win, poly);
-		// set_box(poly, &(poly->box_x), &(poly->box_y), poly->dots_proj);
+		set_box(poly, &(poly->box_x), &(poly->box_y), poly->dots_proj);
 		
 		// t2 = clock();
-		// printf("In %lf\n", ((double)t2 - t1) / (double)CLOCKS_PER_SEC);
+		// printf("In %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
 		// printf("BOX xy %d %d / %d %d\n\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
 		poly = poly->next;

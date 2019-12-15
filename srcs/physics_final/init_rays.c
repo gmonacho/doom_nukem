@@ -1,5 +1,9 @@
 #include "doom_nukem.h"
 
+/*
+**	Mag ray = 1.000000
+*/
+
 static int			create_ray(t_cartesienne *ray, t_fdot angle, t_dot coord)
 {
 	ray->ox = 0;
@@ -9,7 +13,8 @@ static int			create_ray(t_cartesienne *ray, t_fdot angle, t_dot coord)
 	ray->vy = cos(angle.y) * sin(angle.x);
 	ray->vz = sin(angle.y);
 	ray->dist = -1;
-	ray->color = -1;
+	ray->poly = NULL;
+	ray->collision = (t_fdot_3d){};
 	if ((coord.x == 0 && coord.y == 0) ||\
 		(coord.x == 999 && coord.y == 0) ||\
 		(coord.x == 0 && coord.y == 799) ||\
@@ -24,12 +29,12 @@ int					init_rays(t_win *win, t_player *player)
 	t_fdot			dangle;
 	t_dot			coord;
 
-	init_matrice_rx(player);
-	init_matrice_ry(player);
-	init_matrice_rz(player);
-	init_matrice_rx_inv(player);
-	init_matrice_ry_inv(player);
-	init_matrice_rz_inv(player);
+	init_matrix_rx(player);
+	init_matrix_ry(player);
+	init_matrix_rz(player);
+	init_matrix_rx_inv(player);
+	init_matrix_ry_inv(player);
+	init_matrix_rz_inv(player);
 	dangle = (t_fdot){player->fov / win->w, player->fov_up / win->h};
 	if (!(player->rays = (t_cartesienne **)malloc(sizeof(t_cartesienne *) * (HEIGHT + 1))))
 		return (1);

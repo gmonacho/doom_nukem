@@ -115,7 +115,7 @@
 // {
 // 	t_linedef		*line;
 // 	t_fdot_3d		collision;
-// 	double			tmpdist;
+// 	float			tmpdist;
 
 	
 // 	// printf("Ray %f %f %f\n", ray->vx, ray->vy, ray->vz);
@@ -184,7 +184,7 @@
 // 		ray_tmp.oz = calculs->closest.z;
 // 		teleportation_ray(&ray_tmp, wall, wall->destline, &sector);
 // 		// rotate_ray(&ray_tmp,\
-// 		// 			create_matrice(wall->destline->angle - wall->angle +\
+// 		// 			create_matrix(wall->destline->angle - wall->angle +\
 // 		// 							(sign(wall->p2.x - wall->p1.x) ==\
 // 		// 							sign(wall->destline->p2.x - wall->destline->p1.x) ?\
 // 		// 							0 : M_PI)));

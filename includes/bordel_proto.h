@@ -351,19 +351,22 @@ t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
 
 int					init_rays(t_win *win, t_player *player);
 void				translate_all(t_poly *sector, t_fdot_3d translation);
-void				rotate_all(t_poly *sector, t_matrice matrice);
-// void				rotate_dot(t_fdot_3d *dot, t_matrice matrice);
+void				rotate_all_dots(t_poly *sector, t_matrix matrix);
+void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix);
+void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix);
 double				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
 
 void 				print_poly(t_poly *poly, int arg);
 
-t_matrice			create_matrice(double angle);
-void				init_matrice_rx(t_player *player);
-void				init_matrice_rx_inv(t_player *player);
-void				init_matrice_ry(t_player *player);
-void				init_matrice_ry_inv(t_player *player);
-void				init_matrice_rz(t_player *player);
-void				init_matrice_rz_inv(t_player *player);
+t_matrix			create_rx_matrix(double angle);
+t_matrix			create_ry_matrix(double angle);
+t_matrix			create_rz_matrix(double angle);
+void				init_matrix_rx(t_player *player);
+void				init_matrix_rx_inv(t_player *player);
+void				init_matrix_ry(t_player *player);
+void				init_matrix_ry_inv(t_player *player);
+void				init_matrix_rz(t_player *player);
+void				init_matrix_rz_inv(t_player *player);
 int					init_polygone(t_poly *poly, t_textures *textures);
 
 /*

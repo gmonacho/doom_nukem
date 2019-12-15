@@ -15,12 +15,12 @@ int		init_polygone(t_poly *poly, t_textures *textures)
 		poly->texture = textures->wall_2;
 		poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
 		poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
-		poly->i = (t_fdot_3d){	poly->dots[1].x - poly->dots[0].x,\
-								poly->dots[1].y - poly->dots[0].y,\
-								poly->dots[1].z - poly->dots[0].z};
-		poly->j = (t_fdot_3d){	poly->dots[N_DOTS_POLY - 1].x - poly->dots[0].x,\
-								poly->dots[N_DOTS_POLY - 1].y - poly->dots[0].y,\
-								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
+		poly->i = (t_fdot_3d){	poly->dots[0].x - poly->dots[1].x,\
+								poly->dots[0].y - poly->dots[1].y,\
+								poly->dots[0].z - poly->dots[1].z};
+		poly->j = (t_fdot_3d){	poly->dots[0].x - poly->dots[N_DOTS_POLY - 1].x,\
+								poly->dots[0].y - poly->dots[N_DOTS_POLY - 1].y,\
+								poly->dots[0].z - poly->dots[N_DOTS_POLY - 1].z};
 		poly->equation = (t_plan){(t_fdot_3d){	(poly->i.y * poly->j.z - poly->i.z * poly->j.y) / 10000,\
 												(poly->i.z * poly->j.x - poly->i.x * poly->j.z) / 10000,\
 												(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000},\
@@ -37,7 +37,7 @@ int		init_polygone(t_poly *poly, t_textures *textures)
 void	init_player(t_win *win, t_player *player)
 {
 	// win->view = TEXTURE_VIEW;
-	win->view = TEXTURE_VIEW | WALL_VIEW | SQUARED_VIEW;
+	win->view = TEXTURE_VIEW | WALL_VIEW;
 	player->pos_up = (t_fdot_3d){300, 300, 125};
 	printf("Pos player %f %f %f\n", player->pos_up.x, player->pos_up.y, player->pos_up.z);
 
@@ -47,20 +47,34 @@ void	init_player(t_win *win, t_player *player)
 	t_poly *poly = win->map->polys;
 	while (poly)
 	{
+		poly->dots_rotz_only[0] = poly->dots[0];
+		poly->dots_rotz_only[1] = poly->dots[1];
+		poly->dots_rotz_only[2] = poly->dots[2];
+		poly->dots_rotz_only[3] = poly->dots[3];
+		poly->equation_rotz_only = poly->equation;
+		poly->i = (t_fdot_3d){	poly->dots[1].x - poly->dots[0].x,\
+								poly->dots[1].y - poly->dots[0].y,\
+								poly->dots[1].z - poly->dots[0].z};
+		poly->j = (t_fdot_3d){	poly->dots[N_DOTS_POLY - 1].x - poly->dots[0].x,\
+								poly->dots[N_DOTS_POLY - 1].y - poly->dots[0].y,\
+								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
 		printf("Equation %f x + %f y + %f z + %f = 0\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
 		printf("D1 %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
 		printf("D2 %f %f %f\n", poly->dots[1].x, poly->dots[1].y, poly->dots[1].z);
 		printf("D3 %f %f %f\n", poly->dots[2].x, poly->dots[2].y, poly->dots[2].z);
 		printf("D4 %f %f %f\n", poly->dots[3].x, poly->dots[3].y, poly->dots[3].z);
+		
 		poly = poly->next;
 	}
+	// rotate_all_rotz_only(win->map->polys, player->rz);
 
 	player->inventory = define_inventory();
 	player->fov = M_PI_4;
 	player->fov_2 = player->fov / 2;
 	player->fov_up = M_PI_4;
 	player->fov_up_2 = player->fov_up / 2;
-	player->ddir = 0.03;
+	player->rot_y = 0;
+	player->ddir = 0.01;
 	player->win_w = win->w;
 	player->win_h = win->h;
 	win->w_div_fov = win->w / player->fov;

@@ -21,7 +21,7 @@
 // 	return (1);
 // }
 
-static int		parse_float(char *line, double *ratio)
+static int		parse_float(char *line, float *ratio)
 {
 	int	i;
 	int	tmp;
@@ -39,7 +39,7 @@ static int		parse_float(char *line, double *ratio)
 		tmp = i;
 		while (ft_isdigit(line[i]) && line[i])
 			i++;
-		*ratio = (double)first_part + second_part / pow(10, i - tmp);
+		*ratio = (float)first_part + second_part / pow(10, i - tmp);
 		return (i + 1);
 	}
 	else

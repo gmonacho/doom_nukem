@@ -1,6 +1,6 @@
 #include "doom_nukem.h"
 
-static int		draw_id(t_win *win, t_dot pos, int id, double unit)
+static int		draw_id(t_win *win, t_dot pos, int id, float unit)
 {
 	SDL_Texture		*texture;
 
@@ -18,13 +18,13 @@ static int		draw_id(t_win *win, t_dot pos, int id, double unit)
 	return (1);
 }
 
-static void			draw_perpendicular(t_win *win, t_linedef l, double unit)
+static void			draw_perpendicular(t_win *win, t_linedef l, float unit)
 {
-	double	a1;
-	double	a2;
+	float	a1;
+	float	a2;
 	int		dx;
 	int		dy;
-	double	angle;
+	float	angle;
 	t_dot	center;
 	int		len;
 
@@ -42,7 +42,7 @@ static void			draw_perpendicular(t_win *win, t_linedef l, double unit)
 			}
 			else
 			{
-				a1 = (l.p2.y - l.p1.y) / (double)(l.p2.x - l.p1.x);
+				a1 = (l.p2.y - l.p1.y) / (float)(l.p2.x - l.p1.x);
 				a2 = -1 / a1;
 				angle = atan(a2);
 				dx = (l.side == SIDE_RIGHT) ? cos(angle) * len : -cos(angle) * len;

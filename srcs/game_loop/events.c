@@ -1,39 +1,55 @@
 #include "doom_nukem.h"
 
+/*
+**	Pour debugger les matrixs de rotation il faut :
+**	- Sauvegarder la rotation sur l'autre axe puis l'annuler
+**	- Rotater sur le bon axe
+**	- Remettre la sauvegarde de la rotation sur lautre axe
+*/
+
 static void	mouse_move(t_win *win, t_player *player)
 {
 	if (win->mouse->x > 0)
 	{
-		// printf("event x>0\n");
-		rotate_all(win->map->polys, player->rz);
+		rotate_all_rotz_only(win->map->polys, player->rz);
 	}
 	if (win->mouse->x < 0)
 	{
-		// printf("event x<0\n");
-		rotate_all(win->map->polys, player->rz_inv);
+		rotate_all_rotz_only(win->map->polys, player->rz_inv);
 	}
 	if (win->mouse->y > 0)
 	{
-		// printf("event y>0\n");
-		rotate_all(win->map->polys, player->ry);
+		player->rot_y += player->ddir;
+		printf("Rot y %f\n", player->rot_y);
 	}
 	if (win->mouse->y < 0)
 	{
-		// printf("event y<0\n");
-		rotate_all(win->map->polys, player->ry_inv);
+		player->rot_y -= player->ddir;
+		printf("Rot y %f\n", player->rot_y);
 	}
+	copy_rotate_rotz_only(win->map->polys, create_ry_matrix(player->rot_y));
 }
 
 static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_LEFT])
-		rotate_all(win->map->polys, player->rz_inv);
+	{
+		rotate_all_rotz_only(win->map->polys, player->rz_inv);
+	}
 	if (state[SDL_SCANCODE_RIGHT])
-		rotate_all(win->map->polys, player->rz);
+	{
+		rotate_all_rotz_only(win->map->polys, player->rz);
+	}
 	if (state[SDL_SCANCODE_UP])
-		rotate_all(win->map->polys, player->ry_inv);
+	{
+		player->rot_y -= player->ddir;
+	}
 	if (state[SDL_SCANCODE_DOWN])
-		rotate_all(win->map->polys, player->ry);
+	{
+		player->rot_y += player->ddir;
+	}
+	copy_rotate_rotz_only(win->map->polys, create_ry_matrix(player->rot_y));
+
 	if (state[SDL_SCANCODE_LSHIFT])
 		translate_all(win->map->polys, (t_fdot_3d){0, 0, 3});
 	if (state[SDL_SCANCODE_SPACE])
@@ -54,26 +70,26 @@ static void	keyboard_move(t_win *win, t_player *player, const Uint8 *state)
 {
 	if (state[SDL_SCANCODE_W])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){-10, 0, 0});
+		translate_all(win->map->polys, (t_fdot_3d){-1, 0, 0});
 		// player->vel.x += cos(player->dir) * player->const_vel;
 		// player->vel.y += sin(player->dir) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_S])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){10, 0, 0});
+		translate_all(win->map->polys, (t_fdot_3d){1, 0, 0});
 		// player->vel.x += cos(player->dir + M_PI) * player->const_vel;
 		// player->vel.y += sin(player->dir + M_PI) * player->const_vel;
 	}
 	if (state[SDL_SCANCODE_A])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){0, 10, 0});
+		translate_all(win->map->polys, (t_fdot_3d){0, 1, 0});
 		// player->vel.x += cos(player->dir - M_PI_2) * player->const_vel;
 		// player->vel.y += sin(player->dir - M_PI_2) * player->const_vel;
 		// set_origin_rays(player->rays, player->pos_up);
 	}
 	if (state[SDL_SCANCODE_D])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){0, -10, 0});
+		translate_all(win->map->polys, (t_fdot_3d){0, -1, 0});
 		// player->vel.x += cos(player->dir + M_PI_2) * player->const_vel;
 		// player->vel.y += sin(player->dir + M_PI_2) * player->const_vel;
 		// set_origin_rays(player->rays, player->pos_up);
@@ -172,15 +188,38 @@ void 		mouse_state(t_win *win, t_player *player, SDL_Event event, t_music *music
 
 int			keyboard_state(t_win *win, t_player *player, t_music *music)
 {
-	const Uint8	*state;
+	// const Uint8	*state;
+	t_poly		*poly;
+	static int	n_passage = 3;
 
+    //Je bloque 2cycle d'event sur 3 pour faire 3 fois la commande demande
+	if (!n_passage--)
+	{
+		win->keyboard_state = SDL_GetKeyboardState(NULL);
+		n_passage = 3;
+	}
+	poly = win->map->polys;
 	if (player->currentHp > 0)
 	{
-		state = SDL_GetKeyboardState(NULL);
-		keyboard_move(win, player, state);
-		
-		keyboard_dir(win, player, state);
-		keyboard_shot(win, player, state, music);
+		keyboard_move(win, player, win->keyboard_state);
+		keyboard_dir(win, player, win->keyboard_state);
+		keyboard_shot(win, player, win->keyboard_state, music);
+
+		if (win->keyboard_state[SDL_SCANCODE_P])
+		{
+			printf("\n\n");
+			while (poly)
+			{
+				printf("Equation %f x + %f y + %f z + %f = 0\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
+				printf("D1 (%f, %f, %f)\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
+				printf("D2 (%f, %f, %f)\n", poly->dots[1].x, poly->dots[1].y, poly->dots[1].z);
+				printf("D3 (%f, %f, %f)\n", poly->dots[2].x, poly->dots[2].y, poly->dots[2].z);
+				printf("D4 (%f, %f, %f)\n", poly->dots[3].x, poly->dots[3].y, poly->dots[3].z);
+				printf("I %f %f %f\n", poly->i.x, poly->i.y, poly->i.z);
+				printf("J %f %f %f\n", poly->j.x, poly->j.y, poly->j.z);
+				poly = poly->next;
+			}
+		}
 	}
 	return (0);
 }
