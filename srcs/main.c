@@ -55,8 +55,8 @@ int			main(int argc, char **argv)
 		{
 			// if (!(map.polys = polys_a_la_mano(&(map.player))))
 			// 	return (1);
-			if ((((fd = open(argv[1], O_RDONLY)) <= 0) || ((
-				fd1 = open(argv[1], O_RDONLY)) <= 0)))
+			if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||\
+				((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 				return (ret_error("open error"));
 			SDL_PollEvent(&event);
 			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)

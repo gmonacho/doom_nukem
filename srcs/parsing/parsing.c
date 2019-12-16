@@ -73,10 +73,18 @@ void find_texture(char *tab, t_poly *poly)
 	tmp = NULL;
 	if (ft_strstr(tab, "texture = Brique.png"))
 		poly->texture = IMG_Load("textures/randomPNG/Brick.png");
-	else if (ft_strstr(tab, "Papier.png"))
-		printf("Papier\n");
-	else if (ft_strstr(tab, "Pierre.png"))
+	else if (ft_strstr(tab, "texture = elephantride.png"))
+		poly->texture = IMG_Load("textures/elephantride.png");
+	else if (ft_strstr(tab, "texture = plafond.png"))
+		poly->texture = IMG_Load("textures/plafond.png");
+	else if (ft_strstr(tab, "texture = Pierre.png"))
 		poly->texture = IMG_Load("textures/mur_pierre.png");
+	else if (ft_strstr(tab, "texture = Papier.png"))
+		printf("Papier\n");
+	else if (ft_strstr(tab, "texture = Ciseaux.png"))
+		printf("Ciseaux\n");
+	else if (ft_strstr(tab, "texture = JaiGagne!.png"))
+		printf("JaiGagne!\n");
 }
 
 void		ft_fill_data(char **tab, t_poly **poly, int i)
@@ -115,7 +123,8 @@ t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 	t_poly		*poly;
 
 	i = -1;
-	poly = ft_memalloc(sizeof(t_poly));
+	poly = NULL;								//Modif: agiordan
+	// poly = ft_memalloc(sizeof(t_poly));		//Empeche la creation dun mayon vide
 	tab = ft_fill_map(fd, fd1);
 	ft_parse_error(tab);
 	win->texHud = define_texHud(win);

@@ -11,29 +11,29 @@ typedef struct		s_dot
 
 typedef struct		s_fdot
 {
-	double			x;
-	double			y;
+	float			x;
+	float			y;
 }					t_fdot;
 
 typedef struct		s_fdot_3d
 {
-	double			x;
-	double			y;
-	double			z;
+	float			x;
+	float			y;
+	float			z;
 }					t_fdot_3d;
 
-typedef struct		s_matrice
+typedef struct		s_matrix
 {
-	double			_00;
-	double			_01;
-	double			_02;
-	double			_10;
-	double			_11;
-	double			_12;
-	double			_20;
-	double			_21;
-	double			_22;
-}					t_matrice;
+	float			_00;
+	float			_01;
+	float			_02;
+	float			_10;
+	float			_11;
+	float			_12;
+	float			_20;
+	float			_21;
+	float			_22;
+}					t_matrix;
 
 typedef struct		s_size
 {
@@ -49,10 +49,10 @@ typedef struct		s_line
 
 typedef struct 		s_frect
 {
-	double			x;
-	double			y;
-	double			w;
-	double			h;
+	float			x;
+	float			y;
+	float			w;
+	float			h;
 }					t_frect;
 
 typedef struct 		s_circle
@@ -64,28 +64,30 @@ typedef struct 		s_circle
 
 typedef struct		s_affine
 {
-	double			a;
-	double			b;
+	float			a;
+	float			b;
 	int				isequation;
-	double			angle;
+	float			angle;
 }					t_affine;
 
 typedef struct		s_plan
 {
 	t_fdot_3d		v;
-	double			d;
+	float			d;
 }					t_plan;
 
 typedef struct		s_cartesienne
 {
-	double			ox;	//Utilise pour les tp de ray intersecteur
-	double			oy;
-	double			oz;
-	double			vx;
-	double			vy;
-	double			vz;
+	float			ox;	//Utilise pour les tp de ray intersecteur
+	float			oy;
+	float			oz;
+	float			vx;
+	float			vy;
+	float			vz;
 
-	double			dist;
+	struct s_poly	*poly;
+	float			dist;
+	t_fdot_3d		collision;
 	int				color;
 	struct s_cartesienne	*next;
 }					t_cartesienne;
@@ -342,8 +344,8 @@ typedef struct		s_win
 
 	int				w;
 	int				h;
-	double			w_div_fov;
-	double			h_div_fov;
+	float			w_div_fov;
+	float			h_div_fov;
 
 	t_mouse			*mouse;
 
@@ -545,13 +547,16 @@ typedef struct				s_textures
 
 typedef	struct				s_poly
 {
-	t_fdot_3d				dots[N_DOTS_POLY];	//Un poly ne peut passe que 2 fois sur x
-	t_fdot_3d				dots_new[N_DOTS_POLY + 2];
+	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
+
+	t_fdot_3d				dots[N_DOTS_POLY];
+	t_fdot_3d				dots_new[N_DOTS_POLY + 2];	//Un poly ne peut passe que 2 fois sur x
 	int						n_dot;
 
-	double					dist12;
-	double					dist14;
+	float					dist12;
+	float					dist14;
 	t_plan					equation;
+	t_plan					equation_rotz_only;
 	t_fdot_3d				i;
 	t_fdot_3d				j;
 
@@ -602,23 +607,24 @@ typedef struct		s_player
 	t_fdot_3d		pos_up;
 	t_sector		*sector;
 	t_dot			dpos;
-	// double			z;
+	// float			z;
 	// char			jump;
 	// char			shift;
 	t_fdot			vel;
-	double			const_vel;
-	// double			dir;
-	// double			dir_up;
-	double			fov;
-	double			fov_2;
-	double			fov_up;
-	double			fov_up_2;
-	double			ddir;
+	float			const_vel;
+	// float			dir;
+	// float			dir_up;
+	float			fov;
+	float			fov_2;
+	float			fov_up;
+	float			fov_up_2;
+	float			ddir;
+	float			rot_y;
 	int				height;
 	int				width;
-	double			width_2;
-	double			width_10;
-	// double			lenRay;
+	float			width_2;
+	float			width_10;
+	// float			lenRay;
 	int				numsector;
 	int 			currentHp;
 	int 			maxHp;
@@ -630,17 +636,17 @@ typedef struct		s_player
 	t_line			l[5];
 	int 			*bullet_drop;
 	int 			len_bullet;
-	double			demipetitaxe;
+	float			demipetitaxe;
 	int 			damage;
 
 	// t_cartesienne	*rays;
 	t_cartesienne	**rays;
-	t_matrice		rx;
-	t_matrice		rx_inv;
-	t_matrice		ry;
-	t_matrice		ry_inv;
-	t_matrice		rz;
-	t_matrice		rz_inv;
+	t_matrix		rx;
+	t_matrix		rx_inv;
+	t_matrix		ry;
+	t_matrix		ry_inv;
+	t_matrix		rz;
+	t_matrix		rz_inv;
 }					t_player;
 
 /*
@@ -676,7 +682,7 @@ typedef struct	s_map_editor
 	int			y;
 	int			w;
 	int			h;
-	double		unit;
+	float		unit;
 	t_sector	*sectors;
 	t_sector	*selected_sector;
 	SDL_Rect	rect_util;

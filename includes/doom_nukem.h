@@ -1,7 +1,6 @@
 #ifndef DOOM_NUKEM_H
 # define DOOM_NUKEM_H
 
-
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>

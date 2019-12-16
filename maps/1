@@ -8,6 +8,10 @@ Player
     dir = 20
 	velocity = 1
 }
+
+
+
+/* Salle du bas */
 Object
 {
 	posx = 100
@@ -22,7 +26,7 @@ Polygon
 	dot = x:100, y:650, z:200
 	dot = x:100, y:150, z:200
 	dot = x:100, y:150, z:50
-	dot = x:100, y:600, z:50
+	dot = x:100, y:650, z:50
 	texture = Brique.png
 }
 Polygon
@@ -31,7 +35,7 @@ Polygon
 	dot = x:600, y:150, z:200
 	dot = x:600, y:150, z:50
 	dot = x:100, y:150, z:50
-	texture = Pierre.png
+	texture = elephantride.png
 }
 Polygon
 {
@@ -39,15 +43,7 @@ Polygon
 	dot = x:600, y:650, z:200
 	dot = x:600, y:650, z:50
 	dot = x:600, y:150, z:50
-	texture = Pierre.png
-}
-Polygon
-{
-	dot = x:600, y:650, z:200
-	dot = x:100, y:650, z:200
-	dot = x:100, y:650, z:50
-	dot = x:600, y:650, z:50
-	texture = Pierre.png
+	texture = Brique.png
 }
 Polygon
 {
@@ -55,7 +51,7 @@ Polygon
 	dot = x:100, y:150, z:50
 	dot = x:600, y:150, z:50
 	dot = x:600, y:650, z:50
-	texture = Pierre.png
+	texture = plafond.png
 }
 Polygon
 {
@@ -63,5 +59,63 @@ Polygon
 	dot = x:100, y:150, z:200
 	dot = x:600, y:150, z:200
 	dot = x:600, y:650, z:200
-	texture = Pierre.png
+	texture = plafond.png
+}
+
+
+
+/* Salle du bas */
+
+Polygon
+{
+	dot = x:100, y:650, z:200
+	dot = x:100, y:1150, z:200
+	dot = x:100, y:1150, z:0
+	dot = x:100, y:650, z:0
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:100, y:1150, z:200
+	dot = x:600, y:1150, z:200
+	dot = x:600, y:1150, z:0
+	dot = x:100, y:1150, z:0
+	texture = elephantride.png
+}
+Polygon
+{
+	dot = x:600, y:1150, z:200
+	dot = x:600, y:650, z:200
+	dot = x:600, y:650, z:0
+	dot = x:600, y:1150, z:0
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:100, y:650, z:0
+	dot = x:100, y:1150, z:0
+	dot = x:600, y:1150, z:0
+	dot = x:600, y:650, z:0
+	texture = plafond.png
+}
+Polygon
+{
+	dot = x:100, y:650, z:200
+	dot = x:100, y:1150, z:200
+	dot = x:600, y:1150, z:200
+	dot = x:600, y:650, z:200
+	texture = plafond.png
+}
+
+
+
+/* Marche */
+
+Polygon
+{
+	dot = x:100, y:650, z:0
+	dot = x:100, y:650, z:50
+	dot = x:600, y:650, z:50
+	dot = x:600, y:650, z:0
+	texture = Brique.png
 }

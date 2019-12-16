@@ -12,50 +12,102 @@
 **	de la translation
 */
 
-// void				rotate_ray(t_cartesienne *ray, t_matrice matrice)
-// {
-// 	double			save_vx;
-// 	double			save_vy;
-
-// 	save_vx = ray->vx * matrice._00 + ray->vy * matrice._10 + ray->vz * matrice._20;
-// 	save_vy = ray->vx * matrice._01 + ray->vy * matrice._11 + ray->vz * matrice._21;
-// 	ray->vz = ray->vx * matrice._02 + ray->vy * matrice._12 + ray->vz * matrice._22;
-// 	ray->vx = save_vx;
-// 	ray->vy = save_vy;
-// }
-
-static void			rotate_dot(t_fdot_3d *dot, t_matrice matrice)
+static t_fdot_3d	return_rotate_dot(t_fdot_3d dot, t_matrix matrix)
 {
-	double			save_vx;
-	double			save_vy;
+	return ((t_fdot_3d){dot.x * matrix._00 + dot.y * matrix._10 + dot.z * matrix._20,\
+						dot.x * matrix._01 + dot.y * matrix._11 + dot.z * matrix._21,\
+						dot.x * matrix._02 + dot.y * matrix._12 + dot.z * matrix._22});
+}
 
-	save_vx = dot->x * matrice._00 + dot->y * matrice._10 + dot->z * matrice._20;
-	save_vy = dot->x * matrice._01 + dot->y * matrice._11 + dot->z * matrice._21;
-	dot->z = dot->x * matrice._02 + dot->y * matrice._12 + dot->z * matrice._22;
+static void			rotate_dot(t_fdot_3d *dot, t_matrix matrix)
+{
+	float			save_vx;
+	float			save_vy;
+
+	save_vx = dot->x * matrix._00 + dot->y * matrix._10 + dot->z * matrix._20;
+	save_vy = dot->x * matrix._01 + dot->y * matrix._11 + dot->z * matrix._21;
+	dot->z = dot->x * matrix._02 + dot->y * matrix._12 + dot->z * matrix._22;
 	dot->x = save_vx;
 	dot->y = save_vy;
 }
 
-void				rotate_all(t_poly *poly, t_matrice matrice)
+// void				rotate_all_dots(t_poly *poly, t_matrix matrix)
+// {
+// 	while (poly)
+// 	{
+// 		rotate_dot(&(poly->equation.v), matrix);
+		
+// 		rotate_dot(&(poly->dots[0]), matrix);
+// 		rotate_dot(&(poly->dots[1]), matrix);
+// 		rotate_dot(&(poly->dots[2]), matrix);
+// 		rotate_dot(&(poly->dots[3]), matrix);
+
+// 		poly->i = (t_fdot_3d){	poly->dots[1].x - poly->dots[0].x,\
+// 								poly->dots[1].y - poly->dots[0].y,\
+// 								poly->dots[1].z - poly->dots[0].z};
+// 		poly->j = (t_fdot_3d){	poly->dots[N_DOTS_POLY - 1].x - poly->dots[0].x,\
+// 								poly->dots[N_DOTS_POLY - 1].y - poly->dots[0].y,\
+// 								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
+// 		// poly->i = (t_fdot_3d){	poly->dots[0].x - poly->dots[1].x,\
+// 		// 						poly->dots[0].y - poly->dots[1].y,\
+// 		// 						poly->dots[0].z - poly->dots[1].z};
+// 		// poly->j = (t_fdot_3d){	poly->dots[0].x - poly->dots[N_DOTS_POLY - 1].x,\
+// 		// 						poly->dots[0].y - poly->dots[N_DOTS_POLY - 1].y,\
+// 		// 						poly->dots[0].z - poly->dots[N_DOTS_POLY - 1].z};
+// 		poly = poly->next;
+// 	}
+// }
+
+void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix)
 {
 	while (poly)
 	{
-		rotate_dot(&(poly->equation.v), matrice);
+		rotate_dot(&(poly->equation_rotz_only.v), matrix);
 		
-		rotate_dot(&(poly->dots[0]), matrice);
-		rotate_dot(&(poly->dots[1]), matrice);
-		rotate_dot(&(poly->dots[2]), matrice);
-		rotate_dot(&(poly->dots[3]), matrice);
+		rotate_dot(&(poly->dots_rotz_only[0]), matrix);
+		rotate_dot(&(poly->dots_rotz_only[1]), matrix);
+		rotate_dot(&(poly->dots_rotz_only[2]), matrix);
+		rotate_dot(&(poly->dots_rotz_only[3]), matrix);
 
-		poly->i = (t_fdot_3d){	poly->dots[0].x - poly->dots[1].x,\
-								poly->dots[0].y - poly->dots[1].y,\
-								poly->dots[0].z - poly->dots[1].z};
-		poly->j = (t_fdot_3d){	poly->dots[0].x - poly->dots[N_DOTS_POLY - 1].x,\
-								poly->dots[0].y - poly->dots[N_DOTS_POLY - 1].y,\
-								poly->dots[0].z - poly->dots[N_DOTS_POLY - 1].z};
+		poly->i = (t_fdot_3d){	poly->dots_rotz_only[1].x - poly->dots_rotz_only[0].x,\
+								poly->dots_rotz_only[1].y - poly->dots_rotz_only[0].y,\
+								poly->dots_rotz_only[1].z - poly->dots_rotz_only[0].z};
+		poly->j = (t_fdot_3d){	poly->dots_rotz_only[N_DOTS_POLY - 1].x - poly->dots_rotz_only[0].x,\
+								poly->dots_rotz_only[N_DOTS_POLY - 1].y - poly->dots_rotz_only[0].y,\
+								poly->dots_rotz_only[N_DOTS_POLY - 1].z - poly->dots_rotz_only[0].z};
 		poly = poly->next;
 	}
 }
+
+void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix)
+{
+	while (poly)
+	{
+		poly->equation.v = return_rotate_dot(poly->equation_rotz_only.v, matrix);
+		
+		poly->dots[0] = return_rotate_dot(poly->dots_rotz_only[0], matrix);
+		poly->dots[1] = return_rotate_dot(poly->dots_rotz_only[1], matrix);
+		poly->dots[2] = return_rotate_dot(poly->dots_rotz_only[2], matrix);
+		poly->dots[3] = return_rotate_dot(poly->dots_rotz_only[3], matrix);
+
+		poly->i = (t_fdot_3d){	poly->dots[1].x - poly->dots[0].x,\
+								poly->dots[1].y - poly->dots[0].y,\
+								poly->dots[1].z - poly->dots[0].z};
+		poly->j = (t_fdot_3d){	poly->dots[N_DOTS_POLY - 1].x - poly->dots[0].x,\
+								poly->dots[N_DOTS_POLY - 1].y - poly->dots[0].y,\
+								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
+		poly = poly->next;
+	}
+}
+
+
+
+
+
+
+
+
+
 
 static void			translate_dot(t_fdot_3d *dot, t_fdot_3d translation)
 {
@@ -73,12 +125,17 @@ void				translate_all(t_poly *poly, t_fdot_3d translation)
 	{	
 		printf("poly = %p\n", poly);
 		poly->equation.d -= scalar_product(poly->equation.v, translation);
+		poly->equation_rotz_only.d -= scalar_product(poly->equation_rotz_only.v, translation);
 
 	// printf("\t\tDot %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
 		translate_dot(&(poly->dots[0]), translation);
 		translate_dot(&(poly->dots[1]), translation);
 		translate_dot(&(poly->dots[2]), translation);
 		translate_dot(&(poly->dots[3]), translation);
+		translate_dot(&(poly->dots_rotz_only[0]), translation);
+		translate_dot(&(poly->dots_rotz_only[1]), translation);
+		translate_dot(&(poly->dots_rotz_only[2]), translation);
+		translate_dot(&(poly->dots_rotz_only[3]), translation);
 	// printf("\t\tDot %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
 
 		// poly->i = (t_fdot_3d){	poly->d2.x - poly->d1.x,\
