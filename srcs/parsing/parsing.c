@@ -98,9 +98,9 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 	{	
 		if (ft_strstr(tab[i], "dot = "))
 		{	
-			(*poly)->dots_rotz_only[index].x = ft_atoi(ft_strrchr(tab[i], 'x') + 2);
-			(*poly)->dots_rotz_only[index].y = ft_atoi(ft_strrchr(tab[i], 'y') + 2);
-			(*poly)->dots_rotz_only[index].z = ft_atoi(ft_strrchr(tab[i], 'z') + 2);
+			(*poly)->dots[index].x = ft_atoi(ft_strrchr(tab[i], 'x') + 2);
+			(*poly)->dots[index].y = ft_atoi(ft_strrchr(tab[i], 'y') + 2);
+			(*poly)->dots[index].z = ft_atoi(ft_strrchr(tab[i], 'z') + 2);
 			index++;
 		}
 		if (ft_strstr(tab[i], "texture ="))

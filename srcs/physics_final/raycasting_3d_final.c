@@ -67,13 +67,16 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	
 	coord_texture = (t_dot){modulo(coord_plan.x * poly->dist12, poly->texture->w),\
 							modulo(coord_plan.y * poly->dist14, poly->texture->h)};
-	if (coord_texture.x < 0 || coord_texture.y < 0)
+	if (coord_texture.x < 0 || coord_texture.y < 0 || coord_texture.x > poly->texture->w || coord_texture.y > poly->texture->h)
 	{
 		printf("\nSeg fault !\n");
 		printf("Collision %f %f %f\n", collision.x, collision.y, collision.z);
 		printf("Coord texture/plan %d %d / %f %f\n", coord_texture.x, coord_texture.y, coord_plan.x, coord_plan.y);
 		exit(0);
 	}
+	// printf("coord %d %d\n", coord_texture.x, coord_texture.y);
+	// printf("color %x\n", ((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
+	// return (0xFFFF0000);
 	return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
 }
 
@@ -88,6 +91,7 @@ static void		draw(t_win *win, t_player *player)
 	t_cartesienne	*ray;
 	int			x;
 	int			y;
+	int color;
 
 	rays = player->rays;
 	y = -1;
@@ -97,12 +101,17 @@ static void		draw(t_win *win, t_player *player)
 		x = -1;
 		while (++x < WIDTH)
 		{
-			// pixels[y * WIDTH + x] =	(((ray->color >> 16) & 0xFF) << 24) |\
-			// 							(((ray->color >> 8) & 0xFF) << 16) |\
-			// 							(((ray->color >> 0) & 0xFF) << 8) |\
-			// 							(((ray->color >> 24) & 0xFF) << 0);
-			win->pixels[y * WIDTH + x] = ray->poly ? find_pixel(ray->poly, ray->collision) :\
-														0x505050FF;
+			color = ray->poly ? find_pixel(ray->poly, ray->collision) :\
+														0xFFFF00F0;
+	
+			SDL_SetRenderDrawColor(win->rend, ((color >> 16) & 0xFF),
+			 							((color >> 8) & 0xFF),
+			 							((color >> 0) & 0xFF),
+			 							((color >> 24) & 0xFF));
+			SDL_RenderDrawPoint(win->rend, x, y);
+
+			//win->pixels[y * WIDTH + x] = ray->poly ? find_pixel(ray->poly, ray->collision) :\
+			//										0xFFFF0000;
 			ray->dist = -1;
 			ray->poly = NULL;
 			ray->collision = (t_fdot_3d){};
@@ -110,9 +119,19 @@ static void		draw(t_win *win, t_player *player)
 		}
 		rays++;
 	}
-	SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, WIDTH * sizeof(uint32_t));
-	SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
+	// exit(1);
+	//SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, WIDTH * sizeof(uint32_t));
+	//SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
 	// SDL_RenderPresent(win->rend);
+	
+	
+	// y = -1;
+	// while (++y < HEIGHT)
+	// {
+	// 	x = -1;
+	// 	while (++x < WIDTH)
+	// 		;//printf("%x\n", win->pixels[y * WIDTH + x]);
+	// }
 }
 
 
@@ -124,7 +143,6 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 	// clock_t			t1;
 	// clock_t			t2;
 
-	// printf("dis\n");
 	if (!intersection_plan_line(&collision, poly->equation, ray))
 		return ;
 	newdist = collision.x * collision.x + collision.y * collision.y + collision.z * collision.z;
@@ -162,7 +180,7 @@ static void			square_tracing(t_player *player, t_poly *poly)
 		while (++x < poly->box_x.y)
 		{
 			launch_ray_3d(poly, &(player->rays[y][x]));
-			printf("%f %f %f\n", player->rays[y][x].vx, player->rays[y][x].vy, player->rays[y][x].vz);
+			// printf("%f %f %f\n", player->rays[y][x].vx, player->rays[y][x].vy, player->rays[y][x].vz);
 		}
 	}
 	// t2 = clock();
@@ -177,36 +195,35 @@ void		raycasting_3d(t_win *win, t_player *player)
 	// clock_t			t1;
 	// clock_t			t2;
 
+	// t1 = clock();
+	// t2 = clock();
+	// printf("time %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 	// printf("1\n");
 	surround_walls(win, win->map);
-	
+
 	// printf("2\n");
 	if (win->view & TEXTURE_VIEW)
 	{
-	// t1 = clock();
-
 		poly = win->map->polys;
-		// printf("MAIS NIQUE TA MERE %p\n", poly);
 		while (poly)
 		{
+			// printf("MAIS NIQUE TA MERE %p\n", poly);
 			square_tracing(player, poly);
 			poly = poly->next;
 		}
-
-	// t2 = clock();
-	// printf("time %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 		draw(win, player);
 	}
 
-	// t1 = clock();
+	// // t1 = clock();
 	if (win->view & WALL_VIEW)
 		draw_projection(win);
 
-	// t1 = clock();
-	if (win->view & SQUARED_VIEW)
+	// // t1 = clock();
+	if (win->view & BOX_VIEW)
 		draw_all_square(win);
 	// t2 = clock();
 	// printf("sur %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 	draw_fps();
-	exit(0);
+	SDL_RenderPresent(win->rend);
+	// exit(0);
 }

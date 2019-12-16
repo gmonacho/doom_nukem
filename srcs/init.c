@@ -28,14 +28,15 @@ int			init_polygone(t_poly *poly)
 		// printf("Poly 3 pts : %f %f %f / %f %f %f / %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z,\
 		// 														poly->dots[1].x, poly->dots[1].y, poly->dots[1].z,\
 		// 														poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
+		ft_memcpy(poly->dots_rotz_only, poly->dots, sizeof(t_fdot_3d) * 4);
 		poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
 		poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
-		poly->i = (t_fdot_3d){	poly->dots[0].x - poly->dots[1].x,\
-								poly->dots[0].y - poly->dots[1].y,\
-								poly->dots[0].z - poly->dots[1].z};
-		poly->j = (t_fdot_3d){	poly->dots[0].x - poly->dots[N_DOTS_POLY - 1].x,\
-								poly->dots[0].y - poly->dots[N_DOTS_POLY - 1].y,\
-								poly->dots[0].z - poly->dots[N_DOTS_POLY - 1].z};
+		poly->i = (t_fdot_3d){	poly->dots[1].x - poly->dots[0].x,\
+								poly->dots[1].y - poly->dots[0].y,\
+								poly->dots[1].z - poly->dots[0].z};
+		poly->j = (t_fdot_3d){	poly->dots[N_DOTS_POLY - 1].x - poly->dots[0].x,\
+								poly->dots[N_DOTS_POLY - 1].y - poly->dots[0].y,\
+								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
 		poly->equation = (t_plan){(t_fdot_3d){	(poly->i.y * poly->j.z - poly->i.z * poly->j.y) / 10000,\
 												(poly->i.z * poly->j.x - poly->i.x * poly->j.z) / 10000,\
 												(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000},\
@@ -53,7 +54,7 @@ int			init_polygone(t_poly *poly)
 void		init_player(t_win *win, t_player *player)
 {
 	// win->view = TEXTURE_VIEW;
-	win->view = TEXTURE_VIEW | WALL_VIEW;
+	win->view = TEXTURE_VIEW | WALL_VIEW | BOX_VIEW;
 	player->dir_init = 0;
 
 	translate_all(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});

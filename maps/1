@@ -19,7 +19,8 @@ Object
 	posz = 10
 	width = 10
 	height = 10
-	texture = Papier.png
+//	texture = Papier.png
+	texture = Brique.png
 }
 Polygon
 {
@@ -35,7 +36,8 @@ Polygon
 	dot = x:60, y:15, z:20
 	dot = x:60, y:15, z:5
 	dot = x:10, y:15, z:5
-	texture = elephantride.png
+//	texture = elephantride.png
+	texture = Brique.png
 }
 Polygon
 {
@@ -51,7 +53,8 @@ Polygon
 	dot = x:10, y:15, z:5
 	dot = x:60, y:15, z:5
 	dot = x:60, y:65, z:5
-	texture = plafond.png
+//	texture = plafond.png
+	texture = Brique.png
 }
 Polygon
 {
@@ -59,7 +62,8 @@ Polygon
 	dot = x:10, y:15, z:20
 	dot = x:60, y:15, z:20
 	dot = x:60, y:65, z:20
-	texture = plafond.png
+//	texture = plafond.png
+	texture = Brique.png
 }
 
 
@@ -80,7 +84,8 @@ Polygon
 	dot = x:60, y:115, z:20
 	dot = x:60, y:115, z:0
 	dot = x:10, y:115, z:0
-	texture = elephantride.png
+	//texture = elephantride.png
+	texture = Brique.png
 }
 Polygon
 {
@@ -96,7 +101,7 @@ Polygon
 	dot = x:10, y:115, z:0
 	dot = x:60, y:115, z:0
 	dot = x:60, y:65, z:0
-	texture = plafond.png
+//	texture = plafond.png
 }
 Polygon
 {
@@ -104,7 +109,8 @@ Polygon
 	dot = x:10, y:115, z:20
 	dot = x:60, y:115, z:20
 	dot = x:60, y:65, z:20
-	texture = plafond.png
+//	texture = plafond.png
+	texture = Brique.png
 }
 
 

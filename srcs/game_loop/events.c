@@ -20,12 +20,12 @@ static void	mouse_move(t_win *win, t_player *player)
 	if (win->mouse->y > 0)
 	{
 		player->rot_y += player->ddir;
-		printf("Rot y %f\n", player->rot_y);
+		// printf("Rot y %f\n", player->rot_y);
 	}
 	if (win->mouse->y < 0)
 	{
 		player->rot_y -= player->ddir;
-		printf("Rot y %f\n", player->rot_y);
+		// printf("Rot y %f\n", player->rot_y);
 	}
 	copy_rotate_rotz_only(win->map->polys, create_ry_matrix(player->rot_y));
 }
@@ -63,7 +63,7 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 	if (state[SDL_SCANCODE_2])
 		win->view += (win->view & WALL_VIEW ? -WALL_VIEW : WALL_VIEW);
 	if (state[SDL_SCANCODE_3])
-		win->view += (win->view & SQUARED_VIEW ? -SQUARED_VIEW : SQUARED_VIEW);
+		win->view += (win->view & BOX_VIEW ? -BOX_VIEW : BOX_VIEW);
 }
 
 static void	keyboard_move(t_win *win, t_player *player, const Uint8 *state)

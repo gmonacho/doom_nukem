@@ -123,7 +123,7 @@ void				translate_all(t_poly *poly, t_fdot_3d translation)
 	// printf("Trans %f %f %f\n", translation.x, translation.y, translation.z);
 	while (poly)
 	{	
-		printf("poly = %p\n", poly);
+		// printf("poly = %p\n", poly);
 		poly->equation.d -= scalar_product(poly->equation.v, translation);
 		poly->equation_rotz_only.d -= scalar_product(poly->equation_rotz_only.v, translation);
 

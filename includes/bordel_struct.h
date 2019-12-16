@@ -329,7 +329,7 @@ typedef enum		e_view
 {
 	TEXTURE_VIEW = 0b0001,
 	WALL_VIEW = 0b0010,
-	SQUARED_VIEW = 0b0100
+	BOX_VIEW = 0b0100
 }					t_view;
 
 typedef struct		s_win
