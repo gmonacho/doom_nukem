@@ -17,7 +17,10 @@ void	player_data(char **tab, t_player *player, int i)
         else if (ft_strstr(tab[i], "sector ="))
             player->numsector = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         else if (ft_strstr(tab[i], "dir ="))
-            player->dir_init = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        {
+            player->dir_init = _2_PI * (double)ft_atoi(ft_strrchr(tab[i], '=') + 1) / 360;
+            
+        }
         else if (ft_strstr(tab[i], "velocity ="))
             player->const_vel = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         i++;
