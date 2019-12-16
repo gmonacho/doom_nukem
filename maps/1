@@ -1,10 +1,11 @@
 Player
 {
-	posx = 200
-	posy = 200
-	posz = 200
-	width = 20
-	height = 50
+	posx = 20
+	posy = 20
+	posz = 14
+	dir = 0
+	width = 3
+	height = 9
 	velocity = 1
 }
 
@@ -13,51 +14,51 @@ Player
 /* Salle du bas */
 Object
 {
-	posx = 100
-	posy = 100
-	posz = 100
+	posx = 10
+	posy = 10
+	posz = 10
 	width = 10
 	height = 10
 	texture = Papier.png
 }
 Polygon
 {
-	dot = x:100, y:650, z:200
-	dot = x:100, y:150, z:200
-	dot = x:100, y:150, z:50
-	dot = x:100, y:650, z:50
+	dot = x:10, y:65, z:20
+	dot = x:10, y:15, z:20
+	dot = x:10, y:15, z:5
+	dot = x:10, y:65, z:5
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:100, y:150, z:200
-	dot = x:600, y:150, z:200
-	dot = x:600, y:150, z:50
-	dot = x:100, y:150, z:50
+	dot = x:10, y:15, z:20
+	dot = x:60, y:15, z:20
+	dot = x:60, y:15, z:5
+	dot = x:10, y:15, z:5
 	texture = elephantride.png
 }
 Polygon
 {
-	dot = x:600, y:150, z:200
-	dot = x:600, y:650, z:200
-	dot = x:600, y:650, z:50
-	dot = x:600, y:150, z:50
+	dot = x:60, y:15, z:20
+	dot = x:60, y:65, z:20
+	dot = x:60, y:65, z:5
+	dot = x:60, y:15, z:5
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:100, y:650, z:50
-	dot = x:100, y:150, z:50
-	dot = x:600, y:150, z:50
-	dot = x:600, y:650, z:50
+	dot = x:10, y:65, z:5
+	dot = x:10, y:15, z:5
+	dot = x:60, y:15, z:5
+	dot = x:60, y:65, z:5
 	texture = plafond.png
 }
 Polygon
 {
-	dot = x:100, y:650, z:200
-	dot = x:100, y:150, z:200
-	dot = x:600, y:150, z:200
-	dot = x:600, y:650, z:200
+	dot = x:10, y:65, z:20
+	dot = x:10, y:15, z:20
+	dot = x:60, y:15, z:20
+	dot = x:60, y:65, z:20
 	texture = plafond.png
 }
 
@@ -67,42 +68,42 @@ Polygon
 
 Polygon
 {
-	dot = x:100, y:650, z:200
-	dot = x:100, y:1150, z:200
-	dot = x:100, y:1150, z:0
-	dot = x:100, y:650, z:0
+	dot = x:10, y:65, z:20
+	dot = x:10, y:115, z:20
+	dot = x:10, y:115, z:0
+	dot = x:10, y:65, z:0
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:100, y:1150, z:200
-	dot = x:600, y:1150, z:200
-	dot = x:600, y:1150, z:0
-	dot = x:100, y:1150, z:0
+	dot = x:10, y:115, z:20
+	dot = x:60, y:115, z:20
+	dot = x:60, y:115, z:0
+	dot = x:10, y:115, z:0
 	texture = elephantride.png
 }
 Polygon
 {
-	dot = x:600, y:1150, z:200
-	dot = x:600, y:650, z:200
-	dot = x:600, y:650, z:0
-	dot = x:600, y:1150, z:0
+	dot = x:60, y:115, z:20
+	dot = x:60, y:65, z:20
+	dot = x:60, y:65, z:0
+	dot = x:60, y:115, z:0
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:100, y:650, z:0
-	dot = x:100, y:1150, z:0
-	dot = x:600, y:1150, z:0
-	dot = x:600, y:650, z:0
+	dot = x:10, y:65, z:0
+	dot = x:10, y:115, z:0
+	dot = x:60, y:115, z:0
+	dot = x:60, y:65, z:0
 	texture = plafond.png
 }
 Polygon
 {
-	dot = x:100, y:650, z:200
-	dot = x:100, y:1150, z:200
-	dot = x:600, y:1150, z:200
-	dot = x:600, y:650, z:200
+	dot = x:10, y:65, z:20
+	dot = x:10, y:115, z:20
+	dot = x:60, y:115, z:20
+	dot = x:60, y:65, z:20
 	texture = plafond.png
 }
 
@@ -112,9 +113,9 @@ Polygon
 
 Polygon
 {
-	dot = x:100, y:650, z:0
-	dot = x:100, y:650, z:50
-	dot = x:600, y:650, z:50
-	dot = x:600, y:650, z:0
+	dot = x:10, y:65, z:0
+	dot = x:10, y:65, z:5
+	dot = x:60, y:65, z:5
+	dot = x:60, y:65, z:0
 	texture = Brique.png
 }

@@ -102,7 +102,7 @@ static void		draw(t_win *win, t_player *player)
 			// 							(((ray->color >> 0) & 0xFF) << 8) |\
 			// 							(((ray->color >> 24) & 0xFF) << 0);
 			win->pixels[y * WIDTH + x] = ray->poly ? find_pixel(ray->poly, ray->collision) :\
-														0xFF505050;
+														0x505050FF;
 			ray->dist = -1;
 			ray->poly = NULL;
 			ray->collision = (t_fdot_3d){};
@@ -124,14 +124,15 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 	// clock_t			t1;
 	// clock_t			t2;
 
+	// printf("dis\n");
 	if (!intersection_plan_line(&collision, poly->equation, ray))
-	{
-		printf("Parallole !!!\n");
-		exit(1);
-	}
+		return ;
 	newdist = collision.x * collision.x + collision.y * collision.y + collision.z * collision.z;
 	// newdist = sqrt(newdist);
 
+	// if (fabs(ray->dist - newdist) < 0.000001)
+	// 	printf("2ray %f %f\t%p %p\n", ray->dist, newdist, ray->poly, poly);
+	// printf("dist %f\n", newdist);
 	if (ray->dist == -1 || newdist < ray->dist)
 	{
 		ray->poly = poly;
@@ -161,6 +162,7 @@ static void			square_tracing(t_player *player, t_poly *poly)
 		while (++x < poly->box_x.y)
 		{
 			launch_ray_3d(poly, &(player->rays[y][x]));
+			printf("%f %f %f\n", player->rays[y][x].vx, player->rays[y][x].vy, player->rays[y][x].vz);
 		}
 	}
 	// t2 = clock();
@@ -205,7 +207,6 @@ void		raycasting_3d(t_win *win, t_player *player)
 		draw_all_square(win);
 	// t2 = clock();
 	// printf("sur %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
-	// printf("3\n");
 	draw_fps();
-	// exit(0);
+	exit(0);
 }

@@ -3,17 +3,17 @@
 static int		init(t_win *win, t_map *map, t_player *player)
 {
 	printf("Debut init\n");
-	if (init_textures(win, &(map->textures)))
-	{
-		ft_putendl("init_textures failed");
-		return (1);
-	}
+	// if (init_textures(win, &(map->textures)))
+	// {
+	// 	ft_putendl("init_textures failed");
+	// 	return (1);
+	// }
 	if (!init_music(&win->music))
 	{
 		ft_putendl("init_music failed");
 		return (4);
 	}
-	init_polygone(map->polys, &(map->textures));
+	init_polygone(map->polys);
 	init_player(win, player);
 	return (0);
 }

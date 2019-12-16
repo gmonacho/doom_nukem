@@ -11,7 +11,7 @@ static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
     reload_cd(map);
     SDL_GetWindowSize(win->ptr, &win->w, &win->h);
     clear_rend(win->rend, 0x40, 0x40, 0x40);
-    SDL_PollEvent(event);
+    // SDL_PollEvent(event);
     // physics(win, map, &(map->player));
     //entiteMove();
 
