@@ -16,12 +16,14 @@ void	player_data(char **tab, t_player *player, int i)
             player->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         else if (ft_strstr(tab[i], "sector ="))
             player->numsector = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        else if (ft_strstr(tab[i], "dir ="))
+            player->dir_init = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         else if (ft_strstr(tab[i], "velocity ="))
             player->const_vel = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         i++;
     }
     // printf("player | x = %f\ty = %f\tz= %f\n", player->pos_up.x, player->pos_up.y, player->pos_up.y);
 	// printf("width = %d\theight = %d\n", player->width, player->height);
-	// printf("Vel = %f\n", player->const_vel);
+	printf("dir = %f\n", player->dir_init);
     //printf("\n");
 }
