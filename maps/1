@@ -5,6 +5,7 @@ Player
 	posz = 200
 	width = 20
 	height = 50
+    dir = 20
 	velocity = 1
 }
 Object

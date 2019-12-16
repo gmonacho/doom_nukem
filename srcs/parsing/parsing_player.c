@@ -1,4 +1,4 @@
-#include "doom_nukem.h"
+7#include "doom_nukem.h"
 
 void	player_data(char **tab, t_player *player, int i)
 {
