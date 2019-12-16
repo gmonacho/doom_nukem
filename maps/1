@@ -3,9 +3,9 @@ Player
 	posx = 200
 	posy = 200
 	posz = 200
+    dir = 20
 	width = 20
 	height = 50
-    dir = 20
 	velocity = 1
 }
 

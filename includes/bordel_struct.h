@@ -614,6 +614,7 @@ typedef struct		s_player
 	float			const_vel;
 	// float			dir;
 	// float			dir_up;
+    float           dir_init;
 	float			fov;
 	float			fov_2;
 	float			fov_up;
