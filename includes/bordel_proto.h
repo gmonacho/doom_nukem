@@ -367,7 +367,7 @@ void				init_matrix_ry(t_player *player);
 void				init_matrix_ry_inv(t_player *player);
 void				init_matrix_rz(t_player *player);
 void				init_matrix_rz_inv(t_player *player);
-int					init_polygone(t_poly *poly, t_textures *textures);
+int					init_polygone(t_poly *poly);
 
 /*
 ** ================================== Time ===================================

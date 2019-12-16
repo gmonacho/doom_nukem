@@ -191,10 +191,10 @@ int			keyboard_state(t_win *win, t_player *player, t_music *music)
 	const Uint8	*state;
 	t_poly		*poly;
 
-	state = SDL_GetKeyboardState(NULL);
 	poly = win->map->polys;
 	if (player->currentHp > 0)
 	{
+		state = SDL_GetKeyboardState(NULL);
 		keyboard_move(win, player, state);
 		keyboard_dir(win, player, state);
 		keyboard_shot(win, player, state, music);

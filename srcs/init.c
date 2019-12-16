@@ -5,14 +5,29 @@
 **	pour trouver le vecteur normal au plan
 */
 
-int		init_polygone(t_poly *poly, t_textures *textures)
+// int				print_polys(t_win *win, t_player *player)
+// {
+// 	t_poly		*poly;
+
+// 	poly = win->map->polys;
+// 	while (poly)
+// 	{
+// 		printf("Equation %f x + %f y + %f z + %f = 0\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
+// 		printf("D1 %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
+// 		printf("D2 %f %f %f\n", poly->dots[1].x, poly->dots[1].y, poly->dots[1].z);
+// 		printf("D3 %f %f %f\n", poly->dots[2].x, poly->dots[2].y, poly->dots[2].z);
+// 		printf("D4 %f %f %f\n", poly->dots[3].x, poly->dots[3].y, poly->dots[3].z);
+// 		poly = poly->next;
+// 	}
+// }
+
+int			init_polygone(t_poly *poly)
 {
 	while (poly)
 	{
-		printf("Poly 3 pts : %f %f %f / %f %f %f / %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z,\
-																poly->dots[1].x, poly->dots[1].y, poly->dots[1].z,\
-																poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
-		poly->texture = textures->wall_2;
+		// printf("Poly 3 pts : %f %f %f / %f %f %f / %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z,\
+		// 														poly->dots[1].x, poly->dots[1].y, poly->dots[1].z,\
+		// 														poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
 		poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
 		poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
 		poly->i = (t_fdot_3d){	poly->dots[0].x - poly->dots[1].x,\
@@ -26,6 +41,7 @@ int		init_polygone(t_poly *poly, t_textures *textures)
 												(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000},\
 									0};
 		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x + poly->equation.v.y * poly->dots[0].y + poly->equation.v.z * poly->dots[0].z);
+		poly->equation_rotz_only = poly->equation;
 		// if (!(poly->dots_proj = (t_dot *)malloc(sizeof(t_dot) * (N_DOTS_POLY + 1))))
 		// 	return (ft_putendl_ret("Malloc dots_proj error\n", 1));
 		// poly->dots_proj[N_DOTS_POLY] = NULL;
@@ -34,39 +50,14 @@ int		init_polygone(t_poly *poly, t_textures *textures)
 	return (0);
 }
 
-void	init_player(t_win *win, t_player *player)
+void		init_player(t_win *win, t_player *player)
 {
 	// win->view = TEXTURE_VIEW;
 	win->view = TEXTURE_VIEW | WALL_VIEW;
-	player->pos_up = (t_fdot_3d){300, 300, 125};
-	printf("Pos player %f %f %f\n", player->pos_up.x, player->pos_up.y, player->pos_up.z);
+	player->dir_init = 0;
 
 	translate_all(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
-	// translate_all(win->map->polys, (t_fdot_3d){1000, 0, 0});
-
-	t_poly *poly = win->map->polys;
-	while (poly)
-	{
-		poly->dots_rotz_only[0] = poly->dots[0];
-		poly->dots_rotz_only[1] = poly->dots[1];
-		poly->dots_rotz_only[2] = poly->dots[2];
-		poly->dots_rotz_only[3] = poly->dots[3];
-		poly->equation_rotz_only = poly->equation;
-		poly->i = (t_fdot_3d){	poly->dots[1].x - poly->dots[0].x,\
-								poly->dots[1].y - poly->dots[0].y,\
-								poly->dots[1].z - poly->dots[0].z};
-		poly->j = (t_fdot_3d){	poly->dots[N_DOTS_POLY - 1].x - poly->dots[0].x,\
-								poly->dots[N_DOTS_POLY - 1].y - poly->dots[0].y,\
-								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
-		printf("Equation %f x + %f y + %f z + %f = 0\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
-		printf("D1 %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
-		printf("D2 %f %f %f\n", poly->dots[1].x, poly->dots[1].y, poly->dots[1].z);
-		printf("D3 %f %f %f\n", poly->dots[2].x, poly->dots[2].y, poly->dots[2].z);
-		printf("D4 %f %f %f\n", poly->dots[3].x, poly->dots[3].y, poly->dots[3].z);
-		
-		poly = poly->next;
-	}
-	// rotate_all_rotz_only(win->map->polys, player->rz);
+	rotate_all_rotz_only(win->map->polys, create_rz_matrix(-player->dir_init));
 
 	player->inventory = define_inventory();
 	player->fov = M_PI_4;
@@ -110,22 +101,22 @@ void	init_player(t_win *win, t_player *player)
 	// exit(0);
 }
 
-int		init_textures(t_win *win, t_textures *textures)
-{
-	if (!(textures->wall_1 = IMG_Load("textures/elephantride.png")) ||\
-		!(textures->wall_2 = IMG_Load("textures/randomPNG/Brick.png")) ||\
-		!(textures->floor = IMG_Load("textures/sol.png")) ||\
-		!(textures->ceil = IMG_Load("textures/mur_pierre.png")) ||\
-		!(win->rend_texture = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT)))
-	{
-		ft_putendl(SDL_GetError());
-		return (1);
-	}
-	return (0);
-}
+// int		init_textures(t_win *win, t_textures *textures)
+// {
+// 	if (!(textures->wall_1 = IMG_Load("textures/elephantride.png")) ||\
+// 		!(textures->wall_2 = IMG_Load("textures/randomPNG/Brick.png")) ||\
+// 		!(textures->floor = IMG_Load("textures/sol.png")) ||\
+// 		!(textures->ceil = IMG_Load("textures/mur_pierre.png")) ||\
+// 		!(win->rend_texture = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT)))
+// 	{
+// 		ft_putendl(SDL_GetError());
+// 		return (1);
+// 	}
+// 	return (0);
+// }
 
 
-int		init_music(t_doom_music	*music)
+int			init_music(t_doom_music	*music)
 {
 	if (music)
 	{
