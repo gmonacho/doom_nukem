@@ -124,9 +124,10 @@ void				translate_all(t_poly *poly, t_fdot_3d translation)
 	while (poly)
 	{	
 		// printf("poly = %p\n", poly);
-		poly->equation.d -= scalar_product(poly->equation.v, translation);
-		poly->equation_rotz_only.d -= scalar_product(poly->equation_rotz_only.v, translation);
+		// poly->equation.d -= scalar_product(poly->equation.v, translation);
+		// poly->equation_rotz_only.d -= scalar_product(poly->equation_rotz_only.v, translation);
 
+		
 	// printf("\t\tDot %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
 		translate_dot(&(poly->dots[0]), translation);
 		translate_dot(&(poly->dots[1]), translation);
@@ -144,6 +145,8 @@ void				translate_all(t_poly *poly, t_fdot_3d translation)
 		// poly->j = (t_fdot_3d){	poly->d3.x - poly->d1.x,\
 		// 						poly->d3.y - poly->d1.y,\
 		// 						poly->d3.z - poly->d1.z};
+		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x + poly->equation.v.y * poly->dots[0].y + poly->equation.v.z * poly->dots[0].z);
+		poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x + poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y + poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
 		poly = poly->next;
 	}
 }

@@ -120,8 +120,8 @@ Polygon
 Polygon
 {
 	dot = x:10, y:65, z:0
-	dot = x:10, y:65, z:5
-	dot = x:60, y:65, z:5
 	dot = x:60, y:65, z:0
+	dot = x:60, y:65, z:5
+	dot = x:10, y:65, z:5
 	texture = Brique.png
 }

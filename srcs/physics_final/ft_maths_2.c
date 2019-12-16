@@ -10,14 +10,15 @@ int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne 
 	float			t;
 	float			denominateur;
 
-	denominateur = plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz;
+	denominateur = plan.v.x + plan.v.y * ray->vy + plan.v.z * ray->vz;
+	// denominateur = plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz;
 	if (denominateur == 0)
 	{
 		// printf("denom = 0\n");
 		return (0);
 	}
 	// printf("denom = %f\n", denominateur);
-	t = -plan.d / (float)(denominateur);
+	t = -plan.d / denominateur;
 	collision->x = ray->vx * t;
 	collision->y = ray->vy * t;
 	collision->z = ray->vz * t;

@@ -45,9 +45,9 @@ static void		poly_reduction_up(t_win *win, t_poly *poly, t_dot proj[N_DOTS_POLY 
 	while (++i < poly->n_proj)
 	{
 		i2 = i ? i - 1 : poly->n_proj - 1;
-		if (proj[i].y > 0)
+		if (proj[i].y >= 0)
 		{
-			if (proj[i2].y < 0)
+			if (proj[i2].y <= 0)
 			{
 				// intersection_segment_edge(win, poly->dots_proj[tmp_n_proj++], proj[i], proj[i2], 0);
 				poly->dots_proj[tmp_n_proj++] = intersection_segment_edge(win, proj[i], proj[i2], 0);
@@ -56,7 +56,7 @@ static void		poly_reduction_up(t_win *win, t_poly *poly, t_dot proj[N_DOTS_POLY 
 			poly->dots_proj[tmp_n_proj++] = proj[i];
 			// printf("Add new dot : %d %d\n", proj[i].x, proj[i].y);
 		}
-		else if (proj[i2].y > 0)
+		else if (proj[i2].y >= 0)
 		{
 			// intersection_segment_edge(win, poly->dots_proj[tmp_n_proj++], proj[i], proj[i2], 0);
 			poly->dots_proj[tmp_n_proj++] = intersection_segment_edge(win, proj[i], proj[i2], 0);
@@ -77,9 +77,9 @@ static void		poly_reduction_right(t_win *win, t_poly *poly, t_dot proj[N_DOTS_PO
 	while (++i < poly->n_proj)
 	{
 		i2 = i ? i - 1 : poly->n_proj - 1;
-		if (proj[i].x < win->w)
+		if (proj[i].x <= win->w)
 		{
-			if (proj[i2].x > win->w)
+			if (proj[i2].x >= win->w)
 			{
 				// intersection_segment_edge(win, poly->dots_proj[tmp_n_proj++], proj[i], proj[i2], 1);
 				poly->dots_proj[tmp_n_proj++] = intersection_segment_edge(win, proj[i], proj[i2], 1);
@@ -88,7 +88,7 @@ static void		poly_reduction_right(t_win *win, t_poly *poly, t_dot proj[N_DOTS_PO
 			poly->dots_proj[tmp_n_proj++] = proj[i];
 			// printf("Add new dot : %d %d\n", proj[i].x, proj[i].y);
 		}
-		else if (proj[i2].x < win->w)
+		else if (proj[i2].x <= win->w)
 		{
 			// intersection_segment_edge(win, poly->dots_proj[tmp_n_proj++], proj[i], proj[i2], 1);
 			poly->dots_proj[tmp_n_proj++] = intersection_segment_edge(win, proj[i], proj[i2], 1);
@@ -109,9 +109,9 @@ static void		poly_reduction_down(t_win *win, t_poly *poly, t_dot proj[N_DOTS_POL
 	while (++i < poly->n_proj)
 	{
 		i2 = i ? i - 1 : poly->n_proj - 1;
-		if (proj[i].y < win->h)
+		if (proj[i].y <= win->h)
 		{
-			if (proj[i2].y > win->h)
+			if (proj[i2].y >= win->h)
 			{
 				//intersection_segment_edge(win, poly->dots_proj[tmp_n_proj++], proj[i], proj[i2], 2);
 				poly->dots_proj[tmp_n_proj++] = intersection_segment_edge(win, proj[i], proj[i2], 2);
@@ -120,7 +120,7 @@ static void		poly_reduction_down(t_win *win, t_poly *poly, t_dot proj[N_DOTS_POL
 			poly->dots_proj[tmp_n_proj++] = proj[i];
 			// printf("Add new dot : %d %d\n", proj[i].x, proj[i].y);
 		}
-		else if (proj[i2].y < win->h)
+		else if (proj[i2].y <= win->h)
 		{
 			// intersection_segment_edge(win, poly->dots_proj[tmp_n_proj++], proj[i], proj[i2], 2);
 			poly->dots_proj[tmp_n_proj++] = intersection_segment_edge(win, proj[i], proj[i2], 2);
@@ -141,9 +141,9 @@ static void		poly_reduction_left(t_win *win, t_poly *poly, t_dot proj[N_DOTS_POL
 	while (++i < poly->n_proj)
 	{
 		i2 = i ? i - 1 : poly->n_proj - 1;
-		if (proj[i].x > 0)
+		if (proj[i].x >= 0)
 		{
-			if (proj[i2].x < 0)
+			if (proj[i2].x <= 0)
 			{
 				// intersection_segment_edge(win, poly->dots_proj[tmp_n_proj++], proj[i], proj[i2], 3);
 				poly->dots_proj[tmp_n_proj++] = intersection_segment_edge(win, proj[i], proj[i2], 3);
@@ -152,7 +152,7 @@ static void		poly_reduction_left(t_win *win, t_poly *poly, t_dot proj[N_DOTS_POL
 			poly->dots_proj[tmp_n_proj++] = proj[i];
 			// printf("Add new dot : %d %d\n", proj[i].x, proj[i].y);
 		}
-		else if (proj[i2].x > 0)
+		else if (proj[i2].x >= 0)
 		{
 			// intersection_segment_edge(win, poly->dots_proj[tmp_n_proj++], proj[i], proj[i2], 3);
 			poly->dots_proj[tmp_n_proj++] = intersection_segment_edge(win, proj[i], proj[i2], 3);

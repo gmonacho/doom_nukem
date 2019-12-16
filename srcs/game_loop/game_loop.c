@@ -24,7 +24,7 @@ static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
     SDL_GetRelativeMouseState(&(win->mouse->x), &(win->mouse->y));
     //printf("xrel = %d \t | yrel = %d \n", event.motion.xrel, event.motion.yrel);∂∂∂
     damage_heal(&(map->player), music, 0, 0);
-    // SDL_RenderPresent(win->rend);
+    SDL_RenderPresent(win->rend);
 }
 
 int		game_loop(t_win *win, t_map *map)

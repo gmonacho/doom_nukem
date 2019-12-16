@@ -9,9 +9,12 @@ static int			create_ray(t_cartesienne *ray, t_fdot angle, t_dot coord)
 	ray->ox = 0;
 	ray->oy = 0;
 	ray->oz = 0;
-	ray->vx = cos(angle.y) * cos(angle.x);
-	ray->vy = cos(angle.y) * sin(angle.x);
-	ray->vz = sin(angle.y);
+	ray->vx = 1;
+	ray->vy = angle.x;
+	ray->vz = angle.y;
+	// ray->vx = cos(angle.y) * cos(angle.x);
+	// ray->vy = cos(angle.y) * sin(angle.x);
+	// ray->vz = sin(angle.y);
 	ray->dist = -1;
 	ray->poly = NULL;
 	ray->collision = (t_fdot_3d){};

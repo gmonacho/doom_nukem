@@ -18,33 +18,101 @@
 **
 */
 
-static int			find_coord_plan(t_fdot *coord, t_fdot_3d collision, t_fdot_3d i, t_fdot_3d j)
+
+
+static void		draw(t_win *win, t_player *player)
 {
-	float			denominateur;
+	// Uint32		pixels[HEIGHT * WIDTH];
+	// uint32_t		*pixels = (Uint32 *)malloc(sizeof(uint32_t) * WIDTH * HEIGHT);
+	// SDL_Texture	*texture;
+	t_cartesienne	**rays;
+	t_cartesienne	*ray;
+	int			x;
+	int			y;
 
-	if (!is_null((denominateur = i.x * j.y - i.y * j.x), 0.005))
-		coord->y = (collision.y * i.x - collision.x * i.y) / denominateur;
-	else if (!is_null((denominateur = i.y * j.z - i.z * j.y), 0.005))
-		coord->y = (collision.z * i.y - collision.y * i.z) / denominateur;
-	else if (!is_null((denominateur = i.z * j.x - i.x * j.z), 0.005))
-		coord->y = (collision.x * i.z - collision.z * i.x) / denominateur;
-	else
+	rays = player->rays;
+	y = -1;
+	while (++y < HEIGHT)
 	{
-		printf("Impossible vecteur unitaire j null ??? %f %f %f\n", j.x, j.y, j.z);
-		exit(0);
-	}
+		ray = *rays;
+		x = -1;
+		while (++x < WIDTH)
+		{
+			if (!ray->poly)
+				ray->color = 0xFF505050;
+			SDL_SetRenderDrawColor(win->rend, ((ray->color >> 16) & 0xFF),
+											((ray->color >> 8) & 0xFF),
+											((ray->color >> 0) & 0xFF),
+			 								((ray->color >> 24) & 0xFF));
+			SDL_RenderDrawPoint(win->rend, x, y);
 
-	if (!is_null(i.x, 0.005))
-		coord->x = (collision.x - j.x * coord->y) / i.x;
-	else if (!is_null(i.y, 0.005))
-		coord->x = (collision.y - j.y * coord->y) / i.y;
-	else if (!is_null(i.z, 0.005))
-		coord->x = (collision.z - j.z * coord->y) / i.z;
-	else
-	{
-		printf("Impossible vecteur unitaire i null ??? %f %f %f\n", i.x, i.y, i.z);
-		exit(0);
+			//win->pixels[y * WIDTH + x] = ray->poly ? ray->color :\
+			//										0xFF505050;
+			ray->poly = NULL;
+			ray++;
+		}
+		rays++;
 	}
+	// exit(1);
+	//SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, WIDTH * sizeof(uint32_t));
+	//SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
+	//SDL_RenderPresent(win->rend);
+	
+	
+	// y = -1;
+	// while (++y < HEIGHT)
+	// {
+	// 	x = -1;
+	// 	while (++x < WIDTH)
+	// 		;//printf("%x\n", win->pixels[y * WIDTH + x]);
+	// }
+}
+
+
+
+static int			find_coord_plan(t_fdot *coord, t_fdot_3d dot, t_fdot_3d i, t_fdot_3d j)
+{
+	float			denom;
+	float			uu;
+	float			vv;
+	float			uv;
+	float			pu;
+	float			pv;
+
+	uu = i.x * i.x + i.y * i.y + i.z * i.z;
+	vv = j.x * j.x + j.y * j.y + j.z * j.z;
+	uv = i.x * j.x + i.y * j.y + i.z * j.z;
+	pu = dot.x * i.x + dot.y * i.y + dot.z * i.z;
+	pv = dot.x * j.x + dot.y * j.y + dot.z * j.z;
+	if (!(denom = uv * uv - uu * vv))
+		return (0);
+	denom = 1 / denom;
+	coord->x = (vv * -pu - uv * -pv) * denom;
+	coord->y = (uu * -pv - uv * -pu) * denom;
+
+	// if (!is_null((denominateur = i.x * j.y - i.y * j.x), 0.005))
+	// 	coord->y = (collision.y * i.x - collision.x * i.y) / denominateur;
+	// else if (!is_null((denominateur = i.y * j.z - i.z * j.y), 0.005))
+	// 	coord->y = (collision.z * i.y - collision.y * i.z) / denominateur;
+	// else if (!is_null((denominateur = i.z * j.x - i.x * j.z), 0.005))
+	// 	coord->y = (collision.x * i.z - collision.z * i.x) / denominateur;
+	// else
+	// {
+	// 	printf("Impossible vecteur unitaire j null ??? %f %f %f\n", j.x, j.y, j.z);
+	// 	exit(0);
+	// }
+
+	// if (!is_null(i.x, 0.005))
+	// 	coord->x = (collision.x - j.x * coord->y) / i.x;
+	// else if (!is_null(i.y, 0.005))
+	// 	coord->x = (collision.y - j.y * coord->y) / i.y;
+	// else if (!is_null(i.z, 0.005))
+	// 	coord->x = (collision.z - j.z * coord->y) / i.z;
+	// else
+	// {
+	// 	printf("Impossible vecteur unitaire i null ??? %f %f %f\n", i.x, i.y, i.z);
+	// 	exit(0);
+	// }
 	return (1);
 }
 
@@ -53,7 +121,10 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	t_fdot			coord_plan;
 	t_dot			coord_texture;
 
-	find_coord_plan(&coord_plan, collision, poly->i, poly->j);
+	// find_coord_plan(&coord_plan, collision, poly->i, poly->j);
+	find_coord_plan(&coord_plan, (t_fdot_3d){	collision.x - poly->dots[0].x,\
+												collision.y - poly->dots[0].y,\
+												collision.z - poly->dots[0].z}, poly->i, poly->j);
 	// printf("find coord %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 	// if (coord_plan.x < 0 || coord_plan.x > 1 || coord_plan.y < 0 || coord_plan.y > 1)
 	// {
@@ -61,6 +132,13 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	// 	printf("C %f %f\n\n", coord_plan.x, coord_plan.y);
 	// 	return (0x505050FF);
 	// }
+
+	if (coord_plan.x < 0 || coord_plan.x > 1 || coord_plan.y < 0 || coord_plan.y > 1)
+	{
+		// printf("Coord ext %f %f\n", coord_plan.x, coord_plan.y);
+		return (-1);
+	}
+
 	coord_texture = (t_dot){modulo(coord_plan.x * poly->dist12, poly->texture->w),\
 							modulo(coord_plan.y * poly->dist14, poly->texture->h)};
 
@@ -80,66 +158,11 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
 }
 
-
-
-static void		draw(t_win *win, t_player *player)
-{
-	// Uint32		pixels[HEIGHT * WIDTH];
-	// uint32_t		*pixels = (Uint32 *)malloc(sizeof(uint32_t) * WIDTH * HEIGHT);
-	// SDL_Texture	*texture;
-	t_cartesienne	**rays;
-	t_cartesienne	*ray;
-	int			x;
-	int			y;
-	int color;
-
-	rays = player->rays;
-	y = -1;
-	while (++y < HEIGHT)
-	{
-		ray = *rays;
-		x = -1;
-		while (++x < WIDTH)
-		{
-			color = ray->poly ? find_pixel(ray->poly, ray->collision) :\
-														0xFFFF00F0;
-	
-			SDL_SetRenderDrawColor(win->rend, ((color >> 16) & 0xFF),
-			 							((color >> 8) & 0xFF),
-			 							((color >> 0) & 0xFF),
-			 							((color >> 24) & 0xFF));
-			SDL_RenderDrawPoint(win->rend, x, y);
-
-			//win->pixels[y * WIDTH + x] = ray->poly ? find_pixel(ray->poly, ray->collision) :\
-			//										0xFFFF0000;
-			ray->dist = -1;
-			ray->poly = NULL;
-			ray->collision = (t_fdot_3d){};
-			ray++;
-		}
-		rays++;
-	}
-	// exit(1);
-	//SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, WIDTH * sizeof(uint32_t));
-	//SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
-	// SDL_RenderPresent(win->rend);
-	
-	
-	// y = -1;
-	// while (++y < HEIGHT)
-	// {
-	// 	x = -1;
-	// 	while (++x < WIDTH)
-	// 		;//printf("%x\n", win->pixels[y * WIDTH + x]);
-	// }
-}
-
-
-
 static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 {
 	t_fdot_3d		collision;
 	float			newdist;
+	int				color;
 	// clock_t			t1;
 	// clock_t			t2;
 
@@ -148,12 +171,10 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 	newdist = collision.x * collision.x + collision.y * collision.y + collision.z * collision.z;
 	// newdist = sqrt(newdist);
 
-	// if (fabs(ray->dist - newdist) < 0.000001)
-	// 	printf("2ray %f %f\t%p %p\n", ray->dist, newdist, ray->poly, poly);
-	// printf("dist %f\n", newdist);
-	if (ray->dist == -1 || newdist < ray->dist)
+	if ((!ray->poly || newdist < ray->dist) && (color = find_pixel(poly, collision)) != -1)
 	{
 		ray->poly = poly;
+		ray->color = color;
 		ray->dist = newdist;
 		ray->collision = collision;
 	}
@@ -224,6 +245,6 @@ void		raycasting_3d(t_win *win, t_player *player)
 	// t2 = clock();
 	// printf("sur %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 	draw_fps();
-	SDL_RenderPresent(win->rend);
+	// SDL_RenderPresent(win->rend);
 	// exit(0);
 }
