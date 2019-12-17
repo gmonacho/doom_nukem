@@ -18,13 +18,8 @@
 **
 */
 
-
-
 static void		draw(t_win *win, t_player *player)
 {
-	// Uint32		pixels[HEIGHT * WIDTH];
-	// uint32_t		*pixels = (Uint32 *)malloc(sizeof(uint32_t) * WIDTH * HEIGHT);
-	// SDL_Texture	*texture;
 	t_cartesienne	**rays;
 	t_cartesienne	*ray;
 	int			x;
@@ -38,81 +33,69 @@ static void		draw(t_win *win, t_player *player)
 		x = -1;
 		while (++x < WIDTH)
 		{
-			if (!ray->poly)
-				ray->color = 0xFF505050;
-			SDL_SetRenderDrawColor(win->rend, ((ray->color >> 16) & 0xFF),
-											((ray->color >> 8) & 0xFF),
-											((ray->color >> 0) & 0xFF),
-			 								((ray->color >> 24) & 0xFF));
-			SDL_RenderDrawPoint(win->rend, x, y);
-
-			//win->pixels[y * WIDTH + x] = ray->poly ? ray->color :\
-			//										0xFF505050;
+			win->pixels[y * WIDTH + x] = ray->poly ? ray->color :\
+													0xFF505050;
 			ray->poly = NULL;
 			ray++;
 		}
 		rays++;
 	}
-	// exit(1);
-	//SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, WIDTH * sizeof(uint32_t));
-	//SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
-	//SDL_RenderPresent(win->rend);
+
+	// SDL_SetTextureBlendMode(win->red_texture, SDL_BLENDMODE_BLEND);		//Set transparent
+	// SDL_SetRenderDrawBlendMode(win->rend, SDL_BLENDMODE_BLEND);
+	// SDL_SetRenderTarget(win->rend, win->red_texture);
+	// SDL_SetRenderDrawBlendMode(win->rend, SDL_BLENDMODE_NONE);
 	
-	
-	// y = -1;
-	// while (++y < HEIGHT)
-	// {
-	// 	x = -1;
-	// 	while (++x < WIDTH)
-	// 		;//printf("%x\n", win->pixels[y * WIDTH + x]);
-	// }
+	// SDL_SetRenderTarget(win->rend, NULL);
+
+	SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, WIDTH * sizeof(uint32_t));
+	SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
 }
 
 
 
-static int			find_coord_plan(t_fdot *coord, t_fdot_3d dot, t_fdot_3d i, t_fdot_3d j)
+static int			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot, t_fdot_3d i, t_fdot_3d j)
 {
-	float			denom;
-	float			uu;
-	float			vv;
-	float			uv;
-	float			pu;
-	float			pv;
+	// float			div;
+	// float			pi;
+	// float			pj;
 
-	uu = i.x * i.x + i.y * i.y + i.z * i.z;
-	vv = j.x * j.x + j.y * j.y + j.z * j.z;
-	uv = i.x * j.x + i.y * j.y + i.z * j.z;
-	pu = dot.x * i.x + dot.y * i.y + dot.z * i.z;
-	pv = dot.x * j.x + dot.y * j.y + dot.z * j.z;
-	if (!(denom = uv * uv - uu * vv))
-		return (0);
-	denom = 1 / denom;
-	coord->x = (vv * -pu - uv * -pv) * denom;
-	coord->y = (uu * -pv - uv * -pu) * denom;
+	// pi = dot.x * poly->i.x + dot.y * poly->i.y + dot.z * poly->i.z;
+	// pj = dot.x * poly->j.x + dot.y * poly->j.y + dot.z * poly->j.z;
+	// if (!(div = poly->ijij_iijj))
+	// 	return (0);
+	// div = 1 / div;
+	// coord->x = (-poly->jj * pi + poly->ij * pj) * div;
+	// coord->y = (-poly->ii * pj + poly->ij * pi) * div;
+	// i = (t_fdot_3d){};
+	// j = (t_fdot_3d){};
 
-	// if (!is_null((denominateur = i.x * j.y - i.y * j.x), 0.005))
-	// 	coord->y = (collision.y * i.x - collision.x * i.y) / denominateur;
-	// else if (!is_null((denominateur = i.y * j.z - i.z * j.y), 0.005))
-	// 	coord->y = (collision.z * i.y - collision.y * i.z) / denominateur;
-	// else if (!is_null((denominateur = i.z * j.x - i.x * j.z), 0.005))
-	// 	coord->y = (collision.x * i.z - collision.z * i.x) / denominateur;
-	// else
-	// {
-	// 	printf("Impossible vecteur unitaire j null ??? %f %f %f\n", j.x, j.y, j.z);
-	// 	exit(0);
-	// }
+	float denominateur;
 
-	// if (!is_null(i.x, 0.005))
-	// 	coord->x = (collision.x - j.x * coord->y) / i.x;
-	// else if (!is_null(i.y, 0.005))
-	// 	coord->x = (collision.y - j.y * coord->y) / i.y;
-	// else if (!is_null(i.z, 0.005))
-	// 	coord->x = (collision.z - j.z * coord->y) / i.z;
-	// else
-	// {
-	// 	printf("Impossible vecteur unitaire i null ??? %f %f %f\n", i.x, i.y, i.z);
-	// 	exit(0);
-	// }
+	if (!is_null((denominateur = i.x * j.y - i.y * j.x), 0.005))
+		coord->y = (dot.y * i.x - dot.x * i.y) / denominateur;
+	else if (!is_null((denominateur = i.y * j.z - i.z * j.y), 0.005))
+		coord->y = (dot.z * i.y - dot.y * i.z) / denominateur;
+	else if (!is_null((denominateur = i.z * j.x - i.x * j.z), 0.005))
+		coord->y = (dot.x * i.z - dot.z * i.x) / denominateur;
+	else
+	{
+		printf("Impossible vecteur unitaire j null ??? %f %f %f\n", j.x, j.y, j.z);
+		exit(0);
+	}
+
+	if (!is_null(i.x, 0.005))
+		coord->x = (dot.x - j.x * coord->y) / i.x;
+	else if (!is_null(i.y, 0.005))
+		coord->x = (dot.y - j.y * coord->y) / i.y;
+	else if (!is_null(i.z, 0.005))
+		coord->x = (dot.z - j.z * coord->y) / i.z;
+	else
+	{
+		printf("Impossible vecteur unitaire i null ??? %f %f %f\n", i.x, i.y, i.z);
+		exit(0);
+	}
+	poly = NULL;
 	return (1);
 }
 
@@ -122,9 +105,9 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	t_dot			coord_texture;
 
 	// find_coord_plan(&coord_plan, collision, poly->i, poly->j);
-	find_coord_plan(&coord_plan, (t_fdot_3d){	collision.x - poly->dots[0].x,\
-												collision.y - poly->dots[0].y,\
-												collision.z - poly->dots[0].z}, poly->i, poly->j);
+	find_coord_plan(poly, &coord_plan, (t_fdot_3d){	collision.x - poly->dots[0].x,\
+													collision.y - poly->dots[0].y,\
+													collision.z - poly->dots[0].z}, poly->i, poly->j);
 	// printf("find coord %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 	// if (coord_plan.x < 0 || coord_plan.x > 1 || coord_plan.y < 0 || coord_plan.y > 1)
 	// {
@@ -158,6 +141,22 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
 }
 
+// static int			average_color(int c1, int c2, int alpha)
+// {
+// 	return ((alpha + (c2 >> 24) * (255 - alpha) / 255) << 24 |\
+// 			((((c1 >> 16) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 16) & 0xFF)) / 255) << 16 |\
+// 			((((c1 >> 8) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 8) & 0xFF)) / 255) << 8 |\
+// 			((((c1 >> 0) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 0) & 0xFF)) / 255) << 0);
+
+// 	// unsigned char	average;
+
+// 	// average = ((c1 >> 24) + (c2 >> 24) * (255 - c1 >> 24) / 255) << 24;
+// 	// average += ((((c1 >> 16) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 26) & 0xFF)) / 255) << 16;
+// 	// average += ((((c1 >> 8) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 8) & 0xFF)) / 255) << 8;
+// 	// average += ((((c1 >> 0) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 0) & 0xFF)) / 255) << 0;
+// 	// return (average);
+// }
+
 static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 {
 	t_fdot_3d		collision;
@@ -171,13 +170,27 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 	newdist = collision.x * collision.x + collision.y * collision.y + collision.z * collision.z;
 	// newdist = sqrt(newdist);
 
+	// color = find_pixel(poly, collision);
+	// if (color != -1)
+	// {
+	// 	if (!ray->poly)
+	// 		ray->color = color;
+	// 	else if (newdist < ray->dist)
+	// 		ray->color = average_color(color, ray->color, color >> 24);
+	// 	else
+	// 		ray->color = average_color(ray->color, color, ray->color >> 24);
+	// 	ray->poly = poly;
+	// 	ray->dist = newdist;
+	// 	// ray->collision = collision;
+	// }
 	if ((!ray->poly || newdist < ray->dist) && (color = find_pixel(poly, collision)) != -1)
 	{
 		ray->poly = poly;
 		ray->color = color;
 		ray->dist = newdist;
-		ray->collision = collision;
+		// ray->collision = collision;
 	}
+
 	// printf("Ntm %p\n", poly);
 	// t1 = clock();
 	// t2 = clock();

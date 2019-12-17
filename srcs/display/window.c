@@ -10,10 +10,10 @@ int 			create_window(t_win *win, const char *title, SDL_Rect rect, Uint32 flags)
 	win->mouse = mouse_refresh();
 	win->frames = NULL;
 	win->text_entry = NULL;
-	if (!(win->rend = SDL_CreateRenderer(win->ptr, 0, SDL_RENDERER_SOFTWARE)))
+	if (!(win->rend = SDL_CreateRenderer(win->ptr, 0, SDL_RENDERER_SOFTWARE)) ||\
+		!(win->rend_texture = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT)))
 		return (ret_error(SDL_GetError()));
 	SDL_SetRenderDrawBlendMode(win->rend, SDL_BLENDMODE_BLEND);
-	printf("%p\n", win->rend);
 	return (1);
 }
 

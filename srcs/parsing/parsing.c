@@ -73,10 +73,12 @@ void find_texture(char *tab, t_poly *poly)
 	tmp = NULL;
 	if (ft_strstr(tab, "texture = Brique.png"))
 		poly->texture = IMG_Load("textures/randomPNG/Brick.png");
-	else if (ft_strstr(tab, "texture = elephantride.png"))
+	else if (ft_strstr(tab, "texture = Elephantride.png"))
 		poly->texture = IMG_Load("textures/elephantride.png");
-	else if (ft_strstr(tab, "texture = plafond.png"))
+	else if (ft_strstr(tab, "texture = Plafond.png"))
 		poly->texture = IMG_Load("textures/plafond.png");
+	else if (ft_strstr(tab, "texture = Vitre.png"))
+		poly->texture = IMG_Load("textures/vitre.png");
 	else if (ft_strstr(tab, "texture = Pierre.png"))
 		poly->texture = IMG_Load("textures/mur_pierre.png");
 	else if (ft_strstr(tab, "texture = Papier.png"))
@@ -85,6 +87,7 @@ void find_texture(char *tab, t_poly *poly)
 		printf("Ciseaux\n");
 	else if (ft_strstr(tab, "texture = JaiGagne!.png"))
 		printf("JaiGagne!\n");
+	printf("new texture : %p\n", poly->texture);
 }
 
 void		ft_fill_data(char **tab, t_poly **poly, int i)

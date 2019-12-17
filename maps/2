@@ -47,14 +47,6 @@ Polygon
 }
 Polygon
 {
-	dot = x:100, y:650, z:200
-	dot = x:600, y:650, z:200
-	dot = x:600, y:650, z:50
-	dot = x:100, y:650, z:50
-	texture = Vitre.png
-}
-Polygon
-{
 	dot = x:100, y:650, z:50
 	dot = x:100, y:150, z:50
 	dot = x:600, y:150, z:50

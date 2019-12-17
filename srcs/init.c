@@ -37,6 +37,10 @@ int			init_polygone(t_poly *poly)
 		poly->j = (t_fdot_3d){	poly->dots[N_DOTS_POLY - 1].x - poly->dots[0].x,\
 								poly->dots[N_DOTS_POLY - 1].y - poly->dots[0].y,\
 								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
+		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
+		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
+		poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
+		poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
 		poly->equation = (t_plan){(t_fdot_3d){	(poly->i.y * poly->j.z - poly->i.z * poly->j.y) / 10000,\
 												(poly->i.z * poly->j.x - poly->i.x * poly->j.z) / 10000,\
 												(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000},\
@@ -55,7 +59,7 @@ void		init_player(t_win *win, t_player *player)
 {
 	// win->view = TEXTURE_VIEW;
 	win->view = TEXTURE_VIEW | WALL_VIEW | BOX_VIEW;
-	player->dir_init = 0;
+	// player->dir_init = 0;
 
 	translate_all(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
 	rotate_all_rotz_only(win->map->polys, create_rz_matrix(-player->dir_init));

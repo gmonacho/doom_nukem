@@ -46,7 +46,7 @@ int			sign(float nbr)
 // 		*angle -= _2_PI;
 // }
 
-int			is_null(double nbr, double precision)
+int			is_null(float nbr, float precision)
 {
 	return (!(nbr > precision || nbr < -precision) ? 1 : 0);
 }

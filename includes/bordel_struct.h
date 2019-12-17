@@ -88,7 +88,7 @@ typedef struct		s_cartesienne
 	struct s_poly	*poly;
 	float			dist;
 	int				color;
-	t_fdot_3d		collision;
+	// t_fdot_3d		collision;
 	struct s_cartesienne	*next;
 }					t_cartesienne;
 
@@ -559,6 +559,10 @@ typedef	struct				s_poly
 	t_plan					equation_rotz_only;
 	t_fdot_3d				i;
 	t_fdot_3d				j;
+	float					ii;
+	float					jj;
+	float					ij;
+	float					ijij_iijj;
 
 	t_dot					dots_proj[N_DOTS_POLY * 2];
 	int						n_proj;	//*2 car une droite ne peut couper que 2 fois le bord de l'ecran

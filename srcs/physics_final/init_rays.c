@@ -11,13 +11,13 @@ static int			create_ray(t_cartesienne *ray, t_fdot angle, t_dot coord)
 	ray->oz = 0;
 	ray->vx = 1;
 	ray->vy = angle.x;
-	ray->vz = angle.y;
+	ray->vz = angle.y;	//Attention au vz dans intersection_plan_line()
 	// ray->vx = cos(angle.y) * cos(angle.x);
 	// ray->vy = cos(angle.y) * sin(angle.x);
 	// ray->vz = sin(angle.y);
 	ray->dist = -1;
 	ray->poly = NULL;
-	ray->collision = (t_fdot_3d){};
+	// ray->collision = (t_fdot_3d){};
 	if ((coord.x == 0 && coord.y == 0) ||\
 		(coord.x == 999 && coord.y == 0) ||\
 		(coord.x == 0 && coord.y == 799) ||\

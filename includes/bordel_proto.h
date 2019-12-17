@@ -390,7 +390,7 @@ float          fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
 float			fmag(t_fdot_3d dot);
 int				sign(float nbr);
 void			normalize(float *angle);
-int				is_null(double nbr, double precision);
+int				is_null(float nbr, float precision);
 float			fdist_3d_squared(t_fdot_3d p1, t_fdot_3d p2);
 
 
