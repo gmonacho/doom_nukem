@@ -1,4 +1,5 @@
 #include "doom_nukem.h"
+
     // clock_t			t1;
 	// clock_t			t2;
     // t1 = clock();
@@ -10,19 +11,16 @@ static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
 
     reload_cd(map);
     SDL_GetWindowSize(win->ptr, &win->w, &win->h);
-    clear_rend(win->rend, 0x40, 0x40, 0x40);
-    // SDL_PollEvent(event);
-    // physics(win, map, &(map->player));
-    //entiteMove();
 
-    raycasting_3d(win, &(map->player));
-    hud(win, &(map->player), win->texHud);
+    SDL_GetRelativeMouseState(&(win->mouse->x), &(win->mouse->y));
     mouse_state(win, &(map->player), *event, music);
     keyboard_state(win, &(map->player), music);
-    print_content_slot(win, &(map->player), win->texHud);
+    copy_rotate_rotz_only(map->polys, create_ry_matrix(map->player.rot_y));
     
-    SDL_GetRelativeMouseState(&(win->mouse->x), &(win->mouse->y));
-    //printf("xrel = %d \t | yrel = %d \n", event.motion.xrel, event.motion.yrel);∂∂∂
+    clear_rend(win->rend, 0x40, 0x40, 0x40);
+    raycasting_3d(win, &(map->player));
+    hud(win, &(map->player), win->texHud);
+    print_content_slot(win, &(map->player), win->texHud);    
     damage_heal(&(map->player), music, 0, 0);
     SDL_RenderPresent(win->rend);
 }

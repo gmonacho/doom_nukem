@@ -22,6 +22,13 @@ int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne 
 	collision->x = ray->vx * t;
 	collision->y = ray->vy * t;
 	collision->z = ray->vz * t;
+	if (collision->x != collision->x || ray->vy != ray->vy || t != t)
+	{
+		printf("Collision %f %f %f\n", collision->x, collision->y, collision->z);
+		printf("Plan %f %f %f\n", plan.v.x, plan.v.y, plan.v.z);
+		printf("Ray %f %f %f\n", ray->vx, ray->vy, ray->vz);
+		printf("t %f\n", t);
+	}
 	return (1);
 }
 // int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
@@ -69,7 +76,8 @@ t_dot			intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge)
 
 	if (!(denom = d1.x - d2.x))
 		return ((t_dot){d1.x, edge ? win->h - 1 : 0});
-	a = (d1.y - d2.y) / denom;
+	if (!(a = (d1.y - d2.y) / denom))
+		return ((t_dot){edge == 1 ? win->w - 1 : 0, d1.y});
 	b = d1.y - a * d1.x;
 	// printf("Line inter screen : y = %f * x + %f\n", a, b);
 	if (edge == 0)

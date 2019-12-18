@@ -8,10 +8,6 @@ Player
 	height = 90
 	velocity = 10
 }
-
-
-
-/* Salle du bas */
 Object
 {
 	posx = 100
@@ -21,7 +17,12 @@ Object
 	height = 100
 	texture = Brique.png
 }
-Polygon
+
+
+
+/* Murs du haut */
+
+Polygon									//Mur entier
 {
 	dot = x:100, y:650, z:200
 	dot = x:100, y:150, z:200
@@ -29,15 +30,39 @@ Polygon
 	dot = x:100, y:650, z:50
 	texture = Brique.png
 }
-Polygon
+Polygon									//Demi-mur
 {
-	dot = x:600, y:150, z:200
-	dot = x:600, y:650, z:200
+	dot = x:600, y:150, z:125
+	dot = x:600, y:650, z:125
 	dot = x:600, y:650, z:50
 	dot = x:600, y:150, z:50
 	texture = Brique.png
 }
-Polygon
+Polygon									//Fond principal renfoncement
+{
+	dot = x:700, y:150, z:200
+	dot = x:700, y:650, z:200
+	dot = x:700, y:650, z:125
+	dot = x:700, y:150, z:125
+	texture = Plafond.png
+}
+Polygon									//Fond renfoncement 2
+{
+	dot = x:700, y:150, z:200
+	dot = x:600, y:150, z:200
+	dot = x:600, y:150, z:125
+	dot = x:700, y:150, z:125
+	texture = Brique.png
+}
+Polygon									//Fond renfoncement 3
+{
+	dot = x:700, y:650, z:200
+	dot = x:600, y:650, z:200
+	dot = x:600, y:650, z:125
+	dot = x:700, y:650, z:125
+	texture = Brique.png
+}
+Polygon									//Fond
 {
 	dot = x:100, y:150, z:200
 	dot = x:600, y:150, z:200
@@ -45,28 +70,12 @@ Polygon
 	dot = x:100, y:150, z:50
 	texture = Elephantride.png
 }
-Polygon
-{
-	dot = x:100, y:650, z:50
-	dot = x:100, y:150, z:50
-	dot = x:600, y:150, z:50
-	dot = x:600, y:650, z:50
-	texture = Plafond.png
-}
-Polygon
-{
-	dot = x:100, y:650, z:200
-	dot = x:100, y:150, z:200
-	dot = x:600, y:150, z:200
-	dot = x:600, y:650, z:200
-	texture = Plafond.png
-}
 
 
 
-/* Salle du bas */
+/* Murs du bas */
 
-Polygon
+Polygon									//Mur complet
 {
 	dot = x:100, y:650, z:200
 	dot = x:100, y:1150, z:200
@@ -74,7 +83,15 @@ Polygon
 	dot = x:100, y:650, z:0
 	texture = Brique.png
 }
-Polygon
+Polygon									//Mur complet
+{
+	dot = x:600, y:1150, z:200
+	dot = x:600, y:650, z:200
+	dot = x:600, y:650, z:0
+	dot = x:600, y:1150, z:0
+	texture = Brique.png
+}
+Polygon									//Fond
 {
 	dot = x:100, y:1150, z:200
 	dot = x:600, y:1150, z:200
@@ -82,15 +99,10 @@ Polygon
 	dot = x:100, y:1150, z:0
 	texture = Elephantride.png
 }
-Polygon
-{
-	dot = x:600, y:1150, z:200
-	dot = x:600, y:650, z:200
-	dot = x:600, y:650, z:0
-	dot = x:600, y:1150, z:0
-	texture = Brique.png
-}
-Polygon
+
+
+
+Polygon								//Sol bas
 {
 	dot = x:100, y:650, z:0
 	dot = x:100, y:1150, z:0
@@ -98,24 +110,46 @@ Polygon
 	dot = x:600, y:650, z:0
 	texture = Plafond.png
 }
-Polygon
-{
-	dot = x:100, y:650, z:200
-	dot = x:100, y:1150, z:200
-	dot = x:600, y:1150, z:200
-	dot = x:600, y:650, z:200
-	texture = Plafond.png
-}
-
-
-
-/* Marche */
-
-Polygon
+Polygon								//Marche
 {
 	dot = x:100, y:650, z:0
 	dot = x:600, y:650, z:0
 	dot = x:600, y:650, z:50
 	dot = x:100, y:650, z:50
 	texture = Brique.png
+}
+Polygon								//Sol haut
+{
+	dot = x:100, y:650, z:50
+	dot = x:100, y:150, z:50
+	dot = x:600, y:150, z:50
+	dot = x:600, y:650, z:50
+	texture = Plafond.png
+}
+Polygon									//Sol renfoncement
+{
+	dot = x:700, y:150, z:125
+	dot = x:700, y:650, z:125
+	dot = x:600, y:650, z:125
+	dot = x:600, y:150, z:125
+	texture = Plafond.png
+}
+
+
+
+Polygon								//Plafond
+{
+	dot = x:100, y:1150, z:200
+	dot = x:100, y:150, z:200
+	dot = x:600, y:150, z:200
+	dot = x:600, y:1150, z:200
+	texture = Plafond.png
+}
+Polygon								//Plafond renforcement
+{
+	dot = x:600, y:650, z:200
+	dot = x:600, y:150, z:200
+	dot = x:700, y:150, z:200
+	dot = x:700, y:650, z:200
+	texture = Plafond.png
 }

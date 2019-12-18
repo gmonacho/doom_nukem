@@ -351,6 +351,8 @@ t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
 
 int					init_rays(t_win *win, t_player *player);
 void				translate_all(t_poly *sector, t_fdot_3d translation);
+void				translate_all_rotz_only(t_poly *poly, t_fdot_3d translation);
+t_fdot_3d			return_rotate_dot(t_fdot_3d dot, t_matrix matrix);
 void				rotate_all_dots(t_poly *sector, t_matrix matrix);
 void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix);
 void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix);

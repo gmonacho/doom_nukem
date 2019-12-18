@@ -172,7 +172,7 @@ void			surround_walls(t_win *win, t_map *map)
 		// t2 = clock();
 		// printf("In %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
-		// printf("BOX xy %d %d / %d %d\n\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
+		// printf("BOX xy %d %d / %d %d\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
 		poly = poly->next;
 	}
 	// printf("\n\n");

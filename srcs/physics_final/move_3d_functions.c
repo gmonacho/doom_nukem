@@ -12,7 +12,7 @@
 **	de la translation
 */
 
-static t_fdot_3d	return_rotate_dot(t_fdot_3d dot, t_matrix matrix)
+t_fdot_3d			return_rotate_dot(t_fdot_3d dot, t_matrix matrix)
 {
 	return ((t_fdot_3d){dot.x * matrix._00 + dot.y * matrix._10 + dot.z * matrix._20,\
 						dot.x * matrix._01 + dot.y * matrix._11 + dot.z * matrix._21,\
@@ -77,8 +77,9 @@ void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix)
 								poly->dots_rotz_only[N_DOTS_POLY - 1].z - poly->dots_rotz_only[0].z};
 		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
 		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
-		poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
-		poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
+		poly->ijij_iijj = -poly->ii * poly->jj;
+		// poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
+		// poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
 		poly = poly->next;
 	}
 }
@@ -102,8 +103,9 @@ void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix)
 								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
 		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
 		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
-		poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
-		poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
+		poly->ijij_iijj = -poly->ii * poly->jj;
+		// poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
+		// poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
 		poly = poly->next;
 	}
 }
@@ -130,30 +132,24 @@ void				translate_all(t_poly *poly, t_fdot_3d translation)
 {
 	// printf("Trans %f %f %f\n", translation.x, translation.y, translation.z);
 	while (poly)
-	{	
-		// printf("poly = %p\n", poly);
-		// poly->equation.d -= scalar_product(poly->equation.v, translation);
-		// poly->equation_rotz_only.d -= scalar_product(poly->equation_rotz_only.v, translation);
-
-		
-	// printf("\t\tDot %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
+	{
 		translate_dot(&(poly->dots[0]), translation);
 		translate_dot(&(poly->dots[1]), translation);
 		translate_dot(&(poly->dots[2]), translation);
 		translate_dot(&(poly->dots[3]), translation);
+		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x + poly->equation.v.y * poly->dots[0].y + poly->equation.v.z * poly->dots[0].z);
+		poly = poly->next;
+	}
+}
+void				translate_all_rotz_only(t_poly *poly, t_fdot_3d translation)
+{
+	// printf("Trans %f %f %f\n", translation.x, translation.y, translation.z);
+	while (poly)
+	{
 		translate_dot(&(poly->dots_rotz_only[0]), translation);
 		translate_dot(&(poly->dots_rotz_only[1]), translation);
 		translate_dot(&(poly->dots_rotz_only[2]), translation);
 		translate_dot(&(poly->dots_rotz_only[3]), translation);
-	// printf("\t\tDot %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
-
-		// poly->i = (t_fdot_3d){	poly->d2.x - poly->d1.x,\
-		// 						poly->d2.y - poly->d1.y,\
-		// 						poly->d2.z - poly->d1.z};
-		// poly->j = (t_fdot_3d){	poly->d3.x - poly->d1.x,\
-		// 						poly->d3.y - poly->d1.y,\
-		// 						poly->d3.z - poly->d1.z};
-		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x + poly->equation.v.y * poly->dots[0].y + poly->equation.v.z * poly->dots[0].z);
 		poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x + poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y + poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
 		poly = poly->next;
 	}

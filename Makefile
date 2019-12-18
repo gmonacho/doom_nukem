@@ -40,8 +40,8 @@ LIBFT = libft
 LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
 
 INCLUDE_PATH = ./includes
+INCLUDES = $(wildcard $(INCLUDE_PATH)/*.h)
 CC = gcc
-#CFLAGS += -Wall -Wextra -Werror -g3   -I$(INCLUDE_PATH)
 CFLAGS += -Wall -Wextra -Werror -O3 -I$(INCLUDE_PATH)\
                                                         -I$(LIBFT)/includes/\
 														-I./$(LIBSDLMIXER)/\
@@ -54,7 +54,7 @@ CFLAGS += -Wall -Wextra -Werror -O3 -I$(INCLUDE_PATH)\
 
 all:    directory $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(INCLUDES)
 		make -C $(LIBFT)
 		$(CC) $(CFLAGS) $(LIBRARIES) $(OBJS) -o $(NAME)
 

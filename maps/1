@@ -61,12 +61,12 @@ Polygon
 	dot = x:600, y:650, z:50
 	texture = Plafond.png
 }
-Polygon
+Polygon								//Plafond
 {
-	dot = x:100, y:650, z:200
+	dot = x:100, y:1150, z:200
 	dot = x:100, y:150, z:200
 	dot = x:600, y:150, z:200
-	dot = x:600, y:650, z:200
+	dot = x:600, y:1150, z:200
 	texture = Plafond.png
 }
 
@@ -106,18 +106,9 @@ Polygon
 	dot = x:600, y:650, z:0
 	texture = Plafond.png
 }
-Polygon
-{
-	dot = x:100, y:650, z:200
-	dot = x:100, y:1150, z:200
-	dot = x:600, y:1150, z:200
-	dot = x:600, y:650, z:200
-	texture = Plafond.png
-}
 
 
 
-/* Marche */
 
 Polygon
 {

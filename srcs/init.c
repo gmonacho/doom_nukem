@@ -62,6 +62,7 @@ void		init_player(t_win *win, t_player *player)
 	// player->dir_init = 0;
 
 	translate_all(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
+	translate_all_rotz_only(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
 	rotate_all_rotz_only(win->map->polys, create_rz_matrix(-player->dir_init));
 
 	player->inventory = define_inventory();
