@@ -371,6 +371,8 @@ void				init_matrix_rz(t_player *player);
 void				init_matrix_rz_inv(t_player *player);
 int					init_polygone(t_poly *poly);
 
+void				collisions(t_player *player, t_poly *poly);
+
 /*
 ** ================================== Time ===================================
 */

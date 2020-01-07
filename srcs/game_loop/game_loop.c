@@ -8,7 +8,6 @@
 
 static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
 {
-
     reload_cd(map);
     SDL_GetWindowSize(win->ptr, &win->w, &win->h);
 
@@ -16,7 +15,8 @@ static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
     mouse_state(win, &(map->player), *event, music);
     keyboard_state(win, &(map->player), music);
     copy_rotate_rotz_only(map->polys, create_ry_matrix(map->player.rot_y));
-    
+    collisions(&(map->player), map->polys);
+
     clear_rend(win->rend, 0x40, 0x40, 0x40);
     raycasting_3d(win, &(map->player));
     hud(win, &(map->player), win->texHud);

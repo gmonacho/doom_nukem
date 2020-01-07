@@ -31,6 +31,7 @@ int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne 
 	}
 	return (1);
 }
+
 // int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
 // {
 // 	float			t;
