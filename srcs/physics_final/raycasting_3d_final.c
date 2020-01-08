@@ -16,6 +16,7 @@
 **	Projection draw :	1
 **	Square draw :		2
 **
+**	- Time of 'collisions()' : ~0.0 . 10e-3
 */
 
 static void		draw(t_win *win, t_player *player)
@@ -54,7 +55,7 @@ static void		draw(t_win *win, t_player *player)
 
 
 
-static int			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot, t_fdot_3d i, t_fdot_3d j)
+int			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot, t_fdot_3d i, t_fdot_3d j)
 {
 	float			div;
 	float			pi;

@@ -50,13 +50,13 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 
 	if (state[SDL_SCANCODE_LSHIFT])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){0, 0, 3});
-		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, 0, 3});
+		translate_all(win->map->polys, (t_fdot_3d){0, 0, player->const_vel});
+		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, 0, player->const_vel});
 	}
 	if (state[SDL_SCANCODE_SPACE])
 	{
-		translate_all(win->map->polys, (t_fdot_3d){0, 0, -3});
-		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, 0, -3});
+		translate_all(win->map->polys, (t_fdot_3d){0, 0, -player->const_vel});
+		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, 0, -player->const_vel});
 	}
 	if (state[SDL_SCANCODE_KP_MINUS])
 		player->fov += -0.03 + (player->fov - 0.03 < 0 ? _2_PI : 0);

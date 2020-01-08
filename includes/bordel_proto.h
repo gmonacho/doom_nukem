@@ -336,9 +336,8 @@ int			game_loop(t_win *win, t_map *map);
 ** ================================== Physics ===================================
 */
 
-t_poly				*polys_a_la_mano(t_player *player);
-
 void				raycasting_3d(t_win *win, t_player *player);
+int					find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot, t_fdot_3d i, t_fdot_3d j);
 t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
 void				draw_all_square(t_win *win);
@@ -356,7 +355,6 @@ t_fdot_3d			return_rotate_dot(t_fdot_3d dot, t_matrix matrix);
 void				rotate_all_dots(t_poly *sector, t_matrix matrix);
 void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix);
 void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix);
-float				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
 
 void 				print_poly(t_poly *poly, int arg);
 
@@ -371,7 +369,7 @@ void				init_matrix_rz(t_player *player);
 void				init_matrix_rz_inv(t_player *player);
 int					init_polygone(t_poly *poly);
 
-void				collisions(t_player *player, t_poly *poly);
+int					collisions(t_player *player, t_poly *poly);
 
 /*
 ** ================================== Time ===================================
@@ -385,6 +383,9 @@ void            reload_cd(t_map *map);
 /*
 ** =========================== Math functions ===================================
 */
+
+float				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
+t_fdot_3d			ret_vectoriel_product(t_fdot_3d v1, t_fdot_3d v2);
 
 // float		dist(t_dot p1, t_dot p2);
 float  		modulo(float nbr, float mod);

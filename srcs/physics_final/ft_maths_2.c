@@ -5,6 +5,13 @@ float				scalar_product(t_fdot_3d v1, t_fdot_3d v2)
 	return ((float)(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z));
 }
 
+t_fdot_3d			ret_vectoriel_product(t_fdot_3d v1, t_fdot_3d v2)
+{
+	return ((t_fdot_3d){v1.y * v2.z - v1.z * v2.y,\
+						v1.x * v2.z - v1.z * v2.x,\
+						v1.x * v2.y - v1.y * v2.x});
+}
+
 int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
 {
 	float			t;

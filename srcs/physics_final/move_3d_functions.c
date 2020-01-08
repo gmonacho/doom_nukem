@@ -78,8 +78,6 @@ void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix)
 		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
 		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
 		poly->ijij_iijj = -poly->ii * poly->jj;
-		// poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
-		// poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
 		poly = poly->next;
 	}
 }
@@ -104,8 +102,6 @@ void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix)
 		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
 		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
 		poly->ijij_iijj = -poly->ii * poly->jj;
-		// poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
-		// poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
 		poly = poly->next;
 	}
 }

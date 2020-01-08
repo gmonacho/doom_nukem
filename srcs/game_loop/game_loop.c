@@ -1,10 +1,5 @@
 #include "doom_nukem.h"
 
-    // clock_t			t1;
-	// clock_t			t2;
-    // t1 = clock();
-	// t2 = clock();
-	// printf("find coord %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
 static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
 {
@@ -15,7 +10,12 @@ static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
     mouse_state(win, &(map->player), *event, music);
     keyboard_state(win, &(map->player), music);
     copy_rotate_rotz_only(map->polys, create_ry_matrix(map->player.rot_y));
-    collisions(&(map->player), map->polys);
+    clock_t			t1;
+	clock_t			t2;
+    t1 = clock();
+	t2 = clock();
+    printf("Collision : %d\n", collisions(&(map->player), map->polys));
+	printf("find coord %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
     clear_rend(win->rend, 0x40, 0x40, 0x40);
     raycasting_3d(win, &(map->player));
