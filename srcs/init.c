@@ -82,30 +82,13 @@ void		init_player(t_win *win, t_player *player)
     player->timers.reload_cd.index = 5;
     player->timers.bullet_cd.index = 5;
     player->timers.bullet_cd.index = 0;
-	// define_poly_shot(win, player);
-
-	// t_plan		p = (t_plan){(t_fdot_3d){-1, 0, 0}, 250};
-	// t_fdot_3d	translation = (t_fdot_3d){100, 100, 100};
-
-	// p.d -= scalar_product(p.v, translation);
-	// printf("Plan %f %f %f %f\tScalar product : %f\n", p.v.x, p.v.y, p.v.z, p.d, scalar_product(p.v, translation));
+	
+	// t_fdot		coord;
+	// print_poly(win->map->polys->next->next, 0);
+	// find_coord_plan_scalaire(win->map->polys, &coord, (t_fdot_3d){100, 0, 50});
+	// printf("Cx : %f\tcy : %f\n", coord.x, coord.y);
 	// exit(0);
 }
-
-// int		init_textures(t_win *win, t_textures *textures)
-// {
-// 	if (!(textures->wall_1 = IMG_Load("textures/elephantride.png")) ||\
-// 		!(textures->wall_2 = IMG_Load("textures/randomPNG/Brick.png")) ||\
-// 		!(textures->floor = IMG_Load("textures/sol.png")) ||\
-// 		!(textures->ceil = IMG_Load("textures/mur_pierre.png")) ||\
-// 		!(win->rend_texture = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT)))
-// 	{
-// 		ft_putendl(SDL_GetError());
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-
 
 int			init_music(t_doom_music	*music)
 {

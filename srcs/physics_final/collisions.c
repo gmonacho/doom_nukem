@@ -5,8 +5,8 @@ static int	is_in_poly(t_poly *poly, t_fdot_3d c1, t_fdot_3d c2)
 	t_fdot	coord1;
 	t_fdot	coord2;
 
-	find_coord_plan(poly, &coord1, c1, poly->i, poly->j);
-	find_coord_plan(poly, &coord2, c2, poly->i, poly->j);
+	find_coord_plan(poly, &coord1, c1);
+	find_coord_plan(poly, &coord2, c2);
 	return ((!(coord1.x <= 0 || 1 <= coord1.x || coord1.y <= 0 || 1 <= coord1.y) ||\
 			!(coord2.x <= 0 || 1 <= coord2.x || coord2.y <= 0 || 1 <= coord2.y)) ? 1 : 0);
 }

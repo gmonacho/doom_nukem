@@ -12,24 +12,24 @@ static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
     SDL_GetWindowSize(win->ptr, &win->w, &win->h);
 
     copy_poly_lst(map->polys_save, map->polys);
-    printf("1 d0 x %f %f\n", map->polys->next->dots[0].x, map->polys->next->dots_rotz_only[0].x);
+    // printf("1 d0 x %f %f\n", map->polys->next->dots[0].x, map->polys->next->dots_rotz_only[0].x);
 
     SDL_GetRelativeMouseState(&(win->mouse->x), &(win->mouse->y));
     mouse_state(win, &(map->player), *event, music);
     keyboard_state(win, &(map->player), music);
     copy_rotate_rotz_only(map->polys, create_ry_matrix(-map->player.rot_y));
     
-    printf("2 d0 x %f %f\n", map->polys->next->dots[0].x, map->polys->next->dots_rotz_only[0].x);
+    // printf("2 d0 x %f %f\n", map->polys->next->dots[0].x, map->polys->next->dots_rotz_only[0].x);
     if (map->player.collision_on)
     {
         if (collisions(&(map->player), map->polys))        
         {
-            printf("Collision : 1\n");
+            // printf("Collision : 1\n");
             copy_poly_lst(map->polys, map->polys_save);
         }
-        else
-            printf("Collision : 0\n");
-        printf("3 d0 x %f %f\n\n", map->polys->next->dots[0].x, map->polys->next->dots_rotz_only[0].x);
+        // else
+        //     printf("Collision : 0\n");
+        // printf("3 d0 x %f %f\n\n", map->polys->next->dots[0].x, map->polys->next->dots_rotz_only[0].x);
     }
 
     clear_rend(win->rend, 0x40, 0x40, 0x40);

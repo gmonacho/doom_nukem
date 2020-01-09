@@ -54,8 +54,13 @@ static void		draw(t_win *win, t_player *player)
 }
 
 
+void			find_coord_plan_scalaire(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
+{
+	coord->x = scalar_product(dot, poly->i) / (float)mag(poly->i);
+	coord->y = scalar_product(dot, poly->j) / (float)mag(poly->j);
+}
 
-int			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot, t_fdot_3d i, t_fdot_3d j)
+int			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 {
 	float			div;
 	float			pi;
@@ -70,8 +75,6 @@ int			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot, t_fdot_3d i, t
 	coord->y = (-poly->ii * pj) * div;
 	// coord->x = (-poly->jj * pi + poly->ij * pj) * div;
 	// coord->y = (-poly->ii * pj + poly->ij * pi) * div;
-	i = (t_fdot_3d){};
-	j = (t_fdot_3d){};
 
 	// float denominateur;
 
@@ -98,7 +101,6 @@ int			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot, t_fdot_3d i, t
 	// 	printf("Impossible vecteur unitaire i null ??? %f %f %f\n", i.x, i.y, i.z);
 	// 	exit(0);
 	// }
-	poly = NULL;
 	return (1);
 }
 
@@ -107,10 +109,12 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	t_fdot			coord_plan;
 	t_dot			coord_texture;
 
-	// find_coord_plan(&coord_plan, collision, poly->i, poly->j);
 	find_coord_plan(poly, &coord_plan, (t_fdot_3d){	collision.x - poly->dots[0].x,\
 													collision.y - poly->dots[0].y,\
-													collision.z - poly->dots[0].z}, poly->i, poly->j);
+													collision.z - poly->dots[0].z});
+	// find_coord_plan_scalaire(poly, &coord_plan, (t_fdot_3d){	collision.x - poly->dots[0].x,\
+	// 															collision.y - poly->dots[0].y,\
+	// 															collision.z - poly->dots[0].z});
 	// printf("find coord %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 	// if (coord_plan.x < 0 || coord_plan.x > 1 || coord_plan.y < 0 || coord_plan.y > 1)
 	// {

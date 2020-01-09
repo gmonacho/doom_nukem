@@ -345,7 +345,8 @@ int					create_poly_save(t_map *map);
 */
 
 void				raycasting_3d(t_win *win, t_player *player);
-int					find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot, t_fdot_3d i, t_fdot_3d j);
+int					find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
+void				find_coord_plan_scalaire(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
 t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
 void				draw_all_square(t_win *win);
@@ -383,10 +384,10 @@ int					collisions(t_player *player, t_poly *poly);
 ** ================================== Time ===================================
 */
 
-int             test_timer(t_timer *timer);
-void            start_cooldown(t_timer *timer, Uint32 time);
-void            init_cd(t_map *map);
-void            reload_cd(t_map *map);
+int					test_timer(t_timer *timer);
+void				start_cooldown(t_timer *timer, Uint32 time);
+void				init_cd(t_map *map);
+void				reload_cd(t_map *map);
 
 /*
 ** =========================== Math functions ===================================
@@ -396,22 +397,22 @@ float				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
 t_fdot_3d			ret_vectoriel_product(t_fdot_3d v1, t_fdot_3d v2);
 
 // float		dist(t_dot p1, t_dot p2);
-float  		modulo(float nbr, float mod);
-float			fdist(t_fdot p1, t_fdot p2);
-float          fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
-// float		mag(t_vector vector);
-float			fmag(t_fdot_3d dot);
-int				sign(float nbr);
-void			normalize(float *angle);
-int				is_null(float nbr, float precision);
-float			fdist_3d_squared(t_fdot_3d p1, t_fdot_3d p2);
+float  				modulo(float nbr, float mod);
+float				fdist(t_fdot p1, t_fdot p2);
+float				fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
+float				mag(t_fdot_3d v);
+float				fmag(t_fdot_3d dot);
+int					sign(float nbr);
+void				normalize(float *angle);
+int					is_null(float nbr, float precision);
+float				fdist_3d_squared(t_fdot_3d p1, t_fdot_3d p2);
 
 
-t_dot			intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge);
-void			draw_affine(t_win *win, t_affine function);
-void			draw_ray(t_win *win, t_player *player, t_affine ray);
-float			fprop(float value, t_fdot inter1, t_fdot inter2);
-float			prop(float value, t_dot inter1, t_dot inter2);
-int				intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
+t_dot				intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge);
+void				draw_affine(t_win *win, t_affine function);
+void				draw_ray(t_win *win, t_player *player, t_affine ray);
+float				fprop(float value, t_fdot inter1, t_fdot inter2);
+float				prop(float value, t_dot inter1, t_dot inter2);
+int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
 
 #endif

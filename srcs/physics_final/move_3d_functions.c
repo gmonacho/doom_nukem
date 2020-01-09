@@ -96,7 +96,8 @@ void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix)
 	while (poly)
 	{
 		poly->equation.v = return_rotate_dot(poly->equation_rotz_only.v, matrix);
-		
+		poly->equation.d = poly->equation_rotz_only.d;
+
 		poly->dots[0] = return_rotate_dot(poly->dots_rotz_only[0], matrix);
 		poly->dots[1] = return_rotate_dot(poly->dots_rotz_only[1], matrix);
 		poly->dots[2] = return_rotate_dot(poly->dots_rotz_only[2], matrix);

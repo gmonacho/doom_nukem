@@ -33,6 +33,11 @@ float			fdist_3d_squared(t_fdot_3d p1, t_fdot_3d p2)
             (p2.z - p1.z) * (p2.z - p1.z));
 }
 
+float			mag(t_fdot_3d v)
+{
+    return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
+}
+
 int			sign(float nbr)
 {
 	return (nbr < 0 ? -1 : 1);
