@@ -19,12 +19,12 @@ static void	mouse_move(t_win *win, t_player *player)
 	}
 	if (win->mouse->y > 0)
 	{
-		player->rot_y += player->ddir;
+		player->rot_y -= player->ddir;
 		// printf("Rot y %f\n", player->rot_y);
 	}
 	if (win->mouse->y < 0)
 	{
-		player->rot_y -= player->ddir;
+		player->rot_y += player->ddir;
 		// printf("Rot y %f\n", player->rot_y);
 	}
 }
@@ -41,11 +41,11 @@ static void	keyboard_dir(t_win *win, t_player *player, const Uint8 *state)
 	}
 	if (state[SDL_SCANCODE_UP])
 	{
-		player->rot_y -= player->ddir;
+		player->rot_y += player->ddir;
 	}
 	if (state[SDL_SCANCODE_DOWN])
 	{
-		player->rot_y += player->ddir;
+		player->rot_y -= player->ddir;
 	}
 
 	if (state[SDL_SCANCODE_LSHIFT])
@@ -76,15 +76,11 @@ static void	keyboard_move(t_win *win, t_player *player, const Uint8 *state)
 	{
 		translate_all(win->map->polys, (t_fdot_3d){-player->const_vel, 0, 0});
 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){-player->const_vel, 0, 0});
-		// translate_all_rotz_only(win->map->polys, return_rotate_dot((t_fdot_3d){-player->const_vel, 0, 0},\
-		// 												create_ry_matrix(-player->rot_y)));
 	}
 	if (state[SDL_SCANCODE_S])
 	{
 		translate_all(win->map->polys, (t_fdot_3d){player->const_vel, 0, 0});
 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){player->const_vel, 0, 0});
-		// translate_all_rotz_only(win->map->polys, return_rotate_dot((t_fdot_3d){player->const_vel, 0, 0},\
-		// 												create_ry_matrix(-player->rot_y)));
 	}
 	if (state[SDL_SCANCODE_A])
 	{
@@ -99,11 +95,12 @@ static void	keyboard_move(t_win *win, t_player *player, const Uint8 *state)
 		// translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, -player->const_vel, 0});
 	}
 	if (state[SDL_SCANCODE_L])
-	{
 		player->damage = 5;
-	}
+	if (state[SDL_SCANCODE_C])
+		player->collision_on = player->collision_on ? 0 : 1;
 }
- static void keyboard_shot(t_win *win, t_player *player, const Uint8 *state, t_music *music)
+
+static void keyboard_shot(t_win *win, t_player *player, const Uint8 *state, t_music *music)
 {	
 	char        *tmp;
     SDL_Texture *text;

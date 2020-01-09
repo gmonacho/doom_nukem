@@ -5,22 +5,6 @@
 **	pour trouver le vecteur normal au plan
 */
 
-// int				print_polys(t_win *win, t_player *player)
-// {
-// 	t_poly		*poly;
-
-// 	poly = win->map->polys;
-// 	while (poly)
-// 	{
-// 		printf("Equation %f x + %f y + %f z + %f = 0\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
-// 		printf("D1 %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
-// 		printf("D2 %f %f %f\n", poly->dots[1].x, poly->dots[1].y, poly->dots[1].z);
-// 		printf("D3 %f %f %f\n", poly->dots[2].x, poly->dots[2].y, poly->dots[2].z);
-// 		printf("D4 %f %f %f\n", poly->dots[3].x, poly->dots[3].y, poly->dots[3].z);
-// 		poly = poly->next;
-// 	}
-// }
-
 int			init_polygone(t_poly *poly)
 {
 	while (poly)
@@ -86,6 +70,7 @@ void		init_player(t_win *win, t_player *player)
 	player->inventory->magazine = 120;
 	player->width_2 = player->width / 2;
 	player->width_10 = player->width / 10;
+	win->map->player.collision_on = 1;
 	start_cooldown(&(player->timers.bullet_cd), 130);
 	start_cooldown(&(player->timers.item_cd), 200);
 	start_cooldown(&(player->timers.text_cd), 600);

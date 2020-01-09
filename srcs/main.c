@@ -13,8 +13,9 @@ static int		init(t_win *win, t_map *map, t_player *player)
 		ft_putendl("init_music failed");
 		return (4);
 	}
-	init_polygone(map->polys);
 	init_player(win, player);
+	init_polygone(map->polys);
+	create_poly_save(map);
 	return (0);
 }
 

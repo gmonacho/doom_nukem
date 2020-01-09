@@ -2,7 +2,7 @@ Player
 {
 	posx = 200
 	posy = 200
-	posz = 140
+	posz = 150
 	dir = -90
 	width = 30
 	height = 90

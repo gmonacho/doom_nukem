@@ -333,6 +333,14 @@ void		check_file(t_map_editor *map);
 int			game_loop(t_win *win, t_map *map);
 
 /*
+** ============================= Polys ======================
+*/
+
+int					lstlen(t_poly *poly);
+void				copy_poly_lst(t_poly *dst, t_poly *src);
+int					create_poly_save(t_map *map);
+
+/*
 ** ================================== Physics ===================================
 */
 

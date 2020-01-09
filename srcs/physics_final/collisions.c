@@ -7,8 +7,8 @@ static int	is_in_poly(t_poly *poly, t_fdot_3d c1, t_fdot_3d c2)
 
 	find_coord_plan(poly, &coord1, c1, poly->i, poly->j);
 	find_coord_plan(poly, &coord2, c2, poly->i, poly->j);
-	return ((!(coord1.x < 0 || 1 < coord1.x || coord1.y < 0 || 1 < coord1.y) &&\
-			!(coord2.x < 0 || 1 < coord2.x || coord2.y < 0 || 1 < coord2.y)) ? 0 : 1);
+	return ((!(coord1.x <= 0 || 1 <= coord1.x || coord1.y <= 0 || 1 <= coord1.y) ||\
+			!(coord2.x <= 0 || 1 <= coord2.x || coord2.y <= 0 || 1 <= coord2.y)) ? 1 : 0);
 }
 
 static int	resolve(t_poly *poly, t_fdot_3d polynome, float delta, int zc)
@@ -35,7 +35,7 @@ static int	resolve(t_poly *poly, t_fdot_3d polynome, float delta, int zc)
 	return (is_in_poly(poly, c1, c2));
 }
 
-static int	is_collision(t_player *player, t_poly *poly, int zc, int width)
+static int	collision_circle(t_player *player, t_poly *poly, int zc, int width)
 {
 	t_fdot_3d	polynome;
 	float		delta;
@@ -76,7 +76,7 @@ int		collisions(t_player *player, t_poly *poly)
 		z = -player->height;
 		while (z++ < 0)
 		{
-			if (is_collision(player, poly, z, player->width))
+			if (collision_circle(player, poly, z, player->width))
 				return (1);
 			// ret = is_collision(player, poly, z, player->width);
 			// if (ret)
