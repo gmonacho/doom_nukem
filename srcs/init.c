@@ -7,11 +7,15 @@
 
 int			init_polygone(t_poly *poly)
 {
+	int		i;
+
+	i = 0;
 	while (poly)
 	{
 		// printf("Poly 3 pts : %f %f %f / %f %f %f / %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z,\
 		// 														poly->dots[1].x, poly->dots[1].y, poly->dots[1].z,\
 		// 														poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
+		poly->index = i++;
 		ft_memcpy(poly->dots_rotz_only, poly->dots, sizeof(t_fdot_3d) * 4);
 		poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
 		poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);

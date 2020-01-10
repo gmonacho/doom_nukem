@@ -1,14 +1,5 @@
 #include "doom_nukem.h"
 
-void		tab_cpy(t_fdot_3d dst[N_DOTS_POLY * 2], t_fdot_3d src[N_DOTS_POLY * 2], int length)
-{
-	int		i;
-
-	i = -1;
-	while (++i < length)
-		dst[i] = src[i];
-}
-
 int			lstlen(t_poly *poly)
 {
 	int		count;
@@ -28,12 +19,9 @@ void		copy_poly_lst(t_poly *dst, t_poly *src)
 
 	while (src)
 	{
-		// printf("Poly cpy dest %p\tsrc %p\n", dst, src);
 		tmp = dst->next;
 		ft_memcpy(dst, src, sizeof(t_poly));
 		dst->next = tmp;
-		tab_cpy(dst->dots_rotz_only, src->dots_rotz_only, N_DOTS_POLY);
-		tab_cpy(dst->dots, src->dots, N_DOTS_POLY);
 		dst = dst->next;
 		src = src->next;
 	}

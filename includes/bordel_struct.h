@@ -547,6 +547,7 @@ typedef struct				s_textures
 
 typedef	struct				s_poly
 {
+	int						index;
 	t_fdot_3d				dots[N_DOTS_POLY];
 	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
 

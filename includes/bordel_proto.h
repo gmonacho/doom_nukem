@@ -345,8 +345,7 @@ int					create_poly_save(t_map *map);
 */
 
 void				raycasting_3d(t_win *win, t_player *player);
-int					find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
-void				find_coord_plan_scalaire(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
+void				find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
 t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
 void				draw_all_square(t_win *win);
@@ -367,6 +366,7 @@ void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix);
 
 void 				print_poly(t_poly *poly, int arg);
 
+t_matrix			create_matrix(t_fdot_3d axe, float angle);
 t_matrix			create_rx_matrix(float angle);
 t_matrix			create_ry_matrix(float angle);
 t_matrix			create_rz_matrix(float angle);
@@ -378,7 +378,8 @@ void				init_matrix_rz(t_player *player);
 void				init_matrix_rz_inv(t_player *player);
 int					init_polygone(t_poly *poly);
 
-int					collisions(t_player *player, t_poly *poly);
+t_poly				*collisions(t_player *player, t_poly *poly);
+void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collide);
 
 /*
 ** ================================== Time ===================================
@@ -413,6 +414,7 @@ void				draw_affine(t_win *win, t_affine function);
 void				draw_ray(t_win *win, t_player *player, t_affine ray);
 float				fprop(float value, t_fdot inter1, t_fdot inter2);
 float				prop(float value, t_dot inter1, t_dot inter2);
-int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
+int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
+int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne ray);
 
 #endif

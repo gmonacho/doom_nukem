@@ -8,6 +8,8 @@
 
 static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
 {
+    t_poly  *poly_collide;
+
     reload_cd(map);
     SDL_GetWindowSize(win->ptr, &win->w, &win->h);
 
@@ -22,10 +24,11 @@ static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
     // printf("2 d0 x %f %f\n", map->polys->next->dots[0].x, map->polys->next->dots_rotz_only[0].x);
     if (map->player.collision_on)
     {
-        if (collisions(&(map->player), map->polys))        
+        if ((poly_collide = collisions(&(map->player), map->polys)))
         {
             // printf("Collision : 1\n");
-            copy_poly_lst(map->polys, map->polys_save);
+            copy_poly_lst(map->polys, map->polys_save);                 //Collision avec arret
+            // slide(map, map->polys, map->polys_save, poly_collide);   //Collision avec slide
         }
         // else
         //     printf("Collision : 0\n");

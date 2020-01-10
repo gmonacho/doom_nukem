@@ -12,7 +12,7 @@ t_fdot_3d			ret_vectoriel_product(t_fdot_3d v1, t_fdot_3d v2)
 						v1.x * v2.y - v1.y * v2.x});
 }
 
-int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
+int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
 {
 	float			t;
 	float			denominateur;
@@ -26,7 +26,7 @@ int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne 
 	}
 	// printf("denom = %f\n", denominateur);
 	t = -plan.d / denominateur;
-	collision->x = ray->vx * t;
+	collision->x = t;
 	collision->y = ray->vy * t;
 	collision->z = ray->vz * t;
 	if (collision->x != collision->x || ray->vy != ray->vy || t != t)
@@ -36,6 +36,21 @@ int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne 
 		printf("Ray %f %f %f\n", ray->vx, ray->vy, ray->vz);
 		printf("t %f\n", t);
 	}
+	return (1);
+}
+
+int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne ray)
+{
+	float			t;
+	float			denominateur;
+
+	denominateur = plan.v.x * ray.vx + plan.v.y * ray.vy + plan.v.z * ray.vz;
+	if (denominateur == 0)
+		return (0);
+	t = -plan.d / denominateur;
+	collision->x = ray.vy * t + ray.ox;
+	collision->y = ray.vy * t + ray.oy;
+	collision->z = ray.vz * t + ray.oz;
 	return (1);
 }
 

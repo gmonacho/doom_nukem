@@ -66,6 +66,8 @@ char		**ft_fill_map(int fd, int fp1)
 	return (tab);
 }
 
+//Proteger les IMG_load(), si on est pas dans le repertoire courant le programme abort
+//Avec SDL_GetError()
 void find_texture(char *tab, t_poly *poly)
 {	
 	SDL_Texture *tmp;
