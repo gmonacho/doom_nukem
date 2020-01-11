@@ -401,6 +401,7 @@ t_fdot_3d			ret_vectoriel_product(t_fdot_3d v1, t_fdot_3d v2);
 float  				modulo(float nbr, float mod);
 float				fdist(t_fdot p1, t_fdot p2);
 float				fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
+t_fdot_3d			fdot_3d_sub(t_fdot_3d d1, t_fdot_3d d2);
 float				mag(t_fdot_3d v);
 float				fmag(t_fdot_3d dot);
 int					sign(float nbr);

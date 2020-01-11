@@ -29,7 +29,7 @@ static int	resolve(t_poly *poly, t_fdot_3d polynome, float ad, float bd, float d
 		c1.x = ad * c1.y + bd;
 		c2.x = ad * c2.y + bd;
 	}
-	else if (!is_null(poly->equation_rotz_only.v.y, 0.0005))
+	else
 	{
 		c1.x = (-polynome.y - sqrt(delta)) / (2 * polynome.x);
 		c2.x = (-polynome.y + sqrt(delta)) / (2 * polynome.x);
@@ -38,7 +38,7 @@ static int	resolve(t_poly *poly, t_fdot_3d polynome, float ad, float bd, float d
 	}
 	c1.z = zc;
 	c2.z = zc;
-	return (is_in_poly(poly, c1, c2));
+	return (is_in_poly(poly, fdot_3d_sub(c1, poly->dots[0]), fdot_3d_sub(c2, poly->dots[0])));
 }
 
 static int	collision_circle(t_player *player, t_poly *poly, int zc, int radius)
@@ -63,9 +63,10 @@ static int	collision_circle(t_player *player, t_poly *poly, int zc, int radius)
 	else
 	{
 		delta = -poly->equation_rotz_only.d / poly->equation_rotz_only.v.z;
+		// printf("zc zp %d %f\n", zc, delta);
 		return (!(delta < -player->height || 0 < delta) &&\
-				is_in_poly(poly, (t_fdot_3d){0, 0, delta},\
-								(t_fdot_3d){0, 0, delta}) ? 1 : 0);
+				is_in_poly(poly, fdot_3d_sub((t_fdot_3d){0, 0, delta}, poly->dots[0]),\
+								fdot_3d_sub((t_fdot_3d){0, 0, delta}, poly->dots[0])) ? 1 : 0);
 	}	
 	polynome.x = 1 + ad * ad;
 	polynome.y = 2 * ad * bd;

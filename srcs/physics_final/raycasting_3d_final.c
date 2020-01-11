@@ -112,9 +112,7 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	// find_coord_plan(poly, &coord_plan, (t_fdot_3d){	collision.x - poly->dots[0].x,\
 	// 												collision.y - poly->dots[0].y,\
 	// 												collision.z - poly->dots[0].z});
-	find_coord_plan(poly, &coord_plan, (t_fdot_3d){	collision.x - poly->dots[0].x,\
-													collision.y - poly->dots[0].y,\
-													collision.z - poly->dots[0].z});
+	find_coord_plan(poly, &coord_plan, fdot_3d_sub(collision, poly->dots[0]));
 	// printf("find coord %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 	// if (coord_plan.x < 0 || coord_plan.x > 1 || coord_plan.y < 0 || coord_plan.y > 1)
 	// {

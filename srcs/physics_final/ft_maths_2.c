@@ -1,5 +1,12 @@
 #include "doom_nukem.h"
 
+t_fdot_3d			fdot_3d_sub(t_fdot_3d d1, t_fdot_3d d2)
+{
+	return ((t_fdot_3d){d1.x - d2.x,\
+						d1.y - d2.y,\
+						d1.z - d2.z});
+}
+
 float				scalar_product(t_fdot_3d v1, t_fdot_3d v2)
 {
 	return ((float)(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z));
