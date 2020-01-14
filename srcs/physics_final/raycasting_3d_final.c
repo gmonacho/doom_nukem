@@ -216,7 +216,7 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 
 
 
-static void			square_tracing(t_player *player, t_poly *poly)
+static void			square_tracing(t_win *win, t_player *player, t_poly *poly)
 {
 	int				x;
 	int				y;
@@ -226,14 +226,16 @@ static void			square_tracing(t_player *player, t_poly *poly)
 	// t1 = clock();
 	y = poly->box_y.x;
 	while (++y < poly->box_y.y)
-	{
-		x = poly->box_x.x;
-		while (++x < poly->box_x.y)
+		if (0 <= y && y < win->h)
 		{
-			launch_ray_3d(poly, &(player->rays[y][x]));
-			// printf("%f %f %f\n", player->rays[y][x].vx, player->rays[y][x].vy, player->rays[y][x].vz);
+			x = poly->box_x.x;
+			while (++x < poly->box_x.y)
+			{
+				if (0 <= x && x < win->w)
+					launch_ray_3d(poly, &(player->rays[y][x]));
+				// printf("%f %f %f\n", player->rays[y][x].vx, player->rays[y][x].vy, player->rays[y][x].vz);
+			}
 		}
-	}
 	// t2 = clock();
 	// printf("time calcul %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 }
@@ -261,7 +263,7 @@ void		raycasting_3d(t_win *win, t_player *player)
 		while (poly)
 		{
 			// printf("MAIS NIQUE TA MERE %p\n", poly);
-			square_tracing(player, poly);
+			square_tracing(win, player, poly);
 			poly = poly->next;
 		}
 		draw(win, player);

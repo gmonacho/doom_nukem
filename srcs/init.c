@@ -87,10 +87,14 @@ void		init_player(t_win *win, t_player *player)
     player->timers.bullet_cd.index = 5;
     player->timers.bullet_cd.index = 0;
 	
-	// t_fdot		coord;
-	// print_poly(win->map->polys->next->next, 0);
-	// find_coord_plan_scalaire(win->map->polys, &coord, (t_fdot_3d){100, 0, 50});
-	// printf("Cx : %f\tcy : %f\n", coord.x, coord.y);
+	t_fdot_3d	d1 = (t_fdot_3d){3, -5, 9};
+	t_fdot_3d	d2 = (t_fdot_3d){-1, 1, -9};
+	t_fdot_3d	ret;
+
+	ret = return_rotate_dot(d1, create_rz_matrix(M_PI_2));
+	printf("ret %f %f %f\n", ret.x, ret.y, ret.z);
+	ret = return_rotate_dot(d2, create_rz_matrix(M_PI_2));
+	printf("ret %f %f %f\n", ret.x, ret.y, ret.z);
 	// exit(0);
 }
 

@@ -608,6 +608,7 @@ typedef struct		s_player
 	int				win_h;
 	t_fdot			pos;
 	t_fdot_3d		pos_up;
+	int				on_floor;
 	t_sector		*sector;
 	t_dot			dpos;
 	// float			z;
@@ -710,9 +711,12 @@ typedef struct		s_map
 	// t_sector		*sectors;
 	t_textures		textures;
 	t_player		player;
+	float			gravity;
 	t_object		*object;
 	t_mob			*mob;
 	t_main_menu		main_menu;
+	SDL_Event		*event;
+	t_music			*music;
 }					t_map;
 
 /*

@@ -45,6 +45,7 @@ int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienn
 	}
 	return (1);
 }
+//Opti utiliser une autre ft que celle du raytracer pour pas avoir (ray->vx = 1) dans les eq.
 
 int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne ray)
 {
@@ -54,8 +55,8 @@ int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne r
 	denominateur = plan.v.x * ray.vx + plan.v.y * ray.vy + plan.v.z * ray.vz;
 	if (denominateur == 0)
 		return (0);
-	t = -plan.d / denominateur;
-	collision->x = ray.vy * t + ray.ox;
+	t = (-plan.d - plan.v.x * ray.ox - plan.v.y * ray.oy - plan.v.z * ray.oz) / denominateur;
+	collision->x = ray.vx * t + ray.ox;
 	collision->y = ray.vy * t + ray.oy;
 	collision->z = ray.vz * t + ray.oz;
 	return (1);

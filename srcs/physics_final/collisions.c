@@ -64,9 +64,24 @@ static int	collision_circle(t_player *player, t_poly *poly, int zc, int radius)
 	{
 		delta = -poly->equation_rotz_only.d / poly->equation_rotz_only.v.z;
 		// printf("zc zp %d %f\n", zc, delta);
-		return (!(delta < -player->height || 0 < delta) &&\
-				is_in_poly(poly, fdot_3d_sub((t_fdot_3d){0, 0, delta}, poly->dots[0]),\
-								fdot_3d_sub((t_fdot_3d){0, 0, delta}, poly->dots[0])) ? 1 : 0);
+		if (!(delta < -player->height || 0 < delta) &&\
+			is_in_poly(poly, fdot_3d_sub((t_fdot_3d){0, 0, delta}, poly->dots[0]),\
+							fdot_3d_sub((t_fdot_3d){0, 0, delta}, poly->dots[0])))
+		{
+			if (delta == -player->height)
+				player->on_floor = 1;
+			return (1);
+		}
+		else
+		{
+			if (delta == -player->height)
+				player->on_floor = 0;
+			return (0);
+		}
+		
+		// return (!(delta < -player->height || 0 < delta) &&\
+		// 		is_in_poly(poly, fdot_3d_sub((t_fdot_3d){0, 0, delta}, poly->dots[0]),\
+		// 						fdot_3d_sub((t_fdot_3d){0, 0, delta}, poly->dots[0])) ? 1 : 0);
 	}	
 	polynome.x = 1 + ad * ad;
 	polynome.y = 2 * ad * bd;
@@ -84,8 +99,8 @@ t_poly		*collisions(t_player *player, t_poly *poly)
 
 	while (poly)
 	{
-		z = -player->height;
-		while (z++ < 0)
+		z = -player->height / 2;
+		while (z++ < player->height / 2)
 		{
 			if (collision_circle(player, poly, z, player->width / 2))
 				return (poly);

@@ -32,7 +32,7 @@ int    dead_moment(t_win *win, t_player *player, t_texHud *texHud, SDL_Event eve
     
     textM = NULL;
     textQ = NULL;
-    if (player->currentHp <= 0)
+    if (player->currentHp < 0)
     {   
         textM = generate_text(win->rend, win->main_menu->police, "MENU", (SDL_Color){255, 0, 0, 50});
         textMB = generate_text(win->rend, win->main_menu->police, "MENU", (SDL_Color){0, 0, 0, 50});
@@ -50,6 +50,8 @@ int    dead_moment(t_win *win, t_player *player, t_texHud *texHud, SDL_Event eve
             return (1);
         destroyTextures(textM, textMB, textQ, textQB);
     }
+    // else
+    //     return (1);
 	// event.type = SDL_FALSE;
     return (0);
 }

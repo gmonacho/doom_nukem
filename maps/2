@@ -4,8 +4,8 @@ Player
 	posy = 200
 	posz = 150
 	dir = -90
-	width = 30
-	height = 90
+	width = 60
+	height = 60
 	velocity = 10
 }
 Object
@@ -101,6 +101,14 @@ Polygon									//Fond
 }
 
 
+Polygon								//Plan incline
+{
+	dot = x:100, y:900, z:0
+	dot = x:100, y:1150, z:80
+	dot = x:600, y:1150, z:80
+	dot = x:600, y:900, z:0
+	texture = Brique.png
+}
 
 Polygon								//Sol bas
 {

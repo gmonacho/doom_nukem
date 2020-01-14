@@ -19,20 +19,14 @@ void	        init_player(t_win *win, t_player *player);
 ** =====================================================================================
 */
 
-/*
-**	---------------------------------- Mouse ----------------------------------
-*/
+t_mouse			*mouse_refresh();
+void			events_move(t_win *win, t_player *player, const Uint8 *state);
+void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *state);
+void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *state);
+void			events_others(t_win *win, t_player *player, const Uint8 *state);
 
-t_mouse		*mouse_refresh();
-t_dot		mouse_drag(int x, int y, SDL_bool end);
-
-/*
-**	---------------------------------- Event ----------------------------------
-*/
-
-int	        keyboard_state(t_win *win, t_player *player, t_music *music);
-int	        key_pressed(Uint32 sdl_keycode);
-void 	        mouse_state(t_win *win, t_player *player, SDL_Event event, t_music *music);
+int				key_pressed(Uint32 sdl_keycode);
+t_dot			mouse_drag(int x, int y, SDL_bool end);
 
 /*
 **	---------------------------------- Time ----------------------------------
