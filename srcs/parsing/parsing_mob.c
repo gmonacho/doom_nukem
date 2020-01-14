@@ -16,20 +16,28 @@ void    fill_mob_data(t_mob **mob, char **tab, int i)
     while (ft_strchr(tab[i], '}') == NULL || ft_strchr(tab[i - 1], '}') == NULL)
     {
         add_mob(mob);
-        if (ft_strstr(tab[i], "name ="))
+        if (ft_strstr(tab[i], "mob = "))
             (*mob)->name = ft_strdup(ft_strrchr(tab[i], '=') + 1);
         while (!(ft_strchr(tab[i], '}')))
         {
-            if (ft_strstr(tab[i], "nbmob = "))
-                (*mob)->nmob = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+            if (ft_strstr(tab[i], "type = "))
+                (*mob)->type = ft_atoi(ft_strrchr(tab[i], '=') + 1);
             if (ft_strstr(tab[i], "posx = "))
                 (*mob)->pos.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
             if (ft_strstr(tab[i], "posy = "))
                 (*mob)->pos.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "sector = "))
-                (*mob)->sector = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "live = "))
-                (*mob)->live = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+            if (ft_strstr(tab[i], "posz = "))
+                (*mob)->pos.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+            if (ft_strstr(tab[i], "dir = "))
+                (*mob)->dir = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+            if (ft_strstr(tab[i], "width = "))
+                (*mob)->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+            if (ft_strstr(tab[i], "height = "))
+                (*mob)->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+            if (ft_strstr(tab[i], "velocity = "))
+                (*mob)->velocity = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+            if (ft_strstr(tab[i], "health = "))
+                (*mob)->health = ft_atoi(ft_strrchr(tab[i], '=') + 1);
             i++;
         }
         i++;

@@ -86,10 +86,13 @@ void		init_player(t_win *win, t_player *player)
     player->timers.reload_cd.index = 5;
     player->timers.bullet_cd.index = 5;
     player->timers.bullet_cd.index = 0;
+<<<<<<< HEAD
+=======
 	
 	t_fdot_3d	d1 = (t_fdot_3d){3, -5, 9};
 	t_fdot_3d	d2 = (t_fdot_3d){-1, 1, -9};
 	t_fdot_3d	ret;
+>>>>>>> af4648869009f228ba11a4f0a2b0b7668c47a98c
 
 	ret = return_rotate_dot(d1, create_rz_matrix(M_PI_2));
 	printf("ret %f %f %f\n", ret.x, ret.y, ret.z);

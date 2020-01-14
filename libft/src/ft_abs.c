@@ -13,5 +13,5 @@
 
 double		ft_abs(double n)
 {
-	return (n < 0.0) ? -n : n;
+	return ((n < 0.0) ? -n : n);
 }
