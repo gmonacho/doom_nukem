@@ -35,7 +35,7 @@ static SDL_bool game(t_win *win, t_map *map)
     map->event = &event;
     SDL_GetRelativeMouseState(&(win->mouse->x), &(win->mouse->y));
 	state = SDL_GetKeyboardState(NULL);
-    mouse_refresh();
+    // mouse_refresh();
 
     events_rotate(win, map, &(map->player), state);
     events_actions(win, map, &(map->player), state);

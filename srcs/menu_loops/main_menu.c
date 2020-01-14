@@ -151,5 +151,5 @@ int			main_menu(t_win *win)
 		SDL_RenderPresent(win->rend);
 	}
 	main_menu_quit(win);
-	return (next_loop);                      
+	return (next_loop);         
 }

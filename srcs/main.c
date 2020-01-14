@@ -6,7 +6,6 @@
 **	Mobs
 **	Objects
 **	Gravity mobs, objects
-**	Fixer la mort du Player
 **	Fixer la gestion des menus
 **	Norme all
 **	Clean code/fichier inutiles

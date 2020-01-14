@@ -101,7 +101,7 @@ Polygon									//Fond
 }
 
 
-Polygon								//Plan incline
+Polygon								//Rampe
 {
 	dot = x:100, y:900, z:0
 	dot = x:100, y:1150, z:80
@@ -109,6 +109,15 @@ Polygon								//Plan incline
 	dot = x:600, y:900, z:0
 	texture = Brique.png
 }
+Polygon								//Merde volante
+{
+	dot = x:400, y:800, z:42
+	dot = x:400, y:850, z:72
+	dot = x:450, y:850, z:72
+	dot = x:450, y:800, z:42
+	texture = Brique.png
+}
+
 
 Polygon								//Sol bas
 {
