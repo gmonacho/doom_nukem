@@ -1,11 +1,25 @@
 #include "doom_nukem.h"
 
+t_fdot_3d			fdot_3d_sub(t_fdot_3d d1, t_fdot_3d d2)
+{
+	return ((t_fdot_3d){d1.x - d2.x,\
+						d1.y - d2.y,\
+						d1.z - d2.z});
+}
+
 float				scalar_product(t_fdot_3d v1, t_fdot_3d v2)
 {
 	return ((float)(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z));
 }
 
-int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
+t_fdot_3d			ret_vectoriel_product(t_fdot_3d v1, t_fdot_3d v2)
+{
+	return ((t_fdot_3d){v1.y * v2.z - v1.z * v2.y,\
+						v1.x * v2.z - v1.z * v2.x,\
+						v1.x * v2.y - v1.y * v2.x});
+}
+
+int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
 {
 	float			t;
 	float			denominateur;
@@ -19,7 +33,7 @@ int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne 
 	}
 	// printf("denom = %f\n", denominateur);
 	t = -plan.d / denominateur;
-	collision->x = ray->vx * t;
+	collision->x = t;
 	collision->y = ray->vy * t;
 	collision->z = ray->vz * t;
 	if (collision->x != collision->x || ray->vy != ray->vy || t != t)
@@ -31,6 +45,23 @@ int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne 
 	}
 	return (1);
 }
+//Opti utiliser une autre ft que celle du raytracer pour pas avoir (ray->vx = 1) dans les eq.
+
+int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne ray)
+{
+	float			t;
+	float			denominateur;
+
+	denominateur = plan.v.x * ray.vx + plan.v.y * ray.vy + plan.v.z * ray.vz;
+	if (denominateur == 0)
+		return (0);
+	t = (-plan.d - plan.v.x * ray.ox - plan.v.y * ray.oy - plan.v.z * ray.oz) / denominateur;
+	collision->x = ray.vx * t + ray.ox;
+	collision->y = ray.vy * t + ray.oy;
+	collision->z = ray.vz * t + ray.oz;
+	return (1);
+}
+
 // int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
 // {
 // 	float			t;

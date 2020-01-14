@@ -42,6 +42,7 @@ t_mouse		*mouse_refresh()
 **	end = False si debut du drag
 **	end = True si fin du drag
 */
+
 t_dot		mouse_drag(int x, int y, SDL_bool end)
 {
 	static t_dot pos = (t_dot){0, 0};

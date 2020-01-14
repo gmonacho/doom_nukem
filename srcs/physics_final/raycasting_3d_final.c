@@ -16,6 +16,7 @@
 **	Projection draw :	1
 **	Square draw :		2
 **
+**	- Time of 'collisions()' : ~0.0 . 10e-3
 */
 
 static void		draw(t_win *win, t_player *player)
@@ -53,63 +54,65 @@ static void		draw(t_win *win, t_player *player)
 }
 
 
-
-static int			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot, t_fdot_3d i, t_fdot_3d j)
+void			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 {
-	float			div;
-	float			pi;
-	float			pj;
-
-	pi = dot.x * poly->i.x + dot.y * poly->i.y + dot.z * poly->i.z;
-	pj = dot.x * poly->j.x + dot.y * poly->j.y + dot.z * poly->j.z;
-	if (!(div = poly->ijij_iijj))
-		return (0);
-	div = 1 / div;
-	coord->x = (-poly->jj * pi) * div;
-	coord->y = (-poly->ii * pj) * div;
-	// coord->x = (-poly->jj * pi + poly->ij * pj) * div;
-	// coord->y = (-poly->ii * pj + poly->ij * pi) * div;
-	i = (t_fdot_3d){};
-	j = (t_fdot_3d){};
-
-	// float denominateur;
-
-	// if (!is_null((denominateur = i.x * j.y - i.y * j.x), 0.005))
-	// 	coord->y = (dot.y * i.x - dot.x * i.y) / denominateur;
-	// else if (!is_null((denominateur = i.y * j.z - i.z * j.y), 0.005))
-	// 	coord->y = (dot.z * i.y - dot.y * i.z) / denominateur;
-	// else if (!is_null((denominateur = i.z * j.x - i.x * j.z), 0.005))
-	// 	coord->y = (dot.x * i.z - dot.z * i.x) / denominateur;
-	// else
-	// {
-	// 	printf("Impossible vecteur unitaire j null ??? %f %f %f\n", j.x, j.y, j.z);
-	// 	exit(0);
-	// }
-
-	// if (!is_null(i.x, 0.005))
-	// 	coord->x = (dot.x - j.x * coord->y) / i.x;
-	// else if (!is_null(i.y, 0.005))
-	// 	coord->x = (dot.y - j.y * coord->y) / i.y;
-	// else if (!is_null(i.z, 0.005))
-	// 	coord->x = (dot.z - j.z * coord->y) / i.z;
-	// else
-	// {
-	// 	printf("Impossible vecteur unitaire i null ??? %f %f %f\n", i.x, i.y, i.z);
-	// 	exit(0);
-	// }
-	poly = NULL;
-	return (1);
+	coord->x = scalar_product(dot, poly->i) / poly->ii;
+	coord->y = scalar_product(dot, poly->j) / poly->jj;
 }
+
+// int			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
+// {
+// 	float			div;
+// 	float			pi;
+// 	float			pj;
+
+// 	pi = dot.x * poly->i.x + dot.y * poly->i.y + dot.z * poly->i.z;
+// 	pj = dot.x * poly->j.x + dot.y * poly->j.y + dot.z * poly->j.z;
+// 	if (!(div = poly->ijij_iijj))
+// 		return (0);
+// 	div = 1 / div;
+// 	coord->x = (-poly->jj * pi) * div;
+// 	coord->y = (-poly->ii * pj) * div;
+// 	// coord->x = (-poly->jj * pi + poly->ij * pj) * div;
+// 	// coord->y = (-poly->ii * pj + poly->ij * pi) * div;
+
+// 	// float denominateur;
+
+// 	// if (!is_null((denominateur = i.x * j.y - i.y * j.x), 0.005))
+// 	// 	coord->y = (dot.y * i.x - dot.x * i.y) / denominateur;
+// 	// else if (!is_null((denominateur = i.y * j.z - i.z * j.y), 0.005))
+// 	// 	coord->y = (dot.z * i.y - dot.y * i.z) / denominateur;
+// 	// else if (!is_null((denominateur = i.z * j.x - i.x * j.z), 0.005))
+// 	// 	coord->y = (dot.x * i.z - dot.z * i.x) / denominateur;
+// 	// else
+// 	// {
+// 	// 	printf("Impossible vecteur unitaire j null ??? %f %f %f\n", j.x, j.y, j.z);
+// 	// 	exit(0);
+// 	// }
+
+// 	// if (!is_null(i.x, 0.005))
+// 	// 	coord->x = (dot.x - j.x * coord->y) / i.x;
+// 	// else if (!is_null(i.y, 0.005))
+// 	// 	coord->x = (dot.y - j.y * coord->y) / i.y;
+// 	// else if (!is_null(i.z, 0.005))
+// 	// 	coord->x = (dot.z - j.z * coord->y) / i.z;
+// 	// else
+// 	// {
+// 	// 	printf("Impossible vecteur unitaire i null ??? %f %f %f\n", i.x, i.y, i.z);
+// 	// 	exit(0);
+// 	// }
+// 	return (1);
+// }
 
 static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 {
 	t_fdot			coord_plan;
 	t_dot			coord_texture;
 
-	// find_coord_plan(&coord_plan, collision, poly->i, poly->j);
-	find_coord_plan(poly, &coord_plan, (t_fdot_3d){	collision.x - poly->dots[0].x,\
-													collision.y - poly->dots[0].y,\
-													collision.z - poly->dots[0].z}, poly->i, poly->j);
+	// find_coord_plan(poly, &coord_plan, (t_fdot_3d){	collision.x - poly->dots[0].x,\
+	// 												collision.y - poly->dots[0].y,\
+	// 												collision.z - poly->dots[0].z});
+	find_coord_plan(poly, &coord_plan, fdot_3d_sub(collision, poly->dots[0]));
 	// printf("find coord %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 	// if (coord_plan.x < 0 || coord_plan.x > 1 || coord_plan.y < 0 || coord_plan.y > 1)
 	// {
@@ -175,7 +178,7 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 	// clock_t			t2;
 
 
-	if (!intersection_plan_line(&collision, poly->equation, ray))
+	if (!intersection_plan_my_ray(&collision, poly->equation, ray))
 		return ;
 	newdist = collision.x * collision.x + collision.y * collision.y + collision.z * collision.z;
 	// newdist = sqrt(newdist);
@@ -213,7 +216,7 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 
 
 
-static void			square_tracing(t_player *player, t_poly *poly)
+static void			square_tracing(t_win *win, t_player *player, t_poly *poly)
 {
 	int				x;
 	int				y;
@@ -223,14 +226,16 @@ static void			square_tracing(t_player *player, t_poly *poly)
 	// t1 = clock();
 	y = poly->box_y.x;
 	while (++y < poly->box_y.y)
-	{
-		x = poly->box_x.x;
-		while (++x < poly->box_x.y)
+		if (0 <= y && y < win->h)
 		{
-			launch_ray_3d(poly, &(player->rays[y][x]));
-			// printf("%f %f %f\n", player->rays[y][x].vx, player->rays[y][x].vy, player->rays[y][x].vz);
+			x = poly->box_x.x;
+			while (++x < poly->box_x.y)
+			{
+				if (0 <= x && x < win->w)
+					launch_ray_3d(poly, &(player->rays[y][x]));
+				// printf("%f %f %f\n", player->rays[y][x].vx, player->rays[y][x].vy, player->rays[y][x].vz);
+			}
 		}
-	}
 	// t2 = clock();
 	// printf("time calcul %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 }
@@ -258,7 +263,7 @@ void		raycasting_3d(t_win *win, t_player *player)
 		while (poly)
 		{
 			// printf("MAIS NIQUE TA MERE %p\n", poly);
-			square_tracing(player, poly);
+			square_tracing(win, player, poly);
 			poly = poly->next;
 		}
 		draw(win, player);

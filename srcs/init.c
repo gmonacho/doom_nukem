@@ -5,29 +5,17 @@
 **	pour trouver le vecteur normal au plan
 */
 
-// int				print_polys(t_win *win, t_player *player)
-// {
-// 	t_poly		*poly;
-
-// 	poly = win->map->polys;
-// 	while (poly)
-// 	{
-// 		printf("Equation %f x + %f y + %f z + %f = 0\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
-// 		printf("D1 %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
-// 		printf("D2 %f %f %f\n", poly->dots[1].x, poly->dots[1].y, poly->dots[1].z);
-// 		printf("D3 %f %f %f\n", poly->dots[2].x, poly->dots[2].y, poly->dots[2].z);
-// 		printf("D4 %f %f %f\n", poly->dots[3].x, poly->dots[3].y, poly->dots[3].z);
-// 		poly = poly->next;
-// 	}
-// }
-
 int			init_polygone(t_poly *poly)
 {
+	int		i;
+
+	i = 0;
 	while (poly)
 	{
 		// printf("Poly 3 pts : %f %f %f / %f %f %f / %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z,\
 		// 														poly->dots[1].x, poly->dots[1].y, poly->dots[1].z,\
 		// 														poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
+		poly->index = i++;
 		ft_memcpy(poly->dots_rotz_only, poly->dots, sizeof(t_fdot_3d) * 4);
 		poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
 		poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
@@ -86,6 +74,7 @@ void		init_player(t_win *win, t_player *player)
 	player->inventory->magazine = 120;
 	player->width_2 = player->width / 2;
 	player->width_10 = player->width / 10;
+	win->map->player.collision_on = 1;
 	start_cooldown(&(player->timers.bullet_cd), 130);
 	start_cooldown(&(player->timers.item_cd), 200);
 	start_cooldown(&(player->timers.text_cd), 600);
@@ -97,29 +86,20 @@ void		init_player(t_win *win, t_player *player)
     player->timers.reload_cd.index = 5;
     player->timers.bullet_cd.index = 5;
     player->timers.bullet_cd.index = 0;
+<<<<<<< HEAD
+=======
+	
+	t_fdot_3d	d1 = (t_fdot_3d){3, -5, 9};
+	t_fdot_3d	d2 = (t_fdot_3d){-1, 1, -9};
+	t_fdot_3d	ret;
+>>>>>>> af4648869009f228ba11a4f0a2b0b7668c47a98c
 
-	// t_plan		p = (t_plan){(t_fdot_3d){-1, 0, 0}, 250};
-	// t_fdot_3d	translation = (t_fdot_3d){100, 100, 100};
-
-	// p.d -= scalar_product(p.v, translation);
-	// printf("Plan %f %f %f %f\tScalar product : %f\n", p.v.x, p.v.y, p.v.z, p.d, scalar_product(p.v, translation));
+	ret = return_rotate_dot(d1, create_rz_matrix(M_PI_2));
+	printf("ret %f %f %f\n", ret.x, ret.y, ret.z);
+	ret = return_rotate_dot(d2, create_rz_matrix(M_PI_2));
+	printf("ret %f %f %f\n", ret.x, ret.y, ret.z);
 	// exit(0);
 }
-
-// int		init_textures(t_win *win, t_textures *textures)
-// {
-// 	if (!(textures->wall_1 = IMG_Load("textures/elephantride.png")) ||\
-// 		!(textures->wall_2 = IMG_Load("textures/randomPNG/Brick.png")) ||\
-// 		!(textures->floor = IMG_Load("textures/sol.png")) ||\
-// 		!(textures->ceil = IMG_Load("textures/mur_pierre.png")) ||\
-// 		!(win->rend_texture = SDL_CreateTexture(win->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT)))
-// 	{
-// 		ft_putendl(SDL_GetError());
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-
 
 int			init_music(t_doom_music	*music)
 {

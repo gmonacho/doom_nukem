@@ -19,17 +19,26 @@ t_fdot_3d			return_rotate_dot(t_fdot_3d dot, t_matrix matrix)
 						dot.x * matrix._02 + dot.y * matrix._12 + dot.z * matrix._22});
 }
 
-static void			rotate_dot(t_fdot_3d *dot, t_matrix matrix)
+static void			translate_dot(t_fdot_3d *dot, t_fdot_3d translation)
 {
-	float			save_vx;
-	float			save_vy;
-
-	save_vx = dot->x * matrix._00 + dot->y * matrix._10 + dot->z * matrix._20;
-	save_vy = dot->x * matrix._01 + dot->y * matrix._11 + dot->z * matrix._21;
-	dot->z = dot->x * matrix._02 + dot->y * matrix._12 + dot->z * matrix._22;
-	dot->x = save_vx;
-	dot->y = save_vy;
+	// printf("\t\tDot %f %f %f\n", dot->x, dot->y, dot->z);
+	dot->x += translation.x;
+	dot->y += translation.y;
+	dot->z += translation.z;
+	// printf("\t\tDot %f %f %f\n", dot->x, dot->y, dot->z);
 }
+
+// static void			rotate_dot(t_fdot_3d *dot, t_matrix matrix)
+// {
+// 	float			save_vx;
+// 	float			save_vy;
+
+// 	save_vx = dot->x * matrix._00 + dot->y * matrix._10 + dot->z * matrix._20;
+// 	save_vy = dot->x * matrix._01 + dot->y * matrix._11 + dot->z * matrix._21;
+// 	dot->z = dot->x * matrix._02 + dot->y * matrix._12 + dot->z * matrix._22;
+// 	dot->x = save_vx;
+// 	dot->y = save_vy;
+// }
 
 // void				rotate_all_dots(t_poly *poly, t_matrix matrix)
 // {
@@ -62,12 +71,12 @@ void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix)
 {
 	while (poly)
 	{
-		rotate_dot(&(poly->equation_rotz_only.v), matrix);
+		poly->equation_rotz_only.v = return_rotate_dot(poly->equation_rotz_only.v, matrix);
 		
-		rotate_dot(&(poly->dots_rotz_only[0]), matrix);
-		rotate_dot(&(poly->dots_rotz_only[1]), matrix);
-		rotate_dot(&(poly->dots_rotz_only[2]), matrix);
-		rotate_dot(&(poly->dots_rotz_only[3]), matrix);
+		poly->dots_rotz_only[0] = return_rotate_dot(poly->dots_rotz_only[0], matrix);
+		poly->dots_rotz_only[1] = return_rotate_dot(poly->dots_rotz_only[1], matrix);
+		poly->dots_rotz_only[2] = return_rotate_dot(poly->dots_rotz_only[2], matrix);
+		poly->dots_rotz_only[3] = return_rotate_dot(poly->dots_rotz_only[3], matrix);
 
 		poly->i = (t_fdot_3d){	poly->dots_rotz_only[1].x - poly->dots_rotz_only[0].x,\
 								poly->dots_rotz_only[1].y - poly->dots_rotz_only[0].y,\
@@ -78,8 +87,6 @@ void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix)
 		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
 		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
 		poly->ijij_iijj = -poly->ii * poly->jj;
-		// poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
-		// poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
 		poly = poly->next;
 	}
 }
@@ -89,7 +96,8 @@ void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix)
 	while (poly)
 	{
 		poly->equation.v = return_rotate_dot(poly->equation_rotz_only.v, matrix);
-		
+		poly->equation.d = poly->equation_rotz_only.d;
+
 		poly->dots[0] = return_rotate_dot(poly->dots_rotz_only[0], matrix);
 		poly->dots[1] = return_rotate_dot(poly->dots_rotz_only[1], matrix);
 		poly->dots[2] = return_rotate_dot(poly->dots_rotz_only[2], matrix);
@@ -104,29 +112,11 @@ void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix)
 		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
 		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
 		poly->ijij_iijj = -poly->ii * poly->jj;
-		// poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
-		// poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
 		poly = poly->next;
 	}
 }
 
 
-
-
-
-
-
-
-
-
-static void			translate_dot(t_fdot_3d *dot, t_fdot_3d translation)
-{
-	// printf("\t\tDot %f %f %f\n", dot->x, dot->y, dot->z);
-	dot->x += translation.x;
-	dot->y += translation.y;
-	dot->z += translation.z;
-	// printf("\t\tDot %f %f %f\n", dot->x, dot->y, dot->z);
-}
 
 void				translate_all(t_poly *poly, t_fdot_3d translation)
 {
@@ -141,6 +131,7 @@ void				translate_all(t_poly *poly, t_fdot_3d translation)
 		poly = poly->next;
 	}
 }
+
 void				translate_all_rotz_only(t_poly *poly, t_fdot_3d translation)
 {
 	// printf("Trans %f %f %f\n", translation.x, translation.y, translation.z);

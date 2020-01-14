@@ -2,6 +2,8 @@
 	"files.associations": {
 		"loop.h": "c",
 		"doom_nukem.h": "c",
-		"string.h": "c"
+		"string.h": "c",
+		"ios": "c",
+		"__locale": "c"
 	}
 }

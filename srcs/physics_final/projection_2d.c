@@ -2,8 +2,6 @@
 #include <time.h>
 
 /*
-**	tan(a) = dx / dy;
-**	On oublie le tan pour annuler le fish-eyes
 **
 **	Pour chaque poly :
 **		On creer un nouveau tab de dot 3d pour ramener tout les dot.y en positif
@@ -11,11 +9,7 @@
 **		On creer un nouveau tab de dot 2d pour ramener la proj dans l'ecran
 **		On creer la box
 */
-
 /*
-**	ATTENTION, il faut prendre en compte le bas et le haut de lecran
-**	si les traits passent seulement par les bords gauche et droits !
-**
 **	Tester pour les 4 cote chaque segments, si un segment est dessus
 **	alors new point et suppr lancien (Comme pour ramener les y<0 devant soi)
 **	On fais ca 4 fois au lieu de 1
@@ -148,7 +142,7 @@ static void		create_dot_on_axe_y(t_poly *poly)
 	// printf("\n");
 }
 
-
+//BOX SORTENT  DE LECRAN WTFF ??
 
 void			surround_walls(t_win *win, t_map *map)
 {

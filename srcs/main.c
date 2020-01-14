@@ -1,5 +1,20 @@
 #include "doom_nukem.h"
 
+/*
+**	A faire :
+**
+**	Mobs
+**	Objects
+**	Gravity mobs, objects
+**	Fixer la mort du Player
+**	Fixer la gestion des menus
+**	Norme all
+**	Clean code/fichier inutiles
+**
+**	Multi threading moteurs
+**	Seg fault sur certaines text att !
+*/
+
 static int		init(t_win *win, t_map *map, t_player *player)
 {
 	printf("Debut init\n");
@@ -13,8 +28,9 @@ static int		init(t_win *win, t_map *map, t_player *player)
 		ft_putendl("init_music failed");
 		return (4);
 	}
-	init_polygone(map->polys);
 	init_player(win, player);
+	init_polygone(map->polys);
+	create_poly_save(map);
 	return (0);
 }
 
@@ -27,7 +43,7 @@ int			main(int argc, char **argv)
 	t_win		win;
 	t_map		map;
 	SDL_bool	loop;
-	SDL_Event	event;
+	// SDL_Event	event;
 
 	if (argc == 1 || argc == 2)
 	{
@@ -42,6 +58,7 @@ int			main(int argc, char **argv)
 		win.w = WIDTH;
 		win.h = HEIGHT;
 		win.map = &map;
+		map.gravity = 4;
 		// if (!(create_window(&win, "doom_nukem", (SDL_Rect){0, 0, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 		if (!create_window(&win, "doom_nukem", (SDL_Rect){400, 400, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE))
 			return (0);
@@ -58,9 +75,9 @@ int			main(int argc, char **argv)
 			if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||\
 				((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 				return (ret_error("open error"));
-			SDL_PollEvent(&event);
-			if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-				loop = SDL_FALSE;
+			// SDL_PollEvent(&event);
+			// if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+			// 	loop = SDL_FALSE;
 			win.map->polys = ft_data_storing(fd, fd1, &map, &win);
 			//exit(0);
 			if ((ret = init(&win, &map, &(map.player))))

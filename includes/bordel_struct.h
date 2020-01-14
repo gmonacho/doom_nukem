@@ -550,11 +550,9 @@ typedef struct				s_textures
 
 typedef	struct				s_poly
 {
-	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
-
+	int						index;
 	t_fdot_3d				dots[N_DOTS_POLY];
-	t_fdot_3d				dots_new[N_DOTS_POLY + 2];	//Un poly ne peut passe que 2 fois sur x
-	int						n_dot;
+	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
 
 	float					dist12;
 	float					dist14;
@@ -567,9 +565,10 @@ typedef	struct				s_poly
 	float					ij;
 	float					ijij_iijj;
 
+	t_fdot_3d				dots_new[N_DOTS_POLY + 2];	//Un poly ne peut passe que 2 fois sur x
+	int						n_dot;
 	t_dot					dots_proj[N_DOTS_POLY * 2];
 	int						n_proj;	//*2 car une droite ne peut couper que 2 fois le bord de l'ecran
-
 	t_dot					box_x;
 	t_dot					box_y;
 
@@ -612,6 +611,7 @@ typedef struct		s_player
 	int				win_h;
 	t_fdot			pos;
 	t_fdot_3d		pos_up;
+	int				on_floor;
 	t_sector		*sector;
 	t_dot			dpos;
 	// float			z;
@@ -631,7 +631,8 @@ typedef struct		s_player
 	int				width;
 	float			width_2;
 	float			width_10;
-	// float			lenRay;
+	int				collision_on;
+
 	int				numsector;
 	int 			currentHp;
 	int 			maxHp;
@@ -709,12 +710,16 @@ typedef struct	s_map_editor
 typedef struct		s_map
 {
 	t_poly			*polys;
+	t_poly			*polys_save;
 	// t_sector		*sectors;
 	t_textures		textures;
 	t_player		player;
+	float			gravity;
 	t_object		*object;
 	t_mob			*mob;
 	t_main_menu		main_menu;
+	SDL_Event		*event;
+	t_music			*music;
 }					t_map;
 
 /*

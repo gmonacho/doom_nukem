@@ -25,6 +25,11 @@ void 			print_poly(t_poly *poly, int arg)
 	}
 	if (arg == 1)
 	{
+		while (++i < N_DOTS_POLY)
+			printf("D%d (%f, %f, %f)\n", i, poly->dots_rotz_only[i].x, poly->dots_rotz_only[i].y, poly->dots_rotz_only[i].z);
+	}
+	if (arg == 2)
+	{
 		while (++i < poly->n_dot)
 			printf("D%d (%f, %f, %f)\n", i, poly->dots_new[i].x, poly->dots_new[i].y, poly->dots_new[i].z);
 	}
