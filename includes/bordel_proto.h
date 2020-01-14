@@ -157,7 +157,6 @@ void 	        print_shot(t_win *win, t_player *player);
 void		add_bullet(t_player *player);
 void	        del_bullet(t_player *player);
 SDL_Texture	*load_texture(SDL_Renderer *rend, const char *file);
-void		define_poly_shot(t_win *win, t_player *player);
 
 /*
 **	---------------------------------- inventory ----------------------------------

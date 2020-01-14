@@ -19,10 +19,10 @@ static void game(t_win *win, t_map *map, SDL_Event *event, t_music *music)
     
     clear_rend(win->rend, 0x40, 0x40, 0x40);
     raycasting_3d(win, &(map->player));
-    hud(win, &(map->player), win->texHud);
     print_content_slot(win, &(map->player), win->texHud);    
     damage_heal(&(map->player), music, 0, 0);
-    SDL_RenderPresent(win->rend);
+    hud(win, &(map->player), win->texHud);
+    //SDL_RenderPresent(win->rend);
 }
 
 int		game_loop(t_win *win, t_map *map)
@@ -45,17 +45,19 @@ int		game_loop(t_win *win, t_map *map)
         SDL_PollEvent(&event);
         game(win, map, &event, music);
         if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE || dead_moment(win, &(map->player), win->texHud, event) == 2)
-        {
+        {   
             loop = SDL_FALSE;
             main_menu(win);
+            define_line_shot(win, &(map->player));
         }
         if (dead_moment(win, &(map->player), win->texHud, event) == 1)
-        {
+        {   
             SDL_DestroyWindow(win->ptr);
             SDL_DestroyRenderer(win->rend);
             SDL_Quit();
             exit(0);
         }
+        SDL_RenderPresent(win->rend);
         event.type = SDL_FALSE;
     }
 	return (1);

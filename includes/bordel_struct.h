@@ -415,10 +415,13 @@ typedef struct s_timers
 
 typedef struct s_mob
 {	
-	t_dot			pos;
-	int 			live;
-	int 			nmob;
-	int				sector;
+	t_fdot_3d		pos;
+	int 			health;
+	int 			type;
+	int				dir;
+	int 			width;
+	int 			height;
+	int 			velocity;
 	int 			id;
 	char 			*name;
 	struct s_mob	*next;

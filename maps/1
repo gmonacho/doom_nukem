@@ -8,7 +8,57 @@ Player
 	height = 90
 	velocity = 10
 }
-
+Mob
+{	
+	mob0
+	{	
+		type = 1
+		posx = 200
+		posy = 200
+		posz = 140
+		dir = -90
+		width = 30
+		height = 90
+		velocity = 10
+		health = 100
+	}
+	mob = 1
+	{	
+		type = 1
+		posx = 200
+		posy = 200
+		posz = 140
+		dir = -90
+		width = 30
+		height = 90
+		velocity = 10
+		health = 50
+	}
+	mob = 2
+	{
+		type = 3
+		posx = 200
+		posy = 200
+		posz = 140
+		dir = -90
+		width = 30
+		height = 90
+		velocity = 10
+		health = 50
+	}
+	mob = 3
+	{
+		type = 2
+		posx = 200
+		posy = 200
+		posz = 140
+		dir = -90
+		width = 30
+		height = 90
+		velocity = 10
+		health = 75
+	}
+}
 
 
 /* Salle du bas */
@@ -106,10 +156,6 @@ Polygon
 	dot = x:600, y:650, z:0
 	texture = Plafond.png
 }
-
-
-
-
 Polygon
 {
 	dot = x:100, y:650, z:0
