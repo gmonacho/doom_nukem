@@ -31,7 +31,10 @@ void    fill_mob_data(t_mob **mob, char **tab, int i)
             if (ft_strstr(tab[i], "dir = "))
                 (*mob)->dir = ft_atoi(ft_strrchr(tab[i], '=') + 1);
             if (ft_strstr(tab[i], "width = "))
+            {
                 (*mob)->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+                (*mob)->width_2 = (*mob)->width / 2;
+            }
             if (ft_strstr(tab[i], "height = "))
                 (*mob)->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
             if (ft_strstr(tab[i], "velocity = "))
