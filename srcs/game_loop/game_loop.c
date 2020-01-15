@@ -47,6 +47,7 @@ static SDL_bool game(t_win *win, t_map *map)
     {
         while ((poly_collide = collisions(&(map->player), map->polys)))
         {
+            // printf("c\n");
             // copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
             slide(map, map->polys, map->polys_save, poly_collide);   //Collision avec slide
         }
