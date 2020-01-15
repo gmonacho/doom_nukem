@@ -17,7 +17,7 @@ static void gravity(t_map *map)
     {
         // copy_poly_lst(map->polys, map->polys_save);
         slide(map, map->polys, map->polys_save, poly_collide);
-        printf("g\n");
+        // printf("g\n");
     }
 }
 
@@ -48,7 +48,7 @@ static SDL_bool game(t_win *win, t_map *map)
     {
         while ((poly_collide = collisions(&(map->player), map->polys)))
         {
-            printf("c\n");
+            // printf("c\n");
             // copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
             slide(map, map->polys, map->polys_save, poly_collide);   //Collision avec slide
         }
