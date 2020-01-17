@@ -62,21 +62,69 @@ int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne r
 	return (1);
 }
 
-// int					intersection_plan_line(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
-// {
-// 	float			t;
-// 	float			denominateur;
+int				resolve_polynome(t_fdot_3d polynome, float *x1, float *x2)
+{
+	float		delta;
 
-// 	denominateur = plan.v.x * ray->vx + plan.v.y * ray->vy + plan.v.z * ray->vz;
-// 	if (denominateur == 0)
-// 		return (0);
-// 	t = -(plan.v.x * ray->ox + plan.v.y * ray->oy + plan.v.z * ray->oz + plan.d) /\
-// 			(float)(denominateur);
-// 	collision->x = ray->vx * t + ray->ox;
-// 	collision->y = ray->vy * t + ray->oy;
-// 	collision->z = ray->vz * t + ray->oz;
-// 	return (1);
-// }
+	if ((delta = polynome.y * polynome.y - 4 * polynome.x * polynome.z) < 0)
+		return (0);
+	*x1 = (-polynome.y - sqrt(delta)) / (2 * polynome.x);
+	*x2 = (-polynome.y + sqrt(delta)) / (2 * polynome.x);
+	return (1);
+}
+
+static int		is_intersection_cercle_segment(t_fdot_3d d1, t_fdot_3d d2, int radius)
+{
+	t_fdot_3d	polynome;
+	t_fdot_3d	c1;
+	t_fdot_3d	c2;
+	float		a;
+	float		b;
+	float		denom;
+	
+	if (!(denom = d2.x - d1.x))
+		if ((denom = radius * radius - d1.x * d1.x) >= 0)
+		{
+			if ((denom < d1.y && denom < d2.y) ||\
+				(denom > d1.y && denom > d2.y))	
+				return (0);
+			return (1);
+		}
+	a = (d2.y - d1.y) / denom;
+	b = d1.y - a * d1.x;
+	polynome.x = 1 + a * a;
+	polynome.y = 2 * a * b;
+	polynome.z = b * b - radius * radius;
+	if (!resolve_polynome(polynome, &(c1.x), &(c2.x)))
+		return (0);
+	c1.y = a * c1.x + b;
+	c2.y = a * c2.x + b;
+	if (((c1.x < d1.x && c1.x < d2.x) ||\
+		(c1.x > d1.x && c1.x > d2.x) ||\
+		(c1.y < d1.y && c1.y < d2.y) ||\
+		(c1.y > d1.y && c1.y > d2.y)) &&\
+		((c2.x < d1.x && c2.x < d2.x) ||\
+		(c2.x > d1.x && c2.x > d2.x) ||\
+		(c2.y < d1.y && c2.y < d2.y) ||\
+		(c2.y > d1.y && c2.y > d2.y)))
+		return (0);
+	return (1);
+}
+
+int				is_intersection_cercle_poly(t_poly *poly, int radius)
+{
+	int			i;
+
+	// printf("Sol 1\n");
+	i = -1;
+	while (++i < N_DOTS_POLY)
+	{
+		if (is_intersection_cercle_segment(poly->dots_rotz_only[i], poly->dots_rotz_only[i ? i - 1 : N_DOTS_POLY], radius))
+			return (1);
+	}
+	// printf("Sol 0 f\n");
+	return (0);
+}
 
 // float		prop(float value, t_dot inter1, t_dot inter2)
 // {

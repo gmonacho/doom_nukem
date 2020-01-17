@@ -414,7 +414,8 @@ typedef struct s_timers
 */
 
 typedef struct s_mob
-{	
+{
+	// t_poly			*poly;
 	t_fdot_3d		pos;
 	int 			width;
 	int 			width_2;

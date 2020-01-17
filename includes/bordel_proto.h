@@ -372,7 +372,7 @@ void				init_matrix_rz_inv(t_player *player);
 int					init_polygone(t_poly *poly);
 
 t_poly				*collisions(t_player *player, t_poly *poly);
-void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collide);
+void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collide, int i);
 
 /*
 ** ================================== Time ===================================
@@ -408,7 +408,8 @@ void				draw_affine(t_win *win, t_affine function);
 void				draw_ray(t_win *win, t_player *player, t_affine ray);
 float				fprop(float value, t_fdot inter1, t_fdot inter2);
 float				prop(float value, t_dot inter1, t_dot inter2);
+int					is_intersection_cercle_poly(t_poly *poly, int radius);
 int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
 int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne ray);
-
+int					resolve_polynome(t_fdot_3d polynome, float *x1, float *x2);
 #endif

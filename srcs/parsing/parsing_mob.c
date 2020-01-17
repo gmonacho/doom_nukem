@@ -38,7 +38,7 @@ void    fill_mob_data(t_mob **mob, char **tab, int i)
             if (ft_strstr(tab[i], "height = "))
                 (*mob)->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
             if (ft_strstr(tab[i], "velocity = "))
-                (*mob)->velocity = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+                (*mob)->vel = ft_atoi(ft_strrchr(tab[i], '=') + 1);
             if (ft_strstr(tab[i], "health = "))
                 (*mob)->health = ft_atoi(ft_strrchr(tab[i], '=') + 1);
             i++;

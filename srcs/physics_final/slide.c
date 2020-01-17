@@ -1,8 +1,8 @@
 #include "doom_nukem.h"
 
-//Opti utiliser une autre ft que celle du raytracer pour pas avoir (ray->vx = 1) dans les eq.
-
-void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collide)
+//Proj ortho 0 10 0 ?? Sol renforcement alors que j'y suis pas
+//proj ortho 10 0 0 ?? Sol tout court
+void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collide, int i)
 {
 	t_fdot_3d		dpos;
 	t_plan			plan;
@@ -31,6 +31,12 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collid
 	translate_all_rotz_only(polys, (t_fdot_3d){-proj_ortho.x,\
 													-proj_ortho.y,\
 													-proj_ortho.z});
+	if (i == 4)
+	{
+		printf("Dpos %f %f %f\n", dpos.x, dpos.y, dpos.z);
+		printf("Plan %f %f %f %f\n", plan.v.x, plan.v.y, plan.v.z, plan.d);
+		printf("Proj ortho %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
+	}
 	// translate_all_rotz_only(polys_save, (t_fdot_3d){-proj_ortho.x,\
 	// 												-proj_ortho.y,\
 	// 												-proj_ortho.z});

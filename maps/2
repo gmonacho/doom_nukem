@@ -2,10 +2,10 @@ Player
 {
 	posx = 200
 	posy = 200
-	posz = 150
+	posz = 100
 	dir = -90
 	width = 60
-	height = 60
+	height = 90
 	velocity = 10
 }
 Object
@@ -105,14 +105,6 @@ Polygon								//Rampe
 	dot = x:100, y:1150, z:80
 	dot = x:600, y:1150, z:80
 	dot = x:600, y:900, z:0
-	texture = Brique.png
-}
-Polygon								//Merde volante
-{
-	dot = x:400, y:800, z:42
-	dot = x:400, y:850, z:72
-	dot = x:450, y:850, z:72
-	dot = x:450, y:800, z:42
 	texture = Brique.png
 }
 

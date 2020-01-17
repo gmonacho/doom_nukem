@@ -16,7 +16,7 @@ static void gravity(t_map *map)
     while ((poly_collide = collisions(&(map->player), map->polys)))
     {
         // copy_poly_lst(map->polys, map->polys_save);
-        slide(map, map->polys, map->polys_save, poly_collide);
+        slide(map, map->polys, map->polys_save, poly_collide, 0);
     }
 }
 
@@ -25,6 +25,7 @@ static SDL_bool game(t_win *win, t_map *map)
     t_poly      *poly_collide;
     const Uint8 *state;
     SDL_Event   event;
+    int            i;
 
     // for (int i = 0; i < 10000000; i++);
     // printf("Clock : %f\n", (float)clock() / CLOCKS_PER_SEC);
@@ -45,11 +46,19 @@ static SDL_bool game(t_win *win, t_map *map)
 
     if (map->player.collision_on)
     {
+        i = 0;
         while ((poly_collide = collisions(&(map->player), map->polys)))
         {
             // printf("c\n");
             // copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
-            slide(map, map->polys, map->polys_save, poly_collide);   //Collision avec slide
+            slide(map, map->polys, map->polys_save, poly_collide, i);   //Collision avec slide
+            if (i++ == 4)
+            {
+                print_poly(poly_collide, 0);
+                print_poly(poly_collide, 1);
+                // printf("%p\n", poly_collide->texture);
+                exit(0);
+            }
         }
         gravity(map);
     }
