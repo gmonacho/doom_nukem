@@ -13,36 +13,34 @@ void    add_mob(t_mob **mob)
 
 void    fill_mob_data(t_mob **mob, char **tab, int i)
 {   
-    while (ft_strchr(tab[i], '}') == NULL || ft_strchr(tab[i - 1], '}') == NULL)
-    {
+    while (ft_strchr(tab[i], '}') == NULL)
+    {   
+        printf("salut\n");
         add_mob(mob);
         if (ft_strstr(tab[i], "mob = "))
             (*mob)->name = ft_strdup(ft_strrchr(tab[i], '=') + 1);
-        while (!(ft_strchr(tab[i], '}')))
+
+        if (ft_strstr(tab[i], "type = "))
+            (*mob)->type = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        if (ft_strstr(tab[i], "posx = "))
+            (*mob)->pos.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        if (ft_strstr(tab[i], "posy = "))
+            (*mob)->pos.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        if (ft_strstr(tab[i], "posz = "))
+            (*mob)->pos.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        if (ft_strstr(tab[i], "dir = "))
+            (*mob)->dir = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        if (ft_strstr(tab[i], "width = "))
         {
-            if (ft_strstr(tab[i], "type = "))
-                (*mob)->type = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "posx = "))
-                (*mob)->pos.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "posy = "))
-                (*mob)->pos.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "posz = "))
-                (*mob)->pos.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "dir = "))
-                (*mob)->dir = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "width = "))
-            {
-                (*mob)->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-                (*mob)->width_2 = (*mob)->width / 2;
-            }
-            if (ft_strstr(tab[i], "height = "))
-                (*mob)->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "velocity = "))
-                (*mob)->vel = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "health = "))
-                (*mob)->health = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            i++;
+            (*mob)->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+            (*mob)->width_2 = (*mob)->width / 2;
         }
+        if (ft_strstr(tab[i], "height = "))
+            (*mob)->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        if (ft_strstr(tab[i], "velocity = "))
+            (*mob)->vel = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        if (ft_strstr(tab[i], "health = "))
+            (*mob)->health = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         i++;
     }
 }

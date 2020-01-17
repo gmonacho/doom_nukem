@@ -19,7 +19,7 @@ Object
 }
 
 Mob
-{
+{	
 	posx = 200
 	posy = 700
 	posz = 150
@@ -31,6 +31,7 @@ Mob
 	velocity = 2
 	texture = Elephantride.png
 }
+
 
 /* Murs du haut */
 
