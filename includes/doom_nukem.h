@@ -15,8 +15,8 @@
 # include "libft.h"
 # include <time.h>////////////////////////////
 
-# define WIDTH				1000
-# define HEIGHT				800
+# define WIDTH				800
+# define HEIGHT				500
 
 # define MAX_SECTORS		25
 # define NEXT_FACTOR		50

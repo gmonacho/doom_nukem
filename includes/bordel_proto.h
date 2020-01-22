@@ -369,9 +369,10 @@ void				init_matrix_ry(t_player *player);
 void				init_matrix_ry_inv(t_player *player);
 void				init_matrix_rz(t_player *player);
 void				init_matrix_rz_inv(t_player *player);
-int					init_polygone(t_poly *poly);
+void				init_polygone(t_poly *poly);
 
 t_poly				*collisions(t_player *player, t_poly *poly);
+int					is_poly_collision(t_player *player, t_poly *poly);
 void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collide, int i);
 
 /*
@@ -388,7 +389,7 @@ void				reload_cd(t_map *map);
 */
 
 float				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
-t_fdot_3d			ret_vectoriel_product(t_fdot_3d v1, t_fdot_3d v2);
+t_fdot_3d			vectoriel_product(t_fdot_3d v1, t_fdot_3d v2);
 
 // float		dist(t_dot p1, t_dot p2);
 float  				modulo(float nbr, float mod);

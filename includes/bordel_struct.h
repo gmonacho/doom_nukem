@@ -557,6 +557,7 @@ typedef struct				s_textures
 typedef	struct				s_poly
 {
 	int						index;
+	int						is_slide_ban;
 	t_fdot_3d				dots[N_DOTS_POLY];
 	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
 
@@ -634,9 +635,10 @@ typedef struct		s_player
 	float			ddir;
 	float			rot_y;
 	int				height;
+	float			height_10;
+	float			_9_height_10;
 	int				width;
 	float			width_2;
-	float			width_10;
 	int				collision_on;
 
 	int				numsector;
