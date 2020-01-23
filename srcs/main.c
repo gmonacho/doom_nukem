@@ -39,7 +39,6 @@ int					main(int argc, char **argv)
 {
 	int				fd;
 	int				fd1;
-	int				next_loop;
 	int				ret;
 	t_win			win;
 	t_map			map;
@@ -60,7 +59,6 @@ int					main(int argc, char **argv)
 			return (ret_error(SDL_GetError()));
 		if ((Mix_Init(MIX_INIT_MP3) & MIX_INIT_MP3) != MIX_INIT_MP3)
 			return (ret_error(SDL_GetError()));
-		// if (!(create_window(&win, "doom_nukem", (SDL_Rect){0, 0, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 		if (SDL_GetDesktopDisplayMode(0, &screen) != 0)
 		{
 			SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
@@ -83,22 +81,10 @@ int					main(int argc, char **argv)
 			if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||\
 				((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 				return (ret_error("open error"));
-			// SDL_PollEvent(&event);
-			// if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-			// 	loop = SDL_FALSE;
 			win.map->polys = ft_data_storing(fd, fd1, &map, &win);
-			//exit(0);
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));
-			next_loop = main_menu(&win);
-			if (next_loop == 2)
-				game_loop(&win, &map);
-			else if (next_loop == 3)
-				editor_loop(&win, &map);
-			else if (next_loop == 4) 
-				loop = SDL_FALSE;
-			else if (next_loop == 5)
-				print_credit(&win);
+			main_menu(&win, &map);
 		}
 		SDL_DestroyWindow(win.ptr);
 		SDL_DestroyRenderer(win.rend);

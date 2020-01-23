@@ -32,7 +32,7 @@ int    dead_moment(t_win *win, t_player *player, t_texHud *texHud, SDL_Event eve
     
     textM = NULL;
     textQ = NULL;
-    if (player->currentHp < 0)
+    if (player->currentHp <= 0)
     {   
         textM = generate_text(win->rend, win->main_menu->police, "MENU", (SDL_Color){255, 0, 0, 50});
         textMB = generate_text(win->rend, win->main_menu->police, "MENU", (SDL_Color){0, 0, 0, 50});
@@ -49,6 +49,7 @@ int    dead_moment(t_win *win, t_player *player, t_texHud *texHud, SDL_Event eve
         if (clickOnPos(event, &(t_frect){(win->w * 0.38), (win->h * 0.75), (win->w * 0.25), (win->h * 0.125)}) == 1)
             return (1);
         //destroyTextures(textM, textMB, textQ, textQB);
+        event.type = SDL_FALSE;
     }
     // else
     //     return (1);

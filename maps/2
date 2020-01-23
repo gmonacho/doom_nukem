@@ -10,10 +10,10 @@ Player
 }
 Object
 {
-	posx = 100
+	posx =
 	posy = 100
 	posz = 100
-	width = 100
+	width = fdhsjf
 	height = 100
 	texture = Brique.png
 }

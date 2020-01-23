@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   libft.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: agiordan <agiordan@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/03 10:23:36 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/15 19:40:45 by agiordan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 16:09:06 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,6 +56,8 @@ void				ft_swap(int *elem1, int *elem2);
 void				ft_tabputint(int *tab, int len);
 void				ft_addtofloat(float *nb, float add);
 void				ft_intdel(int **tab);
+float				ft_atof(const char *str);
+int					ft_count_words(char *str);
 
 void				ft_2dstrdel(char ***tab);
 void    			ft_2dputendl(const char **str);

@@ -142,7 +142,10 @@ t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 		else if (ft_strstr(tab[i], "Player"))
 			player_data(tab, &(map->player), i);
 		else if (ft_strstr(tab[i], "Mob"))
+		{
 			fill_mob_data(&(map->mob), tab, i);
+			
+		}
 	}
 	printf("Fin parsing\n\n");
 	return (poly);

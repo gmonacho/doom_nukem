@@ -14,6 +14,13 @@ int				init_textures(t_win *win, t_textures *textures);
 void	        init_player(t_win *win, t_player *player);
 
 /*
+**	---------------------------------- init_menu ----------------------------------
+*/
+
+int				init_editor_menu(t_win *win);
+int				init_main_menu(t_win *win);
+
+/*
 ** =====================================================================================
 ** ================================== EVENT ============================================
 ** =====================================================================================
@@ -73,40 +80,6 @@ SDL_Texture	*generate_text(SDL_Renderer *rend, TTF_Font *font, const char *text,
 SDL_Texture	*create_bg_text_input(t_win *win, SDL_Rect rect, SDL_Color l_color, SDL_Color r_color);
 SDL_Texture	*blit_text(SDL_Renderer *rend, SDL_Texture *bg_texture, SDL_Texture *text, SDL_Rect *text_rect);
 t_dot		get_text_size(t_win *win, char *text);
-/*
-**	---------------------------------- button ----------------------------------
-*/
-
-void		add_button(t_button **buttons, t_button *new_button);
-void	        remove_button(t_button **button, t_button *button_del);
-void		free_buttons(t_button **buttons);
-void	        free_button(t_button **button);
-int             get_nb_buttons(t_button **buttons);
-t_button	*new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
-
-int		update_buttons(t_win *win, t_button_state state);
-int             update_button(t_win *win, t_button *b, t_button_state state);
-t_simple_button	*new_simple_button(char *name, t_button_flag flags, void *link);
-
-int             update_text_entry_texture(t_win *win, t_button *button, const char *text);
-int	        fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *result);
-void	        remove_link_sector_button(t_win *win, t_button **buttons, t_sector *sector);
-t_button        *get_button_by_flags(t_button **buttons, Uint32 flags);
-t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 flags);
-
-
-/*
-**	---------------------------------- frame ----------------------------------
-*/
-
-int		update_frame_button_texture_by_flags(t_win *win, t_button_f flags, t_button_flag data_flags);
-void		add_frame(t_frame **frames, t_frame *new_frame);
-void		add_button_to_frame(t_frame **frame, t_button *button);
-void		add_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 added_flags);
-void		free_frames(t_frame **frames);
-t_frame		*new_frame(const t_frect ratio, SDL_Texture *texture, Uint32 frame_flags, t_button *buttons);
-t_frame		*get_frame(t_frame **frames, Uint32 flags);
-t_button	*get_text_entry_by_name(t_frame **frames, const char *name);
 
 /*
 **	---------------------------------- Window ----------------------------------
@@ -298,7 +271,7 @@ SDL_bool 	is_next_point(t_dot dot, t_dot other, int distance);
 ** ================================== main_menu ===================================
 */
 
-int		main_menu(t_win *win);
+int				main_menu(t_win *win, t_map *map);
 void            print_credit(t_win *win);
 //static int	main_menu_event(t_win *win, int *loop);
 
@@ -332,6 +305,7 @@ int			game_loop(t_win *win, t_map *map);
 int					lstlen(t_poly *poly);
 void				copy_poly_lst(t_poly *dst, t_poly *src);
 int					create_poly_save(t_map *map);
+void				poly_del(t_poly *poly);
 
 /*
 ** ================================== Physics ===================================

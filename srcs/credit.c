@@ -47,12 +47,10 @@ void    print_credit(t_win *win)
 			SDL_PollEvent(&event);
             SDL_RenderCopy(win->rend, background, NULL, &(SDL_Rect){(0), (0), (win->w), (win->h)});
             if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
-            {
                 loop = SDL_FALSE;
-                main_menu(win);
-            }
             SDL_RenderPresent(win->rend);
         }
-	    Mix_FadeOutMusic(1000);
+	    Mix_FadeOutMusic(100);
+        init_main_menu(win);
     }
 }
