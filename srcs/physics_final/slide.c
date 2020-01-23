@@ -1,7 +1,11 @@
 #include "doom_nukem.h"
 
-//Proj ortho 0 10 0 ?? Sol renforcement alors que j'y suis pas
-//proj ortho 10 0 0 ?? Sol tout court
+//Probleme si la collision est sur la tranche d'un plan
+//Vaut mieux desactiver le slide dans ce cas
+//Sinon pas realiste avec la hitbox
+
+//Apres le while(collision) check si ya tjs une collision pour les is_slide_ban=1
+
 void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collide, int i)
 {
 	t_fdot_3d		dpos;
@@ -18,11 +22,22 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collid
 									plan.v.y,\
 									plan.v.z,\
 									NULL, 0, 0, NULL};
+	// printf("Dpos o %f %f %f\n", dpos.x, dpos.y, dpos.z);
+	// printf("Dpos v %f %f %f\n", proj_ortho_ray.vx, proj_ortho_ray.vy, proj_ortho_ray.vz);
+	// printf("Plan %f %f %f %f\n", plan.v.x, plan.v.y, plan.v.z, plan.d);
+	if (is_null(scalar_product(plan.v, dpos), 0.005))
+	{
+		// copy_poly_lst(polys, polys_save);
+		poly_collide->is_slide_ban = 1;
+		// printf("< slide canceled >\n");
+		return ;
+	}
 	if (!intersection_plan_ray(&proj_ortho, plan, proj_ortho_ray))
 	{
 		printf("CHELOU slide trouve pas de collision ???\n");
 		exit(1);
 	}
+	// printf("Proj ortho %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
 	// printf("Ray o/v %f %f %f\t%f %f %f\n", proj_ortho_ray.ox, proj_ortho_ray.oy, proj_ortho_ray.oz,\
 	// 											proj_ortho_ray.vx, proj_ortho_ray.vy, proj_ortho_ray.vz);
 	// printf("Proj :  %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
@@ -31,12 +46,16 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collid
 	translate_all_rotz_only(polys, (t_fdot_3d){-proj_ortho.x,\
 													-proj_ortho.y,\
 													-proj_ortho.z});
-	if (i == 4)
+	if (is_poly_collision(&(map->player), poly_collide))
 	{
-		printf("Dpos %f %f %f\n", dpos.x, dpos.y, dpos.z);
-		printf("Plan %f %f %f %f\n", plan.v.x, plan.v.y, plan.v.z, plan.d);
-		printf("Proj ortho %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
+		// printf("Tjs une col sur slide\n");
+		copy_poly_lst(polys, polys_save);
 	}
+	
+	// if (i == 4)
+	// {
+	// }
+	i = 0;
 	// translate_all_rotz_only(polys_save, (t_fdot_3d){-proj_ortho.x,\
 	// 												-proj_ortho.y,\
 	// 												-proj_ortho.z});
@@ -73,7 +92,7 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collid
 // 	printf("Proj ortho %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
 
 // 	angle = asin(mag(proj_ortho) / mag(dpos));
-// 	rot_axe = ret_vectoriel_product(dpos, poly_collide->equation_rotz_only.v);
+// 	rot_axe = vectoriel_product(dpos, poly_collide->equation_rotz_only.v);
 
 // 	rebond = return_rotate_dot(dpos, create_matrix(rot_axe, 2 * angle));
 // 	translate_all_rotz_only(polys, (t_fdot_3d){-(dpos.x + rebond.x),\

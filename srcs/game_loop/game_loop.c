@@ -37,32 +37,35 @@ static SDL_bool game(t_win *win, t_map *map)
 	state = SDL_GetKeyboardState(NULL);
 	// mouse_refresh();
 
-	events_rotate(win, map, &(map->player), state);
-	events_actions(win, map, &(map->player), state);
-	events_others(win, &(map->player), state);
-	
-	copy_poly_lst(map->polys_save, map->polys);
-	events_move(win, &(map->player), state);
+    events_actions(win, map, &(map->player), state);
+    events_others(win, &(map->player), state);
+    events_rotate(win, map, &(map->player), state);
+    
+    copy_poly_lst(map->polys_save, map->polys);
+    events_move(win, &(map->player), state);
 
-	if (map->player.collision_on)
-	{
-		i = 0;
-		while ((poly_collide = collisions(&(map->player), map->polys)))
-		{
-			// printf("c\n");
-			// copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
-			slide(map, map->polys, map->polys_save, poly_collide, i);   //Collision avec slide
-			if (i++ == 4)
-			{
-				print_poly(poly_collide, 0);
-				print_poly(poly_collide, 1);
-				// printf("%p\n", poly_collide->texture);
-				exit(0);
-			}
-		}
-		gravity(map);
-	}
-	copy_rotate_rotz_only(map->polys, create_ry_matrix(-map->player.rot_y));
+    if (map->player.collision_on)
+    {
+        i = 0;
+        while ((poly_collide = collisions(&(map->player), map->polys)))
+        {
+            // printf("c\n");
+            // copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
+            slide(map, map->polys, map->polys_save, poly_collide, i);   //Collision avec slide
+            if (i++ == 9)
+            {
+                printf("Collision avec 10 murs ??\n");
+                print_poly(poly_collide, 0);
+                print_poly(poly_collide, 1);
+                // printf("%p\n", poly_collide->texture);
+                exit(0);
+            }
+        }
+        gravity(map);
+        // printf("\n");
+    }
+    copy_rotate_rotz_only(map->polys, create_ry_matrix(-map->player.rot_y));
+    
 
 	clear_rend(win->rend, 0x40, 0x40, 0x40);
 	raycasting_3d(win, &(map->player));

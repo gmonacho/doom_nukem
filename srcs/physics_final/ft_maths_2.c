@@ -12,7 +12,7 @@ float				scalar_product(t_fdot_3d v1, t_fdot_3d v2)
 	return ((float)(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z));
 }
 
-t_fdot_3d			ret_vectoriel_product(t_fdot_3d v1, t_fdot_3d v2)
+t_fdot_3d			vectoriel_product(t_fdot_3d v1, t_fdot_3d v2)
 {
 	return ((t_fdot_3d){v1.y * v2.z - v1.z * v2.y,\
 						v1.x * v2.z - v1.z * v2.x,\
@@ -53,12 +53,18 @@ int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne r
 	float			denominateur;
 
 	denominateur = plan.v.x * ray.vx + plan.v.y * ray.vy + plan.v.z * ray.vz;
-	if (denominateur == 0)
+	// printf("Dpos o %f %f %f\n", ray.ox, ray.oy, ray.oz);
+	// printf("Dpos v %f %f %f\n", ray.vx, ray.vy, ray.vz);
+	// printf("Plan %f %f %f %f\n", plan.v.x, plan.v.y, plan.v.z, plan.d);
+	// printf("Proj ortho %f %f %f\n\n", collision->x, collision->y, collision->z);
+	// printf("%f\n", denominateur);
+	if (is_null(denominateur, 0.005))
 		return (0);
 	t = (-plan.d - plan.v.x * ray.ox - plan.v.y * ray.oy - plan.v.z * ray.oz) / denominateur;
 	collision->x = ray.vx * t + ray.ox;
 	collision->y = ray.vy * t + ray.oy;
 	collision->z = ray.vz * t + ray.oz;
+	// printf("Proj ortho %f %f %f\n\n", collision->x, collision->y, collision->z);
 	return (1);
 }
 
@@ -119,13 +125,12 @@ int				is_intersection_cercle_poly(t_poly *poly, int radius)
 	i = -1;
 	while (++i < N_DOTS_POLY)
 	{
-		if (is_intersection_cercle_segment(poly->dots_rotz_only[i], poly->dots_rotz_only[i ? i - 1 : N_DOTS_POLY], radius))
+		if (is_intersection_cercle_segment(poly->dots_rotz_only[i], poly->dots_rotz_only[(i ? i : N_DOTS_POLY) - 1], radius))
 			return (1);
 	}
 	// printf("Sol 0 f\n");
 	return (0);
 }
-
 // float		prop(float value, t_dot inter1, t_dot inter2)
 // {
 // 	if (inter1.y == inter1.x)

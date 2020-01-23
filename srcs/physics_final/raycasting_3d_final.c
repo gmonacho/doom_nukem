@@ -62,7 +62,7 @@ void			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 
 // int			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 // {
-// 	float			div;
+// float			div;
 // 	float			pi;
 // 	float			pj;
 
@@ -262,7 +262,7 @@ void		raycasting_3d(t_win *win, t_player *player)
 		poly = win->map->polys;
 		while (poly)
 		{
-			// printf("MAIS NIQUE TA MERE %p\n", poly);
+			poly->is_slide_ban = 0;
 			square_tracing(win, player, poly);
 			poly = poly->next;
 		}

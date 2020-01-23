@@ -5,7 +5,7 @@
 **	pour trouver le vecteur normal au plan
 */
 
-int			init_polygone(t_poly *poly)
+void		init_polygone(t_poly *poly)
 {
 	int		i;
 
@@ -27,41 +27,35 @@ int			init_polygone(t_poly *poly)
 								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
 		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
 		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
-		poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
-		poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
-		poly->equation = (t_plan){(t_fdot_3d){	(poly->i.y * poly->j.z - poly->i.z * poly->j.y) / 10000,\
-												(poly->i.z * poly->j.x - poly->i.x * poly->j.z) / 10000,\
-												(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000},\
-									0};
+		// poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
+		// poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
+		poly->equation.v = (t_fdot_3d){(poly->i.y * poly->j.z - poly->i.z * poly->j.y) / 10000,\
+										(poly->i.z * poly->j.x - poly->i.x * poly->j.z) / 10000,\
+										(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000};
 		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x + poly->equation.v.y * poly->dots[0].y + poly->equation.v.z * poly->dots[0].z);
 		poly->equation_rotz_only = poly->equation;
-		// if (!(poly->dots_proj = (t_dot *)malloc(sizeof(t_dot) * (N_DOTS_POLY + 1))))
-		// 	return (ft_putendl_ret("Malloc dots_proj error\n", 1));
-		// poly->dots_proj[N_DOTS_POLY] = NULL;
 		poly = poly->next;
 	}
-	return (0);
 }
 
 void		init_player(t_win *win, t_player *player)
 {
-	// win->view = TEXTURE_VIEW;
-	win->view = TEXTURE_VIEW | WALL_VIEW | BOX_VIEW;
-	// player->dir_init = 0;
+	win->view = TEXTURE_VIEW;
+	// win->view = TEXTURE_VIEW | WALL_VIEW | BOX_VIEW;
 
 	translate_all(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
 	translate_all_rotz_only(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
 	rotate_all_rotz_only(win->map->polys, create_rz_matrix(-player->dir_init));
+	player->rot_y = 0;
 
 	player->inventory = define_inventory();
-	player->fov = M_PI_4;
+	player->fov = win->w * M_PI_2 / 1000;
 	player->fov_2 = player->fov / 2;
-	player->fov_up = M_PI_4;
+	player->fov_up = win->h * M_PI_2 / 1000;
 	player->fov_up_2 = player->fov_up / 2;
-	player->rot_y = 0;
 	player->ddir = 0.05;
-	player->win_w = win->w;
-	player->win_h = win->h;
+	// player->win_w = win->w;
+	// player->win_h = win->h;
 	win->w_div_fov = win->w / player->fov;
 	win->h_div_fov = win->h / player->fov_up;
 	if (init_rays(win, player))
@@ -73,7 +67,8 @@ void		init_player(t_win *win, t_player *player)
 	player->inventory->ammo = 15;
 	player->inventory->magazine = 120;
 	player->width_2 = player->width / 2;
-	player->width_10 = player->width / 10;
+	player->height_10 = player->height / 10;
+	player->_9_height_10 = 9 * player->height_10;
 	win->map->player.collision_on = 1;
 	start_cooldown(&(player->timers.bullet_cd), 130);
 	start_cooldown(&(player->timers.item_cd), 200);

@@ -2,7 +2,7 @@ Player
 {
 	posx = 200
 	posy = 200
-	posz = 100
+	posz = 150
 	dir = -90
 	width = 60
 	height = 90
@@ -216,5 +216,14 @@ Polygon								//Plafond renforcement
 	dot = x:600, y:150, z:200
 	dot = x:700, y:150, z:200
 	dot = x:700, y:650, z:200
+	texture = Plafond.png
+}
+
+Polygon								//Plafond renforcement
+{
+	dot = x:200, y:500, z:100
+	dot = x:300, y:500, z:100
+	dot = x:300, y:800, z:100
+	dot = x:200, y:800, z:100
 	texture = Plafond.png
 }
