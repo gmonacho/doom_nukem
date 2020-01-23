@@ -10,10 +10,10 @@ Player
 }
 Object
 {
-	posx = 100
+	posx =
 	posy = 100
 	posz = 100
-	width = 100
+	width = fdhsjf
 	height = 100
 	texture = Brique.png
 }
@@ -167,7 +167,7 @@ Polygon								//Rampe
 }
 Polygon								//Merde volante
 {
-	dot = x:400, y:800, z:42
+	dot = x:400, y:, z:42
 	dot = x:400, y:850, z:72
 	dot = x:450, y:850, z:72
 	dot = x:450, y:800, z:42

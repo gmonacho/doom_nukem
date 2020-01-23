@@ -332,6 +332,7 @@ int			game_loop(t_win *win, t_map *map);
 int					lstlen(t_poly *poly);
 void				copy_poly_lst(t_poly *dst, t_poly *src);
 int					create_poly_save(t_map *map);
+void				poly_del(t_poly *poly);
 
 /*
 ** ================================== Physics ===================================

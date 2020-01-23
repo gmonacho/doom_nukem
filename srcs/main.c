@@ -37,7 +37,7 @@ int			main(int argc, char **argv)
 {
 	int			fd;
 	int			fd1;
-	int			next_loop;
+	int			next_loop = 0;
 	int			ret;
 	t_win		win;
 	t_map		map;
@@ -73,23 +73,36 @@ int			main(int argc, char **argv)
 			// 	return (1);
 			if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||\
 				((fd1 = open(argv[1], O_RDONLY)) <= 0)))
-				return (ret_error("open error"));
+				{
+					return (ret_error("open error"));
+				}
 			// SDL_PollEvent(&event);
 			// if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 			// 	loop = SDL_FALSE;
-			win.map->polys = ft_data_storing(fd, fd1, &map, &win);
 			//exit(0);
+			win.map->polys = ft_data_storing(fd, fd1, &map, &win);
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));
-			next_loop = main_menu(&win);
-			if (next_loop == 2)
-				game_loop(&win, &map);
-			else if (next_loop == 3)
-				editor_loop(&win, &map);
-			else if (next_loop == 4) 
-				loop = SDL_FALSE;
-			else if (next_loop == 5)
-				print_credit(&win);
+			while (loop)
+			{	
+				printf("next = %d\n", next_loop);
+				if (next_loop == 2)
+				{
+					free(win.map->polys);
+					printf("lol\n");
+					//init(&win, &map, &(map.player));
+					win.map->polys = win.map->polys_save;
+				}
+				next_loop = main_menu(&win);
+				if (next_loop == 2)
+					game_loop(&win, &map);
+				else if (next_loop == 3)
+					editor_loop(&win, &map);
+				else if (next_loop == 4) 
+					loop = SDL_FALSE;
+				else if (next_loop == 5)
+					print_credit(&win);
+			}
 		}
 		SDL_DestroyWindow(win.ptr);
 		SDL_DestroyRenderer(win.rend);

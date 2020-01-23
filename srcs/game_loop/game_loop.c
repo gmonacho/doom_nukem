@@ -36,13 +36,12 @@ static SDL_bool game(t_win *win, t_map *map)
 	state = SDL_GetKeyboardState(NULL);
     // mouse_refresh();
 
+    
+    copy_poly_lst(map->polys_save, map->polys);
     events_rotate(win, map, &(map->player), state);
     events_actions(win, map, &(map->player), state);
     events_others(win, &(map->player), state);
-    
-    copy_poly_lst(map->polys_save, map->polys);
     events_move(win, &(map->player), state);
-
     if (map->player.collision_on)
     {
         while ((poly_collide = collisions(&(map->player), map->polys)))
@@ -60,19 +59,19 @@ static SDL_bool game(t_win *win, t_map *map)
 
     reload_cd(map);
     damage_heal(&(map->player), map->music, 0, 0);
-    print_content_slot(win, &(map->player), win->texHud);    
     hud(win, &(map->player), win->texHud);
+    print_content_slot(win, &(map->player), win->texHud);    
     if (event.type == SDL_QUIT ||\
         event.key.keysym.scancode == SDL_SCANCODE_ESCAPE ||\
         dead_moment(win, &(map->player), win->texHud, event) == 2)
-    {
-        printf("Main menu\n");
+    {   
+        printf("Retour Menu\n");
         main_menu(win);
         return (SDL_FALSE);
     }
     if (dead_moment(win, &(map->player), win->texHud, event) == 1)
     {
-        printf("Mort\n");
+        printf("quittez\n");
         SDL_DestroyWindow(win->ptr);
         SDL_DestroyRenderer(win->rend);
         SDL_Quit();

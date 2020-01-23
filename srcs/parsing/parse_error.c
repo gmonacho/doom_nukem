@@ -45,17 +45,27 @@ static void	ft_count_brace(char **tab)
 		if (ft_strchr(tab[i], '{') == NULL)
 			brace++;
 		if (ft_strchr(tab[i], '}') == NULL)
-		{
 			brace--;
-		}
 		i++;
 	}
 	if (brace != 0)
-	{
 		ft_putendl("error brace");
-		exit(0); // a modifier
-	}
 }
+// static void needed_value(char **tab)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while(tab[i])
+// 	{
+// 		if (ft_strstr(tab[i], "mob"))
+// 		{
+			
+// 		}
+// 		i++;
+// 	}
+
+// }
 
 int		ft_parse_error(char **tab)
 {

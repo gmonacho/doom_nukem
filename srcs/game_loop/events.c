@@ -58,7 +58,7 @@ static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8
 }
 
 void			events_move(t_win *win, t_player *player, const Uint8 *state)
-{
+{	
 	if (state[SDL_SCANCODE_W])
 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){-player->const_vel, 0, 0});
 	if (state[SDL_SCANCODE_S])
@@ -74,7 +74,7 @@ void			events_move(t_win *win, t_player *player, const Uint8 *state)
 }
 
 void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *state)
-{
+{	
 	if (map->event->motion.xrel || map->event->motion.yrel)
 	{
 		if (win->mouse->x > 0)
@@ -85,28 +85,28 @@ void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *stat
 			player->rot_y -= player->ddir;
 		if (win->mouse->y < 0)
 			player->rot_y += player->ddir;
-	}
-	if (state[SDL_SCANCODE_RIGHT])
-		rotate_all_rotz_only(win->map->polys, player->rz);
-	if (state[SDL_SCANCODE_LEFT])
-		rotate_all_rotz_only(win->map->polys, player->rz_inv);
-	if (state[SDL_SCANCODE_DOWN])
-		player->rot_y -= player->ddir;
-	if (state[SDL_SCANCODE_UP])
-		player->rot_y += player->ddir;
-	win = (t_win *)state;
-	win = (t_win *)map;
+		}
+		if (state[SDL_SCANCODE_RIGHT])
+			rotate_all_rotz_only(win->map->polys, player->rz);
+		if (state[SDL_SCANCODE_LEFT])
+			rotate_all_rotz_only(win->map->polys, player->rz_inv);
+		if (state[SDL_SCANCODE_DOWN])
+			player->rot_y -= player->ddir;
+		if (state[SDL_SCANCODE_UP])
+			player->rot_y += player->ddir;
+		win = (t_win *)state;
+		win = (t_win *)map;
 }
 
 void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *state)
-{
+{	
 	events_weapon(win, map, player, state);
 	if (state[SDL_SCANCODE_I])
-        player->inventory->item[0]->nb += 1;
+		player->inventory->item[0]->nb += 1;
 	if (state[SDL_SCANCODE_O])
-        player->inventory->item[1]->nb += 1;
+		player->inventory->item[1]->nb += 1;
 	if (state[SDL_SCANCODE_P])
-        player->inventory->item[2]->nb += 1;
+		player->inventory->item[2]->nb += 1;
 	if (state[SDL_SCANCODE_E])
 		if (test_timer(&(player->timers.item_cd)) == 1)
 			use_item(player, map->music, player->inventory->selected_slot);
