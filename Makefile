@@ -37,13 +37,15 @@ OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
 FW_PATH = ./frameworks
 LIBSDL2 = -framework SDL2 -F $(FW_PATH) -framework SDL2_image -framework SDL2_ttf -framework SDL2_mixer -rpath $(FW_PATH)
 LIBFT = libft
-LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
+LIBUI = libui
+LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a ./$(LIBUI)/$(LIBUI).a
 
 INCLUDE_PATH = ./includes
 INCLUDES = $(wildcard $(INCLUDE_PATH)/*.h)
 CC = gcc
 CFLAGS += -Wall -Wextra -Werror -O3 -fsanitize=address -I$(INCLUDE_PATH)\
                                                         -I$(LIBFT)/includes/\
+														-I$(LIBUI)/include/\
 														-I./$(LIBSDLMIXER)/\
                                                         -I$(FW_PATH)/SDL2_image.framework/Headers/\
                                                         -I$(FW_PATH)/SDL2_ttf.framework/Headers/\
@@ -56,6 +58,7 @@ all:    directory $(NAME)
 
 $(NAME): $(OBJS) $(INCLUDES)
 		make -C $(LIBFT)
+		make -C $(LIBUI)
 		$(CC) $(CFLAGS) $(LIBRARIES) $(OBJS) -o $(NAME)
 
 $(OBJS_PATH)/%.o : $(SRCS_PATH)/%.c
@@ -107,6 +110,7 @@ clean:
 fclean: clean
 		rm -rf $(NAME)
 		make fclean -C $(LIBFT)
+		make clean -C $(LIBUI)
 
 re:   		fclean all
 

@@ -14,7 +14,9 @@
 **	Seg fault sur certaines text att !
 */
 
-static int		init(t_win *win, t_map *map, t_player *player)
+//Abort lorsque w=2000 & h=1300
+
+static int			init(t_win *win, t_map *map, t_player *player)
 {
 	printf("Debut init\n");
 	// if (init_textures(win, &(map->textures)))
@@ -33,19 +35,23 @@ static int		init(t_win *win, t_map *map, t_player *player)
 	return (0);
 }
 
-int			main(int argc, char **argv)
+int					main(int argc, char **argv)
 {
-	int			fd;
-	int			fd1;
-	int			next_loop = 0;
-	int			ret;
-	t_win		win;
-	t_map		map;
-	SDL_bool	loop;
-	// SDL_Event	event;
+	int				fd;
+	int				fd1;
+	int				next_loop;
+	int				ret;
+	t_win			win;
+	t_map			map;
+	SDL_bool		loop;
+	SDL_DisplayMode	screen;
 
 	if (argc == 1 || argc == 2)
 	{
+		win.w = WIDTH;
+		win.h = HEIGHT;
+		win.map = &map;
+		map.gravity = 4;
 		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == -1 || TTF_Init() == -1)
 			return (ret_error(SDL_GetError()));
 		if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
@@ -54,13 +60,15 @@ int			main(int argc, char **argv)
 			return (ret_error(SDL_GetError()));
 		if ((Mix_Init(MIX_INIT_MP3) & MIX_INIT_MP3) != MIX_INIT_MP3)
 			return (ret_error(SDL_GetError()));
-		win.w = WIDTH;
-		win.h = HEIGHT;
-		win.map = &map;
-		map.gravity = 4;
-		// if (!(create_window(&win, "doom_nukem", (SDL_Rect){0, 0, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
-		if (!create_window(&win, "doom_nukem", (SDL_Rect){400, 400, win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE))
-			return (0);
+		if (SDL_GetDesktopDisplayMode(0, &screen) != 0)
+		{
+			SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
+			return (1);
+		}
+		if (!create_window(&win, "doom_nukem", (SDL_Rect){screen.w / 2 - win.w / 2,\
+															screen.h / 2 - win.h / 2,\
+								win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE))
+			return (1);
 		loop = SDL_TRUE;
 		if (argc == 1)
 		{
@@ -73,36 +81,11 @@ int			main(int argc, char **argv)
 			// 	return (1);
 			if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||\
 				((fd1 = open(argv[1], O_RDONLY)) <= 0)))
-				{
-					return (ret_error("open error"));
-				}
-			// SDL_PollEvent(&event);
-			// if (event.type == SDL_QUIT || event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-			// 	loop = SDL_FALSE;
-			//exit(0);
+				return (ret_error("open error"));
 			win.map->polys = ft_data_storing(fd, fd1, &map, &win);
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));
-			while (loop)
-			{	
-				printf("next = %d\n", next_loop);
-				if (next_loop == 2)
-				{
-					free(win.map->polys);
-					printf("lol\n");
-					//init(&win, &map, &(map.player));
-					win.map->polys = win.map->polys_save;
-				}
-				next_loop = main_menu(&win);
-				if (next_loop == 2)
-					game_loop(&win, &map);
-				else if (next_loop == 3)
-					editor_loop(&win, &map);
-				else if (next_loop == 4) 
-					loop = SDL_FALSE;
-				else if (next_loop == 5)
-					print_credit(&win);
-			}
+			main_menu(&win, &map);
 		}
 		SDL_DestroyWindow(win.ptr);
 		SDL_DestroyRenderer(win.rend);

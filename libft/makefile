@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                           LE - /             #
 #                                                               /              #
-#    Makefile                                         .::    .:/ .      .::    #
+#    makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: gmonacho <marvin@le-101.fr>                +:+   +:    +:    +:+      #
+#    By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/02 16:01:28 by gmonacho     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/07 17:11:26 by gmonacho    ###    #+. /#+    ###.fr      #
+#    Updated: 2020/01/22 16:09:31 by gmonacho    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -16,6 +16,7 @@ NAME = libft.a
 CC = gcc
 
 SRCS = ./src/ft_atoi.c\
+	./src/ft_atof.c\
 	./src/ft_abs.c\
 	./src/ft_bzero.c\
 	./src/ft_isalnum.c\
@@ -91,7 +92,8 @@ SRCS = ./src/ft_atoi.c\
 	./src/ft_2dputendl.c \
 	./src/ft_2dstrpushback.c \
 	./src/ft_2dstrlen.c \
-	./src/ft_strrev.c
+	./src/ft_strrev.c \
+	./src/ft_count_words.c
 
 HEADER = ./includes/libft.h
 

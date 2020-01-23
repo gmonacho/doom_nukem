@@ -1,19 +1,8 @@
 #ifndef BORDEL_STRUCT_H
 # define BORDEL_STRUCT_H
 
+# include "ui_win.h"
 # include "SDL.h"
-
-typedef struct		s_dot
-{
-	int				x;
-	int				y;
-}					t_dot;
-
-typedef struct		s_fdot
-{
-	float			x;
-	float			y;
-}					t_fdot;
 
 typedef struct		s_fdot_3d
 {
@@ -40,20 +29,6 @@ typedef struct		s_size
 	int				w;
 	int				h;
 }					t_size;
-
-typedef struct		s_line
-{
-	t_dot			p1;
-	t_dot			p2;
-}					t_line;
-
-typedef struct 		s_frect
-{
-	float			x;
-	float			y;
-	float			w;
-	float			h;
-}					t_frect;
 
 typedef struct 		s_circle
 {
@@ -94,186 +69,21 @@ typedef struct		s_cartesienne
 
 /*
 ** =====================================================================================
-** ================================== EVENT ============================================
+** ================================== UI_FUNCTION ======================================
 ** =====================================================================================
 */
 
-enum e_mouse
+typedef struct	s_arg_menu
 {
-	MOUSE_NONE = 0b0000
-};
-
-enum e_mouse_button {MOUSE_LEFT, MOUSE_MIDDLE, MOUSE_RIGHT};
-
-typedef struct	s_mouse_button
-{
-	SDL_bool	pressed;
-	SDL_bool	pressing;
-	SDL_bool	releasing;
-}				t_mouse_button;
-
-/*
-**	---------------------------------- Mouse ----------------------------------
-*/
-
-typedef struct		s_mouse
-{
-	int				x;
-	int				y;
-	Uint32			flags;
-	t_mouse_button	button[3];
-}					t_mouse;
+	int			*loop;
+	int			value;
+}				t_arg_menu;
 
 /*
 ** =======================================================================================
 ** ================================== DISPLAY ============================================
 ** =======================================================================================
 */
-
-/*
-**	---------------------------------- Interface Management ----------------------------------
-*/
-
-
-typedef enum	e_button_flag
-{
-	SIMPLE_BUTTON_NONE = 0,
-	SIMPLE_BUTTON_NAME = 1
-}				t_button_flag;
-
-enum	e_text_entry
-{
-	TEXT_ENTRY_NONE = 0,
-	TEXT_ENTRY_DIGITAL = 1,
-	TEXT_ENTRY_ALPHANUM = 2,
-	TEXT_ENTRY_TMP = 4,
-	TEXT_ENTRY_LINKED = 8,
-	TEXT_ENTRY_SECTOR_NAME = 16,
-	TEXT_ENTRY_SECTOR_FLOOR = 32,
-	TEXT_ENTRY_SECTOR_CEIL = 64
-};
-
-typedef enum	e_button_state
-{
-	BUTTON_STATE_NONE = 0,
-	BUTTON_STATE_ON_MOUSE = 1,
-	BUTTON_STATE_CLICKED = 2
-}				t_button_state;
-
-typedef enum	e_menu_button
-{
-	BUTTON_MENU_NONE = 0,
-	BUTTON_MENU_CREDIT = 1,
-	BUTTON_MENU_QUIT = 2,
-	BUTTON_CREDIT_RETURN = 4,
-	BUTTON_DEAD_RETRY = 8,
-	BUTTON_DEAD_MENU = 16
-}				t_menu_button;
-
-typedef enum	e_button
-{
-	BUTTON_NONE = 0,
-	BUTTON_DEL_SECTOR = 1,
-	BUTTON_TEXT_ENTRY = 2,
-	BUTTON_EXPORT = 4,
-	BUTTON_GAMELOOP = 8,
-	BUTTON_EDITORLOOP = 16,
-	BUTTON_ID = 32,
-	BUTTON_L_TYPE = 64,
-	BUTTON_CLICKED = 128,
-	BUTTON_SECTOR_NAME = 256,
-	BUTTON_SIMPLE = 512,
-	BUTTON_MAP_NAME = 1024,
-	BUTTON_MAP_EXPORT = 2048,
-	BUTTON_SECTOR_INPUT = 4096,
-	BUTTON_LINEDEF_SIDE = 8192,
-	BUTTON_ADD_SECTOR = 16384,
-	BUTTON_LOAD_TEXTURE = 32768,
-	BUTTON_SCALE_BOX = 65536
-}				t_button_f;
-
-typedef struct		s_simple_button
-{
-	char			*name;
-	void			*link;
-	SDL_bool		clicked;
-	t_button_flag	flags;
-}					t_simple_button;
-
-typedef struct		s_text_entry
-{
-	char			*name;
-	int				max_size;
-	void			*variable;
-	Uint8			flags;
-}					t_text_entry;
-
-typedef struct		s_checkbox
-{
-	char			*name;
-	SDL_bool		checked;
-	void			*variable;
-}					t_checkbox;
-
-typedef enum		e_scaleboxf
-{
-	SCALEBOX_NONE = 0,
-	SCALEBOX_MUSIC_VOLUME = 1
-}					t_scaleboxf;
-
-typedef struct		s_scalebox
-{
-	int				percent;
-	int				flags;
-}					t_scalebox;
-
-
-typedef struct		s_button
-{
-	t_frect			ratio;
-	SDL_Rect		rect;
-
-	SDL_Texture		*texture;
-	char			*text;
-
-	Uint32			flags;
-	Uint32			gflags;
-
-	void			*data;
-
-	struct s_button	*next;
-}					t_button;
-
-
-enum	e_frame
-{
-	FRAME_NONE = 0,
-	FRAME_SECTORS = 1,
-	FRAME_INFO = 2,
-	FRAME_HIDE = 4,
-	FRAME_L_INFO = 8,
-	FRAME_L_TYPE = 16,
-	FRAME_MAP = 32,
-	FRAME_PLAYER = 64,
-	FRAME_PORTAL = 128,
-	FRAME_TEXTURE = 256,
-	FRAME_MUSIC = 512,
-	FRAME_ERROR = 1024
-};
-
-typedef struct		s_frame
-{
-	t_frect			ratio;
-	SDL_Rect		rect;
-	SDL_Texture		*texture;
-
-	t_button		*buttons;
-	int				nb_buttons;
-
-	Uint32			flags;
-
-	struct s_frame	*next;
-}					t_frame;
 
 /*
 **	---------------------------------- hud --------------------------------------------
@@ -347,8 +157,6 @@ typedef struct		s_win
 	float			w_div_fov;
 	float			h_div_fov;
 
-	t_mouse			*mouse;
-
 	SDL_Texture		**sectors_texture;
 	t_ed_texture	ed_texture;
 	SDL_Texture		**sectors_texture_selected;
@@ -369,6 +177,9 @@ typedef struct		s_win
 
 	char			**error_msg;
 	int				nb_error_msg;
+	
+	// libui
+	t_winui			*winui;
 }					t_win;
 
 /*
@@ -414,7 +225,8 @@ typedef struct s_timers
 */
 
 typedef struct s_mob
-{	
+{
+	// t_poly			*poly;
 	t_fdot_3d		pos;
 	int 			width;
 	int 			width_2;
@@ -556,6 +368,7 @@ typedef struct				s_textures
 typedef	struct				s_poly
 {
 	int						index;
+	int						is_slide_ban;
 	t_fdot_3d				dots[N_DOTS_POLY];
 	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
 
@@ -633,9 +446,10 @@ typedef struct		s_player
 	float			ddir;
 	float			rot_y;
 	int				height;
+	float			height_10;
+	float			_9_height_10;
 	int				width;
 	float			width_2;
-	float			width_10;
 	int				collision_on;
 
 	int				numsector;

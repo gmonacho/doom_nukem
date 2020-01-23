@@ -77,13 +77,13 @@ void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *stat
 {	
 	if (map->event->motion.xrel || map->event->motion.yrel)
 	{
-		if (win->mouse->x > 0)
+		if (win->winui->mouse.pos.x > 0)
 			rotate_all_rotz_only(win->map->polys, player->rz);
-		if (win->mouse->x < 0)
+		if (win->winui->mouse.pos.x < 0)
 			rotate_all_rotz_only(win->map->polys, player->rz_inv);
-		if (win->mouse->y > 0)
+		if (win->winui->mouse.pos.y > 0)
 			player->rot_y -= player->ddir;
-		if (win->mouse->y < 0)
+		if (win->winui->mouse.pos.y < 0)
 			player->rot_y += player->ddir;
 		}
 		if (state[SDL_SCANCODE_RIGHT])

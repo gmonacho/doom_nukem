@@ -5,7 +5,7 @@ Player
 	posz = 150
 	dir = -90
 	width = 60
-	height = 60
+	height = 90
 	velocity = 10
 }
 Object
@@ -165,6 +165,7 @@ Polygon								//Rampe
 	dot = x:600, y:900, z:0
 	texture = Brique.png
 }
+<<<<<<< HEAD
 Polygon								//Merde volante
 {
 	dot = x:400, y:, z:42
@@ -173,6 +174,8 @@ Polygon								//Merde volante
 	dot = x:450, y:800, z:42
 	texture = Brique.png
 }
+=======
+>>>>>>> 225686992ee6e7537e6e24662c63e9e1fa9cde29
 
 
 Polygon								//Sol bas
@@ -224,5 +227,14 @@ Polygon								//Plafond renforcement
 	dot = x:600, y:150, z:200
 	dot = x:700, y:150, z:200
 	dot = x:700, y:650, z:200
+	texture = Plafond.png
+}
+
+Polygon								//Plafond renforcement
+{
+	dot = x:200, y:500, z:100
+	dot = x:300, y:500, z:100
+	dot = x:300, y:800, z:100
+	dot = x:200, y:800, z:100
 	texture = Plafond.png
 }
