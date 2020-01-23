@@ -1,4 +1,7 @@
 #include "doom_nukem.h"
+#include "ui.h"
+#include "ui_draw.h"
+#include "ui_error.h"
 
 // static int		ui_texture_init(t_win *win)
 // {
@@ -239,9 +242,39 @@
 // 	return (1);
 // }
 
+static void	editor_menu_quit(t_win *win, Uint32 ms)
+{
+	Mix_FadeOutMusic(ms);
+	ui_free_ui(&win->winui->ui);
+	SDL_Delay(ms);
+}
+
+static void		editor_menu_ui(t_win *win)
+{
+	ui_set_draw_color(win->rend, &(SDL_Color){30, 30, 30, 255});
+	ui_clear_win(win->winui);
+	ui_display_frames(win->winui, win->winui->ui.frames);
+	ui_draw_rend(win->winui);
+	ui_wait_event(&win->winui->event);
+	ui_update_ui(win->winui);
+}
+
+
+int		init_editor_menu(t_win *win)
+{
+	if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
+		ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
+	if (!(win->winui->ui.button_font = ui_load_font("TTF/DooM.ttf", 100)))
+		return (ui_ret_error("init_editor_menu", "ui_load_font failed", 0));
+	if (!ui_load("interfaces/editor_interface", win->winui))
+		return (ui_ret_error("init_editor_menu", "ui_load failed", 0));
+	SDL_SetRelativeMouseMode(SDL_FALSE);
+	return (1);
+}
+
 int				editor_loop(t_win *win, t_map *game_map)
 {
-	// SDL_bool			loop;
+	SDL_bool			loop;
 	// t_map_editor		map;
 	// t_sector			*s;
 	// t_linedef			*l;
@@ -273,15 +306,20 @@ int				editor_loop(t_win *win, t_map *game_map)
 	// }
 	// if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
 	// 	ft_putendl_fd("editor loop : Impossible to play map_editor.wav", 2);
-	// loop = SDL_TRUE;
-	// while (loop)
-	// {
-	// 	clear_rend(win->rend, 30, 30, 35);
-	// 	check_map(win, &map);
-	// 	editor_display(win, &map);
-	// 	editor_event(win, &map, &loop);
-	// 	SDL_RenderPresent(win->rend);
-	// }
+	if (!init_editor_menu(win))
+		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));
+	loop = SDL_TRUE;
+	while (loop)
+	{
+		editor_menu_ui(win);
+		if (win->winui->event.type == SDL_QUIT)
+			loop = 0;
+		// check_map(win, &map);
+		// editor_display(win, &map);
+		// editor_event(win, &map, &loop);
+	}
+	editor_menu_quit(win, 500);
+	init_main_menu(win);
 	// editor_quit(win, &map);
 	if (win && game_map)
 		return (1);

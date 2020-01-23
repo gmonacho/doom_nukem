@@ -14,6 +14,13 @@ int				init_textures(t_win *win, t_textures *textures);
 void	        init_player(t_win *win, t_player *player);
 
 /*
+**	---------------------------------- init_menu ----------------------------------
+*/
+
+int				init_editor_menu(t_win *win);
+int				init_main_menu(t_win *win);
+
+/*
 ** =====================================================================================
 ** ================================== EVENT ============================================
 ** =====================================================================================
@@ -265,7 +272,6 @@ SDL_bool 	is_next_point(t_dot dot, t_dot other, int distance);
 */
 
 int				main_menu(t_win *win, t_map *map);
-int				init_main_menu(t_win *win);
 void            print_credit(t_win *win);
 //static int	main_menu_event(t_win *win, int *loop);
 
