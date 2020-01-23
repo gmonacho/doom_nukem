@@ -39,7 +39,6 @@ int					main(int argc, char **argv)
 {
 	int				fd;
 	int				fd1;
-	int				next_loop;
 	int				ret;
 	t_win			win;
 	t_map			map;
