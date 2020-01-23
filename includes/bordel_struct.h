@@ -220,29 +220,6 @@ typedef struct s_timers
     t_timer     mouse;
 }				t_timers;
 
-/*
-**	---------------------------------- mob --------------------------------------------
-*/
-
-typedef struct s_mob
-{
-	// t_poly			*poly;
-	t_fdot_3d		pos;
-	int 			width;
-	int 			width_2;
-	int 			height;
-	int 			vel;
-	int 			velvel;
-	int				alive;
-	int 			health;
-	int				damage;
-	int 			type;
-	struct s_mob	*next;
-	
-	int				dir;
-	int 			id;
-	char 			*name;
-}					t_mob;
 
 /*
 **	---------------------------------- png --------------------------------------------
@@ -398,6 +375,30 @@ typedef struct				s_calculs
 {
 	int 					dist;
 }							t_calculs;
+
+/*
+**	---------------------------------- mob --------------------------------------------
+*/
+
+typedef struct s_mob
+{
+	t_poly			*poly;
+	t_fdot_3d		pos;
+	int 			width;
+	int 			width_2;
+	int 			height;
+	int 			vel;
+	int 			velvel;
+	int				alive;
+	int 			health;
+	int				damage;
+	int 			type;
+	struct s_mob	*next;
+	
+	int				dir;
+	int 			id;
+	char 			*name;
+}					t_mob;
 
 /*
 **	---------------------------------- Inventory --------------------------------------------

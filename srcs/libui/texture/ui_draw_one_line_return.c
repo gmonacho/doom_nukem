@@ -33,7 +33,7 @@ static char		*remove_last_word(const char *str)
 	char	*tmp;
 	char	*rev_start;
 
-	if (!(rev_str = ft_strrev(str)))
+	if (!(rev_str = ft_strrev((char *)str)))
 	{
 		return (ui_ret_null_error("remove_last_word",
 			"ft_strrev(rev_str) allocation failed", NULL));

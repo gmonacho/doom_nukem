@@ -39,15 +39,15 @@ SRCS =      $(wildcard $(SRCS_PATH)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_PATH_11)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_PATH_12)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_PATH_13)/*.c)\
-            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/*.c)\
-            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_0)/*.c)\
-            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_1)/*.c)\
-            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_2)/*.c)\
-            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_3)/*.c)\
-            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_4)/*.c)\
-            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_5)/*.c)\
-            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_6)/*.c)\
-            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_7)/*.c)
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_0)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_1)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_2)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_3)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_4)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_5)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_6)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_7)/*.c)
 
 OBJS_PATH = ./objs
 OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
@@ -103,23 +103,23 @@ $(OBJS_PATH)/$(SRCS_PATH_11)/%.o : $(SRCS_PATH)/$(SRCS_PATH_11)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 $(OBJS_PATH)/$(SRCS_PATH_12)/%.o : $(SRCS_PATH)/$(SRCS_PATH_12)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
-$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/%.c
+$(OBJS_PATH)/$(SRCS_LIBUI)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
-$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_0)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_0)/%.c
+$(OBJS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_0)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_0)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
-$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_1)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_1)/%.c
+$(OBJS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_1)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_1)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
-$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_2)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_2)/%.c
+$(OBJS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_2)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_2)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
-$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_3)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_3)/%.c
+$(OBJS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_3)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_3)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
-$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_4)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_4)/%.c
+$(OBJS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_4)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_4)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
-$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_5)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_5)/%.c
+$(OBJS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_5)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_5)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
-$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_6)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_6)/%.c
+$(OBJS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_6)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_6)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
-$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_7)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_7)/%.c
+$(OBJS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_7)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_7)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 
 directory:

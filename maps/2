@@ -165,17 +165,6 @@ Polygon								//Rampe
 	dot = x:600, y:900, z:0
 	texture = Brique.png
 }
-<<<<<<< HEAD
-Polygon								//Merde volante
-{
-	dot = x:400, y:, z:42
-	dot = x:400, y:850, z:72
-	dot = x:450, y:850, z:72
-	dot = x:450, y:800, z:42
-	texture = Brique.png
-}
-=======
->>>>>>> 225686992ee6e7537e6e24662c63e9e1fa9cde29
 
 
 Polygon								//Sol bas
