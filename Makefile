@@ -14,6 +14,15 @@ SRCS_PATH_10 =  inventory
 SRCS_PATH_11 =  time
 SRCS_PATH_12 =  ui
 SRCS_PATH_13 =	physics_final
+SRCS_LIBUI = libui
+SRCS_LIBUI_0 = button
+SRCS_LIBUI_1 = draw
+SRCS_LIBUI_2 = event
+SRCS_LIBUI_3 = frame
+SRCS_LIBUI_4 = load_ui
+SRCS_LIBUI_5 = shape
+SRCS_LIBUI_6 = texture
+SRCS_LIBUI_7 = win
 
 #Pas le droit aux wildcards
 SRCS =      $(wildcard $(SRCS_PATH)/*.c)\
@@ -29,7 +38,16 @@ SRCS =      $(wildcard $(SRCS_PATH)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_PATH_10)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_PATH_11)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_PATH_12)/*.c)\
-            $(wildcard $(SRCS_PATH)/$(SRCS_PATH_13)/*.c)
+            $(wildcard $(SRCS_PATH)/$(SRCS_PATH_13)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_0)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_1)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_2)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_3)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_4)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_5)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_6)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_7)/*.c)
 
 OBJS_PATH = ./objs
 OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
@@ -37,15 +55,14 @@ OBJS = $(patsubst $(SRCS_PATH)/%.c , $(OBJS_PATH)/%.o , $(SRCS))
 FW_PATH = ./frameworks
 LIBSDL2 = -framework SDL2 -F $(FW_PATH) -framework SDL2_image -framework SDL2_ttf -framework SDL2_mixer -rpath $(FW_PATH)
 LIBFT = libft
-LIBUI = libui
-LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a ./$(LIBUI)/$(LIBUI).a
+LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
 
 INCLUDE_PATH = ./includes
 INCLUDES = $(wildcard $(INCLUDE_PATH)/*.h)
 CC = gcc
 CFLAGS += -Wall -Wextra -Werror -O3 -fsanitize=address -I$(INCLUDE_PATH)\
+														-I$(INCLUDE_PATH)/libui/\
                                                         -I$(LIBFT)/includes/\
-														-I$(LIBUI)/include/\
 														-I./$(LIBSDLMIXER)/\
                                                         -I$(FW_PATH)/SDL2_image.framework/Headers/\
                                                         -I$(FW_PATH)/SDL2_ttf.framework/Headers/\
@@ -58,7 +75,6 @@ all:    directory $(NAME)
 
 $(NAME): $(OBJS) $(INCLUDES)
 		make -C $(LIBFT)
-		make -C $(LIBUI)
 		$(CC) $(CFLAGS) $(LIBRARIES) $(OBJS) -o $(NAME)
 
 $(OBJS_PATH)/%.o : $(SRCS_PATH)/%.c
@@ -87,6 +103,24 @@ $(OBJS_PATH)/$(SRCS_PATH_11)/%.o : $(SRCS_PATH)/$(SRCS_PATH_11)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 $(OBJS_PATH)/$(SRCS_PATH_12)/%.o : $(SRCS_PATH)/$(SRCS_PATH_12)/%.c
 		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_0)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_0)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_1)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_1)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_2)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_2)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_3)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_3)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_4)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_4)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_5)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_5)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_6)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_6)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_7)/%.o : $(SRCS_PATH)/$(SRCS_LIBUI_PATH)/$(SRCS_LIBUI_7)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@
 
 directory:
 		@mkdir $(OBJS_PATH) 2> /dev/null || true
@@ -110,7 +144,6 @@ clean:
 fclean: clean
 		rm -rf $(NAME)
 		make fclean -C $(LIBFT)
-		make clean -C $(LIBUI)
 
 re:   		fclean all
 
