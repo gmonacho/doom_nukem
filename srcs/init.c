@@ -50,8 +50,8 @@ void		init_player(t_win *win, t_player *player)
 
 	player->inventory = define_inventory();
 	player->fov = win->w * M_PI_2 / 1000;
-	player->fov_2 = player->fov / 2;
 	player->fov_up = win->h * M_PI_2 / 1000;
+	player->fov_2 = player->fov / 2;
 	player->fov_up_2 = player->fov_up / 2;
 	player->ddir = 0.05;
 	// player->win_w = win->w;

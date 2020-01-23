@@ -42,7 +42,7 @@ static int	resolve(t_poly *poly, t_fdot_3d polynome, float ad, float bd, int zc)
 	}
 	c1.z = zc;
 	c2.z = zc;
-	return (is_in_poly(poly, fdot_3d_sub(c1, poly->dots[0]), fdot_3d_sub(c2, poly->dots[0])));
+	return (is_in_poly(poly, fdot_3d_sub(c1, poly->dots_rotz_only[0]), fdot_3d_sub(c2, poly->dots_rotz_only[0])));
 }
 
 static int	collision_circle(t_player *player, t_poly *poly, int zc, int radius)
@@ -75,6 +75,7 @@ static int	collision_circle(t_player *player, t_poly *poly, int zc, int radius)
 							fdot_3d_sub((t_fdot_3d){0, 0, poly->dots_rotz_only[0].z}, poly->dots_rotz_only[0]))) ||\
 			(ret2 = is_intersection_cercle_poly(poly, radius))))
 		{
+			// print_poly(poly, 1);
 			// printf("is in poly %d\tis intersec %d\n", ret1, ret2);
 			if (poly->dots_rotz_only[0].z == -player->_9_height_10)
 			{
@@ -88,21 +89,14 @@ static int	collision_circle(t_player *player, t_poly *poly, int zc, int radius)
 			// if (zc == -player->height / 2)
 				// printf("Col 0\n");
 			// printf("");
-			if (poly->dots[0].z == -player->_9_height_10)
+			if (poly->dots_rotz_only[0].z == -player->_9_height_10)
 				player->on_floor = 0;
 			return (0);
 		}
-		
-		// return (!(delta < -player->height || 0 < delta) &&\
-		// 		is_in_poly(poly, fdot_3d_sub((t_fdot_3d){0, 0, delta}, poly->dots_rotz_only[0]),\
-		// 						fdot_3d_sub((t_fdot_3d){0, 0, delta}, poly->dots_rotz_only[0])) ? 1 : 0);
 	}	
 	polynome.x = 1 + ad * ad;
 	polynome.y = 2 * ad * bd;
 	polynome.z = bd * bd - radius * radius;
-
-	// if ((delta = polynome.y * polynome.y - 4 * polynome.x * polynome.z) < 0)
-	// 	return (0);
 	return (resolve(poly, polynome, ad, bd, zc));
 }
 

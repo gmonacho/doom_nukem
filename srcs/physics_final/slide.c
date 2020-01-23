@@ -22,14 +22,16 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collid
 									plan.v.y,\
 									plan.v.z,\
 									NULL, 0, 0, NULL};
-	// printf("Dpos o %f %f %f\n", dpos.x, dpos.y, dpos.z);
-	// printf("Dpos v %f %f %f\n", proj_ortho_ray.vx, proj_ortho_ray.vy, proj_ortho_ray.vz);
-	// printf("Plan %f %f %f %f\n", plan.v.x, plan.v.y, plan.v.z, plan.d);
+
 	if (is_null(scalar_product(plan.v, dpos), 0.005))
 	{
 		// copy_poly_lst(polys, polys_save);
 		poly_collide->is_slide_ban = 1;
-		// printf("< slide canceled >\n");
+		printf("< slide canceled >\n");
+		// printf("Plan %f %f %f %f\n", plan.v.x, plan.v.y, plan.v.z, plan.d);
+		// printf("Dpos o %f %f %f\n", dpos.x, dpos.y, dpos.z);
+		// printf("Dpos v %f %f %f\n", proj_ortho_ray.vx, proj_ortho_ray.vy, proj_ortho_ray.vz);
+		print_poly(poly_collide, 1);
 		return ;
 	}
 	if (!intersection_plan_ray(&proj_ortho, plan, proj_ortho_ray))
@@ -46,12 +48,17 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collid
 	translate_all_rotz_only(polys, (t_fdot_3d){-proj_ortho.x,\
 													-proj_ortho.y,\
 													-proj_ortho.z});
-	if (is_poly_collision(&(map->player), poly_collide))
-	{
-		// printf("Tjs une col sur slide\n");
-		copy_poly_lst(polys, polys_save);
-	}
-	
+
+	// if (is_poly_collision(&(map->player), poly_collide))
+	// {
+	// 	printf("Tjs une col sur slide\n");
+	// 	print_poly(poly_collide, 1);
+	// 	copy_poly_lst(polys, polys_save);
+	// 	print_poly(poly_collide, 1);
+	// 	if (is_poly_collision(&(map->player), poly_collide))
+	// 		printf("TJS UNE COLLISIONS\n");
+	// }
+
 	// if (i == 4)
 	// {
 	// }

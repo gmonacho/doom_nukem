@@ -45,7 +45,6 @@ int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienn
 	}
 	return (1);
 }
-//Opti utiliser une autre ft que celle du raytracer pour pas avoir (ray->vx = 1) dans les eq.
 
 int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne ray)
 {
@@ -88,14 +87,20 @@ static int		is_intersection_cercle_segment(t_fdot_3d d1, t_fdot_3d d2, int radiu
 	float		b;
 	float		denom;
 	
-	if (!(denom = d2.x - d1.x))
+	if (is_null(denom = d2.x - d1.x, 0.005))
+	{
 		if ((denom = radius * radius - d1.x * d1.x) >= 0)
 		{
-			if ((denom < d1.y && denom < d2.y) ||\
-				(denom > d1.y && denom > d2.y))	
-				return (0);
-			return (1);
+			denom = sqrt(denom);
+			if (!((denom < d1.y && denom < d2.y) ||\
+				(denom > d1.y && denom > d2.y)))
+				return (1);
+			// printf("Denom null\n");
+			// printf("D1 %f %f %f\n", d1.x, d1.y, d1.z);
+			// printf("D2 %f %f %f\n", d2.x, d2.y, d2.z);
 		}
+		return (0);
+	}
 	a = (d2.y - d1.y) / denom;
 	b = d1.y - a * d1.x;
 	polynome.x = 1 + a * a;
@@ -114,6 +119,13 @@ static int		is_intersection_cercle_segment(t_fdot_3d d1, t_fdot_3d d2, int radiu
 		(c2.y < d1.y && c2.y < d2.y) ||\
 		(c2.y > d1.y && c2.y > d2.y)))
 		return (0);
+	// printf("Cas general\n");
+	// printf("Denom %f\n", denom);
+	// printf("D : %fx + %f\n", a, b);
+	// printf("C1 %f %f %f\n", c1.x, c1.y, c1.z);
+	// printf("C2 %f %f %f\n", c2.x, c2.y, c2.z);
+	// printf("D1 %f %f %f\n", d1.x, d1.y, d1.z);
+	// printf("D2 %f %f %f\n", d2.x, d2.y, d2.z);
 	return (1);
 }
 
@@ -126,7 +138,10 @@ int				is_intersection_cercle_poly(t_poly *poly, int radius)
 	while (++i < N_DOTS_POLY)
 	{
 		if (is_intersection_cercle_segment(poly->dots_rotz_only[i], poly->dots_rotz_only[(i ? i : N_DOTS_POLY) - 1], radius))
+		{
+			printf("i : %d %d\n", i, (i ? i : N_DOTS_POLY) - 1);
 			return (1);
+		}
 	}
 	// printf("Sol 0 f\n");
 	return (0);
