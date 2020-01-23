@@ -4,6 +4,8 @@
 		"doom_nukem.h": "c",
 		"string.h": "c",
 		"ios": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"ui_win.h": "c",
+		"ui_draw.h": "c"
 	}
 }
