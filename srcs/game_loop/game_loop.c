@@ -10,17 +10,6 @@ static void gravity(t_map *map)
 {
 	t_poly      *poly_collide;
 
-<<<<<<< HEAD
-    //Gravity all entities : Player, Mobs, Objects, ...
-    copy_poly_lst(map->polys_save, map->polys);
-    translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, map->gravity});
-    while ((poly_collide = collisions(&(map->player), map->polys)))
-    {
-        // copy_poly_lst(map->polys, map->polys_save);
-        printf("");
-        slide(map, map->polys, map->polys_save, poly_collide, 0);
-    }
-=======
 	//Gravity all entities : Player, Mobs, Objects, ...
 	copy_poly_lst(map->polys_save, map->polys);
 	translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, map->gravity});
@@ -29,7 +18,6 @@ static void gravity(t_map *map)
 		// copy_poly_lst(map->polys, map->polys_save);
 		slide(map, map->polys, map->polys_save, poly_collide, 0);
 	}
->>>>>>> eeecdcf9650f4859ee645fce5625bdd462a3baa9
 }
 
 static SDL_bool game(t_win *win, t_map *map)
@@ -55,6 +43,7 @@ static SDL_bool game(t_win *win, t_map *map)
 
     copy_poly_lst(map->polys_save, map->polys);
     events_move(win, &(map->player), state);
+
     if (map->player.collision_on)
     {
         i = 0;
