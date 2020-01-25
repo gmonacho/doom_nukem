@@ -39,14 +39,14 @@ int					init_rays(t_win *win, t_player *player)
 	init_matrix_ry_inv(player);
 	init_matrix_rz_inv(player);
 	dangle = (t_fdot){player->fov / win->w, player->fov_up / win->h};
-	if (!(player->rays = (t_cartesienne **)malloc(sizeof(t_cartesienne *) * (HEIGHT + 1))))
+	if (!(player->rays = (t_cartesienne **)malloc(sizeof(t_cartesienne *) * (win->h + 1))))
 		return (1);
-	player->rays[HEIGHT] = NULL;
+	player->rays[win->h] = NULL;
 	angle.y = player->fov_up_2;
 	coord.y = -1;
 	while (++coord.y < win->h)
 	{
-		if (!(player->rays[coord.y] = (t_cartesienne *)malloc(sizeof(t_cartesienne) * (WIDTH))))
+		if (!(player->rays[coord.y] = (t_cartesienne *)malloc(sizeof(t_cartesienne) * win->w)))
 			return (1);
 		angle.x = -player->fov_2;
 		coord.x = -1;

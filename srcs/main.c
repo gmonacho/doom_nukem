@@ -19,17 +19,13 @@
 static int			init(t_win *win, t_map *map, t_player *player)
 {
 	printf("Debut init\n");
-	// if (init_textures(win, &(map->textures)))
-	// {
-	// 	ft_putendl("init_textures failed");
-	// 	return (1);
-	// }
 	if (!init_music(&win->music))
 	{
 		ft_putendl("init_music failed");
 		return (4);
 	}
-	init_player(win, player);
+	if (init_win_player(win, player))
+		return (1);
 	init_polygone(map->polys);
 	create_poly_save(map);
 	return (0);
@@ -45,12 +41,14 @@ int					main(int argc, char **argv)
 	SDL_bool		loop;
 	SDL_DisplayMode	screen;
 
+	printf("Fin init sdl\n");
 	if (argc == 1 || argc == 2)
 	{
 		win.w = WIDTH;
 		win.h = HEIGHT;
 		win.map = &map;
 		map.gravity = 4;
+		printf("Fin init sdl\n");
 		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == -1 || TTF_Init() == -1)
 			return (ret_error(SDL_GetError()));
 		if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)

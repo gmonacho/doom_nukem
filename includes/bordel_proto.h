@@ -11,7 +11,7 @@
 
 int				init_music(t_doom_music	*music);
 int				init_textures(t_win *win, t_textures *textures);
-void	        init_player(t_win *win, t_player *player);
+int				init_win_player(t_win *win, t_player *player);
 
 /*
 **	---------------------------------- init_menu ----------------------------------
@@ -326,7 +326,7 @@ t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
 int					init_rays(t_win *win, t_player *player);
 void				translate_all(t_poly *sector, t_fdot_3d translation);
 void				translate_all_rotz_only(t_poly *poly, t_fdot_3d translation);
-t_fdot_3d			return_rotate_dot(t_fdot_3d dot, t_matrix matrix);
+t_fdot_3d			rotate_dot(t_fdot_3d dot, t_matrix matrix);
 void				rotate_all_dots(t_poly *sector, t_matrix matrix);
 void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix);
 void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix);
@@ -349,6 +349,9 @@ t_poly				*collisions(t_player *player, t_poly *poly);
 int					is_poly_collision(t_player *player, t_poly *poly);
 void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collide, int i);
 
+t_poly				*collisions_sphere(t_map *map, t_player *player, t_poly *poly);
+int					poly_collision(t_player *player, t_poly *poly);
+
 /*
 ** ================================== Time ===================================
 */
@@ -364,14 +367,11 @@ void				reload_cd(t_map *map);
 
 float				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
 t_fdot_3d			vectoriel_product(t_fdot_3d v1, t_fdot_3d v2);
-
-// float		dist(t_dot p1, t_dot p2);
 float  				modulo(float nbr, float mod);
 float				fdist(t_fdot p1, t_fdot p2);
 float				fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
 t_fdot_3d			fdot_3d_sub(t_fdot_3d d1, t_fdot_3d d2);
 float				mag(t_fdot_3d v);
-float				fmag(t_fdot_3d dot);
 int					sign(float nbr);
 void				normalize(float *angle);
 int					is_null(float nbr, float precision);
@@ -387,4 +387,7 @@ int					is_intersection_cercle_poly(t_poly *poly, int radius);
 int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
 int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne ray);
 int					resolve_polynome(t_fdot_3d polynome, float *x1, float *x2);
+void				proj_ortho_plan(t_fdot_3d dot, t_plan plan, t_fdot_3d *proj_ortho);
+t_fdot_3d			proj_ortho_origin_line(t_fdot_3d l1, t_fdot_3d l2, t_fdot_3d *proj);
+
 #endif
