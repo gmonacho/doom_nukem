@@ -249,13 +249,14 @@ static void	editor_menu_quit(t_win *win, Uint32 ms)
 	SDL_Delay(ms);
 }
 
-static void		editor_menu_ui(t_win *win)
+static void		editor_menu_disp(t_win *win, t_map *map)
 {
 	ui_set_draw_color(win->rend, &(SDL_Color){30, 30, 30, 255});
 	ui_clear_win(win->winui);
+	ed_display(win, map);
 	ui_display_frames(win->winui, win->winui->ui.frames);
 	ui_draw_rend(win->winui);
-	ui_wait_event(&win->winui->event);
+	ui_poll_event(&win->winui->event);
 	ui_update_ui(win->winui);
 }
 
@@ -264,7 +265,7 @@ int		init_editor_menu(t_win *win)
 {
 	if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
 		ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
-	if (!(win->winui->ui.button_font = ui_load_font("TTF/DooM.ttf", 100)))
+	if (!(win->winui->ui.button_font = ui_load_font("TTF/arial.ttf", 100)))
 		return (ui_ret_error("init_editor_menu", "ui_load_font failed", 0));
 	if (!ui_load("interfaces/editor_interface", win->winui))
 		return (ui_ret_error("init_editor_menu", "ui_load failed", 0));
@@ -272,56 +273,28 @@ int		init_editor_menu(t_win *win)
 	return (1);
 }
 
-int				editor_loop(t_win *win, t_map *game_map)
+int				editor_loop(t_win *win, t_map *map)
 {
 	SDL_bool			loop;
-	// t_map_editor		map;
-	// t_sector			*s;
-	// t_linedef			*l;
 
-	// // if (!(parser_png("png_test_800_600.png")))
-	// // 	return (0);
-	// if (!editor_init(win, &map))
-	// 	return (ret_error("editor_init failed in editor loop"));
-	// if (game_map)
-	// {
-	// 	// map.sectors = game_map->polys;
-	// 	reverse_sectors(&map.sectors);
-	// 	s = map.sectors;
-	// 	while (s)
-	// 	{
-	// 		l = s->lines;
-	// 		while (l)
-	// 		{
-	// 			l->gflags = l->flags;
-	// 			l->flags = LINEDEF_NONE;
-	// 			l = l->next;
-	// 		}
-	// 		s = s->next;
-	// 	}
-	// 	map.player = game_map->player;
-	// 	map.player.dpos.x = game_map->player.pos.x;
-	// 	map.player.dpos.y = game_map->player.pos.y;
-	// 	map.player.vel = (t_fdot){1, 1};
-	// }
-	// if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
-	// 	ft_putendl_fd("editor loop : Impossible to play map_editor.wav", 2);
+	map->editor.pos = (t_dot){0, 0};
+	map->editor.size = (t_dot){0, 0};
+	map->editor.unit = 1;
+	map->editor.wall_height = 100;
 	if (!init_editor_menu(win))
 		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));
 	loop = SDL_TRUE;
 	while (loop)
 	{
-		editor_menu_ui(win);
+		editor_menu_disp(win, map);
 		if (win->winui->event.type == SDL_QUIT)
 			loop = 0;
 		// check_map(win, &map);
-		// editor_display(win, &map);
 		// editor_event(win, &map, &loop);
+		ed_event(win, map);
 	}
 	editor_menu_quit(win, 500);
 	init_main_menu(win);
 	// editor_quit(win, &map);
-	if (win && game_map)
-		return (1);
 	return (1);
 }

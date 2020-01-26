@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:35:58 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:36:00 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/26 18:44:17 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,6 +51,7 @@ int				ui_draw_text_line_return(SDL_Renderer *rend,
 
 	if (text)
 	{
+		jumped = 0;
 		n_rem_words = 0;
 		n_words = ft_count_words(text->str);
 		text_tmp = *text;

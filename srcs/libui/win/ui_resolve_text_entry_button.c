@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:37:11 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/23 15:51:46 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/26 19:13:08 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,7 @@ static void		suppress_char(t_winui *win, t_text_entry_button *t_e_button)
 	win->ui.cursor_position--;
 	if (win->ui.cursor_position < 0)
 		win->ui.cursor_position = 0;
+	SDL_Delay(100);
 }
 
 static void		text_input_digital(t_winui *win,
@@ -106,5 +107,6 @@ void			ui_resolve_text_entry_button(t_winui *win,
 			text_input_digital(win, text_entry_button);
 		else
 			text_input_else(win, text_entry_button);
+		SDL_Delay(100);
 	}
 }

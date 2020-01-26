@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:34:34 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/23 15:51:46 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/24 13:46:11 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -128,6 +128,7 @@ int				ui_load(const char *path, t_winui *win)
 	}
 	ui_update_frames_rect(win, SDL_TRUE);
 	ui_update_buttons_rect(win, SDL_TRUE);
+	ui_update_ui(win);
 	ft_2dstrdel((char***)&text);
 	return (1);
 }

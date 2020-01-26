@@ -1,4 +1,4 @@
-// #include "doom_nukem.h"
+#include "doom_nukem.h"
 
 // void		update_selected_ui(t_win *win)
 // {
@@ -289,3 +289,27 @@
 // 	}
 // 	return (1);
 // }
+
+int 	ed_event(t_win *win, t_map *map)
+{
+	const Uint8	*state;
+
+	state = SDL_GetKeyboardState(NULL);
+	if (win)
+	{
+		if (state[SDL_SCANCODE_A])
+			map->editor.pos.x -= 1;
+	}
+	if (state[SDL_SCANCODE_D])
+		map->editor.pos.x += 1;
+	if (state[SDL_SCANCODE_W])
+		map->editor.pos.y -= 1;
+	if (state[SDL_SCANCODE_S])
+		map->editor.pos.y += 1;
+	if(win->winui->event.type == SDL_MOUSEWHEEL)
+	{
+		map->editor.unit += win->winui->event.wheel.y * 0.01;
+		win->winui->event.wheel.y = 0;
+	}
+	return (1);
+}
