@@ -148,7 +148,7 @@ typedef struct		s_win
 
 	SDL_Window*		ptr;
 	SDL_Renderer	*rend;
-	Uint32			pixels[HEIGHT * WIDTH];
+	Uint32			*pixels;
 	SDL_Texture		*rend_texture;
 	int				view;
 
@@ -426,6 +426,7 @@ typedef struct s_inventory
 
 typedef struct		s_player
 {
+	int				debug;
 	int				win_w;
 	int				win_h;
 	t_fdot			pos;
@@ -449,6 +450,7 @@ typedef struct		s_player
 	int				height;
 	float			height_10;
 	float			_9_height_10;
+	float			_4_height_10;
 	int				width;
 	float			width_2;
 	int				collision_on;

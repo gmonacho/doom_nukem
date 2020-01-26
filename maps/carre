@@ -1,11 +1,11 @@
 Player
 {
-	posx = 200
-	posy = 200
-	posz = 150
+	posx = 350
+	posy = 350
+	posz = 125
 	dir = -90
-	width = 30
-	height = 90
+	width = 70
+	height = 70
 	velocity = 10
 }
 Object

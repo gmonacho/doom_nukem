@@ -1,18 +1,6 @@
 #include "doom_nukem.h"
 
-/*
-**	OA . v = d
-**
-**	OA' = OA + t
-**
-**	(OA' - t) . v = d
-**	OA' . v - d - v . t = 0
-**	Mon d est egal a -d dans cette equation du a la premiere relation
-**	Resultat on enleve a d le produit scalaire du vecteur normal et
-**	de la translation
-*/
-
-t_fdot_3d			return_rotate_dot(t_fdot_3d dot, t_matrix matrix)
+t_fdot_3d			rotate_dot(t_fdot_3d dot, t_matrix matrix)
 {
 	return ((t_fdot_3d){dot.x * matrix._00 + dot.y * matrix._10 + dot.z * matrix._20,\
 						dot.x * matrix._01 + dot.y * matrix._11 + dot.z * matrix._21,\
@@ -71,22 +59,21 @@ void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix)
 {
 	while (poly)
 	{
-		poly->equation_rotz_only.v = return_rotate_dot(poly->equation_rotz_only.v, matrix);
+		poly->equation_rotz_only.v = rotate_dot(poly->equation_rotz_only.v, matrix);
 		
-		poly->dots_rotz_only[0] = return_rotate_dot(poly->dots_rotz_only[0], matrix);
-		poly->dots_rotz_only[1] = return_rotate_dot(poly->dots_rotz_only[1], matrix);
-		poly->dots_rotz_only[2] = return_rotate_dot(poly->dots_rotz_only[2], matrix);
-		poly->dots_rotz_only[3] = return_rotate_dot(poly->dots_rotz_only[3], matrix);
+		poly->dots_rotz_only[0] = rotate_dot(poly->dots_rotz_only[0], matrix);
+		poly->dots_rotz_only[1] = rotate_dot(poly->dots_rotz_only[1], matrix);
+		poly->dots_rotz_only[2] = rotate_dot(poly->dots_rotz_only[2], matrix);
+		poly->dots_rotz_only[3] = rotate_dot(poly->dots_rotz_only[3], matrix);
 
-		poly->i = (t_fdot_3d){	poly->dots_rotz_only[1].x - poly->dots_rotz_only[0].x,\
-								poly->dots_rotz_only[1].y - poly->dots_rotz_only[0].y,\
-								poly->dots_rotz_only[1].z - poly->dots_rotz_only[0].z};
-		poly->j = (t_fdot_3d){	poly->dots_rotz_only[N_DOTS_POLY - 1].x - poly->dots_rotz_only[0].x,\
-								poly->dots_rotz_only[N_DOTS_POLY - 1].y - poly->dots_rotz_only[0].y,\
-								poly->dots_rotz_only[N_DOTS_POLY - 1].z - poly->dots_rotz_only[0].z};
-		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
-		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
-		// poly->ijij_iijj = -poly->ii * poly->jj;
+		// poly->i = (t_fdot_3d){	poly->dots_rotz_only[1].x - poly->dots_rotz_only[0].x,\
+		// 						poly->dots_rotz_only[1].y - poly->dots_rotz_only[0].y,\
+		// 						poly->dots_rotz_only[1].z - poly->dots_rotz_only[0].z};
+		// poly->j = (t_fdot_3d){	poly->dots_rotz_only[N_DOTS_POLY - 1].x - poly->dots_rotz_only[0].x,\
+		// 						poly->dots_rotz_only[N_DOTS_POLY - 1].y - poly->dots_rotz_only[0].y,\
+		// 						poly->dots_rotz_only[N_DOTS_POLY - 1].z - poly->dots_rotz_only[0].z};
+		// poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
+		// poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
 		poly = poly->next;
 	}
 }
@@ -95,13 +82,13 @@ void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix)
 {
 	while (poly)
 	{
-		poly->equation.v = return_rotate_dot(poly->equation_rotz_only.v, matrix);
+		poly->equation.v = rotate_dot(poly->equation_rotz_only.v, matrix);
 		poly->equation.d = poly->equation_rotz_only.d;
 
-		poly->dots[0] = return_rotate_dot(poly->dots_rotz_only[0], matrix);
-		poly->dots[1] = return_rotate_dot(poly->dots_rotz_only[1], matrix);
-		poly->dots[2] = return_rotate_dot(poly->dots_rotz_only[2], matrix);
-		poly->dots[3] = return_rotate_dot(poly->dots_rotz_only[3], matrix);
+		poly->dots[0] = rotate_dot(poly->dots_rotz_only[0], matrix);
+		poly->dots[1] = rotate_dot(poly->dots_rotz_only[1], matrix);
+		poly->dots[2] = rotate_dot(poly->dots_rotz_only[2], matrix);
+		poly->dots[3] = rotate_dot(poly->dots_rotz_only[3], matrix);
 
 		poly->i = (t_fdot_3d){	poly->dots[1].x - poly->dots[0].x,\
 								poly->dots[1].y - poly->dots[0].y,\
@@ -109,9 +96,8 @@ void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix)
 		poly->j = (t_fdot_3d){	poly->dots[N_DOTS_POLY - 1].x - poly->dots[0].x,\
 								poly->dots[N_DOTS_POLY - 1].y - poly->dots[0].y,\
 								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
-		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
-		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
-		// poly->ijij_iijj = -poly->ii * poly->jj;
+		// poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
+		// poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
 		poly = poly->next;
 	}
 }

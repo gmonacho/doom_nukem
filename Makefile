@@ -60,7 +60,7 @@ LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
 INCLUDE_PATH = ./includes
 INCLUDES = $(wildcard $(INCLUDE_PATH)/*.h)
 CC = gcc
-CFLAGS += -Wall -Wextra -Werror -O3 -fsanitize=address -I$(INCLUDE_PATH)\
+CFLAGS += -Wall -Wextra -Werror -O3 -march=native -flto -ffast-math -I$(INCLUDE_PATH)\
 														-I$(INCLUDE_PATH)/libui/\
                                                         -I$(LIBFT)/includes/\
 														-I./$(LIBSDLMIXER)/\
@@ -69,6 +69,7 @@ CFLAGS += -Wall -Wextra -Werror -O3 -fsanitize=address -I$(INCLUDE_PATH)\
                                                         -I$(FW_PATH)/SDL2.framework/Headers/\
                                                         -I$(FW_PATH)/SDL2_mixer.framework/Headers/
 
+#-march=native -flto -ffast-math
 #Enlever le flag -fsanitize=address
 
 all:    directory $(NAME)

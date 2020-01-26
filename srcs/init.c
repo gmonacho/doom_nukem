@@ -36,40 +36,43 @@ void		init_polygone(t_poly *poly)
 		poly->equation_rotz_only = poly->equation;
 		poly = poly->next;
 	}
+	// printf("i = %d\n", i);
+	// exit(0);
 }
 
-void		init_player(t_win *win, t_player *player)
+static void		init_player_maths(t_win *win, t_player *player)
 {
-	win->view = TEXTURE_VIEW;
 	// win->view = TEXTURE_VIEW | WALL_VIEW | BOX_VIEW;
-
+	win->view = TEXTURE_VIEW;
 	translate_all(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
 	translate_all_rotz_only(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
 	rotate_all_rotz_only(win->map->polys, create_rz_matrix(-player->dir_init));
 	player->rot_y = 0;
-
-	player->inventory = define_inventory();
+	player->ddir = 0.05;
 	player->fov = win->w * M_PI_2 / 1000;
 	player->fov_up = win->h * M_PI_2 / 1000;
 	player->fov_2 = player->fov / 2;
 	player->fov_up_2 = player->fov_up / 2;
-	player->ddir = 0.05;
-	// player->win_w = win->w;
-	// player->win_h = win->h;
+	player->width_2 = player->width / 2;
+	player->height_10 = player->height / 10;
+	player->_9_height_10 = 9 * player->height_10;
+	player->_4_height_10 = 4 * player->height_10;
+	player->collision_on = 1;
 	win->w_div_fov = win->w / player->fov;
 	win->h_div_fov = win->h / player->fov_up;
 	if (init_rays(win, player))
 		return (ft_putendl("Erreur malloc rays"));
+}
+
+static void		init_player_hud(t_player *player)
+{
+	player->inventory = define_inventory();
 	player->maxHp = 50;
 	player->currentHp = player->maxHp;
 	player->maxArmor = 50;
 	player->currentArmor = player->maxArmor;
 	player->inventory->ammo = 15;
 	player->inventory->magazine = 120;
-	player->width_2 = player->width / 2;
-	player->height_10 = player->height / 10;
-	player->_9_height_10 = 9 * player->height_10;
-	win->map->player.collision_on = 1;
 	start_cooldown(&(player->timers.bullet_cd), 130);
 	start_cooldown(&(player->timers.item_cd), 200);
 	start_cooldown(&(player->timers.text_cd), 600);
@@ -81,16 +84,16 @@ void		init_player(t_win *win, t_player *player)
     player->timers.reload_cd.index = 5;
     player->timers.bullet_cd.index = 5;
     player->timers.bullet_cd.index = 0;
-	
-	// t_fdot_3d	d1 = (t_fdot_3d){3, -5, 9};
-	// t_fdot_3d	d2 = (t_fdot_3d){-1, 1, -9};
-	// t_fdot_3d	ret;
+}
 
-	// ret = return_rotate_dot(d1, create_rz_matrix(M_PI_2));
-	// printf("ret %f %f %f\n", ret.x, ret.y, ret.z);
-	// ret = return_rotate_dot(d2, create_rz_matrix(M_PI_2));
-	// printf("ret %f %f %f\n", ret.x, ret.y, ret.z);
+int			init_win_player(t_win *win, t_player *player)
+{
+	if (!(win->pixels = (Uint32 *)malloc(sizeof(Uint32) * win->w * win->h)))
+		return (1);
+	init_player_maths(win, player);
+	init_player_hud(player);
 	// exit(0);
+	return (0);
 }
 
 int			init_music(t_doom_music	*music)

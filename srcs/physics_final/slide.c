@@ -23,17 +23,17 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collid
 									plan.v.z,\
 									NULL, 0, 0, NULL};
 
-	if (is_null(scalar_product(plan.v, dpos), 0.005))
-	{
-		// copy_poly_lst(polys, polys_save);
-		poly_collide->is_slide_ban = 1;
-		printf("< slide canceled >\n");
-		// printf("Plan %f %f %f %f\n", plan.v.x, plan.v.y, plan.v.z, plan.d);
-		// printf("Dpos o %f %f %f\n", dpos.x, dpos.y, dpos.z);
-		// printf("Dpos v %f %f %f\n", proj_ortho_ray.vx, proj_ortho_ray.vy, proj_ortho_ray.vz);
-		print_poly(poly_collide, 1);
-		return ;
-	}
+	// if (is_null(scalar_product(plan.v, dpos), 0.005))
+	// {
+	// 	// copy_poly_lst(polys, polys_save);
+	// 	poly_collide->is_slide_ban = 1;
+	// 	// printf("< slide canceled >\n");
+	// 	// printf("Plan %f %f %f %f\n", plan.v.x, plan.v.y, plan.v.z, plan.d);
+	// 	// printf("Dpos o %f %f %f\n", dpos.x, dpos.y, dpos.z);
+	// 	// printf("Dpos v %f %f %f\n", proj_ortho_ray.vx, proj_ortho_ray.vy, proj_ortho_ray.vz);
+	// 	// print_poly(poly_collide, 1);
+	// 	return ;
+	// }
 	if (!intersection_plan_ray(&proj_ortho, plan, proj_ortho_ray))
 	{
 		printf("CHELOU slide trouve pas de collision ???\n");
@@ -49,15 +49,28 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collid
 													-proj_ortho.y,\
 													-proj_ortho.z});
 
-	// if (is_poly_collision(&(map->player), poly_collide))
+	// if (is_null(poly_collide->equation_rotz_only.v.x, 0.0005) &&\
+	// 	is_null(poly_collide->equation_rotz_only.v.y, 0.0005))
 	// {
-	// 	printf("Tjs une col sur slide\n");
-	// 	print_poly(poly_collide, 1);
-	// 	copy_poly_lst(polys, polys_save);
-	// 	print_poly(poly_collide, 1);
-	// 	if (is_poly_collision(&(map->player), poly_collide))
-	// 		printf("TJS UNE COLLISIONS\n");
+	// 	i = 0;
+	// 	// print_poly(poly_collide, 1);
+	// 	// printf("Colli : %d\n", is_poly_collision(&(map->player), poly_collide));
 	// }
+
+	if (poly_collision(&(map->player), poly_collide))
+	{	//Probleme de collision : 
+		//Detecte une col fausse donc tente de la reparer mais elle est tjs detecte
+		printf("Tjs une col sur slidegt rths ef : %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
+		// print_poly(poly_collide, 1);
+		copy_poly_lst(polys, polys_save);
+		// print_poly(poly_collide, 1);
+		// if (poly_collision(&(map->player), poly_collide))
+		// {
+		// 	// printf("TJS UNE COLLISIONS WTF\n");
+		// 	// map->player.debug = 1;
+		// 	poly_collision(&(map->player), poly_collide);
+		// }
+	}
 
 	// if (i == 4)
 	// {
@@ -101,7 +114,7 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collid
 // 	angle = asin(mag(proj_ortho) / mag(dpos));
 // 	rot_axe = vectoriel_product(dpos, poly_collide->equation_rotz_only.v);
 
-// 	rebond = return_rotate_dot(dpos, create_matrix(rot_axe, 2 * angle));
+// 	rebond = rotate_dot(dpos, create_matrix(rot_axe, 2 * angle));
 // 	translate_all_rotz_only(polys, (t_fdot_3d){-(dpos.x + rebond.x),\
 // 												-(dpos.y + rebond.y),\
 // 												-(dpos.z + rebond.z)});

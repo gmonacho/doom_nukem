@@ -1,20 +1,11 @@
 #include "doom_nukem.h"
 
-static int	is_in_poly(t_poly *poly, t_fdot_3d c1, t_fdot_3d c2)
+static int	is_in_poly(t_poly *poly, t_fdot_3d c1)
 {
 	t_fdot	coord1;
-	t_fdot	coord2;
 
 	find_coord_plan(poly, &coord1, c1);
-	find_coord_plan(poly, &coord2, c2);
-	// print_poly(poly, 1);
-	// printf("c1 c2 %f %f %f\t%f %f %f\n", c1.x, c1.y, c1.z, c2.x, c2.y, c2.z);
-	// printf("Coord %f %f\t%f %f\n", coord1.x, coord1.y, coord2.x, coord2.y);
-	// if ((!(coord1.x <= 0 || 1 <= coord1.x || coord1.y <= 0 || 1 <= coord1.y) ||\
-	// 		!(coord2.x <= 0 || 1 <= coord2.x || coord2.y <= 0 || 1 <= coord2.y)) ? 0 : 1)
-	// 	printf("coord exte !\n");
-	return ((!(coord1.x <= 0 || 1 <= coord1.x || coord1.y <= 0 || 1 <= coord1.y) ||\
-			!(coord2.x <= 0 || 1 <= coord2.x || coord2.y <= 0 || 1 <= coord2.y)) ? 1 : 0);
+	return ((!(coord1.x <= 0 || 1 <= coord1.x || coord1.y <= 0 || 1 <= coord1.y)) ? 1 : 0);
 }
 
 static int	resolve(t_poly *poly, t_fdot_3d polynome, float ad, float bd, int zc)
@@ -42,7 +33,8 @@ static int	resolve(t_poly *poly, t_fdot_3d polynome, float ad, float bd, int zc)
 	}
 	c1.z = zc;
 	c2.z = zc;
-	return (is_in_poly(poly, fdot_3d_sub(c1, poly->dots_rotz_only[0]), fdot_3d_sub(c2, poly->dots_rotz_only[0])));
+	return (is_in_poly(poly, fdot_3d_sub(c1, poly->dots_rotz_only[0])) ||\
+			is_in_poly(poly, fdot_3d_sub(c2, poly->dots_rotz_only[0])));
 }
 
 static int	collision_circle(t_player *player, t_poly *poly, int zc, int radius)
@@ -71,8 +63,7 @@ static int	collision_circle(t_player *player, t_poly *poly, int zc, int radius)
 		// if (zc == -player->height / 2)
 		// 	print_poly(poly, 1);
 		if (!(poly->dots_rotz_only[0].z < -player->_9_height_10 || player->height_10 < poly->dots_rotz_only[0].z) &&\
-			((ret1 = is_in_poly(poly, fdot_3d_sub((t_fdot_3d){0, 0, poly->dots_rotz_only[0].z}, poly->dots_rotz_only[0]),\
-							fdot_3d_sub((t_fdot_3d){0, 0, poly->dots_rotz_only[0].z}, poly->dots_rotz_only[0]))) ||\
+			((ret1 = is_in_poly(poly, fdot_3d_sub((t_fdot_3d){0, 0, poly->dots_rotz_only[0].z}, poly->dots_rotz_only[0]))) ||\
 			(ret2 = is_intersection_cercle_poly(poly, radius))))
 		{
 			// print_poly(poly, 1);
@@ -103,12 +94,19 @@ static int	collision_circle(t_player *player, t_poly *poly, int zc, int radius)
 int			is_poly_collision(t_player *player, t_poly *poly)
 {
 	int		z;
+	static int	save_z = NAN;
 
+	if (player->debug)
+	{
+		printf("Last collision z : %d\n", save_z);
+		return (-1);
+	}
 	z = -player->_9_height_10;
 	while (z++ < player->height_10)
 	{
 		if (collision_circle(player, poly, z, player->width / 2))
 		{
+			save_z = z;
 			// printf("Col %f %f %f %f\n", poly->equation_rotz_only.v.x, poly->equation_rotz_only.v.y, poly->equation_rotz_only.v.z, poly->equation_rotz_only.d);
 			return (1);
 		}
@@ -120,12 +118,17 @@ t_poly		*collisions(t_player *player, t_poly *poly)
 {
 	while (poly)
 	{
+		print_poly(poly, 1);
 		if (!poly->is_slide_ban)
 		{
 			if (is_poly_collision(player, poly))
+			{
+				printf("COLLISION !!!\n");
 				return (poly);
+			}
 		}
 		poly = poly->next;
 	}
+	printf("\n\n");
 	return (NULL);
 }

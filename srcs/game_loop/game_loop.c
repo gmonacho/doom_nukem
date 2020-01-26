@@ -6,27 +6,29 @@
 	// t2 = clock();
 	// printf("find coord %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
-static void gravity(t_map *map)
-{
-	t_poly      *poly_collide;
+// static void gravity(t_map *map)
+// {
+// 	t_poly      *poly_collide;
 
-	//Gravity all entities : Player, Mobs, Objects, ...
-	copy_poly_lst(map->polys_save, map->polys);
-	translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, map->gravity});
-	while ((poly_collide = collisions(&(map->player), map->polys)))
-	{
-		// copy_poly_lst(map->polys, map->polys_save);
-		slide(map, map->polys, map->polys_save, poly_collide, 0);
-	}
-}
+// 	//Gravity all entities : Player, Mobs, Objects, ...
+// 	copy_poly_lst(map->polys_save, map->polys);
+// 	translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, map->gravity});
+// 	while ((poly_collide = collisions(&(map->player), map->polys)))
+// 	{
+// 		// copy_poly_lst(map->polys, map->polys_save);
+// 		slide(map, map->polys, map->polys_save, poly_collide, 0);
+// 	}
+// }
 
 static SDL_bool game(t_win *win, t_map *map)
 {
 	t_poly      *poly_collide;
+	t_poly      *poly;
 	const Uint8 *state;
 	SDL_Event   event;
 	int            i;
 
+	map->player.debug = 0;
 	// for (int i = 0; i < 10000000; i++);
 	// printf("Clock : %f\n", (float)clock() / CLOCKS_PER_SEC);
 	SDL_GetWindowSize(win->ptr, &win->w, &win->h);
@@ -43,12 +45,19 @@ static SDL_bool game(t_win *win, t_map *map)
 
     copy_poly_lst(map->polys_save, map->polys);
     events_move(win, &(map->player), state);
+
     if (map->player.collision_on)
     {
         i = 0;
-        while ((poly_collide = collisions(&(map->player), map->polys)))
+        while ((poly_collide = collisions_sphere(map, &(map->player), map->polys)))
         {
-            print_poly(poly_collide, 1);
+			printf("Col game loop\n");
+			poly = map->polys;
+			while (poly)
+			{
+				printf("Is col : %d\n", poly_collision(&(map->player), poly));
+				poly = poly->next;
+			}
             // printf("c\n");
             // copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
             slide(map, map->polys, map->polys_save, poly_collide, i);   //Collision avec slide
@@ -60,13 +69,16 @@ static SDL_bool game(t_win *win, t_map *map)
                 exit(0);
             }
         }
-        printf("Col avant grav %p\n", collisions(&(map->player), map->polys));
-        gravity(map);
-        printf("Col apres grav %p\n", collisions(&(map->player), map->polys));
+        // printf("Col avant grav %p\n", collisions(&(map->player), map->polys));
+        // gravity(map);
+        // printf("Col apres grav %p\n", collisions(&(map->player), map->polys));
         // printf("\n\n");
     }
+	// exit(0);
+	printf("Avant rot : %p\n", collisions_sphere(map, &(map->player), map->polys));
     copy_rotate_rotz_only(map->polys, create_ry_matrix(-map->player.rot_y));
-    printf("Col avant 7 %p\n", collisions(&(map->player), map->polys));
+	printf("Apres rot : %p\n", collisions_sphere(map, &(map->player), map->polys));
+    // printf("Col avant 7 %p\n", collisions(&(map->player), map->polys));
 
 
 	clear_rend(win->rend, 0x40, 0x40, 0x40);
