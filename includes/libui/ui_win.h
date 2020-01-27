@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 18:21:05 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 13:46:52 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/27 16:14:44 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -112,4 +112,5 @@ void					ui_set_text_entry_function(t_winui *win,
 		const char *button_id, void (*fn)(void *argument, char *button_output),
 		void *argument);
 
+t_text_area		*ui_get_text_area_button(t_winui *win, const char *id);
 #endif

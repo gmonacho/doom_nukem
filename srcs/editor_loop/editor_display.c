@@ -402,7 +402,30 @@ static void			ed_display_polys(t_win *win, const t_map *map)
 	}
 }
 
+static void			ed_display_mouse_position(t_win *win, const t_map *map)
+{
+	t_text_area		*text_area;
+	t_dot			point;
+
+	point = (t_dot){win->winui->mouse.pos.x / map->editor.unit + map->editor.pos.x,
+					win->winui->mouse.pos.y / map->editor.unit + map->editor.pos.y};
+	text_area = ui_get_text_area_button(win->winui, "b_mouse_x");
+	if (text_area)
+	{
+		ft_strdel(&text_area->text);
+		text_area->text = ft_itoa(point.x);
+	}
+	text_area = ui_get_text_area_button(win->winui, "b_mouse_y");
+	if (text_area)
+	{
+		ft_strdel(&text_area->text);
+		text_area->text = ft_itoa(point.y);
+	}
+}
+
+
 void			ed_display(t_win *win, const t_map *map)
 {
 	ed_display_polys(win, map);
+	ed_display_mouse_position(win, map);
 }
