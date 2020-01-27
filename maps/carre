@@ -17,7 +17,19 @@ Object
 	height = 100
 	texture = Brique.png
 }
-
+Mob
+{	
+	posx = 300
+	posy = 450
+	posz = 150
+	health = 50
+	type = 1
+	width = 40
+	height = 70
+	dir = -90
+	velocity = 2
+	texture = Elephantride.png
+}
 
 
 /* Murs du haut */

@@ -92,8 +92,10 @@ void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *stat
 		rotate_all_rotz_only(map->polys, player->rz_inv);
 	if (state[SDL_SCANCODE_UP])
 		player->rot_y += player->ddir;
+	// if (state[SDL_SCANCODE_UP] && player->rot_y < M_PI / 2 - 20 * player->ddir)
 	if (state[SDL_SCANCODE_DOWN])
 		player->rot_y -= player->ddir;
+	// if (state[SDL_SCANCODE_DOWN] && player->rot_y > -M_PI / 2 + 20 * player->ddir)
 }
 
 void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *state)

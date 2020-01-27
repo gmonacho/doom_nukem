@@ -60,18 +60,22 @@ void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix)
 	while (poly)
 	{
 		poly->equation_rotz_only.v = rotate_dot(poly->equation_rotz_only.v, matrix);
-		
+
 		poly->dots_rotz_only[0] = rotate_dot(poly->dots_rotz_only[0], matrix);
 		poly->dots_rotz_only[1] = rotate_dot(poly->dots_rotz_only[1], matrix);
 		poly->dots_rotz_only[2] = rotate_dot(poly->dots_rotz_only[2], matrix);
 		poly->dots_rotz_only[3] = rotate_dot(poly->dots_rotz_only[3], matrix);
 
-		// poly->i = (t_fdot_3d){	poly->dots_rotz_only[1].x - poly->dots_rotz_only[0].x,\
-		// 						poly->dots_rotz_only[1].y - poly->dots_rotz_only[0].y,\
-		// 						poly->dots_rotz_only[1].z - poly->dots_rotz_only[0].z};
-		// poly->j = (t_fdot_3d){	poly->dots_rotz_only[N_DOTS_POLY - 1].x - poly->dots_rotz_only[0].x,\
-		// 						poly->dots_rotz_only[N_DOTS_POLY - 1].y - poly->dots_rotz_only[0].y,\
-		// 						poly->dots_rotz_only[N_DOTS_POLY - 1].z - poly->dots_rotz_only[0].z};
+		// poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
+		// 								poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
+		// 								poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
+		
+		poly->i_rotz_only = (t_fdot_3d){poly->dots_rotz_only[1].x - poly->dots_rotz_only[0].x,\
+										poly->dots_rotz_only[1].y - poly->dots_rotz_only[0].y,\
+										poly->dots_rotz_only[1].z - poly->dots_rotz_only[0].z};
+		poly->j_rotz_only = (t_fdot_3d){poly->dots_rotz_only[N_DOTS_POLY - 1].x - poly->dots_rotz_only[0].x,\
+										poly->dots_rotz_only[N_DOTS_POLY - 1].y - poly->dots_rotz_only[0].y,\
+										poly->dots_rotz_only[N_DOTS_POLY - 1].z - poly->dots_rotz_only[0].z};
 		// poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
 		// poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
 		poly = poly->next;
@@ -113,7 +117,9 @@ void				translate_all(t_poly *poly, t_fdot_3d translation)
 		translate_dot(&(poly->dots[1]), translation);
 		translate_dot(&(poly->dots[2]), translation);
 		translate_dot(&(poly->dots[3]), translation);
-		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x + poly->equation.v.y * poly->dots[0].y + poly->equation.v.z * poly->dots[0].z);
+		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x +\
+								poly->equation.v.y * poly->dots[0].y +\
+								poly->equation.v.z * poly->dots[0].z);
 		poly = poly->next;
 	}
 }
@@ -127,7 +133,9 @@ void				translate_all_rotz_only(t_poly *poly, t_fdot_3d translation)
 		translate_dot(&(poly->dots_rotz_only[1]), translation);
 		translate_dot(&(poly->dots_rotz_only[2]), translation);
 		translate_dot(&(poly->dots_rotz_only[3]), translation);
-		poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x + poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y + poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
+		poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
+										poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
+										poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
 		poly = poly->next;
 	}
 }
