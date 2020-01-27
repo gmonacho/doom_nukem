@@ -17,7 +17,7 @@ int				init_win_player(t_win *win, t_player *player);
 **	---------------------------------- init_menu ----------------------------------
 */
 
-int				init_editor_menu(t_win *win);
+int				init_editor_menu(t_win *win, t_map *map);
 int				init_main_menu(t_win *win);
 
 /*
@@ -103,6 +103,7 @@ void		clear_rend(SDL_Renderer *rend, Uint8 r, Uint8 g, Uint8 b);
 void		print_column(t_win *win, t_linedef *wall, t_player *player, t_calculs *calculs);
 void		fill_portals(t_win *win, t_player *player);
 void		draw_line(t_win *win, t_dot p1, t_dot p2);
+void		draw_t_line(t_win *win, t_line line);
 void		draw_column(t_win *win, int x, int ylow, int yup);
 void		draw_rect(t_win *win, SDL_Rect rect);
 void		fill_rect(t_win *win, SDL_Rect rect);
@@ -282,11 +283,11 @@ void            print_credit(t_win *win);
 */
 
 int	        editor_loop(t_win *win, t_map *map);
-int		editor_event(t_win *win, t_map_editor *map, SDL_bool *loop);
+int 	ed_event(t_win *win, t_map *map);
 int		resolve_ui_left_press(t_win *win, t_map_editor *map);
 int		load_ui(int fd, t_win *win);
 int		add_sector_button(t_win *win, t_frame *f, int nb_sectors);
-void		editor_display(t_win *win, t_map_editor *map);
+void		ed_display(t_win *win, const t_map *map);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 void		check_file(t_map_editor *map);
 	

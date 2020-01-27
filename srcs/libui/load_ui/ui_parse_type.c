@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:35:31 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:35:32 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/27 15:09:26 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ int					parse_int(const char *str, int *n)
 	if (!(tmp = ft_strchr(str, ':')))
 		return (ui_ret_error("parse_int", "no \":\" found, 0 returned", 0));
 	i = 0;
-	while (tmp[i] && !ft_isdigit(tmp[i]))
+	while (tmp[i] && !ft_isdigit(tmp[i]) && tmp[i] != '-' && tmp[i] != '+')
 		i++;
 	if (!tmp[i])
 		return (ui_ret_error("parse_int", "no <int> found in str", 0));

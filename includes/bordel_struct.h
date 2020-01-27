@@ -527,6 +527,16 @@ typedef struct	s_map_editor
 	SDL_bool	ordinate_b;
 }				t_map_editor;
 
+typedef struct	s_editor
+{
+	t_dot		pos;
+	t_dot		size;
+	float		unit;
+	int			wall_height;
+	int			y_min;
+	int			y_max;
+}				t_editor;
+
 /*
 **	---------------------------------- map --------------------------------------------
 */
@@ -544,6 +554,7 @@ typedef struct		s_map
 	t_main_menu		main_menu;
 	SDL_Event		*event;
 	t_music			*music;
+	t_editor		editor;
 }					t_map;
 
 /*

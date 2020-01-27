@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:35:01 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:35:02 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/26 18:57:18 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,7 +76,7 @@ static int		parse_text_area_third_step(char **text,
 
 	index = 0;
 	if (!check_line_name(text[index], "text_align")
-	|| (text_area->text_align = get_text_align(text[index]) == -1))
+	|| (int)(text_area->text_align = get_text_align(text[index])) == -1)
 	{
 		return (ui_ret_error("parse_text_area_third_step",
 		"\"text_align : <t_text_align>\" expected", 0));

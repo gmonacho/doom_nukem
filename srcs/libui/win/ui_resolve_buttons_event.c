@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:37:08 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/23 15:51:46 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/27 20:05:42 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,16 +38,23 @@ static void	ui_check_text_entry_button(t_winui *win)
 			&& win->ui.on_mouse_button != win->ui.clicked_button)
 			|| win->event.key.keysym.scancode == SDL_SCANCODE_RETURN)
 		{
-			SDL_StopTextInput();
-			ft_strcpy(((t_text_entry_button*)
-					win->ui.clicked_button->data)->text,
-					((t_text_entry_button*)
-					win->ui.clicked_button->data)->new_text);
-			ft_bzero(((t_text_entry_button*)
-					win->ui.clicked_button->data)->new_text,
-					((t_text_entry_button*)
-					win->ui.clicked_button->data)->max_text_size);
-			ui_call_text_entry_function(win->ui.clicked_button->data);
+			if (((t_text_entry_button*)
+					win->ui.clicked_button->data)->text_type != UI_TEXT_TYPE_DIGITAL ||
+				ft_atoi(((t_text_entry_button*)
+					win->ui.clicked_button->data)->new_text) >= ((t_text_entry_button*)
+						win->ui.clicked_button->data)->min_int)
+			{
+				SDL_StopTextInput();
+				ft_strcpy(((t_text_entry_button*)
+						win->ui.clicked_button->data)->text,
+						((t_text_entry_button*)
+						win->ui.clicked_button->data)->new_text);
+				ft_bzero(((t_text_entry_button*)
+						win->ui.clicked_button->data)->new_text,
+						((t_text_entry_button*)
+						win->ui.clicked_button->data)->max_text_size);
+				ui_call_text_entry_function(win->ui.clicked_button->data);
+			}
 			win->ui.clicked_button = NULL;
 			win->ui.cursor_position = 0;
 		}

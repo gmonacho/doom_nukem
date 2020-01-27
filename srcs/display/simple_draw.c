@@ -19,9 +19,14 @@ void	draw_line(t_win *win, t_dot p1, t_dot p2)
 	{
 		pixel = (t_fdot){	.x = p1.x + delta.x * i,\
 							.y = p1.y + delta.y * i};
-		if (0 <= pixel.y && pixel.y < win->h && 0 <= pixel.x && pixel.x < win->w)
-			SDL_RenderDrawPoint(win->rend, pixel.x, pixel.y);
+		// if (0 <= pixel.y && pixel.y < win->h && 0 <= pixel.x && pixel.x < win->w)
+		SDL_RenderDrawPoint(win->rend, pixel.x, pixel.y);
 	}
+}
+
+void	draw_t_line(t_win *win, t_line line)
+{
+	draw_line(win, line.p1, line.p2);
 }
 
 void	draw_column(t_win *win, int x, int ylow, int yup)
