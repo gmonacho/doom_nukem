@@ -17,7 +17,7 @@ int				init_win_player(t_win *win, t_player *player);
 **	---------------------------------- init_menu ----------------------------------
 */
 
-int				init_editor_menu(t_win *win);
+int				init_editor_menu(t_win *win, t_map *map);
 int				init_main_menu(t_win *win);
 
 /*

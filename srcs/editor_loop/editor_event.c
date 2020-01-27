@@ -169,21 +169,21 @@
 // 			win->text_entry = NULL;
 // 			map->flags -= MAP_TEXT_EDITING;
 // 		}
-// 		if (event.type == SDL_TEXTINPUT)
-// 		{
-// 			data = (t_text_entry*)win->selected_button->data;
-// 			if ((int)ft_strlen(win->text_entry) < data->max_size)
-// 			{
-// 				if ((data->flags & TEXT_ENTRY_DIGITAL && ft_isdigit(event.text.text[0])) ||
-// 					(data->flags & TEXT_ENTRY_ALPHANUM && ft_isalnum(event.text.text[0])))
-// 				{
-// 					if (!(win->text_entry = str_cconca(win->text_entry, event.text.text[0])))
-// 						return (ret_error("ft_strjoin failed in editor_event during TEXTINPUT event"));
-// 					if (!update_text_entry_texture(win, win->selected_button, win->text_entry))
-// 						return (ret_error("update_text_entry_texture failed in editor event"));
-// 				}
-// 			}
-// 		}
+		// if (event.type == SDL_TEXTINPUT)
+		// {
+		// 	data = (t_text_entry*)win->selected_button->data;
+		// 	if ((int)ft_strlen(win->text_entry) < data->max_size)
+		// 	{
+		// 		if ((data->flags & TEXT_ENTRY_DIGITAL && ft_isdigit(event.text.text[0])) ||
+		// 			(data->flags & TEXT_ENTRY_ALPHANUM && ft_isalnum(event.text.text[0])))
+		// 		{
+		// 			if (!(win->text_entry = str_cconca(win->text_entry, event.text.text[0])))
+		// 				return (ret_error("ft_strjoin failed in editor_event during TEXTINPUT event"));
+		// 			if (!update_text_entry_texture(win, win->selected_button, win->text_entry))
+		// 				return (ret_error("update_text_entry_texture failed in editor event"));
+		// 		}
+		// 	}
+		// }
 // 	}
 // 	if (win->mouse->button[MOUSE_LEFT].pressing)
 // 	{

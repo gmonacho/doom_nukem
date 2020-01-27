@@ -29,32 +29,32 @@ frame
 	}
     button
     {
-        id : "b_disp_lim"
+        id : "b_display_limits"
         type : UI_BUTTON_TEXT_AREA
         resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0 0.8 0.3
+        ratio : 0.1 0 0.8 0.25
         data
         {
             text : "Display Limits"
             resize_text : UI_RESIZE_TEXT_LINEAR
-            text_height : 0.4
+            text_height : 0.5
             text_align : TEXT_ALIGN_CENTER
             text_color : 255 255 255 255
         }
     }
     button
     {
-        id : "b_low_limit"
+        id : "b_y_min"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.4 0.8 0.15
+        ratio : 0.1 0.4 0.8 0.175
         data
         {
             name : "min"
             text : ""
-            max_text_size : 5
-            min_int : 0
-            max_int : 9000
+            max_text_size : 6
+            min_int : -30000
+            max_int : 30000
             name_side_texture : "textures/ui_text_entry_button_normal.png"
             normal_box_texture : "textures/ui_text_entry_button_normal.png"
             writting_box_texture : "textures/ui_text_entry_button_writting.png"
@@ -64,17 +64,17 @@ frame
     }
     button
     {
-        id : "b_low_limit"
+        id : "b_y_max"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.6 0.8 0.15
+        ratio : 0.1 0.65 0.8 0.175
         data
         {
             name : "max"
             text : ""
-            max_text_size : 5
-            min_int : 0
-            max_int : 9000
+            max_text_size : 6
+            min_int : -30000
+            max_int : 30000
             name_side_texture : "textures/ui_text_entry_button_normal.png"
             normal_box_texture : "textures/ui_text_entry_button_normal.png"
             writting_box_texture : "textures/ui_text_entry_button_writting.png"

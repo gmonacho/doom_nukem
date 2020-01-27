@@ -531,6 +531,8 @@ typedef struct	s_editor
 	t_dot		size;
 	float		unit;
 	int			wall_height;
+	int			y_min;
+	int			y_max;
 }				t_editor;
 
 /*

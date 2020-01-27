@@ -260,8 +260,18 @@ static void		editor_menu_disp(t_win *win, t_map *map)
 	ui_update_ui(win->winui);
 }
 
+static void		set_int_value(void *argument, char *button_output)
+{
+	*((int*)argument) = ft_atoi(button_output);
+}
 
-int		init_editor_menu(t_win *win)
+static void		set_menu_button_function(t_win *win, t_map *map)
+{
+	ui_set_text_entry_function(win->winui, "b_y_min", &set_int_value, &map->editor.y_min);
+	ui_set_text_entry_function(win->winui, "b_y_max", &set_int_value, &map->editor.y_max);
+}
+
+int		init_editor_menu(t_win *win, t_map *map)
 {
 	if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
 		ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
@@ -269,6 +279,7 @@ int		init_editor_menu(t_win *win)
 		return (ui_ret_error("init_editor_menu", "ui_load_font failed", 0));
 	if (!ui_load("interfaces/editor_interface", win->winui))
 		return (ui_ret_error("init_editor_menu", "ui_load failed", 0));
+	set_menu_button_function(win, map);
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	return (1);
 }
@@ -281,7 +292,9 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.size = (t_dot){0, 0};
 	map->editor.unit = 1;
 	map->editor.wall_height = 100;
-	if (!init_editor_menu(win))
+	map->editor.y_min = -30000;
+	map->editor.y_max = 30000;
+	if (!init_editor_menu(win, map))
 		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));
 	loop = SDL_TRUE;
 	while (loop)

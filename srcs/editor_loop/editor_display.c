@@ -275,6 +275,24 @@ static void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly)
 	ui_draw_line(win->rend, &line);
 }
 
+static SDL_bool		ed_is_poly_printable(const t_map *map, t_poly *poly)
+{
+	if ((poly->dots[0].z >= map->editor.y_min && poly->dots[0].z <= map->editor.y_max) ||
+			(poly->dots[1].z >= map->editor.y_min && poly->dots[1].z <= map->editor.y_max) ||
+			(poly->dots[2].z >= map->editor.y_min && poly->dots[2].z <= map->editor.y_max) ||
+			(poly->dots[3].z >= map->editor.y_min && poly->dots[3].z <= map->editor.y_max))
+	{
+		// printf("printable\n");
+		return (1);
+	}
+	else
+	{
+		// printf("none printable\n");
+		return (0);
+	}
+	
+}
+
 static SDL_bool		ed_is_wall(t_poly *poly)
 {
 	int pairs;
@@ -330,7 +348,7 @@ static void			ed_display_polys_flat(t_win *win, const t_map *map)
 	poly = map->polys;
 	while (poly)
 	{
-		if (ed_is_flat(poly))
+		if (ed_is_flat(poly) && ed_is_poly_printable(map, poly))
 			ed_display_flat(win, map, poly);
 		poly = poly->next;
 	}
@@ -346,7 +364,7 @@ static void			ed_display_polys_inclined(t_win *win, const t_map *map)
 	poly = map->polys;
 	while (poly)
 	{
-		if (ed_is_inclined(poly))
+		if (ed_is_inclined(poly) && ed_is_poly_printable(map, poly))
 			ed_display_inclined(win, map, poly);
 		poly = poly->next;
 	}
@@ -362,7 +380,7 @@ static void			ed_display_polys_wall(t_win *win, const t_map *map)
 	poly = map->polys;
 	while (poly)
 	{
-		if (ed_is_wall(poly))
+		if (ed_is_wall(poly) && ed_is_poly_printable(map, poly))
 			ed_display_wall(win, map, poly);
 		poly = poly->next;
 	}
