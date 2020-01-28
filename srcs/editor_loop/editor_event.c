@@ -290,7 +290,36 @@
 // 	return (1);
 // }
 
-int 	ed_event(t_win *win, t_map *map)
+static void	ed_selection(t_win *win, t_map *map)
+{
+	if (win->winui->mouse.clicking & UI_MOUSE_LEFT)
+	{	
+		map->editor.select_rect.x = win->winui->mouse.pos.x / map->editor.unit
+									+ map->editor.pos.x;
+		map->editor.select_rect.y = win->winui->mouse.pos.y / map->editor.unit
+									+ map->editor.pos.y;
+		map->editor.select_rect.w = 0;
+		map->editor.select_rect.h = 0;
+	}
+	else if (win->winui->mouse.clicked & UI_MOUSE_LEFT)
+	{
+		map->editor.select_rect.w = win->winui->mouse.pos.x / map->editor.unit
+									+ map->editor.pos.x - map->editor.select_rect.x;
+		map->editor.select_rect.h = win->winui->mouse.pos.y / map->editor.unit
+									+ map->editor.pos.y - map->editor.select_rect.y;
+	}
+	map->editor.selected_poly = ed_get_selected_poly(map);
+}
+
+static void	ed_action(t_win *win, t_map *map)
+{
+	if (map->editor.flags & ED_SELECTION)
+		ed_selection(win, map);
+	if (map->editor.flags & ED_MODE_CHANGED)
+		map->editor.flags ^= ED_MODE_CHANGED;
+}
+
+int 		ed_event(t_win *win, t_map *map)
 {
 	const Uint8	*state;
 
@@ -311,5 +340,6 @@ int 	ed_event(t_win *win, t_map *map)
 		map->editor.unit += win->winui->event.wheel.y * 0.01;
 		win->winui->event.wheel.y = 0;
 	}
+	ed_action(win, map);
 	return (1);
 }

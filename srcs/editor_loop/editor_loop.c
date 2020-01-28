@@ -265,16 +265,32 @@ static void		set_int_value(void *argument, char *button_output)
 	*((int*)argument) = ft_atoi(button_output);
 }
 
+static void		set_editor_flags(void *argument)
+{
+	t_arg_menu	*arg_menu;
+
+	arg_menu = (t_arg_menu*)argument;
+
+	if (*(arg_menu->loop) & arg_menu->value)
+		*(arg_menu->loop) ^= arg_menu->value;
+	else
+		*(arg_menu->loop) |= arg_menu->value;
+}
+
 static void		set_menu_button_function(t_win *win, t_map *map)
 {
+	ui_set_simple_button_function(win->winui,
+								"b_select",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[0]);
 	ui_set_text_entry_function(win->winui, "b_y_min", &set_int_value, &map->editor.y_min);
 	ui_set_text_entry_function(win->winui, "b_y_max", &set_int_value, &map->editor.y_max);
 }
 
 int		init_editor_menu(t_win *win, t_map *map)
 {
-	if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
-		ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
+	// if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
+	// 	ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
 	if (!(win->winui->ui.button_font = ui_load_font("TTF/arial.ttf", 100)))
 		return (ui_ret_error("init_editor_menu", "ui_load_font failed", 0));
 	if (!ui_load("interfaces/editor_interface", win->winui))
@@ -294,11 +310,16 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.wall_height = 100;
 	map->editor.y_min = -30000;
 	map->editor.y_max = 30000;
+	map->editor.selected_poly = NULL;
+	map->editor.flags = ED_NONE;
+	map->editor.arg_menu_tab[0] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_SELECTION | ED_MODE_CHANGED};
 	if (!init_editor_menu(win, map))
 		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));
 	loop = SDL_TRUE;
 	while (loop)
 	{
+		// printf("f = %d\n", map->editor.flags);
 		editor_menu_disp(win, map);
 		if (win->winui->event.type == SDL_QUIT)
 			loop = 0;
