@@ -368,6 +368,8 @@ typedef	struct				s_poly
 	t_plan					equation_rotz_only;
 	t_fdot_3d				i;
 	t_fdot_3d				j;
+	t_fdot_3d				i_rotz_only;
+	t_fdot_3d				j_rotz_only;
 	float					ii;
 	float					jj;
 	float					ij;

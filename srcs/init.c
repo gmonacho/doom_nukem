@@ -25,6 +25,8 @@ void		init_polygone(t_poly *poly)
 		poly->j = (t_fdot_3d){	poly->dots[N_DOTS_POLY - 1].x - poly->dots[0].x,\
 								poly->dots[N_DOTS_POLY - 1].y - poly->dots[0].y,\
 								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
+		poly->i_rotz_only = poly->i;
+		poly->j_rotz_only = poly->j;
 		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
 		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
 		// poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;

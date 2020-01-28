@@ -96,11 +96,11 @@ int			is_poly_collision(t_player *player, t_poly *poly)
 	int		z;
 	static int	save_z = NAN;
 
-	if (player->debug)
-	{
-		printf("Last collision z : %d\n", save_z);
-		return (-1);
-	}
+	// if (player->debug)
+	// {
+	// 	printf("Last collision z : %d\n", save_z);
+	// 	return (-1);
+	// }
 	z = -player->_9_height_10;
 	while (z++ < player->height_10)
 	{
@@ -118,17 +118,17 @@ t_poly		*collisions(t_player *player, t_poly *poly)
 {
 	while (poly)
 	{
-		print_poly(poly, 1);
+		// print_poly(poly, 1);
 		if (!poly->is_slide_ban)
 		{
 			if (is_poly_collision(player, poly))
 			{
-				printf("COLLISION !!!\n");
+				// printf("COLLISION !!!\n");
 				return (poly);
 			}
 		}
 		poly = poly->next;
 	}
-	printf("\n\n");
+	// printf("\n\n");
 	return (NULL);
 }

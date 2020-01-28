@@ -2,7 +2,7 @@ Player
 {
 	posx = 200
 	posy = 200
-	posz = 180
+	posz = 150
 	dir = -90
 	width = 60
 	height = 60
@@ -174,7 +174,7 @@ Polygon								//Plafond renforcement
 	texture = Plafond.png
 }
 
-Polygon								//Plafond renforcement
+Polygon								//Merde volante
 {
 	dot = x:200, y:500, z:100
 	dot = x:300, y:500, z:100
