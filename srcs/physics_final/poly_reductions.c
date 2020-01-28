@@ -18,6 +18,7 @@ void 			print_poly(t_poly *poly, int arg)
 {
 	int			i = -1;
 
+	printf("Poly %d\n", poly->index);
 	if (arg == 0)
 	{
 		while (++i < N_DOTS_POLY)

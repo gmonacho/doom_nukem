@@ -78,24 +78,24 @@ void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *stat
 	if (map->event->motion.xrel || map->event->motion.yrel)
 	{
 		if (win->winui->mouse.pos.x > 0)
-			rotate_all_rotz_only(win->map->polys, player->rz);
+			rotate_all_rotz_only(map->polys, player->rz);
 		if (win->winui->mouse.pos.x < 0)
-			rotate_all_rotz_only(win->map->polys, player->rz_inv);
+			rotate_all_rotz_only(map->polys, player->rz_inv);
 		if (win->winui->mouse.pos.y > 0)
 			player->rot_y -= player->ddir;
 		if (win->winui->mouse.pos.y < 0)
 			player->rot_y += player->ddir;
-		}
-		if (state[SDL_SCANCODE_RIGHT])
-			rotate_all_rotz_only(win->map->polys, player->rz);
-		if (state[SDL_SCANCODE_LEFT])
-			rotate_all_rotz_only(win->map->polys, player->rz_inv);
-		if (state[SDL_SCANCODE_DOWN])
-			player->rot_y -= player->ddir;
-		if (state[SDL_SCANCODE_UP])
-			player->rot_y += player->ddir;
-		win = (t_win *)state;
-		win = (t_win *)map;
+	}
+	if (state[SDL_SCANCODE_RIGHT])
+		rotate_all_rotz_only(map->polys, player->rz);
+	if (state[SDL_SCANCODE_LEFT])
+		rotate_all_rotz_only(map->polys, player->rz_inv);
+	if (state[SDL_SCANCODE_UP])
+		player->rot_y += player->ddir;
+	// if (state[SDL_SCANCODE_UP] && player->rot_y < M_PI / 2 - 20 * player->ddir)
+	if (state[SDL_SCANCODE_DOWN])
+		player->rot_y -= player->ddir;
+	// if (state[SDL_SCANCODE_DOWN] && player->rot_y > -M_PI / 2 + 20 * player->ddir)
 }
 
 void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *state)

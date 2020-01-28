@@ -5,7 +5,7 @@ Player
 	posz = 150
 	dir = -90
 	width = 60
-	height = 90
+	height = 60
 	velocity = 10
 }
 Object
@@ -20,61 +20,16 @@ Object
 
 Mob
 {	
-	mob = 0
-	{	
-		type = 1
-		posx = 200
-		posy = 200
-		posz = 140
-		dir = -90
-		width = 30
-		height = 90
-		velocity = 10
-		health = 100
-	}
-	mob = 1
-	{	
-		type = 1
-		posx = 200
-		posy = 200
-		posz = 140
-		dir = -90
-		width = 30
-		height = 90
-		velocity = 10
-		health = 50
-	}
-	mob = 2
-	{
-		type = 3
-		posx = 200
-		posy = 200
-		posz = 140
-		dir = -90
-		width = 30
-		height = 90
-		velocity = 10
-		health = 50
-	}
-	mob = 3
-	{
-		type = 2
-		posx =
-		posy = 200
-		posz = 140
-		dir = -90
-		width = 30
-		height = 90
-		velocity = 10
-		health = 75
-	}
-	mob = 3
-	{
-		adjsnajnj
-		sdajdhad
-		adskbnajsndka
-		asdknajkdnkla
-	}
+	posx = 300
+	posy = 450
+	posz = 150
+	health = 50
+	type = 1
+	width = 40
+	height = 70
+	dir = -90
+	velocity = 2
+	texture = Elephantride.png
 }
 
 	/* Murs du haut */
@@ -219,7 +174,7 @@ Polygon								//Plafond renforcement
 	texture = Plafond.png
 }
 
-Polygon								//Plafond renforcement
+Polygon								//Merde volante
 {
 	dot = x:200, y:500, z:100
 	dot = x:300, y:500, z:100

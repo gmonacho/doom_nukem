@@ -148,7 +148,7 @@ typedef struct		s_win
 
 	SDL_Window*		ptr;
 	SDL_Renderer	*rend;
-	Uint32			pixels[HEIGHT * WIDTH];
+	Uint32			*pixels;
 	SDL_Texture		*rend_texture;
 	int				view;
 
@@ -355,6 +355,8 @@ typedef	struct				s_poly
 	t_plan					equation_rotz_only;
 	t_fdot_3d				i;
 	t_fdot_3d				j;
+	t_fdot_3d				i_rotz_only;
+	t_fdot_3d				j_rotz_only;
 	float					ii;
 	float					jj;
 	float					ij;
@@ -426,6 +428,7 @@ typedef struct s_inventory
 
 typedef struct		s_player
 {
+	int				debug;
 	int				win_w;
 	int				win_h;
 	t_fdot			pos;
@@ -449,6 +452,7 @@ typedef struct		s_player
 	int				height;
 	float			height_10;
 	float			_9_height_10;
+	float			_4_height_10;
 	int				width;
 	float			width_2;
 	int				collision_on;
@@ -523,6 +527,16 @@ typedef struct	s_map_editor
 	SDL_bool	ordinate_b;
 }				t_map_editor;
 
+typedef struct	s_editor
+{
+	t_dot		pos;
+	t_dot		size;
+	float		unit;
+	int			wall_height;
+	int			y_min;
+	int			y_max;
+}				t_editor;
+
 /*
 **	---------------------------------- map --------------------------------------------
 */
@@ -540,6 +554,7 @@ typedef struct		s_map
 	t_main_menu		main_menu;
 	SDL_Event		*event;
 	t_music			*music;
+	t_editor		editor;
 }					t_map;
 
 /*

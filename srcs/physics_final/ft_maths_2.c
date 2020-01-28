@@ -1,22 +1,35 @@
 #include "doom_nukem.h"
 
-t_fdot_3d			fdot_3d_sub(t_fdot_3d d1, t_fdot_3d d2)
+// float				dist_origin_line(t_fdot_3d l1, t_fdot_3d l2)
+// {
+// 	return (mag(vectoriel_product((t_fdot_3d){-l1.x, -l1.y, -l1.z},\
+// 							(t_fdot_3d){l2.x - l1.x,\
+// 										l2.y - l1.y,\
+// 										l2.z - l1.z})) /\
+// 			fdist_3d(l1, l2));
+// }
+
+t_fdot_3d			proj_ortho_origin_line(t_fdot_3d l1, t_fdot_3d l2, t_fdot_3d *proj)
 {
-	return ((t_fdot_3d){d1.x - d2.x,\
-						d1.y - d2.y,\
-						d1.z - d2.z});
+	float			prop;
+	t_fdot_3d		line;
+
+	line = (t_fdot_3d){l2.x - l1.x, l2.y - l1.y, l2.z - l1.z};
+	prop = scalar_product((t_fdot_3d){-l1.x, -l1.y, -l1.z},\
+							line) /\
+			scalar_product(line, line);
+	proj->x = l1.x + line.x * prop;
+	proj->y = l1.y + line.y * prop;
+	proj->z = l1.z + line.z * prop;
+	return ((t_fdot_3d){proj->x, proj->y, proj->z});
+	// return ((t_fdot_3d){l1.x + line.x * prop, l1.y + line.y * prop, l1.z + line.z * prop});
 }
 
-float				scalar_product(t_fdot_3d v1, t_fdot_3d v2)
+void				proj_ortho_plan(t_fdot_3d dot, t_plan plan, t_fdot_3d *proj_ortho)
 {
-	return ((float)(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z));
-}
-
-t_fdot_3d			vectoriel_product(t_fdot_3d v1, t_fdot_3d v2)
-{
-	return ((t_fdot_3d){v1.y * v2.z - v1.z * v2.y,\
-						v1.x * v2.z - v1.z * v2.x,\
-						v1.x * v2.y - v1.y * v2.x});
+	intersection_plan_ray(proj_ortho, plan,\
+					(t_cartesienne){dot.x, dot.y, dot.z, plan.v.x, plan.v.y, plan.v.z,\
+									NULL, 0, 0, NULL});
 }
 
 int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
@@ -42,10 +55,10 @@ int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienn
 		printf("Plan %f %f %f\n", plan.v.x, plan.v.y, plan.v.z);
 		printf("Ray %f %f %f\n", ray->vx, ray->vy, ray->vz);
 		printf("t %f\n", t);
+		exit(0);
 	}
 	return (1);
 }
-//Opti utiliser une autre ft que celle du raytracer pour pas avoir (ray->vx = 1) dans les eq.
 
 int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne ray)
 {
@@ -88,16 +101,23 @@ static int		is_intersection_cercle_segment(t_fdot_3d d1, t_fdot_3d d2, int radiu
 	float		b;
 	float		denom;
 	
-	if (!(denom = d2.x - d1.x))
+	if (is_null(denom = d2.x - d1.x, 0.005))
+	{
 		if ((denom = radius * radius - d1.x * d1.x) >= 0)
 		{
-			if ((denom < d1.y && denom < d2.y) ||\
-				(denom > d1.y && denom > d2.y))	
-				return (0);
-			return (1);
+			denom = sqrt(denom);
+			if (!((denom < d1.y && denom < d2.y) ||\
+				(denom > d1.y && denom > d2.y)))
+				return (1);
+			// printf("Denom null\n");
+			// printf("D1 %f %f %f\n", d1.x, d1.y, d1.z);
+			// printf("D2 %f %f %f\n", d2.x, d2.y, d2.z);
 		}
+		return (0);
+	}
 	a = (d2.y - d1.y) / denom;
 	b = d1.y - a * d1.x;
+	// printf("ab %f %f\n", a, b);
 	polynome.x = 1 + a * a;
 	polynome.y = 2 * a * b;
 	polynome.z = b * b - radius * radius;
@@ -114,6 +134,13 @@ static int		is_intersection_cercle_segment(t_fdot_3d d1, t_fdot_3d d2, int radiu
 		(c2.y < d1.y && c2.y < d2.y) ||\
 		(c2.y > d1.y && c2.y > d2.y)))
 		return (0);
+	// printf("Cas general\n");
+	// printf("Denom %f\n", denom);
+	// printf("D : %fx + %f\n", a, b);
+	// printf("C1 %f %f %f\n", c1.x, c1.y, c1.z);
+	// printf("C2 %f %f %f\n", c2.x, c2.y, c2.z);
+	// printf("D1 %f %f %f\n", d1.x, d1.y, d1.z);
+	// printf("D2 %f %f %f\n", d2.x, d2.y, d2.z);
 	return (1);
 }
 
@@ -126,31 +153,14 @@ int				is_intersection_cercle_poly(t_poly *poly, int radius)
 	while (++i < N_DOTS_POLY)
 	{
 		if (is_intersection_cercle_segment(poly->dots_rotz_only[i], poly->dots_rotz_only[(i ? i : N_DOTS_POLY) - 1], radius))
+		{
+			// printf("i : %d %d\n", i, (i ? i : N_DOTS_POLY) - 1);
 			return (1);
+		}
 	}
 	// printf("Sol 0 f\n");
 	return (0);
 }
-// float		prop(float value, t_dot inter1, t_dot inter2)
-// {
-// 	if (inter1.y == inter1.x)
-// 		return ((inter2.y + inter2.x) / 2);
-// 	return (inter2.x + ((value - inter1.x) / (float)(inter1.y - inter1.x)) *\
-// 			(inter2.y - inter2.x));
-// }
-
-// float		fprop(float value, t_fdot inter1, t_fdot inter2)
-// {
-// 	if (inter1.y == inter1.x)
-// 		return ((inter2.y + inter2.x) / 2);
-// 	return (inter2.x + ((value - inter1.x) / (inter1.y - inter1.x)) *\
-// 			(inter2.y - inter2.x));
-// }
-
-// float		fmag(t_fdot_3d dot)
-// {
-// 	return (sqrt(dot.x * dot.x + dot.y * dot.y + dot.z * dot.z));
-// }
 
 t_dot			intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge)
 {

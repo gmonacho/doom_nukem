@@ -28,14 +28,13 @@ static void		draw(t_win *win, t_player *player)
 
 	rays = player->rays;
 	y = -1;
-	while (++y < HEIGHT)
+	while (++y < win->h)
 	{
 		ray = *rays;
 		x = -1;
-		while (++x < WIDTH)
+		while (++x < win->w)
 		{
-			win->pixels[y * WIDTH + x] = ray->poly ? ray->color :\
-													0xFF505050;
+			win->pixels[y * win->w + x] = ray->poly ? ray->color : 0xFF505050;
 			ray->poly = NULL;
 			ray++;
 		}
@@ -49,9 +48,10 @@ static void		draw(t_win *win, t_player *player)
 	
 	// SDL_SetRenderTarget(win->rend, NULL);
 
-	SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, WIDTH * sizeof(uint32_t));
+	SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, win->w * sizeof(Uint32));
 	SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
 }
+
 
 
 void			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
@@ -60,49 +60,7 @@ void			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 	coord->y = scalar_product(dot, poly->j) / poly->jj;
 }
 
-// int			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
-// {
-// float			div;
-// 	float			pi;
-// 	float			pj;
 
-// 	pi = dot.x * poly->i.x + dot.y * poly->i.y + dot.z * poly->i.z;
-// 	pj = dot.x * poly->j.x + dot.y * poly->j.y + dot.z * poly->j.z;
-// 	if (!(div = poly->ijij_iijj))
-// 		return (0);
-// 	div = 1 / div;
-// 	coord->x = (-poly->jj * pi) * div;
-// 	coord->y = (-poly->ii * pj) * div;
-// 	// coord->x = (-poly->jj * pi + poly->ij * pj) * div;
-// 	// coord->y = (-poly->ii * pj + poly->ij * pi) * div;
-
-// 	// float denominateur;
-
-// 	// if (!is_null((denominateur = i.x * j.y - i.y * j.x), 0.005))
-// 	// 	coord->y = (dot.y * i.x - dot.x * i.y) / denominateur;
-// 	// else if (!is_null((denominateur = i.y * j.z - i.z * j.y), 0.005))
-// 	// 	coord->y = (dot.z * i.y - dot.y * i.z) / denominateur;
-// 	// else if (!is_null((denominateur = i.z * j.x - i.x * j.z), 0.005))
-// 	// 	coord->y = (dot.x * i.z - dot.z * i.x) / denominateur;
-// 	// else
-// 	// {
-// 	// 	printf("Impossible vecteur unitaire j null ??? %f %f %f\n", j.x, j.y, j.z);
-// 	// 	exit(0);
-// 	// }
-
-// 	// if (!is_null(i.x, 0.005))
-// 	// 	coord->x = (dot.x - j.x * coord->y) / i.x;
-// 	// else if (!is_null(i.y, 0.005))
-// 	// 	coord->x = (dot.y - j.y * coord->y) / i.y;
-// 	// else if (!is_null(i.z, 0.005))
-// 	// 	coord->x = (dot.z - j.z * coord->y) / i.z;
-// 	// else
-// 	// {
-// 	// 	printf("Impossible vecteur unitaire i null ??? %f %f %f\n", i.x, i.y, i.z);
-// 	// 	exit(0);
-// 	// }
-// 	return (1);
-// }
 
 static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 {

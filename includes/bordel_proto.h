@@ -11,13 +11,13 @@
 
 int				init_music(t_doom_music	*music);
 int				init_textures(t_win *win, t_textures *textures);
-void	        init_player(t_win *win, t_player *player);
+int				init_win_player(t_win *win, t_player *player);
 
 /*
 **	---------------------------------- init_menu ----------------------------------
 */
 
-int				init_editor_menu(t_win *win);
+int				init_editor_menu(t_win *win, t_map *map);
 int				init_main_menu(t_win *win);
 
 /*
@@ -103,6 +103,7 @@ void		clear_rend(SDL_Renderer *rend, Uint8 r, Uint8 g, Uint8 b);
 void		print_column(t_win *win, t_linedef *wall, t_player *player, t_calculs *calculs);
 void		fill_portals(t_win *win, t_player *player);
 void		draw_line(t_win *win, t_dot p1, t_dot p2);
+void		draw_t_line(t_win *win, t_line line);
 void		draw_column(t_win *win, int x, int ylow, int yup);
 void		draw_rect(t_win *win, SDL_Rect rect);
 void		fill_rect(t_win *win, SDL_Rect rect);
@@ -282,11 +283,11 @@ void            print_credit(t_win *win);
 */
 
 int	        editor_loop(t_win *win, t_map *map);
-int		editor_event(t_win *win, t_map_editor *map, SDL_bool *loop);
+int 	ed_event(t_win *win, t_map *map);
 int		resolve_ui_left_press(t_win *win, t_map_editor *map);
 int		load_ui(int fd, t_win *win);
 int		add_sector_button(t_win *win, t_frame *f, int nb_sectors);
-void		editor_display(t_win *win, t_map_editor *map);
+void		ed_display(t_win *win, const t_map *map);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 void		check_file(t_map_editor *map);
 	
@@ -326,7 +327,7 @@ t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
 int					init_rays(t_win *win, t_player *player);
 void				translate_all(t_poly *sector, t_fdot_3d translation);
 void				translate_all_rotz_only(t_poly *poly, t_fdot_3d translation);
-t_fdot_3d			return_rotate_dot(t_fdot_3d dot, t_matrix matrix);
+t_fdot_3d			rotate_dot(t_fdot_3d dot, t_matrix matrix);
 void				rotate_all_dots(t_poly *sector, t_matrix matrix);
 void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix);
 void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix);
@@ -349,6 +350,9 @@ t_poly				*collisions(t_player *player, t_poly *poly);
 int					is_poly_collision(t_player *player, t_poly *poly);
 void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collide, int i);
 
+t_poly				*collisions_sphere(t_map *map, t_player *player, t_poly *poly);
+int					poly_collision(t_player *player, t_poly *poly);
+
 /*
 ** ================================== Time ===================================
 */
@@ -364,14 +368,11 @@ void				reload_cd(t_map *map);
 
 float				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
 t_fdot_3d			vectoriel_product(t_fdot_3d v1, t_fdot_3d v2);
-
-// float		dist(t_dot p1, t_dot p2);
 float  				modulo(float nbr, float mod);
 float				fdist(t_fdot p1, t_fdot p2);
 float				fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
 t_fdot_3d			fdot_3d_sub(t_fdot_3d d1, t_fdot_3d d2);
 float				mag(t_fdot_3d v);
-float				fmag(t_fdot_3d dot);
 int					sign(float nbr);
 void				normalize(float *angle);
 int					is_null(float nbr, float precision);
@@ -387,4 +388,7 @@ int					is_intersection_cercle_poly(t_poly *poly, int radius);
 int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
 int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne ray);
 int					resolve_polynome(t_fdot_3d polynome, float *x1, float *x2);
+void				proj_ortho_plan(t_fdot_3d dot, t_plan plan, t_fdot_3d *proj_ortho);
+t_fdot_3d			proj_ortho_origin_line(t_fdot_3d l1, t_fdot_3d l2, t_fdot_3d *proj);
+
 #endif
