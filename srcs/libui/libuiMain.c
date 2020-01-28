@@ -19,17 +19,10 @@ void	incre_value(void *value)
 // 	*((char**)dst) = ft_strdup(value);
 // }
 
-<<<<<<< HEAD
-int		libuimain()
-{
-	t_winui		*win;
-	int			loop;
-=======
-// int		main()
+// int		libuimain()
 // {
 // 	t_winui		*win;
 // 	int			loop;
->>>>>>> 20340bb181add6f15d249b2c8273559e59e38fe7
 
 // 	if (ui_init(SDL_INIT_VIDEO) < 0)
 // 		return (1);

@@ -296,6 +296,7 @@ SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
 SDL_bool	ed_is_wall(t_poly *poly);
 t_poly		*ed_get_selected_poly(t_map *map);
+SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
 /*
 ** ===============================================================================
 ** ================================== GAME LOOP ==================================

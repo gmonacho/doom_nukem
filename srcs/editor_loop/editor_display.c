@@ -275,7 +275,7 @@ static void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly)
 	ui_draw_line(win->rend, &line);
 }
 
-static SDL_bool		ed_is_poly_printable(const t_map *map, t_poly *poly)
+SDL_bool		ed_is_poly_printable(const t_map *map, t_poly *poly)
 {
 	if ((poly->dots[0].z >= map->editor.y_min && poly->dots[0].z <= map->editor.y_max) ||
 			(poly->dots[1].z >= map->editor.y_min && poly->dots[1].z <= map->editor.y_max) ||
@@ -359,6 +359,21 @@ static void			ed_display_polys_wall(t_win *win, const t_map *map)
 	}
 }
 
+static void			ed_display_selected_poly(t_win *win, const t_map *map)
+{
+	if (map->editor.selected_poly
+		&& ed_is_poly_printable(map, map->editor.selected_poly))
+	{
+		ui_set_draw_color(win->winui->rend, &(SDL_Color){0, 200, 200, 255});
+		if (ed_is_wall(map->editor.selected_poly))
+			ed_display_wall(win, map, map->editor.selected_poly);
+		else if (ed_is_inclined(map->editor.selected_poly))
+			ed_display_inclined(win, map, map->editor.selected_poly);
+		else if (ed_is_flat(map->editor.selected_poly))
+			ed_display_flat(win, map, map->editor.selected_poly);
+	}
+}
+
 static void			ed_display_polys(t_win *win, const t_map *map)
 {
 	t_poly		*poly;
@@ -373,6 +388,7 @@ static void			ed_display_polys(t_win *win, const t_map *map)
 		ed_display_polys_wall(win, map);
 		poly = poly->next;
 	}
+	ed_display_selected_poly(win, map);
 }
 
 static void			ed_display_mouse_position(t_win *win, const t_map *map)
@@ -398,9 +414,18 @@ static void			ed_display_mouse_position(t_win *win, const t_map *map)
 
 static void			ed_display_selection_rect(t_win *win, const t_map *map)
 {
+	t_dot	pos;
+
+	pos = ed_get_display_point(map, (t_dot){map->editor.select_rect.x,
+											map->editor.select_rect.y});
+	ui_set_draw_color(win->winui->rend, &(SDL_Color){225, 225, 225, 255});
 	if (map->editor.flags & ED_SELECTION
 		&& win->winui->mouse.clicked & UI_MOUSE_LEFT)
-		ui_draw_rect(win->winui->rend, &map->editor.select_rect);
+		ui_draw_rect(win->winui->rend, &(t_rect){
+		pos.x,
+		pos.y,
+		map->editor.select_rect.w * map->editor.unit,
+		map->editor.select_rect.h * map->editor.unit});
 }
 
 void			ed_display(t_win *win, const t_map *map)
