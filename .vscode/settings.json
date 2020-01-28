@@ -6,6 +6,9 @@
 		"ios": "c",
 		"__locale": "c",
 		"ui_win.h": "c",
-		"ui_draw.h": "c"
+		"ui_draw.h": "c",
+		"type_traits": "c",
+		"bitset": "c",
+		"libft.h": "c"
 	}
 }

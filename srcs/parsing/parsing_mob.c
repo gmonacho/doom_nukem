@@ -13,25 +13,28 @@ void    add_mob(t_mob **mob)
 void    add_poly_mob(t_mob **mob)
 {
     (*mob)->poly = (t_poly *)ft_memalloc(sizeof(t_poly));
-    (*mob)->poly->dots[0].x = (*mob)->pos.x - ((*mob)->width / 2);
-    (*mob)->poly->dots[0].y = (*mob)->pos.y;
-    (*mob)->poly->dots[0].z = (*mob)->pos.z - ((*mob)->height / 2);
-    (*mob)->poly->dots[1].x = (*mob)->pos.x + ((*mob)->width / 2);
-    (*mob)->poly->dots[1].y = (*mob)->pos.y;
-    (*mob)->poly->dots[1].z = (*mob)->pos.z - ((*mob)->height / 2);
-    (*mob)->poly->dots[2].x = (*mob)->pos.x - ((*mob)->width / 2);
-    (*mob)->poly->dots[2].y = (*mob)->pos.y;
-    (*mob)->poly->dots[2].z = (*mob)->pos.z + ((*mob)->height / 2);
-    (*mob)->poly->dots[3].x = (*mob)->pos.x + ((*mob)->width / 2);
-    (*mob)->poly->dots[3].y = (*mob)->pos.y;
-    (*mob)->poly->dots[3].z = (*mob)->pos.z + ((*mob)->height / 2);
+    if ((*mob)->poly != NULL)
+    {
+        (*mob)->poly->dots[0].x = (*mob)->pos.x - ((*mob)->width / 2);
+        (*mob)->poly->dots[0].y = (*mob)->pos.y;
+        (*mob)->poly->dots[0].z = (*mob)->pos.z - ((*mob)->height / 2);
+        (*mob)->poly->dots[1].x = (*mob)->pos.x + ((*mob)->width / 2);
+        (*mob)->poly->dots[1].y = (*mob)->pos.y;
+        (*mob)->poly->dots[1].z = (*mob)->pos.z - ((*mob)->height / 2);
+        (*mob)->poly->dots[2].x = (*mob)->pos.x - ((*mob)->width / 2);
+        (*mob)->poly->dots[2].y = (*mob)->pos.y;
+        (*mob)->poly->dots[2].z = (*mob)->pos.z + ((*mob)->height / 2);
+        (*mob)->poly->dots[3].x = (*mob)->pos.x + ((*mob)->width / 2);
+        (*mob)->poly->dots[3].y = (*mob)->pos.y;
+        (*mob)->poly->dots[3].z = (*mob)->pos.z + ((*mob)->height / 2);
+    }
 }
 
 void    fill_mob_data(t_mob **mob, char **tab, int i)
 {   
+    add_mob(mob);
     while (ft_strchr(tab[i], '}') == NULL)
     {   
-        add_mob(mob);
         if (ft_strstr(tab[i], "mob = "))
             (*mob)->name = ft_strdup(ft_strrchr(tab[i], '=') + 1);
 
@@ -57,6 +60,7 @@ void    fill_mob_data(t_mob **mob, char **tab, int i)
         if (ft_strstr(tab[i], "health = "))
             (*mob)->health = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         i++;
+        printf("health = %d", (*mob)->health);
     }
     add_poly_mob(mob);
 }

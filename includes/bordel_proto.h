@@ -185,7 +185,7 @@ void		free_sectors(t_sector **sectors);
 **	---------------------------------- player ----------------------------------
 */
 
-int             dead_moment(t_win *win, t_player *player, t_texHud *texHud, SDL_Event event);
+int         dead_menu(t_win *win, t_player *player);
 void    	damage_heal(t_player *player, t_music *music, int armor, int heal);
 
 /*
