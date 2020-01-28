@@ -1,5 +1,6 @@
 #include "doom_nukem.h"
 
+
 static SDL_bool	ed_is_wall_selected(const t_map *map, const t_poly *poly)
 {
 	int		x1;
@@ -31,6 +32,22 @@ static SDL_bool	ed_is_flat_selected(const t_map *map, const t_poly *poly)
 			&l2.p1.x, &l2.p1.y, &l2.p2.x, &l2.p2.y));
 }
 
+static SDL_bool	ed_is_inclined_selected(const t_map *map, const t_poly *poly)
+{
+	t_rect	rect;
+
+	rect.x = poly->dots[0].x;
+	rect.y = poly->dots[0].y;
+	rect.w = ft_abs(poly->dots[2].x - rect.x);
+	rect.h = ft_abs(poly->dots[2].y - rect.y);
+	printf("rect : %d %d %d %d\n", rect.x, rect.y, rect.w, rect.h);
+
+	printf("2rect : %d %d %d %d\n", map->editor.select_rect.x, map->editor.select_rect.y, map->editor.select_rect.w, map->editor.select_rect.h);
+	return (SDL_IntersectRect((SDL_Rect*)&map->editor.select_rect,
+							(SDL_Rect*)&rect,
+							(SDL_Rect*)&rect));
+}
+
 t_poly			*ed_get_selected_poly(t_map *map)
 {
 	t_poly	*poly;
@@ -44,7 +61,9 @@ t_poly			*ed_get_selected_poly(t_map *map)
 		{
 			if ((ed_is_wall(poly) && ed_is_wall_selected(map, poly))
 				||
-				(ed_is_flat(poly) && ed_is_flat_selected(map, poly)))
+				(ed_is_flat(poly) && ed_is_flat_selected(map, poly))
+				||
+				(ed_is_inclined(poly) && ed_is_inclined_selected(map, poly)))
 				return (poly);
 		}
 		poly = poly->next;

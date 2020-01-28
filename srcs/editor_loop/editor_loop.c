@@ -319,7 +319,6 @@ int				editor_loop(t_win *win, t_map *map)
 	loop = SDL_TRUE;
 	while (loop)
 	{
-		// printf("f = %d\n", map->editor.flags);
 		editor_menu_disp(win, map);
 		if (win->winui->event.type == SDL_QUIT)
 			loop = 0;
