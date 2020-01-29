@@ -12,6 +12,7 @@
 int				init_music(t_doom_music	*music);
 int				init_textures(t_win *win, t_textures *textures);
 int				init_win_player(t_win *win, t_player *player);
+int				init_threads(t_win *win, t_map *map, t_player *player);
 
 /*
 **	---------------------------------- init_menu ----------------------------------

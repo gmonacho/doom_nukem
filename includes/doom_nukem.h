@@ -6,7 +6,8 @@
 # include <string.h>
 # include <fcntl.h>
 # include <math.h>
-# include <stdio.h>
+# include <pthread.h>
+# include <stdio.h>///////////////////
 
 # include "SDL.h"
 # include "SDL_ttf.h"
@@ -32,8 +33,8 @@
 # define _3_PI_2		    4.71238898038
 # define _2_PI			    6.28318530718
 # define N_DOTS_POLY		4
+# define N_THREADS			2
 
 # include "bordel_struct.h"
 # include "bordel_proto.h"
-
 #endif

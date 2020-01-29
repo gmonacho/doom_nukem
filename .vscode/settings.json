@@ -9,6 +9,7 @@
 		"ui_draw.h": "c",
 		"type_traits": "c",
 		"bitset": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"bordel_proto.h": "c"
 	}
 }

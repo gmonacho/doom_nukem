@@ -165,6 +165,7 @@ typedef struct		s_win
 	SDL_Texture		*rend_texture;
 	int				view;
 
+	struct s_thread	*threads;
 	int				w;
 	int				h;
 	float			w_div_fov;
@@ -388,6 +389,16 @@ typedef	struct				s_poly
 	SDL_Surface				*texture;
 	struct s_poly			*next;
 }							t_poly;
+
+typedef struct				s_thread
+{
+	pthread_t				thread;
+	int						i;
+	t_win					*win;
+	struct s_map			*map;
+	struct s_player			*player;
+	t_poly					*poly;
+}							t_thread;
 
 typedef struct				s_calculs
 {

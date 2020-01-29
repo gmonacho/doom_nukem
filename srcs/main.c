@@ -26,6 +26,8 @@ static int			init(t_win *win, t_map *map, t_player *player)
 		return (1);
 	init_polygone(map->polys);
 	create_poly_save(map);
+	if (init_threads(win, map, player))
+		return (1);
 	return (0);
 }
 

@@ -1,11 +1,10 @@
 #include "doom_nukem.h"
 
-/*
-**	Triangulation (avec 2 points, seulement si repere othonorme) :
-**
-**	x = (w * w + fdist1 * fdist1 - fdist2 * fdist2) / (2 * w)
-**	y = sqrt(fdist1 * fdist1 - x * x)
-*/
+	// clock_t			t1;
+	// clock_t			t2;
+	// t1 = clock();
+	// t2 = clock();
+	// printf("fp %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
 /*
 **	- Times of 'raycasting_3d()' : ~125-140 . 10e-3
@@ -34,20 +33,14 @@ static void		draw(t_win *win, t_player *player)
 		x = -1;
 		while (++x < win->w)
 		{
+			// printf("%p\t", ray->poly);
 			win->pixels[y * win->w + x] = ray->poly ? ray->color : 0xFF505050;
 			ray->poly = NULL;
 			ray++;
 		}
 		rays++;
 	}
-
-	// SDL_SetTextureBlendMode(win->red_texture, SDL_BLENDMODE_BLEND);		//Set transparent
-	// SDL_SetRenderDrawBlendMode(win->rend, SDL_BLENDMODE_BLEND);
-	// SDL_SetRenderTarget(win->rend, win->red_texture);
-	// SDL_SetRenderDrawBlendMode(win->rend, SDL_BLENDMODE_NONE);
-	
-	// SDL_SetRenderTarget(win->rend, NULL);
-
+	// printf("\n\n");
 	SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, win->w * sizeof(Uint32));
 	SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
 }
@@ -67,33 +60,11 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	t_fdot			coord_plan;
 	t_dot			coord_texture;
 
-	// find_coord_plan(poly, &coord_plan, (t_fdot_3d){	collision.x - poly->dots[0].x,\
-	// 												collision.y - poly->dots[0].y,\
-	// 												collision.z - poly->dots[0].z});
 	find_coord_plan(poly, &coord_plan, fdot_3d_sub(collision, poly->dots[0]));
-	// printf("find coord %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
-	// if (coord_plan.x < 0 || coord_plan.x > 1 || coord_plan.y < 0 || coord_plan.y > 1)
-	// {
-	// 	printf("Coo %f %f col %f %f %f\n", coord_plan.x, coord_plan.y, collision.x, collision.y, collision.z);
-	// 	printf("C %f %f\n\n", coord_plan.x, coord_plan.y);
-	// 	return (0x505050FF);
-	// }
-
 	if (coord_plan.x < 0 || coord_plan.x > 1 || coord_plan.y < 0 || coord_plan.y > 1)
-	{
-		// if (collision.y > 149 && collision.y < 151 && collision.x > 100 && collision.x < 600 && collision.z > 50 && collision.z < 200)
-		// {
-		// 	printf("Coord ext %f %f\n", coord_plan.x, coord_plan.y);
-		// 	printf("Collision %f %f %f\n", collision.x, collision.y, collision.z);
-		// 	printf("Collision %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z);
-		// 	printf("i j %f %f %f / %f %f %f\n", poly->i.x, poly->i.y, poly->i.z, poly->j.x, poly->j.y, poly->j.z);
-		// }
 		return (-1);
-	}
-
 	coord_texture = (t_dot){modulo(coord_plan.x * poly->dist12, poly->texture->w),\
 							modulo(coord_plan.y * poly->dist14, poly->texture->h)};
-
 	if (coord_texture.x < 0 || coord_texture.y < 0 || coord_texture.x > poly->texture->w || coord_texture.y > poly->texture->h)
 	{
 		printf("\nSeg fault !\n");
@@ -105,9 +76,6 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 		printf("Coord texture/plan %d %d / %f %f\n", coord_texture.x, coord_texture.y, coord_plan.x, coord_plan.y);
 		exit(0);
 	}
-	// printf("coord %d %d\n", coord_texture.x, coord_texture.y);
-	// printf("color %x\n", ((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
-	// return (0xFFFF0000);
 	return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
 }
 
@@ -132,9 +100,6 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 	t_fdot_3d		collision;
 	float			newdist;
 	int				color;
-	// clock_t			t1;
-	// clock_t			t2;
-
 
 	if (!intersection_plan_my_ray(&collision, poly->equation, ray))
 		return ;
@@ -163,25 +128,18 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 		ray->poly = poly;
 		ray->color = color;
 		ray->dist = newdist;
-		// ray->collision = collision;
 	}
-
-	// printf("Ntm %p\n", poly);
-	// t1 = clock();
-	// t2 = clock();
-	// printf("fp %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 }
 
-
+/*
+**	Attention certaine box > 1000 sur x !
+*/
 
 static void			square_tracing(t_win *win, t_player *player, t_poly *poly)
 {
 	int				x;
 	int				y;
-	// clock_t			t1;
-	// clock_t			t2;
 
-	// t1 = clock();
 	y = poly->box_y.x;
 	while (++y < poly->box_y.y)
 		if (0 <= y && y < win->h)
@@ -191,30 +149,15 @@ static void			square_tracing(t_win *win, t_player *player, t_poly *poly)
 			{
 				if (0 <= x && x < win->w)
 					launch_ray_3d(poly, &(player->rays[y][x]));
-				// printf("%f %f %f\n", player->rays[y][x].vx, player->rays[y][x].vy, player->rays[y][x].vz);
 			}
 		}
-	// t2 = clock();
-	// printf("time calcul %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 }
-
-/*
-**	Attention certaine box > 1000 sur x !
-*/
 
 void		raycasting_3d(t_win *win, t_player *player)
 {
 	t_poly	*poly;
-	// clock_t			t1;
-	// clock_t			t2;
 
-	// t1 = clock();
-	// t2 = clock();
-	// printf("time %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
-	// printf("1\n");
 	surround_walls(win, win->map);
-
-	// printf("2\n");
 	if (win->view & TEXTURE_VIEW)
 	{
 		poly = win->map->polys;
@@ -226,17 +169,73 @@ void		raycasting_3d(t_win *win, t_player *player)
 		}
 		draw(win, player);
 	}
-
-	// // t1 = clock();
 	if (win->view & WALL_VIEW)
 		draw_projection(win);
-
-	// // t1 = clock();
 	if (win->view & BOX_VIEW)
 		draw_all_square(win);
-	// t2 = clock();
-	// printf("sur %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 	draw_fps();
-	// SDL_RenderPresent(win->rend);
-	// exit(0);
 }
+
+// static void			*square_tracing(void *param)
+// {
+// 	t_thread		*thread;
+// 	t_poly			*poly;
+// 	int				x;
+// 	int				y;
+// 	int				y_max;
+
+// 	thread = (t_thread *)param;
+// 	poly = thread->poly;
+// 	if (!poly)
+// 	{
+// 		// printf("i = %d\tFin lst\n", thread->i);
+// 		return (NULL);
+// 	}
+// 	// printf("Poly %d thread %d\n", poly->index, thread->i);
+// 	y = (poly->box_y.y - poly->box_y.x) * (thread->i / (float)N_THREADS) - 1;
+// 	y_max = (poly->box_y.y - poly->box_y.x) * ((thread->i + 1) / (float)N_THREADS);
+// 	while (++y < y_max)
+// 		if (0 <= y && y < thread->win->h)
+// 		{
+// 			x = poly->box_x.x;
+// 			while (++x < poly->box_x.y)
+// 			{
+// 				if (0 <= x && x < thread->win->w)
+// 					launch_ray_3d(poly, &(thread->player->rays[y][x]));
+// 			}
+// 		}
+// 	thread->poly = thread->poly->next;
+// 	// printf("i = %d\tNext square\n", thread->i);
+// 	square_tracing(thread);
+// 	return (NULL);
+// }
+
+// void		raycasting_3d(t_win *win, t_player *player)
+// {
+// 	int		i;
+
+// 	surround_walls(win, win->map);
+// 	if (win->view & TEXTURE_VIEW)
+// 	{
+
+// 		//-------------------
+// 		// printf("Debut raytracing\n");
+// 		i = -1;
+// 		while (++i < N_THREADS)
+// 		{
+// 			win->threads[i].poly = win->map->polys;
+// 			pthread_create(&(win->threads[i].thread), NULL, square_tracing, &(win->threads[i]));
+// 		}
+// 		i = -1;
+// 		while (++i < N_THREADS)
+// 			pthread_join(win->threads[i].thread, NULL);
+// 		//-------------------
+
+// 		draw(win, player);
+// 	}
+// 	if (win->view & WALL_VIEW)
+// 		draw_projection(win);
+// 	if (win->view & BOX_VIEW)
+// 		draw_all_square(win);
+// 	draw_fps();
+// }
