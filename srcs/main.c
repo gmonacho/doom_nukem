@@ -3,18 +3,16 @@
 /*
 **	A faire :
 **
-**	Mobs
+**	Finir mobs
 **	Objects
 **	Gravity mobs, objects
-**	Fixer la gestion des menus
 **	Norme all
 **	Clean code/fichier inutiles
+**	Gerer les leaks
 **
 **	Multi threading moteurs
 **	Seg fault sur certaines text att !
 */
-
-//Abort lorsque w=2000 & h=1300
 
 static int			init(t_win *win, t_map *map, t_player *player)
 {
