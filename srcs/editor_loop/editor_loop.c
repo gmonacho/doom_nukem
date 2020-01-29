@@ -242,10 +242,11 @@
 // 	return (1);
 // }
 
-static void	editor_menu_quit(t_win *win, Uint32 ms)
+static void	editor_menu_quit(t_win *win, t_map *map, Uint32 ms)
 {
 	Mix_FadeOutMusic(ms);
 	ui_free_ui(&win->winui->ui);
+	SDL_SetCursor(map->editor.cursor[CURSOR_DEFAULT]);
 	SDL_Delay(ms);
 }
 
@@ -283,8 +284,18 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								"b_select",
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[0]);
+	ui_set_simple_button_function(win->winui,
+								"b_wall",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[1]);
+	ui_set_simple_button_function(win->winui,
+								"b_flat",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[2]);
 	ui_set_text_entry_function(win->winui, "b_y_min", &set_int_value, &map->editor.y_min);
 	ui_set_text_entry_function(win->winui, "b_y_max", &set_int_value, &map->editor.y_max);
+	ui_set_text_entry_function(win->winui, "b_wall_min", &set_int_value, &map->editor.wall_min);
+	ui_set_text_entry_function(win->winui, "b_wall_max", &set_int_value, &map->editor.wall_max);
 }
 
 int		init_editor_menu(t_win *win, t_map *map)
@@ -307,13 +318,21 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.pos = (t_dot){0, 0};
 	map->editor.size = (t_dot){0, 0};
 	map->editor.unit = 1;
-	map->editor.wall_height = 100;
 	map->editor.y_min = -30000;
 	map->editor.y_max = 30000;
+	map->editor.wall_min = 0;
+	map->editor.wall_max = 100;
 	map->editor.selected_poly = NULL;
+	map->editor.placing_poly = NULL;
 	map->editor.flags = ED_NONE;
 	map->editor.arg_menu_tab[0] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_SELECTION | ED_MODE_CHANGED};
+	map->editor.arg_menu_tab[1] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_PLACE | ED_WALL | ED_MODE_CHANGED};
+	map->editor.arg_menu_tab[2] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_PLACE | ED_FLAT | ED_MODE_CHANGED};
+	map->editor.cursor[CURSOR_DEFAULT] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+	map->editor.cursor[CURSOR_SELECTING] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
 	if (!init_editor_menu(win, map))
 		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));
 	loop = SDL_TRUE;
@@ -326,7 +345,7 @@ int				editor_loop(t_win *win, t_map *map)
 		// editor_event(win, &map, &loop);
 		ed_event(win, map);
 	}
-	editor_menu_quit(win, 500);
+	editor_menu_quit(win, map, 500);
 	init_main_menu(win);
 	// editor_quit(win, &map);
 	return (1);

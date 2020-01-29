@@ -83,7 +83,10 @@ typedef enum	e_editor
 {
 	ED_NONE = 0,
 	ED_MODE_CHANGED = 1,
-	ED_SELECTION = 2
+	ED_SELECTION = 2,
+	ED_PLACE = 4,
+	ED_WALL = 8,
+	ED_FLAT = 16
 }				t_editor_flag;
 
 typedef struct		s_kit_flags
@@ -554,18 +557,27 @@ typedef struct	s_map_editor
 	SDL_bool	ordinate_b;
 }				t_map_editor;
 
+enum
+{
+	CURSOR_DEFAULT = 0,
+	CURSOR_SELECTING = 1
+};
+
 typedef struct	s_editor
 {
 	t_dot			pos;
 	t_dot			size;
 	float			unit;
-	int				wall_height;
 	int				y_min;
 	int				y_max;
+	int				wall_min;
+	int				wall_max;
 	t_rect			select_rect;
 	t_poly			*selected_poly;
+	t_poly			*placing_poly;
 	t_editor_flag	flags;
-	t_arg_menu		arg_menu_tab[1];
+	t_arg_menu		arg_menu_tab[3];
+	SDL_Cursor		*cursor[2];
 }				t_editor;
 
 /*

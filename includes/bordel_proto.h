@@ -151,6 +151,7 @@ t_inventory     *define_inventory();
 */
 
 void    add_poly(t_poly **poly);
+void    add_existing_poly(t_poly **polys, t_poly *poly);
     
 /*
 **	---------------------------------- png ----------------------------------
@@ -292,6 +293,19 @@ void		ed_display(t_win *win, const t_map *map);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 void		check_file(t_map_editor *map);
 
+
+void		ed_display_wall(t_win *win, const t_map *map, t_poly *poly);
+void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
+void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
+void		ed_display_selected_poly(t_win *win, const t_map *map);
+
+t_line		ed_get_display_line(const t_map *map, t_dot p1, t_dot p2);
+t_dot		ed_get_display_point(const t_map *map, t_dot p);
+int			ed_get_map_x(const t_map *map, int n);
+int			ed_get_map_y(const t_map *map, int n);
+t_dot		ed_get_map_point(const t_map *map, t_dot p);
+
+int			ed_place_wall(t_win *win, t_map *map);
 
 SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
