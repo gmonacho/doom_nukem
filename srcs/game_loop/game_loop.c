@@ -94,7 +94,7 @@ static SDL_bool game(t_win *win, t_map *map)
 
     copy_poly_lst(map->polys_save, map->polys);
     events_move(win, &(map->player), state);
-
+	
 	collision_slide_map(map);
 	copy_rotate_rotz_only(map->polys, create_ry_matrix(-map->player.rot_y));
 
@@ -139,7 +139,7 @@ int     		game_loop(t_win *win, t_map *map)
 
 	map->player.currentHp = 100;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
-	// init_cd(map);
+	// init_cd(map); 
 	if (!(map->save.ifPars))
 	{
 		Mix_AllocateChannels(10);

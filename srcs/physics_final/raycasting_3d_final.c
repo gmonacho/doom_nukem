@@ -160,6 +160,7 @@ void		raycasting_3d(t_win *win, t_player *player)
 	surround_walls(win, win->map);
 	if (win->view & TEXTURE_VIEW)
 	{
+	printf("text %p\n", poly->texture);
 		poly = win->map->polys;
 		while (poly)
 		{
@@ -168,6 +169,7 @@ void		raycasting_3d(t_win *win, t_player *player)
 			poly = poly->next;
 		}
 		draw(win, player);
+	printf("text %p\n", poly->texture);
 	}
 	if (win->view & WALL_VIEW)
 		draw_projection(win);

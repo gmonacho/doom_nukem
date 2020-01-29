@@ -120,14 +120,16 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 	printf("p2.x = %d p2.y = %d\n", sector->lines->p2.x, sector->lines->p2.y);
 	printf("id = %d\n", sector->lines->id);*/
 }
+
 void 	fill_poly_mob(t_poly *poly, t_mob *mob)
 {
 	while (poly->next)
 		poly = poly->next;
 	while(mob)
-	{
+	{	
 		poly->next = mob->poly;
 		poly = poly->next;
+		poly->texture = IMG_Load("textures/boo_mob.png");
 		mob = mob->next;
 	}
 }
@@ -154,8 +156,7 @@ t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 		else if (ft_strstr(tab[i], "Player"))
 			player_data(tab, &(map->player), i);
 		else if (ft_strstr(tab[i], "Mob"))
-			fill_mob_data(&(map->mob), tab, i);
-			
+			fill_mob_data(&(map->mob), tab, i);			
 	}
 	//map->player.savePlayer = map.player;
 	fill_poly_mob(poly, map->mob);
