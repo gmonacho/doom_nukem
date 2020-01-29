@@ -345,12 +345,12 @@ typedef struct				s_textures
 typedef	struct				s_poly
 {
 	int						index;
-	int						is_slide_ban;
+
 	t_fdot_3d				dots[N_DOTS_POLY];
 	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
-
 	float					dist12;
 	float					dist14;
+
 	t_plan					equation;
 	t_plan					equation_rotz_only;
 	t_fdot_3d				i;
@@ -359,8 +359,8 @@ typedef	struct				s_poly
 	t_fdot_3d				j_rotz_only;
 	float					ii;
 	float					jj;
-	float					ij;
-	float					ijij_iijj;
+
+	int						segment_code;
 
 	t_fdot_3d				dots_new[N_DOTS_POLY + 2];	//Un poly ne peut passe que 2 fois sur x
 	int						n_dot;

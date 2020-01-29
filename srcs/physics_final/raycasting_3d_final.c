@@ -220,7 +220,6 @@ void		raycasting_3d(t_win *win, t_player *player)
 		poly = win->map->polys;
 		while (poly)
 		{
-			poly->is_slide_ban = 0;
 			square_tracing(win, player, poly);
 			poly = poly->next;
 		}

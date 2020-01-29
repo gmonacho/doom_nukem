@@ -63,14 +63,14 @@ void			events_move(t_win *win, t_player *player, const Uint8 *state)
 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){-player->const_vel, 0, 0});
 	if (state[SDL_SCANCODE_S])
 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){player->const_vel, 0, 0});
-	if (state[SDL_SCANCODE_A])
-		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, player->const_vel, 0});
 	if (state[SDL_SCANCODE_D])
 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, -player->const_vel, 0});
+	if (state[SDL_SCANCODE_A])
+		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, player->const_vel, 0});
+	if (state[SDL_SCANCODE_SPACE])
+		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, 0, -player->const_vel});
 	if (state[SDL_SCANCODE_LSHIFT])
 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, 0, player->const_vel});
-	if (state[SDL_SCANCODE_SPACE]/* && printf("onfloor %d\n", player->on_floor) && player->on_floor*/)
-		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, 0, -player->const_vel});
 }
 
 void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *state)
@@ -139,7 +139,6 @@ void			events_others(t_win *win, t_player *player, const Uint8 *state)
 			print_poly(poly, 0);
 			printf("I %f %f %f\n", poly->i.x, poly->i.y, poly->i.z);
 			printf("J %f %f %f\n", poly->j.x, poly->j.y, poly->j.z);
-			printf("II JJ IJ IJIJ_IIJJ %f %f %f %f\n", poly->ii, poly->jj, poly->ij, poly->ijij_iijj);
 			poly = poly->next;
 		}
 		printf("\n\n");
