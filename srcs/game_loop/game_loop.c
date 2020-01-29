@@ -16,7 +16,7 @@
 // 	while ((poly_collide = collisions(&(map->player), map->polys)))
 // 	{
 // 		// copy_poly_lst(map->polys, map->polys_save);
-// 		slide(map, map->polys, map->polys_save, poly_collide, 0);
+// 		slide(map, map->polys, map->polys_save, poly_collide);
 // 	}
 // }
 
@@ -62,43 +62,44 @@ static SDL_bool game(t_win *win, t_map *map)
     if (map->player.collision_on)
     {
         i = 0;
-        while ((poly_collide = collisions_sphere(map, &(map->player), map->polys)))
+        while ((poly_collide = collisions_sphere(map, &(map->player), map->polys, 1)))
         {
-			printf("Collision ! Index : %d\n", poly_collide->index);
+			// printf("Collision ! Index : %d\n", poly_collide->index);
+            if (i++ >= 4)
+            {
+                // printf("Collision avec 10 murs ??\n");
+                // print_poly(poly_collide, 1);
+                // printf("%f %f %f %f\n", poly_collide->equation_rotz_only.v.x, poly_collide->equation_rotz_only.v.y, poly_collide->equation_rotz_only.v.z, poly_collide->equation_rotz_only.d);
+                exit(0);
+            }
 			if (collision_dots(map, poly_collide->dots_rotz_only, map->player.width_2))
 			{
-				printf("Dot is in Poly, return last state\n");
+				// printf("Dot is in Poly, return last state\n");
 				copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
-				continue ;
+				break ;
 			}
 
 			poly_collide_v = poly_collide->equation_rotz_only.v;
 			if (poly_collide->segment_code)
 			{
-				copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
-				continue ;
+				// copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
+				// continue ;
+				poly_collide->is_slide_ban = 1;
 				poly_collide_v = segment_slide(poly_collide->dots_rotz_only, poly_collide->equation_rotz_only, poly_collide->segment_code);
-				printf("Segment code : %d -> %d %d\n", poly_collide->segment_code, poly_collide->segment_code & 0b11, (poly_collide->segment_code & 0b1100) >> 2);
-				printf("Segment slide : %f %f %f\n", poly_collide_v.x, poly_collide_v.y, poly_collide_v.z);
+				// printf("Segment code : %d -> %d %d\n", poly_collide->segment_code, poly_collide->segment_code & 0b11, (poly_collide->segment_code & 0b1100) >> 2);
+				// printf("Segment -> plan slide : %f %f %f\n", poly_collide_v.x, poly_collide_v.y, poly_collide_v.z);
 			}
             slide(map, map->polys, map->polys_save, poly_collide_v);   //Collision avec slide
-
-            if (i++ == 4)
-            {
-                printf("Collision avec 10 murs ??\n");
-                print_poly(poly_collide, 1);
-                printf("%f %f %f %f\n", poly_collide->equation_rotz_only.v.x, poly_collide->equation_rotz_only.v.y, poly_collide->equation_rotz_only.v.z, poly_collide->equation_rotz_only.d);
-                exit(0);
-            }
         }
-		if (collisions_sphere(map, &(map->player), map->polys))
+		if (collisions_sphere(map, &(map->player), map->polys, 0))
 		{
-			printf("WTFF slide marche pas !!??\n");
-			exit(0);
+			copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
+			// printf("WTFF slide marche pas !!??\n");
+			// exit(0);
 		}
+        // gravity(map);
 
         // printf("Col avant grav %p\n", collisions(&(map->player), map->polys));
-        // gravity(map);
         // printf("Col apres grav %p\n", collisions(&(map->player), map->polys));
         // printf("\n\n");
     }

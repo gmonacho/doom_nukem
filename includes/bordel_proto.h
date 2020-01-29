@@ -356,7 +356,7 @@ t_poly				*collisions(t_player *player, t_poly *poly);
 int					is_poly_collision(t_player *player, t_poly *poly);
 void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_fdot_3d poly_collide_v);
 
-t_poly				*collisions_sphere(t_map *map, t_player *player, t_poly *poly);
+t_poly				*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban_interest);
 int					collision_poly(t_map *map, t_player *player, t_poly *poly);
 int					collision_segment(t_map *map, t_fdot_3d dots[4], float width_2);
 t_fdot_3d			segment_slide(t_fdot_3d dots[N_DOTS_POLY], t_plan plan, int segment_code);

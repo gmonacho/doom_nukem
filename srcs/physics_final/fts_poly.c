@@ -15,13 +15,16 @@ int			lstlen(t_poly *poly)
 
 void		copy_poly_lst(t_poly *dst, t_poly *src)
 {
-	t_poly	*tmp;
+	t_poly	*tmp_next;
+	int		tmp_is_slide_ban;
 
 	while (src)
 	{
-		tmp = dst->next;
+		tmp_next = dst->next;
+		tmp_is_slide_ban = dst->is_slide_ban;
 		ft_memcpy(dst, src, sizeof(t_poly));
-		dst->next = tmp;
+		dst->next = tmp_next;
+		dst->is_slide_ban = tmp_is_slide_ban;
 		dst = dst->next;
 		src = src->next;
 	}

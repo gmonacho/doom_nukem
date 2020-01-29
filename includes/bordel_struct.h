@@ -370,9 +370,12 @@ typedef	struct				s_poly
 	t_fdot_3d				j;
 	t_fdot_3d				i_rotz_only;
 	t_fdot_3d				j_rotz_only;
+	float					i_mag;
+	float					j_mag;
 	float					ii;
 	float					jj;
 
+	int						is_slide_ban;	//Utile pour les angles
 	int						segment_code;
 
 	t_fdot_3d				dots_new[N_DOTS_POLY + 2];	//Un poly ne peut passe que 2 fois sur x

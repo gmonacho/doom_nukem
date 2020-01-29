@@ -8,13 +8,13 @@
 
 t_fdot_3d			segment_slide(t_fdot_3d dots[N_DOTS_POLY], t_plan plan, int segment_code)
 {
-	printf("Segment slide : produit vectoriel : Plan %f %f %f\n", plan.v.x, plan.v.y, plan.v.z);
-	printf("D1 : %f %f %f\n", dots[segment_code & 0b11].x,\
-								dots[segment_code & 0b11].y,\
-								dots[segment_code & 0b11].z);
-	printf("D2 : %f %f %f\n", dots[(segment_code & 0b1100) >> 2].x,\
-								dots[(segment_code & 0b1100) >> 2].y,\
-								dots[(segment_code & 0b1100) >> 2].z);
+	// printf("Segment slide : produit vectoriel : Plan %f %f %f\n", plan.v.x, plan.v.y, plan.v.z);
+	// printf("D1 : %f %f %f\n", dots[segment_code & 0b11].x,\
+	// 							dots[segment_code & 0b11].y,\
+	// 							dots[segment_code & 0b11].z);
+	// printf("D2 : %f %f %f\n", dots[(segment_code & 0b1100) >> 2].x,\
+	// 							dots[(segment_code & 0b1100) >> 2].y,\
+	// 							dots[(segment_code & 0b1100) >> 2].z);
 	return (vectoriel_product(plan.v,\
 								fdot_3d_sub(dots[segment_code & 0b11],\
 											dots[(segment_code & 0b1100) >> 2])));
@@ -41,9 +41,9 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_fdot_3d poly_coll
 		printf("CHELOU slide trouve pas de collision ???\n");
 		exit(1);
 	}
-	printf("Ray o/v %f %f %f\t%f %f %f\n", proj_ortho_ray.ox, proj_ortho_ray.oy, proj_ortho_ray.oz,\
-												proj_ortho_ray.vx, proj_ortho_ray.vy, proj_ortho_ray.vz);
-	printf("Slide :  %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
+	// printf("Ray o/v %f %f %f\t%f %f %f\n", proj_ortho_ray.ox, proj_ortho_ray.oy, proj_ortho_ray.oz,\
+	// 											proj_ortho_ray.vx, proj_ortho_ray.vy, proj_ortho_ray.vz);
+	// printf("Slide :  %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
 
 	copy_poly_lst(polys, polys_save);
 	translate_all_rotz_only(polys, (t_fdot_3d){-proj_ortho.x,\
