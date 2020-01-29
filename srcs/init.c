@@ -16,6 +16,7 @@ void		init_polygone(t_poly *poly)
 		// 														poly->dots[1].x, poly->dots[1].y, poly->dots[1].z,\
 		// 														poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
 		poly->index = i++;
+		poly->is_slide_ban = 0;
 		ft_memcpy(poly->dots_rotz_only, poly->dots, sizeof(t_fdot_3d) * 4);
 		poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
 		poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
@@ -27,6 +28,8 @@ void		init_polygone(t_poly *poly)
 								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
 		poly->i_rotz_only = poly->i;
 		poly->j_rotz_only = poly->j;
+		poly->i_mag = mag(poly->i);
+		poly->j_mag = mag(poly->j);
 		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
 		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
 		// poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;

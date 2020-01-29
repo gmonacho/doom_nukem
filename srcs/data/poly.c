@@ -2,10 +2,19 @@
 
 void    add_poly(t_poly **poly)
 {
-  t_poly  *new_poly;
+  	t_poly  *new_poly;
 
-  if (!(new_poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
-    return (ft_putendl("poly allocation failed in poly.c"));
-  new_poly->next = *poly;
-  *poly = new_poly;
+  	if (!(new_poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
+		return (ft_putendl("poly allocation failed in poly.c"));
+  	new_poly->next = *poly;
+  	*poly = new_poly;
+}
+
+void    add_existing_poly(t_poly **polys, t_poly *poly)
+{
+	if (poly)
+	{
+		poly->next = *polys;
+		*polys = poly;
+	}
 }

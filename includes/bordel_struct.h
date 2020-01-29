@@ -75,9 +75,25 @@ typedef struct		s_cartesienne
 
 typedef struct	s_arg_menu
 {
-	int			*loop;
+	int			*loop; // renommer en variable
 	int			value;
 }				t_arg_menu;
+
+typedef enum	e_editor
+{
+	ED_NONE = 0,
+	ED_MODE_CHANGED = 1,
+	ED_SELECTION = 2,
+	ED_PLACE = 4,
+	ED_WALL = 8,
+	ED_FLAT = 16
+}				t_editor_flag;
+
+typedef struct		s_kit_flags
+{
+	t_editor_flag	*variable;
+	int				flags;
+}					t_kit_flags;
 
 /*
 ** =======================================================================================
@@ -152,6 +168,7 @@ typedef struct		s_win
 	SDL_Texture		*rend_texture;
 	int				view;
 
+	struct s_thread	*threads;
 	int				w;
 	int				h;
 	float			w_div_fov;
@@ -345,22 +362,25 @@ typedef struct				s_textures
 typedef	struct				s_poly
 {
 	int						index;
-	int						is_slide_ban;
+
 	t_fdot_3d				dots[N_DOTS_POLY];
 	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
-
 	float					dist12;
 	float					dist14;
+
 	t_plan					equation;
 	t_plan					equation_rotz_only;
 	t_fdot_3d				i;
 	t_fdot_3d				j;
 	t_fdot_3d				i_rotz_only;
 	t_fdot_3d				j_rotz_only;
+	float					i_mag;
+	float					j_mag;
 	float					ii;
 	float					jj;
-	float					ij;
-	float					ijij_iijj;
+
+	int						is_slide_ban;	//Utile pour les angles
+	int						segment_code;
 
 	t_fdot_3d				dots_new[N_DOTS_POLY + 2];	//Un poly ne peut passe que 2 fois sur x
 	int						n_dot;
@@ -372,6 +392,16 @@ typedef	struct				s_poly
 	SDL_Surface				*texture;
 	struct s_poly			*next;
 }							t_poly;
+
+typedef struct				s_thread
+{
+	pthread_t				thread;
+	int						i;
+	t_win					*win;
+	struct s_map			*map;
+	struct s_player			*player;
+	t_poly					*poly;
+}							t_thread;
 
 typedef struct				s_calculs
 {
@@ -501,7 +531,7 @@ typedef struct s_object
 
 enum	e_map_editor
 {
-	MAP_NONE = 0b0000,
+	MAP_NONE = 0,
 	DRAWING_LINE = 1,
 	MAP_SELECTING = 2,
 	MAP_TEXT_EDITING = 4,
@@ -528,14 +558,27 @@ typedef struct	s_map_editor
 	SDL_bool	ordinate_b;
 }				t_map_editor;
 
+enum
+{
+	CURSOR_DEFAULT = 0,
+	CURSOR_SELECTING = 1
+};
+
 typedef struct	s_editor
 {
-	t_dot		pos;
-	t_dot		size;
-	float		unit;
-	int			wall_height;
-	int			y_min;
-	int			y_max;
+	t_dot			pos;
+	t_dot			size;
+	float			unit;
+	int				y_min;
+	int				y_max;
+	int				wall_min;
+	int				wall_max;
+	t_rect			select_rect;
+	t_poly			*selected_poly;
+	t_poly			*placing_poly;
+	t_editor_flag	flags;
+	t_arg_menu		arg_menu_tab[3];
+	SDL_Cursor		*cursor[2];
 }				t_editor;
 
 /*

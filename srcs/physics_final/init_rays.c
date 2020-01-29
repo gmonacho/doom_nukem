@@ -60,3 +60,20 @@ int					init_rays(t_win *win, t_player *player)
 	}
 	return (0);
 }
+
+int				init_threads(t_win *win, t_map *map, t_player *player)
+{
+	int			i;
+
+	if (!(win->threads = (t_thread *)malloc(sizeof(t_thread) * N_THREADS)))
+		return (1);
+	i = -1;
+	while (++i < N_THREADS)
+	{
+		win->threads[i].i = i;
+		win->threads[i].win = win;
+		win->threads[i].map = map;
+		win->threads[i].player = player;
+	}
+	return (0);
+}

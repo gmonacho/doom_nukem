@@ -1,28 +1,28 @@
 #include "doom_nukem.h"
 
-// float				dist_origin_line(t_fdot_3d l1, t_fdot_3d l2)
+// float				dist_origin_line(t_fdot_3d d1, t_fdot_3d d2)
 // {
-// 	return (mag(vectoriel_product((t_fdot_3d){-l1.x, -l1.y, -l1.z},\
-// 							(t_fdot_3d){l2.x - l1.x,\
-// 										l2.y - l1.y,\
-// 										l2.z - l1.z})) /\
-// 			fdist_3d(l1, l2));
+// 	return (mag(vectoriel_product((t_fdot_3d){-d1.x, -d1.y, -d1.z},\
+// 							(t_fdot_3d){d2.x - d1.x,\
+// 										d2.y - d1.y,\
+// 										d2.z - d1.z})) /\
+// 			fdist_3d(d1, d2));
 // }
 
-t_fdot_3d			proj_ortho_origin_line(t_fdot_3d l1, t_fdot_3d l2, t_fdot_3d *proj)
+t_fdot_3d			proj_ortho_origin_line(t_fdot_3d d1, t_fdot_3d d2, t_fdot_3d *proj)
 {
 	float			prop;
 	t_fdot_3d		line;
 
-	line = (t_fdot_3d){l2.x - l1.x, l2.y - l1.y, l2.z - l1.z};
-	prop = scalar_product((t_fdot_3d){-l1.x, -l1.y, -l1.z},\
+	line = (t_fdot_3d){d2.x - d1.x, d2.y - d1.y, d2.z - d1.z};
+	prop = scalar_product((t_fdot_3d){-d1.x, -d1.y, -d1.z},\
 							line) /\
 			scalar_product(line, line);
-	proj->x = l1.x + line.x * prop;
-	proj->y = l1.y + line.y * prop;
-	proj->z = l1.z + line.z * prop;
+	proj->x = d1.x + line.x * prop;
+	proj->y = d1.y + line.y * prop;
+	proj->z = d1.z + line.z * prop;
 	return ((t_fdot_3d){proj->x, proj->y, proj->z});
-	// return ((t_fdot_3d){l1.x + line.x * prop, l1.y + line.y * prop, l1.z + line.z * prop});
+	// return ((t_fdot_3d){d1.x + line.x * prop, d1.y + line.y * prop, d1.z + line.z * prop});
 }
 
 void				proj_ortho_plan(t_fdot_3d dot, t_plan plan, t_fdot_3d *proj_ortho)

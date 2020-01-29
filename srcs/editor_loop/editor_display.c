@@ -141,184 +141,6 @@
 // 	}
 // }
 
-static t_line		ed_get_display_line(const t_map *map, t_dot p1, t_dot p2)
-{
-	t_line	line;
-
-	line.p1.x = (p1.x - map->editor.pos.x) * map->editor.unit;
-	line.p1.y = (p1.y - map->editor.pos.y) * map->editor.unit;
-	line.p2.x = (p2.x - map->editor.pos.x) * map->editor.unit;
-	line.p2.y = (p2.y - map->editor.pos.y) * map->editor.unit;
-	return (line);
-}
-
-static t_dot		ed_get_display_point(const t_map *map, t_dot p)
-{
-	t_dot	point;
-
-	point.x = (p.x - map->editor.pos.x) * map->editor.unit;
-	point.y = (p.y - map->editor.pos.y) * map->editor.unit;
-	return (point);
-}
-
-static void		ed_display_wall(t_win *win, const t_map *map, t_poly *poly)
-{
-	t_line	line;
-
-	line = ed_get_display_line(map,
-			(t_dot){poly->dots[0].x, poly->dots[0].y},
-			(t_dot){poly->dots[1].x, poly->dots[1].y});
-	ui_draw_line(win->rend, &line);
-}
-
-static t_line	ed_get_heighest_line(t_poly *poly)
-{
-	if (poly->dots[0].z > poly->dots[1].z)
-		return ((t_line){(t_dot){poly->dots[0].x, poly->dots[0].y},
-						(t_dot){poly->dots[3].x, poly->dots[3].y}});
-	else
-		return ((t_line){(t_dot){poly->dots[1].x, poly->dots[1].y},
-						(t_dot){poly->dots[2].x, poly->dots[2].y}});	
-
-}
-
-static t_line	ed_get_lowest_line(t_poly *poly)
-{
-	if (poly->dots[0].z < poly->dots[1].z)
-		return ((t_line){(t_dot){poly->dots[0].x, poly->dots[0].y},
-						(t_dot){poly->dots[3].x, poly->dots[3].y}});
-	else
-		return ((t_line){(t_dot){poly->dots[1].x, poly->dots[1].y},
-						(t_dot){poly->dots[2].x, poly->dots[2].y}});	
-}
-
-static int		ed_get_line_len(t_line *line)
-{
-	int	dx;
-	int	dy;
-
-	dx = line->p1.x - line->p2.x;
-	dy = line->p1.y - line->p2.y;
-	return (sqrt(dx * dx + dy * dy));
-}
-
-static void		ed_display_inclined_direction(t_win *win, const t_map *map, t_poly *poly)
-{
-	t_line	highest;
-	t_line	lowest;
-	t_line	display_line;
-	t_dot	middle_lowest;
-	t_dot	circle_point;
-
-	highest = ed_get_heighest_line(poly);
-	lowest = ed_get_lowest_line(poly);
-	middle_lowest = (t_dot){(lowest.p1.x + lowest.p2.x) / 2,
-							(lowest.p1.y + lowest.p2.y) / 2};
-	display_line = ed_get_display_line(map, (t_dot){(highest.p1.x + highest.p2.x) / 2,
-													(highest.p1.y + highest.p2.y) / 2},
-											middle_lowest);
-	ui_draw_line(win->rend, &display_line);
-	circle_point = ed_get_display_point(map, middle_lowest);
-	draw_circle(win, (t_circle){circle_point.x, circle_point.y, ed_get_line_len(&display_line) / 20});
-}
-
-static void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly)
-{
-	t_line	line;
-
-	line = ed_get_display_line(map,
-						(t_dot){poly->dots[0].x, poly->dots[0].y},
-						(t_dot){poly->dots[1].x, poly->dots[1].y});
-	ui_draw_line(win->rend, &line);
-	line = ed_get_display_line(map,
-						(t_dot){poly->dots[1].x, poly->dots[1].y},
-						(t_dot){poly->dots[2].x, poly->dots[2].y});
-	ui_draw_line(win->rend, &line);
-	line = ed_get_display_line(map,
-						(t_dot){poly->dots[2].x, poly->dots[2].y},
-						(t_dot){poly->dots[3].x, poly->dots[3].y});
-	ui_draw_line(win->rend, &line);
-	line = ed_get_display_line(map,
-						(t_dot){poly->dots[3].x, poly->dots[3].y},
-						(t_dot){poly->dots[0].x, poly->dots[0].y});
-	ui_draw_line(win->rend, &line);
-	ed_display_inclined_direction(win, map, poly);
-}
-
-static void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly)
-{
-	t_line	line;
-
-	line = ed_get_display_line(map,
-						(t_dot){poly->dots[0].x, poly->dots[0].y},
-						(t_dot){poly->dots[1].x, poly->dots[1].y});
-	ui_draw_line(win->rend, &line);
-	line = ed_get_display_line(map,
-						(t_dot){poly->dots[1].x, poly->dots[1].y},
-						(t_dot){poly->dots[2].x, poly->dots[2].y});
-	ui_draw_line(win->rend, &line);
-	line = ed_get_display_line(map,
-						(t_dot){poly->dots[2].x, poly->dots[2].y},
-						(t_dot){poly->dots[3].x, poly->dots[3].y});
-	ui_draw_line(win->rend, &line);
-	line = ed_get_display_line(map,
-						(t_dot){poly->dots[3].x, poly->dots[3].y},
-						(t_dot){poly->dots[0].x, poly->dots[0].y});
-	ui_draw_line(win->rend, &line);
-	line = ed_get_display_line(map,
-						(t_dot){poly->dots[0].x, poly->dots[0].y},
-						(t_dot){poly->dots[2].x, poly->dots[2].y});
-	ui_draw_line(win->rend, &line);
-	line = ed_get_display_line(map,
-						(t_dot){poly->dots[1].x, poly->dots[1].y},
-						(t_dot){poly->dots[3].x, poly->dots[3].y});
-	ui_draw_line(win->rend, &line);
-}
-
-static SDL_bool		ed_is_poly_printable(const t_map *map, t_poly *poly)
-{
-	if ((poly->dots[0].z >= map->editor.y_min && poly->dots[0].z <= map->editor.y_max) ||
-			(poly->dots[1].z >= map->editor.y_min && poly->dots[1].z <= map->editor.y_max) ||
-			(poly->dots[2].z >= map->editor.y_min && poly->dots[2].z <= map->editor.y_max) ||
-			(poly->dots[3].z >= map->editor.y_min && poly->dots[3].z <= map->editor.y_max))
-	{
-		// printf("printable\n");
-		return (1);
-	}
-	else
-	{
-		// printf("none printable\n");
-		return (0);
-	}
-	
-}
-
-static SDL_bool		ed_is_wall(t_poly *poly)
-{
-	int pairs;
-
-	pairs = 0;
-	if (poly->dots[0].x == poly->dots[3].x && poly->dots[0].y == poly->dots[3].y)
-		pairs++;
-	if (poly->dots[1].x == poly->dots[2].x && poly->dots[1].y == poly->dots[2].y)
-		pairs++;
-	return (pairs == 2);
-}
-
-static SDL_bool		ed_is_inclined(t_poly *poly)
-{
-	return (poly->dots[0].z == poly->dots[3].z &&
-			poly->dots[1].z == poly->dots[2].z &&
-			poly->dots[0].z != poly->dots[1].z);
-}
-
-static SDL_bool		ed_is_flat(t_poly *poly)
-{
-	return (poly->dots[0].z == poly->dots[1].z &&
-			poly->dots[1].z == poly->dots[2].z &&
-			poly->dots[2].z == poly->dots[3].z);
-}
-
 // static SDL_Color	ed_get_display_color(t_poly *poly)
 // {
 // 	if (ed_is_wall(poly))
@@ -338,6 +160,18 @@ static SDL_bool		ed_is_flat(t_poly *poly)
 // 	poly->dots[2].x, poly->dots[2].y, poly->dots[3].x, poly->dots[3].y);
 // }
 
+SDL_bool		ed_is_poly_printable(const t_map *map, t_poly *poly)
+{
+	if ((poly->dots[0].z >= map->editor.y_min && poly->dots[0].z <= map->editor.y_max) ||
+			(poly->dots[1].z >= map->editor.y_min && poly->dots[1].z <= map->editor.y_max) ||
+			(poly->dots[2].z >= map->editor.y_min && poly->dots[2].z <= map->editor.y_max) ||
+			(poly->dots[3].z >= map->editor.y_min && poly->dots[3].z <= map->editor.y_max))
+		return (1);
+	else
+		return (0);
+}
+
+
 static void			ed_display_polys_flat(t_win *win, const t_map *map)
 {
 	t_poly		*poly;
@@ -349,7 +183,7 @@ static void			ed_display_polys_flat(t_win *win, const t_map *map)
 	while (poly)
 	{
 		if (ed_is_flat(poly) && ed_is_poly_printable(map, poly))
-			ed_display_flat(win, map, poly);
+			ed_display_flat(win, map, poly);	
 		poly = poly->next;
 	}
 }
@@ -386,6 +220,15 @@ static void			ed_display_polys_wall(t_win *win, const t_map *map)
 	}
 }
 
+static void			ed_display_placing_poly(t_win *win, const t_map *map)
+{
+	if (map->editor.placing_poly)
+	{
+		if (ed_is_wall(map->editor.placing_poly))
+			ed_display_wall(win, map, map->editor.placing_poly);
+	}
+}
+
 static void			ed_display_polys(t_win *win, const t_map *map)
 {
 	t_poly		*poly;
@@ -400,6 +243,8 @@ static void			ed_display_polys(t_win *win, const t_map *map)
 		ed_display_polys_wall(win, map);
 		poly = poly->next;
 	}
+	ed_display_selected_poly(win, map);
+	ed_display_placing_poly(win, map);
 }
 
 static void			ed_display_mouse_position(t_win *win, const t_map *map)
@@ -423,9 +268,25 @@ static void			ed_display_mouse_position(t_win *win, const t_map *map)
 	}
 }
 
+static void			ed_display_selection_rect(t_win *win, const t_map *map)
+{
+	t_dot	pos;
+
+	pos = ed_get_display_point(map, (t_dot){map->editor.select_rect.x,
+											map->editor.select_rect.y});
+	ui_set_draw_color(win->winui->rend, &(SDL_Color){225, 225, 225, 255});
+	if (map->editor.flags & ED_SELECTION
+		&& win->winui->mouse.clicked & UI_MOUSE_LEFT)
+		ui_draw_rect(win->winui->rend, &(t_rect){
+		pos.x,
+		pos.y,
+		map->editor.select_rect.w * map->editor.unit,
+		map->editor.select_rect.h * map->editor.unit});
+}
 
 void			ed_display(t_win *win, const t_map *map)
 {
 	ed_display_polys(win, map);
 	ed_display_mouse_position(win, map);
+	ed_display_selection_rect(win, map);
 }

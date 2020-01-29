@@ -12,12 +12,13 @@
 int				init_music(t_doom_music	*music);
 int				init_textures(t_win *win, t_textures *textures);
 int				init_win_player(t_win *win, t_player *player);
+int				init_threads(t_win *win, t_map *map, t_player *player);
 
 /*
 **	---------------------------------- init_menu ----------------------------------
 */
 
-int				init_editor_menu(t_win *win, t_map *map);
+int		        init_editor_menu(t_win *win, t_map *map);
 int				init_main_menu(t_win *win);
 
 /*
@@ -150,6 +151,7 @@ t_inventory     *define_inventory();
 */
 
 void    add_poly(t_poly **poly);
+void    add_existing_poly(t_poly **polys, t_poly *poly);
     
 /*
 **	---------------------------------- png ----------------------------------
@@ -283,14 +285,33 @@ void            print_credit(t_win *win);
 */
 
 int	        editor_loop(t_win *win, t_map *map);
-int 	ed_event(t_win *win, t_map *map);
-int		resolve_ui_left_press(t_win *win, t_map_editor *map);
-int		load_ui(int fd, t_win *win);
-int		add_sector_button(t_win *win, t_frame *f, int nb_sectors);
+int 		ed_event(t_win *win, t_map *map);
+int			resolve_ui_left_press(t_win *win, t_map_editor *map);
+int			load_ui(int fd, t_win *win);
+int			add_sector_button(t_win *win, t_frame *f, int nb_sectors);
 void		ed_display(t_win *win, const t_map *map);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 void		check_file(t_map_editor *map);
-	
+
+
+void		ed_display_wall(t_win *win, const t_map *map, t_poly *poly);
+void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
+void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
+void		ed_display_selected_poly(t_win *win, const t_map *map);
+
+t_line		ed_get_display_line(const t_map *map, t_dot p1, t_dot p2);
+t_dot		ed_get_display_point(const t_map *map, t_dot p);
+int			ed_get_map_x(const t_map *map, int n);
+int			ed_get_map_y(const t_map *map, int n);
+t_dot		ed_get_map_point(const t_map *map, t_dot p);
+
+int			ed_place_wall(t_win *win, t_map *map);
+
+SDL_bool	ed_is_flat(t_poly *poly);
+SDL_bool	ed_is_inclined(t_poly *poly);
+SDL_bool	ed_is_wall(t_poly *poly);
+t_poly		*ed_get_selected_poly(t_map *map);
+SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
 /*
 ** ===============================================================================
 ** ================================== GAME LOOP ==================================
@@ -348,10 +369,13 @@ void				init_polygone(t_poly *poly);
 
 t_poly				*collisions(t_player *player, t_poly *poly);
 int					is_poly_collision(t_player *player, t_poly *poly);
-void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_poly *poly_collide, int i);
+void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_fdot_3d poly_collide_v);
 
-t_poly				*collisions_sphere(t_map *map, t_player *player, t_poly *poly);
-int					poly_collision(t_player *player, t_poly *poly);
+t_poly				*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban_interest);
+int					collision_poly(t_map *map, t_player *player, t_poly *poly);
+int					collision_segment(t_map *map, t_fdot_3d dots[4], float width_2);
+t_fdot_3d			segment_slide(t_fdot_3d dots[N_DOTS_POLY], t_plan plan, int segment_code);
+int					collision_dots(t_map *map, t_fdot_3d dots[N_DOTS_POLY], float ray);
 
 /*
 ** ================================== Time ===================================

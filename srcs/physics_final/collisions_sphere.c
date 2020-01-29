@@ -1,101 +1,9 @@
 #include "doom_nukem.h"
 
-/*
-**	Probleme :
-
-Apres rot : 0x0
-Avant rot : 0x0
-Apres rot : 0x0
-Avant rot : 0x0
-Apres rot : 0x0
-Avant rot : 0x0
-Apres rot : 0x0
-Avant rot : 0x0
-Apres rot : 0x7fc368e49480				//Apres copy_rotate_rotz_only
-Col game loop
-Is col : 0								//Aucun polys
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Col game loop
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Col game loop
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Col game loop
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Col game loop
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Col game loop
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Col game loop
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Col game loop
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Col game loop
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Col game loop
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Is col : 0
-Collision avec 10 murs ??
-Poly 1
-D0 (360.550537, 88.336342, -45.000000)
-D1 (-38.694489, 389.343384, -45.000000)
-D2 (-339.702728, -9.901632, -45.000000)
-D3 (59.543690, -310.908966, -45.000000)
-
-0.000000 0.000000 25.000000 1125.000000
-*/
-
 static int		is_in_poly(t_poly *poly, t_fdot_3d dot)
 {
-	t_fdot		coord1;
 	t_fdot_3d	dot_3d_in_plan;
+	t_fdot		coord1;
 
 	dot_3d_in_plan = fdot_3d_sub(dot, poly->dots_rotz_only[0]);
 	coord1.x = scalar_product(dot_3d_in_plan, poly->i_rotz_only) / poly->ii;
@@ -105,19 +13,85 @@ static int		is_in_poly(t_poly *poly, t_fdot_3d dot)
 
 static int		is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2)
 {
-	if (!(is.x > d1.x || is.x > d2.x) ||\
-		!(is.x < d1.x || is.x < d2.x))
-		return (0);
-	return (1);
+	if (!is_null(d2.x - d1.x, 0.0005))
+	{
+		if (!(is.x > d1.x || is.x > d2.x) ||\
+			!(is.x < d1.x || is.x < d2.x))
+			return (0);
+		return (1);
+	}
+	else if (!is_null(d2.y - d1.y, 0.0005))
+	{
+		if (!(is.y > d1.y || is.y > d2.y) ||\
+			!(is.y < d1.y || is.y < d2.y))
+			return (0);
+		return (1);
+	}
+	else
+	{
+		if (!(is.z > d1.z || is.z > d2.z) ||\
+			!(is.z < d1.z || is.z < d2.z))
+			return (0);
+		return (1);
+	}
 }
 
-int				poly_collision(t_player *player, t_poly *poly)
+int				collision_dots(t_map *map, t_fdot_3d dots[N_DOTS_POLY], float ray)
+{
+	if (mag(dots[0]) <= ray ||\
+		mag(dots[1]) <= ray ||\
+		mag(dots[2]) <= ray ||\
+		mag(dots[3]) <= ray)
+	{
+		return (1);
+	}
+	map = NULL;
+	return (0);
+}
+
+int				collision_segment(t_map *map, t_fdot_3d dots[4], float width_2)
+{
+	t_fdot_3d	proj_ortho;
+
+	if (is_in_segment(proj_ortho_origin_line(dots[0], dots[1], &proj_ortho),\
+						dots[0], dots[1]) &&\
+		mag(proj_ortho) <= width_2)
+	{
+		// printf("Poly's segment is in the Sphere, code 0b0001\n");
+		return (0b0001);
+	}
+	if (is_in_segment(proj_ortho_origin_line(dots[1], dots[2], &proj_ortho),\
+						dots[1], dots[2]) &&\
+		mag(proj_ortho) <= width_2)
+	{
+		// printf("Poly's segment is in the Sphere, code 0b0110\n");
+		return (0b0110);
+	}
+	// printf("Proj ortho segment %f %f %f\tMag : %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z, mag(proj_ortho));
+	if (is_in_segment(proj_ortho_origin_line(dots[2], dots[3], &proj_ortho),\
+						dots[2], dots[3]) &&\
+		mag(proj_ortho) <= width_2)
+	{
+		// printf("Poly's segment is in the Sphere, code 0b1011\n");
+		return (0b1011);
+	}
+	if (is_in_segment(proj_ortho_origin_line(dots[3], dots[0], &proj_ortho),\
+						dots[3], dots[0]) &&\
+		mag(proj_ortho) <= width_2)
+	{
+		// printf("Poly's segment is in the Sphere, code 0b1100\n");
+		return (0b1100);
+	}
+	map = NULL;
+	return (0);
+}
+
+
+int				collision_poly(t_map *map, t_player *player, t_poly *poly)
 {
 	t_fdot_3d	proj_ortho;
 
 	proj_ortho_plan((t_fdot_3d){0, 0, 0}, poly->equation_rotz_only, &proj_ortho);
-	// printf("Plan %f %f %f %f\n", poly->equation_rotz_only.v.x, poly->equation_rotz_only.v.y, poly->equation_rotz_only.v.z, poly->equation_rotz_only.d);
-	// printf("Proj_ortho %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
 	if (mag(proj_ortho) > player->width_2)
 	{
 		// printf("Poly trop loin\n");
@@ -125,60 +99,32 @@ int				poly_collision(t_player *player, t_poly *poly)
 	}
 	if (is_in_poly(poly, proj_ortho))
 	{
-		// printf("Sphere's dot is in the Poly : proj ortho %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
-		// printf("Eq : %f %f %f %f\n", poly->equation_rotz_only.v.x, poly->equation_rotz_only.v.y, poly->equation_rotz_only.v.z, poly->equation_rotz_only.d);
-		// print_poly(poly, 1);
 		return (1);
 	}
-	if (mag(poly->dots_rotz_only[0]) <= player->width_2 ||\
-		mag(poly->dots_rotz_only[1]) <= player->width_2 ||\
-		mag(poly->dots_rotz_only[2]) <= player->width_2 ||\
-		mag(poly->dots_rotz_only[3]) <= player->width_2)
-	{
-		// printf("Poly's dot is in the Sphere\n");
+
+	if ((poly->segment_code = collision_segment(map, poly->dots_rotz_only, player->width_2)) ||\
+		collision_dots(map, poly->dots_rotz_only, map->player.width_2))
 		return (1);
-	}
-	if ((is_in_segment(proj_ortho_origin_line(poly->dots_rotz_only[0], poly->dots_rotz_only[1], &proj_ortho),\
-						poly->dots_rotz_only[0], poly->dots_rotz_only[1]) &&\
-		mag(proj_ortho) <= player->width_2) ||\
-		(is_in_segment(proj_ortho_origin_line(poly->dots_rotz_only[1], poly->dots_rotz_only[2], &proj_ortho),\
-						poly->dots_rotz_only[1], poly->dots_rotz_only[2]) &&\
-		mag(proj_ortho) <= player->width_2 )||\
-		(is_in_segment(proj_ortho_origin_line(poly->dots_rotz_only[2], poly->dots_rotz_only[3], &proj_ortho),\
-						poly->dots_rotz_only[2], poly->dots_rotz_only[3]) &&\
-		mag(proj_ortho) <= player->width_2) ||\
-		(is_in_segment(proj_ortho_origin_line(poly->dots_rotz_only[3], poly->dots_rotz_only[0], &proj_ortho),\
-						poly->dots_rotz_only[3], poly->dots_rotz_only[0]) &&\
-		mag(proj_ortho) <= player->width_2))
-	{
-		// printf("Poly's segment is in the Sphere\n");
-		return (1);
-	}
 	// printf("Poly is not in the Sphere\n");
 	return (0);
 }
 
-t_poly			*collisions_sphere(t_map *map, t_player *player, t_poly *poly)
+t_poly			*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban_interest)
 {
-	// translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, player->_4_height_10});
+	translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
 	while (poly)
 	{
 		// print_poly(poly, 1);
-		if (!poly->is_slide_ban)
+		if ((!ban_interest || !poly->is_slide_ban) &&\
+			collision_poly(map, player, poly))
 		{
-			if (poly_collision(player, poly))
-			{
-				// printf("COLLISION !!!\n");
-				// printf("Is col : 1\n");
-				// translate_all_rotz_only(map->polys, (t_dfdot_3d){0, 0, -player->_4_height_10});
-				return (poly);
-			}
-			// printf("Is col : 0\n");
+			// printf("COLLISION !!! Poly %d is ban : %d\n", poly->index, poly->is_slide_ban);
+			translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
+			return (poly);
 		}
 		poly = poly->next;
 	}
-	// translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, -player->_4_height_10});
+	translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
 	// printf("\n\n");
-	map = NULL;
 	return (NULL);
 }

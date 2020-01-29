@@ -290,7 +290,59 @@
 // 	return (1);
 // }
 
-int 	ed_event(t_win *win, t_map *map)
+static void	ed_selection(t_win *win, t_map *map)
+{
+	if (win->winui->mouse.clicking & UI_MOUSE_LEFT)
+	{	
+		map->editor.select_rect.x = ed_get_map_x(map, win->winui->mouse.pos.x);
+		map->editor.select_rect.y = ed_get_map_y(map, win->winui->mouse.pos.y);
+		map->editor.select_rect.w = 0;
+		map->editor.select_rect.h = 0;
+	}
+	else if (win->winui->mouse.clicked & UI_MOUSE_LEFT)
+	{
+		map->editor.select_rect.w = ed_get_map_x(map, win->winui->mouse.pos.x)
+									- map->editor.select_rect.x;
+		map->editor.select_rect.h = ed_get_map_y(map, win->winui->mouse.pos.y)
+									- map->editor.select_rect.y;
+		map->editor.selected_poly = ed_get_selected_poly(map);
+	}
+}
+
+static void	ed_place_poly(t_win *win, t_map *map)
+{
+	if (win && map)
+	{
+		if (map->editor.flags & ED_WALL)
+		{
+			if (win->winui->mouse.releasing & UI_MOUSE_LEFT)
+			{
+				add_existing_poly(&map->polys, map->editor.placing_poly);
+				map->editor.placing_poly = NULL;
+			}
+			else if (win->winui->mouse.clicked & UI_MOUSE_LEFT)
+				ed_place_wall(win, map);
+		}
+	}
+}
+
+static void	ed_action(t_win *win, t_map *map)
+{
+	if (map->editor.flags & ED_SELECTION)
+		ed_selection(win, map);
+	else if (map->editor.flags & ED_PLACE)
+		ed_place_poly(win, map);
+	if (map->editor.flags & ED_MODE_CHANGED)
+	{
+		map->editor.flags ^= ED_MODE_CHANGED;
+		if (map->editor.flags & ED_SELECTION || map->editor.flags & ED_PLACE)
+			SDL_SetCursor(map->editor.cursor[CURSOR_SELECTING]);
+		else
+			SDL_SetCursor(map->editor.cursor[CURSOR_DEFAULT]);
+	}
+}
+
+int 		ed_event(t_win *win, t_map *map)
 {
 	const Uint8	*state;
 
@@ -311,5 +363,6 @@ int 	ed_event(t_win *win, t_map *map)
 		map->editor.unit += win->winui->event.wheel.y * 0.01;
 		win->winui->event.wheel.y = 0;
 	}
+	ed_action(win, map);
 	return (1);
 }
