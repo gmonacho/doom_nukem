@@ -42,8 +42,8 @@ static void		set_menu_button_function(t_winui *winui, int *next_loop)
 
 int		init_main_menu(t_win *win)
 {
-	if (Mix_PlayMusic(win->music.menu_music, -1) == -1)
-		ui_ret_error("init_main_menu", "impossible to play menu_music", 0);
+	// if (Mix_PlayMusic(win->music.menu_music, -1) == -1)
+	// 	ui_ret_error("init_main_menu", "impossible to play menu_music", 0);
 	if (!(win->winui->ui.button_font = ui_load_font("TTF/DooM.ttf", 100)))
 		return (ui_ret_error("init_main_menu", "ui_load_font failed", 0));
 	if (!ui_load("interfaces/menu_interface", win->winui))

@@ -19,7 +19,7 @@ void	incre_value(void *value)
 // 	*((char**)dst) = ft_strdup(value);
 // }
 
-// int		main()
+// int		libuimain()
 // {
 // 	t_winui		*win;
 // 	int			loop;

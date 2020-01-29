@@ -120,6 +120,17 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 	printf("p2.x = %d p2.y = %d\n", sector->lines->p2.x, sector->lines->p2.y);
 	printf("id = %d\n", sector->lines->id);*/
 }
+void 	fill_poly_mob(t_poly *poly, t_mob *mob)
+{
+	while (poly->next)
+		poly = poly->next;
+	while(mob)
+	{
+		poly->next = mob->poly;
+		poly = poly->next;
+		mob = mob->next;
+	}
+}
 
 t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 {
@@ -128,7 +139,8 @@ t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 	t_poly		*poly;
 
 	i = -1;
-	poly = NULL;								//Modif: agiordan
+	poly = NULL;
+	map->mob = NULL;								//Modif: agiordan
 	// poly = ft_memalloc(sizeof(t_poly));		//Empeche la creation dun mayon vide
 	tab = ft_fill_map(fd, fd1);
 	ft_parse_error(tab);
@@ -142,11 +154,10 @@ t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 		else if (ft_strstr(tab[i], "Player"))
 			player_data(tab, &(map->player), i);
 		else if (ft_strstr(tab[i], "Mob"))
-		{
 			fill_mob_data(&(map->mob), tab, i);
 			
-		}
 	}
+	fill_poly_mob(poly, map->mob);
 	printf("Fin parsing\n\n");
 	return (poly);
 }

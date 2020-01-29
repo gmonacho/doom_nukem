@@ -75,9 +75,22 @@ typedef struct		s_cartesienne
 
 typedef struct	s_arg_menu
 {
-	int			*loop;
+	int			*loop; // renommer en variable
 	int			value;
 }				t_arg_menu;
+
+typedef enum	e_editor
+{
+	ED_NONE = 0,
+	ED_MODE_CHANGED = 1,
+	ED_SELECTION = 2
+}				t_editor_flag;
+
+typedef struct		s_kit_flags
+{
+	t_editor_flag	*variable;
+	int				flags;
+}					t_kit_flags;
 
 /*
 ** =======================================================================================
@@ -500,7 +513,7 @@ typedef struct s_object
 
 enum	e_map_editor
 {
-	MAP_NONE = 0b0000,
+	MAP_NONE = 0,
 	DRAWING_LINE = 1,
 	MAP_SELECTING = 2,
 	MAP_TEXT_EDITING = 4,
@@ -529,12 +542,16 @@ typedef struct	s_map_editor
 
 typedef struct	s_editor
 {
-	t_dot		pos;
-	t_dot		size;
-	float		unit;
-	int			wall_height;
-	int			y_min;
-	int			y_max;
+	t_dot			pos;
+	t_dot			size;
+	float			unit;
+	int				wall_height;
+	int				y_min;
+	int				y_max;
+	t_rect			select_rect;
+	t_poly			*selected_poly;
+	t_editor_flag	flags;
+	t_arg_menu		arg_menu_tab[1];
 }				t_editor;
 
 /*

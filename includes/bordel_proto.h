@@ -17,7 +17,7 @@ int				init_win_player(t_win *win, t_player *player);
 **	---------------------------------- init_menu ----------------------------------
 */
 
-int				init_editor_menu(t_win *win, t_map *map);
+int		        init_editor_menu(t_win *win, t_map *map);
 int				init_main_menu(t_win *win);
 
 /*
@@ -186,7 +186,7 @@ void		free_sectors(t_sector **sectors);
 **	---------------------------------- player ----------------------------------
 */
 
-int             dead_moment(t_win *win, t_player *player, t_texHud *texHud, SDL_Event event);
+int         dead_menu(t_win *win, t_player *player);
 void    	damage_heal(t_player *player, t_music *music, int armor, int heal);
 
 /*
@@ -283,14 +283,20 @@ void            print_credit(t_win *win);
 */
 
 int	        editor_loop(t_win *win, t_map *map);
-int 	ed_event(t_win *win, t_map *map);
-int		resolve_ui_left_press(t_win *win, t_map_editor *map);
-int		load_ui(int fd, t_win *win);
-int		add_sector_button(t_win *win, t_frame *f, int nb_sectors);
+int 		ed_event(t_win *win, t_map *map);
+int			resolve_ui_left_press(t_win *win, t_map_editor *map);
+int			load_ui(int fd, t_win *win);
+int			add_sector_button(t_win *win, t_frame *f, int nb_sectors);
 void		ed_display(t_win *win, const t_map *map);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 void		check_file(t_map_editor *map);
-	
+
+
+SDL_bool	ed_is_flat(t_poly *poly);
+SDL_bool	ed_is_inclined(t_poly *poly);
+SDL_bool	ed_is_wall(t_poly *poly);
+t_poly		*ed_get_selected_poly(t_map *map);
+SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
 /*
 ** ===============================================================================
 ** ================================== GAME LOOP ==================================

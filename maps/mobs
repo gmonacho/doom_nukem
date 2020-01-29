@@ -32,6 +32,20 @@ Mob
 	texture = Elephantride.png
 }
 
+Mob
+{	
+	posx = 200
+	posy = 700
+	posz = 150
+	health = 50
+	type = 1
+	width = 60
+	height = 60
+	dir = -90
+	velocity = 2
+	texture = Elephantride.png
+}
+
 
 /* Murs du haut */
 
