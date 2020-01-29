@@ -60,10 +60,10 @@ typedef struct		s_cartesienne
 	float			vy;
 	float			vz;
 
-	struct s_poly	*poly;
+	// int				launch;
 	float			dist;
+	struct s_poly	*poly;
 	int				color;
-	// t_fdot_3d		collision;
 	struct s_cartesienne	*next;
 }					t_cartesienne;
 
@@ -168,7 +168,7 @@ typedef struct		s_win
 	SDL_Texture		*rend_texture;
 	int				view;
 
-	struct s_thread	*threads;
+	struct s_thread	**threads;
 	int				w;
 	int				h;
 	float			w_div_fov;

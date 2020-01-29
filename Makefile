@@ -70,7 +70,7 @@ CFLAGS += -Wall -Wextra -Werror -O3 -march=native -flto -ffast-math -I$(INCLUDE_
                                                         -I$(FW_PATH)/SDL2_mixer.framework/Headers/
 
 #-march=native -flto -ffast-math
-#Enlever le flag -fsanitize=address
+#Enlever le flag -g3 -fsanitize=address
 
 all:    directory $(NAME)
 

@@ -21,10 +21,10 @@ void    add_poly_mob(t_mob **mob)
         (*mob)->poly->dots[1].x = (*mob)->pos.x + ((*mob)->width / 2);
         (*mob)->poly->dots[1].y = (*mob)->pos.y;
         (*mob)->poly->dots[1].z = (*mob)->pos.z - ((*mob)->height / 2);
-        (*mob)->poly->dots[2].x = (*mob)->pos.x - ((*mob)->width / 2);
+        (*mob)->poly->dots[2].x = (*mob)->pos.x + ((*mob)->width / 2);
         (*mob)->poly->dots[2].y = (*mob)->pos.y;
         (*mob)->poly->dots[2].z = (*mob)->pos.z + ((*mob)->height / 2);
-        (*mob)->poly->dots[3].x = (*mob)->pos.x + ((*mob)->width / 2);
+        (*mob)->poly->dots[3].x = (*mob)->pos.x - ((*mob)->width / 2);
         (*mob)->poly->dots[3].y = (*mob)->pos.y;
         (*mob)->poly->dots[3].z = (*mob)->pos.z + ((*mob)->height / 2);
     }

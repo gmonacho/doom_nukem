@@ -33,7 +33,7 @@
 # define _3_PI_2		    4.71238898038
 # define _2_PI			    6.28318530718
 # define N_DOTS_POLY		4
-# define N_THREADS			2
+# define N_THREADS			8
 
 # include "bordel_struct.h"
 # include "bordel_proto.h"

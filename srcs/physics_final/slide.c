@@ -35,7 +35,8 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_fdot_3d poly_coll
 									plan.v.x,\
 									plan.v.y,\
 									plan.v.z,\
-									NULL, 0, 0, NULL};
+									0, NULL, 0, NULL};
+									// 0, 0, NULL, 0, NULL};
 	if (!intersection_plan_ray(&proj_ortho, plan, proj_ortho_ray))
 	{
 		printf("CHELOU slide trouve pas de collision ???\n");

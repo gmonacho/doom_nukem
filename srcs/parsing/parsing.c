@@ -125,11 +125,12 @@ void 	fill_poly_mob(t_poly *poly, t_mob *mob)
 {
 	while (poly->next)
 		poly = poly->next;
-	while(mob)
+	while (mob)
 	{	
 		poly->next = mob->poly;
 		poly = poly->next;
-		poly->texture = IMG_Load("textures/boo_mob.png");
+		poly->texture = IMG_Load("textures/elephantride.png");
+		// poly->texture = IMG_Load("textures/boo_mob.jpg");
 		mob = mob->next;
 	}
 }
