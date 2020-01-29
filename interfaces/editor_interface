@@ -106,7 +106,7 @@ frame
         data
         {
             name : "min"
-            text : ""
+            text : "-30000"
             max_text_size : 6
             min_int : -30000
             max_int : 30000
@@ -126,7 +126,7 @@ frame
         data
         {
             name : "max"
-            text : ""
+            text : "30000"
             max_text_size : 6
             min_int : 50
             max_int : 30000
@@ -171,7 +171,7 @@ frame
         data
         {
             name : "z min"
-            text : ""
+            text : "0"
             max_text_size : 6
             min_int : -30000
             max_int : 30000
@@ -191,7 +191,7 @@ frame
         data
         {
             name : "z max"
-            text : ""
+            text : "100"
             max_text_size : 6
             min_int : 50
             max_int : 30000
