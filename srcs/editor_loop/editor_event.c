@@ -309,9 +309,6 @@ static void	ed_selection(t_win *win, t_map *map)
 									+ map->editor.pos.y - map->editor.select_rect.y;
 		map->editor.selected_poly = ed_get_selected_poly(map);
 	}
-	// else if (win->winui->mouse.releasing & UI_MOUSE_LEFT)
-	// {
-	// }
 }
 
 static void	ed_action(t_win *win, t_map *map)
