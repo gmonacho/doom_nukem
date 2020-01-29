@@ -69,9 +69,9 @@ static void		init_player_maths(t_win *win, t_player *player)
 static void		init_player_hud(t_player *player)
 {
 	player->inventory = define_inventory();
-	player->maxHp = 50;
+	player->maxHp = 100;
 	player->currentHp = player->maxHp;
-	player->maxArmor = 50;
+	player->maxArmor = 100;
 	player->currentArmor = player->maxArmor;
 	player->inventory->ammo = 15;
 	player->inventory->magazine = 120;

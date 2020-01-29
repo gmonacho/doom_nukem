@@ -479,6 +479,7 @@ typedef struct		s_player
 	t_matrix		ry_inv;
 	t_matrix		rz;
 	t_matrix		rz_inv;
+
 }					t_player;
 
 /*
@@ -538,6 +539,15 @@ typedef struct	s_editor
 }				t_editor;
 
 /*
+**	---------------------------------- save --------------------------------------------
+*/
+
+	typedef struct s_save
+	{
+		int ifPars;
+
+	}				t_save;
+/*
 **	---------------------------------- map --------------------------------------------
 */
 
@@ -555,6 +565,7 @@ typedef struct		s_map
 	SDL_Event		*event;
 	t_music			*music;
 	t_editor		editor;
+	t_save			save;
 }					t_map;
 
 /*

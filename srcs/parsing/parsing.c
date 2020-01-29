@@ -157,6 +157,7 @@ t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 			fill_mob_data(&(map->mob), tab, i);
 			
 	}
+	//map->player.savePlayer = map.player;
 	fill_poly_mob(poly, map->mob);
 	printf("Fin parsing\n\n");
 	return (poly);

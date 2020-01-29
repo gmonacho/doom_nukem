@@ -109,12 +109,17 @@ static SDL_bool game(t_win *win, t_map *map)
 	damage_heal(&(map->player), map->music, 0, 0);
 	print_content_slot(win, &(map->player), win->texHud);
 	hud(win, &(map->player), win->texHud);
-	if (map->player.currentHp <= 0 || event.type == SDL_QUIT ||\
-			event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+	if (event.type == SDL_QUIT ||\
+		event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+	{	
+			init_main_menu(win);
+			return(SDL_FALSE);
+	}
+	if (map->player.currentHp <= 0)
 	{
 		i = dead_menu(win, &(map->player));
 		if (i == 2)
-		{
+		{	
 			printf("Mort\n");
 			SDL_DestroyWindow(win->ptr);
 			SDL_DestroyRenderer(win->rend);
@@ -137,12 +142,16 @@ int     		game_loop(t_win *win, t_map *map)
 	SDL_bool    loop;
 
 	map->player.currentHp = 100;
-	map->music = define_music();
 	SDL_SetRelativeMouseMode(SDL_TRUE);
-	Mix_AllocateChannels(10);
 	// init_cd(map);
-	main_inventory(win, &(map->player));
-	define_line_shot(win, &(map->player));
+	if (!(map->save.ifPars))
+	{
+		Mix_AllocateChannels(10);
+		map->music = define_music();
+		main_inventory(win, &(map->player));	
+		define_line_shot(win, &(map->player));
+		map->save.ifPars = 1;
+	}
 	loop = SDL_TRUE;
 	while (loop)
 		loop = game(win, map);
