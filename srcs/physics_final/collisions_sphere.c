@@ -87,6 +87,7 @@ int				collision_segment(t_map *map, t_fdot_3d dots[4], float width_2)
 }
 
 
+
 int				collision_poly(t_map *map, t_player *player, t_poly *poly)
 {
 	t_fdot_3d	proj_ortho;

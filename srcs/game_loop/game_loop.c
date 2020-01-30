@@ -39,7 +39,6 @@ static void		tests_before_slide(t_map *map, t_poly *poly_collide, int i)
 		printf("Segment code : %d -> %d %d\n", poly_collide->segment_code, poly_collide->segment_code & 0b11, (poly_collide->segment_code & 0b1100) >> 2);
 		printf("Segment -> plan slide : %f %f %f\n", poly_collide_v.x, poly_collide_v.y, poly_collide_v.z);
 	}
-		translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
 	slide(map, map->polys, map->polys_save, poly_collide_v);   //Collision avec slide
 }
 
@@ -58,10 +57,11 @@ static void		collision_slide_map(t_map *map)
 		if (collision_dots(map, poly_collide->dots_rotz_only, map->player.width_2))
 		{
 			printf("Dot is in Poly, return last state\n");
-			// copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
+			copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
 			translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
 			break ;
 		}
+		translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
 		tests_before_slide(map, poly_collide, i++);
 	}
 	if (collisions_sphere(map, &(map->player), map->polys, 0))
