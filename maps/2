@@ -19,7 +19,7 @@ Mob
 	width = 30
 	height = 50
 	dir = -90
-	velocity = 2
+	velocity = 1
 	texture = Elephantride.png
 }
 

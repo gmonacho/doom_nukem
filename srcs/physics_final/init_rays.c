@@ -65,17 +65,19 @@ int				init_threads(t_win *win, t_map *map, t_player *player)
 {
 	int			i;
 
-	if (!(win->threads = (t_thread **)malloc(sizeof(t_thread *) * (N_THREADS + 1))))
+	if (!(win->threads = (t_thread *)malloc(sizeof(t_thread) * N_THREADS)))
 		return (1);
+	// if (!(win->threads = (t_thread **)malloc(sizeof(t_thread *) * (N_THREADS + 1))))
+	// 	return (1);
 	i = -1;
 	while (++i < N_THREADS)
 	{
-		if (!(win->threads[i] = (t_thread *)malloc(sizeof(t_thread))))
-			return (1);
-		win->threads[i]->i = i;
-		win->threads[i]->win = win;
-		win->threads[i]->map = map;
-		win->threads[i]->player = player;
+		// if (!(win->threads[i] = (t_thread *)malloc(sizeof(t_thread))))
+		// 	return (1);
+		win->threads[i].i = i;
+		win->threads[i].win = win;
+		win->threads[i].map = map;
+		win->threads[i].player = player;
 	}
 	return (0);
 }

@@ -5,7 +5,6 @@
 **
 **	Finir mobs
 **	Objects
-**	Gravity mobs, objects
 **	Norme all
 **	Clean code/fichier inutiles
 **	Gerer les leaks

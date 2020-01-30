@@ -236,12 +236,12 @@ void		raycasting_3d(t_win *win, t_player *player)
 		i = -1;
 		while (++i < N_THREADS)
 		{
-			win->threads[i]->poly = win->map->polys;
-			pthread_create(&(win->threads[i]->thread), NULL, square_tracing, win->threads[i]);
+			win->threads[i].poly = win->map->polys;
+			pthread_create(&(win->threads[i].thread), NULL, square_tracing, &(win->threads[i]));
 		}
 		i = -1;
 		while (++i < N_THREADS)
-			pthread_join(win->threads[i]->thread, NULL);
+			pthread_join(win->threads[i].thread, NULL);
 		//-------------------
 
 		draw(win, player);

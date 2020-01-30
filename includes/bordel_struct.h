@@ -168,7 +168,7 @@ typedef struct		s_win
 	SDL_Texture		*rend_texture;
 	int				view;
 
-	struct s_thread	**threads;
+	struct s_thread	*threads;
 	int				w;
 	int				h;
 	float			w_div_fov;
