@@ -42,6 +42,13 @@ int				is_null(float nbr, float precision)
 	return (!(nbr > precision || nbr < -precision) ? 1 : 0);
 }
 
+t_fdot_3d		fdot_3d_add(t_fdot_3d d1, t_fdot_3d d2)
+{
+	return ((t_fdot_3d){d1.x + d2.x,\
+						d1.y + d2.y,\
+						d1.z + d2.z});
+}
+
 t_fdot_3d		fdot_3d_sub(t_fdot_3d d1, t_fdot_3d d2)
 {
 	return ((t_fdot_3d){d1.x - d2.x,\

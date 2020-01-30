@@ -17,7 +17,7 @@ void		init_polygone(t_poly *poly)
 		// 														poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
 		poly->index = i++;
 		poly->is_slide_ban = 0;
-		ft_memcpy(poly->dots_rotz_only, poly->dots, sizeof(t_fdot_3d) * 4);
+		ft_memcpy(poly->dots_rotz_only, poly->dots, sizeof(t_fdot_3d) * N_DOTS_POLY);
 		poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
 		poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
 		poly->i = (t_fdot_3d){	poly->dots[1].x - poly->dots[0].x,\
@@ -72,9 +72,9 @@ static void		init_player_maths(t_win *win, t_player *player)
 static void		init_player_hud(t_player *player)
 {
 	player->inventory = define_inventory();
-	player->maxHp = 50;
+	player->maxHp = 100;
 	player->currentHp = player->maxHp;
-	player->maxArmor = 50;
+	player->maxArmor = 100;
 	player->currentArmor = player->maxArmor;
 	player->inventory->ammo = 15;
 	player->inventory->magazine = 120;

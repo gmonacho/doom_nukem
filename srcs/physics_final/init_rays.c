@@ -17,7 +17,7 @@ static int			create_ray(t_cartesienne *ray, t_fdot angle, t_dot coord)
 	// ray->vz = sin(angle.y);
 	ray->dist = -1;
 	ray->poly = NULL;
-	// ray->collision = (t_fdot_3d){};
+	// ray->launch = 0;
 	if ((coord.x == 0 && coord.y == 0) ||\
 		(coord.x == 999 && coord.y == 0) ||\
 		(coord.x == 0 && coord.y == 799) ||\
@@ -67,9 +67,13 @@ int				init_threads(t_win *win, t_map *map, t_player *player)
 
 	if (!(win->threads = (t_thread *)malloc(sizeof(t_thread) * N_THREADS)))
 		return (1);
+	// if (!(win->threads = (t_thread **)malloc(sizeof(t_thread *) * (N_THREADS + 1))))
+	// 	return (1);
 	i = -1;
 	while (++i < N_THREADS)
 	{
+		// if (!(win->threads[i] = (t_thread *)malloc(sizeof(t_thread))))
+		// 	return (1);
 		win->threads[i].i = i;
 		win->threads[i].win = win;
 		win->threads[i].map = map;
@@ -77,3 +81,19 @@ int				init_threads(t_win *win, t_map *map, t_player *player)
 	}
 	return (0);
 }
+// int				init_threads(t_win *win, t_map *map, t_player *player)
+// {
+// 	int			i;
+
+// 	if (!(win->threads = (t_thread *)malloc(sizeof(t_thread) * N_THREADS)))
+// 		return (1);
+// 	i = -1;
+// 	while (++i < N_THREADS)
+// 	{
+// 		win->threads[i].i = i;
+// 		win->threads[i].win = win;
+// 		win->threads[i].map = map;
+// 		win->threads[i].player = player;
+// 	}
+// 	return (0);
+// }

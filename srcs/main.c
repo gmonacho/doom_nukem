@@ -5,12 +5,10 @@
 **
 **	Finir mobs
 **	Objects
-**	Gravity mobs, objects
 **	Norme all
 **	Clean code/fichier inutiles
 **	Gerer les leaks
 **
-**	Multi threading moteurs
 **	Seg fault sur certaines text att !
 */
 
@@ -80,6 +78,7 @@ int					main(int argc, char **argv)
 				((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 				return (ret_error("open error"));
 			win.map->polys = ft_data_storing(fd, fd1, &map, &win);
+			
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));
 			main_menu(&win, &map);

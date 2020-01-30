@@ -60,10 +60,10 @@ typedef struct		s_cartesienne
 	float			vy;
 	float			vz;
 
-	struct s_poly	*poly;
+	// int				launch;
 	float			dist;
+	struct s_poly	*poly;
 	int				color;
-	// t_fdot_3d		collision;
 	struct s_cartesienne	*next;
 }					t_cartesienne;
 
@@ -419,8 +419,8 @@ typedef struct s_mob
 	int 			width;
 	int 			width_2;
 	int 			height;
+	int 			height_2;
 	int 			vel;
-	int 			velvel;
 	int				alive;
 	int 			health;
 	int				damage;
@@ -428,7 +428,7 @@ typedef struct s_mob
 	struct s_mob	*next;
 	
 	int				dir;
-	int 			id;
+	// int 			id;
 	char 			*name;
 }					t_mob;
 
@@ -509,6 +509,7 @@ typedef struct		s_player
 	t_matrix		ry_inv;
 	t_matrix		rz;
 	t_matrix		rz_inv;
+
 }					t_player;
 
 /*
@@ -583,6 +584,15 @@ typedef struct		s_editor
 }					t_editor;
 
 /*
+**	---------------------------------- save --------------------------------------------
+*/
+
+	typedef struct s_save
+	{
+		int ifPars;
+
+	}				t_save;
+/*
 **	---------------------------------- map --------------------------------------------
 */
 
@@ -600,6 +610,7 @@ typedef struct		s_map
 	SDL_Event		*event;
 	t_music			*music;
 	t_editor		editor;
+	t_save			save;
 }					t_map;
 
 /*

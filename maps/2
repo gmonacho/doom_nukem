@@ -8,27 +8,18 @@ Player
 	height = 60
 	velocity = 10
 }
-Object
-{
-	posx =
-	posy = 100
-	posz = 100
-	width = fdhsjf
-	height = 100
-	texture = Brique.png
-}
 
-Mo/b
+Mob
 {	
-	posx = 300
-	posy = 450
+	posx = 400
+	posy = 650
 	posz = 150
 	health = 50
 	type = 1
-	width = 40
-	height = 70
+	width = 30
+	height = 50
 	dir = -90
-	velocity = 2
+	velocity = 1
 	texture = Elephantride.png
 }
 
@@ -146,7 +137,7 @@ Polygon								//Sol haut
 	dot = x:600, y:650, z:50
 	texture = Plafond.png
 }
-Polygon									//Sol renfoncement
+Polygon								//Sol renfoncement
 {
 	dot = x:700, y:150, z:125
 	dot = x:700, y:650, z:125
@@ -176,9 +167,9 @@ Polygon								//Plafond renforcement
 
 Polygon								//Merde volante
 {
-	dot = x:200, y:500, z:100
-	dot = x:300, y:500, z:100
-	dot = x:300, y:800, z:100
-	dot = x:200, y:800, z:100
+	dot = x:200, y:500, z:140
+	dot = x:200, y:800, z:140
+	dot = x:300, y:800, z:140
+	dot = x:300, y:500, z:140
 	texture = Plafond.png
 }

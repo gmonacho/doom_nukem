@@ -17,7 +17,7 @@ frame
 		{
 			text : "PLAY"
             texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
+            texture_clicked : "textures/ui_clicked_button_blue.png"
             texture_on_mouse : "textures/ui_on_mouse_button.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
@@ -32,7 +32,7 @@ frame
 		{
 			text : "EDITOR"
             texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
+            texture_clicked : "textures/ui_clicked_button_blue.png"
             texture_on_mouse : "textures/ui_on_mouse_button.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
@@ -47,7 +47,7 @@ frame
 		{
 			text : "CREDIT"
             texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
+            texture_clicked : "textures/ui_clicked_button_blue.png"
             texture_on_mouse : "textures/ui_on_mouse_button.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
@@ -62,7 +62,7 @@ frame
 		{
 			text : "EXIT"
             texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
+            texture_clicked : "textures/ui_clicked_button_blue.png"
             texture_on_mouse : "textures/ui_on_mouse_button.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}

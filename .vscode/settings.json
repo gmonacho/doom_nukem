@@ -10,6 +10,10 @@
 		"type_traits": "c",
 		"bitset": "c",
 		"libft.h": "c",
-		"bordel_proto.h": "c"
+		"bordel_proto.h": "c",
+		"__bit_reference": "c",
+		"__string": "c",
+		"algorithm": "c",
+		"memory": "c"
 	}
 }
