@@ -306,6 +306,9 @@ int			ed_get_map_y(const t_map *map, int n);
 t_dot		ed_get_map_point(const t_map *map, t_dot p);
 
 int			ed_place_wall(t_win *win, t_map *map);
+int			ed_place_flat(t_win *win, t_map *map);
+
+int			ed_get_line_len(t_line *line);
 
 SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);

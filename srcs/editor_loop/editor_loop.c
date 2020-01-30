@@ -296,6 +296,7 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 	ui_set_text_entry_function(win->winui, "b_y_max", &set_int_value, &map->editor.y_max);
 	ui_set_text_entry_function(win->winui, "b_wall_min", &set_int_value, &map->editor.wall_min);
 	ui_set_text_entry_function(win->winui, "b_wall_max", &set_int_value, &map->editor.wall_max);
+	ui_set_text_entry_function(win->winui, "b_flat_z", &set_int_value, &map->editor.flat_z);
 }
 
 int		init_editor_menu(t_win *win, t_map *map)
@@ -322,6 +323,8 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.y_max = 30000;
 	map->editor.wall_min = 0;
 	map->editor.wall_max = 100;
+	map->editor.flat_z = 0;
+	map->editor.place_step = 0;
 	map->editor.selected_poly = NULL;
 	map->editor.placing_poly = NULL;
 	map->editor.flags = ED_NONE;

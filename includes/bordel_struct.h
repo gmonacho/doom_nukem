@@ -563,7 +563,7 @@ enum
 	CURSOR_SELECTING = 1
 };
 
-typedef struct	s_editor
+typedef struct		s_editor
 {
 	t_dot			pos;
 	t_dot			size;
@@ -572,13 +572,15 @@ typedef struct	s_editor
 	int				y_max;
 	int				wall_min;
 	int				wall_max;
+	int				flat_z;
+	int				place_step;
 	t_rect			select_rect;
 	t_poly			*selected_poly;
 	t_poly			*placing_poly;
 	t_editor_flag	flags;
 	t_arg_menu		arg_menu_tab[3];
 	SDL_Cursor		*cursor[2];
-}				t_editor;
+}					t_editor;
 
 /*
 **	---------------------------------- map --------------------------------------------

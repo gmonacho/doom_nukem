@@ -311,17 +311,34 @@ static void	ed_selection(t_win *win, t_map *map)
 
 static void	ed_place_poly(t_win *win, t_map *map)
 {
-	if (win && map)
+	if (win->winui->mouse.releasing & UI_MOUSE_LEFT && !(map->editor.flags & ED_FLAT))
+	{
+		add_existing_poly(&map->polys, map->editor.placing_poly);
+		map->editor.placing_poly = NULL;
+	}
+	else if (win->winui->mouse.clicked & UI_MOUSE_LEFT)
 	{
 		if (map->editor.flags & ED_WALL)
+			ed_place_wall(win, map);
+	}
+	if (map->editor.flags & ED_FLAT)
+	{
+		if (win->winui->mouse.clicking & UI_MOUSE_LEFT
+		|| (win->winui->mouse.releasing & UI_MOUSE_LEFT && map->editor.place_step != 0))
+			map->editor.place_step++;
+		if (map->editor.place_step == 0
+		&& win->winui->mouse.clicking & UI_MOUSE_LEFT)
+			ed_place_flat(win, map);
+		else if (map->editor.place_step == 1
+		&& win->winui->mouse.clicked & UI_MOUSE_LEFT)
+			ed_place_flat(win, map);
+		else if (map->editor.place_step == 2)
+			ed_place_flat(win, map);
+		else if (map->editor.place_step == 3)
 		{
-			if (win->winui->mouse.releasing & UI_MOUSE_LEFT)
-			{
-				add_existing_poly(&map->polys, map->editor.placing_poly);
-				map->editor.placing_poly = NULL;
-			}
-			else if (win->winui->mouse.clicked & UI_MOUSE_LEFT)
-				ed_place_wall(win, map);
+			add_existing_poly(&map->polys, map->editor.placing_poly);
+			map->editor.placing_poly = NULL;
+			map->editor.place_step = 0; 
 		}
 	}
 }
