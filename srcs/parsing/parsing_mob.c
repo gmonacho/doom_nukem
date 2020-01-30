@@ -1,5 +1,21 @@
 #include "doom_nukem.h"
 
+void    set_mobs_dots(t_mob *mob)
+{
+    mob->poly->dots[0].x = mob->pos.x - mob->width_2;
+    mob->poly->dots[0].y = mob->pos.y;
+    mob->poly->dots[0].z = mob->pos.z - mob->height_2;
+    mob->poly->dots[1].x = mob->pos.x + mob->width_2;
+    mob->poly->dots[1].y = mob->pos.y;
+    mob->poly->dots[1].z = mob->pos.z - mob->height_2;
+    mob->poly->dots[2].x = mob->pos.x + mob->width_2;
+    mob->poly->dots[2].y = mob->pos.y;
+    mob->poly->dots[2].z = mob->pos.z + mob->height_2;
+    mob->poly->dots[3].x = mob->pos.x - mob->width_2;
+    mob->poly->dots[3].y = mob->pos.y;
+    mob->poly->dots[3].z = mob->pos.z + mob->height_2;
+}
+
 void    add_mob(t_mob **mob)
 {
     t_mob   *new_mob;
@@ -7,6 +23,7 @@ void    add_mob(t_mob **mob)
     if (!(new_mob = (t_mob *)ft_memalloc(sizeof(t_mob))))
         ft_putendl("error malloc in parsing_mob.c l.8");
     new_mob->next = *mob;
+    new_mob->alive = 1;
     *mob = new_mob;
     
 }
@@ -14,20 +31,7 @@ void    add_poly_mob(t_mob **mob)
 {
     (*mob)->poly = (t_poly *)ft_memalloc(sizeof(t_poly));
     if ((*mob)->poly != NULL)
-    {
-        (*mob)->poly->dots[0].x = (*mob)->pos.x - ((*mob)->width / 2);
-        (*mob)->poly->dots[0].y = (*mob)->pos.y;
-        (*mob)->poly->dots[0].z = (*mob)->pos.z - ((*mob)->height / 2);
-        (*mob)->poly->dots[1].x = (*mob)->pos.x + ((*mob)->width / 2);
-        (*mob)->poly->dots[1].y = (*mob)->pos.y;
-        (*mob)->poly->dots[1].z = (*mob)->pos.z - ((*mob)->height / 2);
-        (*mob)->poly->dots[2].x = (*mob)->pos.x + ((*mob)->width / 2);
-        (*mob)->poly->dots[2].y = (*mob)->pos.y;
-        (*mob)->poly->dots[2].z = (*mob)->pos.z + ((*mob)->height / 2);
-        (*mob)->poly->dots[3].x = (*mob)->pos.x - ((*mob)->width / 2);
-        (*mob)->poly->dots[3].y = (*mob)->pos.y;
-        (*mob)->poly->dots[3].z = (*mob)->pos.z + ((*mob)->height / 2);
-    }
+        set_mobs_dots(*mob);
 }
 
 void    fill_mob_data(t_mob **mob, char **tab, int i)
@@ -54,7 +58,10 @@ void    fill_mob_data(t_mob **mob, char **tab, int i)
             (*mob)->width_2 = (*mob)->width / 2;
         }
         if (ft_strstr(tab[i], "height = "))
+        {
             (*mob)->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+            (*mob)->height_2 = (*mob)->height / 2;
+        }
         if (ft_strstr(tab[i], "velocity = "))
             (*mob)->vel = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "health = "))

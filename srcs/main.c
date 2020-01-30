@@ -10,7 +10,6 @@
 **	Clean code/fichier inutiles
 **	Gerer les leaks
 **
-**	Multi threading moteurs
 **	Seg fault sur certaines text att !
 */
 

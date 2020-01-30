@@ -14,6 +14,7 @@ SRCS_PATH_10 =  inventory
 SRCS_PATH_11 =  time
 SRCS_PATH_12 =  ui
 SRCS_PATH_13 =	physics_final
+SRCS_PATH_14 =	mobs
 SRCS_LIBUI = libui
 SRCS_LIBUI_0 = button
 SRCS_LIBUI_1 = draw
@@ -39,6 +40,7 @@ SRCS =      $(wildcard $(SRCS_PATH)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_PATH_11)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_PATH_12)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_PATH_13)/*.c)\
+            $(wildcard $(SRCS_PATH)/$(SRCS_PATH_14)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_0)/*.c)\
             $(wildcard $(SRCS_PATH)/$(SRCS_LIBUI)/$(SRCS_LIBUI_1)/*.c)\

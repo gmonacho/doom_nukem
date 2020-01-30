@@ -9,7 +9,7 @@ Player
 	velocity = 10
 }
 
-Mfvob
+Mob
 {	
 	posx = 400
 	posy = 650

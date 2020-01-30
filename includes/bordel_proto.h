@@ -28,7 +28,7 @@ int				init_main_menu(t_win *win);
 */
 
 t_mouse			*mouse_refresh();
-void			events_move(t_win *win, t_player *player, const Uint8 *state);
+t_fdot_3d		events_move(t_player *player, const Uint8 *state);
 void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *state);
 void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *state);
 void			events_others(t_win *win, t_player *player, const Uint8 *state);
@@ -194,7 +194,11 @@ void    	damage_heal(t_player *player, t_music *music, int armor, int heal);
 /*
 **	---------------------------------- mob ----------------------------------
 */
+
 void            fill_mob_data(t_mob **mob, char **tab, int i);   
+void    		set_mobs_dots(t_mob *mob);
+void			mobs_attack_move(t_player *player, t_mob *mobs);
+void			mobs_hit(t_mob *mobs, int damage);
 /*
 **	---------------------------------- map ----------------------------------
 */
@@ -346,6 +350,7 @@ t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
 // int			actions(t_win *win, t_map *map, t_linedef *portal, float h);
 
 int					init_rays(t_win *win, t_player *player);
+void				translate_dot(t_fdot_3d *dot, t_fdot_3d translation);
 void				translate_all(t_poly *sector, t_fdot_3d translation);
 void				translate_all_rotz_only(t_poly *poly, t_fdot_3d translation);
 t_fdot_3d			rotate_dot(t_fdot_3d dot, t_matrix matrix);
@@ -395,12 +400,13 @@ t_fdot_3d			vectoriel_product(t_fdot_3d v1, t_fdot_3d v2);
 float  				modulo(float nbr, float mod);
 float				fdist(t_fdot p1, t_fdot p2);
 float				fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
+float				fdist_3d_squared(t_fdot_3d p1, t_fdot_3d p2);
+t_fdot_3d			fdot_3d_add(t_fdot_3d d1, t_fdot_3d d2);
 t_fdot_3d			fdot_3d_sub(t_fdot_3d d1, t_fdot_3d d2);
 float				mag(t_fdot_3d v);
 int					sign(float nbr);
 void				normalize(float *angle);
 int					is_null(float nbr, float precision);
-float				fdist_3d_squared(t_fdot_3d p1, t_fdot_3d p2);
 
 
 t_dot				intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge);

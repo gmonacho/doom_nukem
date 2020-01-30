@@ -7,7 +7,7 @@ t_fdot_3d			rotate_dot(t_fdot_3d dot, t_matrix matrix)
 						dot.x * matrix._02 + dot.y * matrix._12 + dot.z * matrix._22});
 }
 
-static void			translate_dot(t_fdot_3d *dot, t_fdot_3d translation)
+void				translate_dot(t_fdot_3d *dot, t_fdot_3d translation)
 {
 	// printf("\t\tDot %f %f %f\n", dot->x, dot->y, dot->z);
 	dot->x += translation.x;

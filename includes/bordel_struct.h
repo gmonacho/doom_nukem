@@ -419,8 +419,8 @@ typedef struct s_mob
 	int 			width;
 	int 			width_2;
 	int 			height;
+	int 			height_2;
 	int 			vel;
-	int 			velvel;
 	int				alive;
 	int 			health;
 	int				damage;
@@ -428,7 +428,7 @@ typedef struct s_mob
 	struct s_mob	*next;
 	
 	int				dir;
-	int 			id;
+	// int 			id;
 	char 			*name;
 }					t_mob;
 
