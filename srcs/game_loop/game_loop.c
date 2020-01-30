@@ -24,9 +24,9 @@ static void		tests_before_slide(t_map *map, t_poly *poly_collide, int i)
 {
 	t_fdot_3d	poly_collide_v;
 
-	if (i++ >= 4)
+	if (i >= 4)
 	{
-		printf("Collision avec 10 murs ??\n");
+		printf("Collision avec 4 murs ??\n");
 		print_poly(poly_collide, 1);
 		printf("%f %f %f %f\n", poly_collide->equation_rotz_only.v.x, poly_collide->equation_rotz_only.v.y, poly_collide->equation_rotz_only.v.z, poly_collide->equation_rotz_only.d);
 		exit(0);
@@ -36,9 +36,10 @@ static void		tests_before_slide(t_map *map, t_poly *poly_collide, int i)
 	{
 		poly_collide->is_slide_ban = 1;
 		poly_collide_v = segment_slide(poly_collide->dots_rotz_only, poly_collide->equation_rotz_only, poly_collide->segment_code);
-		// printf("Segment code : %d -> %d %d\n", poly_collide->segment_code, poly_collide->segment_code & 0b11, (poly_collide->segment_code & 0b1100) >> 2);
-		// printf("Segment -> plan slide : %f %f %f\n", poly_collide_v.x, poly_collide_v.y, poly_collide_v.z);
+		printf("Segment code : %d -> %d %d\n", poly_collide->segment_code, poly_collide->segment_code & 0b11, (poly_collide->segment_code & 0b1100) >> 2);
+		printf("Segment -> plan slide : %f %f %f\n", poly_collide_v.x, poly_collide_v.y, poly_collide_v.z);
 	}
+		translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
 	slide(map, map->polys, map->polys_save, poly_collide_v);   //Collision avec slide
 }
 
@@ -52,20 +53,22 @@ static void		collision_slide_map(t_map *map)
 	i = 0;
 	while ((poly_collide = collisions_sphere(map, &(map->player), map->polys, 1)))
 	{
-		// printf("Collision ! Index : %d\n", poly_collide->index);
+		printf("Collision ! Index : %d\n", poly_collide->index);
 		translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
 		if (collision_dots(map, poly_collide->dots_rotz_only, map->player.width_2))
 		{
-			// printf("Dot is in Poly, return last state\n");
-			copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
+			printf("Dot is in Poly, return last state\n");
+			// copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
 			translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
 			break ;
 		}
-		translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
-		tests_before_slide(map, poly_collide, i);
+		tests_before_slide(map, poly_collide, i++);
 	}
 	if (collisions_sphere(map, &(map->player), map->polys, 0))
+	{
+		printf("Toujours collision ! Return last state\n");
 		copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
+	}
 	// gravity(map);
 }
 

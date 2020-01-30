@@ -42,9 +42,9 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_fdot_3d poly_coll
 		printf("CHELOU slide trouve pas de collision ???\n");
 		exit(1);
 	}
-	// printf("Ray o/v %f %f %f\t%f %f %f\n", proj_ortho_ray.ox, proj_ortho_ray.oy, proj_ortho_ray.oz,\
-	// 											proj_ortho_ray.vx, proj_ortho_ray.vy, proj_ortho_ray.vz);
-	// printf("Slide :  %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
+	printf("Ray o/v %f %f %f\t%f %f %f\n", proj_ortho_ray.ox, proj_ortho_ray.oy, proj_ortho_ray.oz,\
+												proj_ortho_ray.vx, proj_ortho_ray.vy, proj_ortho_ray.vz);
+	printf("Slide :  %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
 	copy_poly_lst(polys, polys_save);
 	translate_all_rotz_only(polys, (t_fdot_3d){-proj_ortho.x,\
 													-proj_ortho.y,\
