@@ -137,7 +137,7 @@ Polygon								//Sol haut
 	dot = x:600, y:650, z:50
 	texture = Plafond.png
 }
-Polygon									//Sol renfoncement
+Polygon								//Sol renfoncement
 {
 	dot = x:700, y:150, z:125
 	dot = x:700, y:650, z:125
@@ -162,5 +162,14 @@ Polygon								//Plafond renforcement
 	dot = x:600, y:150, z:200
 	dot = x:700, y:150, z:200
 	dot = x:700, y:650, z:200
+	texture = Plafond.png
+}
+
+Polygon								//Merde volante
+{
+	dot = x:200, y:500, z:140
+	dot = x:200, y:800, z:140
+	dot = x:300, y:800, z:140
+	dot = x:300, y:500, z:140
 	texture = Plafond.png
 }
