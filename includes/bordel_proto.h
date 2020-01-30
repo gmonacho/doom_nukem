@@ -163,10 +163,10 @@ int             parser_png(char *png_file);
 **	---------------------------------- linedef ----------------------------------
 */
 
-int		get_nb_linedef(t_linedef *lines, Uint32 flags);
+int			get_nb_linedef(t_linedef *lines, Uint32 flags);
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
 void		add_linedef_flags(t_linedef **lines, Uint32 flags);
-void	        remove_sector(t_sector **sector, t_sector *del_sector);
+void	    remove_sector(t_sector **sector, t_sector *del_sector);
 void		free_linedef(t_linedef *linedef);
 void		free_linedefs(t_linedef **lines);
 t_linedef	*new_void_linedef(void);
@@ -236,7 +236,7 @@ t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_win *win);
 
 void		player_data(char **tab, t_player *player, int i);
 
-void		object_data(char **tab, t_object *object, int i);
+void		object_data(char **tab, t_object **object, int i);
 t_texHud   	*define_texHud(t_win *win);
 
 /*
