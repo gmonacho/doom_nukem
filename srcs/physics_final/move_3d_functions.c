@@ -139,3 +139,4 @@ void				translate_all_rotz_only(t_poly *poly, t_fdot_3d translation)
 		poly = poly->next;
 	}
 }
+ // SPIT OR SWALLOW

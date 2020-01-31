@@ -70,4 +70,5 @@ void    fill_mob_data(t_mob **mob, char **tab, int i)
         printf("health = %d", (*mob)->health);
     }
     add_poly_mob(mob);
+    (*mob)->damage = 1;
 }

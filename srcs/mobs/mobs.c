@@ -31,23 +31,23 @@ void			mobs_hit(t_mob *mobs, int damage)
 	}
 }
 
-static void		mobs_move(t_mob *mob, t_poly *poly)
+static void		mobs_move(t_fdot_3d pos, t_poly *poly, float vel)
 {
 	t_fdot_3d	move;
 	float		cst_vel;
 
-	cst_vel = mob->vel / mag(mob->pos);
-	move = (t_fdot_3d){-mob->pos.x * cst_vel,\
-						-mob->pos.y * cst_vel,\
-						-mob->pos.z * cst_vel};
-	translate_dot(&(mob->pos), move);
+	cst_vel = vel / mag(pos);
+	move = (t_fdot_3d){-pos.x * cst_vel,\
+						-pos.y * cst_vel,\
+						-pos.z * cst_vel};
+	translate_dot(&(pos), move);
 	translate_dot(&(poly->dots_rotz_only[0]), move);
 	translate_dot(&(poly->dots_rotz_only[1]), move);
 	translate_dot(&(poly->dots_rotz_only[2]), move);
 	translate_dot(&(poly->dots_rotz_only[3]), move);
-	poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * mob->pos.x +\
-									poly->equation_rotz_only.v.y * mob->pos.y +\
-									poly->equation_rotz_only.v.z * mob->pos.z);
+	poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
+									poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
+									poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
 	// printf("cst_vel %f\n", cst_vel);
 	// printf("Pos mob %f %f %f\n", mob->pos.x, mob->pos.y, mob->pos.z);
 }
@@ -55,18 +55,22 @@ static void		mobs_move(t_mob *mob, t_poly *poly)
 void			mobs_attack_move(t_player *player, t_mob *mobs)
 {
 	int			dist;
+	t_fdot_3d	pos;
 
 	dist = player->width_2 + mobs->width_2;
 	while (mobs)
 	{
+		pos = (t_fdot_3d){(mobs->poly->dots_rotz_only[0].x + mobs->poly->dots_rotz_only[2].x) / 2,\
+							(mobs->poly->dots_rotz_only[0].y + mobs->poly->dots_rotz_only[2].y) / 2,\
+							(mobs->poly->dots_rotz_only[0].z + mobs->poly->dots_rotz_only[2].z) / 2};
 		if (mobs->alive)
 		{
-			if (mag(mobs->pos) < dist)
-				player->currentHp -= mobs->damage;
+			// printf("Dist mobs player %f\n", mag(pos));
+			if (mag(pos) < dist)
+				apply_damage(player, mobs->damage);
 			else
-				mobs_move(mobs, mobs->poly);
+				mobs_move(pos, mobs->poly, mobs->vel);
 		}
 		mobs = mobs->next;
 	}
 }
-
