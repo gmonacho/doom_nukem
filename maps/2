@@ -10,17 +10,30 @@ Player
 	velocity = 10
 }
 
-Mob
-{	
+Object
+{
 	posx = 400
-	posy = 650
+	posy = 950
 	posz = 150
-	health = 50
 	type = 1
 	width = 30
 	height = 50
 	dir = -90
-	velocity = 1
+	texture = Elephantride.png
+}
+
+Mob
+{
+	posx = 400
+	posy = 650
+	posz = 150
+	type = 1
+	height = 50
+	width = 30
+	health = 50
+	damage = 1
+	dir = -90
+	velocity = 2
 	texture = Elephantride.png
 }
 
@@ -63,7 +76,7 @@ Polygon									//Fond renfoncement 3
 	dot = x:600, y:650, z:200
 	dot = x:600, y:650, z:125
 	dot = x:700, y:650, z:125
-	texture = Brique.png
+	texture = Mario_Ghost.png
 }
 Polygon									//Fond
 {

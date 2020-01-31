@@ -521,10 +521,16 @@ typedef struct		s_player
 
 typedef struct s_object
 {
-	t_fdot				pos;
-	int 				sector;
+	t_fdot_3d			pos;
+	t_poly				*poly;
+	int 				type;
 	int 				id;
 	int					id_texture;
+	int 				width;
+	int 				width_2;
+	int 				height;
+	int 				height_2;
+	int 				dir;
 	struct s_object		*next;
 }			            t_object;
 

@@ -1,6 +1,6 @@
 #include "doom_nukem.h"
 
-static int		is_in_poly(t_poly *poly, t_fdot_3d dot)
+static int		is_in_poly_rotz_only(t_poly *poly, t_fdot_3d dot)
 {
 	t_fdot_3d	dot_3d_in_plan;
 	t_fdot		coord1;
@@ -8,7 +8,7 @@ static int		is_in_poly(t_poly *poly, t_fdot_3d dot)
 	dot_3d_in_plan = fdot_3d_sub(dot, poly->dots_rotz_only[0]);
 	coord1.x = scalar_product(dot_3d_in_plan, poly->i_rotz_only) / poly->ii;
 	coord1.y = scalar_product(dot_3d_in_plan, poly->j_rotz_only) / poly->jj;
-	return (!(coord1.x < 0 || 1 < coord1.x || coord1.y < 0 || 1 < coord1.y) ? 1 : 0);
+	return (coord1.x < 0 || 1 < coord1.x || coord1.y < 0 || 1 < coord1.y ? 0 : 1);
 }
 
 static int		is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2)
@@ -98,7 +98,7 @@ int				collision_poly(t_map *map, t_player *player, t_poly *poly)
 		// printf("Poly trop loin\n");
 		return (0);
 	}
-	if (is_in_poly(poly, proj_ortho))
+	if (is_in_poly_rotz_only(poly, proj_ortho))
 	{
 		return (1);
 	}

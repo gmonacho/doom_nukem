@@ -79,6 +79,8 @@ void find_texture(char *tab, t_poly *poly)
 		poly->texture = IMG_Load("textures/elephantride.png");
 	else if (ft_strstr(tab, "texture = Plafond.png"))
 		poly->texture = IMG_Load("textures/plafond.png");
+	else if (ft_strstr(tab, "texture = Mario_Ghost.png"))
+		poly->texture = IMG_Load("textures/Mario/Mario_Ghost.png");
 	else if (ft_strstr(tab, "texture = Vitre.png"))
 		poly->texture = IMG_Load("textures/vitre.png");
 	else if (ft_strstr(tab, "texture = Pierre.png"))
@@ -128,10 +130,27 @@ void 	fill_poly_mob(t_poly *poly, t_mob *mob)
 	while (mob)
 	{	
 		poly->next = mob->poly;
+		printf("hello\n");
 		poly = poly->next;
-		poly->texture = IMG_Load("textures/elephantride.png");
+		poly->texture = IMG_Load("textures/boo_mob.png");
 		// poly->texture = IMG_Load("textures/boo_mob.jpg");
 		mob = mob->next;
+	}
+}
+
+void 	fill_poly_object(t_poly *poly, t_object *object)
+{	
+	while (poly->next)
+		poly = poly->next;
+	printf("AO = %p\n", object);
+	while (object)
+	{	
+		poly->next = object->poly;
+		poly = poly->next;
+		printf("hella\n");
+		poly->texture = IMG_Load("textures/healthPotion.png");
+		// poly->texture = IMG_Load("textures/boo_mob.jpg");
+		object = object->next;
 	}
 }
 
@@ -153,7 +172,7 @@ t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 		if (ft_strstr(tab[i], "Polygon"))
 			ft_fill_data(tab, &poly, i);
 		else if (ft_strstr(tab[i], "Object"))
-			object_data(tab, map->object, i);
+			object_data(tab, &(map->object), i);
 		else if (ft_strstr(tab[i], "Player"))
 			player_data(tab, &(map->player), i);
 		else if (ft_strstr(tab[i], "Mob"))
@@ -161,6 +180,7 @@ t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 	}
 	//map->player.savePlayer = map.player;
 	fill_poly_mob(poly, map->mob);
+	fill_poly_object(poly, map->object);
 	printf("Fin parsing\n\n");
 	return (poly);
 }

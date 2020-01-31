@@ -6,7 +6,6 @@
 	// t2 = clock();
 	// printf("find coord %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
-
 static int		tests_before_slide(t_map *map, t_poly *poly_collide)
 {
 	t_fdot_3d	poly_collide_v;

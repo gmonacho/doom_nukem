@@ -76,7 +76,7 @@ SDL_Texture	*load_texture(SDL_Renderer *rend, const char *file);
 **	---------------------------------- text ----------------------------------
 */
 
-int		display_text(t_win *win, t_dot pos, int max_width, char *text);
+int			display_text(t_win *win, t_dot pos, int max_width, char *text);
 SDL_Texture	*generate_text(SDL_Renderer *rend, TTF_Font *font, const char *text, SDL_Color fg);
 SDL_Texture	*create_bg_text_input(t_win *win, SDL_Rect rect, SDL_Color l_color, SDL_Color r_color);
 SDL_Texture	*blit_text(SDL_Renderer *rend, SDL_Texture *bg_texture, SDL_Texture *text, SDL_Rect *text_rect);
@@ -165,10 +165,10 @@ int             parser_png(char *png_file);
 **	---------------------------------- linedef ----------------------------------
 */
 
-int		get_nb_linedef(t_linedef *lines, Uint32 flags);
+int			get_nb_linedef(t_linedef *lines, Uint32 flags);
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
 void		add_linedef_flags(t_linedef **lines, Uint32 flags);
-void	        remove_sector(t_sector **sector, t_sector *del_sector);
+void	    remove_sector(t_sector **sector, t_sector *del_sector);
 void		free_linedef(t_linedef *linedef);
 void		free_linedefs(t_linedef **lines);
 t_linedef	*new_void_linedef(void);
@@ -192,6 +192,7 @@ void		free_sectors(t_sector **sectors);
 
 int         dead_menu(t_win *win, t_player *player);
 void    	damage_heal(t_player *player, t_music *music, int armor, int heal);
+void    	apply_damage(t_player *player, int damage);
 
 /*
 **	---------------------------------- mob ----------------------------------
@@ -238,7 +239,7 @@ t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_win *win);
 
 void		player_data(char **tab, t_player *player, int i);
 
-void		object_data(char **tab, t_object *object, int i);
+void		object_data(char **tab, t_object **object, int i);
 t_texHud   	*define_texHud(t_win *win);
 
 /*
@@ -348,7 +349,7 @@ void				poly_del(t_poly *poly);
 */
 
 void				raycasting_3d(t_win *win, t_player *player);
-void				find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
+int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
 t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
 void				draw_all_square(t_win *win);
