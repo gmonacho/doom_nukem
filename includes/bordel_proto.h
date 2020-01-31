@@ -342,7 +342,7 @@ void				poly_del(t_poly *poly);
 */
 
 void				raycasting_3d(t_win *win, t_player *player);
-void				find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
+int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
 t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
 void				draw_all_square(t_win *win);

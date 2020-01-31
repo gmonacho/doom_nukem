@@ -21,7 +21,7 @@ void    add_mob(t_mob **mob)
     t_mob   *new_mob;
 
     if (!(new_mob = (t_mob *)ft_memalloc(sizeof(t_mob))))
-        ft_putendl("error malloc in parsing_mob.c l.8");
+        ft_putendl("error malloc in parsing_mob.c l.24");
     new_mob->next = *mob;
     new_mob->alive = 1;
     *mob = new_mob;

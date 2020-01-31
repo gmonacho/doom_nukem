@@ -79,6 +79,8 @@ void find_texture(char *tab, t_poly *poly)
 		poly->texture = IMG_Load("textures/elephantride.png");
 	else if (ft_strstr(tab, "texture = Plafond.png"))
 		poly->texture = IMG_Load("textures/plafond.png");
+	else if (ft_strstr(tab, "texture = Mario_Ghost.png"))
+		poly->texture = IMG_Load("textures/Mario/Mario_Ghost.png");
 	else if (ft_strstr(tab, "texture = Vitre.png"))
 		poly->texture = IMG_Load("textures/vitre.png");
 	else if (ft_strstr(tab, "texture = Pierre.png"))
@@ -130,7 +132,7 @@ void 	fill_poly_mob(t_poly *poly, t_mob *mob)
 		poly->next = mob->poly;
 		printf("hello\n");
 		poly = poly->next;
-		poly->texture = IMG_Load("textures/elephantride.png");
+		poly->texture = IMG_Load("textures/boo_mob.png");
 		// poly->texture = IMG_Load("textures/boo_mob.jpg");
 		mob = mob->next;
 	}
