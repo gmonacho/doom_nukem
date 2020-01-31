@@ -86,7 +86,7 @@ static SDL_bool game(t_win *win, t_map *map)
 	
 	move_and_collide(map, events_move(&(map->player), state));
 	move_and_collide(map, (t_fdot_3d){0, 0, map->gravity});
-	mobs_attack_move(&(map->player), map->mob);
+	//mobs_attack_move(&(map->player), map->mob);
 	copy_rotate_rotz_only(map->polys, create_ry_matrix(-map->player.rot_y));
 
 

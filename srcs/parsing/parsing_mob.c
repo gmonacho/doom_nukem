@@ -67,7 +67,6 @@ void    fill_mob_data(t_mob **mob, char **tab, int i)
         if (ft_strstr(tab[i], "health = "))
             (*mob)->health = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         i++;
-        printf("health = %d", (*mob)->health);
     }
     add_poly_mob(mob);
     (*mob)->damage = 1;

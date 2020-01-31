@@ -9,17 +9,27 @@ Player
 	velocity = 10
 }
 
-Mob
-{	
+Object
+{
 	posx = 400
-	posy = 650
+	posy = 950
 	posz = 150
-	health = 50
 	type = 1
 	width = 30
 	height = 50
 	dir = -90
-	velocity = 1
+	texture = Elephantride.png
+}
+
+Mob
+{
+	posx = 400
+	posy = 650
+	posz = 150
+	type = 1
+	width = 30
+	height = 50
+	dir = -90
 	texture = Elephantride.png
 }
 

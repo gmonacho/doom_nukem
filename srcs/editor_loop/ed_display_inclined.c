@@ -22,7 +22,7 @@ static t_line	ed_get_lowest_line(t_poly *poly)
 						(t_dot){poly->dots[2].x, poly->dots[2].y}});	
 }
 
-static int		ed_get_line_len(t_line *line)
+int				ed_get_line_len(t_line *line)
 {
 	int	dx;
 	int	dy;

@@ -226,6 +226,8 @@ static void			ed_display_placing_poly(t_win *win, const t_map *map)
 	{
 		if (ed_is_wall(map->editor.placing_poly))
 			ed_display_wall(win, map, map->editor.placing_poly);
+		if (ed_is_flat(map->editor.placing_poly))
+			ed_display_flat(win, map, map->editor.placing_poly);
 	}
 }
 
