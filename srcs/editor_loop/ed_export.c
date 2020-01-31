@@ -1,20 +1,28 @@
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-int		ed_export(const t_map *map, char *path)
+void		ed_export(void *ed_export)
 {
-	int		fd;
-	t_poly	*p;
+	int			fd;
+	t_poly		*p;
+	t_export	*export;
+	t_map		*map;
 
-	if (!(fd = open(path,  O_CREAT | O_WRONLY | O_TRUNC,
-						S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)))
-		return (ui_ret_error("ed_export", "openning/creating failed", 0));
-	ed_write_player(fd, &map->player);
-	p = map->polys;
-	while (p)
+	export = (t_export*)ed_export;
+	map = (t_map*)export->map;
+	printf("path = %s\n", export->path);
+	fd = open(export->path,  O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR
+							| S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd)
 	{
-		ed_write_poly(fd, p);
-		p = p->next;
+		ed_write_player(fd, &map->player);
+		p = map->polys;
+		while (p)
+		{
+			ed_write_poly(fd, p);
+			p = p->next;
+		}
 	}
-	return (1);
+	else
+		ui_ret_error("ed_export", "openning/creating failed", 0);
 }

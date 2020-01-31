@@ -96,7 +96,7 @@ frame
         data
         {
             name : "name"
-            text : "./map/new_map"
+            text : "./maps/new_map"
             max_text_size : 30
             min_int : 0
             max_int : 0

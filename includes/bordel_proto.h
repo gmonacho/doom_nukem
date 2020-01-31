@@ -325,6 +325,7 @@ t_poly		*ed_get_selected_poly(t_win *win, t_map *map);
 SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
 
 
+void		ed_export(void *ed_export);
 void		ed_write_player(int fd, const t_player *player);
 void		ed_write_poly(int fd, const t_poly *poly);
 /*

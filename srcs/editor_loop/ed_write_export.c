@@ -11,30 +11,33 @@ void	ed_write_player(int fd, const t_player *player)
 {
 	char	*tmp;
 
-	ft_putendl_fd("Player", fd);
-	ft_putendl_fd("{", fd);
-	tmp = ft_itoa(player->pos_up.x);
-	ed_write_line(fd, "posx", tmp);
-	ft_strdel(&tmp);
-	tmp = ft_itoa(player->pos_up.y);
-	ed_write_line(fd, "posy", tmp);
-	ft_strdel(&tmp);
-	tmp = ft_itoa(player->pos_up.z);
-	ed_write_line(fd, "posz", tmp);
-	ft_strdel(&tmp);
-	tmp = ft_itoa(player->dir_init);
-	ed_write_line(fd, "dir", tmp);
-	ft_strdel(&tmp);
-	tmp = ft_itoa(player->width);
-	ed_write_line(fd, "width", tmp);
-	ft_strdel(&tmp);
-	tmp = ft_itoa(player->height);
-	ed_write_line(fd, "height", tmp);
-	ft_strdel(&tmp);
-	tmp = ft_itoa(player->const_vel);
-	ed_write_line(fd, "velocity", tmp);
-	ft_strdel(&tmp);
-	ft_putendl_fd("}", fd);
+	if (player)
+	{
+		ft_putendl_fd("Player", fd);
+		ft_putendl_fd("{", fd);
+		tmp = ft_itoa(player->pos_up.x);
+		ed_write_line(fd, "posx", tmp);
+		ft_strdel(&tmp);
+		tmp = ft_itoa(player->pos_up.y);
+		ed_write_line(fd, "posy", tmp);
+		ft_strdel(&tmp);
+		tmp = ft_itoa(player->pos_up.z);
+		ed_write_line(fd, "posz", tmp);
+		ft_strdel(&tmp);
+		tmp = ft_itoa(player->dir_init);
+		ed_write_line(fd, "dir", tmp);
+		ft_strdel(&tmp);
+		tmp = ft_itoa(player->width);
+		ed_write_line(fd, "width", tmp);
+		ft_strdel(&tmp);
+		tmp = ft_itoa(player->height);
+		ed_write_line(fd, "height", tmp);
+		ft_strdel(&tmp);
+		tmp = ft_itoa(player->const_vel);
+		ed_write_line(fd, "velocity", tmp);
+		ft_strdel(&tmp);
+		ft_putendl_fd("}", fd);
+	}
 }
 
 static void	ed_write_dot(int fd, const t_fdot_3d *dot)

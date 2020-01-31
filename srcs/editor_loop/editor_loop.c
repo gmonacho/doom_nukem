@@ -266,6 +266,13 @@ static void		set_int_value(void *argument, char *button_output)
 	*((int*)argument) = ft_atoi(button_output);
 }
 
+static void		set_str_value(void *argument, char *button_output)
+{
+	if (*((char**)argument))
+		ft_strdel((char**)argument);
+	*((char**)argument) = ft_strdup(button_output);
+}
+
 static void		set_editor_flags(void *argument)
 {
 	t_arg_menu	*arg_menu;
@@ -333,6 +340,10 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								"b_inclined",
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[3]);
+	ui_set_simple_button_function(win->winui,
+								"b_export",
+								&ed_export,
+								&map->editor.export);
 	ui_set_text_entry_function(win->winui, "b_y_min", &set_int_value, &map->editor.y_min);
 	ui_set_text_entry_function(win->winui, "b_y_max", &set_int_value, &map->editor.y_max);
 	ui_set_text_entry_function(win->winui, "b_wall_min", &set_int_value, &map->editor.wall_min);
@@ -340,6 +351,7 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 	ui_set_text_entry_function(win->winui, "b_flat_z", &set_int_value, &map->editor.flat_z);
 	ui_set_text_entry_function(win->winui, "b_inclined_z1", &set_int_value, &map->editor.inclined_first_z);
 	ui_set_text_entry_function(win->winui, "b_inclined_z2", &set_int_value, &map->editor.inclined_second_z);
+	ui_set_text_entry_function(win->winui, "b_export_path", &set_str_value, &map->editor.export.path);
 }
 
 int		init_editor_menu(t_win *win, t_map *map)
@@ -383,6 +395,8 @@ int				editor_loop(t_win *win, t_map *map)
 											ED_INCLINED};
 	map->editor.cursor[CURSOR_DEFAULT] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	map->editor.cursor[CURSOR_SELECTING] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+	map->editor.export.path = NULL;
+	map->editor.export.map = map;
 	if (!init_editor_menu(win, map))
 		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));
 	loop = SDL_TRUE;

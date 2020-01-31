@@ -573,6 +573,26 @@ enum
 	CURSOR_SELECTING = 1
 };
 
+
+/*
+**	---------------------------------- save --------------------------------------------
+*/
+
+	typedef struct s_save
+	{
+		int ifPars;
+
+	}				t_save;
+/*
+**	---------------------------------- map --------------------------------------------
+*/
+
+typedef struct	s_export
+{
+	char		*path;
+	void		*map;
+}				t_export;
+
 typedef struct		s_editor
 {
 	t_dot			pos;
@@ -592,20 +612,8 @@ typedef struct		s_editor
 	t_editor_flag	flags;
 	t_arg_menu		arg_menu_tab[4];
 	SDL_Cursor		*cursor[2];
+	t_export		export;
 }					t_editor;
-
-/*
-**	---------------------------------- save --------------------------------------------
-*/
-
-	typedef struct s_save
-	{
-		int ifPars;
-
-	}				t_save;
-/*
-**	---------------------------------- map --------------------------------------------
-*/
 
 typedef struct		s_map
 {
@@ -624,16 +632,6 @@ typedef struct		s_map
 	t_save			save;
 }					t_map;
 
-/*
-** =================================================================================
-** ================================== EDITOR LOOP ==================================
-** =================================================================================
-*/
 
-enum	e_sc	// shortcut
-{
-	SC_NONE = 0,
-	SC_DRAW_FREE = SDL_SCANCODE_SPACE
-};
 
 #endif
