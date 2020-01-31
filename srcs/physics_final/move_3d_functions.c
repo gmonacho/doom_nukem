@@ -110,7 +110,6 @@ void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix)
 
 void				translate_all(t_poly *poly, t_fdot_3d translation)
 {
-	// printf("Trans %f %f %f\n", translation.x, translation.y, translation.z);
 	while (poly)
 	{
 		translate_dot(&(poly->dots[0]), translation);
@@ -126,7 +125,6 @@ void				translate_all(t_poly *poly, t_fdot_3d translation)
 
 void				translate_all_rotz_only(t_poly *poly, t_fdot_3d translation)
 {
-	// printf("Trans %f %f %f\n", translation.x, translation.y, translation.z);
 	while (poly)
 	{
 		translate_dot(&(poly->dots_rotz_only[0]), translation);

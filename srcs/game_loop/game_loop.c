@@ -6,7 +6,6 @@
 	// t2 = clock();
 	// printf("find coord %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
-
 static int		tests_before_slide(t_map *map, t_poly *poly_collide)
 {
 	t_fdot_3d	poly_collide_v;
@@ -86,7 +85,7 @@ static SDL_bool game(t_win *win, t_map *map)
 	
 	move_and_collide(map, events_move(&(map->player), state));
 	move_and_collide(map, (t_fdot_3d){0, 0, map->gravity});
-	//mobs_attack_move(&(map->player), map->mob);
+	mobs_attack_move(&(map->player), map->mob);
 	copy_rotate_rotz_only(map->polys, create_ry_matrix(-map->player.rot_y));
 
 

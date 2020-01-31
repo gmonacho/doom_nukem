@@ -76,7 +76,7 @@ SDL_Texture	*load_texture(SDL_Renderer *rend, const char *file);
 **	---------------------------------- text ----------------------------------
 */
 
-int		display_text(t_win *win, t_dot pos, int max_width, char *text);
+int			display_text(t_win *win, t_dot pos, int max_width, char *text);
 SDL_Texture	*generate_text(SDL_Renderer *rend, TTF_Font *font, const char *text, SDL_Color fg);
 SDL_Texture	*create_bg_text_input(t_win *win, SDL_Rect rect, SDL_Color l_color, SDL_Color r_color);
 SDL_Texture	*blit_text(SDL_Renderer *rend, SDL_Texture *bg_texture, SDL_Texture *text, SDL_Rect *text_rect);
@@ -152,6 +152,8 @@ t_inventory     *define_inventory();
 
 void    add_poly(t_poly **poly);
 void    add_existing_poly(t_poly **polys, t_poly *poly);
+void	delete_poly(t_poly **polys, t_poly *poly);
+void	print_polys(t_poly **polys);
     
 /*
 **	---------------------------------- png ----------------------------------
@@ -190,6 +192,7 @@ void		free_sectors(t_sector **sectors);
 
 int         dead_menu(t_win *win, t_player *player);
 void    	damage_heal(t_player *player, t_music *music, int armor, int heal);
+void    	apply_damage(t_player *player, int damage);
 
 /*
 **	---------------------------------- mob ----------------------------------
@@ -311,14 +314,20 @@ t_dot		ed_get_map_point(const t_map *map, t_dot p);
 
 int			ed_place_wall(t_win *win, t_map *map);
 int			ed_place_flat(t_win *win, t_map *map);
+int			ed_place_inclined(t_win *win, t_map *map);
 
 int			ed_get_line_len(t_line *line);
 
 SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
 SDL_bool	ed_is_wall(t_poly *poly);
-t_poly		*ed_get_selected_poly(t_map *map);
+t_poly		*ed_get_selected_poly(t_win *win, t_map *map);
 SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
+
+
+void		ed_export(void *ed_export);
+void		ed_write_player(int fd, const t_player *player);
+void		ed_write_poly(int fd, const t_poly *poly);
 /*
 ** ===============================================================================
 ** ================================== GAME LOOP ==================================
@@ -341,7 +350,7 @@ void				poly_del(t_poly *poly);
 */
 
 void				raycasting_3d(t_win *win, t_player *player);
-void				find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
+int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
 t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
 void				draw_all_square(t_win *win);

@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/08 17:00:49 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 16:45:49 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/31 17:25:22 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,43 +14,42 @@
 #include "../includes/libft.h"
 #include <stdio.h>
 
-static size_t	ft_nblen(int n)
+static int		ft_len(int value)
 {
-	size_t	len;
-
+	int		len;
+	
 	len = 0;
-	if (n == 0)
+	if (value <= 0)
 		len++;
-	while (n != 0)
+	while (value != 0)
 	{
-		n /= 10;
 		len++;
+		value /= 10;
 	}
 	return (len);
 }
 
-char		*ft_itoa(int n)
+char		*ft_itoa(int value)
 {
+	int		len;
+	int		n;
 	char	*str;
 	int		i;
 
-	i = ft_nblen(n) + (n < 0 ? 1 : 0);
-	if (!(str = ft_strnew(i)))
-		return (0);
-	if (n == -2147483648)
-	{
-		str[i--] = '8';
-		n = -214748364;
-	}
-	if (n < 0)
-	{
-		n *= -1;
+	len = ft_len(value);
+	if (!(str = ft_strnew(len)))
+		return (NULL);
+	if (value < 0)
 		str[0] = '-';
-	}
-	while (n)
+	else if (value == 0)
+		str[0] = '0';
+	i = len - 1;
+	while (value != 0)
 	{
-		str[--i] = n % 10 + '0';
-		n = (n - n % 10) / 10;
+		n = ft_intabs(value % 10);
+		str[i--] = '0' + n;
+		value /= 10;
 	}
 	return (str);
 }
+

@@ -53,6 +53,7 @@ static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8
 			//Mix_PlayMusic(music->tmusic[0], 1);
 			player->inventory->ammo -= 1;
 			add_bullet(player);
+			mobs_hit(map->mob, 10);
 		}
 	}
 }

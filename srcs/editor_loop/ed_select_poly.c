@@ -56,22 +56,21 @@ static SDL_bool	ed_is_flat_selected(const t_map *map, const t_poly *poly)
 			&l2.p1.x, &l2.p1.y, &l2.p2.x, &l2.p2.y));
 }
 
-static SDL_bool	ed_is_inclined_selected(const t_map *map, const t_poly *poly)
+static SDL_bool	ed_is_inclined_selected(t_win *win, const t_map *map, const t_poly *poly)
 {
 	t_rect	rect;
-	t_rect	se_rect;
-
+	t_dot	point;
+	
 	rect.x = poly->dots[0].x;
 	rect.y = poly->dots[0].y;
 	rect.w = ft_abs(poly->dots[2].x - rect.x);
 	rect.h = ft_abs(poly->dots[2].y - rect.y);
-	se_rect = ed_get_selected_rect(&map->editor.select_rect);
-	return (SDL_IntersectRect((SDL_Rect*)&se_rect,
-							(SDL_Rect*)&rect,
+	point = ed_get_map_point(map, win->winui->mouse.pos);
+	return (SDL_PointInRect((SDL_Point*)&point,
 							(SDL_Rect*)&rect));
 }
 
-t_poly			*ed_get_selected_poly(t_map *map)
+t_poly			*ed_get_selected_poly(t_win *win, t_map *map)
 {
 	t_poly	*poly;
 
@@ -98,7 +97,7 @@ t_poly			*ed_get_selected_poly(t_map *map)
 		while (poly)
 		{
 			if (ed_is_poly_printable(map, poly))
-				if (ed_is_inclined(poly) && ed_is_inclined_selected(map, poly))
+				if (ed_is_inclined(poly) && ed_is_inclined_selected(win, map, poly))
 					return (poly);
 			poly = poly->next;
 		}

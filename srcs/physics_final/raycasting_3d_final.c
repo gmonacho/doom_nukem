@@ -47,10 +47,12 @@ static void		draw(t_win *win, t_player *player)
 
 
 
-void			find_coord_plan(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
+int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 {
+	dot = fdot_3d_sub(dot, poly->dots[0]);
 	coord->x = scalar_product(dot, poly->i) / poly->ii;
 	coord->y = scalar_product(dot, poly->j) / poly->jj;
+	return (coord->x < 0 || coord->x > 1 || coord->y < 0 || coord->y > 1 ? 0 : 1);
 }
 
 
@@ -60,12 +62,11 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	t_fdot			coord_plan;
 	t_dot			coord_texture;
 
-	find_coord_plan(poly, &coord_plan, fdot_3d_sub(collision, poly->dots[0]));
-	if (coord_plan.x < 0 || coord_plan.x > 1 || coord_plan.y < 0 || coord_plan.y > 1)
+	if (!is_in_poly(poly, &coord_plan, collision))
 		return (-1);
-	if (!poly)
+	if (!poly->texture)
 	{
-		printf("Poly : NULL\n");
+		printf("texture null : %p\n", poly->texture);
 		exit(0);
 	}
 	coord_texture = (t_dot){modulo(coord_plan.x * poly->dist12, poly->texture->w),\
