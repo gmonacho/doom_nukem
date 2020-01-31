@@ -31,12 +31,12 @@ void			mobs_hit(t_mob *mobs, int damage)
 	}
 }
 
-static void		mobs_move(t_fdot_3d pos, t_poly *poly, float vel)
+static void		mobs_move(t_fdot_3d pos, t_poly *poly, float dist_mob, float vel)
 {
 	t_fdot_3d	move;
 	float		cst_vel;
 
-	cst_vel = vel / mag(pos);
+	cst_vel = vel / dist_mob;
 	move = (t_fdot_3d){-pos.x * cst_vel,\
 						-pos.y * cst_vel,\
 						-pos.z * cst_vel};
@@ -48,14 +48,14 @@ static void		mobs_move(t_fdot_3d pos, t_poly *poly, float vel)
 	poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
 									poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
 									poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
-	// printf("cst_vel %f\n", cst_vel);
-	// printf("Pos mob %f %f %f\n", mob->pos.x, mob->pos.y, mob->pos.z);
+	// printf("cst_vel %f\tvel %f\tdits_mob %f\n", cst_vel, vel, dist_mob);
 }
 
 void			mobs_attack_move(t_player *player, t_mob *mobs)
 {
-	int			dist;
 	t_fdot_3d	pos;
+	float		dist_mob;
+	float		dist;
 
 	dist = player->width_2 + mobs->width_2;
 	while (mobs)
@@ -65,11 +65,10 @@ void			mobs_attack_move(t_player *player, t_mob *mobs)
 							(mobs->poly->dots_rotz_only[0].z + mobs->poly->dots_rotz_only[2].z) / 2};
 		if (mobs->alive)
 		{
-			// printf("Dist mobs player %f\n", mag(pos));
-			if (mag(pos) < dist)
+			if (is_null(dist_mob = mag(pos), 1) || dist_mob < dist)
 				apply_damage(player, mobs->damage);
 			else
-				mobs_move(pos, mobs->poly, mobs->vel);
+				mobs_move(pos, mobs->poly, dist_mob, mobs->vel);
 		}
 		mobs = mobs->next;
 	}
