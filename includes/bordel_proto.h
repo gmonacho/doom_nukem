@@ -152,6 +152,8 @@ t_inventory     *define_inventory();
 
 void    add_poly(t_poly **poly);
 void    add_existing_poly(t_poly **polys, t_poly *poly);
+void	delete_poly(t_poly **polys, t_poly *poly);
+void	print_polys(t_poly **polys);
     
 /*
 **	---------------------------------- png ----------------------------------
@@ -311,14 +313,19 @@ t_dot		ed_get_map_point(const t_map *map, t_dot p);
 
 int			ed_place_wall(t_win *win, t_map *map);
 int			ed_place_flat(t_win *win, t_map *map);
+int			ed_place_inclined(t_win *win, t_map *map);
 
 int			ed_get_line_len(t_line *line);
 
 SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
 SDL_bool	ed_is_wall(t_poly *poly);
-t_poly		*ed_get_selected_poly(t_map *map);
+t_poly		*ed_get_selected_poly(t_win *win, t_map *map);
 SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
+
+
+void		ed_write_player(int fd, const t_player *player);
+void		ed_write_poly(int fd, const t_poly *poly);
 /*
 ** ===============================================================================
 ** ================================== GAME LOOP ==================================

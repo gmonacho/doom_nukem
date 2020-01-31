@@ -222,12 +222,21 @@ static void			ed_display_polys_wall(t_win *win, const t_map *map)
 
 static void			ed_display_placing_poly(t_win *win, const t_map *map)
 {
+	ui_set_draw_color(win->winui->rend,
+					&(SDL_Color){255, 225, 0, 255});
 	if (map->editor.placing_poly)
 	{
 		if (ed_is_wall(map->editor.placing_poly))
 			ed_display_wall(win, map, map->editor.placing_poly);
-		if (ed_is_flat(map->editor.placing_poly))
+		else if (ed_is_flat(map->editor.placing_poly))
 			ed_display_flat(win, map, map->editor.placing_poly);
+		else if (ed_is_inclined(map->editor.placing_poly))	
+			ed_display_inclined(win, map, map->editor.placing_poly);
+		else
+			printf("poly z : %f %f %f %f\n", map->editor.placing_poly->dots[0].z,
+											map->editor.placing_poly->dots[1].z,
+											map->editor.placing_poly->dots[2].z,
+											map->editor.placing_poly->dots[3].z);
 	}
 }
 
