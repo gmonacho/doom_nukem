@@ -137,10 +137,10 @@ void 	fill_poly_mob(t_poly *poly, t_mob *mob)
 	while (mob)
 	{	
 		poly->next = mob->poly;
-		printf("hello\n");
 		poly = poly->next;
 		poly->texture = IMG_Load("textures/Mario/Mario_Ghost.png");
 		poly->texture = SDL_ConvertSurfaceFormat(poly->texture, SDL_PIXELFORMAT_ARGB8888, 0);
+		poly->type = ft_strdup("mob");
 		// poly->texture = IMG_Load("textures/boo_mob.jpg");
 		mob = mob->next;
 	}
@@ -150,14 +150,13 @@ void 	fill_poly_object(t_poly *poly, t_object *object)
 {	
 	while (poly->next)
 		poly = poly->next;
-	printf("AO = %p\n", object);
 	while (object)
 	{	
 		poly->next = object->poly;
 		poly = poly->next;
-		printf("hella\n");
 		poly->texture = IMG_Load("textures/healthPotion.png");
 		poly->texture = SDL_ConvertSurfaceFormat(poly->texture, SDL_PIXELFORMAT_ARGB8888, 0);
+		poly->type = ft_strdup("object");
 		// poly->texture = IMG_Load("textures/boo_mob.jpg");
 		object = object->next;
 	}

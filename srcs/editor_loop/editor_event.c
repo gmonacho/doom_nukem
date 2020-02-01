@@ -305,13 +305,17 @@ static void	ed_selection(t_win *win, t_map *map)
 									- map->editor.select_rect.x;
 		map->editor.select_rect.h = ed_get_map_y(map, win->winui->mouse.pos.y)
 									- map->editor.select_rect.y;
-		map->editor.selected_poly = ed_get_selected_poly(map);
+		map->editor.selected_poly = ed_get_selected_poly(win, map);
 	}
 }
 
 static void	ed_place_poly(t_win *win, t_map *map)
 {
-	if (win->winui->mouse.releasing & UI_MOUSE_LEFT && !(map->editor.flags & ED_FLAT))
+	SDL_bool	call_place;
+
+	call_place = SDL_FALSE;
+	if (win->winui->mouse.releasing & UI_MOUSE_LEFT && !(map->editor.flags & ED_FLAT)
+													&& !(map->editor.flags & ED_INCLINED))
 	{
 		add_existing_poly(&map->polys, map->editor.placing_poly);
 		map->editor.placing_poly = NULL;
@@ -321,24 +325,31 @@ static void	ed_place_poly(t_win *win, t_map *map)
 		if (map->editor.flags & ED_WALL)
 			ed_place_wall(win, map);
 	}
-	if (map->editor.flags & ED_FLAT)
+	if (map->editor.flags & ED_FLAT || map->editor.flags & ED_INCLINED)
 	{
 		if (win->winui->mouse.clicking & UI_MOUSE_LEFT
 		|| (win->winui->mouse.releasing & UI_MOUSE_LEFT && map->editor.place_step != 0))
 			map->editor.place_step++;
 		if (map->editor.place_step == 0
 		&& win->winui->mouse.clicking & UI_MOUSE_LEFT)
-			ed_place_flat(win, map);
+			call_place = 1;
 		else if (map->editor.place_step == 1
 		&& win->winui->mouse.clicked & UI_MOUSE_LEFT)
-			ed_place_flat(win, map);
+			call_place = 1;
 		else if (map->editor.place_step == 2)
-			ed_place_flat(win, map);
+			call_place = 1;
 		else if (map->editor.place_step == 3)
 		{
 			add_existing_poly(&map->polys, map->editor.placing_poly);
 			map->editor.placing_poly = NULL;
 			map->editor.place_step = 0; 
+		}
+		if (call_place)
+		{
+			if (map->editor.flags & ED_FLAT)
+				ed_place_flat(win, map);
+			else if (map->editor.flags & ED_INCLINED)
+				ed_place_inclined(win, map);
 		}
 	}
 }
@@ -347,7 +358,7 @@ static void	ed_action(t_win *win, t_map *map)
 {
 	if (map->editor.flags & ED_SELECTION)
 		ed_selection(win, map);
-	else if (map->editor.flags & ED_PLACE)
+	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
 		ed_place_poly(win, map);
 	if (map->editor.flags & ED_MODE_CHANGED)
 	{
@@ -375,6 +386,14 @@ int 		ed_event(t_win *win, t_map *map)
 		map->editor.pos.y -= 1;
 	if (state[SDL_SCANCODE_S])
 		map->editor.pos.y += 1;
+	if (state[SDL_SCANCODE_DELETE])
+	{
+		if (map->editor.selected_poly)
+		{
+			delete_poly(&map->polys, map->editor.selected_poly);
+			map->editor.selected_poly = NULL;
+		}
+	}
 	if(win->winui->event.type == SDL_MOUSEWHEEL)
 	{
 		map->editor.unit += win->winui->event.wheel.y * 0.01;

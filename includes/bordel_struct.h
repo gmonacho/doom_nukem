@@ -86,8 +86,11 @@ typedef enum	e_editor
 	ED_SELECTION = 2,
 	ED_PLACE = 4,
 	ED_WALL = 8,
-	ED_FLAT = 16
+	ED_FLAT = 16,
+	ED_INCLINED = 32
 }				t_editor_flag;
+
+# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED
 
 typedef struct		s_kit_flags
 {
@@ -391,6 +394,7 @@ typedef	struct				s_poly
 	t_dot					box_y;
 
 	SDL_Surface				*texture;
+	char 					*type;
 	struct s_poly			*next;
 }							t_poly;
 
@@ -571,24 +575,6 @@ enum
 	CURSOR_SELECTING = 1
 };
 
-typedef struct		s_editor
-{
-	t_dot			pos;
-	t_dot			size;
-	float			unit;
-	int				y_min;
-	int				y_max;
-	int				wall_min;
-	int				wall_max;
-	int				flat_z;
-	int				place_step;
-	t_rect			select_rect;
-	t_poly			*selected_poly;
-	t_poly			*placing_poly;
-	t_editor_flag	flags;
-	t_arg_menu		arg_menu_tab[3];
-	SDL_Cursor		*cursor[2];
-}					t_editor;
 
 /*
 **	---------------------------------- save --------------------------------------------
@@ -602,6 +588,34 @@ typedef struct		s_editor
 /*
 **	---------------------------------- map --------------------------------------------
 */
+
+typedef struct	s_export
+{
+	char		*path;
+	void		*map;
+}				t_export;
+
+typedef struct		s_editor
+{
+	t_dot			pos;
+	t_dot			size;
+	float			unit;
+	int				y_min;
+	int				y_max;
+	int				wall_min;
+	int				wall_max;
+	int				flat_z;
+	int				inclined_first_z;
+	int				inclined_second_z;
+	int				place_step;
+	t_rect			select_rect;
+	t_poly			*selected_poly;
+	t_poly			*placing_poly;
+	t_editor_flag	flags;
+	t_arg_menu		arg_menu_tab[4];
+	SDL_Cursor		*cursor[2];
+	t_export		export;
+}					t_editor;
 
 typedef struct		s_map
 {
@@ -620,16 +634,6 @@ typedef struct		s_map
 	t_save			save;
 }					t_map;
 
-/*
-** =================================================================================
-** ================================== EDITOR LOOP ==================================
-** =================================================================================
-*/
 
-enum	e_sc	// shortcut
-{
-	SC_NONE = 0,
-	SC_DRAW_FREE = SDL_SCANCODE_SPACE
-};
 
 #endif

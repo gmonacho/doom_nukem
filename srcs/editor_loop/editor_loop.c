@@ -266,16 +266,60 @@ static void		set_int_value(void *argument, char *button_output)
 	*((int*)argument) = ft_atoi(button_output);
 }
 
+static void		set_str_value(void *argument, char *button_output)
+{
+	if (*((char**)argument))
+		ft_strdel((char**)argument);
+	*((char**)argument) = ft_strdup(button_output);
+}
+
 static void		set_editor_flags(void *argument)
 {
 	t_arg_menu	*arg_menu;
 
 	arg_menu = (t_arg_menu*)argument;
 
-	if (*(arg_menu->loop) & arg_menu->value)
-		*(arg_menu->loop) ^= arg_menu->value;
+	if (ED_ALL_TYPES & arg_menu->value)
+	{
+		if (*(arg_menu->loop) & arg_menu->value)
+		{
+			*(arg_menu->loop) ^= arg_menu->value;
+			*(arg_menu->loop) ^= ED_PLACE;
+		}
+		else
+		{
+			if (*(arg_menu->loop) & ED_WALL)
+				*(arg_menu->loop) ^= ED_WALL;
+			else if (*(arg_menu->loop) & ED_FLAT)
+				*(arg_menu->loop) ^= ED_FLAT;
+			else if (*(arg_menu->loop) & ED_INCLINED)
+				*(arg_menu->loop) ^= ED_INCLINED;
+			*(arg_menu->loop) |= arg_menu->value;
+			*(arg_menu->loop) |= ED_PLACE;
+		}
+		
+	}
 	else
-		*(arg_menu->loop) |= arg_menu->value;
+	{
+		if (*(arg_menu->loop) & arg_menu->value)
+		{
+			*(arg_menu->loop) ^= arg_menu->value;
+		}
+		else
+		{
+			*(arg_menu->loop) |= arg_menu->value;
+			if (*(arg_menu->loop) & ED_WALL)
+				*(arg_menu->loop) ^= ED_WALL;
+			else if (*(arg_menu->loop) & ED_FLAT)
+				*(arg_menu->loop) ^= ED_FLAT;
+			else if (*(arg_menu->loop) & ED_INCLINED)
+				*(arg_menu->loop) ^= ED_INCLINED;
+			*(arg_menu->loop) ^= ED_PLACE;
+		}
+	}
+	
+	*(arg_menu->loop) |= ED_MODE_CHANGED;
+	printf("*(arg_menu->loop) = %d\n", *(arg_menu->loop));
 }
 
 static void		set_menu_button_function(t_win *win, t_map *map)
@@ -292,11 +336,22 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								"b_flat",
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[2]);
+	ui_set_simple_button_function(win->winui,
+								"b_inclined",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[3]);
+	ui_set_simple_button_function(win->winui,
+								"b_export",
+								&ed_export,
+								&map->editor.export);
 	ui_set_text_entry_function(win->winui, "b_y_min", &set_int_value, &map->editor.y_min);
 	ui_set_text_entry_function(win->winui, "b_y_max", &set_int_value, &map->editor.y_max);
 	ui_set_text_entry_function(win->winui, "b_wall_min", &set_int_value, &map->editor.wall_min);
 	ui_set_text_entry_function(win->winui, "b_wall_max", &set_int_value, &map->editor.wall_max);
 	ui_set_text_entry_function(win->winui, "b_flat_z", &set_int_value, &map->editor.flat_z);
+	ui_set_text_entry_function(win->winui, "b_inclined_z1", &set_int_value, &map->editor.inclined_first_z);
+	ui_set_text_entry_function(win->winui, "b_inclined_z2", &set_int_value, &map->editor.inclined_second_z);
+	ui_set_text_entry_function(win->winui, "b_export_path", &set_str_value, &map->editor.export.path);
 }
 
 int		init_editor_menu(t_win *win, t_map *map)
@@ -324,18 +379,24 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.wall_min = 0;
 	map->editor.wall_max = 100;
 	map->editor.flat_z = 0;
+	map->editor.inclined_first_z = 0;
+	map->editor.inclined_second_z = 100;
 	map->editor.place_step = 0;
 	map->editor.selected_poly = NULL;
 	map->editor.placing_poly = NULL;
 	map->editor.flags = ED_NONE;
 	map->editor.arg_menu_tab[0] = (t_arg_menu){(int*)&map->editor.flags,
-											ED_SELECTION | ED_MODE_CHANGED};
+											ED_SELECTION};
 	map->editor.arg_menu_tab[1] = (t_arg_menu){(int*)&map->editor.flags,
-											ED_PLACE | ED_WALL | ED_MODE_CHANGED};
+											ED_WALL};
 	map->editor.arg_menu_tab[2] = (t_arg_menu){(int*)&map->editor.flags,
-											ED_PLACE | ED_FLAT | ED_MODE_CHANGED};
+											ED_FLAT};
+	map->editor.arg_menu_tab[3] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_INCLINED};
 	map->editor.cursor[CURSOR_DEFAULT] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	map->editor.cursor[CURSOR_SELECTING] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+	map->editor.export.path = NULL;
+	map->editor.export.map = map;
 	if (!init_editor_menu(win, map))
 		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));
 	loop = SDL_TRUE;

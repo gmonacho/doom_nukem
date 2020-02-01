@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_strcpy.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: gmonacho <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/03 10:21:37 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/03 10:40:22 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/31 16:46:49 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ char	*ft_strcpy(char *dst, const char *src)
 	int		i;
 
 	i = 0;
-	if (src)
+	if (src && dst)
 	{
 		while (src[i])
 		{
