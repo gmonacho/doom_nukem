@@ -33,7 +33,7 @@ Mob
 	damage = 1
 	dir = -90
 	velocity = 2
-	texture = Elephantride.png
+	texture = Mario_Ghost.png
 }
 
 	/* Murs du haut */
@@ -185,4 +185,13 @@ Polygon								//Merde volante
 	dot = x:300, y:800, z:140
 	dot = x:300, y:500, z:140
 	texture = Plafond.png
+}
+
+Poldygon								//Vitre
+{
+	dot = x:100, y:650, z:200
+	dot = x:600, y:650, z:200
+	dot = x:600, y:650, z:50
+	dot = x:100, y:650, z:50
+	texture = Vitre.png
 }
