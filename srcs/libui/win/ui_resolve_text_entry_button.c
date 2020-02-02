@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:37:11 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 19:54:19 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/02 16:00:50 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,6 @@ static void		suppress_char(t_winui *win, t_text_entry_button *t_e_button)
 	win->ui.cursor_position--;
 	if (win->ui.cursor_position < 0)
 		win->ui.cursor_position = 0;
-	SDL_Delay(100);
 }
 
 static void		text_input_digital(t_winui *win,
@@ -94,18 +93,33 @@ static void		text_input_else(t_winui *win,
 void			ui_resolve_text_entry_button(t_winui *win,
 							t_text_entry_button *text_entry_button)
 {
-	if (win->event.type == SDL_KEYDOWN)
+	static Uint32	last_tick = 0;
+	Uint32			new_tick;
+	
+	new_tick = SDL_GetTicks();
+	if (last_tick == 0 || new_tick - last_tick >= win->ui.delay_text_entry)
 	{
-		if (win->event.key.keysym.scancode == SDL_SCANCODE_BACKSPACE
-			&& win->ui.cursor_position > 0)
-			suppress_char(win, text_entry_button);
+		if (win->event.type == SDL_KEYDOWN)
+		{
+			if (win->event.key.keysym.scancode == SDL_SCANCODE_BACKSPACE
+				&& win->ui.cursor_position > 0)
+			{
+				suppress_char(win, text_entry_button);
+				last_tick = new_tick;
+			}
+		}
 	}
 	if (win->event.type == SDL_TEXTINPUT)
 	{
-		if (text_entry_button->text_type & UI_TEXT_TYPE_DIGITAL)
-			text_input_digital(win, text_entry_button);
-		else
-			text_input_else(win, text_entry_button);
-		SDL_Delay(100);
+		if (last_tick == 0 || new_tick - last_tick >= win->ui.delay_text_entry
+		|| win->ui.last_char == '\0' || win->event.text.text[0] != win->ui.last_char)
+		{
+			if (text_entry_button->text_type & UI_TEXT_TYPE_DIGITAL)
+				text_input_digital(win, text_entry_button);
+			else
+				text_input_else(win, text_entry_button);
+			last_tick = new_tick;
+			win->ui.last_char = win->event.text.text[0];
+		}
 	}
 }
