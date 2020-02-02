@@ -88,7 +88,8 @@ typedef enum	e_editor
 	ED_WALL = 8,
 	ED_FLAT = 16,
 	ED_INCLINED = 32,
-	ED_PLAYER = 64
+	ED_PLAYER = 64,
+	ED_DRAW_HELP = 128
 }				t_editor_flag;
 
 # define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER
@@ -595,6 +596,8 @@ typedef struct	s_export
 	char		*path;
 	void		*map;
 }				t_export;
+
+#define	NEXT_RADIUS 20
 
 typedef struct		s_editor
 {
