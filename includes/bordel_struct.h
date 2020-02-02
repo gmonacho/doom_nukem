@@ -87,10 +87,11 @@ typedef enum	e_editor
 	ED_PLACE = 4,
 	ED_WALL = 8,
 	ED_FLAT = 16,
-	ED_INCLINED = 32
+	ED_INCLINED = 32,
+	ED_PLAYER = 64
 }				t_editor_flag;
 
-# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED
+# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER
 
 typedef struct		s_kit_flags
 {
@@ -612,7 +613,7 @@ typedef struct		s_editor
 	t_poly			*selected_poly;
 	t_poly			*placing_poly;
 	t_editor_flag	flags;
-	t_arg_menu		arg_menu_tab[4];
+	t_arg_menu		arg_menu_tab[5];
 	SDL_Cursor		*cursor[2];
 	t_export		export;
 }					t_editor;

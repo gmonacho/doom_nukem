@@ -375,17 +375,17 @@ int 		ed_event(t_win *win, t_map *map)
 	const Uint8	*state;
 
 	state = SDL_GetKeyboardState(NULL);
-	if (win)
+	if (!win->winui->ui.clicked_button)
 	{
 		if (state[SDL_SCANCODE_A])
 			map->editor.pos.x -= 1;
+		if (state[SDL_SCANCODE_D])
+			map->editor.pos.x += 1;
+		if (state[SDL_SCANCODE_W])
+			map->editor.pos.y -= 1;
+		if (state[SDL_SCANCODE_S])
+			map->editor.pos.y += 1;
 	}
-	if (state[SDL_SCANCODE_D])
-		map->editor.pos.x += 1;
-	if (state[SDL_SCANCODE_W])
-		map->editor.pos.y -= 1;
-	if (state[SDL_SCANCODE_S])
-		map->editor.pos.y += 1;
 	if (state[SDL_SCANCODE_DELETE])
 	{
 		if (map->editor.selected_poly)
