@@ -154,20 +154,17 @@ void			surround_walls(t_win *win, t_map *map)
 	// printf("\n\nMap polys %p\n", map->polys);
 	while (poly)
 	{
-		// t1 = clock();
 		poly->box_x = (t_dot){win->w, 0};
 		poly->box_y = (t_dot){win->h, 0};
 		poly->is_slide_ban = 0;
-
-		create_dot_on_axe_y(poly);
-		set_proj(win, poly);
-		poly_reduction(win, poly);
-		set_box(poly, &(poly->box_x), &(poly->box_y), poly->dots_proj);
-		
-		// t2 = clock();
-		// printf("In %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
-
-		// printf("BOX xy %d %d / %d %d\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
+		if (poly->visible)
+		{
+			create_dot_on_axe_y(poly);
+			set_proj(win, poly);
+			poly_reduction(win, poly);
+			set_box(poly, &(poly->box_x), &(poly->box_y), poly->dots_proj);
+			// printf("BOX xy %d %d / %d %d\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
+		}
 		poly = poly->next;
 	}
 	// printf("\n\n");

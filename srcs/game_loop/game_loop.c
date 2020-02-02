@@ -81,7 +81,6 @@ static SDL_bool game(t_win *win, t_map *map)
 	// mouse_refresh();
 
 	events_rotate(win, map, &(map->player), state);
-	events_actions(win, map, &(map->player), state);
     events_others(win, &(map->player), state);
 	
 	move_and_collide(map, events_move(&(map->player), state));
@@ -95,8 +94,9 @@ static SDL_bool game(t_win *win, t_map *map)
 
 	reload_cd(map);
 	damage_heal(&(map->player), map->music, 0, 0);
-	print_content_slot(win, &(map->player), win->texHud);
+	events_actions(win, map, &(map->player), state);
 	hud(win, &(map->player), win->texHud);
+	print_content_slot(win, &(map->player), win->texHud);
 	if (event.type == SDL_QUIT ||\
 		event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 	{	
