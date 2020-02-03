@@ -294,6 +294,8 @@ static void		set_editor_flags(void *argument)
 				*(arg_menu->loop) ^= ED_FLAT;
 			else if (*(arg_menu->loop) & ED_INCLINED)
 				*(arg_menu->loop) ^= ED_INCLINED;
+			if (*(arg_menu->loop) & ED_SELECTION)
+				*(arg_menu->loop) ^= ED_SELECTION;
 			*(arg_menu->loop) |= arg_menu->value;
 			*(arg_menu->loop) |= ED_PLACE;
 		}
