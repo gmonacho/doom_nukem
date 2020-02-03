@@ -364,6 +364,15 @@ typedef struct				s_textures
 **	----------------------------------- Raycasting ---------------------------------------
 */
 
+typedef enum				e_enum_object
+{
+	HEALTH = 0b0001,
+	ARMOR = 0b0010,
+	TP = 0b0100,
+	GUN = 0b1000,
+	BULLET = 0b10000
+}							t_enum_object;
+
 typedef	struct				s_poly
 {
 	int						index;
@@ -397,6 +406,7 @@ typedef	struct				s_poly
 
 	SDL_Surface				*texture;
 	char 					*type;
+	t_enum_object			object;
 	struct s_poly			*next;
 }							t_poly;
 
