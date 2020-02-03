@@ -27,6 +27,9 @@ int 			create_window(t_win *win, const char *title, SDL_Rect rect, Uint32 flags)
 	win->winui->ui.button_text_color = (SDL_Color){255, 255, 255, 255};
 	win->winui->ui.button_text_ratio = 0.7;
 	win->winui->ui.cursor_position = 0;
+	win->winui->ui.delay_text_entry = 80;
+	win->winui->ui.delay_text_del = 30;
+	win->winui->ui.last_char = '\0';
 	win->winui->ui.cursor_color = (SDL_Color){255, 255, 255, 255};
 	win->winui->ui.textures = NULL;
 	return (1);

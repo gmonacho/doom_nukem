@@ -8,6 +8,8 @@ int		ed_place_wall(t_win *win, t_map *map)
 
 	poly = NULL;
 	p = ed_get_map_point(map, win->winui->mouse.pos);
+	if (map->editor.flags & ED_DRAW_HELP)
+		p = ed_is_next_to_poly(map, p, NEXT_RADIUS);
 	if (!map->editor.placing_poly)
 	{
 		if (!(poly = ft_memalloc(sizeof(t_poly))))
@@ -115,6 +117,8 @@ int				ed_place_flat(t_win *win, t_map *map)
 
 	poly = NULL;
 	p1 = ed_get_map_point(map, win->winui->mouse.pos);
+	if (map->editor.flags & ED_DRAW_HELP)
+		p1 = ed_is_next_to_poly(map, p1, NEXT_RADIUS);
 	if (!map->editor.placing_poly)
 	{
 		if (!(poly = ft_memalloc(sizeof(t_poly))))
@@ -165,6 +169,8 @@ int				ed_place_inclined(t_win *win, t_map *map)
 
 	poly = NULL;
 	p1 = ed_get_map_point(map, win->winui->mouse.pos);
+	if (map->editor.flags & ED_DRAW_HELP)
+		p1 = ed_is_next_to_poly(map, p1, NEXT_RADIUS);
 	if (!map->editor.placing_poly)
 	{
 		if (!(poly = ft_memalloc(sizeof(t_poly))))

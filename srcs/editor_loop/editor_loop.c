@@ -294,6 +294,8 @@ static void		set_editor_flags(void *argument)
 				*(arg_menu->loop) ^= ED_FLAT;
 			else if (*(arg_menu->loop) & ED_INCLINED)
 				*(arg_menu->loop) ^= ED_INCLINED;
+			if (*(arg_menu->loop) & ED_SELECTION)
+				*(arg_menu->loop) ^= ED_SELECTION;
 			*(arg_menu->loop) |= arg_menu->value;
 			*(arg_menu->loop) |= ED_PLACE;
 		}
@@ -302,9 +304,7 @@ static void		set_editor_flags(void *argument)
 	else
 	{
 		if (*(arg_menu->loop) & arg_menu->value)
-		{
 			*(arg_menu->loop) ^= arg_menu->value;
-		}
 		else
 		{
 			*(arg_menu->loop) |= arg_menu->value;
@@ -314,12 +314,11 @@ static void		set_editor_flags(void *argument)
 				*(arg_menu->loop) ^= ED_FLAT;
 			else if (*(arg_menu->loop) & ED_INCLINED)
 				*(arg_menu->loop) ^= ED_INCLINED;
-			*(arg_menu->loop) ^= ED_PLACE;
+			if (*(arg_menu->loop) & ED_PLACE)
+				*(arg_menu->loop) ^= ED_PLACE;
 		}
 	}
-	
 	*(arg_menu->loop) |= ED_MODE_CHANGED;
-	printf("*(arg_menu->loop) = %d\n", *(arg_menu->loop));
 }
 
 static void		set_menu_button_function(t_win *win, t_map *map)
@@ -340,6 +339,10 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								"b_inclined",
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[3]);
+	ui_set_simple_button_function(win->winui,
+								"b_player",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[4]);
 	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,
@@ -393,9 +396,11 @@ int				editor_loop(t_win *win, t_map *map)
 											ED_FLAT};
 	map->editor.arg_menu_tab[3] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_INCLINED};
+	map->editor.arg_menu_tab[4] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_PLAYER};
 	map->editor.cursor[CURSOR_DEFAULT] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	map->editor.cursor[CURSOR_SELECTING] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
-	map->editor.export.path = NULL;
+	map->editor.export.path = ft_strdup("./maps/new_map");
 	map->editor.export.map = map;
 	if (!init_editor_menu(win, map))
 		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));

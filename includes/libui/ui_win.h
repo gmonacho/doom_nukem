@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 18:21:05 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 16:14:44 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/02 15:57:28 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,6 +37,9 @@ typedef struct			s_ui
 	SDL_Color			button_text_color;
 	float				button_text_ratio;
 	int					cursor_position;
+	Uint32				delay_text_entry;
+	Uint32				delay_text_del;
+	char				last_char;
 	t_draw_text_flag	text_enrty_flags;
 	SDL_Color			cursor_color;
 	t_texture			*textures;
