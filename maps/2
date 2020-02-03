@@ -15,10 +15,19 @@ Object
 	posx = 400
 	posy = 950
 	posz = 150
-	type = 1
+	type = life
 	width = 30
 	height = 50
-	dir = -90
+	texture = Elephantride.png
+}
+Object
+{
+	posx = 400
+	posy = 950
+	posz = 150
+	type = tp
+	width = 70
+	height = 70
 	texture = Elephantride.png
 }
 

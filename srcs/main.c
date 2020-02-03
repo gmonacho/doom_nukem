@@ -3,8 +3,9 @@
 /*
 **	A faire :
 **
-**	Finir mobs
-**	Objects
+**	Objects : 
+**				Type : Health - Armor - Teleporter - Gun - Bullet
+**
 **	Norme all
 **	Clean code/fichier inutiles
 **	Gerer les leaks

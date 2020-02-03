@@ -35,6 +35,8 @@ void    add_poly_object(t_object *object)
 void	object_data(char **tab, t_object **object, int i)
 {
 	add_object(object);
+    (*object)->width = 50;
+    (*object)->height = 50;
 	while (ft_strchr(tab[i], '}') == NULL)
 	{
         if (ft_strstr(tab[i], "type = "))
@@ -45,20 +47,16 @@ void	object_data(char **tab, t_object **object, int i)
             (*object)->pos.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "posz = "))
             (*object)->pos.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-        if (ft_strstr(tab[i], "dir = "))
-            (*object)->dir = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        // if (ft_strstr(tab[i], "dir = "))
+        //     (*object)->dir = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "width = "))
-        {
             (*object)->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            (*object)->width_2 = (*object)->width / 2;
-        }
         if (ft_strstr(tab[i], "height = "))
-        {
             (*object)->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-        	(*object)->height_2 = (*object)->height / 2;
-        }
 		i++;
 	}
+    (*object)->width_2 = (*object)->width / 2;
+    (*object)->height_2 = (*object)->height / 2;
 	add_poly_object(*object);
 	//printf("O |posx = %f\n", object->pos.x);
 	// printf("O |posy = %f\n", object->pos.y);
