@@ -9,13 +9,26 @@ Player
 	velocity = 10
 }
 Object
-{
-	posx = 100
-	posy = 100
-	posz = 100
-	width = 100
-	height = 100
-	texture = Brique.png
+{	
+	type = Potion
+	posx = 400
+	posy = 950
+	posz = 150
+	type = life
+	width = 30
+	height = 50
+	texture = healthPotion.png
+}
+Object
+{	
+	type = Potion
+	posx = 400
+	posy = 950
+	posz = 150
+	type = 12
+	width = 70
+	height = 70
+	texture = healthPotion.png
 }
 
 Mob
@@ -29,7 +42,7 @@ Mob
 	height = 60
 	dir = -90
 	velocity = 2
-	texture = Elephantride.png
+	texture = Mario_Ghost.png
 }
 
 Mob
@@ -43,7 +56,7 @@ Mob
 	height = 60
 	dir = -90
 	velocity = 2
-	texture = Elephantride.png
+	texture = Mario_Ghost.png
 }
 
 

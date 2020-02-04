@@ -321,6 +321,13 @@ int			ed_place_inclined(t_win *win, t_map *map);
 
 int			ed_get_line_len(t_line *line);
 
+int			ed_get_z_min(const t_poly *polys);
+int			ed_get_z_max(const t_poly *polys);
+
+
+SDL_Color	ed_get_wall_display_color(const t_map *map, t_poly *poly);
+SDL_Color	ed_get_flat_display_color(const t_map *map, t_poly *poly);
+
 SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
 SDL_bool	ed_is_wall(t_poly *poly);

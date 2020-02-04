@@ -1,570 +1,258 @@
 Player
 {
-posx = 500
-posy = 500
-posz = 65
+posx = 200
+posy = 200
+posz = 150
 dir = 0
-width = 50
-height = 60
+width = 60
+height = 180
 velocity = 10
 }
 Polygon
 {
-dot = x:-435 y:366 z:50
-dot = x:-738 y:18 z:50
-dot = x:-738 y:18 z:-50
-dot = x:-435 y:366 z:-50
+dot = x:-21 y:63 z:0
+dot = x:552 y:99 z:0
+dot = x:514 y:700 z:0
+dot = x:-58 y:664 z:0
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-445 y:-238 z:50
-dot = x:-738 y:18 z:50
-dot = x:-738 y:18 z:-50
-dot = x:-445 y:-238 z:-50
+dot = x:518 y:235 z:0
+dot = x:314 y:328 z:0
+dot = x:478 y:689 z:0
+dot = x:682 y:596 z:0
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-209 y:32 z:50
-dot = x:-445 y:-238 z:50
-dot = x:-445 y:-238 z:-50
-dot = x:-209 y:32 z:-50
+dot = x:122 y:64 z:0
+dot = x:617 y:564 z:0
+dot = x:877 y:303 z:0
+dot = x:382 y:-196 z:0
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-142 y:109 z:50
-dot = x:-435 y:366 z:50
-dot = x:-435 y:366 z:-50
-dot = x:-142 y:109 z:-50
+dot = x:122 y:64 z:100
+dot = x:416 y:195 z:100
+dot = x:416 y:195 z:0
+dot = x:122 y:64 z:0
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-502 y:289 z:-50
-dot = x:-209 y:32 z:-50
-dot = x:-445 y:-238 z:-50
-dot = x:-738 y:18 z:-50
+dot = x:5 y:431 z:100
+dot = x:122 y:64 z:100
+dot = x:122 y:64 z:0
+dot = x:5 y:431 z:0
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-209 y:32 z:-50
-dot = x:-142 y:109 z:-50
-dot = x:-435 y:366 z:-50
-dot = x:-502 y:289 z:-50
+dot = x:617 y:564 z:100
+dot = x:5 y:431 z:100
+dot = x:5 y:431 z:0
+dot = x:617 y:564 z:0
 texture = Brique.png
 }
 Polygon
 {
-dot = x:293 y:-404 z:150
-dot = x:21 y:-168 z:150
-dot = x:21 y:-168 z:50
-dot = x:293 y:-404 z:50
+dot = x:730 y:198 z:100
+dot = x:617 y:564 z:100
+dot = x:617 y:564 z:0
+dot = x:730 y:198 z:0
 texture = Brique.png
 }
 Polygon
 {
-dot = x:584 y:-67 z:150
-dot = x:293 y:-404 z:150
-dot = x:293 y:-404 z:50
-dot = x:584 y:-67 z:50
+dot = x:416 y:195 z:100
+dot = x:730 y:198 z:100
+dot = x:730 y:198 z:0
+dot = x:416 y:195 z:0
 texture = Brique.png
 }
 Polygon
 {
-dot = x:312 y:168 z:150
-dot = x:584 y:-67 z:150
-dot = x:584 y:-67 z:50
-dot = x:312 y:168 z:50
+dot = x:359 y:332 z:-184
+dot = x:348 y:233 z:-194
+dot = x:303 y:229 z:-106
+dot = x:314 y:328 z:-96
 texture = Brique.png
 }
 Polygon
 {
-dot = x:88 y:-91 z:150
-dot = x:312 y:168 z:150
-dot = x:312 y:168 z:50
-dot = x:88 y:-91 z:50
+dot = x:981 y:86 z:166
+dot = x:967 y:143 z:161
+dot = x:939 y:140 z:214
+dot = x:954 y:83 z:219
 texture = Brique.png
 }
 Polygon
 {
-dot = x:88 y:-91 z:50
-dot = x:360 y:-327 z:50
-dot = x:584 y:-67 z:50
-dot = x:312 y:168 z:50
+dot = x:1040 y:-2 z:213
+dot = x:1090 y:19 z:239
+dot = x:1062 y:16 z:292
+dot = x:1013 y:-5 z:265
 texture = Brique.png
 }
 Polygon
 {
-dot = x:21 y:-168 z:50
-dot = x:88 y:-91 z:50
-dot = x:360 y:-327 z:50
-dot = x:293 y:-404 z:50
+dot = x:771 y:196 z:189
+dot = x:330 y:269 z:-34
+dot = x:399 y:275 z:-167
+dot = x:839 y:203 z:57
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-133 y:-35 z:100
-dot = x:-62 y:-97 z:100
-dot = x:-62 y:-97 z:0
-dot = x:-133 y:-35 z:0
+dot = x:310 y:-220 z:-153
+dot = x:750 y:-293 z:70
+dot = x:784 y:-289 z:3
+dot = x:344 y:-216 z:-219
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-66 y:42 z:100
-dot = x:-142 y:109 z:100
-dot = x:-142 y:109 z:0
-dot = x:-66 y:42 z:0
+dot = x:265 y:-322 z:-98
+dot = x:705 y:-395 z:125
+dot = x:739 y:-391 z:59
+dot = x:299 y:-318 z:-163
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-133 y:-35 z:100
-dot = x:-209 y:32 z:100
-dot = x:-209 y:32 z:0
-dot = x:-133 y:-35 z:0
+dot = x:265 y:-322 z:-98
+dot = x:276 y:-223 z:-87
+dot = x:310 y:-220 z:-153
+dot = x:299 y:-318 z:-163
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-62 y:-97 z:100
-dot = x:21 y:-168 z:100
-dot = x:21 y:-168 z:0
-dot = x:-62 y:-97 z:0
+dot = x:705 y:-395 z:125
+dot = x:716 y:-296 z:136
+dot = x:750 y:-293 z:70
+dot = x:739 y:-391 z:59
 texture = Brique.png
 }
 Polygon
 {
-dot = x:5 y:-20 z:100
-dot = x:88 y:-91 z:100
-dot = x:88 y:-91 z:0
-dot = x:5 y:-20 z:0
+dot = x:330 y:269 z:-34
+dot = x:276 y:-223 z:-87
+dot = x:344 y:-216 z:-219
+dot = x:399 y:275 z:-167
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-133 y:-35 z:0
-dot = x:-209 y:32 z:-50
-dot = x:-142 y:109 z:-50
-dot = x:-66 y:42 z:0
+dot = x:771 y:196 z:189
+dot = x:1211 y:125 z:414
+dot = x:1302 y:134 z:237
+dot = x:862 y:205 z:13
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-62 y:-97 z:0
-dot = x:21 y:-168 z:50
-dot = x:88 y:-91 z:50
-dot = x:5 y:-20 z:0
+dot = x:1157 y:-368 z:361
+dot = x:716 y:-296 z:136
+dot = x:807 y:-287 z:-39
+dot = x:1249 y:-359 z:184
 texture = Brique.png
 }
 Polygon
 {
-dot = x:-66 y:42 z:0
-dot = x:5 y:-20 z:0
-dot = x:-62 y:-97 z:0
-dot = x:-133 y:-35 z:0
+dot = x:1211 y:125 z:414
+dot = x:1157 y:-368 z:361
+dot = x:1249 y:-359 z:184
+dot = x:1302 y:134 z:237
 texture = Brique.png
 }
 Polygon
 {
-dot = x:239 y:386 z:100
-dot = x:-66 y:42 z:100
-dot = x:-66 y:42 z:0
-dot = x:239 y:386 z:0
+dot = x:1082 y:170 z:125
+dot = x:1265 y:130 z:308
+dot = x:1212 y:-363 z:255
+dot = x:1028 y:-323 z:71
 texture = Brique.png
 }
 Polygon
 {
-dot = x:311 y:322 z:100
-dot = x:5 y:-20 z:100
-dot = x:5 y:-20 z:0
-dot = x:311 y:322 z:0
+dot = x:942 y:-113 z:85
+dot = x:972 y:-121 z:134
+dot = x:967 y:-171 z:129
+dot = x:937 y:-162 z:80
 texture = Brique.png
 }
 Polygon
 {
-dot = x:239 y:386 z:0
-dot = x:311 y:322 z:0
-dot = x:5 y:-20 z:0
-dot = x:-66 y:42 z:0
+dot = x:862 y:205 z:13
+dot = x:1302 y:134 z:237
+dot = x:1249 y:-359 z:184
+dot = x:807 y:-287 z:-39
 texture = Brique.png
 }
 Polygon
 {
-dot = x:239 y:386 z:0
-dot = x:311 y:322 z:0
-dot = x:563 y:607 z:0
-dot = x:492 y:670 z:0
+dot = x:862 y:205 z:13
+dot = x:807 y:-287 z:-39
+dot = x:784 y:-289 z:3
+dot = x:839 y:203 z:57
 texture = Brique.png
 }
 Polygon
 {
-dot = x:482 y:175 z:0
-dot = x:733 y:462 z:0
-dot = x:562 y:609 z:0
-dot = x:311 y:322 z:0
+dot = x:839 y:203 z:57
+dot = x:399 y:275 z:-167
+dot = x:344 y:-216 z:-219
+dot = x:784 y:-289 z:3
 texture = Brique.png
 }
 Polygon
 {
-dot = x:90 y:519 z:0
-dot = x:341 y:806 z:0
-dot = x:491 y:674 z:0
-dot = x:239 y:386 z:0
+dot = x:299 y:-318 z:-163
+dot = x:739 y:-391 z:59
+dot = x:750 y:-293 z:70
+dot = x:310 y:-220 z:-153
 texture = Brique.png
 }
 Polygon
 {
-dot = x:482 y:175 z:100
-dot = x:311 y:322 z:100
-dot = x:311 y:322 z:0
-dot = x:482 y:175 z:0
+dot = x:1211 y:125 z:414
+dot = x:330 y:269 z:-34
+dot = x:276 y:-223 z:-87
+dot = x:1157 y:-368 z:361
 texture = Brique.png
 }
 Polygon
 {
-dot = x:90 y:519 z:100
-dot = x:239 y:387 z:100
-dot = x:239 y:387 z:0
-dot = x:90 y:519 z:0
+dot = x:716 y:-296 z:136
+dot = x:276 y:-223 z:-87
+dot = x:265 y:-322 z:-98
+dot = x:705 y:-395 z:125
 texture = Brique.png
 }
 Polygon
 {
-dot = x:341 y:806 z:100
-dot = x:90 y:519 z:100
-dot = x:90 y:519 z:0
-dot = x:341 y:806 z:0
+dot = x:-51 y:52 z:-203
+dot = x:152 y:-123 z:-92
+dot = x:200 y:-123 z:-180
+dot = x:-3 y:52 z:-291
 texture = Brique.png
 }
 Polygon
 {
-dot = x:733 y:462 z:100
-dot = x:341 y:806 z:100
-dot = x:341 y:806 z:0
-dot = x:733 y:462 z:0
+dot = x:152 y:-123 z:-92
+dot = x:180 y:115 z:-77
+dot = x:227 y:115 z:-164
+dot = x:200 y:-123 z:-180
 texture = Brique.png
 }
 Polygon
 {
-dot = x:482 y:175 z:100
-dot = x:733 y:462 z:100
-dot = x:733 y:462 z:0
-dot = x:482 y:175 z:0
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-520 y:-744 z:-24
-dot = x:-277 y:-604 z:-86
-dot = x:-301 y:-604 z:-182
-dot = x:-545 y:-744 z:-120
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-314 y:-535 z:-76
-dot = x:-277 y:-604 z:-86
-dot = x:-301 y:-604 z:-182
-dot = x:-339 y:-535 z:-173
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-367 y:-436 z:-63
-dot = x:-340 y:-491 z:-69
-dot = x:-365 y:-491 z:-166
-dot = x:-392 y:-436 z:-159
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-611 y:-576 z:-1
-dot = x:-367 y:-436 z:-63
-dot = x:-392 y:-436 z:-159
-dot = x:-635 y:-576 z:-97
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-229 y:-560 z:-201
-dot = x:-545 y:-744 z:-120
-dot = x:-504 y:-820 z:-130
-dot = x:-188 y:-637 z:-211
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-433 y:-364 z:-149
-dot = x:-301 y:-604 z:-182
-dot = x:-229 y:-560 z:-201
-dot = x:-361 y:-321 z:-167
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-635 y:-576 z:-97
-dot = x:-392 y:-436 z:-159
-dot = x:-433 y:-364 z:-149
-dot = x:-675 y:-503 z:-87
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-635 y:-576 z:-97
-dot = x:-545 y:-744 z:-120
-dot = x:-301 y:-604 z:-182
-dot = x:-392 y:-436 z:-159
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-696 y:-755 z:21
-dot = x:-520 y:-744 z:-24
-dot = x:-545 y:-744 z:-120
-dot = x:-721 y:-755 z:-75
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-520 y:-744 z:-24
-dot = x:-611 y:-576 z:-1
-dot = x:-635 y:-576 z:-97
-dot = x:-545 y:-744 z:-120
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-815 y:-642 z:51
-dot = x:-611 y:-576 z:-1
-dot = x:-635 y:-576 z:-97
-dot = x:-839 y:-642 z:-46
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2097 y:-1063 z:141
-dot = x:-2077 y:-1623 z:239
-dot = x:-2348 y:-1620 z:309
-dot = x:-2368 y:-1060 z:210
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-5344 y:-2273 z:805
-dot = x:-4995 y:-2287 z:716
-dot = x:-5020 y:-2287 z:619
-dot = x:-5369 y:-2273 z:708
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-5101 y:-2451 z:743
-dot = x:-5238 y:-2110 z:778
-dot = x:-5262 y:-2110 z:681
-dot = x:-5126 y:-2451 z:646
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-5238 y:-2110 z:778
-dot = x:-5473 y:-2182 z:838
-dot = x:-5498 y:-2182 z:741
-dot = x:-5262 y:-2110 z:681
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-5369 y:-2273 z:708
-dot = x:-5262 y:-2110 z:681
-dot = x:-5020 y:-2287 z:619
-dot = x:-5126 y:-2451 z:646
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-5655 y:-2018 z:714
-dot = x:-5514 y:-2182 z:678
-dot = x:-5263 y:-1951 z:614
-dot = x:-5404 y:-1787 z:650
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-5238 y:-1951 z:711
-dot = x:-5379 y:-1787 z:747
-dot = x:-5404 y:-1787 z:650
-dot = x:-5263 y:-1951 z:614
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-5379 y:-1787 z:747
-dot = x:-5630 y:-2018 z:811
-dot = x:-5655 y:-2018 z:714
-dot = x:-5404 y:-1787 z:650
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-5630 y:-2018 z:811
-dot = x:-5489 y:-2182 z:775
-dot = x:-5514 y:-2182 z:678
-dot = x:-5655 y:-2018 z:714
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-5489 y:-2182 z:775
-dot = x:-5238 y:-1951 z:711
-dot = x:-5263 y:-1951 z:614
-dot = x:-5514 y:-2182 z:678
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2832 y:-1338 z:365
-dot = x:-2861 y:-1121 z:372
-dot = x:-2886 y:-1121 z:275
-dot = x:-2857 y:-1338 z:268
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2886 y:-1121 z:275
-dot = x:-2857 y:-1338 z:268
-dot = x:-2596 y:-1300 z:202
-dot = x:-2625 y:-1084 z:209
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2571 y:-1300 z:298
-dot = x:-2832 y:-1338 z:365
-dot = x:-2857 y:-1338 z:268
-dot = x:-2596 y:-1300 z:202
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2861 y:-1121 z:372
-dot = x:-2600 y:-1084 z:306
-dot = x:-2625 y:-1084 z:209
-dot = x:-2886 y:-1121 z:275
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2600 y:-1084 z:306
-dot = x:-2571 y:-1300 z:298
-dot = x:-2596 y:-1300 z:202
-dot = x:-2625 y:-1084 z:209
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2625 y:-1084 z:209
-dot = x:-2384 y:-1060 z:147
-dot = x:-2333 y:-1622 z:134
-dot = x:-2573 y:-1646 z:196
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2600 y:-1084 z:306
-dot = x:-2409 y:-1275 z:257
-dot = x:-2434 y:-1275 z:160
-dot = x:-2625 y:-1084 z:209
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2571 y:-1300 z:298
-dot = x:-2500 y:-1557 z:280
-dot = x:-2525 y:-1557 z:183
-dot = x:-2596 y:-1300 z:202
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2409 y:-1275 z:257
-dot = x:-2347 y:-1577 z:241
-dot = x:-2372 y:-1577 z:144
-dot = x:-2434 y:-1275 z:160
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2500 y:-1557 z:280
-dot = x:-2548 y:-1646 z:292
-dot = x:-2573 y:-1646 z:196
-dot = x:-2525 y:-1557 z:183
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2347 y:-1577 z:241
-dot = x:-2432 y:-1635 z:263
-dot = x:-2457 y:-1635 z:166
-dot = x:-2372 y:-1577 z:144
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-2432 y:-1635 z:263
-dot = x:-2548 y:-1646 z:292
-dot = x:-2573 y:-1646 z:196
-dot = x:-2457 y:-1635 z:166
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-1791 y:-1219 z:99
-dot = x:-1791 y:-1219 z:99
-dot = x:-1816 y:-1219 z:2
-dot = x:-1816 y:-1219 z:2
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-1382 y:-958 z:129
-dot = x:-1455 y:-706 z:148
-dot = x:-1480 y:-706 z:51
-dot = x:-1407 y:-958 z:32
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-1017 y:-1047 z:36
-dot = x:-1382 y:-958 z:129
-dot = x:-1407 y:-958 z:32
-dot = x:-1042 y:-1047 z:-61
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-1015 y:-1040 z:35
-dot = x:-1455 y:-706 z:148
-dot = x:-1480 y:-706 z:51
-dot = x:-1040 y:-1040 z:-62
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-1015 y:-1040 z:35
-dot = x:-1017 y:-1047 z:36
-dot = x:-1042 y:-1047 z:-61
-dot = x:-1040 y:-1040 z:-62
-texture = Brique.png
-}
-Polygon
-{
-dot = x:-1612 y:-913 z:84
-dot = x:-1419 y:-554 z:35
-dot = x:-898 y:-887 z:-97
-dot = x:-1090 y:-1246 z:-49
+dot = x:180 y:115 z:-77
+dot = x:-51 y:52 z:-203
+dot = x:-3 y:52 z:-291
+dot = x:227 y:115 z:-164
 texture = Brique.png
 }

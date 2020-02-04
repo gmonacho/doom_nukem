@@ -162,10 +162,17 @@
 
 SDL_bool		ed_is_poly_printable(const t_map *map, t_poly *poly)
 {
-	if ((poly->dots[0].z >= map->editor.y_min && poly->dots[0].z <= map->editor.y_max) ||
-			(poly->dots[1].z >= map->editor.y_min && poly->dots[1].z <= map->editor.y_max) ||
-			(poly->dots[2].z >= map->editor.y_min && poly->dots[2].z <= map->editor.y_max) ||
-			(poly->dots[3].z >= map->editor.y_min && poly->dots[3].z <= map->editor.y_max))
+	int	inter;
+	int	min;
+	int	max;
+
+	inter = ft_abs(map->editor.max_pos_z - map->editor.min_pos_z);
+	min = map->editor.min_pos_z + inter * (map->editor.z_min / 100.f);
+	max = map->editor.min_pos_z + inter * (map->editor.z_max / 100.f);
+	if ((poly->dots[0].z >= min && poly->dots[0].z <= max) ||
+			(poly->dots[1].z >= min && poly->dots[1].z <= max) ||
+			(poly->dots[2].z >= min && poly->dots[2].z <= max) ||
+			(poly->dots[3].z >= min && poly->dots[3].z <= max))
 		return (1);
 	else
 		return (0);
@@ -177,11 +184,11 @@ static void			ed_display_polys_flat(t_win *win, const t_map *map)
 	t_poly		*poly;
 	SDL_Color	color;
 
-	color = (SDL_Color){0, 255, 0, 255};
-	ui_set_draw_color(win->rend, &color);
 	poly = map->polys;
 	while (poly)
 	{
+		color = ed_get_flat_display_color(map, poly);
+		ui_set_draw_color(win->rend, &color);
 		if (ed_is_flat(poly) && ed_is_poly_printable(map, poly))
 			ed_display_flat(win, map, poly);	
 		poly = poly->next;
@@ -209,11 +216,11 @@ static void			ed_display_polys_wall(t_win *win, const t_map *map)
 	t_poly		*poly;
 	SDL_Color	color;
 
-	color = (SDL_Color){0, 0, 255, 255};
-	ui_set_draw_color(win->rend, &color);
 	poly = map->polys;
 	while (poly)
 	{
+		color = ed_get_wall_display_color(map, poly);
+		ui_set_draw_color(win->rend, &color);
 		if (ed_is_wall(poly) && ed_is_poly_printable(map, poly))
 			ed_display_wall(win, map, poly);
 		poly = poly->next;

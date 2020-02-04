@@ -39,9 +39,6 @@ void    fill_mob_data(t_mob **mob, char **tab, int i)
     add_mob(mob);
     while (ft_strchr(tab[i], '}') == NULL)
     {   
-        if (ft_strstr(tab[i], "mob = "))
-            (*mob)->name = ft_strdup(ft_strrchr(tab[i], '=') + 1);
-
         if (ft_strstr(tab[i], "type = "))
             (*mob)->type = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "posx = "))
@@ -68,6 +65,8 @@ void    fill_mob_data(t_mob **mob, char **tab, int i)
             (*mob)->health = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "damage = "))
             (*mob)->damage = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        if (ft_strstr(tab[i], "texture = "))
+            (*mob)->texture = ft_strdup(ft_strrchr(tab[i], '=') + 2);
         i++;
     }
     add_poly_mob(mob);

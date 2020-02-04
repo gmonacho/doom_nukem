@@ -164,17 +164,17 @@ frame
     }
     button
     {
-        id : "b_y_min"
+        id : "b_z_min"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
         ratio : 0.1 0.4 0.8 0.175
         data
         {
-            name : "min"
-            text : "-30000"
-            max_text_size : 6
-            min_int : -30000
-            max_int : 30000
+            name : "% min"
+            text : "0"
+            max_text_size : 3
+            min_int : 0
+            max_int : 100
             name_side_texture : "textures/ui_text_entry_button_normal.png"
             normal_box_texture : "textures/ui_text_entry_button_normal.png"
             writting_box_texture : "textures/ui_text_entry_button_writting.png"
@@ -184,17 +184,17 @@ frame
     }
     button
     {
-        id : "b_y_max"
+        id : "b_z_max"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
         ratio : 0.1 0.65 0.8 0.175
         data
         {
-            name : "max"
-            text : "30000"
-            max_text_size : 6
-            min_int : 50
-            max_int : 30000
+            name : "% max"
+            text : "100"
+            max_text_size : 3
+            min_int : 0
+            max_int : 100
             name_side_texture : "textures/ui_text_entry_button_normal.png"
             normal_box_texture : "textures/ui_text_entry_button_normal.png"
             writting_box_texture : "textures/ui_text_entry_button_writting.png"
@@ -432,4 +432,44 @@ frame
             text_color : 255 255 255 255
         }
     }
+}
+frame
+{
+	type : UI_FRAME_SIMPLE
+	resize_type : UI_RESIZE_ALL_LINEAR
+	ratio : 0.31 0.9375 0.2 0.0375
+	data
+	{
+		texture : "textures/ui_frame.png"
+	}
+	button
+	{
+		id : "b_calc_normal"
+		type : UI_BUTTON_SIMPLE
+		resize_type : UI_RESIZE_ALL_LINEAR
+		ratio : 0 0 0.125 1
+		data
+		{
+			text : "T"
+            texture_normal : "textures/ui_normal_button.png"
+            texture_clicked : "textures/ui_clicked_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button.png"
+			clicked_condition : UI_MOUSE_LEFT
+		}
+	}
+	button
+	{
+		id : "b_calc_z"
+		type : UI_BUTTON_SIMPLE
+		resize_type : UI_RESIZE_ALL_LINEAR
+		ratio : 0.125 0 0.125 1
+		data
+		{
+			text : "Z"
+            texture_normal : "textures/ui_normal_button.png"
+            texture_clicked : "textures/ui_clicked_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button.png"
+			clicked_condition : UI_MOUSE_LEFT
+		}
+	}
 }

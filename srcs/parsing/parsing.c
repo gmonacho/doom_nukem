@@ -70,35 +70,42 @@ char		**ft_fill_map(int fd, int fp1)
 //Avec SDL_GetError()
 void find_texture(char *tab, t_poly *poly)
 {	
-	SDL_Texture *tmp;
+	char *tmp;
+	char *name;
 
+	name = NULL;
 	tmp = NULL;
-	if (ft_strstr(tab, "texture = Brique.png"))
-		poly->texture = IMG_Load("textures/randomPNG/Brick.png");
-	else if (ft_strstr(tab, "texture = Elephantride.png"))
-		poly->texture = IMG_Load("textures/elephantride.png");
-	else if (ft_strstr(tab, "texture = Plafond.png"))
-		poly->texture = IMG_Load("textures/plafond.png");
-	else if (ft_strstr(tab, "texture = Mario_Ghost.png"))
-	{
-		poly->texture = IMG_Load("textures/Mario/Mario_Ghost.png");
-		printf("wh : %d %d\n", poly->texture->w, poly->texture->h);
-		// for (int i = 0; i < poly->texture->w * poly->texture->h; i++)
-		// 	printf("%d\n", poly->texture->pixels[i]);
-		// exit(0);
-	}
-	else if (ft_strstr(tab, "texture = Vitre.png"))
-		poly->texture = IMG_Load("textures/vitre.png");
-	else if (ft_strstr(tab, "texture = Pierre.png"))
-		poly->texture = IMG_Load("textures/mur_pierre.png");
-	else if (ft_strstr(tab, "texture = Papier.png"))
-		printf("Papier\n");
-	else if (ft_strstr(tab, "texture = Ciseaux.png"))
-		printf("Ciseaux\n");
-	else if (ft_strstr(tab, "texture = JaiGagne!.png"))
-		printf("JaiGagne!\n");
-	printf("new texture : %p\n", poly->texture);
+	name = ft_strdup(ft_strrchr(tab, '=') + 2);
+	tmp = ft_strdup("textures/");
+	tmp = ft_strjoin(tmp, name);
+	poly->texture = IMG_Load(tmp);
 	poly->texture = SDL_ConvertSurfaceFormat(poly->texture, SDL_PIXELFORMAT_ARGB8888, 0);
+	//png = ft_strdup(".png");
+	// if (ft_strstr(tab, "texture = Brique.png"))
+	// 	poly->texture = IMG_Load("textures/Brick.png");
+	// else if (ft_strstr(tab, "texture = Elephantride.png"))
+	// 	poly->texture = IMG_Load("textures/elephantride.png");
+	// else if (ft_strstr(tab, "texture = Plafond.png"))
+	// 	poly->texture = IMG_Load("textures/plafond.png");
+	// else if (ft_strstr(tab, "texture = Mario_Ghost.png"))
+	// {
+	// 	poly->texture = IMG_Load("textures/Mario/Mario_Ghost.png");
+	// 	printf("wh : %d %d\n", poly->texture->w, poly->texture->h);
+	// 	// for (int i = 0; i < poly->texture->w * poly->texture->h; i++)
+	// 	// 	printf("%d\n", poly->texture->pixels[i]);
+	// 	// exit(0);
+	// }
+	// else if (ft_strstr(tab, "texture = Vitre.png"))
+	// 	poly->texture = IMG_Load("textures/vitre.png");
+	// else if (ft_strstr(tab, "texture = Pierre.png"))
+	// 	poly->texture = IMG_Load("textures/mur_pierre.png");
+	// else if (ft_strstr(tab, "texture = Papier.png"))
+	// 	printf("Papier\n");
+	// else if (ft_strstr(tab, "texture = Ciseaux.png"))
+	// 	printf("Ciseaux\n");
+	// else if (ft_strstr(tab, "texture = JaiGagne!.png"))
+	// 	printf("JaiGagne!\n");
+	// printf("new texture : %p\n", poly->texture);
 }
 
 void		ft_fill_data(char **tab, t_poly **poly, int i)
@@ -131,33 +138,41 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 }
 
 void 	fill_poly_mob(t_poly *poly, t_mob *mob)
-{
+{	
+	char *tmp;
+
+	tmp = NULL;
 	while (poly->next)
 		poly = poly->next;
 	while (mob)
 	{	
+		tmp = ft_strdup("textures/");
 		poly->next = mob->poly;
 		poly = poly->next;
-		poly->texture = IMG_Load("textures/Mario/Mario_Ghost.png");
+		tmp = ft_strjoin(tmp, mob->texture);
+		poly->texture = IMG_Load(tmp);
 		poly->texture = SDL_ConvertSurfaceFormat(poly->texture, SDL_PIXELFORMAT_ARGB8888, 0);
-		poly->type = ft_strdup("mob");
-		// poly->texture = IMG_Load("textures/boo_mob.jpg");
+		poly->type = ft_strdup("mob"); 
 		mob = mob->next;
+		free(tmp);
 	}
 }
 
 void 	fill_poly_object(t_poly *poly, t_object *object)
 {	
+	char *tmp;
+
+	tmp = NULL;
 	while (poly->next)
 		poly = poly->next;
 	while (object)
 	{	
+		tmp = ft_strdup("textures/");
 		poly->next = object->poly;
 		poly = poly->next;
-		poly->texture = IMG_Load("textures/healthPotion.png");
+		tmp = ft_strjoin(tmp, object->texture);
+		poly->texture = IMG_Load(tmp);
 		poly->texture = SDL_ConvertSurfaceFormat(poly->texture, SDL_PIXELFORMAT_ARGB8888, 0);
-		poly->type = ft_strdup("object");
-		// poly->texture = IMG_Load("textures/boo_mob.jpg");
 		object = object->next;
 	}
 }
