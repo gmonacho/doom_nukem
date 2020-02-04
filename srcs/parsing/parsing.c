@@ -115,6 +115,7 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 
 	index = 0;
 	add_poly(poly);
+	(*poly)->object = NULL;
 	while ((ft_strchr(tab[i], '}') == NULL))
 	{	
 		if (ft_strstr(tab[i], "dot = "))
@@ -152,7 +153,7 @@ void 	fill_poly_mob(t_poly *poly, t_mob *mob)
 		tmp = ft_strjoin(tmp, mob->texture);
 		poly->texture = IMG_Load(tmp);
 		poly->texture = SDL_ConvertSurfaceFormat(poly->texture, SDL_PIXELFORMAT_ARGB8888, 0);
-		poly->type = ft_strdup("mob"); 
+		// poly->type = ft_strdup("mob"); 
 		mob = mob->next;
 		free(tmp);
 	}
@@ -195,7 +196,10 @@ t_poly	*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 		if (ft_strstr(tab[i], "Polygon"))
 			ft_fill_data(tab, &poly, i);
 		else if (ft_strstr(tab[i], "Object"))
-			object_data(tab, &(map->object), i);
+		{
+			if (object_data(tab, &(map->object), i))
+				return (NULL); //LEAKS - C'est temporaire
+		}
 		else if (ft_strstr(tab[i], "Player"))
 			player_data(tab, &(map->player), i);
 		else if (ft_strstr(tab[i], "Mob"))

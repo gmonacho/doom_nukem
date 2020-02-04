@@ -241,7 +241,7 @@ t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_win *win);
 
 void		player_data(char **tab, t_player *player, int i);
 
-void		object_data(char **tab, t_object **object, int i);
+int			object_data(char **tab, t_object **object, int i);
 t_texHud   	*define_texHud(t_win *win);
 
 /*

@@ -25,20 +25,37 @@ void	add_object(t_object **object)
 	*object = new_object;
 }
 
-void    add_poly_object(t_object *object)
+int			add_poly_object(t_object *object, char *type)
 {
-    object->poly = (t_poly *)ft_memalloc(sizeof(t_poly));
-    if (object->poly != NULL)
-        set_object_dots(object);
+    if (!(object->poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
+		return (1);
+	set_object_dots(object);
+	object->poly->object = object;
+	if (ft_strcmp(type, "HEAL"))
+		object->type = HEAL;
+	else if (ft_strcmp(type, "ARMOR"))
+		object->type = ARMOR;
+	else if (ft_strcmp(type, "TP"))
+		object->type = TP;
+	else if (ft_strcmp(type, "GUN"))
+		object->type = GUN;
+	else if (ft_strcmp(type, "BULLET"))
+		object->type = BULLET;
+	return (0);
 }
 
-void	object_data(char **tab, t_object **object, int i)
+int			object_data(char **tab, t_object **object, int i)
 {
+	char	*type;
+
+	type = NULL;
 	add_object(object);
     (*object)->width = 50;
     (*object)->height = 50;
 	while (ft_strchr(tab[i], '}') == NULL)
 	{
+        if (ft_strstr(tab[i], "type = "))
+            type = ft_strdup(ft_strrchr(tab[i], '=') + 2);
         if (ft_strstr(tab[i], "texture = "))
             (*object)->texture = ft_strdup(ft_strrchr(tab[i], '=') + 2);
         if (ft_strstr(tab[i], "posx = "))
@@ -55,7 +72,9 @@ void	object_data(char **tab, t_object **object, int i)
 	}
     (*object)->width_2 = (*object)->width / 2;
     (*object)->height_2 = (*object)->height / 2;
-	add_poly_object(*object);
+	if (add_poly_object(*object, type))
+		return (1);
+	return (0);
 	//printf("O |posx = %f\n", object->pos.x);
 	// printf("O |posy = %f\n", object->pos.y);
 	// printf("\n");

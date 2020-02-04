@@ -31,13 +31,12 @@ void				hit_mobs(t_mob *mobs, int damage)
 	if (closest)
 	{
 		closest->health -= damage;
-		// printf("Hit %d\n", closest->health);
 		if (closest->health <= 0)
 		{
 			closest->alive = 0;
 			closest->poly->visible = 0;
+			closest->poly->collide = 0;
 		}
-		// printf("Hit %d\n", closest->health);
 	}
 }
 

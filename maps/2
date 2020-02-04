@@ -12,25 +12,23 @@ Player
 
 Object
 {	
-	type = Potion
+	type = HEAL
 	posx = 400
 	posy = 950
 	posz = 150
-	type = life
 	width = 30
-	height = 50
+	height = 30
 	texture = healthPotion.png
 }
 Object
 {	
-	type = Potion
-	posx = 400
+	type = ARMOR
+	posx = 200
 	posy = 950
 	posz = 150
-	type = 12
-	width = 70
-	height = 70
-	texture = healthPotion.png
+	width = 30
+	height = 30
+	texture = shieldPotion.png
 }
 
 Mob

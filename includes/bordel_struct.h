@@ -371,21 +371,12 @@ typedef struct				s_textures
 **	----------------------------------- Raycasting ---------------------------------------
 */
 
-typedef enum				e_enum_object
-{
-	NONE = 0b0000,
-	HEALTH = 0b0001,
-	ARMOR = 0b0010,
-	TP = 0b0100,
-	GUN = 0b1000,
-	BULLET = 0b10000
-}							t_enum_object;
-
 typedef	struct				s_poly
 {
 	int						index;
 	int						visible;
 	int						collide;
+	struct s_object			*object; 
 
 	t_fdot_3d				dots[N_DOTS_POLY];
 	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
@@ -414,8 +405,7 @@ typedef	struct				s_poly
 	t_dot					box_y;
 
 	SDL_Surface				*texture;
-	char 					*type;
-	t_enum_object			object;
+	// char 					*type;
 	struct s_poly			*next;
 }							t_poly;
 
@@ -536,11 +526,20 @@ typedef struct		s_player
 **	---------------------------------- object --------------------------------------------
 */
 
+typedef enum				e_enum_object
+{
+	HEAL = 0b0001,
+	ARMOR = 0b0010,
+	TP = 0b0100,
+	GUN = 0b1000,
+	BULLET = 0b10000
+}							t_enum_object;
+
 typedef struct		s_object
 {
+	t_enum_object	type;
 	t_fdot_3d		pos;
 	t_poly			*poly;
-	char 			*type;
 	int 			id;
 	int				id_texture;
 	int 			width;

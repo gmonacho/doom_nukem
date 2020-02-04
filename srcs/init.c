@@ -16,6 +16,7 @@ void		init_polygone(t_poly *poly)
 		// 														poly->dots[1].x, poly->dots[1].y, poly->dots[1].z,\
 		// 														poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
 		poly->visible = 1;
+		poly->collide = 1;
 		poly->index = i++;
 		poly->is_slide_ban = 0;
 		ft_memcpy(poly->dots_rotz_only, poly->dots, sizeof(t_fdot_3d) * N_DOTS_POLY);
