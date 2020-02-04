@@ -85,7 +85,7 @@ Polygon									//Fond renfoncement 3
 	dot = x:600, y:650, z:200
 	dot = x:600, y:650, z:125
 	dot = x:700, y:650, z:125
-	texture = Mario_Ghost.png
+	texture = Brique.png
 }
 Polygon									//Fond
 {
@@ -142,7 +142,7 @@ Polygon								//Sol bas
 	dot = x:100, y:1150, z:0
 	dot = x:600, y:1150, z:0
 	dot = x:600, y:650, z:0
-	texture = Plafond.png
+	texture = Mario_Ghost.png
 }
 Polygon								//Marche
 {

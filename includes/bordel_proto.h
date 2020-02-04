@@ -191,8 +191,10 @@ void		free_sectors(t_sector **sectors);
 */
 
 int         dead_menu(t_win *win, t_player *player);
-void    	damage_heal(t_player *player, t_music *music, int armor, int heal);
-void    	apply_damage(t_player *player, int damage);
+void    	apply_damage(t_map *map, t_player *player, int damage);
+void    	apply_heal(t_player *player, int heal);
+void    	apply_armor(t_player *player, int armor);
+void		objects_actions(t_map *map, t_player *player, t_poly *poly);
 
 /*
 **	---------------------------------- mob ----------------------------------
@@ -200,8 +202,8 @@ void    	apply_damage(t_player *player, int damage);
 
 void            fill_mob_data(t_mob **mob, char **tab, int i);   
 void    		set_mobs_dots(t_mob *mob);
-void			mobs_attack_move(t_player *player, t_mob *mobs);
-void			mobs_hit(t_mob *mobs, int damage);
+void			mobs_attack_move(t_map *map, t_player *player, t_mob *mobs);
+void			hit_mobs(t_mob *mobs, int damage);
 /*
 **	---------------------------------- map ----------------------------------
 */

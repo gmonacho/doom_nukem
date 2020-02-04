@@ -366,6 +366,7 @@ typedef struct				s_textures
 
 typedef enum				e_enum_object
 {
+	NONE = 0b0000,
 	HEALTH = 0b0001,
 	ARMOR = 0b0010,
 	TP = 0b0100,
@@ -377,6 +378,7 @@ typedef	struct				s_poly
 {
 	int						index;
 	int						visible;
+	int						collide;
 
 	t_fdot_3d				dots[N_DOTS_POLY];
 	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
@@ -483,12 +485,8 @@ typedef struct		s_player
 	int				on_floor;
 	t_sector		*sector;
 	t_dot			dpos;
-	// float			z;
-	// char			jump;
-	// char			shift;
 	t_fdot			vel;
 	float			const_vel;
-	// float			dir_up;
 	float			dir_init;
 	float			fov;
 	float			fov_2;
@@ -504,7 +502,8 @@ typedef struct		s_player
 	float			width_2;
 	int				collision_on;
 
-	int				numsector;
+	// int				numsector;
+	int 			damage;
 	int 			currentHp;
 	int 			maxHp;
 	int 			currentArmor;
@@ -516,7 +515,6 @@ typedef struct		s_player
 	int 			*bullet_drop;
 	int 			len_bullet;
 	float			demipetitaxe;
-	int 			damage;
 
 	// t_cartesienne	*rays;
 	t_cartesienne	**rays;
