@@ -433,3 +433,43 @@ frame
         }
     }
 }
+frame
+{
+	type : UI_FRAME_SIMPLE
+	resize_type : UI_RESIZE_ALL_LINEAR
+	ratio : 0.31 0.9375 0.2 0.0375
+	data
+	{
+		texture : "textures/ui_frame.png"
+	}
+	button
+	{
+		id : "b_calc_normal"
+		type : UI_BUTTON_SIMPLE
+		resize_type : UI_RESIZE_ALL_LINEAR
+		ratio : 0 0 0.125 1
+		data
+		{
+			text : "T"
+            texture_normal : "textures/ui_normal_button.png"
+            texture_clicked : "textures/ui_clicked_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button.png"
+			clicked_condition : UI_MOUSE_LEFT
+		}
+	}
+	button
+	{
+		id : "b_calc_z"
+		type : UI_BUTTON_SIMPLE
+		resize_type : UI_RESIZE_ALL_LINEAR
+		ratio : 0.125 0 0.125 1
+		data
+		{
+			text : "Z"
+            texture_normal : "textures/ui_normal_button.png"
+            texture_clicked : "textures/ui_clicked_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button.png"
+			clicked_condition : UI_MOUSE_LEFT
+		}
+	}
+}

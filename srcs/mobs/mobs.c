@@ -111,9 +111,9 @@ static void		mobs_rotate(t_player *player, t_fdot_3d pos, t_poly *poly)
 	poly->dots_rotz_only[2] = fdot_3d_add(rotate_dot(fdot_3d_sub(poly->dots_rotz_only[2], pos), rotation), pos);
 	poly->dots_rotz_only[3] = fdot_3d_add(rotate_dot(fdot_3d_sub(poly->dots_rotz_only[3], pos), rotation), pos);
 	//Inutile
-	poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
-									poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
-									poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
+	// poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
+	// 								poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
+	// 								poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
 }
 
 void			mobs_attack_move(t_player *player, t_mob *mobs)

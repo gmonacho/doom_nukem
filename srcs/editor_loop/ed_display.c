@@ -177,11 +177,11 @@ static void			ed_display_polys_flat(t_win *win, const t_map *map)
 	t_poly		*poly;
 	SDL_Color	color;
 
-	color = (SDL_Color){0, 255, 0, 255};
-	ui_set_draw_color(win->rend, &color);
 	poly = map->polys;
 	while (poly)
 	{
+		color = ed_get_flat_display_color(map, poly);
+		ui_set_draw_color(win->rend, &color);
 		if (ed_is_flat(poly) && ed_is_poly_printable(map, poly))
 			ed_display_flat(win, map, poly);	
 		poly = poly->next;
@@ -209,11 +209,11 @@ static void			ed_display_polys_wall(t_win *win, const t_map *map)
 	t_poly		*poly;
 	SDL_Color	color;
 
-	color = (SDL_Color){0, 0, 255, 255};
-	ui_set_draw_color(win->rend, &color);
 	poly = map->polys;
 	while (poly)
 	{
+		color = ed_get_wall_display_color(map, poly);
+		ui_set_draw_color(win->rend, &color);
 		if (ed_is_wall(poly) && ed_is_poly_printable(map, poly))
 			ed_display_wall(win, map, poly);
 		poly = poly->next;

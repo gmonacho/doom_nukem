@@ -371,6 +371,15 @@ typedef struct				s_textures
 **	----------------------------------- Raycasting ---------------------------------------
 */
 
+typedef enum				e_enum_object
+{
+	HEALTH = 0b0001,
+	ARMOR = 0b0010,
+	TP = 0b0100,
+	GUN = 0b1000,
+	BULLET = 0b10000
+}							t_enum_object;
+
 typedef	struct				s_poly
 {
 	int						index;
@@ -404,6 +413,7 @@ typedef	struct				s_poly
 
 	SDL_Surface				*texture;
 	char 					*type;
+	t_enum_object			object;
 	struct s_poly			*next;
 }							t_poly;
 
@@ -450,21 +460,21 @@ typedef struct s_mob
 **	---------------------------------- Inventory --------------------------------------------
 */
 
-typedef struct s_item
+typedef struct		s_item
 {
-	SDL_Texture	*text;
-	SDL_Rect	*pos;
-	int			nb;
-}				t_item;
+	SDL_Texture		*text;
+	SDL_Rect		*pos;
+	int				nb;
+}					t_item;
 
-typedef struct s_inventory
+typedef struct		s_inventory
 {
-	t_item		*item[4];
-	int			weapon;
-	int 		magazine;
-	int			ammo;
-	int         selected_slot;
-}				t_inventory;
+	t_item			*item[4];
+	int				weapon;
+	int 			magazine;
+	int				ammo;
+	int         	selected_slot;
+}					t_inventory;
 
 /*
 **	---------------------------------- player --------------------------------------------
@@ -530,20 +540,20 @@ typedef struct		s_player
 **	---------------------------------- object --------------------------------------------
 */
 
-typedef struct s_object
+typedef struct		s_object
 {
-	t_fdot_3d			pos;
-	t_poly				*poly;
-	int 				type;
-	int 				id;
-	int					id_texture;
-	int 				width;
-	int 				width_2;
-	int 				height;
-	int 				height_2;
-	int 				dir;
-	struct s_object		*next;
-}			            t_object;
+	t_fdot_3d		pos;
+	t_poly			*poly;
+	int 			type;
+	int 			id;
+	int				id_texture;
+	int 			width;
+	int 			width_2;
+	int 			height;
+	int 			height_2;
+	int 			dir;
+	struct s_object	*next;
+}					t_object;
 
 /*
 **	---------------------------------- map_editor --------------------------------------------
@@ -558,25 +568,25 @@ enum	e_map_editor
 	MAP_MOVING_PLAYER = 8
 };
 
-typedef struct	s_map_editor
+typedef struct		s_map_editor
 {
-	char		*name;
-	int			x;
-	int			y;
-	int			w;
-	int			h;
-	float		unit;
-	t_sector	*sectors;
-	t_sector	*selected_sector;
-	SDL_Rect	rect_util;
-	Uint32		flags;
-	int			nb_lines;
-	t_player	player;
-	t_line		ordinate;
-	t_line		abscissa;
-	SDL_bool	abscissa_b;
-	SDL_bool	ordinate_b;
-}				t_map_editor;
+	char			*name;
+	int				x;
+	int				y;
+	int				w;
+	int				h;
+	float			unit;
+	t_sector		*sectors;
+	t_sector		*selected_sector;
+	SDL_Rect		rect_util;
+	Uint32			flags;
+	int				nb_lines;
+	t_player		player;
+	t_line			ordinate;
+	t_line			abscissa;
+	SDL_bool		abscissa_b;
+	SDL_bool		ordinate_b;
+}					t_map_editor;
 
 enum
 {

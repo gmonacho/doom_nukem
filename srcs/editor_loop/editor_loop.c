@@ -252,6 +252,8 @@ static void	editor_menu_quit(t_win *win, t_map *map, Uint32 ms)
 
 static void		editor_menu_disp(t_win *win, t_map *map)
 {
+	map->editor.min_pos_z = ed_get_z_min(map->polys);
+	map->editor.max_pos_z = ed_get_z_max(map->polys);
 	ui_set_draw_color(win->rend, &(SDL_Color){30, 30, 30, 255});
 	ui_clear_win(win->winui);
 	ed_display(win, map);
@@ -321,6 +323,14 @@ static void		set_editor_flags(void *argument)
 	*(arg_menu->loop) |= ED_MODE_CHANGED;
 }
 
+static void		set_editor_calc(void *argument)
+{
+	t_arg_menu	*arg;
+
+	arg = (t_arg_menu*)argument;
+	*(arg->loop) = arg->value;
+}
+
 static void		set_menu_button_function(t_win *win, t_map *map)
 {
 	ui_set_simple_button_function(win->winui,
@@ -343,6 +353,14 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								"b_player",
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[4]);
+	ui_set_simple_button_function(win->winui,
+								"b_calc_normal",
+								&set_editor_calc,
+								&map->editor.arg_menu_tab[5]);
+	ui_set_simple_button_function(win->winui,
+								"b_calc_z",
+								&set_editor_calc,
+								&map->editor.arg_menu_tab[6]);
 	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,
@@ -388,6 +406,7 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.selected_poly = NULL;
 	map->editor.placing_poly = NULL;
 	map->editor.flags = ED_NONE;
+	map->editor.calc = ED_CALC_NORMAL;
 	map->editor.arg_menu_tab[0] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_SELECTION};
 	map->editor.arg_menu_tab[1] = (t_arg_menu){(int*)&map->editor.flags,
@@ -398,6 +417,10 @@ int				editor_loop(t_win *win, t_map *map)
 											ED_INCLINED};
 	map->editor.arg_menu_tab[4] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_PLAYER};
+	map->editor.arg_menu_tab[5] = (t_arg_menu){(int*)&map->editor.calc,
+											ED_CALC_NORMAL};
+	map->editor.arg_menu_tab[6] = (t_arg_menu){(int*)&map->editor.calc,
+											ED_CALC_Z};
 	map->editor.cursor[CURSOR_DEFAULT] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	map->editor.cursor[CURSOR_SELECTING] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
 	map->editor.export.path = ft_strdup("./maps/new_map");
@@ -407,6 +430,7 @@ int				editor_loop(t_win *win, t_map *map)
 	loop = SDL_TRUE;
 	while (loop)
 	{
+		
 		editor_menu_disp(win, map);
 		if (win->winui->event.type == SDL_QUIT)
 			loop = 0;
