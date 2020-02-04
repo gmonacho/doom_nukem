@@ -11,24 +11,26 @@ Player
 }
 
 Object
-{
+{	
+	type = Potion
 	posx = 400
 	posy = 950
 	posz = 150
 	type = life
 	width = 30
 	height = 50
-	texture = Elephantride.png
+	texture = healthPotion.png
 }
 Object
-{
+{	
+	type = Potion
 	posx = 400
 	posy = 950
 	posz = 150
-	type = tp
+	type = 12
 	width = 70
 	height = 70
-	texture = Elephantride.png
+	texture = healthPotion.png
 }
 
 Mob
@@ -36,7 +38,6 @@ Mob
 	posx = 400
 	posy = 650
 	posz = 150
-	type = 1
 	height = 50
 	width = 30
 	health = 50

@@ -450,10 +450,8 @@ typedef struct s_mob
 	int				damage;
 	int 			type;
 	struct s_mob	*next;
-	
 	int				dir;
-	// int 			id;
-	char 			*name;
+	char 			*texture;
 }					t_mob;
 
 /*
@@ -544,7 +542,7 @@ typedef struct		s_object
 {
 	t_fdot_3d		pos;
 	t_poly			*poly;
-	int 			type;
+	char 			*type;
 	int 			id;
 	int				id_texture;
 	int 			width;
@@ -552,6 +550,7 @@ typedef struct		s_object
 	int 			height;
 	int 			height_2;
 	int 			dir;
+	char 			*texture;
 	struct s_object	*next;
 }					t_object;
 

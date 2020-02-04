@@ -39,16 +39,14 @@ void	object_data(char **tab, t_object **object, int i)
     (*object)->height = 50;
 	while (ft_strchr(tab[i], '}') == NULL)
 	{
-        if (ft_strstr(tab[i], "type = "))
-            (*object)->type = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        if (ft_strstr(tab[i], "texture = "))
+            (*object)->texture = ft_strdup(ft_strrchr(tab[i], '=') + 2);
         if (ft_strstr(tab[i], "posx = "))
         	(*object)->pos.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "posy = "))
             (*object)->pos.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "posz = "))
             (*object)->pos.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-        // if (ft_strstr(tab[i], "dir = "))
-        //     (*object)->dir = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "width = "))
             (*object)->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "height = "))
