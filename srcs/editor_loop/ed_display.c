@@ -162,10 +162,17 @@
 
 SDL_bool		ed_is_poly_printable(const t_map *map, t_poly *poly)
 {
-	if ((poly->dots[0].z >= map->editor.y_min && poly->dots[0].z <= map->editor.y_max) ||
-			(poly->dots[1].z >= map->editor.y_min && poly->dots[1].z <= map->editor.y_max) ||
-			(poly->dots[2].z >= map->editor.y_min && poly->dots[2].z <= map->editor.y_max) ||
-			(poly->dots[3].z >= map->editor.y_min && poly->dots[3].z <= map->editor.y_max))
+	int	inter;
+	int	min;
+	int	max;
+
+	inter = ft_abs(map->editor.max_pos_z - map->editor.min_pos_z);
+	min = map->editor.min_pos_z + inter * (map->editor.z_min / 100.f);
+	max = map->editor.min_pos_z + inter * (map->editor.z_max / 100.f);
+	if ((poly->dots[0].z >= min && poly->dots[0].z <= max) ||
+			(poly->dots[1].z >= min && poly->dots[1].z <= max) ||
+			(poly->dots[2].z >= min && poly->dots[2].z <= max) ||
+			(poly->dots[3].z >= min && poly->dots[3].z <= max))
 		return (1);
 	else
 		return (0);

@@ -621,8 +621,8 @@ typedef struct		s_editor
 	t_dot			pos;
 	t_dot			size;
 	float			unit;
-	int				y_min;
-	int				y_max;
+	int				z_min;
+	int				z_max;
 	int				wall_min;
 	int				wall_max;
 	int				flat_z;

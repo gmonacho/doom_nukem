@@ -365,8 +365,8 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								"b_export",
 								&ed_export,
 								&map->editor.export);
-	ui_set_text_entry_function(win->winui, "b_y_min", &set_int_value, &map->editor.y_min);
-	ui_set_text_entry_function(win->winui, "b_y_max", &set_int_value, &map->editor.y_max);
+	ui_set_text_entry_function(win->winui, "b_z_min", &set_int_value, &map->editor.z_min);
+	ui_set_text_entry_function(win->winui, "b_z_max", &set_int_value, &map->editor.z_max);
 	ui_set_text_entry_function(win->winui, "b_wall_min", &set_int_value, &map->editor.wall_min);
 	ui_set_text_entry_function(win->winui, "b_wall_max", &set_int_value, &map->editor.wall_max);
 	ui_set_text_entry_function(win->winui, "b_flat_z", &set_int_value, &map->editor.flat_z);
@@ -395,8 +395,8 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.pos = (t_dot){0, 0};
 	map->editor.size = (t_dot){0, 0};
 	map->editor.unit = 1;
-	map->editor.y_min = -30000;
-	map->editor.y_max = 30000;
+	map->editor.z_min = 0;
+	map->editor.z_max = 100;
 	map->editor.wall_min = 0;
 	map->editor.wall_max = 100;
 	map->editor.flat_z = 0;
