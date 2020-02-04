@@ -92,6 +92,13 @@ typedef enum	e_editor
 	ED_DRAW_HELP = 128
 }				t_editor_flag;
 
+typedef enum	e_editor_calc
+{
+	ED_CALC_NONE = 0,
+	ED_CALC_NORMAL = 1,
+	ED_CALC_Z = 2
+}				t_editor_calc;
+
 # define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER
 
 typedef struct		s_kit_flags
@@ -615,8 +622,11 @@ typedef struct		s_editor
 	t_rect			select_rect;
 	t_poly			*selected_poly;
 	t_poly			*placing_poly;
+	int				min_pos_z;
+	int				max_pos_z;
 	t_editor_flag	flags;
-	t_arg_menu		arg_menu_tab[5];
+	t_editor_calc	calc;
+	t_arg_menu		arg_menu_tab[7];
 	SDL_Cursor		*cursor[2];
 	t_export		export;
 }					t_editor;
