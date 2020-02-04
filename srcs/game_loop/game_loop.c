@@ -36,10 +36,10 @@ static void		move_and_collide(t_map *map, t_fdot_3d move)
 	t_poly      *poly_collide;
 	int			i;
 
-	if (!map->player.collision_on)
-		return ;
 	copy_poly_lst(map->polys_save, map->polys);
 	translate_all_rotz_only(map->polys, move);
+	if (!map->player.collision_on)
+		return ;
 	i = 0;
 	while ((poly_collide = collisions_sphere(map, &(map->player), map->polys, 1)))
 	{

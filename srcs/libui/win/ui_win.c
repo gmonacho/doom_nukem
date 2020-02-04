@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:37:38 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/29 13:48:56 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/02 15:59:44 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,6 +45,9 @@ t_winui		*ui_new_win(const char *title,
 	win->ui.cursor_position = 0;
 	win->ui.cursor_color = (SDL_Color){255, 255, 255, 255};
 	win->ui.textures = NULL;
+	win->ui.delay_text_entry = 80;
+	win->ui.delay_text_del = 30;
+	win->ui.last_char = '\0';
 	return (win);
 }
 

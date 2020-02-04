@@ -356,6 +356,8 @@ static void	ed_place_poly(t_win *win, t_map *map)
 
 static void	ed_action(t_win *win, t_map *map)
 {
+	// else if (map->editor.flags & ED_PLAYER)
+	// 	ed_place_player(win, map);
 	if (map->editor.flags & ED_SELECTION)
 		ed_selection(win, map);
 	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
@@ -373,19 +375,23 @@ static void	ed_action(t_win *win, t_map *map)
 int 		ed_event(t_win *win, t_map *map)
 {
 	const Uint8	*state;
+	int			vel;
 
 	state = SDL_GetKeyboardState(NULL);
-	if (win)
+	if (!win->winui->ui.clicked_button)
 	{
+		vel = 1;
+		if (state[SDL_SCANCODE_LSHIFT])
+			vel += 4;
 		if (state[SDL_SCANCODE_A])
-			map->editor.pos.x -= 1;
+			map->editor.pos.x -= vel;
+		if (state[SDL_SCANCODE_D])
+			map->editor.pos.x += vel;
+		if (state[SDL_SCANCODE_W])
+			map->editor.pos.y -= vel;
+		if (state[SDL_SCANCODE_S])
+			map->editor.pos.y += vel;
 	}
-	if (state[SDL_SCANCODE_D])
-		map->editor.pos.x += 1;
-	if (state[SDL_SCANCODE_W])
-		map->editor.pos.y -= 1;
-	if (state[SDL_SCANCODE_S])
-		map->editor.pos.y += 1;
 	if (state[SDL_SCANCODE_DELETE])
 	{
 		if (map->editor.selected_poly)
@@ -393,6 +399,16 @@ int 		ed_event(t_win *win, t_map *map)
 			delete_poly(&map->polys, map->editor.selected_poly);
 			map->editor.selected_poly = NULL;
 		}
+	}
+	if (state[SDL_SCANCODE_SPACE])
+	{
+		if (map->editor.flags & ED_DRAW_HELP)
+			map->editor.flags ^= ED_DRAW_HELP;
+	}
+	else
+	{
+		if (!(map->editor.flags & ED_DRAW_HELP))
+			map->editor.flags |= ED_DRAW_HELP;
 	}
 	if(win->winui->event.type == SDL_MOUSEWHEEL)
 	{

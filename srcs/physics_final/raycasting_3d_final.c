@@ -82,6 +82,7 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 		printf("Coord texture/plan %d %d / %f %f\n", coord_texture.x, coord_texture.y, coord_plan.x, coord_plan.y);
 		exit(0);
 	}
+	// printf("%d %d\n", coord_texture.x, coord_texture.y);
 	return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
 }
 
@@ -243,6 +244,7 @@ void		raycasting_3d(t_win *win, t_player *player)
 		i = -1;
 		while (++i < N_THREADS)
 			pthread_join(win->threads[i].thread, NULL);
+		// exit(0);
 		//-------------------
 
 		draw(win, player);

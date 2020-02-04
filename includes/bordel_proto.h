@@ -305,6 +305,7 @@ void		ed_display_wall(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_selected_poly(t_win *win, const t_map *map);
+void		ed_display_player(t_win *win, const t_map *map);
 
 t_line		ed_get_display_line(const t_map *map, t_dot p1, t_dot p2);
 t_dot		ed_get_display_point(const t_map *map, t_dot p);
@@ -318,11 +319,20 @@ int			ed_place_inclined(t_win *win, t_map *map);
 
 int			ed_get_line_len(t_line *line);
 
+int			ed_get_z_min(const t_poly *polys);
+int			ed_get_z_max(const t_poly *polys);
+
+
+SDL_Color	ed_get_wall_display_color(const t_map *map, t_poly *poly);
+SDL_Color	ed_get_flat_display_color(const t_map *map, t_poly *poly);
+
 SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
 SDL_bool	ed_is_wall(t_poly *poly);
 t_poly		*ed_get_selected_poly(t_win *win, t_map *map);
 SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
+
+t_dot		ed_is_next_to_poly(const t_map *map, t_dot point, int radius);
 
 
 void		ed_export(void *ed_export);

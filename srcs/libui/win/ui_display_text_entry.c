@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:36:55 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/23 15:51:46 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/02 16:23:07 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,8 +104,7 @@ static void		ui_draw_text_entry_normally(t_winui *win,
 	char		*text;
 
 	ui_draw_name_side(win, text_entry_button, rect);
-	if (win->ui.clicked_button
-		&& win->ui.clicked_button->type == UI_BUTTON_TEXT_ENTRY)
+	if (win->ui.clicked_button && win->ui.clicked_button->data == text_entry_button)
 		text = text_entry_button->new_text;
 	else
 		text = text_entry_button->text;

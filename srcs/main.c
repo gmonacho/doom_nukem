@@ -3,8 +3,9 @@
 /*
 **	A faire :
 **
-**	Finir mobs
-**	Objects
+**	Objects : 
+**				Type : Health - Armor - Teleporter - Gun - Bullet
+**
 **	Norme all
 **	Clean code/fichier inutiles
 **	Gerer les leaks
@@ -39,14 +40,12 @@ int					main(int argc, char **argv)
 	SDL_bool		loop;
 	SDL_DisplayMode	screen;
 
-	printf("Fin init sdl\n");
 	if (argc == 1 || argc == 2)
 	{
 		win.w = WIDTH;
 		win.h = HEIGHT;
 		win.map = &map;
 		map.gravity = 4;
-		printf("Fin init sdl\n");
 		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == -1 || TTF_Init() == -1)
 			return (ret_error(SDL_GetError()));
 		if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
