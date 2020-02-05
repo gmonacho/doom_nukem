@@ -99,9 +99,7 @@ void			mobs_attack_move(t_map *map, t_player *player, t_mob *mobs)
 	{
 		if (mobs->alive)
 		{
-			pos = (t_fdot_3d){(mobs->poly->dots_rotz_only[0].x + mobs->poly->dots_rotz_only[2].x) / 2,\
-								(mobs->poly->dots_rotz_only[0].y + mobs->poly->dots_rotz_only[2].y) / 2,\
-								(mobs->poly->dots_rotz_only[0].z + mobs->poly->dots_rotz_only[2].z) / 2};
+			pos = mid_segment(mobs->poly->dots_rotz_only[0], mobs->poly->dots_rotz_only[2]);
 			mobs_rotate(player, pos, mobs->poly);
 			if (is_null(dist_mob = mag(pos), 1) || dist_mob < dist)
 				apply_damage(map, player, mobs->damage);

@@ -505,6 +505,7 @@ typedef struct		s_player
 	int 			currentArmor;
 	int				maxArmor;
 	t_inventory		*inventory;
+	int				interaction_inventaire;
 	t_timers		timers;
 	int				i_sector;
 	t_line			l[5];
@@ -524,7 +525,7 @@ typedef struct		s_player
 }					t_player;
 
 /*
-**	---------------------------------- object --------------------------------------------
+**	---------------------------------- objects --------------------------------------------
 */
 
 typedef enum				e_enum_object
@@ -533,20 +534,33 @@ typedef enum				e_enum_object
 	ARMOR = 0b0010,
 	TP = 0b0100,
 	GUN = 0b1000,
-	BULLET = 0b10000
+	BULLET = 0b10000,
+	GRAVITY_INV = 0b100000,
+	BOX = 0b1000000
 }							t_enum_object;
+
+// typedef struct bordel_struct
+// {
+// 	/* data */
+// }					
+
 
 typedef struct		s_object
 {
-	t_enum_object	type;
 	t_fdot_3d		pos;
-	t_poly			*poly;
+	t_enum_object	type;
+	int				visible;
+	int				collide;
+
 	int 			id;
 	int				id_texture;
+
+	t_poly			*poly;
 	int 			width;
 	int 			width_2;
 	int 			height;
 	int 			height_2;
+
 	int 			dir;
 	char 			*texture;
 	struct s_object	*next;
@@ -646,7 +660,9 @@ typedef struct		s_map
 	t_textures		textures;
 	t_player		player;
 	float			gravity;
+	t_timer			gravity_inv_time;
 	t_object		*object;
+	t_timer			objects_animation;
 	t_mob			*mob;
 	t_main_menu		main_menu;
 	SDL_Event		*event;

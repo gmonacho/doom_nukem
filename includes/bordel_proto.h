@@ -9,7 +9,7 @@
 ** =====================================================================================
 */
 
-int				init_music(t_doom_music	*music);
+int				init_music_timer(t_map *map, t_doom_music *music);
 int				init_textures(t_win *win, t_textures *textures);
 int				init_win_player(t_win *win, t_player *player);
 int				init_threads(t_win *win, t_map *map, t_player *player);
@@ -135,10 +135,10 @@ void   	        main_inventory(t_win *win, t_player *player);
 void            add_items(t_inventory *inventory, int id);
 void            print_items(t_win *win, t_inventory *inventory);
 void            print_content_slot(t_win *win, t_player *player, t_texHud *texHud);
-void            use_item(t_player *player, t_music *music, int slotSelected);
+void            use_item(t_map *map, t_player *player, t_music *music, int slotSelected);
 void            reload_ammo(t_player *player);
 t_inventory     *define_inventory();
-
+void			drop_box(t_map *map, t_player *player);
 
 /*
 ** ==========================================================================
@@ -194,8 +194,6 @@ int         dead_menu(t_win *win, t_player *player);
 void    	apply_damage(t_map *map, t_player *player, int damage);
 void    	apply_heal(t_player *player, int heal);
 void    	apply_armor(t_player *player, int armor);
-void		objects_actions(t_map *map, t_player *player, t_poly *poly);
-
 /*
 **	---------------------------------- mob ----------------------------------
 */
@@ -238,6 +236,7 @@ void		ft_find_coord_p2(t_linedef *line, char *tab);
 void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
 t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_win *win);
+int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float height_2);
 
 void		player_data(char **tab, t_player *player, int i);
 
@@ -353,6 +352,13 @@ int			game_loop(t_win *win, t_map *map);
 ** ============================= Polys ======================
 */
 
+int			objects_actions(t_map *map, t_player *player, t_poly *poly);
+void		objects_animations(t_map *map, t_player *player, t_object *object);
+
+/*
+** ============================= Polys ======================
+*/
+
 int					lstlen(t_poly *poly);
 void				copy_poly_lst(t_poly *dst, t_poly *src);
 int					create_poly_save(t_map *map);
@@ -411,7 +417,8 @@ int					collision_dots(t_map *map, t_fdot_3d dots[N_DOTS_POLY], float ray);
 ** ================================== Time ===================================
 */
 
-int					test_timer(t_timer *timer);
+int    				test_timer(t_timer *timer);
+int					test_timer_refresh(t_timer *timer);
 void				start_cooldown(t_timer *timer, Uint32 time);
 void				init_cd(t_map *map);
 void				reload_cd(t_map *map);
@@ -432,6 +439,7 @@ float				mag(t_fdot_3d v);
 int					sign(float nbr);
 void				normalize(float *angle);
 int					is_null(float nbr, float precision);
+t_fdot_3d			mid_segment(t_fdot_3d d1, t_fdot_3d d2);
 
 
 t_dot				intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge);

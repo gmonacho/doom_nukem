@@ -67,4 +67,10 @@ t_fdot_3d		vectoriel_product(t_fdot_3d v1, t_fdot_3d v2)
 						v1.z * v2.x - v1.x * v2.z,\
 						v1.x * v2.y - v1.y * v2.x});
 }
-						// v1.x * v2.z - v1.z * v2.x,
+
+t_fdot_3d		mid_segment(t_fdot_3d d1, t_fdot_3d d2)
+{
+	return ((t_fdot_3d){(d1.x + d2.x) / 2,\
+						(d1.y + d2.y) / 2,\
+						(d1.z + d2.z) / 2});
+}
