@@ -7,6 +7,15 @@
 **				Type : Health - Armor - Teleporter - Gun - Bullet
 **
 **	Norme all
+**  • Chaque espace ou zone dispose d’un réglage de la luminosité ambiante, affectant
+    les murs comme les objets qui s’y trouvent.
+
+    se baisser et se relever.
+
+    • Des interactions sont possibles avec des éléments du décor (murs, objets... ), à
+    la fois par simple proximité (marcher sur une zone dangereuse) comme avec une
+    action volontaire (appuyer sur un bouton).
+**
 **	Clean code/fichier inutiles
 **	Gerer les leaks
 **

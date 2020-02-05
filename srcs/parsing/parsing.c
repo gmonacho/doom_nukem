@@ -153,7 +153,6 @@ void 	fill_poly_mob(t_poly *poly, t_mob *mob)
 		tmp = ft_strjoin(tmp, mob->texture);
 		poly->texture = IMG_Load(tmp);
 		poly->texture = SDL_ConvertSurfaceFormat(poly->texture, SDL_PIXELFORMAT_ARGB8888, 0);
-		// poly->type = ft_strdup("mob"); 
 		mob = mob->next;
 		free(tmp);
 	}
