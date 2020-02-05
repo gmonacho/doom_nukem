@@ -405,7 +405,11 @@ typedef	struct				s_poly
 	t_dot					box_y;
 
 	SDL_Surface				*texture;
+<<<<<<< HEAD
+	t_enum_object			object;
+=======
 	// char 					*type;
+>>>>>>> 8236614b6a72abcde1a67cba27f21cb864de118b
 	struct s_poly			*next;
 }							t_poly;
 
