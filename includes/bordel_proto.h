@@ -238,6 +238,10 @@ void		ft_find_coord_p2(t_linedef *line, char *tab);
 void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
 t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_win *win);
+char 		**fillntesttab(int fd, int fd1);
+void		fill_poly(t_poly *poly, t_map *map);
+void		fill_poly_object(t_poly *poly, t_object *object);
+void		fill_poly_mob(t_poly *poly, t_mob *mob);
 
 void		player_data(char **tab, t_player *player, int i);
 

@@ -118,7 +118,7 @@ typedef struct		s_kit_flags
 */
 typedef struct 	s_texHud
 {
-	SDL_Texture		*tex[14];
+	SDL_Texture		*tex[16];
 	SDL_Texture		*tex_weapon[6];
 	SDL_Texture		*tex_reload[5];
 	TTF_Font		*police;
@@ -415,10 +415,6 @@ typedef	struct				s_poly
 
 	SDL_Surface				*texture;
 	// t_enum_object			object;
-<<<<<<< HEAD
-=======
-	// char 					*type;
->>>>>>> a74d7c1f54dac8e9a5a130573c6c2253257deaf3
 	struct s_poly			*next;
 }							t_poly;
 
@@ -472,7 +468,7 @@ typedef struct		s_item
 
 typedef struct		s_inventory
 {
-	t_item			*item[4];
+	t_item			*item[5];
 	int				weapon;
 	int 			magazine;
 	int				ammo;

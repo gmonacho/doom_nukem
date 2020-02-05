@@ -15,6 +15,8 @@ void        attribute_texture(t_texHud *texHud, t_win *win)
     texHud->tex[11] = load_texture(win->rend, "textures/crosshairIcon.png");
     texHud->tex[12] = load_texture(win->rend, "textures/gameOverScreen.png");
     texHud->tex[13] = load_texture(win->rend, "textures/miniMap.png");
+	texHud->tex[14] = load_texture(win->rend, "textures/boxPortalIcon.png");
+	texHud->tex[15] = load_texture(win->rend, "textures/Ammo_box_icon.png");
     texHud->police = TTF_OpenFont("TTF/DooM.ttf", 65);
 
 }

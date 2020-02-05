@@ -14,7 +14,7 @@ static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8
 
 	if (map->event->type == SDL_MOUSEWHEEL && test_timer(&(player->timers.item_cd)) == 1)
 	{
-		if (map->event->wheel.y > 0 && player->inventory->selected_slot != 3)
+		if (map->event->wheel.y > 0 && player->inventory->selected_slot != 4)
 			player->inventory->selected_slot += 1;
 		if (map->event->wheel.y < 0 && player->inventory->selected_slot != 0)
 			player->inventory->selected_slot -= 1;
@@ -127,7 +127,11 @@ void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *sta
 	if (state[SDL_SCANCODE_O])
 		player->inventory->item[1]->nb += 1;
 	if (state[SDL_SCANCODE_P])
+	{
 		player->inventory->item[2]->nb += 1;
+		player->inventory->item[4]->nb += 1;
+		player->inventory->item[3]->nb += 1;
+	}
 	if (state[SDL_SCANCODE_E] && test_timer(&(player->timers.item_cd)) == 1)
 		use_item(player, map->music, player->inventory->selected_slot);
 	if (state[SDL_SCANCODE_L])
