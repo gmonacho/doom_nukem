@@ -365,6 +365,10 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								"b_export",
 								&ed_export,
 								&map->editor.export);
+	ui_set_simple_button_function(win->winui,
+								"b_delete",
+								&ed_delete_map,
+								map);
 	ui_set_text_entry_function(win->winui, "b_z_min", &set_int_value, &map->editor.z_min);
 	ui_set_text_entry_function(win->winui, "b_z_max", &set_int_value, &map->editor.z_max);
 	ui_set_text_entry_function(win->winui, "b_wall_min", &set_int_value, &map->editor.wall_min);

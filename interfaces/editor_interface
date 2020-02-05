@@ -107,7 +107,7 @@ frame
         id : "b_export_path"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.05 0.35 0.7 0.35
+        ratio : 0.05 0.2 0.7 0.35
         data
         {
             name : "name"
@@ -127,10 +127,25 @@ frame
 		id : "b_export"
 		type : UI_BUTTON_SIMPLE
 		resize_type : UI_RESIZE_ALL_LINEAR
-		ratio : 0.775 0.35 0.2 0.35
+		ratio : 0.775 0.2 0.2 0.35
 		data
 		{
 			text : "Export"
+            texture_normal : "textures/ui_normal_button.png"
+            texture_clicked : "textures/ui_clicked_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button.png"
+			clicked_condition : UI_MOUSE_LEFT
+		}
+	}
+	button
+	{
+		id : "b_delete"
+		type : UI_BUTTON_SIMPLE
+		resize_type : UI_RESIZE_ALL_LINEAR
+		ratio : 0.05 0.6 0.3 0.35
+		data
+		{
+			text : "Delete Map"
             texture_normal : "textures/ui_normal_button.png"
             texture_clicked : "textures/ui_clicked_button.png"
             texture_on_mouse : "textures/ui_on_mouse_button.png"
