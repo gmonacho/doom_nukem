@@ -324,6 +324,7 @@ int			ed_get_line_len(t_line *line);
 int			ed_get_z_min(const t_poly *polys);
 int			ed_get_z_max(const t_poly *polys);
 
+void		ed_delete_map(void *map_ptr);
 
 SDL_Color	ed_get_wall_display_color(const t_map *map, t_poly *poly);
 SDL_Color	ed_get_flat_display_color(const t_map *map, t_poly *poly);
