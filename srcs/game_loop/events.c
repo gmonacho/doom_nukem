@@ -53,7 +53,7 @@ static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8
 			//Mix_PlayMusic(music->tmusic[0], 1);
 			player->inventory->ammo -= 1;
 			add_bullet(player);
-			mobs_hit(map->mob, 10);
+			hit_mobs(map->mob, 10);
 		}
 	}
 }
@@ -128,11 +128,10 @@ void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *sta
 		player->inventory->item[1]->nb += 1;
 	if (state[SDL_SCANCODE_P])
 		player->inventory->item[2]->nb += 1;
-	if (state[SDL_SCANCODE_E])
-		if (test_timer(&(player->timers.item_cd)) == 1)
-			use_item(player, map->music, player->inventory->selected_slot);
+	if (state[SDL_SCANCODE_E] && test_timer(&(player->timers.item_cd)) == 1)
+		use_item(player, map->music, player->inventory->selected_slot);
 	if (state[SDL_SCANCODE_L])
-		player->damage = 5;
+		apply_damage(map, player, 5);
 }
 
 void			events_others(t_win *win, t_player *player, const Uint8 *state)

@@ -22,8 +22,8 @@ static void		draw(t_win *win, t_player *player)
 {
 	t_cartesienne	**rays;
 	t_cartesienne	*ray;
-	int			x;
-	int			y;
+	int				x;
+	int				y;
 
 	rays = player->rays;
 	y = -1;

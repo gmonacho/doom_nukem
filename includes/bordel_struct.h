@@ -371,19 +371,12 @@ typedef struct				s_textures
 **	----------------------------------- Raycasting ---------------------------------------
 */
 
-typedef enum				e_enum_object
-{
-	HEALTH = 0b0001,
-	ARMOR = 0b0010,
-	TP = 0b0100,
-	GUN = 0b1000,
-	BULLET = 0b10000
-}							t_enum_object;
-
 typedef	struct				s_poly
 {
 	int						index;
 	int						visible;
+	int						collide;
+	struct s_object			*object; 
 
 	t_fdot_3d				dots[N_DOTS_POLY];
 	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
@@ -412,7 +405,11 @@ typedef	struct				s_poly
 	t_dot					box_y;
 
 	SDL_Surface				*texture;
+<<<<<<< HEAD
 	t_enum_object			object;
+=======
+	// char 					*type;
+>>>>>>> 8236614b6a72abcde1a67cba27f21cb864de118b
 	struct s_poly			*next;
 }							t_poly;
 
@@ -487,12 +484,8 @@ typedef struct		s_player
 	int				on_floor;
 	t_sector		*sector;
 	t_dot			dpos;
-	// float			z;
-	// char			jump;
-	// char			shift;
 	t_fdot			vel;
 	float			const_vel;
-	// float			dir_up;
 	float			dir_init;
 	float			fov;
 	float			fov_2;
@@ -508,7 +501,8 @@ typedef struct		s_player
 	float			width_2;
 	int				collision_on;
 
-	int				numsector;
+	// int				numsector;
+	int 			damage;
 	int 			currentHp;
 	int 			maxHp;
 	int 			currentArmor;
@@ -520,7 +514,6 @@ typedef struct		s_player
 	int 			*bullet_drop;
 	int 			len_bullet;
 	float			demipetitaxe;
-	int 			damage;
 
 	// t_cartesienne	*rays;
 	t_cartesienne	**rays;
@@ -537,11 +530,20 @@ typedef struct		s_player
 **	---------------------------------- object --------------------------------------------
 */
 
+typedef enum				e_enum_object
+{
+	HEAL = 0b0001,
+	ARMOR = 0b0010,
+	TP = 0b0100,
+	GUN = 0b1000,
+	BULLET = 0b10000
+}							t_enum_object;
+
 typedef struct		s_object
 {
+	t_enum_object	type;
 	t_fdot_3d		pos;
 	t_poly			*poly;
-	char 			*type;
 	int 			id;
 	int				id_texture;
 	int 			width;

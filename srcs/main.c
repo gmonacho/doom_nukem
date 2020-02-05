@@ -27,6 +27,7 @@ static int			init(t_win *win, t_map *map, t_player *player)
 	create_poly_save(map);
 	if (init_threads(win, map, player))
 		return (1);
+	printf("Fin init\n");
 	return (0);
 }
 
@@ -76,8 +77,8 @@ int					main(int argc, char **argv)
 			if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||\
 				((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 				return (ret_error("open error"));
-			win.map->polys = ft_data_storing(fd, fd1, &map, &win);
-			
+			if (!(win.map->polys = ft_data_storing(fd, fd1, &map, &win)))
+				return (1);	//LEAKS
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));
 			main_menu(&win, &map);

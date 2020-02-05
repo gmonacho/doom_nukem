@@ -1,6 +1,6 @@
 #include "doom_nukem.h"
 
-void				mobs_hit(t_mob *mobs, int damage)
+void				hit_mobs(t_mob *mobs, int damage)
 {
 	t_cartesienne	ray;
 	t_mob			*closest;
@@ -31,42 +31,14 @@ void				mobs_hit(t_mob *mobs, int damage)
 	if (closest)
 	{
 		closest->health -= damage;
-		// printf("Hit %d\n", closest->health);
 		if (closest->health <= 0)
 		{
 			closest->alive = 0;
 			closest->poly->visible = 0;
+			closest->poly->collide = 0;
 		}
-		// printf("Hit %d\n", closest->health);
 	}
 }
-
-// void			mobs_hit(t_mob *mobs, int damage)
-// {
-// 	int			dist_min;
-// 	int			tmp;
-// 	t_mob		*closest;
-
-// 	dist_min = -1;
-// 	while (mobs)
-// 	{
-// 		if (mobs->alive &&\
-// 			!(mobs->pos.y < -mobs->width_2 || mobs->width_2 < mobs->pos.y) &&\
-// 			(dist_min == -1 || (tmp = mag(mobs->pos)) < dist_min))
-// 		{
-// 			dist_min = tmp;
-// 			closest = mobs;
-// 		}
-// 		mobs = mobs->next;
-// 	}
-// 	if (closest)
-// 	{
-// 		closest->health -= damage;
-// 		if (closest->health <= 0)
-// 			closest->alive = 0;
-// 		printf("Mob hit -%d -> %d\n", damage, closest->health);
-// 	}
-// }
 
 static void		mobs_move(t_fdot_3d pos, t_poly *poly, float dist_mob, float vel)
 {
@@ -116,7 +88,7 @@ static void		mobs_rotate(t_player *player, t_fdot_3d pos, t_poly *poly)
 	// 								poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
 }
 
-void			mobs_attack_move(t_player *player, t_mob *mobs)
+void			mobs_attack_move(t_map *map, t_player *player, t_mob *mobs)
 {
 	t_fdot_3d	pos;
 	float		dist_mob;
@@ -132,7 +104,7 @@ void			mobs_attack_move(t_player *player, t_mob *mobs)
 								(mobs->poly->dots_rotz_only[0].z + mobs->poly->dots_rotz_only[2].z) / 2};
 			mobs_rotate(player, pos, mobs->poly);
 			if (is_null(dist_mob = mag(pos), 1) || dist_mob < dist)
-				apply_damage(player, mobs->damage);
+				apply_damage(map, player, mobs->damage);
 			else
 				mobs_move(pos, mobs->poly, dist_mob, mobs->vel);
 		}

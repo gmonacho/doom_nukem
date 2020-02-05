@@ -12,25 +12,23 @@ Player
 
 Object
 {	
-	type = Potion
+	type = HEAL
 	posx = 400
 	posy = 950
 	posz = 150
-	type = life
 	width = 30
-	height = 50
+	height = 30
 	texture = healthPotion.png
 }
 Object
 {	
-	type = Potion
-	posx = 400
+	type = ARMOR
+	posx = 200
 	posy = 950
 	posz = 150
-	type = 12
-	width = 70
-	height = 70
-	texture = healthPotion.png
+	width = 30
+	height = 30
+	texture = shieldPotion.png
 }
 
 Mob
@@ -86,7 +84,7 @@ Polygon									//Fond renfoncement 3
 	dot = x:600, y:650, z:200
 	dot = x:600, y:650, z:125
 	dot = x:700, y:650, z:125
-	texture = Mario_Ghost.png
+	texture = Brique.png
 }
 Polygon									//Fond
 {
@@ -143,7 +141,7 @@ Polygon								//Sol bas
 	dot = x:100, y:1150, z:0
 	dot = x:600, y:1150, z:0
 	dot = x:600, y:650, z:0
-	texture = Plafond.png
+	texture = Mario_Ghost.png
 }
 Polygon								//Marche
 {

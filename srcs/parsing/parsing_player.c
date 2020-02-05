@@ -33,11 +33,6 @@ void	player_data(char **tab, t_player *player, int i)
             player->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
             nb++;
         }
-        else if (ft_strstr(tab[i], "sector ="))
-        {
-            player->numsector = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            nb++;
-        }
         else if (ft_strstr(tab[i], "dir ="))
         {
             player->dir_init = _2_PI * (double)ft_atoi(ft_strrchr(tab[i], '=') + 1) / 360;
