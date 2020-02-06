@@ -236,7 +236,14 @@ void		ft_find_coord_p2(t_linedef *line, char *tab);
 void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
 t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_win *win);
+<<<<<<< HEAD
 int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float height_2);
+=======
+char 		**fillntesttab(int fd, int fd1);
+void		fill_poly(t_poly *poly, t_map *map);
+void		fill_poly_object(t_poly *poly, t_object *object);
+void		fill_poly_mob(t_poly *poly, t_mob *mob);
+>>>>>>> 232834afa7abbc23f29916f3a9aa7dfd5dd2f35c
 
 void		player_data(char **tab, t_player *player, int i);
 

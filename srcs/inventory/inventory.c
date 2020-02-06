@@ -16,13 +16,13 @@ int        define_pos_slot(t_inventory *inventory, t_win *win)
 
     i = 0;
     slotPosx = 240;
-    while (i <= 2)
+    while (i <= 4)
     {   
         inventory->item[i] = (t_item *)ft_memalloc(sizeof(t_item));
         i++;
     }
     i = 0;
-    while (i <= 2)
+    while (i <= 4)
     {  
         inventory->item[i]->pos = &(SDL_Rect){(slotPosx), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)};
         inventory->item[i]->nb = 0;
@@ -39,7 +39,7 @@ void        print_value_item(t_win *win, t_texHud *texHud, int nb, int slotposx)
 
     tmp = ft_strjoin( " X ", ft_itoa(nb));
     text = generate_text(win->rend, texHud->police, tmp, (SDL_Color){255, 255, 255, 50});
-    SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(slotposx), (win->h * 0.95), (win->w * 0.035), (win->h * 0.04375)});
+    SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(slotposx + 60), (win->h * 0.95), (win->w * 0.035), (win->h * 0.04375)});
     free(tmp);
 }
 
@@ -50,7 +50,7 @@ void        print_content_slot(t_win *win, t_player *player, t_texHud *texHud)
 
    i = 0;
    slotPosx = win->w * 0.24;
-   while (i <= 2)
+   while (i <= 4)
    {    
        if (player->inventory->item[i]->nb != 0)
        {    
@@ -69,6 +69,16 @@ void        print_content_slot(t_win *win, t_player *player, t_texHud *texHud)
                 SDL_RenderCopy(win->rend, texHud->tex[9], NULL, &(SDL_Rect){(slotPosx), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});
                 print_value_item(win, texHud, player->inventory->item[i]->nb, slotPosx);
            }
+		   if (i == 3)
+		   {
+				SDL_RenderCopy(win->rend, texHud->tex[15], NULL, &(SDL_Rect){(slotPosx), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});
+                print_value_item(win, texHud, player->inventory->item[i]->nb, slotPosx);
+		   }
+		   if (i == 4)
+		   {
+			   	SDL_RenderCopy(win->rend, texHud->tex[14], NULL, &(SDL_Rect){(slotPosx + 10), (win->h * 0.8975), (win->w * 0.065), (win->h * 0.08375)});
+                print_value_item(win, texHud, player->inventory->item[i]->nb, slotPosx);
+		   }
        }
        slotPosx += win->w * 0.08;
        i++;
