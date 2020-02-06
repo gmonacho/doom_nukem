@@ -119,7 +119,7 @@ typedef struct		s_kit_flags
 */
 typedef struct 	s_texHud
 {
-	SDL_Texture		*tex[14];
+	SDL_Texture		*tex[16];
 	SDL_Texture		*tex_weapon[6];
 	SDL_Texture		*tex_reload[5];
 	TTF_Font		*police;
@@ -368,6 +368,15 @@ typedef struct				s_textures
 	SDL_Surface				*ceil;
 }							t_textures;
 
+typedef enum				e_enum_object
+{
+	HEAL = 0b0001,
+	ARMOR = 0b0010,
+	TP = 0b0100,
+	GUN = 0b1000,
+	BULLET = 0b10000
+}							t_enum_object;
+
 /*
 **	----------------------------------- Raycasting ---------------------------------------
 */
@@ -407,7 +416,6 @@ typedef	struct				s_poly
 
 	SDL_Surface				*texture;
 	// t_enum_object			object;
-	// char 					*type;
 	struct s_poly			*next;
 }							t_poly;
 
@@ -461,7 +469,7 @@ typedef struct		s_item
 
 typedef struct		s_inventory
 {
-	t_item			*item[4];
+	t_item			*item[5];
 	int				weapon;
 	int 			magazine;
 	int				ammo;
@@ -528,14 +536,6 @@ typedef struct		s_player
 **	---------------------------------- object --------------------------------------------
 */
 
-typedef enum				e_enum_object
-{
-	HEAL = 0b0001,
-	ARMOR = 0b0010,
-	TP = 0b0100,
-	GUN = 0b1000,
-	BULLET = 0b10000
-}							t_enum_object;
 
 typedef struct		s_object
 {
