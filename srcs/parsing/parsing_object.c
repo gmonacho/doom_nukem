@@ -1,22 +1,23 @@
 #include "doom_nukem.h"
 
-void    set_object_dots(t_object *object)
+// void    set_poly_dots(t_object *object)
+static void    set_poly_dots(t_poly *poly, t_fdot_3d pos, float width_2, float height_2)
 {
-    object->poly->dots[0].x = object->pos.x - object->width_2;
-    object->poly->dots[0].y = object->pos.y;
-    object->poly->dots[0].z = object->pos.z - object->height_2;
-    object->poly->dots[1].x = object->pos.x + object->width_2;
-    object->poly->dots[1].y = object->pos.y;
-    object->poly->dots[1].z = object->pos.z - object->height_2;
-    object->poly->dots[2].x = object->pos.x + object->width_2;
-    object->poly->dots[2].y = object->pos.y;
-    object->poly->dots[2].z = object->pos.z + object->height_2;
-    object->poly->dots[3].x = object->pos.x - object->width_2;
-    object->poly->dots[3].y = object->pos.y;
-    object->poly->dots[3].z = object->pos.z + object->height_2;
+    poly->dots[0].x = pos.x - width_2;
+    poly->dots[0].y = pos.y;
+    poly->dots[0].z = pos.z - height_2;
+    poly->dots[1].x = pos.x + width_2;
+    poly->dots[1].y = pos.y;
+    poly->dots[1].z = pos.z - height_2;
+    poly->dots[2].x = pos.x + width_2;
+    poly->dots[2].y = pos.y;
+    poly->dots[2].z = pos.z + height_2;
+    poly->dots[3].x = pos.x - width_2;
+    poly->dots[3].y = pos.y;
+    poly->dots[3].z = pos.z + height_2;
 }
 
-void	add_object(t_object **object)
+void		add_object(t_object **object)
 {	
 	t_object *new_object;
 	
@@ -25,24 +26,77 @@ void	add_object(t_object **object)
 	*object = new_object;
 }
 
-int			add_poly_object(t_object *object, char *type)
+int			add_poly_object(t_object *object, char *type_str)
 {
+	t_enum_object	type;
+
+	if (!ft_strcmp(type_str, "HEAL"))
+		type = HEAL;
+	else if (!ft_strcmp(type_str, "ARMOR"))
+		type = ARMOR;
+	else if (!ft_strcmp(type_str, "TP"))
+		type = TP;
+	else if (!ft_strcmp(type_str, "GUN"))
+		type = GUN;
+	else if (!ft_strcmp(type_str, "BULLET"))
+		type = BULLET;
+	else if (!ft_strcmp(type_str, "GRAVITY_INV"))
+	{
+		type = GRAVITY_INV;
+		// printf("Parse gravity_inv\n");
+	}
+	else if (!ft_strcmp(type_str, "BOX"))
+	{
+		type = BOX;
+		set_box_object(object, object->pos, object->width_2, object->height_2);
+		return (0);
+	}
+	else
+	{
+		ft_putendl("Error: Type of object is wrong !");
+		return (1);
+	}
+
+
     if (!(object->poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
 		return (1);
-	set_object_dots(object);
+	set_poly_dots(object->poly, object->pos, object->width_2, object->height_2);
 	object->poly->object = object;
-	if (ft_strcmp(type, "HEAL"))
-		object->type = HEAL;
-	else if (ft_strcmp(type, "ARMOR"))
-		object->type = ARMOR;
-	else if (ft_strcmp(type, "TP"))
-		object->type = TP;
-	else if (ft_strcmp(type, "GUN"))
-		object->type = GUN;
-	else if (ft_strcmp(type, "BULLET"))
-		object->type = BULLET;
+	object->poly->next = NULL;
 	return (0);
 }
+// int			add_poly_object(t_object *object, char *type)
+// {
+// 	// printf("Parse object : %s|\n", type);
+//     if (!(object->poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
+// 		return (1);
+// 	set_poly_dots(object->poly, object->pos, object->width_2, object->height_2);
+// 	object->poly->object = object;
+// 	object->poly->next = NULL;
+// 	if (!ft_strcmp(type, "HEAL"))
+// 		object->type = HEAL;
+// 	else if (!ft_strcmp(type, "ARMOR"))
+// 		object->type = ARMOR;
+// 	else if (!ft_strcmp(type, "TP"))
+// 		object->type = TP;
+// 	else if (!ft_strcmp(type, "GUN"))
+// 		object->type = GUN;
+// 	else if (!ft_strcmp(type, "BULLET"))
+// 		object->type = BULLET;
+// 	else if (!ft_strcmp(type, "GRAVITY_INV"))
+// 	{
+// 		object->type = GRAVITY_INV;
+// 		// printf("Parse gravity_inv\n");
+// 	}
+// 	else if (!ft_strcmp(type, "BOX"))
+// 		object->type = BOX;
+// 	else
+// 	{
+// 		ft_putendl("Error: Type of object is wrong !");
+// 		return (1);
+// 	}
+// 	return (0);
+// }
 
 int			object_data(char **tab, t_object **object, int i)
 {

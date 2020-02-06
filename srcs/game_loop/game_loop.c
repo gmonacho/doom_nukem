@@ -51,11 +51,9 @@ static void		move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 		// 	printf("%f %f %f %f\n", poly_collide->equation_rotz_only.v.x, poly_collide->equation_rotz_only.v.y, poly_collide->equation_rotz_only.v.z, poly_collide->equation_rotz_only.d);
 		// 	exit(0);
 		// }
-		if (poly_collide->object != NULL)	//Illegal hardware instruction si on remplace '!= NULL' par '!'
-		{
-			objects_actions(map, player, poly_collide);
-			continue ;
-		}
+		if (poly_collide->object)	//Illegal hardware instruction si on remplace '!= NULL' par '!'
+			if (objects_actions(map, player, poly_collide))
+				continue ;
 		if (i++ == 4 ||\
 			tests_before_slide(map, poly_collide))
 			break ;
@@ -91,6 +89,7 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 	mobs_attack_move(map, player, map->mob);
 	copy_rotate_rotz_only(map->polys, create_ry_matrix(-player->rot_y));
 
+	objects_animations(map, player, map->object);
 
 	clear_rend(win->rend, 0x40, 0x40, 0x40);
 	raycasting_3d(win, player);

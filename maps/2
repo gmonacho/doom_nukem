@@ -30,6 +30,27 @@ Object
 	height = 30
 	texture = shieldPotion.png
 }
+Object
+{	
+	type = GRAVITY_INV
+	posx = 300
+	posy = 750
+	posz = 70
+	width = 30
+	height = 30
+	texture = 150x150.png
+}
+
+Object
+{	
+	type = GRAVITY_INV
+	posx = 100
+	posy = 200
+	posz = 160
+	width = 30
+	height = 30
+	texture = 150x150.png
+}
 
 Mob
 {

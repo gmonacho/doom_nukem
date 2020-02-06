@@ -12,7 +12,7 @@ static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8
 	char        *tmp;
     SDL_Texture *text;
 
-	if (map->event->type == SDL_MOUSEWHEEL && test_timer(&(player->timers.item_cd)) == 1)
+	if (map->event->type == SDL_MOUSEWHEEL && test_timer_refresh(&(player->timers.item_cd)) == 1)
 	{
 		if (map->event->wheel.y > 0 && player->inventory->selected_slot != 4)
 			player->inventory->selected_slot += 1;
@@ -46,7 +46,7 @@ static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8
 			free(tmp);
 			SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(win->w * 0.33), (win->h * 0.8125), (win->w * 0.28), (win->h * 0.0625)});
 		}
-		if (test_timer(&(player->timers.bullet_cd)) == 1 && player->inventory->ammo > 0 && player->inventory->weapon == 1)
+		if (test_timer_refresh(&(player->timers.bullet_cd)) == 1 && player->inventory->ammo > 0 && player->inventory->weapon == 1)
 		{	
 			player->timers.bullet_cd.index = 0;
 			Mix_PlayChannel(2, map->music->tmusic[0], 0);
@@ -129,11 +129,21 @@ void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *sta
 	if (state[SDL_SCANCODE_P])
 	{
 		player->inventory->item[2]->nb += 1;
+<<<<<<< HEAD
+	if (state[SDL_SCANCODE_E] && test_timer_refresh(&(player->timers.item_cd)))
+	{
+		player->interaction_inventaire = 1;
+		use_item(map, player, map->music, player->inventory->selected_slot);
+	}
+	else
+		player->interaction_inventaire = 0;
+=======
 		player->inventory->item[4]->nb += 1;
 		player->inventory->item[3]->nb += 1;
 	}
 	if (state[SDL_SCANCODE_E] && test_timer(&(player->timers.item_cd)) == 1)
 		use_item(player, map->music, player->inventory->selected_slot);
+>>>>>>> 232834afa7abbc23f29916f3a9aa7dfd5dd2f35c
 	if (state[SDL_SCANCODE_L])
 		apply_damage(map, player, 5);
 }

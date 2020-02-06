@@ -103,7 +103,7 @@ int			init_win_player(t_win *win, t_player *player)
 	return (0);
 }
 
-int			init_music(t_doom_music	*music)
+int			init_music_timer(t_map *map, t_doom_music *music)
 {
 	if (music)
 	{
@@ -114,5 +114,7 @@ int			init_music(t_doom_music	*music)
 		if (!(music->menu_music = Mix_LoadMUS("sounds/doomMenu.wav")))
 			return (ret_error(SDL_GetError()));
 	}
+	// start_cooldown(&(map->gravity_inv_time), 5000);
+	start_cooldown(&(map->objects_animation), 20);
 	return (1);
 }

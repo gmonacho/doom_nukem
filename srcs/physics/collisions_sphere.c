@@ -116,7 +116,8 @@ t_poly			*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban_
 	while (poly)
 	{
 		// print_poly(poly, 1);
-		if (poly->collide && (!ban_interest || !poly->is_slide_ban) &&\
+		if (((poly->object && poly->object->collide) || (!poly->object && poly->collide)) &&\
+			(!ban_interest || !poly->is_slide_ban) &&\
 			collision_poly(map, player, poly))
 		{
 			// printf("COLLISION !!! Poly %d is ban : %d\n", poly->index, poly->is_slide_ban);

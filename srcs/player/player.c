@@ -25,7 +25,7 @@ void    apply_armor(t_player *player, int armor)
         player->currentArmor = 100;
 }
 
-void    use_item(t_player *player, t_music *music, int slotSelected)
+void    use_item(t_map *map, t_player *player, t_music *music, int slotSelected)
 {
     if (slotSelected == 0 && player->inventory->item[0]->nb > 0)
     {
@@ -41,4 +41,10 @@ void    use_item(t_player *player, t_music *music, int slotSelected)
     }
     if (slotSelected == 2 && player->inventory->item[2]->nb > 0)
         player->inventory->item[2]->nb -= 1;
+    if (slotSelected == 3 && player->inventory->item[3]->nb > 0)
+    {
+        player->inventory->item[3]->nb -= 1;
+        // Mix_PlayChannel(5, music->tmusic[3], 0);
+        drop_box(map, player);
+    }
 }

@@ -25,11 +25,6 @@
 static int			init(t_win *win, t_map *map, t_player *player)
 {
 	printf("Debut init\n");
-	if (!init_music(&win->music))
-	{
-		ft_putendl("init_music failed");
-		return (4);
-	}
 	if (init_win_player(win, player))
 		return (1);
 	init_polygone(map->polys);
@@ -74,9 +69,13 @@ int					main(int argc, char **argv)
 								win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE))
 			return (1);
 		loop = SDL_TRUE;
+		if (!init_music_timer(&map, &(win.music)))
+		{
+			ft_putendl("init_music failed");
+			return (4);
+		}
 		if (argc == 1)
 		{
-			init_music(&win.music);
 			editor_loop(&win, NULL);
 		}
 		else
@@ -94,5 +93,6 @@ int					main(int argc, char **argv)
 		SDL_DestroyRenderer(win.rend);
 		SDL_Quit();
 	}
+	argv = NULL;
 	return (0);
 }
