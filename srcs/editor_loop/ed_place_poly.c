@@ -19,16 +19,16 @@ int		ed_place_wall(t_win *win, t_map *map)
 		}
 		poly->dots[0] = (t_fdot_3d){p.x,
 									p.y,
-									map->editor.wall_max};
+									map->editor.settings.wall.max};
 		poly->dots[1] = (t_fdot_3d){p.x,
 									p.y,
-									map->editor.wall_max};
+									map->editor.settings.wall.max};
 		poly->dots[2] = (t_fdot_3d){p.x,
 									p.y,
-									map->editor.wall_min};
+									map->editor.settings.wall.min};
 		poly->dots[3] = (t_fdot_3d){p.x,
 									p.y,
-									map->editor.wall_min};
+									map->editor.settings.wall.min};
 		map->editor.placing_poly = poly;
 	}
 	else
@@ -128,16 +128,16 @@ int				ed_place_flat(t_win *win, t_map *map)
 		}
 		poly->dots[0] = (t_fdot_3d){p1.x,
 									p1.y,
-									map->editor.flat_z};
+									map->editor.settings.flat_z};
 		poly->dots[1] = (t_fdot_3d){p1.x,
 									p1.y,
-									map->editor.flat_z};
+									map->editor.settings.flat_z};
 		poly->dots[2] = (t_fdot_3d){p1.x,
 									p1.y,
-									map->editor.flat_z};
+									map->editor.settings.flat_z};
 		poly->dots[3] = (t_fdot_3d){p1.x,
 									p1.y,
-									map->editor.flat_z};
+									map->editor.settings.flat_z};
 		map->editor.placing_poly = poly;
 	}
 	else if (map->editor.place_step == 1)
@@ -180,16 +180,16 @@ int				ed_place_inclined(t_win *win, t_map *map)
 		}
 		poly->dots[0] = (t_fdot_3d){p1.x,
 									p1.y,
-									map->editor.inclined_first_z};
+									map->editor.settings.inclined.z1};
 		poly->dots[1] = (t_fdot_3d){p1.x,
 									p1.y,
-									map->editor.inclined_second_z};
+									map->editor.settings.inclined.z2};
 		poly->dots[2] = (t_fdot_3d){p1.x,
 									p1.y,
-									map->editor.inclined_second_z};
+									map->editor.settings.inclined.z2};
 		poly->dots[3] = (t_fdot_3d){p1.x,
 									p1.y,
-									map->editor.inclined_first_z};
+									map->editor.settings.inclined.z1};
 		map->editor.placing_poly = poly;
 	}
 	else if (map->editor.place_step == 1)

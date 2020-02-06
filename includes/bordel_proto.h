@@ -200,10 +200,12 @@ void		objects_actions(t_map *map, t_player *player, t_poly *poly);
 **	---------------------------------- mob ----------------------------------
 */
 
-void            fill_mob_data(t_mob **mob, char **tab, int i);   
-void    		set_mobs_dots(t_mob *mob);
-void			mobs_attack_move(t_map *map, t_player *player, t_mob *mobs);
-void			hit_mobs(t_mob *mobs, int damage);
+void		fill_mob_data(t_mob **mob, char **tab, int i);   
+void    	set_mobs_dots(t_mob *mob);
+void		mobs_attack_move(t_map *map, t_player *player, t_mob *mobs);
+void		hit_mobs(t_mob *mobs, int damage);
+void    	add_mob(t_mob **mob);
+void   		add_existing_mob(t_mob **mob, t_mob *new_mob);
 /*
 **	---------------------------------- map ----------------------------------
 */
@@ -308,6 +310,7 @@ void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_selected_poly(t_win *win, const t_map *map);
 void		ed_display_player(t_win *win, const t_map *map);
+void		ed_display_mobs(t_win *win, const t_map *map);
 
 t_line		ed_get_display_line(const t_map *map, t_dot p1, t_dot p2);
 t_dot		ed_get_display_point(const t_map *map, t_dot p);
@@ -328,6 +331,7 @@ void		ed_delete_map(void *map_ptr);
 
 SDL_Color	ed_get_wall_display_color(const t_map *map, t_poly *poly);
 SDL_Color	ed_get_flat_display_color(const t_map *map, t_poly *poly);
+SDL_Color	ed_get_mob_display_color(const t_map *map, t_mob *m);
 
 SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
@@ -341,6 +345,7 @@ t_dot		ed_is_next_to_poly(const t_map *map, t_dot point, int radius);
 void		ed_export(void *ed_export);
 void		ed_write_player(int fd, const t_player *player);
 void		ed_write_poly(int fd, const t_poly *poly);
+void		ed_write_mob(int fd, const t_mob *m);
 /*
 ** ===============================================================================
 ** ================================== GAME LOOP ==================================

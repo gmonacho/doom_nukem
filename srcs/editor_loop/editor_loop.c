@@ -362,6 +362,10 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								&set_editor_calc,
 								&map->editor.arg_menu_tab[6]);
 	ui_set_simple_button_function(win->winui,
+								"b_mob",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[7]);
+	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,
 								&map->editor.export);
@@ -371,11 +375,16 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								map);
 	ui_set_text_entry_function(win->winui, "b_z_min", &set_int_value, &map->editor.z_min);
 	ui_set_text_entry_function(win->winui, "b_z_max", &set_int_value, &map->editor.z_max);
-	ui_set_text_entry_function(win->winui, "b_wall_min", &set_int_value, &map->editor.wall_min);
-	ui_set_text_entry_function(win->winui, "b_wall_max", &set_int_value, &map->editor.wall_max);
-	ui_set_text_entry_function(win->winui, "b_flat_z", &set_int_value, &map->editor.flat_z);
-	ui_set_text_entry_function(win->winui, "b_inclined_z1", &set_int_value, &map->editor.inclined_first_z);
-	ui_set_text_entry_function(win->winui, "b_inclined_z2", &set_int_value, &map->editor.inclined_second_z);
+	ui_set_text_entry_function(win->winui, "b_wall_min", &set_int_value, &map->editor.settings.wall.min);
+	ui_set_text_entry_function(win->winui, "b_wall_max", &set_int_value, &map->editor.settings.wall.max);
+	ui_set_text_entry_function(win->winui, "b_mob_z", &set_int_value, &map->editor.settings.mob.z);
+	ui_set_text_entry_function(win->winui, "b_mob_width", &set_int_value, &map->editor.settings.mob.width);
+	ui_set_text_entry_function(win->winui, "b_mob_height", &set_int_value, &map->editor.settings.mob.height);
+	ui_set_text_entry_function(win->winui, "b_mob_damage", &set_int_value, &map->editor.settings.mob.damage);
+	ui_set_text_entry_function(win->winui, "b_mob_velocity", &set_int_value, &map->editor.settings.mob.velocity);
+	ui_set_text_entry_function(win->winui, "b_flat_z", &set_int_value, &map->editor.settings.flat_z);
+	ui_set_text_entry_function(win->winui, "b_inclined_z1", &set_int_value, &map->editor.settings.inclined.z1);
+	ui_set_text_entry_function(win->winui, "b_inclined_z2", &set_int_value, &map->editor.settings.inclined.z2);
 	ui_set_text_entry_function(win->winui, "b_export_path", &set_str_value, &map->editor.export.path);
 }
 
@@ -392,6 +401,52 @@ int		init_editor_menu(t_win *win, t_map *map)
 	return (1);
 }
 
+static SDL_bool		ed_is_mob_poly(const t_map *map, const t_poly *poly)
+{
+	const t_mob	*m;
+
+	m = map->mob;
+	while (m)
+	{
+		if (m->poly == poly)
+			return (SDL_TRUE);
+		m = m->next;
+	}
+	return (SDL_FALSE);
+}
+
+static void		ed_delete_mob_polys(t_map *map)
+{
+	t_poly	*p;
+	t_poly	*next;
+	t_poly	*previous;
+
+	if (map)
+	{
+		previous = NULL;
+		p = map->polys;
+		while (p)
+		{
+			next = p->next;
+			if (ed_is_mob_poly(map, p))
+			{
+				next = p->next;
+				free(p);
+				if (previous)
+					previous->next = next;
+				else
+					map->polys = next;
+				p = next;
+			}
+			else
+			{
+				previous = p;
+				p = p->next;
+			}
+		}
+	}
+}
+
 int				editor_loop(t_win *win, t_map *map)
 {
 	SDL_bool			loop;
@@ -401,11 +456,18 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.unit = 1;
 	map->editor.z_min = 0;
 	map->editor.z_max = 100;
-	map->editor.wall_min = 0;
-	map->editor.wall_max = 100;
-	map->editor.flat_z = 0;
-	map->editor.inclined_first_z = 0;
-	map->editor.inclined_second_z = 100;
+	map->editor.settings.wall.min = 0;
+	map->editor.settings.wall.max = 100;
+	map->editor.settings.mob.z = 5;
+	map->editor.settings.mob.width = 30;
+	map->editor.settings.mob.height = 30;
+	map->editor.settings.mob.damage = 1;
+	map->editor.settings.mob.health = 50;
+	map->editor.settings.mob.velocity = 1;
+	map->editor.settings.flat_z = 0;
+	map->editor.settings.inclined.z1 = 0;
+	map->editor.settings.inclined.z2 = 0;
+	map->editor.settings.texture = "Brique.png";
 	map->editor.place_step = 0;
 	map->editor.selected_poly = NULL;
 	map->editor.placing_poly = NULL;
@@ -425,6 +487,8 @@ int				editor_loop(t_win *win, t_map *map)
 											ED_CALC_NORMAL};
 	map->editor.arg_menu_tab[6] = (t_arg_menu){(int*)&map->editor.calc,
 											ED_CALC_Z};
+	map->editor.arg_menu_tab[7] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_MOB};
 	map->editor.cursor[CURSOR_DEFAULT] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	map->editor.cursor[CURSOR_SELECTING] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
 	map->editor.export.path = ft_strdup("./maps/new_map");
@@ -432,6 +496,7 @@ int				editor_loop(t_win *win, t_map *map)
 	if (!init_editor_menu(win, map))
 		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));
 	loop = SDL_TRUE;
+	ed_delete_mob_polys(map);
 	while (loop)
 	{
 		

@@ -1,10 +1,26 @@
 #include "doom_nukem.h"
 
-void	ed_delete_map(void *map_ptr)
+static void		ed_free_mob(t_mob **mob)
+{
+	t_mob	*m;
+
+	m = *mob;
+	if (m)
+	{
+		// if (m->poly)
+		// 	free(m->poly);
+		ft_strdel(&m->texture);
+		free(m);
+	}
+	*mob = NULL;
+}
+
+void			ed_delete_map(void *map_ptr)
 {
 	t_map	*map;
 	t_poly	*p;
-	t_poly	*next;
+	t_mob	*m;
+	void	*next;
 
 	map = (t_map*)map_ptr;
 	if (map)
@@ -17,5 +33,13 @@ void	ed_delete_map(void *map_ptr)
 			p = next;
 		}
 		map->polys = NULL;
+		m = map->mob;
+		while (m)
+		{
+			next = m->next;
+			ed_free_mob(&m);
+			m = next;
+		}
+		map->mob = NULL;
 	}
 }

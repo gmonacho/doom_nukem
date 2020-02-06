@@ -69,3 +69,35 @@ void	ed_write_poly(int fd, const t_poly *poly)
 	ed_write_line(fd, "texture", "Brique.png");
 	ft_putendl_fd("}", fd);
 }
+
+void	ed_write_mob(int fd, const t_mob *m)
+{
+	char	*tmp;
+
+	ft_putendl_fd("Mob", fd);
+	ft_putendl_fd("{", fd);
+	tmp = ft_itoa(m->pos.x);
+	ed_write_line(fd, "posx", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(m->pos.y);
+	ed_write_line(fd, "posy", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(m->pos.z);
+	ed_write_line(fd, "posz", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(m->height);
+	ed_write_line(fd, "height", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(m->width);
+	ed_write_line(fd, "width", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(m->damage);
+	ed_write_line(fd, "damage", tmp);
+	ft_strdel(&tmp);
+	ed_write_line(fd, "dir", "-90");
+	tmp = ft_itoa(m->vel);
+	ed_write_line(fd, "velocity", tmp);
+	ft_strdel(&tmp);
+	ed_write_line(fd, "texture", m->texture);
+	ft_putendl_fd("}", fd);
+}
