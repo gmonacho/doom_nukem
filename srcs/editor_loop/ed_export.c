@@ -26,7 +26,7 @@ void		ed_export(void *ed_export)
 		p = map->polys;
 		while (p)
 		{
-			ed_write_poly(fd, p);
+			ed_write_poly(fd, p, &map->player);
 			p = p->next;
 		}
 	}

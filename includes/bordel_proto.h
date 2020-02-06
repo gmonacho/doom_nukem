@@ -348,7 +348,7 @@ t_dot		ed_is_next_to_poly(const t_map *map, t_dot point, int radius);
 
 void		ed_export(void *ed_export);
 void		ed_write_player(int fd, const t_player *player);
-void		ed_write_poly(int fd, const t_poly *poly);
+void		ed_write_poly(int fd, const t_poly *poly, const t_player *player);
 void		ed_write_mob(int fd, const t_mob *m);
 /*
 ** ===============================================================================

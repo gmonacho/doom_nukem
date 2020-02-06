@@ -466,7 +466,7 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.settings.mob.velocity = 1;
 	map->editor.settings.flat_z = 0;
 	map->editor.settings.inclined.z1 = 0;
-	map->editor.settings.inclined.z2 = 0;
+	map->editor.settings.inclined.z2 = 100;
 	map->editor.settings.texture = "Brique.png";
 	map->editor.place_step = 0;
 	map->editor.selected_poly = NULL;
