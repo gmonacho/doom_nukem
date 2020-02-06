@@ -386,6 +386,7 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 	ui_set_text_entry_function(win->winui, "b_inclined_z1", &set_int_value, &map->editor.settings.inclined.z1);
 	ui_set_text_entry_function(win->winui, "b_inclined_z2", &set_int_value, &map->editor.settings.inclined.z2);
 	ui_set_text_entry_function(win->winui, "b_export_path", &set_str_value, &map->editor.export.path);
+	ui_set_text_entry_function(win->winui, "b_texture", &set_str_value, &map->editor.settings.texture);
 }
 
 int		init_editor_menu(t_win *win, t_map *map)
@@ -467,7 +468,7 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.settings.flat_z = 0;
 	map->editor.settings.inclined.z1 = 0;
 	map->editor.settings.inclined.z2 = 100;
-	map->editor.settings.texture = "Brique.png";
+	map->editor.settings.texture = ft_strdup("Brique.png");
 	map->editor.place_step = 0;
 	map->editor.selected_poly = NULL;
 	map->editor.placing_poly = NULL;
