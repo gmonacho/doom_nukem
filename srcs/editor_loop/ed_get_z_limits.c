@@ -14,9 +14,9 @@ int		ed_get_z_min(const t_poly *polys)
 		i = 0;
 		while (i < 4)
 		{
-			if (first || p->dots[i].z < min)
+			if (first || p->dots_rotz_only[i].z < min)
 			{
-				min = p->dots[i].z;
+				min = p->dots_rotz_only[i].z;
 				first = 0;
 			}
 			i++;
@@ -40,9 +40,9 @@ int		ed_get_z_max(const t_poly *polys)
 		i = 0;
 		while (i < 4)
 		{
-			if (first || p->dots[i].z > max)
+			if (first || p->dots_rotz_only[i].z > max)
 			{
-				max = p->dots[i].z;
+				max = p->dots_rotz_only[i].z;
 				first = 0;
 			}
 			i++;

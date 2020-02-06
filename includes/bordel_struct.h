@@ -89,7 +89,8 @@ typedef enum	e_editor
 	ED_FLAT = 16,
 	ED_INCLINED = 32,
 	ED_PLAYER = 64,
-	ED_DRAW_HELP = 128
+	ED_DRAW_HELP = 128,
+	ED_MOB	= 256
 }				t_editor_flag;
 
 typedef enum	e_editor_calc
@@ -99,7 +100,7 @@ typedef enum	e_editor_calc
 	ED_CALC_Z = 2
 }				t_editor_calc;
 
-# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER
+# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER + ED_MOB
 
 typedef struct		s_kit_flags
 {
@@ -638,6 +639,38 @@ typedef struct	s_export
 
 #define	NEXT_RADIUS 20
 
+typedef struct		s_mob_settings
+{
+	int				z;
+	int				width;
+	int				height;
+	int				health;
+	int				damage;
+	int				velocity;
+}					t_mob_settings;
+
+typedef struct		s_min_max
+{
+	int				min;
+	int				max;
+}					t_min_max;
+
+typedef struct		s_inclined_settings
+{
+	int				z1;
+	int				z2;
+}					t_inclined_settings;
+
+typedef struct			s_settings
+{
+	t_mob_settings		mob;
+	t_inclined_settings	inclined;
+	t_min_max			wall;
+	int					flat_z;
+	char				*texture;
+}						t_settings;
+
+
 typedef struct		s_editor
 {
 	t_dot			pos;
@@ -645,11 +678,7 @@ typedef struct		s_editor
 	float			unit;
 	int				z_min;
 	int				z_max;
-	int				wall_min;
-	int				wall_max;
-	int				flat_z;
-	int				inclined_first_z;
-	int				inclined_second_z;
+	t_settings		settings;
 	int				place_step;
 	t_rect			select_rect;
 	t_poly			*selected_poly;
@@ -658,7 +687,7 @@ typedef struct		s_editor
 	int				max_pos_z;
 	t_editor_flag	flags;
 	t_editor_calc	calc;
-	t_arg_menu		arg_menu_tab[7];
+	t_arg_menu		arg_menu_tab[8];
 	SDL_Cursor		*cursor[2];
 	t_export		export;
 }					t_editor;

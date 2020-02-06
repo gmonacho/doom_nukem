@@ -40,32 +40,64 @@ void	ed_write_player(int fd, const t_player *player)
 	}
 }
 
-static void	ed_write_dot(int fd, const t_fdot_3d *dot)
+static void	ed_write_dot(int fd, const t_fdot_3d *dot, const t_player *player)
 {
 	char	*tmp;
 
 	ft_putstr_fd("dot = x:", fd);
-	tmp = ft_itoa(dot->x);
+	tmp = ft_itoa(dot->x + player->pos_up.x);
 	ft_putstr_fd(tmp, fd);
 	ft_strdel(&tmp);
 	ft_putstr_fd(" y:", fd);
-	tmp = ft_itoa(dot->y);
+	tmp = ft_itoa(dot->y + player->pos_up.y);
 	ft_putstr_fd(tmp, fd);
 	ft_strdel(&tmp);
 	ft_putstr_fd(" z:", fd);
-	tmp = ft_itoa(dot->z);
+	tmp = ft_itoa(dot->z + player->pos_up.z);
 	ft_putendl_fd(tmp, fd);
 	ft_strdel(&tmp);
 }
 
-void	ed_write_poly(int fd, const t_poly *poly)
+void	ed_write_poly(int fd, const t_poly *poly, const t_player *player)
 {
 	ft_putendl_fd("Polygon", fd);
 	ft_putendl_fd("{", fd);
-	ed_write_dot(fd, &poly->dots[0]);
-	ed_write_dot(fd, &poly->dots[1]);
-	ed_write_dot(fd, &poly->dots[2]);
-	ed_write_dot(fd, &poly->dots[3]);
+	ed_write_dot(fd, &poly->dots[0], player);
+	ed_write_dot(fd, &poly->dots[1], player);
+	ed_write_dot(fd, &poly->dots[2], player);
+	ed_write_dot(fd, &poly->dots[3], player);
 	ed_write_line(fd, "texture", "Brique.png");
+	ft_putendl_fd("}", fd);
+}
+
+void	ed_write_mob(int fd, const t_mob *m)
+{
+	char	*tmp;
+
+	ft_putendl_fd("Mob", fd);
+	ft_putendl_fd("{", fd);
+	tmp = ft_itoa(m->pos.x);
+	ed_write_line(fd, "posx", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(m->pos.y);
+	ed_write_line(fd, "posy", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(m->pos.z);
+	ed_write_line(fd, "posz", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(m->height);
+	ed_write_line(fd, "height", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(m->width);
+	ed_write_line(fd, "width", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(m->damage);
+	ed_write_line(fd, "damage", tmp);
+	ft_strdel(&tmp);
+	ed_write_line(fd, "dir", "-90");
+	tmp = ft_itoa(m->vel);
+	ed_write_line(fd, "velocity", tmp);
+	ft_strdel(&tmp);
+	ed_write_line(fd, "texture", m->texture);
 	ft_putendl_fd("}", fd);
 }

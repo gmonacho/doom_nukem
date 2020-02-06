@@ -25,8 +25,17 @@ void    add_mob(t_mob **mob)
     new_mob->next = *mob;
     new_mob->alive = 1;
     *mob = new_mob;
-    
 }
+
+void    add_existing_mob(t_mob **mob, t_mob *new_mob)
+{
+    if (new_mob)
+    {
+        new_mob->next = *mob;
+        *mob = new_mob;
+    }
+}
+
 void    add_poly_mob(t_mob **mob)
 {
     (*mob)->poly = (t_poly *)ft_memalloc(sizeof(t_poly));

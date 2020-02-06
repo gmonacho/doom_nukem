@@ -4,6 +4,7 @@
 void		ed_export(void *ed_export)
 {
 	int			fd;
+	t_mob		*m;
 	t_poly		*p;
 	t_export	*export;
 	t_map		*map;
@@ -16,10 +17,16 @@ void		ed_export(void *ed_export)
 	if (fd)
 	{
 		ed_write_player(fd, &map->player);
+		m = map->mob;
+		while (m)
+		{
+			ed_write_mob(fd, m);
+			m = m->next;
+		}
 		p = map->polys;
 		while (p)
 		{
-			ed_write_poly(fd, p);
+			ed_write_poly(fd, p, &map->player);
 			p = p->next;
 		}
 	}

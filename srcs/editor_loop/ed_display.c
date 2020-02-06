@@ -249,18 +249,10 @@ static void			ed_display_placing_poly(t_win *win, const t_map *map)
 
 static void			ed_display_polys(t_win *win, const t_map *map)
 {
-	t_poly		*poly;
-
-	poly = NULL;
-	if (win && map)
-		poly = map->polys;
-	while (poly)
-	{
-		ed_display_polys_flat(win, map);
-		ed_display_polys_inclined(win, map);
-		ed_display_polys_wall(win, map);
-		poly = poly->next;
-	}
+	ed_display_polys_flat(win, map);
+	ed_display_polys_inclined(win, map);
+	ed_display_polys_wall(win, map);
+	ed_display_mobs(win, map);
 	ed_display_selected_poly(win, map);
 	ed_display_placing_poly(win, map);
 }

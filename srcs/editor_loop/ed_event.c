@@ -1,4 +1,5 @@
 #include "doom_nukem.h"
+#include "ui_error.h"
 
 // void		update_selected_ui(t_win *win)
 // {
@@ -309,6 +310,25 @@ static void	ed_selection(t_win *win, t_map *map)
 	}
 }
 
+static int	ed_add_mob(t_win *win, t_map *map)
+{
+	t_mob	*mob;
+
+	if (!(mob = ft_memalloc(sizeof(t_mob))))
+		return (ui_ret_error("ed_add_mob", "mob allocation failed", 0));
+	mob->pos.x = ed_get_map_x(map, win->winui->mouse.pos.x);
+	mob->pos.y = ed_get_map_y(map, win->winui->mouse.pos.y);
+	mob->pos.z = map->editor.settings.mob.z;
+	mob->width = map->editor.settings.mob.width;
+	mob->height = map->editor.settings.mob.height;
+	mob->health = map->editor.settings.mob.health;
+	mob->damage = map->editor.settings.mob.damage;
+	mob->vel = map->editor.settings.mob.velocity;
+	mob->texture = ft_strdup(map->editor.settings.texture);
+	add_existing_mob(&map->mob, mob);
+	return (1);
+}
+
 static void	ed_place_poly(t_win *win, t_map *map)
 {
 	SDL_bool	call_place;
@@ -317,8 +337,13 @@ static void	ed_place_poly(t_win *win, t_map *map)
 	if (win->winui->mouse.releasing & UI_MOUSE_LEFT && !(map->editor.flags & ED_FLAT)
 													&& !(map->editor.flags & ED_INCLINED))
 	{
-		add_existing_poly(&map->polys, map->editor.placing_poly);
-		map->editor.placing_poly = NULL;
+		if (map->editor.flags & ED_MOB)
+			ed_add_mob(win, map);
+		else
+		{
+			add_existing_poly(&map->polys, map->editor.placing_poly);
+			map->editor.placing_poly = NULL;
+		}
 	}
 	else if (win->winui->mouse.clicked & UI_MOUSE_LEFT)
 	{
