@@ -11,7 +11,10 @@ void		find_texture(char *tab, t_poly *poly)
 	tmp = ft_strdup("textures/");
 	tmp = ft_strjoin(tmp, name);
 	if (!(poly->texture = IMG_Load(tmp)))
+	{
+		exit(0);
 		return ;
+	}
 	poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
 					SDL_PIXELFORMAT_ARGB8888, 0);
 }
@@ -51,7 +54,11 @@ void		fill_poly_mob(t_poly *poly, t_mob *mob)
 		poly->next = mob->poly;
 		poly = poly->next;
 		tmp = ft_strjoin(tmp, mob->texture);
-		poly->texture = IMG_Load(tmp);
+		if (!(poly->texture = IMG_Load(tmp)))
+		{
+			exit(0);
+			return ;
+		}
 		poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
 						SDL_PIXELFORMAT_ARGB8888, 0);
 		mob = mob->next;
@@ -74,7 +81,11 @@ void		fill_poly_object(t_poly *poly, t_object *object)
 		poly_object = object->poly;
 		while (poly_object)
 		{
-			poly_object->texture = IMG_Load(tmp);
+			if (!(poly->texture = IMG_Load(tmp)))
+			{
+				exit(0);
+				return ;
+			}
 			poly_object->texture = SDL_ConvertSurfaceFormat(poly_object->texture,
 							SDL_PIXELFORMAT_ARGB8888, 0);
 			poly->next = poly_object;
