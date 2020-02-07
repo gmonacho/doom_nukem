@@ -51,17 +51,3 @@ void    reload_cd(t_map *map)
 
 
 }
-
-// void    init_cd(t_map *map)
-// {
-//     start_cooldown(&(map->player.timers.bullet_cd), 150);
-// 	start_cooldown(&(map->player.timers.item_cd), 200);
-// 	start_cooldown(&(map->player.timers.text_cd), 600);
-// 	start_cooldown(&(map->player.timers.reload_cd), 600);
-// 	start_cooldown(&(map->player.timers.animation_cd), 1000);
-// 	start_cooldown(&(map->player.timers.shot_cd), 50);
-// 	start_cooldown(&(map->player.timers.animation_shot_cd), 50);
-//     map->player.timers.reload_cd.index = 4;
-//     map->player.timers.bullet_cd.index = 5;
-// 	define_line_shot(map->player);
-// }

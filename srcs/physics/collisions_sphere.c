@@ -112,7 +112,7 @@ int				collision_poly(t_map *map, t_player *player, t_poly *poly)
 
 t_poly			*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban_interest)
 {
-	translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
+	translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
 	while (poly)
 	{
 		// print_poly(poly, 1);
@@ -121,12 +121,12 @@ t_poly			*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban_
 			collision_poly(map, player, poly))
 		{
 			// printf("COLLISION !!! Poly %d is ban : %d\n", poly->index, poly->is_slide_ban);
-			translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
+			translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
 			return (poly);
 		}
 		poly = poly->next;
 	}
-	translate_all_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
+	translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
 	// printf("\n\n");
 	return (NULL);
 }

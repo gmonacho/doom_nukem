@@ -108,109 +108,6 @@ typedef struct		s_kit_flags
 	int				flags;
 }					t_kit_flags;
 
-/*
-** =======================================================================================
-** ================================== DISPLAY ============================================
-** =======================================================================================
-*/
-
-/*
-**	---------------------------------- hud --------------------------------------------
-*/
-typedef struct 	s_texHud
-{
-	SDL_Texture		*tex[16];
-	SDL_Texture		*tex_weapon[6];
-	SDL_Texture		*tex_reload[5];
-	TTF_Font		*police;
-}					t_texHud;
-
-/*
-**	---------------------------------- main_menu --------------------------------------------
-*/
-
-typedef struct s_main_menu
-{
-	SDL_Texture *text[4];
-	SDL_Texture	*textb[4];
-	TTF_Font	*police;
-
-}				t_main_menu;
-
-/*
-**	---------------------------------- Window ----------------------------------
-*/
-
-typedef struct		s_ed_texture
-{
-	SDL_Texture		*frame_texture;
-	SDL_Texture		*button;
-	SDL_Texture		*clear;
-	SDL_Texture		*clicked_button;
-	SDL_Texture		*on_mouse_button;
-	SDL_Texture		*digit_tab[10];
-}					t_ed_texture;
-
-typedef struct		s_font
-{
-	TTF_Font		*digital;
-	TTF_Font		*ui;
-}					t_font;
-
-typedef struct		s_doom_music
-{
-	Mix_Music		*editor_music;
-	Mix_Music		*credit_music;
-	Mix_Music		*menu_music;
-}					t_doom_music;
-
-typedef enum		e_view
-{
-	TEXTURE_VIEW = 0b0001,
-	WALL_VIEW = 0b0010,
-	BOX_VIEW = 0b0100
-}					t_view;
-
-typedef struct		s_win
-{
-	struct s_map	*map;
-
-	SDL_Window*		ptr;
-	SDL_Renderer	*rend;
-	Uint32			*pixels;
-	SDL_Texture		*rend_texture;
-	int				view;
-
-	struct s_thread	*threads;
-	int				w;
-	int				h;
-	float			w_div_fov;
-	float			h_div_fov;
-
-	SDL_Texture		**sectors_texture;
-	t_ed_texture	ed_texture;
-	SDL_Texture		**sectors_texture_selected;
-	SDL_Texture		*text_entry_texture;
-
-	char			*text_entry;
-
-	t_frame			*frames;
-	t_frame			*selected_frame;
-
-	t_button		*selected_button;
-
-	t_font			font;
-	t_texHud		*texHud;
-
-	t_doom_music	music;
-	t_main_menu		*main_menu;
-
-	char			**error_msg;
-	int				nb_error_msg;
-	
-	// libui
-	t_winui			*winui;
-}					t_win;
 
 /*
 ** ====================================================================================
@@ -236,7 +133,7 @@ typedef struct	s_timer
 	uint32_t		time;
 	uint32_t		save;
 	int 			index;
-}					t_timer;
+}				t_timer;
 
 typedef struct s_timers
 {
@@ -249,7 +146,6 @@ typedef struct s_timers
 	t_timer		animation_shot_cd;
     t_timer     mouse;
 }				t_timers;
-
 
 /*
 **	---------------------------------- png --------------------------------------------
@@ -337,6 +233,111 @@ typedef struct			s_linedef
 }						t_linedef;
 
 /*
+** =======================================================================================
+** ================================== DISPLAY ============================================
+** =======================================================================================
+*/
+
+/*
+**	---------------------------------- hud --------------------------------------------
+*/
+typedef struct 	s_texHud
+{
+	SDL_Texture		*tex[16];
+	SDL_Texture		*tex_weapon[6];
+	SDL_Texture		*tex_reload[5];
+	TTF_Font		*police;
+}					t_texHud;
+
+/*
+**	---------------------------------- main_menu --------------------------------------------
+*/
+
+typedef struct s_main_menu
+{
+	SDL_Texture *text[4];
+	SDL_Texture	*textb[4];
+	TTF_Font	*police;
+
+}				t_main_menu;
+
+/*
+**	---------------------------------- Window ----------------------------------
+*/
+
+typedef struct		s_ed_texture
+{
+	SDL_Texture		*frame_texture;
+	SDL_Texture		*button;
+	SDL_Texture		*clear;
+	SDL_Texture		*clicked_button;
+	SDL_Texture		*on_mouse_button;
+	SDL_Texture		*digit_tab[10];
+}					t_ed_texture;
+
+typedef struct		s_font
+{
+	TTF_Font		*digital;
+	TTF_Font		*ui;
+}					t_font;
+
+typedef struct		s_doom_music
+{
+	Mix_Music		*editor_music;
+	Mix_Music		*credit_music;
+	Mix_Music		*menu_music;
+}					t_doom_music;
+
+typedef enum		e_view
+{
+	TEXTURE_VIEW = 0b0001,
+	WALL_VIEW = 0b0010,
+	BOX_VIEW = 0b0100
+}					t_view;
+
+typedef struct		s_win
+{
+	struct s_map	*map;
+
+	SDL_Window*		ptr;
+	SDL_Renderer	*rend;
+	Uint32			*pixels;
+	SDL_Texture		*rend_texture;
+	int				view;
+	t_timer			view_change_time;
+
+	struct s_thread	*threads;
+	int				w;
+	int				h;
+	float			w_div_fov;
+	float			h_div_fov;
+
+	SDL_Texture		**sectors_texture;
+	t_ed_texture	ed_texture;
+	SDL_Texture		**sectors_texture_selected;
+	SDL_Texture		*text_entry_texture;
+
+	char			*text_entry;
+
+	t_frame			*frames;
+	t_frame			*selected_frame;
+
+	t_button		*selected_button;
+
+	t_font			font;
+	t_texHud		*texHud;
+
+	t_doom_music	music;
+	t_main_menu		*main_menu;
+
+	char			**error_msg;
+	int				nb_error_msg;
+	
+	// libui
+	t_winui			*winui;
+}					t_win;
+
+/*
 **	---------------------------------- sector --------------------------------------------
 */
 
@@ -368,15 +369,6 @@ typedef struct				s_textures
 	SDL_Surface				*ceil;
 }							t_textures;
 
-typedef enum				e_enum_object
-{
-	HEAL = 0b0001,
-	ARMOR = 0b0010,
-	TP = 0b0100,
-	GUN = 0b1000,
-	BULLET = 0b10000
-}							t_enum_object;
-
 /*
 **	----------------------------------- Raycasting ---------------------------------------
 */
@@ -390,8 +382,8 @@ typedef	struct				s_poly
 
 	t_fdot_3d				dots[N_DOTS_POLY];
 	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
-	float					dist12;
-	float					dist14;
+	// float					dist12;
+	// float					dist14;
 
 	t_plan					equation;
 	t_plan					equation_rotz_only;
@@ -515,6 +507,7 @@ typedef struct		s_player
 	int				maxArmor;
 	t_inventory		*inventory;
 	int				interaction_inventaire;
+	t_timer			interaction_inventaire_time;
 	t_timers		timers;
 	int				i_sector;
 	t_line			l[5];
@@ -537,7 +530,6 @@ typedef struct		s_player
 **	---------------------------------- objects --------------------------------------------
 */
 
-<<<<<<< HEAD
 typedef enum				e_enum_object
 {
 	HEAL = 0b0001,
@@ -548,8 +540,6 @@ typedef enum				e_enum_object
 	GRAVITY_INV = 0b100000,
 	BOX = 0b1000000
 }							t_enum_object;
-=======
->>>>>>> 232834afa7abbc23f29916f3a9aa7dfd5dd2f35c
 
 // typedef struct bordel_struct
 // {
@@ -559,10 +549,13 @@ typedef enum				e_enum_object
 
 typedef struct		s_object
 {
+	int				main_poly;
 	t_fdot_3d		pos;
 	t_enum_object	type;
 	int				visible;
 	int				collide;
+
+	float			rot_y_save;
 
 	int 			id;
 	int				id_texture;

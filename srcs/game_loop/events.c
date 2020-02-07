@@ -81,17 +81,17 @@ t_fdot_3d		events_move(t_player *player, const Uint8 *state)
 // void			events_move(t_win *win, t_player *player, const Uint8 *state)
 // {
 // 	if (state[SDL_SCANCODE_W])
-// 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){-player->const_vel, 0, 0});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){-player->const_vel, 0, 0});
 // 	if (state[SDL_SCANCODE_S])
-// 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){player->const_vel, 0, 0});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){player->const_vel, 0, 0});
 // 	if (state[SDL_SCANCODE_D])
-// 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, -player->const_vel, 0});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, -player->const_vel, 0});
 // 	if (state[SDL_SCANCODE_A])
-// 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, player->const_vel, 0});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, player->const_vel, 0});
 // 	if (state[SDL_SCANCODE_SPACE])
-// 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, 0, -player->const_vel});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, 0, -player->const_vel});
 // 	if (state[SDL_SCANCODE_LSHIFT])
-// 		translate_all_rotz_only(win->map->polys, (t_fdot_3d){0, 0, player->const_vel});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, 0, player->const_vel});
 // }
 
 void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *state)
@@ -99,18 +99,18 @@ void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *stat
 	if (map->event->motion.xrel || map->event->motion.yrel)
 	{
 		if (win->winui->mouse.pos.x > 0)
-			rotate_all_rotz_only(map->polys, player->rz);
+			rotate_all_rotz_only(map, map->polys, player->rz);
 		if (win->winui->mouse.pos.x < 0)
-			rotate_all_rotz_only(map->polys, player->rz_inv);
+			rotate_all_rotz_only(map, map->polys, player->rz_inv);
 		if (win->winui->mouse.pos.y > 0)
 			player->rot_y -= player->ddir;
 		if (win->winui->mouse.pos.y < 0)
 			player->rot_y += player->ddir;
 	}
 	if (state[SDL_SCANCODE_RIGHT])
-		rotate_all_rotz_only(map->polys, player->rz);
+		rotate_all_rotz_only(map, map->polys, player->rz);
 	if (state[SDL_SCANCODE_LEFT])
-		rotate_all_rotz_only(map->polys, player->rz_inv);
+		rotate_all_rotz_only(map, map->polys, player->rz_inv);
 	if (state[SDL_SCANCODE_UP])
 		player->rot_y += player->ddir;
 	// if (state[SDL_SCANCODE_UP] && player->rot_y < M_PI / 2 - 20 * player->ddir)
@@ -128,22 +128,14 @@ void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *sta
 		player->inventory->item[1]->nb += 1;
 	if (state[SDL_SCANCODE_P])
 	{
+		player->inventory->item[0]->nb += 1;
+		player->inventory->item[1]->nb += 1;
 		player->inventory->item[2]->nb += 1;
-<<<<<<< HEAD
-	if (state[SDL_SCANCODE_E] && test_timer_refresh(&(player->timers.item_cd)))
-	{
-		player->interaction_inventaire = 1;
-		use_item(map, player, map->music, player->inventory->selected_slot);
-	}
-	else
-		player->interaction_inventaire = 0;
-=======
 		player->inventory->item[4]->nb += 1;
 		player->inventory->item[3]->nb += 1;
 	}
-	if (state[SDL_SCANCODE_E] && test_timer(&(player->timers.item_cd)) == 1)
-		use_item(player, map->music, player->inventory->selected_slot);
->>>>>>> 232834afa7abbc23f29916f3a9aa7dfd5dd2f35c
+	if (state[SDL_SCANCODE_E] && test_timer_refresh(&(player->interaction_inventaire_time)) == 1)
+		use_item(map, player, map->music, player->inventory->selected_slot);
 	if (state[SDL_SCANCODE_L])
 		apply_damage(map, player, 5);
 }
@@ -156,11 +148,11 @@ void			events_others(t_win *win, t_player *player, const Uint8 *state)
 		player->fov += -0.03 + (player->fov - 0.03 < 0 ? _2_PI : 0);
 	if (state[SDL_SCANCODE_KP_PLUS])
 		player->fov +=  0.03 - (player->fov + 0.03 > _2_PI ? _2_PI : 0);
-	if (state[SDL_SCANCODE_1])
+	if (state[SDL_SCANCODE_1] && test_timer_refresh(&(win->view_change_time)))
 		win->view += (win->view & TEXTURE_VIEW ? -TEXTURE_VIEW : TEXTURE_VIEW);
-	if (state[SDL_SCANCODE_2])
+	if (state[SDL_SCANCODE_2] && test_timer_refresh(&(win->view_change_time)))
 		win->view += (win->view & WALL_VIEW ? -WALL_VIEW : WALL_VIEW);
-	if (state[SDL_SCANCODE_3])
+	if (state[SDL_SCANCODE_3] && test_timer_refresh(&(win->view_change_time)))
 		win->view += (win->view & BOX_VIEW ? -BOX_VIEW : BOX_VIEW);
 	if (state[SDL_SCANCODE_C])
 		player->collision_on = player->collision_on ? 0 : 1;

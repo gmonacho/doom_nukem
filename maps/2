@@ -5,9 +5,9 @@ Player
 	posy = 200
 	posz = 150
 	dir = -90
-	width = 60
-	height = 60
-	velocity = 10
+	width = 70
+	height = 70
+	velocity = 5
 }
 
 Object
@@ -44,7 +44,7 @@ Object
 Object
 {	
 	type = GRAVITY_INV
-	posx = 100
+	posx = 150
 	posy = 200
 	posz = 160
 	width = 30
@@ -52,7 +52,18 @@ Object
 	texture = 150x150.png
 }
 
-Mob
+Object
+{	
+	type = BOX
+	posx = 500
+	posy = 950
+	posz = 100
+	width = 30
+	height = 30
+	texture = Elephantride.png
+}
+
+Moooooooooob
 {
 	posx = 400
 	posy = 650

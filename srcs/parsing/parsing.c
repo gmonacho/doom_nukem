@@ -61,20 +61,27 @@ void		fill_poly_mob(t_poly *poly, t_mob *mob)
 
 void		fill_poly_object(t_poly *poly, t_object *object)
 {
-	char *tmp;
+	char	*tmp;
+	t_poly	*poly_object;
 
 	tmp = NULL;
 	while (poly->next)
 		poly = poly->next;
 	while (object)
 	{
-		tmp = ft_strdup("textures/");
-		poly->next = object->poly;
-		poly = poly->next;
-		tmp = ft_strjoin(tmp, object->texture);
-		poly->texture = IMG_Load(tmp);
-		poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
-						SDL_PIXELFORMAT_ARGB8888, 0);
+		// tmp = ft_strdup("textures/");
+		tmp = ft_strjoin("textures/", object->texture);
+		poly_object = object->poly;
+		while (poly_object)
+		{
+			poly_object->texture = IMG_Load(tmp);
+			poly_object->texture = SDL_ConvertSurfaceFormat(poly_object->texture,
+							SDL_PIXELFORMAT_ARGB8888, 0);
+			poly->next = poly_object;
+			poly = poly->next;
+			poly_object = poly_object->next;
+		}
+		ft_strdel(&tmp);
 		object = object->next;
 	}
 }

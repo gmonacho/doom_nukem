@@ -3,21 +3,18 @@
 /*
 **	A faire :
 **
-**	Objects : 
-**				Type : Health - Armor - Teleporter - Gun - Bullet
-**
-**	Norme all
 **  • Chaque espace ou zone dispose d’un réglage de la luminosité ambiante, affectant
     les murs comme les objets qui s’y trouvent.
-
     se baisser et se relever.
 
     • Des interactions sont possibles avec des éléments du décor (murs, objets... ), à
     la fois par simple proximité (marcher sur une zone dangereuse) comme avec une
     action volontaire (appuyer sur un bouton).
 **
+**	Tenter de casser le parsing
 **	Clean code/fichier inutiles
 **	Gerer les leaks
+**	Norme all
 **
 **	Seg fault sur certaines text att !
 */
@@ -50,7 +47,6 @@ int					main(int argc, char **argv)
 		win.w = WIDTH;
 		win.h = HEIGHT;
 		win.map = &map;
-		map.gravity = 4;
 		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == -1 || TTF_Init() == -1)
 			return (ret_error(SDL_GetError()));
 		if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
@@ -85,6 +81,7 @@ int					main(int argc, char **argv)
 				return (ret_error("open error"));
 			if (!(win.map->polys = ft_data_storing(fd, fd1, &map, &win))) // FREE SDL, FREE FD, FREE MUSIC
 				return (1);	//LEAKS
+			map.gravity = map.player.const_vel / 2;
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));
 			main_menu(&win, &map);

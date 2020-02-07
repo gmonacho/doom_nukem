@@ -20,25 +20,24 @@ void		init_polygone(t_poly *poly)
 		poly->index = i++;
 		poly->is_slide_ban = 0;
 		ft_memcpy(poly->dots_rotz_only, poly->dots, sizeof(t_fdot_3d) * N_DOTS_POLY);
-		poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
-		poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
-		poly->i = (t_fdot_3d){	poly->dots[1].x - poly->dots[0].x,\
-								poly->dots[1].y - poly->dots[0].y,\
-								poly->dots[1].z - poly->dots[0].z};
-		poly->j = (t_fdot_3d){	poly->dots[N_DOTS_POLY - 1].x - poly->dots[0].x,\
-								poly->dots[N_DOTS_POLY - 1].y - poly->dots[0].y,\
-								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
+		// poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
+		// poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
+		poly->i = fdot_3d_sub(poly->dots[1], poly->dots[0]);
+		poly->j = fdot_3d_sub(poly->dots[N_DOTS_POLY - 1], poly->dots[0]);
 		poly->i_rotz_only = poly->i;
 		poly->j_rotz_only = poly->j;
 		poly->i_mag = mag(poly->i);
 		poly->j_mag = mag(poly->j);
-		poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
-		poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
+		poly->ii = poly->i_mag * poly->i_mag;
+		poly->jj = poly->j_mag * poly->j_mag;
+		// poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
+		// poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
 		// poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
 		// poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
-		poly->equation.v = (t_fdot_3d){(poly->i.y * poly->j.z - poly->i.z * poly->j.y) / 10000,\
-										(poly->i.z * poly->j.x - poly->i.x * poly->j.z) / 10000,\
-										(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000};
+		// poly->equation.v = (t_fdot_3d){(poly->i.y * poly->j.z - poly->i.z * poly->j.y) / 10000,\
+		// 								(poly->i.z * poly->j.x - poly->i.x * poly->j.z) / 10000,\
+		// 								(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000};
+		poly->equation.v = vectoriel_product(poly->i, poly->j);
 		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x + poly->equation.v.y * poly->dots[0].y + poly->equation.v.z * poly->dots[0].z);
 		poly->equation_rotz_only = poly->equation;
 		poly = poly->next;
@@ -51,9 +50,9 @@ static void		init_player_maths(t_win *win, t_player *player)
 {
 	// win->view = TEXTURE_VIEW | WALL_VIEW | BOX_VIEW;
 	win->view = TEXTURE_VIEW;
-	translate_all(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
-	translate_all_rotz_only(win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
-	rotate_all_rotz_only(win->map->polys, create_rz_matrix(-player->dir_init));
+	translate_all(win->map, win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
+	translate_all_rotz_only(win->map, win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
+	rotate_all_rotz_only(win->map, win->map->polys, create_rz_matrix(-player->dir_init));
 	player->rot_y = 0;
 	player->ddir = 0.05;
 	player->fov = win->w * M_PI_2 / 1000;
@@ -81,7 +80,7 @@ static void		init_player_hud(t_player *player)
 	player->inventory->ammo = 15;
 	player->inventory->magazine = 120;
 	start_cooldown(&(player->timers.bullet_cd), 130);
-	start_cooldown(&(player->timers.item_cd), 200);
+	start_cooldown(&(player->timers.item_cd), 100);
 	start_cooldown(&(player->timers.text_cd), 600);
 	start_cooldown(&(player->timers.reload_cd), 600);
 	start_cooldown(&(player->timers.animation_cd), 1000);
@@ -97,6 +96,9 @@ int			init_win_player(t_win *win, t_player *player)
 {
 	if (!(win->pixels = (Uint32 *)malloc(sizeof(Uint32) * win->w * win->h)))
 		return (1);
+	start_cooldown(&(win->view_change_time), 250);
+	start_cooldown(&(win->map->objects_animation), 20);
+	start_cooldown(&(player->interaction_inventaire_time), 250);
 	init_player_maths(win, player);
 	init_player_hud(player);
 	// exit(0);
@@ -115,6 +117,6 @@ int			init_music_timer(t_map *map, t_doom_music *music)
 			return (ret_error(SDL_GetError()));
 	}
 	// start_cooldown(&(map->gravity_inv_time), 5000);
-	start_cooldown(&(map->objects_animation), 20);
+	map = NULL;
 	return (1);
 }

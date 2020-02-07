@@ -238,14 +238,10 @@ void		ft_find_coord_p2(t_linedef *line, char *tab);
 void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
 t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_win *win);
-<<<<<<< HEAD
-int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float height_2);
-=======
 char 		**fillntesttab(int fd, int fd1);
 void		fill_poly(t_poly *poly, t_map *map);
 void		fill_poly_object(t_poly *poly, t_object *object);
 void		fill_poly_mob(t_poly *poly, t_mob *mob);
->>>>>>> 232834afa7abbc23f29916f3a9aa7dfd5dd2f35c
 
 void		player_data(char **tab, t_player *player, int i);
 
@@ -361,11 +357,12 @@ void		ed_write_mob(int fd, const t_mob *m);
 int			game_loop(t_win *win, t_map *map);
 
 /*
-** ============================= Polys ======================
+** ============================= Objects ======================
 */
 
-int			objects_actions(t_map *map, t_player *player, t_poly *poly);
+int			objects_actions(t_map *map, t_player *player, t_object *object);
 void		objects_animations(t_map *map, t_player *player, t_object *object);
+int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float height_2);
 
 /*
 ** ============================= Polys ======================
@@ -382,7 +379,7 @@ void				poly_del(t_poly *poly);
 
 void				raycasting_3d(t_win *win, t_player *player);
 int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
-t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
+// t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
 void				draw_all_square(t_win *win);
 void				draw_projection(t_win *win);
@@ -394,12 +391,13 @@ t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
 
 int					init_rays(t_win *win, t_player *player);
 void				translate_dot(t_fdot_3d *dot, t_fdot_3d translation);
-void				translate_all(t_poly *sector, t_fdot_3d translation);
-void				translate_all_rotz_only(t_poly *poly, t_fdot_3d translation);
+void				translate_all(t_map *map, t_poly *sector, t_fdot_3d translation);
+void				translate_all_rotz_only(t_map *map, t_poly *poly, t_fdot_3d translation);
 t_fdot_3d			rotate_dot(t_fdot_3d dot, t_matrix matrix);
-void				rotate_all_dots(t_poly *sector, t_matrix matrix);
-void				rotate_all_rotz_only(t_poly *poly, t_matrix matrix);
-void				copy_rotate_rotz_only(t_poly *poly, t_matrix matrix);
+// void				rotate_all_dots(t_poly *sector, t_matrix matrix);
+void				rotate_all_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
+void				copy_rotate_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
+void				rotate_box(t_map *map, t_player *player, t_object *object);
 
 void 				print_poly(t_poly *poly, int arg);
 
@@ -424,6 +422,7 @@ int					collision_poly(t_map *map, t_player *player, t_poly *poly);
 int					collision_segment(t_map *map, t_fdot_3d dots[4], float width_2);
 t_fdot_3d			segment_slide(t_fdot_3d dots[N_DOTS_POLY], t_plan plan, int segment_code);
 int					collision_dots(t_map *map, t_fdot_3d dots[N_DOTS_POLY], float ray);
+int					is_collision_box(t_object *object, t_cartesienne *ray);
 
 /*
 ** ================================== Time ===================================
@@ -432,7 +431,7 @@ int					collision_dots(t_map *map, t_fdot_3d dots[N_DOTS_POLY], float ray);
 int    				test_timer(t_timer *timer);
 int					test_timer_refresh(t_timer *timer);
 void				start_cooldown(t_timer *timer, Uint32 time);
-void				init_cd(t_map *map);
+// void				init_cd(t_map *map);
 void				reload_cd(t_map *map);
 
 /*

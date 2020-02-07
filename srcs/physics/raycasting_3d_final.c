@@ -18,6 +18,12 @@
 **	- Time of 'collisions()' : ~0.0 . 10e-3
 */
 
+/*
+**	- Nouveau 'collisions_sphere()' :	~ 0.5-1.7	. 10e-4
+**	- Nouveau 'raycasting_3d()' :		~ 280-400	. 10e-4
+**	- Nouveau 'game()' :				~ 280-400	. 10e-4 (Pareil que raycasing_3d())
+*/
+
 static void		draw(t_win *win, t_player *player)
 {
 	t_cartesienne	**rays;
@@ -69,8 +75,8 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 		printf("texture null : %p\n", poly->texture);
 		exit(0);
 	}
-	coord_texture = (t_dot){modulo(coord_plan.x * poly->dist12, poly->texture->w),\
-							modulo(coord_plan.y * poly->dist14, poly->texture->h)};
+	coord_texture = (t_dot){modulo(coord_plan.x * poly->i_mag, poly->texture->w),\
+							modulo(coord_plan.y * poly->j_mag, poly->texture->h)};
 	if (coord_texture.x < 0 || coord_texture.y < 0 || coord_texture.x > poly->texture->w || coord_texture.y > poly->texture->h)
 	{
 		printf("\nSeg fault !\n");

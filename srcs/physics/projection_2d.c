@@ -25,8 +25,9 @@ void			draw_projection(t_win *win)
 	while (poly)
 	{
 		i = -1;
-		while (++i < poly->n_proj)
-			draw_line(win, poly->dots_proj[i], poly->dots_proj[i ? i - 1 : poly->n_proj - 1]);
+		if ((poly->object && poly->object->visible) || (!poly->object && poly->visible))
+			while (++i < poly->n_proj)
+				draw_line(win, poly->dots_proj[i], poly->dots_proj[i ? i - 1 : poly->n_proj - 1]);
 		poly = poly->next;
 	}
 }
@@ -40,11 +41,14 @@ void			draw_all_square(t_win *win)
 	// printf("Debut draw square map : %p\n", poly);
 	while (poly)
 	{
-		// printf("Draw box ...\n");
-		draw_line(win, (t_dot){poly->box_x.x, poly->box_y.x}, (t_dot){poly->box_x.y, poly->box_y.x});
-		draw_line(win, (t_dot){poly->box_x.x, poly->box_y.x}, (t_dot){poly->box_x.x, poly->box_y.y});
-		draw_line(win, (t_dot){poly->box_x.y, poly->box_y.x}, (t_dot){poly->box_x.y, poly->box_y.y});
-		draw_line(win, (t_dot){poly->box_x.x, poly->box_y.y}, (t_dot){poly->box_x.y, poly->box_y.y});
+		if ((poly->object && poly->object->visible) || (!poly->object && poly->visible))
+		{
+			// printf("Draw box ...\n");
+			draw_line(win, (t_dot){poly->box_x.x, poly->box_y.x}, (t_dot){poly->box_x.y, poly->box_y.x});
+			draw_line(win, (t_dot){poly->box_x.x, poly->box_y.x}, (t_dot){poly->box_x.x, poly->box_y.y});
+			draw_line(win, (t_dot){poly->box_x.y, poly->box_y.x}, (t_dot){poly->box_x.y, poly->box_y.y});
+			draw_line(win, (t_dot){poly->box_x.x, poly->box_y.y}, (t_dot){poly->box_x.y, poly->box_y.y});
+		}
 		poly = poly->next;
 	}
 	// printf("Fin draw square\n");
@@ -160,6 +164,15 @@ void			surround_walls(t_win *win, t_map *map)
 		if (((poly->object && poly->object->visible) ||\
 			(!poly->object && poly->visible)))
 		{
+			// if (poly->object)
+			// {
+			// 	// printf("Object : %d\n", poly->object->type);
+			// 	if (poly->object->type == BOX)
+			// 	{
+			// 		print_poly(poly, 0);
+			// 		printf("BOX raycast ! Collide %d visible %d\n", poly->object->collide, poly->object->visible);
+			// 	}			
+			// }
 			create_dot_on_axe_y(poly);
 			set_proj(win, poly);
 			poly_reduction(win, poly);
