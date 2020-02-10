@@ -296,6 +296,10 @@ static void		set_editor_flags(void *argument)
 				*(arg_menu->loop) ^= ED_FLAT;
 			else if (*(arg_menu->loop) & ED_INCLINED)
 				*(arg_menu->loop) ^= ED_INCLINED;
+			else if (*(arg_menu->loop) & ED_HEAL)
+				*(arg_menu->loop) ^= ED_HEAL;
+			else if (*(arg_menu->loop) & ED_SHIELD)
+				*(arg_menu->loop) ^= ED_SHIELD;
 			if (*(arg_menu->loop) & ED_SELECTION)
 				*(arg_menu->loop) ^= ED_SELECTION;
 			*(arg_menu->loop) |= arg_menu->value;
@@ -365,6 +369,14 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								"b_mob",
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[7]);
+	ui_set_simple_button_function(win->winui,
+								"b_heal",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[8]);
+	ui_set_simple_button_function(win->winui,
+								"b_shield",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[9]);
 	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,
@@ -448,6 +460,53 @@ static void		ed_delete_mob_polys(t_map *map)
 	}
 }
 
+
+static SDL_bool		ed_is_object_poly(const t_map *map, const t_poly *poly)
+{
+	const t_object	*obj;
+
+	obj = map->object;
+	while (obj)
+	{
+		if (obj->poly == poly)
+			return (SDL_TRUE);
+		obj = obj->next;
+	}
+	return (SDL_FALSE);
+}
+
+static void		ed_delete_object_polys(t_map *map)
+{
+	t_poly	*p;
+	t_poly	*next;
+	t_poly	*previous;
+
+	if (map)
+	{
+		previous = NULL;
+		p = map->polys;
+		while (p)
+		{
+			next = p->next;
+			if (ed_is_object_poly(map, p))
+			{
+				next = p->next;
+				free(p);
+				if (previous)
+					previous->next = next;
+				else
+					map->polys = next;
+				p = next;
+			}
+			else
+			{
+				previous = p;
+				p = p->next;
+			}
+		}
+	}
+}
+
 int				editor_loop(t_win *win, t_map *map)
 {
 	SDL_bool			loop;
@@ -471,6 +530,7 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.settings.texture = ft_strdup("Brique.png");
 	map->editor.place_step = 0;
 	map->editor.selected_poly = NULL;
+	map->editor.selected_mob = NULL;
 	map->editor.placing_poly = NULL;
 	map->editor.flags = ED_NONE;
 	map->editor.calc = ED_CALC_NORMAL;
@@ -490,6 +550,10 @@ int				editor_loop(t_win *win, t_map *map)
 											ED_CALC_Z};
 	map->editor.arg_menu_tab[7] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_MOB};
+	map->editor.arg_menu_tab[8] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_HEAL};
+	map->editor.arg_menu_tab[9] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_SHIELD};
 	map->editor.cursor[CURSOR_DEFAULT] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	map->editor.cursor[CURSOR_SELECTING] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
 	map->editor.export.path = ft_strdup("./maps/new_map");
@@ -498,6 +562,7 @@ int				editor_loop(t_win *win, t_map *map)
 		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));
 	loop = SDL_TRUE;
 	ed_delete_mob_polys(map);
+	ed_delete_object_polys(map);
 	while (loop)
 	{
 		

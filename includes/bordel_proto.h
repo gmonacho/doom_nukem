@@ -311,8 +311,11 @@ void		ed_display_wall(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_selected_poly(t_win *win, const t_map *map);
+void		ed_display_selected_mob(t_win *win, const t_map *map);
 void		ed_display_player(t_win *win, const t_map *map);
 void		ed_display_mobs(t_win *win, const t_map *map);
+void		ed_display_object(t_win *win, const t_map *map, t_object *obj);
+void		ed_display_objects(t_win *win, const t_map *map);
 
 t_line		ed_get_display_line(const t_map *map, t_dot p1, t_dot p2);
 t_dot		ed_get_display_point(const t_map *map, t_dot p);
@@ -330,10 +333,12 @@ int			ed_get_z_min(const t_poly *polys);
 int			ed_get_z_max(const t_poly *polys);
 
 void		ed_delete_map(void *map_ptr);
+void		ed_delete_mob(t_mob **mobs, t_mob *mob);
 
 SDL_Color	ed_get_wall_display_color(const t_map *map, t_poly *poly);
 SDL_Color	ed_get_flat_display_color(const t_map *map, t_poly *poly);
 SDL_Color	ed_get_mob_display_color(const t_map *map, t_mob *m);
+SDL_Color	ed_get_obj_display_color(const t_map *map, t_object *obj);
 
 SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
@@ -348,6 +353,7 @@ void		ed_export(void *ed_export);
 void		ed_write_player(int fd, const t_player *player);
 void		ed_write_poly(int fd, const t_poly *poly, const t_player *player);
 void		ed_write_mob(int fd, const t_mob *m);
+void		ed_write_item(int fd, const t_object *obj);
 /*
 ** ===============================================================================
 ** ================================== GAME LOOP ==================================
@@ -360,6 +366,7 @@ int			game_loop(t_win *win, t_map *map);
 ** ============================= Objects ======================
 */
 
+void		add_existing_object(t_object **objects, t_object *new_object);
 int			objects_actions(t_map *map, t_player *player, t_object *object);
 void		objects_animations(t_map *map, t_player *player, t_object *object);
 int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float height_2);

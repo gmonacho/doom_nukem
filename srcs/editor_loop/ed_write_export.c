@@ -101,3 +101,33 @@ void	ed_write_mob(int fd, const t_mob *m)
 	ed_write_line(fd, "texture", m->texture);
 	ft_putendl_fd("}", fd);
 }
+
+void	ed_write_item(int fd, const t_object *obj)
+{
+	char	*tmp;
+
+	ft_putendl_fd("Object", fd);
+	ft_putendl_fd("{", fd);
+	if (obj->type & HEAL)
+		tmp = "HEAL";
+	else if (obj->type & ARMOR)
+		tmp = "ARMOR";
+	ed_write_line(fd, "type", tmp);
+	tmp = ft_itoa(obj->pos.x);
+	ed_write_line(fd, "posx", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(obj->pos.y);
+	ed_write_line(fd, "posy", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(obj->pos.z);
+	ed_write_line(fd, "posz", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(obj->width);
+	ed_write_line(fd, "width", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(obj->height);
+	ed_write_line(fd, "height", tmp);
+	ft_strdel(&tmp);
+	ed_write_line(fd, "texture", obj->texture);
+	ft_putendl_fd("}", fd);
+}

@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:36:20 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:36:22 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 14:48:55 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,11 +32,15 @@ SDL_Texture		*ui_new_text(SDL_Renderer *rend,
 	SDL_Surface	*surface;
 	SDL_Texture	*texture;
 
-	if (!(surface = TTF_RenderText_Blended(font, text, *color)))
-		return (ui_ret_null_error("ui_new_text [1]", TTF_GetError(), NULL));
-	if (!(texture = SDL_CreateTextureFromSurface(rend, surface)))
-		return (ui_ret_null_error("ui_new_text [2]", SDL_GetError(), NULL));
-	SDL_FreeSurface(surface);
+	texture = NULL;
+	if (text && ft_strlen(text) > 0)
+	{
+		if (!(surface = TTF_RenderText_Blended(font, text, *color)))
+			return (ui_ret_null_error("ui_new_text [1]", TTF_GetError(), NULL));
+		if (!(texture = SDL_CreateTextureFromSurface(rend, surface)))
+			return (ui_ret_null_error("ui_new_text [2]", SDL_GetError(), NULL));
+		SDL_FreeSurface(surface);
+	}
 	return (texture);
 }
 

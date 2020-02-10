@@ -22,3 +22,16 @@ void		ed_display_selected_poly(t_win *win, const t_map *map)
 			ed_display_flat(win, map, map->editor.selected_poly);
 	}
 }
+
+void		ed_display_selected_mob(t_win *win, const t_map *map)
+{
+	t_dot	pos;
+
+	if (map->editor.selected_mob)
+	{
+		ui_set_draw_color(win->winui->rend, &(SDL_Color){200, 200, 0, 255});
+		pos = ed_get_display_point(map, (t_dot){map->editor.selected_mob->pos.x,
+												map->editor.selected_mob->pos.y});
+		draw_circle(win, (t_circle){pos.x, pos.y, map->editor.selected_mob->width * map->editor.unit / 2});
+	}
+}

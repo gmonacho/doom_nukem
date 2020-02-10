@@ -291,6 +291,29 @@
 // 	return (1);
 // }
 
+static SDL_bool	ed_is_mob_selected(t_win *win, const t_map *map, const t_mob *mob)
+{
+	if (ed_get_line_len(&(t_line){ed_get_map_point(map, win->winui->mouse.pos),
+						(t_dot){mob->pos.x, mob->pos.y}}) < mob->width)
+		return (SDL_TRUE);
+	else
+		return (SDL_FALSE);
+}
+
+static t_mob	*ed_get_selected_mob(t_win *win, const t_map *map)
+{
+	t_mob	*m;
+
+	m = map->mob;
+	while (m)
+	{
+		if (ed_is_mob_selected(win, map, m))
+			return (m);
+		m = m->next;
+	}
+	return (NULL);
+}
+
 static void	ed_selection(t_win *win, t_map *map)
 {
 	if (win->winui->mouse.clicking & UI_MOUSE_LEFT)
@@ -306,7 +329,13 @@ static void	ed_selection(t_win *win, t_map *map)
 									- map->editor.select_rect.x;
 		map->editor.select_rect.h = ed_get_map_y(map, win->winui->mouse.pos.y)
 									- map->editor.select_rect.y;
-		map->editor.selected_poly = ed_get_selected_poly(win, map);
+		if (!(map->editor.selected_mob = ed_get_selected_mob(win, map)))
+		{
+			map->editor.selected_mob = NULL;
+			map->editor.selected_poly = ed_get_selected_poly(win, map);
+		}
+		else
+			map->editor.selected_poly = NULL;
 	}
 }
 
@@ -379,12 +408,44 @@ static void	ed_place_poly(t_win *win, t_map *map)
 	}
 }
 
+static void	ed_place_item(t_win *win, t_map *map)
+{
+	t_object	*obj;
+	t_dot		pos;
+
+	if (win->winui->mouse.releasing & UI_MOUSE_LEFT)
+	{
+		if ((obj = (t_object*)ft_memalloc(sizeof(t_object))))
+		{
+			pos = ed_get_map_point(map, win->winui->mouse.pos);
+			if (map->editor.flags & ED_HEAL)
+			{
+				obj->type = HEAL;
+				obj->texture = "healthPotion.png";
+			}
+			else if (map->editor.flags & ED_SHIELD)
+			{
+				obj->type = ARMOR;
+				obj->texture = "shieldPotion.png";
+			}
+			obj->pos.x = pos.x;
+			obj->pos.y = pos.y;
+			obj->pos.z = 0;
+			obj->width = 30;
+			obj->height = 30;
+			add_existing_object(&map->object, obj);
+		}
+	}
+}
+
 static void	ed_action(t_win *win, t_map *map)
 {
 	// else if (map->editor.flags & ED_PLAYER)
 	// 	ed_place_player(win, map);
 	if (map->editor.flags & ED_SELECTION)
 		ed_selection(win, map);
+	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD) && !win->winui->ui.on_mouse_button)
+		ed_place_item(win , map);
 	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
 		ed_place_poly(win, map);
 	if (map->editor.flags & ED_MODE_CHANGED)
@@ -397,6 +458,35 @@ static void	ed_action(t_win *win, t_map *map)
 	}
 }
 
+void	ed_delete_mob(t_mob **mobs, t_mob *mob)
+{
+	t_mob	*m;
+	t_mob	*tmp_prev;
+	t_mob	*tmp_next;
+
+	if (mobs && mob)
+	{
+		tmp_prev = NULL;
+		m = *mobs;
+		while (m)
+		{
+			if (m == mob)			{
+				tmp_next = m->next;
+				free(m);
+				if (tmp_prev)
+					tmp_prev->next = tmp_next;
+				else
+					*mobs = tmp_next;
+				m = tmp_next;
+			}
+			else
+			{
+				tmp_prev = m;
+				m = m->next;
+			}
+		}
+	}
+}
 int 		ed_event(t_win *win, t_map *map)
 {
 	const Uint8	*state;
@@ -423,6 +513,11 @@ int 		ed_event(t_win *win, t_map *map)
 		{
 			delete_poly(&map->polys, map->editor.selected_poly);
 			map->editor.selected_poly = NULL;
+		}
+		else if (map->editor.selected_mob)
+		{
+			ed_delete_mob(&map->mob, map->editor.selected_mob);
+			map->editor.selected_mob = NULL;
 		}
 	}
 	if (state[SDL_SCANCODE_SPACE])

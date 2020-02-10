@@ -254,6 +254,7 @@ static void			ed_display_polys(t_win *win, const t_map *map)
 	ed_display_polys_wall(win, map);
 	ed_display_mobs(win, map);
 	ed_display_selected_poly(win, map);
+	ed_display_selected_mob(win, map);
 	ed_display_placing_poly(win, map);
 }
 
@@ -297,6 +298,7 @@ static void			ed_display_selection_rect(t_win *win, const t_map *map)
 void			ed_display(t_win *win, const t_map *map)
 {
 	ed_display_polys(win, map);
+	ed_display_objects(win, map);
 	ed_display_player(win, map);
 	ed_display_mouse_position(win, map);
 	ed_display_selection_rect(win, map);
