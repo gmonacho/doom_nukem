@@ -300,6 +300,7 @@ void			ed_display(t_win *win, const t_map *map)
 	ed_display_polys(win, map);
 	ed_display_objects(win, map);
 	ed_display_player(win, map);
+	ed_display_selected_obj(win, map);
 	ed_display_mouse_position(win, map);
 	ed_display_selection_rect(win, map);
 }

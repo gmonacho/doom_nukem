@@ -1,4 +1,5 @@
 #include "doom_nukem.h"
+#include "ui_error.h"
 
 void		find_texture(char *tab, t_poly *poly)
 {
@@ -81,13 +82,20 @@ void		fill_poly_object(t_poly *poly, t_object *object)
 		poly_object = object->poly;
 		while (poly_object)
 		{
-			if (!(poly->texture = IMG_Load(tmp)))
+			if (!(poly_object->texture = IMG_Load(tmp)))
 			{
+				ui_ret_error("fill_poly_object", SDL_GetError(), 0);
 				exit(0);
 				return ;
 			}
-			poly_object->texture = SDL_ConvertSurfaceFormat(poly_object->texture,
-							SDL_PIXELFORMAT_ARGB8888, 0);
+			if (!(poly_object->texture = SDL_ConvertSurfaceFormat(poly_object->texture,
+							SDL_PIXELFORMAT_ARGB8888, 0)))
+			{
+				ui_ret_error("fill_poly_object", SDL_GetError(), 0);
+				exit(0);
+				return ;
+			}
+			printf("poly_object->texture = %p\n", poly_object->texture);
 			poly->next = poly_object;
 			poly = poly->next;
 			poly_object = poly_object->next;

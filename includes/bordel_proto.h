@@ -312,6 +312,7 @@ void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_selected_poly(t_win *win, const t_map *map);
 void		ed_display_selected_mob(t_win *win, const t_map *map);
+void		ed_display_selected_obj(t_win *win, const t_map *map);
 void		ed_display_player(t_win *win, const t_map *map);
 void		ed_display_mobs(t_win *win, const t_map *map);
 void		ed_display_object(t_win *win, const t_map *map, t_object *obj);

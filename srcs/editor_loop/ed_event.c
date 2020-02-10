@@ -314,6 +314,29 @@ static t_mob	*ed_get_selected_mob(t_win *win, const t_map *map)
 	return (NULL);
 }
 
+static SDL_bool	ed_is_obj_selected(t_win *win, const t_map *map, const t_object *object)
+{
+	if (ed_get_line_len(&(t_line){ed_get_map_point(map, win->winui->mouse.pos),
+						(t_dot){object->pos.x, object->pos.y}}) < object->width)
+		return (SDL_TRUE);
+	else
+		return (SDL_FALSE);
+}
+
+static t_object	*ed_get_selected_obj(t_win *win, const t_map *map)
+{
+	t_object	*obj;
+
+	obj = map->object;
+	while (obj)
+	{
+		if (ed_is_obj_selected(win, map, obj))
+			return (obj);
+		obj = obj->next;
+	}
+	return (NULL);
+}
+
 static void	ed_selection(t_win *win, t_map *map)
 {
 	if (win->winui->mouse.clicking & UI_MOUSE_LEFT)
@@ -329,13 +352,28 @@ static void	ed_selection(t_win *win, t_map *map)
 									- map->editor.select_rect.x;
 		map->editor.select_rect.h = ed_get_map_y(map, win->winui->mouse.pos.y)
 									- map->editor.select_rect.y;
-		if (!(map->editor.selected_mob = ed_get_selected_mob(win, map)))
+		if ((map->editor.selected_mob = ed_get_selected_mob(win, map)))
+		{
+			map->editor.selected_obj = NULL;
+			map->editor.selected_poly = NULL;
+		}
+		else if ((map->editor.selected_obj = ed_get_selected_obj(win, map)))
 		{
 			map->editor.selected_mob = NULL;
-			map->editor.selected_poly = ed_get_selected_poly(win, map);
+			map->editor.selected_poly = NULL;
+		}
+		else if ((map->editor.selected_poly = ed_get_selected_poly(win, map)))
+		{
+			map->editor.selected_mob = NULL;
+			map->editor.selected_obj = NULL;
 		}
 		else
+		{
+			map->editor.selected_mob = NULL;
 			map->editor.selected_poly = NULL;
+			map->editor.selected_obj = NULL;	
+		}
+		
 	}
 }
 
@@ -487,6 +525,38 @@ void	ed_delete_mob(t_mob **mobs, t_mob *mob)
 		}
 	}
 }
+
+void	ed_delete_obj(t_object **objects, t_object *object)
+{
+	t_object	*obj;
+	t_object	*tmp_prev;
+	t_object	*tmp_next;
+
+	if (objects && object)
+	{
+		tmp_prev = NULL;
+		obj = *objects;
+		while (obj)
+		{
+			if (obj == object)
+			{
+				tmp_next = obj->next;
+				free(obj);
+				if (tmp_prev)
+					tmp_prev->next = tmp_next;
+				else
+					*objects = tmp_next;
+				obj = tmp_next;
+			}
+			else
+			{
+				tmp_prev = obj;
+				obj = obj->next;
+			}
+		}
+	}
+}
+
 int 		ed_event(t_win *win, t_map *map)
 {
 	const Uint8	*state;
@@ -518,6 +588,11 @@ int 		ed_event(t_win *win, t_map *map)
 		{
 			ed_delete_mob(&map->mob, map->editor.selected_mob);
 			map->editor.selected_mob = NULL;
+		}
+		else if (map->editor.selected_obj)
+		{
+			ed_delete_obj(&map->object, map->editor.selected_obj);
+			map->editor.selected_obj = NULL;
 		}
 	}
 	if (state[SDL_SCANCODE_SPACE])

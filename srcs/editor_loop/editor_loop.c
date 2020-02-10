@@ -531,6 +531,7 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.place_step = 0;
 	map->editor.selected_poly = NULL;
 	map->editor.selected_mob = NULL;
+	map->editor.selected_obj = NULL;
 	map->editor.placing_poly = NULL;
 	map->editor.flags = ED_NONE;
 	map->editor.calc = ED_CALC_NORMAL;
