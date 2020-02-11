@@ -300,6 +300,10 @@ static void		set_editor_flags(void *argument)
 				*(arg_menu->loop) ^= ED_HEAL;
 			else if (*(arg_menu->loop) & ED_SHIELD)
 				*(arg_menu->loop) ^= ED_SHIELD;
+			else if (*(arg_menu->loop) & ED_GRAVITY)
+				*(arg_menu->loop) ^= ED_GRAVITY;
+			else if (*(arg_menu->loop) & ED_BULLET)
+				*(arg_menu->loop) ^= ED_BULLET;
 			if (*(arg_menu->loop) & ED_SELECTION)
 				*(arg_menu->loop) ^= ED_SELECTION;
 			*(arg_menu->loop) |= arg_menu->value;
@@ -381,6 +385,10 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								"b_gravity",
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[10]);
+	ui_set_simple_button_function(win->winui,
+								"b_bullet",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[11]);
 	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,
@@ -561,6 +569,8 @@ int				editor_loop(t_win *win, t_map *map)
 											ED_SHIELD};
 	map->editor.arg_menu_tab[10] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_GRAVITY};
+	map->editor.arg_menu_tab[11] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_BULLET};
 	map->editor.cursor[CURSOR_DEFAULT] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	map->editor.cursor[CURSOR_SELECTING] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
 	map->editor.export.path = ft_strdup("./maps/new_map");

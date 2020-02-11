@@ -471,6 +471,11 @@ static void	ed_place_item(t_win *win, t_map *map)
 				obj->type = GRAVITY_INV;
 				obj->texture = "pq.png";
 			}
+			else if (map->editor.flags & ED_BULLET)
+			{
+				obj->type = BULLET;
+				obj->texture = "Ammo_box_icon.png";
+			}
 			obj->pos.x = pos.x;
 			obj->pos.y = pos.y;
 			obj->pos.z = 0;
@@ -487,7 +492,7 @@ static void	ed_action(t_win *win, t_map *map)
 	// 	ed_place_player(win, map);
 	if (map->editor.flags & ED_SELECTION)
 		ed_selection(win, map);
-	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD || map->editor.flags & ED_GRAVITY) && !win->winui->ui.on_mouse_button)
+	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD || map->editor.flags & ED_GRAVITY || map->editor.flags & ED_BULLET) && !win->winui->ui.on_mouse_button)
 		ed_place_item(win , map);
 	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
 		ed_place_poly(win, map);
