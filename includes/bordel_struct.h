@@ -92,7 +92,11 @@ typedef enum	e_editor
 	ED_DRAW_HELP = 128,
 	ED_MOB	= 256,
 	ED_HEAL = 512,
-	ED_SHIELD = 1024
+	ED_SHIELD = 1024,
+	ED_TP = 2048,
+	ED_BOX = 4096,
+	ED_GRAVITY = 8192,
+	ED_BULLET = 16384
 }				t_editor_flag;
 
 typedef enum	e_editor_calc
@@ -102,7 +106,8 @@ typedef enum	e_editor_calc
 	ED_CALC_Z = 2
 }				t_editor_calc;
 
-# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER + ED_MOB + ED_HEAL + ED_SHIELD
+# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER + ED_MOB\
++ ED_HEAL + ED_SHIELD + ED_GRAVITY + ED_BULLET
 
 typedef struct		s_kit_flags
 {
@@ -409,6 +414,7 @@ typedef	struct				s_poly
 	t_dot					box_y;
 
 	SDL_Surface				*texture;
+	char					*texture_name;
 	// t_enum_object			object;
 	struct s_poly			*next;
 }							t_poly;

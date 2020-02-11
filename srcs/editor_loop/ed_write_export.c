@@ -66,7 +66,7 @@ void	ed_write_poly(int fd, const t_poly *poly, const t_player *player)
 	ed_write_dot(fd, &poly->dots[1], player);
 	ed_write_dot(fd, &poly->dots[2], player);
 	ed_write_dot(fd, &poly->dots[3], player);
-	ed_write_line(fd, "\ttexture", "Brique.png");
+	ed_write_line(fd, "\ttexture", poly->texture_name);
 	ft_putendl_fd("}", fd);
 }
 
@@ -112,6 +112,10 @@ void	ed_write_item(int fd, const t_object *obj)
 		tmp = "HEAL";
 	else if (obj->type & ARMOR)
 		tmp = "ARMOR";
+	else if (obj->type & GRAVITY_INV)
+		tmp = "GRAVITY_INV";
+	else if (obj->type & BULLET)
+		tmp = "BULLET";
 	ed_write_line(fd, "\ttype", tmp);
 	tmp = ft_itoa(obj->pos.x);
 	ed_write_line(fd, "\tposx", tmp);
