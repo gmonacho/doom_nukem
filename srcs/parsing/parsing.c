@@ -9,6 +9,7 @@ void		find_texture(char *tab, t_poly *poly)
 	name = NULL;
 	tmp = NULL;
 	name = ft_strdup(ft_strrchr(tab, '=') + 2);
+	poly->texture_name = name;
 	tmp = ft_strdup("textures/");
 	tmp = ft_strjoin(tmp, name);
 	if (!(poly->texture = IMG_Load(tmp)))
@@ -18,6 +19,7 @@ void		find_texture(char *tab, t_poly *poly)
 	}
 	poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
 					SDL_PIXELFORMAT_ARGB8888, 0);
+	free(tmp);
 }
 
 void		ft_fill_data(char **tab, t_poly **poly, int i)
