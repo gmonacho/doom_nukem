@@ -47,7 +47,9 @@ void			ed_delete_map(void *map_ptr)
 		obj = map->object;
 		while (obj)
 		{
-			obj = obj->next;
+			next = obj->next;
+			free(obj);
+			obj = next;
 		}
 		map->object = NULL;
 	}

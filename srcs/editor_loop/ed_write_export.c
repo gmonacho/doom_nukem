@@ -66,7 +66,7 @@ void	ed_write_poly(int fd, const t_poly *poly, const t_player *player)
 	ed_write_dot(fd, &poly->dots[1], player);
 	ed_write_dot(fd, &poly->dots[2], player);
 	ed_write_dot(fd, &poly->dots[3], player);
-	ed_write_line(fd, "\ttexture", "Brique.png");
+	ed_write_line(fd, "\ttexture", poly->texture_name);
 	ft_putendl_fd("}", fd);
 }
 
