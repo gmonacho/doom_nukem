@@ -14,6 +14,17 @@
 		"__bit_reference": "c",
 		"__string": "c",
 		"algorithm": "c",
-		"memory": "c"
+		"memory": "c",
+		"__functional_base": "c",
+		"__functional_base_03": "c",
+		"__hash_table": "c",
+		"__tuple": "c",
+		"array": "c",
+		"chrono": "c",
+		"functional": "c",
+		"limits": "c",
+		"ratio": "c",
+		"tuple": "c",
+		"utility": "c"
 	}
 }
