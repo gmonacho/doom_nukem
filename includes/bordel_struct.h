@@ -92,7 +92,10 @@ typedef enum	e_editor
 	ED_DRAW_HELP = 128,
 	ED_MOB	= 256,
 	ED_HEAL = 512,
-	ED_SHIELD = 1024
+	ED_SHIELD = 1024,
+	ED_TP = 2048,
+	ED_BOX = 4096,
+	ED_GRAVITY = 8192
 }				t_editor_flag;
 
 typedef enum	e_editor_calc
