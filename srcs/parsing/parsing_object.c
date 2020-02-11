@@ -1,6 +1,5 @@
 #include "doom_nukem.h"
 
-// void    set_poly_dots(t_object *object)
 static void    set_poly_dots(t_poly *poly, t_fdot_3d pos, float width_2, float height_2)
 {
     poly->dots[0].x = pos.x - width_2;
@@ -32,6 +31,11 @@ int			add_poly_object(t_object *object, char *type_str)
 {
 	// t_enum_object	type;
 
+	if (type_str ==  NULL)
+	{
+		ft_putendl("Error: Type of object is wrong !");
+		return (1);
+	}
 	if (!ft_strcmp(type_str, "HEAL"))
 		object->type = HEAL;
 	else if (!ft_strcmp(type_str, "ARMOR"))
@@ -97,6 +101,7 @@ int			object_data(char **tab, t_object **object, int i)
     (*object)->height_2 = (*object)->height / 2;
 	if (add_poly_object(*object, type))
 		return (1);
+	free(type);
 	return (0);
 	//printf("O |posx = %f\n", object->pos.x);
 	// printf("O |posy = %f\n", object->pos.y);

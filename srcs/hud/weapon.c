@@ -96,7 +96,7 @@ void	add_bullet(t_player *player)	//Ajoute un nouveau compteur a la fin
 	player->len_bullet++;
 }
 
-void    print_weapon(t_win *win, t_player *player, t_texHud *texHud)
+void    print_weapon(t_win *win, t_player *player, t_texhud *texhud)
 {   
     int             slotposx;
 	int 	i;
@@ -105,12 +105,12 @@ void    print_weapon(t_win *win, t_player *player, t_texHud *texHud)
 	i = -1;
     if (player->inventory->weapon == 1 && !(player->inventory->magazine == 0 && player->inventory->ammo == 0))
     {   
-        SDL_RenderCopy(win->rend, texHud->tex_weapon[player->timers.bullet_cd.index], NULL, &(SDL_Rect){(win->w * 0.55), (win->h * 0.55), (win->w * 0.7), (win->h * 0.4625)});
-        SDL_RenderCopy(win->rend, texHud->tex[11], NULL, &(SDL_Rect){(win->w * 0.45), (win->h * 0.475), (win->w * 0.12), (win->h * 0.15)});
+        SDL_RenderCopy(win->rend, texhud->tex_weapon[player->timers.bullet_cd.index], NULL, &(SDL_Rect){(win->w * 0.55), (win->h * 0.55), (win->w * 0.7), (win->h * 0.4625)});
+        SDL_RenderCopy(win->rend, texhud->tex[11], NULL, &(SDL_Rect){(win->w * 0.45), (win->h * 0.475), (win->w * 0.12), (win->h * 0.15)});
     }
     else
     {
-        SDL_RenderCopy(win->rend, texHud->tex_reload[player->timers.reload_cd.index], NULL, &(SDL_Rect){(win->w * 0.55), (win->h * 0.575), (win->w * 0.7), (win->h * 0.4375)});   
+        SDL_RenderCopy(win->rend, texhud->tex_reload[player->timers.reload_cd.index], NULL, &(SDL_Rect){(win->w * 0.55), (win->h * 0.575), (win->w * 0.7), (win->h * 0.4375)});   
     }
 	//printf("b = %d\n", player->len_bullet);
 	while (++i < player->len_bullet)

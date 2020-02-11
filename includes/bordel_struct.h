@@ -243,13 +243,13 @@ typedef struct			s_linedef
 /*
 **	---------------------------------- hud --------------------------------------------
 */
-typedef struct 	s_texHud
+typedef struct 	s_texhud
 {
 	SDL_Texture		*tex[16];
 	SDL_Texture		*tex_weapon[6];
 	SDL_Texture		*tex_reload[5];
 	TTF_Font		*police;
-}					t_texHud;
+}					t_texhud;
 
 /*
 **	---------------------------------- main_menu --------------------------------------------
@@ -327,7 +327,7 @@ typedef struct		s_win
 	t_button		*selected_button;
 
 	t_font			font;
-	t_texHud		*texHud;
+	t_texhud		*texhud;
 
 	t_doom_music	music;
 	t_main_menu		*main_menu;

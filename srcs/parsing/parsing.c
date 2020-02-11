@@ -77,25 +77,11 @@ void		fill_poly_object(t_poly *poly, t_object *object)
 		poly = poly->next;
 	while (object)
 	{
-		// tmp = ft_strdup("textures/");
 		tmp = ft_strjoin("textures/", object->texture);
 		poly_object = object->poly;
 		while (poly_object)
 		{
-			if (!(poly_object->texture = IMG_Load(tmp)))
-			{
-				ui_ret_error("fill_poly_object", SDL_GetError(), 0);
-				exit(0);
-				return ;
-			}
-			if (!(poly_object->texture = SDL_ConvertSurfaceFormat(poly_object->texture,
-							SDL_PIXELFORMAT_ARGB8888, 0)))
-			{
-				ui_ret_error("fill_poly_object", SDL_GetError(), 0);
-				exit(0);
-				return ;
-			}
-			printf("poly_object->texture = %p\n", poly_object->texture);
+			fill_poly_object_norm(tmp, poly_object);
 			poly->next = poly_object;
 			poly = poly->next;
 			poly_object = poly_object->next;
@@ -115,7 +101,7 @@ t_poly		*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 	poly = NULL;
 	map->mob = NULL;
 	tab = fillntesttab(fd, fd1);
-	win->texHud = define_texHud(win);
+	win->texhud = define_texhud(win);
 	while (tab[++i])
 	{
 		if (ft_strstr(tab[i], "Polygon"))
