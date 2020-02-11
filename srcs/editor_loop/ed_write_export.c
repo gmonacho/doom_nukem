@@ -112,6 +112,8 @@ void	ed_write_item(int fd, const t_object *obj)
 		tmp = "HEAL";
 	else if (obj->type & ARMOR)
 		tmp = "ARMOR";
+	else if (obj->type & GRAVITY_INV)
+		tmp = "ARMOR";
 	ed_write_line(fd, "\ttype", tmp);
 	tmp = ft_itoa(obj->pos.x);
 	ed_write_line(fd, "\tposx", tmp);

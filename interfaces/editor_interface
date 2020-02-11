@@ -75,8 +75,8 @@ frame
 		ratio : 0 0.3 1 0.075
 		data
 		{
-			text : "Mob"
-            texture_normal : "textures/ui_normal_button.png"
+			text : ""
+            texture_normal : "textures/ghost.png"
             texture_clicked : "textures/ui_clicked_button.png"
             texture_on_mouse : "textures/ui_on_mouse_button.png"
 			clicked_condition : UI_MOUSE_LEFT
@@ -107,6 +107,21 @@ frame
 		{
 			text : ""
             texture_normal : "textures/shieldPotion.png"
+            texture_clicked : "textures/ui_clicked_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button.png"
+			clicked_condition : UI_MOUSE_LEFT
+		}
+	}
+	button
+	{
+		id : "b_gravity"
+		type : UI_BUTTON_SIMPLE
+		resize_type : UI_RESIZE_ALL_LINEAR
+		ratio : 0 0.525 1 0.075
+		data
+		{
+			text : ""
+            texture_normal : "textures/pq.png"
             texture_clicked : "textures/ui_clicked_button.png"
             texture_on_mouse : "textures/ui_on_mouse_button.png"
 			clicked_condition : UI_MOUSE_LEFT

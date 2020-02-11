@@ -105,7 +105,7 @@ typedef enum	e_editor_calc
 	ED_CALC_Z = 2
 }				t_editor_calc;
 
-# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER + ED_MOB + ED_HEAL + ED_SHIELD
+# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER + ED_MOB + ED_HEAL + ED_SHIELD + ED_GRAVITY
 
 typedef struct		s_kit_flags
 {

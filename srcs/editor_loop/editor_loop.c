@@ -378,6 +378,10 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[9]);
 	ui_set_simple_button_function(win->winui,
+								"b_gravity",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[10]);
+	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,
 								&map->editor.export);
@@ -555,6 +559,8 @@ int				editor_loop(t_win *win, t_map *map)
 											ED_HEAL};
 	map->editor.arg_menu_tab[9] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_SHIELD};
+	map->editor.arg_menu_tab[10] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_GRAVITY};
 	map->editor.cursor[CURSOR_DEFAULT] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	map->editor.cursor[CURSOR_SELECTING] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
 	map->editor.export.path = ft_strdup("./maps/new_map");
