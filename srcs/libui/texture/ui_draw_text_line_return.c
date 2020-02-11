@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:35:58 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/26 18:44:17 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 18:18:10 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,7 @@ int				ui_draw_text_line_return(SDL_Renderer *rend,
 	int				n_words;
 	int				jumped;
 	t_text_line_kit	text_tmp;
+	char			*tmp;
 
 	if (text)
 	{
@@ -55,14 +56,18 @@ int				ui_draw_text_line_return(SDL_Renderer *rend,
 		n_rem_words = 0;
 		n_words = ft_count_words(text->str);
 		text_tmp = *text;
+		text_tmp.str = ft_strdup(text_tmp.str);
 		while (text_tmp.str && jumped != -1 && n_rem_words < n_words)
 		{
 			jumped = draw_one_line_return(rend, &text_tmp,
 									n_rem_words, n_words);
 			text_tmp.pos.y += text_tmp.height;
+			tmp = text_tmp.str;
 			text_tmp.str = jump_n_words(text_tmp.str, jumped);
+			ft_strdel(&tmp);
 			n_rem_words += jumped;
 		}
+		ft_strdel(&text_tmp.str);
 	}
 	return (1);
 }

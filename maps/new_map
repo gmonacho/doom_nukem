@@ -1,77 +1,17 @@
 Player
 {
-	posx = 200
-	posy = 200
-	posz = 150
+	posx = 0
+	posy = 0
+	posz = 0
 	dir = 0
-	width = 60
-	height = 180
+	width = 30
+	height = 60
 	velocity = 10
 }
-Object
-{
-	type = ARMOR
-	posx = 342
-	posy = 306
-	posz = 0
-	width = 30
-	height = 30
-	texture = shieldPotion.png
-}
-Object
-{
-	type = ARMOR
-	posx = 500
-	posy = 327
-	posz = 0
-	width = 30
-	height = 30
-	texture = shieldPotion.png
-}
-Object
-{
-	type = ARMOR
-	posx = 510
-	posy = 206
-	posz = 0
-	width = 30
-	height = 30
-	texture = shieldPotion.png
-}
-Object
-{
-	type = ARMOR
-	posx = 590
-	posy = 218
-	posz = 0
-	width = 30
-	height = 30
-	texture = shieldPotion.png
-}
-Object
-{
-	type = HEAL
-	posx = 451
-	posy = 114
-	posz = 0
-	width = 30
-	height = 30
-	texture = healthPotion.png
-}
-Object
-{
-	type = HEAL
-	posx = 298
-	posy = 206
-	posz = 0
-	width = 30
-	height = 30
-	texture = healthPotion.png
-}
 Mob
 {
-	posx = 587
-	posy = 589
+	posx = -198
+	posy = 629
 	posz = 5
 	height = 30
 	width = 30
@@ -82,8 +22,8 @@ Mob
 }
 Mob
 {
-	posx = 577
-	posy = 657
+	posx = -265
+	posy = 575
 	posz = 5
 	height = 30
 	width = 30
@@ -94,8 +34,8 @@ Mob
 }
 Mob
 {
-	posx = 781
-	posy = 693
+	posx = -130
+	posy = 575
 	posz = 5
 	height = 30
 	width = 30
@@ -106,32 +46,8 @@ Mob
 }
 Mob
 {
-	posx = 828
-	posy = 628
-	posz = 5
-	height = 30
-	width = 30
-	damage = 1
-	dir = -90
-	velocity = 1
-	texture = Brique.png
-}
-Mob
-{
-	posx = 705
-	posy = 674
-	posz = 5
-	height = 30
-	width = 30
-	damage = 1
-	dir = -90
-	velocity = 1
-	texture = Brique.png
-}
-Mob
-{
-	posx = 737
-	posy = 597
+	posx = -213
+	posy = 499
 	posz = 5
 	height = 30
 	width = 30
@@ -142,81 +58,73 @@ Mob
 }
 Polygon
 {
-	dot = x:506 y:582 z:150
-	dot = x:602 y:582 z:250
-	dot = x:602 y:582 z:250
-	dot = x:506 y:582 z:150
+	dot = x:-322 y:-67 z:-50
+	dot = x:239 y:-67 z:-50
+	dot = x:239 y:372 z:-50
+	dot = x:-322 y:372 z:-50
+	texture = sol.png
+}
+Polygon
+{
+	dot = x:-322 y:-67 z:50
+	dot = x:-322 y:372 z:50
+	dot = x:-322 y:372 z:-50
+	dot = x:-322 y:-67 z:-50
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:411 y:920 z:250
-	dot = x:426 y:469 z:250
-	dot = x:426 y:469 z:150
-	dot = x:411 y:920 z:150
+	dot = x:-322 y:-67 z:50
+	dot = x:239 y:-67 z:50
+	dot = x:239 y:-67 z:-50
+	dot = x:-322 y:-67 z:-50
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:1080 y:941 z:250
-	dot = x:411 y:920 z:250
-	dot = x:411 y:920 z:150
-	dot = x:1080 y:941 z:150
+	dot = x:239 y:-67 z:50
+	dot = x:239 y:372 z:50
+	dot = x:239 y:372 z:-50
+	dot = x:239 y:-67 z:-50
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:1085 y:751 z:250
-	dot = x:1080 y:941 z:250
-	dot = x:1080 y:941 z:150
-	dot = x:1085 y:751 z:150
+	dot = x:239 y:372 z:50
+	dot = x:-83 y:372 z:50
+	dot = x:-83 y:372 z:-50
+	dot = x:239 y:372 z:-50
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:846 y:745 z:250
-	dot = x:1085 y:751 z:250
-	dot = x:1085 y:751 z:150
-	dot = x:846 y:745 z:150
+	dot = x:-322 y:-67 z:50
+	dot = x:239 y:-67 z:50
+	dot = x:239 y:372 z:50
+	dot = x:-322 y:372 z:50
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:864 y:142 z:250
-	dot = x:846 y:745 z:250
-	dot = x:846 y:745 z:150
-	dot = x:864 y:142 z:150
+	dot = x:-322 y:372 z:-50
+	dot = x:-83 y:372 z:-50
+	dot = x:-83 y:742 z:-50
+	dot = x:-322 y:742 z:-50
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:85 y:122 z:250
-	dot = x:864 y:142 z:250
-	dot = x:864 y:142 z:150
-	dot = x:85 y:122 z:150
+	dot = x:-322 y:372 z:50
+	dot = x:-322 y:742 z:50
+	dot = x:-322 y:742 z:-50
+	dot = x:-322 y:372 z:-50
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:846 y:745 z:150
-	dot = x:1085 y:751 z:150
-	dot = x:1080 y:941 z:150
-	dot = x:841 y:935 z:150
-	texture = Brique.png
-}
-Polygon
-{
-	dot = x:434 y:130 z:150
-	dot = x:864 y:142 z:150
-	dot = x:841 y:932 z:150
-	dot = x:411 y:920 z:150
-	texture = Brique.png
-}
-Polygon
-{
-	dot = x:85 y:122 z:150
-	dot = x:434 y:130 z:150
-	dot = x:426 y:469 z:150
-	dot = x:78 y:461 z:150
+	dot = x:-83 y:372 z:50
+	dot = x:-83 y:742 z:50
+	dot = x:-83 y:742 z:-50
+	dot = x:-83 y:372 z:-50
 	texture = Brique.png
 }

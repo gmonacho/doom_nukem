@@ -259,7 +259,7 @@ static void		editor_menu_disp(t_win *win, t_map *map)
 	ed_display(win, map);
 	ui_display_frames(win->winui, win->winui->ui.frames);
 	ui_draw_rend(win->winui);
-	ui_poll_event(&win->winui->event);
+	ui_wait_event(&win->winui->event);
 	ui_update_ui(win->winui);
 }
 
