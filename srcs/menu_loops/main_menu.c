@@ -56,7 +56,7 @@ static void		main_menu_ui(t_win *win)
 	ui_clear_win(win->winui);
 	ui_display_frames(win->winui, win->winui->ui.frames);
 	ui_draw_rend(win->winui);
-	ui_wait_event(&win->winui->event);
+	ui_poll_event(&win->winui->event);
 	ui_update_ui(win->winui);
 }
 

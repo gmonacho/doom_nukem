@@ -259,7 +259,7 @@ static void		editor_menu_disp(t_win *win, t_map *map)
 	ed_display(win, map);
 	ui_display_frames(win->winui, win->winui->ui.frames);
 	ui_draw_rend(win->winui);
-	ui_wait_event(&win->winui->event);
+	ui_poll_event(&win->winui->event);
 	ui_update_ui(win->winui);
 }
 
@@ -580,6 +580,7 @@ int				editor_loop(t_win *win, t_map *map)
 	loop = SDL_TRUE;
 	ed_delete_mob_polys(map);
 	ed_delete_object_polys(map);
+	SDL_Delay(5000);
 	while (loop)
 	{
 		

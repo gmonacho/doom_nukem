@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:36:03 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:36:04 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/12 17:14:16 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,6 +14,15 @@
 #include "ui_texture.h"
 #include "ui_error.h"
 #include "libft.h"
+
+
+static void		fill_src_struct(const t_rect *data, t_rect **filled_rect)
+{
+	(*filled_rect)->x = data->x;
+	(*filled_rect)->y = data->y;
+	(*filled_rect)->w = data->w;
+	(*filled_rect)->h = data->h;
+}
 
 static void		fill_src_rect(t_text_line_kit *text,
 								t_rect **src_rect,
@@ -24,27 +33,33 @@ static void		fill_src_rect(t_text_line_kit *text,
 	{
 		if (text->alignment & TEXT_ALIGN_LEFT)
 		{
-			**src_rect = (t_rect){0, 0,
+			fill_src_struct(&(t_rect){0, 0,
 					texture_size.x * text->max_width / width,
-					texture_size.y};
+					texture_size.y}, src_rect);
 		}
 		else if (text->alignment & TEXT_ALIGN_RIGHT)
 		{
-			**src_rect = (t_rect){
+			fill_src_struct(&(t_rect){
 				texture_size.x - texture_size.x * text->max_width / width,
-				0, texture_size.x, texture_size.y};
+				0, texture_size.x, texture_size.y}, src_rect);
 		}
 		else if (text->alignment & TEXT_ALIGN_CENTER)
 		{
-			**src_rect = (t_rect){
+			fill_src_struct(&(t_rect){
 			texture_size.x / 2 - texture_size.x * text->max_width / width / 2,
-			0, texture_size.x * text->max_width / width, texture_size.y};
+			0, texture_size.x * text->max_width / width, texture_size.y}, src_rect);
 		}
 		else
+		{
+			free(*src_rect);
 			*src_rect = NULL;
+		}
 	}
 	else
+	{
+		free(*src_rect);
 		*src_rect = NULL;
+	}
 }
 
 static t_rect	*get_src_rect(t_text_line_kit *text,
@@ -122,6 +137,8 @@ int				ui_draw_text_line(SDL_Renderer *rend,
 			SDL_RenderCopy(rend, texture,
 			(SDL_Rect*)src_rect, (SDL_Rect*)&dst_rect);
 			SDL_DestroyTexture(texture);
+			if (src_rect)
+				free(src_rect);
 		}
 	}
 	return (text->height);
