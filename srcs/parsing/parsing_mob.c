@@ -1,21 +1,5 @@
 #include "doom_nukem.h"
 
-<<<<<<< HEAD
-void		set_mobs_dots(t_mob *mob)
-{
-	mob->poly->dots[0].x = mob->pos.x - mob->width_2;
-	mob->poly->dots[0].y = mob->pos.y;
-	mob->poly->dots[0].z = mob->pos.z - mob->height_2;
-	mob->poly->dots[1].x = mob->pos.x + mob->width_2;
-	mob->poly->dots[1].y = mob->pos.y;
-	mob->poly->dots[1].z = mob->pos.z - mob->height_2;
-	mob->poly->dots[2].x = mob->pos.x + mob->width_2;
-	mob->poly->dots[2].y = mob->pos.y;
-	mob->poly->dots[2].z = mob->pos.z + mob->height_2;
-	mob->poly->dots[3].x = mob->pos.x - mob->width_2;
-	mob->poly->dots[3].y = mob->pos.y;
-	mob->poly->dots[3].z = mob->pos.z + mob->height_2;
-=======
 void    set_mobs_dots_rotz_only(t_mob *mob)
 {
     mob->poly->dots_rotz_only[0].x = mob->pos.x - mob->width_2;
@@ -30,7 +14,6 @@ void    set_mobs_dots_rotz_only(t_mob *mob)
     mob->poly->dots_rotz_only[3].x = mob->pos.x - mob->width_2;
     mob->poly->dots_rotz_only[3].y = mob->pos.y;
     mob->poly->dots_rotz_only[3].z = mob->pos.z + mob->height_2;
->>>>>>> 06c140fd071f5c86527080cb8f99f9b95d078c27
 }
 
 void		add_mob(t_mob **mob)
@@ -55,15 +38,9 @@ void		add_existing_mob(t_mob **mob, t_mob *new_mob)
 
 void		add_poly_mob(t_mob **mob)
 {
-<<<<<<< HEAD
-	(*mob)->poly = (t_poly *)ft_memalloc(sizeof(t_poly));
-	if ((*mob)->poly != NULL)
-		set_mobs_dots(*mob);
-=======
     (*mob)->poly = (t_poly *)ft_memalloc(sizeof(t_poly));
     if ((*mob)->poly != NULL)
         set_mobs_dots_rotz_only(*mob);
->>>>>>> 06c140fd071f5c86527080cb8f99f9b95d078c27
 }
 
 void		fill_mob_data(t_mob **mob, char **tab, int i)

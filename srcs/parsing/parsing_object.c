@@ -23,6 +23,7 @@ void			add_object(t_object **object)
 {
 	t_object *new_object;
 
+	printf("New object\n");
 	new_object = (t_object *)ft_memalloc(sizeof(t_object));
 	new_object->next = *object;
 	new_object->collide = 1;
@@ -32,7 +33,7 @@ void			add_object(t_object **object)
 	*object = new_object;
 }
 
-void			add_poly_object_norm(t_object *object, char *type_str)
+static int		add_poly_object_norm(t_object *object, char *type_str)
 {
 	if (type_str == NULL)
 		ft_putendl("Error: Type of object is wrong !");
@@ -52,23 +53,25 @@ void			add_poly_object_norm(t_object *object, char *type_str)
 	{
 		object->type = BOX;
 		set_box_object(object, object->pos_rotz_only, object->width_2, object->height_2);
-		return ;
+		return (0);
 	}
 	else if (!ft_strcmp(type_str, "LIGHT"))
 		object->type = LIGHT;
 	else
 		ft_putendl("Error: Type of object is wrong !");
 	set_poly_dots_rotz_only(object->poly, object->pos_rotz_only, object->width_2, object->height_2);
-}
-
-int				add_poly_object(t_object *object, char *type_str)
-{
-	add_poly_object_norm(object, type_str);
-	printf("BOOOX pos %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
 	if (!(object->poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
 		return (1);
 	object->poly->object = object;
 	object->poly->next = NULL;
+	return (0);
+}
+
+int				add_poly_object(t_object *object, char *type_str)
+{
+	printf("Pos rotz : %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
+	add_poly_object_norm(object, type_str);
+	printf("BOOOX pos %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
 	return (0);
 }
 

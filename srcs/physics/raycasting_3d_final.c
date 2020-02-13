@@ -62,46 +62,46 @@ int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 	return (coord->x < 0 || coord->x > 1 || coord->y < 0 || coord->y > 1 ? 0 : 1);
 }
 
-// static int			is_in_shadow(t_map *map, t_poly *poly_collision, t_fdot_3d light, t_fdot_3d pos, t_fdot_3d ray)
-// {
-// 	t_poly			*poly;
-// 	t_fdot_3d		collision;
-// 	t_fdot			coord;
+static int			is_in_shadow(t_map *map, t_poly *poly_collision, t_fdot_3d light, t_fdot_3d pos, t_fdot_3d ray)
+{
+	t_poly			*poly;
+	t_fdot_3d		collision;
+	t_fdot			coord;
 
-// 	// printf("Light %f, %f, %f\n", light.x, light.y, light.z);
-// 	// printf("Ray %f, %f, %f\n", ray.x, ray.y, ray.z);
-// 	poly = map->polys;
-// 	while (poly)
-// 	{
-// 		if (poly != poly_collision)
-// 		{
-// 			// printf("Poly eq. %f %f %f %f\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
-// 			if (intersection_plan_ray(&collision, poly->equation,\
-// 										(t_cartesienne){light.x, light.y, light.z,\
-// 														ray.x, ray.y, ray.z,\
-// 														0, NULL, 0, NULL}))
-// 			{
-// 				// printf("Collision %f, %f, %f\n", collision.x, collision.y, collision.z);
-// 				if (is_in_poly(poly, &coord, collision) &&\
-// 					is_in_segment(collision, light, pos))
-// 				{
-// 					// printf("Coord %f %f\n", coord.x, coord.y);
-// 					// printf("In poly\n");
-// 					return (1);
-// 				}
-// 				// printf("Collision %d %d\n", coord.x, coord.y);
-// 			}
-// 			else
-// 			{
-// 				// printf("Parrallele\n");
-// 				return (1);
-// 			}
-// 		}
-// 		poly = poly->next;
-// 	}
-// 	// printf("Not in shadow\n");
-// 	return (0);
-// }
+	// printf("Light %f, %f, %f\n", light.x, light.y, light.z);
+	// printf("Ray %f, %f, %f\n", ray.x, ray.y, ray.z);
+	poly = map->polys;
+	while (poly)
+	{
+		if (poly != poly_collision)
+		{
+			// printf("Poly eq. %f %f %f %f\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
+			if (intersection_plan_ray(&collision, poly->equation,\
+										(t_cartesienne){light.x, light.y, light.z,\
+														ray.x, ray.y, ray.z,\
+														0, NULL, 0, NULL}))
+			{
+				// printf("Collision %f, %f, %f\n", collision.x, collision.y, collision.z);
+				if (is_in_poly(poly, &coord, collision) &&\
+					is_in_segment(collision, light, pos))
+				{
+					// printf("Coord %f %f\n", coord.x, coord.y);
+					// printf("In poly\n");
+					return (1);
+				}
+				// printf("Collision %d %d\n", coord.x, coord.y);
+			}
+			else
+			{
+				// printf("Parrallele\n");
+				return (1);
+			}
+		}
+		poly = poly->next;
+	}
+	// printf("Not in shadow\n");
+	return (0);
+}
 
 static int			process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int color)
 {
@@ -122,16 +122,16 @@ static int			process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int co
 			//rien faire si scalar < 0
 			// printf("Pos %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
 			ray = fdot_3d_sub(collision, object->pos);
-			// if (is_in_shadow(map, poly, object->pos, collision, ray))
-			// {
-			// 	light_coef += 0;
-			// }
-			// else
-			// {
+			if (is_in_shadow(map, poly, object->pos, collision, ray))
+			{
+				light_coef += 0;
+			}
+			else
+			{
 				sc_product = fabs(scalar_product(poly->equation.v, normalize(ray)));
 				if ((dist = mag(ray)) < 1000)
 					light_coef += sc_product * (1 - dist / 1000) * poly->light_coef * object->data;
-			// }
+			}
 			i++;
 		}
 		object = object->next;
