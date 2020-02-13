@@ -62,7 +62,7 @@ int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 	return (coord->x < 0 || coord->x > 1 || coord->y < 0 || coord->y > 1 ? 0 : 1);
 }
 
-// static int			is_in_shadow(t_map *map, t_poly *poly_collision, t_fdot_3d light, t_fdot_3d pos, t_fdot_3d vector)
+// static int			is_in_shadow(t_map *map, t_poly *poly_light, t_fdot_3d light, t_fdot_3d pos, t_fdot_3d vector)
 // {
 // 	t_poly			*poly;
 // 	t_fdot_3d		collision;
@@ -77,7 +77,7 @@ int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 // 	poly = map->polys;
 // 	while (poly)
 // 	{
-// 		if (poly != poly_collision)
+// 		if (poly != poly_light && !(poly->object && poly->object->visible == 0))
 // 		{
 // 			// printf("Poly eq. %f %f %f %f\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
 // 			if (intersection_plan_ray(&collision, poly->equation, ray))
@@ -117,6 +117,7 @@ static int			process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int co
 
 	tmp = -1;
 	light_coef = 0;
+	best_light_coef = 0;
 	object = map->objects;
 	while (object)
 	{
@@ -126,7 +127,7 @@ static int			process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int co
 			//rien faire si scalar < 0
 			// printf("Pos %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
 			ray = fdot_3d_sub(collision, object->pos);
-			// if (is_in_shadow(map, poly, object->pos, collision, ray))
+			// if (is_in_shadow(map, object->poly, object->pos, collision, ray))
 			// {
 			// 	light_coef = 0;
 			// }
@@ -145,10 +146,10 @@ static int			process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int co
 	// best_light_coef *= poly->light_coef;
 	// printf("N lights : %d\n", i);
 	// exit(0);
-	return (color & 0xFF000000 +
-			((int)((color >> 16 & 0xFF) * light_coef) << 16) +\
-			((int)((color >> 8 & 0xFF) * light_coef) << 8) +\
-			(int)((color & 0xFF) * light_coef));
+	return (0xFF000000 +
+			((int)((color >> 16 & 0xFF) * best_light_coef) << 16) +\
+			((int)((color >> 8 & 0xFF) * best_light_coef) << 8) +\
+			(int)((color & 0xFF) * best_light_coef));
 }
 
 
