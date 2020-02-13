@@ -1,6 +1,43 @@
 #include "doom_nukem.h"
 #include "ui_error.h"
 
+// int			add_light_a_la_mano(t_map *map)
+// {
+// 	t_light	*light;
+
+// 	if (!(light = (t_light *)malloc(sizeof(t_light))))
+// 		return (1);
+// 	map->lights = light;
+// 	light->pos = (t_fdot_3d){300, 950, 150};
+// 	light->pos_rotz_only = (t_fdot_3d){300, 950, 150};
+// 	light->coef = 1;
+
+// 	if (!(light->next = (t_light *)malloc(sizeof(t_light))))
+// 		return (1);
+// 	light = light->next;
+// 	light->pos = (t_fdot_3d){200, 200, 190};
+// 	light->pos_rotz_only = (t_fdot_3d){200, 200, 190};
+// 	light->coef = 0.5;
+	
+// 	if (!(light->next = (t_light *)malloc(sizeof(t_light))))
+// 		return (1);
+// 	light = light->next;
+// 	light->pos = (t_fdot_3d){200, 200, 60};
+// 	light->pos_rotz_only = (t_fdot_3d){200, 200, 60};
+// 	light->coef = 0.5;
+
+// 	if (!(light->next = (t_light *)malloc(sizeof(t_light))))
+// 		return (1);
+// 	light = light->next;
+// 	light->pos = (t_fdot_3d){300, 500, 60};
+// 	light->pos_rotz_only = (t_fdot_3d){300, 500, 60};
+// 	light->coef = 0;
+// 	light->next = NULL;
+
+// 	map->n_lights = 4;
+// 	return (0);
+// }
+
 void		find_texture(char *tab, t_poly *poly)
 {
 	char *tmp;
@@ -31,15 +68,17 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 	(*poly)->object = NULL;
 	while ((ft_strchr(tab[i], '}') == NULL))
 	{
-		if (ft_strstr(tab[i], "dot = "))
+		if (ft_strstr(tab[i], "dot = "))	// Dangereux si il y a x y ou z sur la meme ligne
 		{
-			(*poly)->dots[index].x = ft_atoi(ft_strrchr(tab[i], 'x') + 2);
-			(*poly)->dots[index].y = ft_atoi(ft_strrchr(tab[i], 'y') + 2);
-			(*poly)->dots[index].z = ft_atoi(ft_strrchr(tab[i], 'z') + 2);
+			(*poly)->dots_rotz_only[index].x = ft_atoi(ft_strrchr(tab[i], 'x') + 2);
+			(*poly)->dots_rotz_only[index].y = ft_atoi(ft_strrchr(tab[i], 'y') + 2);
+			(*poly)->dots_rotz_only[index].z = ft_atoi(ft_strrchr(tab[i], 'z') + 2);
 			index++;
 		}
 		if (ft_strstr(tab[i], "texture ="))
 			find_texture(tab[i], *poly);
+		if (ft_strstr(tab[i], "light = "))
+			(*poly)->light_coef = ft_atoi(ft_strrchr(tab[i], '=') + 1) / 100.0;
 		i++;
 	}
 }
@@ -110,7 +149,7 @@ t_poly		*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 			ft_fill_data(tab, &poly, i);
 		else if (ft_strstr(tab[i], "Object"))
 		{
-			if (object_data(tab, &(map->object), i))
+			if (object_data(tab, &(map->objects), i))
 				return (NULL); //LEAKS - C'est temporaire
 		}
 		else if (ft_strstr(tab[i], "Player"))
@@ -119,5 +158,7 @@ t_poly		*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 			fill_mob_data(&(map->mob), tab, i);
 	}
 	fill_poly(poly, map);
+	// if (add_light_a_la_mano(map))
+	// 	return (NULL);
 	return (poly);
 }

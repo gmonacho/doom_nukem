@@ -372,7 +372,7 @@ int			game_loop(t_win *win, t_map *map);
 
 void		add_existing_object(t_object **objects, t_object *new_object);
 int			objects_actions(t_map *map, t_player *player, t_object *object);
-void		objects_animations(t_map *map, t_player *player, t_object *object);
+void		objects_movements(t_map *map, t_player *player, t_object *object);
 int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float height_2);
 
 /*
@@ -381,6 +381,7 @@ int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float heigh
 
 int					lstlen(t_poly *poly);
 void				copy_poly_lst(t_poly *dst, t_poly *src);
+// void				copy_poly_lst(t_poly *dst, t_poly *src, t_object *dst_obj, t_object *src_obj);
 int					create_poly_save(t_map *map);
 void				poly_del(t_poly *poly);
 
@@ -402,13 +403,18 @@ t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
 
 int					init_rays(t_win *win, t_player *player);
 void				translate_dot(t_fdot_3d *dot, t_fdot_3d translation);
-void				translate_all(t_map *map, t_poly *sector, t_fdot_3d translation);
+void				translate_all(t_map *map, t_fdot_3d translation);
+void				translate_all_poly(t_poly *poly, t_fdot_3d translation);
+void				translate_all_objects(t_object *object, t_fdot_3d translation);
 void				translate_all_rotz_only(t_map *map, t_poly *poly, t_fdot_3d translation);
+void				translate_all_poly_rotz_only(t_poly *poly, t_fdot_3d translation);
+void				translate_all_objects_rotz_only(t_object *object, t_fdot_3d translation);
 t_fdot_3d			rotate_dot(t_fdot_3d dot, t_matrix matrix);
 // void				rotate_all_dots(t_poly *sector, t_matrix matrix);
 void				rotate_all_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
 void				copy_rotate_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
 void				rotate_box(t_map *map, t_player *player, t_object *object);
+void				translate_box(t_map *map, t_object *object);
 
 void 				print_poly(t_poly *poly, int arg);
 
@@ -459,7 +465,7 @@ t_fdot_3d			fdot_3d_add(t_fdot_3d d1, t_fdot_3d d2);
 t_fdot_3d			fdot_3d_sub(t_fdot_3d d1, t_fdot_3d d2);
 float				mag(t_fdot_3d v);
 int					sign(float nbr);
-void				normalize(float *angle);
+t_fdot_3d			normalize(t_fdot_3d vector);
 int					is_null(float nbr, float precision);
 t_fdot_3d			mid_segment(t_fdot_3d d1, t_fdot_3d d2);
 
@@ -475,5 +481,6 @@ int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne r
 int					resolve_polynome(t_fdot_3d polynome, float *x1, float *x2);
 void				proj_ortho_plan(t_fdot_3d dot, t_plan plan, t_fdot_3d *proj_ortho);
 t_fdot_3d			proj_ortho_origin_line(t_fdot_3d l1, t_fdot_3d l2, t_fdot_3d *proj);
+int					is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2);
 
 #endif

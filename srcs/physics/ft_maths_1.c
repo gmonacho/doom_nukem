@@ -56,6 +56,16 @@ t_fdot_3d		fdot_3d_sub(t_fdot_3d d1, t_fdot_3d d2)
 						d1.z - d2.z});
 }
 
+t_fdot_3d		normalize(t_fdot_3d vector)
+{
+	float		magnitude;
+
+	magnitude = 1 / mag(vector);
+	return ((t_fdot_3d){vector.x * magnitude,\
+						vector.y * magnitude,\
+						vector.z * magnitude});
+}
+
 float			scalar_product(t_fdot_3d v1, t_fdot_3d v2)
 {
 	return ((float)(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z));

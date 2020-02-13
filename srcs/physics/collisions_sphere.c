@@ -2,16 +2,15 @@
 
 static int		is_in_poly_rotz_only(t_poly *poly, t_fdot_3d dot)
 {
-	t_fdot_3d	dot_3d_in_plan;
 	t_fdot		coord1;
 
-	dot_3d_in_plan = fdot_3d_sub(dot, poly->dots_rotz_only[0]);
-	coord1.x = scalar_product(dot_3d_in_plan, poly->i_rotz_only) / poly->ii;
-	coord1.y = scalar_product(dot_3d_in_plan, poly->j_rotz_only) / poly->jj;
+	dot = fdot_3d_sub(dot, poly->dots_rotz_only[0]);
+	coord1.x = scalar_product(dot, poly->i_rotz_only) / poly->ii;
+	coord1.y = scalar_product(dot, poly->j_rotz_only) / poly->jj;
 	return (coord1.x < 0 || 1 < coord1.x || coord1.y < 0 || 1 < coord1.y ? 0 : 1);
 }
 
-static int		is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2)
+int				is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2)
 {
 	if (!is_null(d2.x - d1.x, 0.0005))
 	{

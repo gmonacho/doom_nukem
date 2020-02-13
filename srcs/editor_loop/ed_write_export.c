@@ -116,6 +116,8 @@ void	ed_write_item(int fd, const t_object *obj)
 		tmp = "GRAVITY_INV";
 	else if (obj->type & BULLET)
 		tmp = "BULLET";
+	else if (obj->type & BOX)
+		tmp = "BOX";
 	ed_write_line(fd, "\ttype", tmp);
 	tmp = ft_itoa(obj->pos.x);
 	ed_write_line(fd, "\tposx", tmp);

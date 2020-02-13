@@ -20,24 +20,32 @@ static void		menu_change_loop(void *argument)
 	*(arg_menu->loop) = arg_menu->value;
 }
 
-static void		set_menu_button_function(t_winui *winui, int *next_loop)
+static void		set_menu_button_function(t_winui *winui, t_map *map, int *next_loop)
 {
+	map->editor.arg_menu_tab[0] = (t_arg_menu){next_loop,
+											2};
+	map->editor.arg_menu_tab[1] = (t_arg_menu){next_loop,
+											3};
+	map->editor.arg_menu_tab[2] = (t_arg_menu){next_loop,
+											4};
+	map->editor.arg_menu_tab[3] = (t_arg_menu){next_loop,
+											0};
 	ui_set_simple_button_function(winui,
 									"b_play",
 									&menu_change_loop,
-									&(t_arg_menu){next_loop, 2});
+									&map->editor.arg_menu_tab[0]);
 	ui_set_simple_button_function(winui,
 									"b_map_editor",
 									&menu_change_loop,
-									&(t_arg_menu){next_loop, 3});
+									&map->editor.arg_menu_tab[1]);
 	ui_set_simple_button_function(winui,
 									"b_credit",
 									&menu_change_loop,
-									&(t_arg_menu){next_loop, 4});
+									&map->editor.arg_menu_tab[2]);
 	ui_set_simple_button_function(winui,
 									"b_exit",
 									&menu_change_loop,
-									&(t_arg_menu){next_loop, 0});
+									&map->editor.arg_menu_tab[3]);
 }
 
 int		init_main_menu(t_win *win)
@@ -74,7 +82,7 @@ int			main_menu(t_win *win, t_map *map)
 		next_loop = 1;
 		if (!f_set)
 		{
-			set_menu_button_function(win->winui, &next_loop);
+			set_menu_button_function(win->winui, map, &next_loop);
 			f_set = 1;
 		}
 		main_menu_ui(win);

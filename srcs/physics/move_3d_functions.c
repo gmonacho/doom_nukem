@@ -2,6 +2,40 @@
 
 //Norme : creer rotate_poly()
 
+void				translate_box(t_map *map, t_object *object)
+{
+	t_poly			*poly;
+	t_fdot_3d		translation;
+	// t_fdot_3d		translate;
+	int				i;
+
+	printf("Translate : %f %f %f\n", translation.x, translation.y, translation.z);
+	translate_dot(&(object->pos), translation);
+	poly = object->poly;
+	if (poly)
+		translation = (t_fdot_3d){poly->dots_rotz_only[0].x / 2,\
+								poly->dots_rotz_only[0].y / 2,\
+								poly->dots_rotz_only[0].z / 2};
+	i = -1;
+	while (++i < 6)
+	{
+		translate_dot(&(poly->dots_rotz_only[0]), translation);
+		translate_dot(&(poly->dots_rotz_only[1]), translation);
+		translate_dot(&(poly->dots_rotz_only[2]), translation);
+		translate_dot(&(poly->dots_rotz_only[3]), translation);
+		// translate_dot(&(poly->dots_rotz_only[0]), translation);
+		// translate_dot(&(poly->dots_rotz_only[1]), translation);
+		// translate_dot(&(poly->dots_rotz_only[2]), translation);
+		// translate_dot(&(poly->dots_rotz_only[3]), translation);
+
+		poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
+										poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
+										poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
+		poly = poly->next;
+	}
+	map = NULL;
+}
+
 void				rotate_box(t_map *map, t_player *player, t_object *object)
 {
 	t_poly			*poly;
@@ -22,11 +56,6 @@ void				rotate_box(t_map *map, t_player *player, t_object *object)
 		poly->dots_rotz_only[1] = rotate_dot(poly->dots_rotz_only[1], matrix);
 		poly->dots_rotz_only[2] = rotate_dot(poly->dots_rotz_only[2], matrix);
 		poly->dots_rotz_only[3] = rotate_dot(poly->dots_rotz_only[3], matrix);
-
-		// translate_dot(&(poly->dots_rotz_only[0]), translate);
-		// translate_dot(&(poly->dots_rotz_only[1]), translate);
-		// translate_dot(&(poly->dots_rotz_only[2]), translate);
-		// translate_dot(&(poly->dots_rotz_only[3]), translate);
 
 		poly->i_rotz_only = (t_fdot_3d){poly->dots_rotz_only[1].x - poly->dots_rotz_only[0].x,\
 										poly->dots_rotz_only[1].y - poly->dots_rotz_only[0].y,\
@@ -101,10 +130,10 @@ void				rotate_all_rotz_only(t_map *map, t_poly *poly, t_matrix matrix)
 		// poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
 		poly = poly->next;
 	}
-	object = map->object;
+	object = map->objects;
 	while (object)
 	{
-		object->pos = rotate_dot(object->pos, matrix);
+		object->pos_rotz_only = rotate_dot(object->pos_rotz_only, matrix);
 		object = object->next;
 	}
 }
@@ -138,10 +167,10 @@ void				copy_rotate_rotz_only(t_map *map, t_poly *poly, t_matrix matrix)
 								poly->dots[N_DOTS_POLY - 1].z - poly->dots[0].z};
 		poly = poly->next;
 	}
-	object = map->object;
+	object = map->objects;
 	while (object)
 	{
-		object->pos = rotate_dot(object->pos, matrix);
+		object->pos = rotate_dot(object->pos_rotz_only, matrix);
 		object = object->next;
 	}
 }
@@ -180,10 +209,8 @@ void				copy_rotate_rotz_only(t_map *map, t_poly *poly, t_matrix matrix)
 
 
 
-void				translate_all(t_map *map, t_poly *poly, t_fdot_3d translation)
+void				translate_all_poly(t_poly *poly, t_fdot_3d translation)
 {
-	t_object		*object;
-
 	while (poly)
 	{
 		if (poly->object && poly->object->type == BOX && poly->object->visible == 0)
@@ -200,18 +227,25 @@ void				translate_all(t_map *map, t_poly *poly, t_fdot_3d translation)
 								poly->equation.v.z * poly->dots[0].z);
 		poly = poly->next;
 	}
-	object = map->object;
+}
+void				translate_all_objects(t_object *object, t_fdot_3d translation)
+{
 	while (object)
 	{
 		translate_dot(&(object->pos), translation);
 		object = object->next;
 	}
 }
-
-void				translate_all_rotz_only(t_map *map, t_poly *poly, t_fdot_3d translation)
+void				translate_all(t_map *map, t_fdot_3d translation)
 {
-	t_object		*object;
+	translate_all_objects(map->objects, translation);
+	translate_all_poly(map->polys, translation);
+}
 
+
+
+void				translate_all_poly_rotz_only(t_poly *poly, t_fdot_3d translation)
+{
 	while (poly)
 	{
 		if (poly->object && poly->object->type == BOX && poly->object->visible == 0)
@@ -228,10 +262,17 @@ void				translate_all_rotz_only(t_map *map, t_poly *poly, t_fdot_3d translation)
 										poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
 		poly = poly->next;
 	}
-	object = map->object;
+}
+void				translate_all_objects_rotz_only(t_object *object, t_fdot_3d translation)
+{
 	while (object)
 	{
-		translate_dot(&(object->pos), translation);
+		translate_dot(&(object->pos_rotz_only), translation);
 		object = object->next;
 	}
+}
+void				translate_all_rotz_only(t_map *map, t_poly *poly, t_fdot_3d translation)
+{
+	translate_all_poly_rotz_only(poly, translation);
+	translate_all_objects_rotz_only(map->objects, translation);
 }

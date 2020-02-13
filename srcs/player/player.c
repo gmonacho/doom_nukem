@@ -28,7 +28,7 @@ void    apply_armor(t_player *player, int armor)
 void    use_item(t_map *map, t_player *player, t_music *music, int slot_selected)
 {
     // printf("Use one of %d items slot %d\n", player->inventory->item[slot_selected]->nb, slot_selected);
-    player->interaction_inventaire = 0;
+    // player->interaction_inventaire = 0;
     if (slot_selected == 0 && player->inventory->item[0]->nb > 0)
     {
         player->inventory->item[0]->nb -= 1;

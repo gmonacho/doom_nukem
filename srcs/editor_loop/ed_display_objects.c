@@ -13,7 +13,7 @@ void	ed_display_objects(t_win *win, const t_map *map)
 {
 	t_object	*obj;
 	SDL_Color	color;
-	obj = map->object;
+	obj = map->objects;
 	while (obj)
 	{
 		color = ed_get_obj_display_color(map, obj);

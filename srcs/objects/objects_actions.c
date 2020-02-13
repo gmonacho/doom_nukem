@@ -2,9 +2,34 @@
 
 static void			tp(t_map *map, t_player *player, t_poly *polys)
 {
+
 	map = NULL;
 	player = NULL;
 	polys = NULL;
+}
+
+static t_object		*catch_box(t_player *player, t_object *object)
+{
+	t_fdot_3d		collision;
+	t_fdot			coord;
+	t_poly			*poly;
+	t_cartesienne	ray;
+
+	ray = (t_cartesienne){0, 0, 0, 1, 0, 0, 0, NULL, 0, NULL};
+	while (object)
+	{
+		poly = object->poly;
+		while (object->visible && poly)
+		{
+			if (intersection_plan_my_ray(&collision, poly->equation, &ray) &&\
+				is_in_poly(poly, &coord, collision) &&\
+				mag(collision) < player->width * 2)
+				return (object);
+			poly = poly->next;
+		}
+		object = object->next;
+	}
+	return (NULL);
 }
 
 void				drop_box(t_map *map, t_player *player)
@@ -16,12 +41,13 @@ void				drop_box(t_map *map, t_player *player)
 	// int				i;
 
 	// printf("Drop box !!!\n");
-	object = map->object;
+	object = map->objects;
 	while (object)
 	{
 		if (object->type == BOX && !object->visible && !object->collide)
 		{
 			rotate_box(map, player, object);
+			// translate_box(map, object);
 			// printf("Find box ramasse a : %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
 			// object->pos = fdot_3d_add(object->pos, );
 			// printf("Find box ramasse a : %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
@@ -96,42 +122,34 @@ int				objects_actions(t_map *map, t_player *player, t_object *object)
 		map->gravity = -map->gravity;
 		start_cooldown(&(map->gravity_inv_time), 10000);
 	}
-	if (object->type == BOX)
-	{
-		if (player->interaction_inventaire)
-		{
-			player->inventory->item[4]->nb++;
-			object->rot_y_save = player->rot_y;
-		}
-		else
-			return (0);
-	}
+	// if (object->type == BOX)
+	// {
+	// 	if (player->interaction_inventaire)
+	// 	{
+	// 		player->inventory->item[4]->nb++;
+	// 		object->rot_y_save = player->rot_y;
+	// 	}
+	// 	else
+	// 		return (0);
+	// }
 	object->collide = 0;
 	object->visible = 0;
 	return (1);
 }
 
-void			objects_animations(t_map *map, t_player *player, t_object *object)
+void			objects_movements(t_map *map, t_player *player, t_object *objects)
 {
+	t_object	*object;
+
 	if (test_timer_refresh(&(map->objects_animation)))
-		rotate_all_objects(player, object);
+		rotate_all_objects(player, objects);
 	if (map->gravity < 0 && test_timer(&(map->gravity_inv_time)))
 		map->gravity = -map->gravity;
-	// while (object)
-	// {
-	// 	//  && is_collision_box(object, (t_cartesienne){0, 0, 0, 1, 0, 0, 0, NULL, 0, NULL}))
-	// 	if (object->type == BOX && player->interaction_inventaire &&\
-	// 		-object->width < object->pos.x && object->pos.x < object->width &&\
-	// 		-object->height < object->pos.z && object->pos.z < object->height &&\
-	// 		0 < object->pos.y && object->pos.y < 2 * object->width)
-	// 	{
-	// 		printf("aegr\n");
-	// 		player->inventory->item[4]->nb++;
-	// 		object->rot_y_save = player->rot_y;
-	// 		object->collide = 0;
-	// 		object->visible = 0;
-	// 	}
-	// 	object = object->next;
-	// }
-	object = NULL;
+	if (player->interaction_inventaire && (object = catch_box(player, objects)))
+	{
+		player->inventory->item[4]->nb++;
+		object->rot_y_save = player->rot_y;
+		object->collide = 0;
+		object->visible = 0;
+	}
 }

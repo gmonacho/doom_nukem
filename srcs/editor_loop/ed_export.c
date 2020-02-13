@@ -18,7 +18,7 @@ void		ed_export(void *ed_export)
 	if (fd)
 	{
 		ed_write_player(fd, &map->player);
-		obj = map->object;
+		obj = map->objects;
 		while (obj)
 		{
 			ed_write_item(fd, obj);
