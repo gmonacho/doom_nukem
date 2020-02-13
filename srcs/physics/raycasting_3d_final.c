@@ -138,7 +138,7 @@ static int			process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int co
 	}
 	// printf("N lights : %d\n", i);
 	// exit(0);
-	return (0xFF000000 +\
+	return (color & 0xFF000000 +\
 			((int)((color >> 16 & 0xFF) * light_coef) << 16) +\
 			((int)((color >> 8 & 0xFF) * light_coef) << 8) +\
 			(int)((color & 0xFF) * light_coef));

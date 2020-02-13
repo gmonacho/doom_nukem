@@ -27,6 +27,8 @@ void			add_object(t_object **object)
 	new_object->next = *object;
 	new_object->collide = 1;
 	new_object->visible = 1;
+	new_object->width = 50;
+	new_object->height = 50;
 	*object = new_object;
 }
 
@@ -50,22 +52,23 @@ void			add_poly_object_norm(t_object *object, char *type_str)
 	{
 		object->type = BOX;
 		set_box_object(object, object->pos_rotz_only, object->width_2, object->height_2);
-		return (0);
+		return ;
 	}
 	else if (!ft_strcmp(type_str, "LIGHT"))
 		object->type = LIGHT;
 	else
 		ft_putendl("Error: Type of object is wrong !");
+	set_poly_dots_rotz_only(object->poly, object->pos_rotz_only, object->width_2, object->height_2);
 }
 
 int				add_poly_object(t_object *object, char *type_str)
 {
 	add_poly_object_norm(object, type_str);
+	printf("BOOOX pos %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
 	if (!(object->poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
 		return (1);
 	object->poly->object = object;
 	object->poly->next = NULL;
-	set_poly_dots_rotz_only(object->poly, object->pos_rotz_only, object->width_2, object->height_2);
 	return (0);
 }
 
@@ -75,8 +78,6 @@ int				object_data(char **tab, t_object **object, int i)
 
 	type = NULL;
 	add_object(object);
-	(*object)->width = 50;
-	(*object)->height = 50;
 	type = object_data_fill(tab, object, i);
 	(*object)->width_2 = (*object)->width / 2;
 	(*object)->height_2 = (*object)->height / 2;

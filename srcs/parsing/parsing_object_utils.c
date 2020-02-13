@@ -12,11 +12,11 @@ char		*object_data_fill(char **tab, t_object **object, int i)
 		if (ft_strstr(tab[i], "texture = "))
 			(*object)->texture = ft_strdup(ft_strrchr(tab[i], '=') + 2);
 		if (ft_strstr(tab[i], "posx = "))
-			(*object)->pos.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+			(*object)->pos_rotz_only.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "posy = "))
-			(*object)->pos.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+			(*object)->pos_rotz_only.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "posz = "))
-			(*object)->pos.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+			(*object)->pos_rotz_only.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "width = "))
 			(*object)->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "height = "))

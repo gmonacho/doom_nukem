@@ -50,13 +50,15 @@ static void		move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 			tests_before_slide(map, poly_collide, move))
 			break ;
 	}
-	if (!i)
-		translate_all_objects_rotz_only(map->objects, move);
+	// if (!i)
+	// 	translate_all_objects_rotz_only(map->objects, move);
 	if (collisions_sphere(map, player, map->polys, 0))
 	{
 		printf("Toujours collision ! Return last state\n");
 		copy_poly_lst(map->polys_save, map->polys);                 //Collision sans slide               //Collision sans slide
 	}
+	translate_all_objects(map->objects, fdot_3d_sub(map->polys->dots_rotz_only[0],\
+													map->polys_save->dots_rotz_only[0]));
 }
 
 static SDL_bool game(t_win *win, t_map *map, t_player *player)
