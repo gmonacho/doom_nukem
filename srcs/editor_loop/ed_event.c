@@ -476,11 +476,16 @@ static void	ed_place_item(t_win *win, t_map *map)
 				obj->type = BULLET;
 				obj->texture = "Ammo_box_icon.png";
 			}
+			else if (map->editor.flags & ED_BOX)
+			{
+				obj->type = BOX;
+				obj->texture = map->editor.settings.texture;
+			}
 			obj->pos.x = pos.x;
 			obj->pos.y = pos.y;
-			obj->pos.z = 0;
-			obj->width = 30;
-			obj->height = 30;
+			obj->pos.z = map->editor.settings.object.z;
+			obj->width = map->editor.settings.object.width;
+			obj->height = map->editor.settings.object.width;
 			add_existing_object(&map->object, obj);
 		}
 	}
@@ -492,7 +497,7 @@ static void	ed_action(t_win *win, t_map *map)
 	// 	ed_place_player(win, map);
 	if (map->editor.flags & ED_SELECTION)
 		ed_selection(win, map);
-	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD || map->editor.flags & ED_GRAVITY || map->editor.flags & ED_BULLET) && !win->winui->ui.on_mouse_button)
+	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD || map->editor.flags & ED_GRAVITY || map->editor.flags & ED_BULLET || map->editor.flags & ED_BOX) && !win->winui->ui.on_mouse_button)
 		ed_place_item(win , map);
 	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
 		ed_place_poly(win, map);
@@ -518,7 +523,8 @@ void	ed_delete_mob(t_mob **mobs, t_mob *mob)
 		m = *mobs;
 		while (m)
 		{
-			if (m == mob)			{
+			if (m == mob)			
+			{
 				tmp_next = m->next;
 				free(m);
 				if (tmp_prev)

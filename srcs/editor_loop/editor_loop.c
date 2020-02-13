@@ -306,6 +306,8 @@ static void		set_editor_flags(void *argument)
 				*(arg_menu->loop) ^= ED_BULLET;
 			if (*(arg_menu->loop) & ED_SELECTION)
 				*(arg_menu->loop) ^= ED_SELECTION;
+			if (*(arg_menu->loop) & ED_BOX)
+				*(arg_menu->loop) ^= ED_BOX;
 			*(arg_menu->loop) |= arg_menu->value;
 			*(arg_menu->loop) |= ED_PLACE;
 		}
@@ -390,6 +392,10 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[11]);
 	ui_set_simple_button_function(win->winui,
+								"b_box",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[12]);
+	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,
 								&map->editor.export);
@@ -411,6 +417,8 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 	ui_set_text_entry_function(win->winui, "b_inclined_z2", &set_int_value, &map->editor.settings.inclined.z2);
 	ui_set_text_entry_function(win->winui, "b_export_path", &set_str_value, &map->editor.export.path);
 	ui_set_text_entry_function(win->winui, "b_texture", &set_str_value, &map->editor.settings.texture);
+	ui_set_text_entry_function(win->winui, "b_object_z", &set_int_value, &map->editor.settings.object.z);
+	ui_set_text_entry_function(win->winui, "b_object_width", &set_int_value, &map->editor.settings.object.width);
 }
 
 int		init_editor_menu(t_win *win, t_map *map)
@@ -540,6 +548,8 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.settings.inclined.z1 = 0;
 	map->editor.settings.inclined.z2 = 100;
 	map->editor.settings.texture = ft_strdup("Brique.png");
+	map->editor.settings.object.z = 0;
+	map->editor.settings.object.width = 30;
 	map->editor.place_step = 0;
 	map->editor.selected_poly = NULL;
 	map->editor.selected_mob = NULL;
@@ -571,6 +581,8 @@ int				editor_loop(t_win *win, t_map *map)
 											ED_GRAVITY};
 	map->editor.arg_menu_tab[11] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_BULLET};
+	map->editor.arg_menu_tab[12] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_BOX};
 	map->editor.cursor[CURSOR_DEFAULT] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	map->editor.cursor[CURSOR_SELECTING] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
 	map->editor.export.path = ft_strdup("./maps/new_map");

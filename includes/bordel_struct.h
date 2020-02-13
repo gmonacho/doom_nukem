@@ -107,7 +107,7 @@ typedef enum	e_editor_calc
 }				t_editor_calc;
 
 # define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER + ED_MOB\
-+ ED_HEAL + ED_SHIELD + ED_GRAVITY + ED_BULLET
++ ED_HEAL + ED_SHIELD + ED_GRAVITY + ED_BULLET + ED_BOX
 
 typedef struct		s_kit_flags
 {
@@ -662,15 +662,21 @@ typedef struct		s_inclined_settings
 	int				z2;
 }					t_inclined_settings;
 
+typedef struct		s_object_settings
+{
+	int				z;
+	int				width;
+}					t_object_settings;
+
 typedef struct			s_settings
 {
 	t_mob_settings		mob;
 	t_inclined_settings	inclined;
 	t_min_max			wall;
+	t_object_settings	object;
 	int					flat_z;
 	char				*texture;
 }						t_settings;
-
 
 typedef struct		s_editor
 {
