@@ -1,20 +1,22 @@
 #include "doom_nukem.h"
 
-// void    set_poly_dots(t_object *object)
-static void    set_poly_dots(t_poly *poly, t_fdot_3d pos, float width_2, float height_2)
+// void    set_poly_dots_rotz_only(t_object *object)
+static void    set_poly_dots_rotz_only(t_poly *poly, t_fdot_3d pos, float width_2, float height_2)
 {
-    poly->dots[0].x = pos.x - width_2;
-    poly->dots[0].y = pos.y;
-    poly->dots[0].z = pos.z - height_2;
-    poly->dots[1].x = pos.x + width_2;
-    poly->dots[1].y = pos.y;
-    poly->dots[1].z = pos.z - height_2;
-    poly->dots[2].x = pos.x + width_2;
-    poly->dots[2].y = pos.y;
-    poly->dots[2].z = pos.z + height_2;
-    poly->dots[3].x = pos.x - width_2;
-    poly->dots[3].y = pos.y;
-    poly->dots[3].z = pos.z + height_2;
+    poly->dots_rotz_only[0].x = pos.x - width_2;
+    poly->dots_rotz_only[0].y = pos.y;
+    poly->dots_rotz_only[0].z = pos.z - height_2;
+    poly->dots_rotz_only[1].x = pos.x + width_2;
+    poly->dots_rotz_only[1].y = pos.y;
+    poly->dots_rotz_only[1].z = pos.z - height_2;
+    poly->dots_rotz_only[2].x = pos.x + width_2;
+    poly->dots_rotz_only[2].y = pos.y;
+    poly->dots_rotz_only[2].z = pos.z + height_2;
+    poly->dots_rotz_only[3].x = pos.x - width_2;
+    poly->dots_rotz_only[3].y = pos.y;
+    poly->dots_rotz_only[3].z = pos.z + height_2;
+	print_poly(poly, 1);
+	printf("pos %f %f %f\n", pos.x, pos.y, pos.z);
 }
 
 void		add_object(t_object **object)
@@ -50,9 +52,11 @@ int			add_poly_object(t_object *object, char *type_str)
 	else if (!ft_strcmp(type_str, "BOX"))
 	{
 		object->type = BOX;
-		set_box_object(object, object->pos, object->width_2, object->height_2);
+		set_box_object(object, object->pos_rotz_only, object->width_2, object->height_2);
 		return (0);
 	}
+	else if (!ft_strcmp(type_str, "LIGHT"))
+		object->type = LIGHT;
 	else
 	{
 		ft_putendl("Error: Type of object is wrong !");
@@ -63,7 +67,7 @@ int			add_poly_object(t_object *object, char *type_str)
 		return (1);
 	object->poly->object = object;
 	object->poly->next = NULL;
-	set_poly_dots(object->poly, object->pos, object->width_2, object->height_2);
+	set_poly_dots_rotz_only(object->poly, object->pos_rotz_only, object->width_2, object->height_2);
 	return (0);
 }
 
@@ -79,14 +83,16 @@ int			object_data(char **tab, t_object **object, int i)
 	{
         if (ft_strstr(tab[i], "type = "))
             type = ft_strdup(ft_strrchr(tab[i], '=') + 2);
+        if (ft_strstr(tab[i], "data = "))
+        	(*object)->data = ft_atoi(ft_strrchr(tab[i], '=') + 1) / 100.0;
         if (ft_strstr(tab[i], "texture = "))
             (*object)->texture = ft_strdup(ft_strrchr(tab[i], '=') + 2);
         if (ft_strstr(tab[i], "posx = "))
-        	(*object)->pos.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+        	(*object)->pos_rotz_only.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "posy = "))
-            (*object)->pos.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+            (*object)->pos_rotz_only.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "posz = "))
-            (*object)->pos.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+            (*object)->pos_rotz_only.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "width = "))
             (*object)->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
         if (ft_strstr(tab[i], "height = "))

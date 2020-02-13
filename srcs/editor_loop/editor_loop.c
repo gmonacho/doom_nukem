@@ -465,7 +465,7 @@ static SDL_bool		ed_is_object_poly(const t_map *map, const t_poly *poly)
 {
 	const t_object	*obj;
 
-	obj = map->object;
+	obj = map->objects;
 	while (obj)
 	{
 		if (obj->poly == poly)

@@ -48,7 +48,7 @@ char		**fillntesttab(int fd, int fd1)
 void		fill_poly(t_poly *poly, t_map *map)
 {
 	fill_poly_mob(poly, map->mob);
-	fill_poly_object(poly, map->object);
+	fill_poly_object(poly, map->objects);
 	ft_putendl("Fin parsing\n");
 }
 

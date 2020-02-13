@@ -42,6 +42,7 @@ static void		draw(t_win *win, t_player *player)
 			// printf("%p\t", ray->poly);
 			win->pixels[y * win->w + x] = ray->poly ? ray->color : 0xFF505050;
 			ray->poly = NULL;
+			ray->color = 0;
 			ray++;
 		}
 		rays++;
@@ -61,9 +62,91 @@ int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 	return (coord->x < 0 || coord->x > 1 || coord->y < 0 || coord->y > 1 ? 0 : 1);
 }
 
+// static int			is_in_shadow(t_map *map, t_poly *poly_collision, t_fdot_3d light, t_fdot_3d pos, t_fdot_3d ray)
+// {
+// 	t_poly			*poly;
+// 	t_fdot_3d		collision;
+// 	t_fdot			coord;
+
+// 	// printf("Light %f, %f, %f\n", light.x, light.y, light.z);
+// 	// printf("Ray %f, %f, %f\n", ray.x, ray.y, ray.z);
+// 	poly = map->polys;
+// 	while (poly)
+// 	{
+// 		if (poly != poly_collision)
+// 		{
+// 			// printf("Poly eq. %f %f %f %f\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
+// 			if (intersection_plan_ray(&collision, poly->equation,\
+// 										(t_cartesienne){light.x, light.y, light.z,\
+// 														ray.x, ray.y, ray.z,\
+// 														0, NULL, 0, NULL}))
+// 			{
+// 				// printf("Collision %f, %f, %f\n", collision.x, collision.y, collision.z);
+// 				if (is_in_poly(poly, &coord, collision) &&\
+// 					is_in_segment(collision, light, pos))
+// 				{
+// 					// printf("Coord %f %f\n", coord.x, coord.y);
+// 					// printf("In poly\n");
+// 					return (1);
+// 				}
+// 				// printf("Collision %d %d\n", coord.x, coord.y);
+// 			}
+// 			else
+// 			{
+// 				// printf("Parrallele\n");
+// 				return (1);
+// 			}
+// 		}
+// 		poly = poly->next;
+// 	}
+// 	// printf("Not in shadow\n");
+// 	return (0);
+// }
+
+static int			process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int color)
+{
+	t_fdot_3d		ray;
+	float			dist;
+	float			sc_product;
+	float			light_coef;
+	t_object		*object;
+	int i = -1;
+
+	light_coef = 0;
+	object = map->objects;
+	while (object)
+	{
+		if (object->type == LIGHT)
+		{
+			// printf("Poly collide %f, %f, %f\n", collision.x, collision.y, collision.z);
+			//rien faire si scalar < 0
+			// printf("Pos %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
+			ray = fdot_3d_sub(collision, object->pos);
+			// if (is_in_shadow(map, poly, object->pos, collision, ray))
+			// {
+			// 	light_coef += 0;
+			// }
+			// else
+			// {
+				sc_product = fabs(scalar_product(poly->equation.v, normalize(ray)));
+				if ((dist = mag(ray)) < 1000)
+					light_coef += sc_product * (1 - dist / 1000) * poly->light_coef * object->data;
+			// }
+			i++;
+		}
+		object = object->next;
+	}
+	// printf("N lights : %d\n", i);
+	// exit(0);
+	return (0xFF000000 +\
+			((int)((color >> 16 & 0xFF) * light_coef) << 16) +\
+			((int)((color >> 8 & 0xFF) * light_coef) << 8) +\
+			(int)((color & 0xFF) * light_coef));
+}
 
 
-static int			find_pixel(t_poly *poly, t_fdot_3d collision)
+
+static int			find_pixel(t_map *map, t_poly *poly, t_fdot_3d collision)
 {
 	t_fdot			coord_plan;
 	t_dot			coord_texture;
@@ -88,8 +171,11 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 		printf("Coord texture/plan %d %d / %f %f\n", coord_texture.x, coord_texture.y, coord_plan.x, coord_plan.y);
 		exit(0);
 	}
-	// printf("%d %d\n", coord_texture.x, coord_texture.y);
-	return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
+	// printf("Collision %f %f %f\n", collision.x, collision.y, collision.z);
+	if (map->view & LIGHT_VIEW)
+		return (process_light(map, poly, collision, ((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]));
+	else
+		return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
 }
 
 // static int			average_color(int c1, int c2, int alpha)
@@ -108,7 +194,7 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 // 	// return (average);
 // }
 
-static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
+static void			launch_ray_3d(t_map *map, t_poly *poly, t_cartesienne *ray)
 {
 	t_fdot_3d		collision;
 	float			newdist;
@@ -136,7 +222,7 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 	{
 		printf("Ray parra %f %f %f\n", ray->vx, ray->vy, ray->vz);
 	}
-	if ((!ray->poly || newdist < ray->dist) && (color = find_pixel(poly, collision)) != -1)
+	if ((!ray->poly || newdist < ray->dist) && (color = find_pixel(map, poly, collision)) != -1 && (color >> 24) & 0xFF)
 	{
 		ray->poly = poly;
 		ray->color = color;
@@ -171,7 +257,7 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 // 	t_poly	*poly;
 
 // 	surround_walls(win, win->map);
-// 	if (win->view & TEXTURE_VIEW)
+// 	if (win->map->view & TEXTURE_VIEW)
 // 	{
 // 		poly = win->map->polys;
 // 		while (poly)
@@ -183,9 +269,9 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 // 		}
 // 		draw(win, player);
 // 	}
-// 	if (win->view & WALL_VIEW)
+// 	if (win->map->view & WALL_VIEW)
 // 		draw_projection(win);
-// 	if (win->view & BOX_VIEW)
+// 	if (win->map->view & BOX_VIEW)
 // 		draw_all_square(win);
 // 	draw_fps();
 // }
@@ -202,7 +288,7 @@ static void			*square_tracing(void *param)
 	poly = thread->poly;
 	if (!poly)
 	{
-		pthread_exit(NULL);
+		pthread_exit(NULL);//Opti ?
 		return (NULL);
 	}
 	// printf("Poly %d thread %d\n", poly->index, thread->i);
@@ -220,7 +306,7 @@ static void			*square_tracing(void *param)
 					// while (thread->player->rays[y][x].launch)
 						// ;
 					// thread->player->rays[y][x].launch = 1;
-					launch_ray_3d(poly, &(thread->player->rays[y][x]));
+					launch_ray_3d(thread->map, poly, &(thread->player->rays[y][x]));
 					// thread->player->rays[y][x].launch = 0;
 				}
 			}
@@ -236,7 +322,7 @@ void		raycasting_3d(t_win *win, t_player *player)
 	int		i;
 
 	surround_walls(win, win->map);
-	if (win->view & TEXTURE_VIEW)
+	if (win->map->view & TEXTURE_VIEW)
 	{
 
 		//-------------------
@@ -255,9 +341,9 @@ void		raycasting_3d(t_win *win, t_player *player)
 
 		draw(win, player);
 	}
-	if (win->view & WALL_VIEW)
+	if (win->map->view & WALL_VIEW)
 		draw_projection(win);
-	if (win->view & BOX_VIEW)
+	if (win->map->view & BOX_VIEW)
 		draw_all_square(win);
 	draw_fps();
 }

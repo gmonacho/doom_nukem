@@ -12,6 +12,7 @@
     action volontaire (appuyer sur un bouton).
 **
 **	Tenter de casser le parsing
+**	OpenAL !!!! POUR LE SON
 **	Clean code/fichier inutiles
 **	Gerer les leaks
 **	Norme all

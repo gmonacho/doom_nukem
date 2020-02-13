@@ -294,7 +294,8 @@ typedef enum		e_view
 {
 	TEXTURE_VIEW = 0b0001,
 	WALL_VIEW = 0b0010,
-	BOX_VIEW = 0b0100
+	BOX_VIEW = 0b0100,
+	LIGHT_VIEW = 0b1000
 }					t_view;
 
 typedef struct		s_win
@@ -305,7 +306,6 @@ typedef struct		s_win
 	SDL_Renderer	*rend;
 	Uint32			*pixels;
 	SDL_Texture		*rend_texture;
-	int				view;
 	t_timer			view_change_time;
 
 	struct s_thread	*threads;
@@ -409,6 +409,7 @@ typedef	struct				s_poly
 	t_dot					box_y;
 
 	SDL_Surface				*texture;
+	float					light_coef;
 	// t_enum_object			object;
 	struct s_poly			*next;
 }							t_poly;
@@ -540,7 +541,8 @@ typedef enum				e_enum_object
 	GUN = 0b1000,
 	BULLET = 0b10000,
 	GRAVITY_INV = 0b100000,
-	BOX = 0b1000000
+	BOX = 0b1000000,
+	LIGHT = 0b10000000
 }							t_enum_object;
 
 // typedef struct bordel_struct
@@ -552,8 +554,10 @@ typedef enum				e_enum_object
 typedef struct		s_object
 {
 	int				main_poly;
+	t_fdot_3d		pos_rotz_only;
 	t_fdot_3d		pos;
 	t_enum_object	type;
+	float			data;
 	int				visible;
 	int				collide;
 
@@ -617,11 +621,11 @@ enum
 **	---------------------------------- save --------------------------------------------
 */
 
-	typedef struct s_save
-	{
-		int ifPars;
+typedef struct s_save
+{
+	int ifPars;
+}				t_save;
 
-	}				t_save;
 /*
 **	---------------------------------- map --------------------------------------------
 */
@@ -692,12 +696,13 @@ typedef struct		s_map
 {
 	t_poly			*polys;
 	t_poly			*polys_save;
-	// t_sector		*sectors;
 	t_textures		textures;
 	t_player		player;
+	t_view			view;
 	float			gravity;
 	t_timer			gravity_inv_time;
-	t_object		*object;
+	t_object		*objects;
+	t_object		*objects_save;
 	t_timer			objects_animation;
 	t_mob			*mob;
 	t_main_menu		main_menu;
@@ -706,7 +711,5 @@ typedef struct		s_map
 	t_editor		editor;
 	t_save			save;
 }					t_map;
-
-
 
 #endif

@@ -12,47 +12,45 @@ void		init_polygone(t_poly *poly)
 	i = 0;
 	while (poly)
 	{
-		// printf("Poly 3 pts : %f %f %f / %f %f %f / %f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z,\
-		// 														poly->dots[1].x, poly->dots[1].y, poly->dots[1].z,\
-		// 														poly->dots[N_DOTS_POLY - 1].x, poly->dots[N_DOTS_POLY - 1].y, poly->dots[N_DOTS_POLY - 1].z);
+		poly->light_coef = 1;
 		poly->visible = 1;
 		poly->collide = 1;
 		poly->index = i++;
 		poly->is_slide_ban = 0;
-		ft_memcpy(poly->dots_rotz_only, poly->dots, sizeof(t_fdot_3d) * N_DOTS_POLY);
-		// poly->dist12 = fdist_3d(poly->dots[0], poly->dots[1]);
-		// poly->dist14 = fdist_3d(poly->dots[0], poly->dots[N_DOTS_POLY - 1]);
-		poly->i = fdot_3d_sub(poly->dots[1], poly->dots[0]);
-		poly->j = fdot_3d_sub(poly->dots[N_DOTS_POLY - 1], poly->dots[0]);
-		poly->i_rotz_only = poly->i;
-		poly->j_rotz_only = poly->j;
+		ft_memcpy(poly->dots, poly->dots_rotz_only, sizeof(t_fdot_3d) * N_DOTS_POLY);
+		// ft_memcpy(poly->dots_rotz_only, poly->dots, sizeof(t_fdot_3d) * N_DOTS_POLY);
+		poly->i_rotz_only = fdot_3d_sub(poly->dots_rotz_only[1], poly->dots_rotz_only[0]);
+		poly->j_rotz_only = fdot_3d_sub(poly->dots_rotz_only[N_DOTS_POLY - 1], poly->dots_rotz_only[0]);
+		poly->i = poly->i_rotz_only;
+		poly->j = poly->j_rotz_only;
 		poly->i_mag = mag(poly->i);
 		poly->j_mag = mag(poly->j);
 		poly->ii = poly->i_mag * poly->i_mag;
 		poly->jj = poly->j_mag * poly->j_mag;
-		// poly->ii = poly->i.x * poly->i.x + poly->i.y * poly->i.y + poly->i.z * poly->i.z;
-		// poly->jj = poly->j.x * poly->j.x + poly->j.y * poly->j.y + poly->j.z * poly->j.z;
-		// poly->ij = poly->i.x * poly->j.x + poly->i.y * poly->j.y + poly->i.z * poly->j.z;
-		// poly->ijij_iijj = poly->ij * poly->ij - poly->ii * poly->jj;
-		// poly->equation.v = (t_fdot_3d){(poly->i.y * poly->j.z - poly->i.z * poly->j.y) / 10000,\
-		// 								(poly->i.z * poly->j.x - poly->i.x * poly->j.z) / 10000,\
-		// 								(poly->i.x * poly->j.y - poly->i.y * poly->j.x) / 10000};
-		poly->equation.v = vectoriel_product(poly->i, poly->j);
-		poly->equation.d = -(poly->equation.v.x * poly->dots[0].x + poly->equation.v.y * poly->dots[0].y + poly->equation.v.z * poly->dots[0].z);
-		poly->equation_rotz_only = poly->equation;
+		poly->equation_rotz_only.v = normalize(vectoriel_product(poly->i_rotz_only, poly->j_rotz_only));
+		poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
+								poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
+								poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
+		poly->equation = poly->equation_rotz_only;
+		// if (poly->object)
+		// {
+		// 	printf("dot %f %f %f\n", poly->dots_rotz_only[0].x, poly->dots_rotz_only[0].y, poly->dots_rotz_only[0].z);
+		// 	print_poly(poly, 1);
+		// }
 		poly = poly->next;
 	}
-	// printf("i = %d\n", i);
 	// exit(0);
 }
 
 static void		init_player_maths(t_win *win, t_player *player)
 {
-	// win->view = TEXTURE_VIEW | WALL_VIEW | BOX_VIEW;
-	win->view = TEXTURE_VIEW;
-	translate_all(win->map, win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
+	// win->map->view = TEXTURE_VIEW | WALL_VIEW | BOX_VIEW;
+	win->map->view = TEXTURE_VIEW;
+	// translate_all(win->map, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
+
 	translate_all_rotz_only(win->map, win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
 	rotate_all_rotz_only(win->map, win->map->polys, create_rz_matrix(-player->dir_init));
+	// copy_rotate_rotz_only(win->map, win->map->polys, create_ry_matrix(0));
 	player->rot_y = 0;
 	player->ddir = 0.05;
 	player->fov = win->w * M_PI_2 / 1000;
@@ -68,6 +66,18 @@ static void		init_player_maths(t_win *win, t_player *player)
 	win->h_div_fov = win->h / player->fov_up;
 	if (init_rays(win, player))
 		return (ft_putendl("Erreur malloc rays"));
+
+	// t_object	*object;
+	// object = win->map->objects;
+	// while (object)
+	// {
+	// 	// if (object->type == LIGHT)
+	// 	print_poly(object->poly, 1);
+	// 	printf("Pos rotz %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
+	// 	printf("Pos      %f %f %f\n\n", object->pos.x, object->pos.y, object->pos.z);
+	// 	object = object->next;
+	// }
+	// exit(0);
 }
 
 static void		init_player_hud(t_player *player)

@@ -433,7 +433,7 @@ static void	ed_place_item(t_win *win, t_map *map)
 			obj->pos.z = 0;
 			obj->width = 30;
 			obj->height = 30;
-			add_existing_object(&map->object, obj);
+			add_existing_object(&map->objects, obj);
 		}
 	}
 }

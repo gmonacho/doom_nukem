@@ -1,19 +1,20 @@
 #include "doom_nukem.h"
 
 
-static int		tests_before_slide(t_map *map, t_poly *poly_collide)
+static int		tests_before_slide(t_map *map, t_poly *poly_collide, t_fdot_3d move)
 {
 	t_fdot_3d	poly_collide_v;
 
-	translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
+	translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
 	if (collision_dots(map, poly_collide->dots_rotz_only, map->player.width_2))
 	{
 		// printf("Dot is in Poly, return last state\n");
 		// copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
-		translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
+		translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
+		translate_all_objects_rotz_only(map->objects, move);
 		return (1);
 	}
-	translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
+	translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
 	poly_collide_v = poly_collide->equation_rotz_only.v;
 	if (poly_collide->segment_code)
 	{
@@ -32,7 +33,8 @@ static void		move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 	int			i;
 
 	copy_poly_lst(map->polys_save, map->polys);
-	translate_all_rotz_only(map, map->polys, move);
+	translate_all_poly_rotz_only(map->polys, move);
+	// translate_all_rotz_only(map, map->polys, move);
 	if (!player->collision_on)
 		return ;
 	i = 0;
@@ -40,17 +42,20 @@ static void		move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 	{
 		// printf("Collision ! Index : %d\n", poly_collide->index);
 
-		if (poly_collide->object)
+		// if (poly_collide->object)
+		if (poly_collide->object && poly_collide->object->type != BOX)
 			if (objects_actions(map, player, poly_collide->object))
 				continue ;
 		if (i++ == 4 ||\
-			tests_before_slide(map, poly_collide))
+			tests_before_slide(map, poly_collide, move))
 			break ;
 	}
+	if (!i)
+		translate_all_objects_rotz_only(map->objects, move);
 	if (collisions_sphere(map, player, map->polys, 0))
 	{
-		// printf("Toujours collision ! Return last state\n");
-		copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
+		printf("Toujours collision ! Return last state\n");
+		copy_poly_lst(map->polys_save, map->polys);                 //Collision sans slide               //Collision sans slide
 	}
 }
 
@@ -63,6 +68,9 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 	int			i;
 	// clock_t		t1;
 	// clock_t		t2;
+	// t1 = clock();
+	// t2 = clock();
+	// printf("Delta time %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
 	player->debug = 0;
 	SDL_GetWindowSize(win->ptr, &win->w, &win->h);
@@ -74,18 +82,31 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 
 	events_rotate(win, map, player, state);
     events_others(win, player, state);
-	
+
 	move_and_collide(map, player, events_move(player, state));
 	move_and_collide(map, player, (t_fdot_3d){0, 0, map->gravity});
 	mobs_attack_move(map, player, map->mob);
+
 	events_actions(win, map, player, state);
-	// t1 = clock();
 	// copy_rotate_rotz_only(player, map->polys, create_ry_matrix(-player->rot_y));
 	copy_rotate_rotz_only(map, map->polys, create_ry_matrix(-player->rot_y));
-	// t2 = clock();
-	// printf("Delta time %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
+	
+	
+	// t_object	*object;
+	// object = map->objects;
+	// while (object)
+	// {
+	// 	// if (object->type == LIGHT)
+	// 		// printf("Pos %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
+	// 	t_fdot_3d mid = fdot_3d_add(object->poly->dots[0], object->poly->dots[2]);
+	// 	printf("Pos %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
+	// 	printf("Mid %f %f %f\n", mid.x / 2, mid.y / 2, mid.z / 2);
+	// 	object = object->next;
+	// }
+	// printf("\n");
 
-	objects_animations(map, player, map->object);
+
+	objects_movements(map, player, map->objects);
 
 	clear_rend(win->rend, 0x40, 0x40, 0x40);
 	raycasting_3d(win, player);
