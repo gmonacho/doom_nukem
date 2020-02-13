@@ -575,7 +575,7 @@ int 		ed_event(t_win *win, t_map *map)
 	state = SDL_GetKeyboardState(NULL);
 	if (!win->winui->ui.clicked_button)
 	{
-		vel = 1;
+		vel = 3;
 		if (state[SDL_SCANCODE_LSHIFT])
 			vel += 4;
 		if (state[SDL_SCANCODE_A])

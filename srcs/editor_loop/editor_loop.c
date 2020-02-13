@@ -580,7 +580,6 @@ int				editor_loop(t_win *win, t_map *map)
 	loop = SDL_TRUE;
 	ed_delete_mob_polys(map);
 	ed_delete_object_polys(map);
-	SDL_Delay(5000);
 	while (loop)
 	{
 		

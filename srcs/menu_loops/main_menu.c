@@ -20,8 +20,16 @@ static void		menu_change_loop(void *argument)
 	*(arg_menu->loop) = arg_menu->value;
 }
 
-static void		set_menu_button_function(t_winui *winui, t_map *map)
+static void		set_menu_button_function(t_winui *winui, t_map *map, int *next_loop)
 {
+	map->editor.arg_menu_tab[0] = (t_arg_menu){next_loop,
+											2};
+	map->editor.arg_menu_tab[1] = (t_arg_menu){next_loop,
+											3};
+	map->editor.arg_menu_tab[2] = (t_arg_menu){next_loop,
+											4};
+	map->editor.arg_menu_tab[3] = (t_arg_menu){next_loop,
+											0};
 	ui_set_simple_button_function(winui,
 									"b_play",
 									&menu_change_loop,
@@ -56,7 +64,7 @@ static void		main_menu_ui(t_win *win)
 	ui_clear_win(win->winui);
 	ui_display_frames(win->winui, win->winui->ui.frames);
 	ui_draw_rend(win->winui);
-	ui_poll_event(&win->winui->event);
+	ui_wait_event(&win->winui->event);
 	ui_update_ui(win->winui);
 }
 
@@ -67,14 +75,6 @@ int			main_menu(t_win *win, t_map *map)
 
 	next_loop = 1;
 	f_set = 0;
-	map->editor.arg_menu_tab[0] = (t_arg_menu){&next_loop,
-											2};
-	map->editor.arg_menu_tab[1] = (t_arg_menu){&next_loop,
-											3};
-	map->editor.arg_menu_tab[2] = (t_arg_menu){&next_loop,
-											4};
-	map->editor.arg_menu_tab[3] = (t_arg_menu){&next_loop,
-											0};
 	if (!init_main_menu(win))
 		return (ui_ret_error("main_menu", "init_main_menu failed", 0));
 	while (next_loop)
@@ -82,7 +82,7 @@ int			main_menu(t_win *win, t_map *map)
 		next_loop = 1;
 		if (!f_set)
 		{
-			set_menu_button_function(win->winui, map);
+			set_menu_button_function(win->winui, map, &next_loop);
 			f_set = 1;
 		}
 		main_menu_ui(win);
