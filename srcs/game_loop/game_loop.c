@@ -150,7 +150,7 @@ int     		game_loop(t_win *win, t_map *map)
 
 	map->player.currentHp = 100;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
-	// init_cd(map); 
+	// init_cd(map);
 	if (!(map->save.ifPars))
 	{
 		Mix_AllocateChannels(10);

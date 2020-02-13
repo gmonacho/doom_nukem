@@ -69,4 +69,3 @@ void		fill_poly(t_poly *poly, t_map *map)
 	fill_poly_object(poly, map->objects);
 	ft_putendl("Fin parsing\n");
 }
-
