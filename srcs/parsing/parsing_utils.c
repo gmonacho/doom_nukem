@@ -1,4 +1,22 @@
 #include "doom_nukem.h"
+#include "ui_error.h"
+
+void		fill_poly_object_norm(char *tmp, t_poly *poly_object)
+{
+	if (!(poly_object->texture = IMG_Load(tmp)))
+	{
+		ui_ret_error("fill_poly_object", SDL_GetError(), 0);
+		exit(0);
+		return ;
+	}
+	if (!(poly_object->texture = SDL_ConvertSurfaceFormat(
+		poly_object->texture, SDL_PIXELFORMAT_ARGB8888, 0)))
+	{
+		ui_ret_error("fill_poly_object", SDL_GetError(), 0);
+		exit(0);
+		return ;
+	}
+}
 
 int			count_line(int fp1)
 {

@@ -261,21 +261,38 @@ static void			ed_display_polys(t_win *win, const t_map *map)
 static void			ed_display_mouse_position(t_win *win, const t_map *map)
 {
 	t_text_area		*text_area;
-	t_dot			point;
+	char			*tmp;
 
-	point = (t_dot){win->winui->mouse.pos.x / map->editor.unit + map->editor.pos.x,
-					win->winui->mouse.pos.y / map->editor.unit + map->editor.pos.y};
-	text_area = ui_get_text_area_button(win->winui, "b_mouse_x");
-	if (text_area)
+	if (map->editor.selected_poly)
 	{
-		ft_strdel(&text_area->text);
-		text_area->text = ft_itoa(point.x);
-	}
-	text_area = ui_get_text_area_button(win->winui, "b_mouse_y");
-	if (text_area)
-	{
-		ft_strdel(&text_area->text);
-		text_area->text = ft_itoa(point.y);
+		text_area = ui_get_text_area_button(win->winui, "b_poly_dot_0");
+		if (text_area)
+		{
+			ft_strdel(&text_area->text);
+			tmp = ft_itoa(map->editor.selected_poly->dots[0].z);
+			text_area->text = ft_strjoin("dot[0] = ", tmp);
+		}
+		text_area = ui_get_text_area_button(win->winui, "b_poly_dot_1");
+		if (text_area)
+		{
+			ft_strdel(&text_area->text);
+			tmp = ft_itoa(map->editor.selected_poly->dots[1].z);
+			text_area->text = ft_strjoin("dot[1] = ", tmp);
+		}
+		text_area = ui_get_text_area_button(win->winui, "b_poly_dot_2");
+		if (text_area)
+		{
+			ft_strdel(&text_area->text);
+			tmp = ft_itoa(map->editor.selected_poly->dots[2].z);
+			text_area->text = ft_strjoin("dot[2] = ", tmp);
+		}
+		text_area = ui_get_text_area_button(win->winui, "b_poly_dot_3");
+		if (text_area)
+		{
+			ft_strdel(&text_area->text);
+			tmp = ft_itoa(map->editor.selected_poly->dots[3].z);
+			text_area->text = ft_strjoin("dot[3] = ", tmp);
+		}
 	}
 }
 
@@ -300,6 +317,8 @@ void			ed_display(t_win *win, const t_map *map)
 	ed_display_polys(win, map);
 	ed_display_objects(win, map);
 	ed_display_player(win, map);
+	ed_display_selected_obj(win, map);
 	ed_display_mouse_position(win, map);
 	ed_display_selection_rect(win, map);
+	draw_fps();
 }

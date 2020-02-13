@@ -112,8 +112,8 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 	raycasting_3d(win, player);
 
 	reload_cd(map);
-	hud(win, player, win->texHud);
-	print_content_slot(win, player, win->texHud);
+	hud(win, player, win->texhud);
+	print_content_slot(win, player, win->texhud);
 	if (event.type == SDL_QUIT ||\
 		event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 	{	

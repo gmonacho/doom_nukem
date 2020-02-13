@@ -35,3 +35,16 @@ void		ed_display_selected_mob(t_win *win, const t_map *map)
 		draw_circle(win, (t_circle){pos.x, pos.y, map->editor.selected_mob->width * map->editor.unit / 2});
 	}
 }
+
+void		ed_display_selected_obj(t_win *win, const t_map *map)
+{
+	t_dot	pos;
+
+	if (map->editor.selected_obj)
+	{
+		ui_set_draw_color(win->winui->rend, &(SDL_Color){200, 200, 200, 255});
+		pos = ed_get_display_point(map, (t_dot){map->editor.selected_obj->pos.x,
+												map->editor.selected_obj->pos.y});
+		draw_circle(win, (t_circle){pos.x, pos.y, map->editor.selected_obj->width * map->editor.unit / 2});
+	}
+}

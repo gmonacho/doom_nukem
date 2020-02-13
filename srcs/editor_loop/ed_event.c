@@ -314,6 +314,29 @@ static t_mob	*ed_get_selected_mob(t_win *win, const t_map *map)
 	return (NULL);
 }
 
+static SDL_bool	ed_is_obj_selected(t_win *win, const t_map *map, const t_object *object)
+{
+	if (ed_get_line_len(&(t_line){ed_get_map_point(map, win->winui->mouse.pos),
+						(t_dot){object->pos.x, object->pos.y}}) < object->width)
+		return (SDL_TRUE);
+	else
+		return (SDL_FALSE);
+}
+
+static t_object	*ed_get_selected_obj(t_win *win, const t_map *map)
+{
+	t_object	*obj;
+
+	obj = map->object;
+	while (obj)
+	{
+		if (ed_is_obj_selected(win, map, obj))
+			return (obj);
+		obj = obj->next;
+	}
+	return (NULL);
+}
+
 static void	ed_selection(t_win *win, t_map *map)
 {
 	if (win->winui->mouse.clicking & UI_MOUSE_LEFT)
@@ -329,13 +352,28 @@ static void	ed_selection(t_win *win, t_map *map)
 									- map->editor.select_rect.x;
 		map->editor.select_rect.h = ed_get_map_y(map, win->winui->mouse.pos.y)
 									- map->editor.select_rect.y;
-		if (!(map->editor.selected_mob = ed_get_selected_mob(win, map)))
+		if ((map->editor.selected_mob = ed_get_selected_mob(win, map)))
+		{
+			map->editor.selected_obj = NULL;
+			map->editor.selected_poly = NULL;
+		}
+		else if ((map->editor.selected_obj = ed_get_selected_obj(win, map)))
 		{
 			map->editor.selected_mob = NULL;
-			map->editor.selected_poly = ed_get_selected_poly(win, map);
+			map->editor.selected_poly = NULL;
+		}
+		else if ((map->editor.selected_poly = ed_get_selected_poly(win, map)))
+		{
+			map->editor.selected_mob = NULL;
+			map->editor.selected_obj = NULL;
 		}
 		else
+		{
+			map->editor.selected_mob = NULL;
 			map->editor.selected_poly = NULL;
+			map->editor.selected_obj = NULL;	
+		}
+		
 	}
 }
 
@@ -428,12 +466,27 @@ static void	ed_place_item(t_win *win, t_map *map)
 				obj->type = ARMOR;
 				obj->texture = "shieldPotion.png";
 			}
+			else if (map->editor.flags & ED_GRAVITY)
+			{
+				obj->type = GRAVITY_INV;
+				obj->texture = "pq.png";
+			}
+			else if (map->editor.flags & ED_BULLET)
+			{
+				obj->type = BULLET;
+				obj->texture = "Ammo_box_icon.png";
+			}
+			else if (map->editor.flags & ED_BOX)
+			{
+				obj->type = BOX;
+				obj->texture = map->editor.settings.texture;
+			}
 			obj->pos.x = pos.x;
 			obj->pos.y = pos.y;
-			obj->pos.z = 0;
-			obj->width = 30;
-			obj->height = 30;
-			add_existing_object(&map->objects, obj);
+			obj->pos.z = map->editor.settings.object.z;
+			obj->width = map->editor.settings.object.width;
+			obj->height = map->editor.settings.object.width;
+			add_existing_object(&map->object, obj);
 		}
 	}
 }
@@ -444,7 +497,7 @@ static void	ed_action(t_win *win, t_map *map)
 	// 	ed_place_player(win, map);
 	if (map->editor.flags & ED_SELECTION)
 		ed_selection(win, map);
-	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD) && !win->winui->ui.on_mouse_button)
+	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD || map->editor.flags & ED_GRAVITY || map->editor.flags & ED_BULLET || map->editor.flags & ED_BOX) && !win->winui->ui.on_mouse_button)
 		ed_place_item(win , map);
 	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
 		ed_place_poly(win, map);
@@ -470,7 +523,8 @@ void	ed_delete_mob(t_mob **mobs, t_mob *mob)
 		m = *mobs;
 		while (m)
 		{
-			if (m == mob)			{
+			if (m == mob)			
+			{
 				tmp_next = m->next;
 				free(m);
 				if (tmp_prev)
@@ -487,6 +541,38 @@ void	ed_delete_mob(t_mob **mobs, t_mob *mob)
 		}
 	}
 }
+
+void	ed_delete_obj(t_object **objects, t_object *object)
+{
+	t_object	*obj;
+	t_object	*tmp_prev;
+	t_object	*tmp_next;
+
+	if (objects && object)
+	{
+		tmp_prev = NULL;
+		obj = *objects;
+		while (obj)
+		{
+			if (obj == object)
+			{
+				tmp_next = obj->next;
+				free(obj);
+				if (tmp_prev)
+					tmp_prev->next = tmp_next;
+				else
+					*objects = tmp_next;
+				obj = tmp_next;
+			}
+			else
+			{
+				tmp_prev = obj;
+				obj = obj->next;
+			}
+		}
+	}
+}
+
 int 		ed_event(t_win *win, t_map *map)
 {
 	const Uint8	*state;
@@ -495,7 +581,7 @@ int 		ed_event(t_win *win, t_map *map)
 	state = SDL_GetKeyboardState(NULL);
 	if (!win->winui->ui.clicked_button)
 	{
-		vel = 1;
+		vel = 3;
 		if (state[SDL_SCANCODE_LSHIFT])
 			vel += 4;
 		if (state[SDL_SCANCODE_A])
@@ -518,6 +604,11 @@ int 		ed_event(t_win *win, t_map *map)
 		{
 			ed_delete_mob(&map->mob, map->editor.selected_mob);
 			map->editor.selected_mob = NULL;
+		}
+		else if (map->editor.selected_obj)
+		{
+			ed_delete_obj(&map->object, map->editor.selected_obj);
+			map->editor.selected_obj = NULL;
 		}
 	}
 	if (state[SDL_SCANCODE_SPACE])

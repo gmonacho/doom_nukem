@@ -116,10 +116,10 @@ void		draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
 **	---------------------------------- texture ----------------------------------
 */
 
-void		hud(t_win *win, t_player *player, t_texHud *texHud);
-void    	inventory_hud(t_win *win, t_texHud *texHud, t_player *player);
-void		print_weapon(t_win *win, t_player *player, t_texHud *texHud);
-void            main_animation(t_map *map, t_win *win, t_texHud *texHud);
+void		hud(t_win *win, t_player *player, t_texhud *texhud);
+void    	inventory_hud(t_win *win, t_texhud *texhud, t_player *player);
+void		print_weapon(t_win *win, t_player *player, t_texhud *texhud);
+void            main_animation(t_map *map, t_win *win, t_texhud *texhud);
 void 		print_shot(t_win *win, t_player *player);
 void 		define_line_shot(t_win *win, t_player *player);
 void 	        print_shot(t_win *win, t_player *player);
@@ -134,7 +134,7 @@ SDL_Texture	*load_texture(SDL_Renderer *rend, const char *file);
 void   	        main_inventory(t_win *win, t_player *player);
 void            add_items(t_inventory *inventory, int id);
 void            print_items(t_win *win, t_inventory *inventory);
-void            print_content_slot(t_win *win, t_player *player, t_texHud *texHud);
+void            print_content_slot(t_win *win, t_player *player, t_texhud *texhud);
 void            use_item(t_map *map, t_player *player, t_music *music, int slotSelected);
 void            reload_ammo(t_player *player);
 t_inventory     *define_inventory();
@@ -242,11 +242,13 @@ char 		**fillntesttab(int fd, int fd1);
 void		fill_poly(t_poly *poly, t_map *map);
 void		fill_poly_object(t_poly *poly, t_object *object);
 void		fill_poly_mob(t_poly *poly, t_mob *mob);
+void 		fill_poly_object_norm(char *tmp, t_poly	*poly_object);
+char		*object_data_fill(char **tab, t_object **object, int i);
 
 void		player_data(char **tab, t_player *player, int i);
 
 int			object_data(char **tab, t_object **object, int i);
-t_texHud   	*define_texHud(t_win *win);
+t_texhud   	*define_texhud(t_win *win);
 
 /*
 **	---------------------------------- music ----------------------------------
@@ -312,6 +314,7 @@ void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_selected_poly(t_win *win, const t_map *map);
 void		ed_display_selected_mob(t_win *win, const t_map *map);
+void		ed_display_selected_obj(t_win *win, const t_map *map);
 void		ed_display_player(t_win *win, const t_map *map);
 void		ed_display_mobs(t_win *win, const t_map *map);
 void		ed_display_object(t_win *win, const t_map *map, t_object *obj);

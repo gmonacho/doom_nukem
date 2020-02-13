@@ -25,7 +25,7 @@ static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8
 		if (player->inventory->magazine <= 0)
 		{
 			tmp = ft_strdup("NO AMMO LEFT");
-    		text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
+    		text = generate_text(win->rend, win->texhud->police, tmp, (SDL_Color){200, 0, 2, 40});
 			free(tmp);
     		SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(win->w * 0.05), (win->h * 0.8125), (win->w * 0.25), (win->h * 0.0625)});
 		}
@@ -42,7 +42,7 @@ static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8
 		if (player->inventory->ammo == 0)
 		{
 			tmp = ft_strdup("EMPTY AMMO PRESS 'R' ");
-			text = generate_text(win->rend, win->texHud->police, tmp, (SDL_Color){200, 0, 2, 40});
+			text = generate_text(win->rend, win->texhud->police, tmp, (SDL_Color){200, 0, 2, 40});
 			free(tmp);
 			SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(win->w * 0.33), (win->h * 0.8125), (win->w * 0.28), (win->h * 0.0625)});
 		}

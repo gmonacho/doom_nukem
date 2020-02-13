@@ -64,6 +64,50 @@ Object
 
 Object
 {	
+	type = BOX
+	posx = 200
+	posy = 700
+	posz = 70
+	width = 30
+	height = 30
+	texture = 150x150.png
+}
+
+Object
+{	
+	type = BOX
+	posx = 200
+	posy = 700
+	posz = 70
+	width = 30
+	height = 30
+	texture = 150x150.png
+}
+
+Object
+{	
+	type = BOX
+	posx = 200
+	posy = 700
+	posz = 70
+	width = 30
+	height = 30
+	texture = 150x150.png
+}
+
+Object
+{	
+	type = BOX
+	posx = 200
+	posy = 700
+	posz = 70
+	width = 30
+	height = 30
+	texture = 150x150.png
+}
+
+Object
+{	
 	type = GRAVITY_INV
 	posx = 150
 	posy = 200
@@ -146,8 +190,8 @@ Polygon									//Fond renfoncement 3
 Polygon									//Fond
 {
 	dot = x:100, y:150, z:200
-	dot = x:600, y:150, z:200
 	dot = x:600, y:150, z:50
+	dot = x:100, y:150, z:50
 	dot = x:100, y:150, z:50
 	texture = Elephantride.png
 }

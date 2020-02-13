@@ -32,18 +32,18 @@ int        define_pos_slot(t_inventory *inventory, t_win *win)
     return (0);
 }
 
-void        print_value_item(t_win *win, t_texHud *texHud, int nb, int slotposx)
+void        print_value_item(t_win *win, t_texhud *texhud, int nb, int slotposx)
 {
     SDL_Texture     *text;
     char            *tmp;
 
     tmp = ft_strjoin( " X ", ft_itoa(nb));
-    text = generate_text(win->rend, texHud->police, tmp, (SDL_Color){255, 255, 255, 50});
+    text = generate_text(win->rend, texhud->police, tmp, (SDL_Color){255, 255, 255, 50});
     SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(slotposx + 60), (win->h * 0.95), (win->w * 0.035), (win->h * 0.04375)});
     free(tmp);
 }
 
-void        print_content_slot(t_win *win, t_player *player, t_texHud *texHud)
+void        print_content_slot(t_win *win, t_player *player, t_texhud *texhud)
 {
    int i;
    int slotPosx;
@@ -56,28 +56,28 @@ void        print_content_slot(t_win *win, t_player *player, t_texHud *texHud)
        {    
            if (i == 0)
            {
-                SDL_RenderCopy(win->rend, texHud->tex[7], NULL, &(SDL_Rect){(slotPosx), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});
-                print_value_item(win, texHud, player->inventory->item[i]->nb, slotPosx);
+                SDL_RenderCopy(win->rend, texhud->tex[7], NULL, &(SDL_Rect){(slotPosx), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});
+                print_value_item(win, texhud, player->inventory->item[i]->nb, slotPosx);
            }
            if (i == 1)
            {
-                SDL_RenderCopy(win->rend, texHud->tex[8], NULL, &(SDL_Rect){(slotPosx), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});
-                print_value_item(win, texHud, player->inventory->item[i]->nb, slotPosx);
+                SDL_RenderCopy(win->rend, texhud->tex[8], NULL, &(SDL_Rect){(slotPosx), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});
+                print_value_item(win, texhud, player->inventory->item[i]->nb, slotPosx);
            }
            if (i == 2)
            {
-                SDL_RenderCopy(win->rend, texHud->tex[9], NULL, &(SDL_Rect){(slotPosx), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});
-                print_value_item(win, texHud, player->inventory->item[i]->nb, slotPosx);
+                SDL_RenderCopy(win->rend, texhud->tex[9], NULL, &(SDL_Rect){(slotPosx), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});
+                print_value_item(win, texhud, player->inventory->item[i]->nb, slotPosx);
            }
 		   if (i == 3)
 		   {
-				SDL_RenderCopy(win->rend, texHud->tex[15], NULL, &(SDL_Rect){(slotPosx), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});
-                print_value_item(win, texHud, player->inventory->item[i]->nb, slotPosx);
+				SDL_RenderCopy(win->rend, texhud->tex[15], NULL, &(SDL_Rect){(slotPosx), (win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)});
+                print_value_item(win, texhud, player->inventory->item[i]->nb, slotPosx);
 		   }
 		   if (i == 4)
 		   {
-			   	SDL_RenderCopy(win->rend, texHud->tex[14], NULL, &(SDL_Rect){(slotPosx + 10), (win->h * 0.8975), (win->w * 0.065), (win->h * 0.08375)});
-                print_value_item(win, texHud, player->inventory->item[i]->nb, slotPosx);
+			   	SDL_RenderCopy(win->rend, texhud->tex[14], NULL, &(SDL_Rect){(slotPosx + 10), (win->h * 0.8975), (win->w * 0.065), (win->h * 0.08375)});
+                print_value_item(win, texhud, player->inventory->item[i]->nb, slotPosx);
 		   }
        }
        slotPosx += win->w * 0.08;

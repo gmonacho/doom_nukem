@@ -92,7 +92,11 @@ typedef enum	e_editor
 	ED_DRAW_HELP = 128,
 	ED_MOB	= 256,
 	ED_HEAL = 512,
-	ED_SHIELD = 1024
+	ED_SHIELD = 1024,
+	ED_TP = 2048,
+	ED_BOX = 4096,
+	ED_GRAVITY = 8192,
+	ED_BULLET = 16384
 }				t_editor_flag;
 
 typedef enum	e_editor_calc
@@ -102,7 +106,8 @@ typedef enum	e_editor_calc
 	ED_CALC_Z = 2
 }				t_editor_calc;
 
-# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER + ED_MOB + ED_HEAL + ED_SHIELD
+# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER + ED_MOB\
++ ED_HEAL + ED_SHIELD + ED_GRAVITY + ED_BULLET + ED_BOX
 
 typedef struct		s_kit_flags
 {
@@ -243,13 +248,13 @@ typedef struct			s_linedef
 /*
 **	---------------------------------- hud --------------------------------------------
 */
-typedef struct 	s_texHud
+typedef struct 	s_texhud
 {
 	SDL_Texture		*tex[16];
 	SDL_Texture		*tex_weapon[6];
 	SDL_Texture		*tex_reload[5];
 	TTF_Font		*police;
-}					t_texHud;
+}					t_texhud;
 
 /*
 **	---------------------------------- main_menu --------------------------------------------
@@ -327,7 +332,7 @@ typedef struct		s_win
 	t_button		*selected_button;
 
 	t_font			font;
-	t_texHud		*texHud;
+	t_texhud		*texhud;
 
 	t_doom_music	music;
 	t_main_menu		*main_menu;
@@ -410,6 +415,7 @@ typedef	struct				s_poly
 
 	SDL_Surface				*texture;
 	float					light_coef;
+	char					*texture_name;
 	// t_enum_object			object;
 	struct s_poly			*next;
 }							t_poly;
@@ -660,15 +666,21 @@ typedef struct		s_inclined_settings
 	int				z2;
 }					t_inclined_settings;
 
+typedef struct		s_object_settings
+{
+	int				z;
+	int				width;
+}					t_object_settings;
+
 typedef struct			s_settings
 {
 	t_mob_settings		mob;
 	t_inclined_settings	inclined;
 	t_min_max			wall;
+	t_object_settings	object;
 	int					flat_z;
 	char				*texture;
 }						t_settings;
-
 
 typedef struct		s_editor
 {
@@ -682,6 +694,7 @@ typedef struct		s_editor
 	t_rect			select_rect;
 	t_poly			*selected_poly;
 	t_mob			*selected_mob;
+	t_object		*selected_obj;
 	t_poly			*placing_poly;
 	int				min_pos_z;
 	int				max_pos_z;

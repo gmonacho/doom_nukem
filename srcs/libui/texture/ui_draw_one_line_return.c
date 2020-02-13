@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:35:53 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:35:54 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 18:15:20 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -108,7 +108,10 @@ int				draw_one_line_return(SDL_Renderer *rend,
 	if (n_rem_words)
 	{
 		if (width == 0)
+		{
+			ft_strdel(&str);
 			return (-1);
+		}
 		tmp = str;
 		str = remove_words_from_end(text->str, n_rem_words);
 		ft_strdel(&tmp);
@@ -117,5 +120,6 @@ int				draw_one_line_return(SDL_Renderer *rend,
 		ui_draw_text_line(rend, &(t_text_line_kit){str,
 			text->color, text->pos, text->max_width,
 			text->height, text->font, text->alignment});
+	ft_strdel(&str);
 	return ((n_rem_words == 0) ? -1 : ft_count_words(text->str) - n_rem_words);
 }

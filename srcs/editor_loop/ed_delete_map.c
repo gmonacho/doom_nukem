@@ -15,12 +15,15 @@ static void		ed_free_mob(t_mob **mob)
 	*mob = NULL;
 }
 
+
+
 void			ed_delete_map(void *map_ptr)
 {
-	t_map	*map;
-	t_poly	*p;
-	t_mob	*m;
-	void	*next;
+	t_map		*map;
+	t_poly		*p;
+	t_mob		*m;
+	t_object	*obj;
+	void		*next;
 
 	map = (t_map*)map_ptr;
 	if (map)
@@ -41,5 +44,13 @@ void			ed_delete_map(void *map_ptr)
 			m = next;
 		}
 		map->mob = NULL;
+		obj = map->object;
+		while (obj)
+		{
+			next = obj->next;
+			free(obj);
+			obj = next;
+		}
+		map->object = NULL;
 	}
 }

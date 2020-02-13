@@ -1,4 +1,5 @@
 #include "doom_nukem.h"
+#include "ui_error.h"
 
 // int			add_light_a_la_mano(t_map *map)
 // {
@@ -45,6 +46,7 @@ void		find_texture(char *tab, t_poly *poly)
 	name = NULL;
 	tmp = NULL;
 	name = ft_strdup(ft_strrchr(tab, '=') + 2);
+	poly->texture_name = name;
 	tmp = ft_strdup("textures/");
 	tmp = ft_strjoin(tmp, name);
 	if (!(poly->texture = IMG_Load(tmp)))
@@ -54,6 +56,7 @@ void		find_texture(char *tab, t_poly *poly)
 	}
 	poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
 					SDL_PIXELFORMAT_ARGB8888, 0);
+	free(tmp);
 }
 
 void		ft_fill_data(char **tab, t_poly **poly, int i)
@@ -115,20 +118,11 @@ void		fill_poly_object(t_poly *poly, t_object *object)
 		poly = poly->next;
 	while (object)
 	{
-		// tmp = ft_strdup("textures/");
 		tmp = ft_strjoin("textures/", object->texture);
 		poly_object = object->poly;
 		while (poly_object)
 		{
-			if (!(poly_object->texture = IMG_Load(tmp)))
-			{
-				exit(0);
-				return ;
-			}
-			printf("Texture : %s\t%p\n", object->texture, poly->texture);
-			poly_object->texture = SDL_ConvertSurfaceFormat(poly_object->texture,
-							SDL_PIXELFORMAT_ARGB8888, 0);
-			printf("Texture : %s\t%p\n", object->texture, poly_object->texture);
+			fill_poly_object_norm(tmp, poly_object);
 			poly->next = poly_object;
 			poly = poly->next;
 			poly_object = poly_object->next;
@@ -148,7 +142,7 @@ t_poly		*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 	poly = NULL;
 	map->mob = NULL;
 	tab = fillntesttab(fd, fd1);
-	win->texHud = define_texHud(win);
+	win->texhud = define_texhud(win);
 	while (tab[++i])
 	{
 		if (ft_strstr(tab[i], "Polygon"))
