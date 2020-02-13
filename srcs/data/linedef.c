@@ -10,33 +10,6 @@ void		add_linedef(t_linedef **lines, t_linedef *new_linedef)
 	*lines = new_linedef;
 }
 
-t_linedef	*init_linedef(t_linedef *line)
-{
-	if (line->p2.x - line->p1.x)
-	{
-		line->equation.isequation = 1;
-		line->equation.a = (line->p2.y - line->p1.y) /\
-						(double)(line->p2.x - line->p1.x);
-		line->equation.b = line->p1.y - line->equation.a * line->p1.x;
-		line->angle = atan(line->equation.a);
-		if (line->angle < 0)
-			line->angle += M_PI;
-	}
-	else
-	{
-		line->equation.isequation = 0;
-		line->equation.a = line->p1.x;
-		line->angle = M_PI_2;
-	}
-	line->equation_2 = (t_plan){cos(line->angle - M_PI_2),\
-								sin(line->angle - M_PI_2),\
-								0, 0};
-	line->equation_2.d = -(line->equation_2.a * line->p1.x + line->equation_2.b * line->p1.y);
-	printf("Equation : %f pi\t%f %f %f %f\n", line->angle / M_PI, line->equation_2.a, line->equation_2.b, line->equation_2.c, line->equation_2.d);
-	line->next = NULL;
-	return (line);
-}
-
 t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags)
 {
 	t_linedef	*newline;
@@ -45,25 +18,11 @@ t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags)
 		return (ret_null_perror("lines allocation failed in new_linedef"));
 	newline->p1 = line.p1;
 	newline->p2 = line.p2;
-	if (line.p2.x - line.p1.x)
-	{
-		newline->equation.isequation = 1;
-		newline->equation.a = (line.p2.y - line.p1.y) /\
-						(double)(line.p2.x - line.p1.x);
-		newline->equation.b = line.p1.y - newline->equation.a * line.p1.x;
-		newline->angle = atan(newline->equation.a);
-	}
-	else
-	{
-		newline->equation.isequation = 0;
-		newline->equation.a = line.p1.x;
-		newline->angle = M_PI_2;
-	}
 	newline->texture = texture;
 	newline->side = SIDE_RIGHT;
 	newline->flags = flags;
 	newline->id = 0;
-	newline->next = NULL;
+	// init_equation(newline);
 	return (newline);
 }
 

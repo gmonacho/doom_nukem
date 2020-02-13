@@ -1,55 +1,86 @@
 #include "doom_nukem.h"
+#include "ui.h"
+#include "ui_error.h"
+#include "libft.h"
 
-void    destroyTextures(SDL_Texture *texture1, SDL_Texture *texture2, SDL_Texture *texture3, SDL_Texture *texture4)
+static void		dead_change_loop(void *argument)
 {
-    SDL_DestroyTexture(texture1);
-    SDL_DestroyTexture(texture2);
-    SDL_DestroyTexture(texture3);
-    SDL_DestroyTexture(texture4);
+	t_arg_menu	*arg_menu;
+
+	arg_menu = (t_arg_menu*)argument;
+	*(arg_menu->loop) = arg_menu->value;
 }
 
-int 	clickOnPos(SDL_Event event, t_frect *rect) //&(SDL_Rect){(win->w * 0.05), (win->h * 0.8125), (win->w * 0.25), (win->h * 0.0625)}
+static void		set_menu_button_function(t_winui *winui, int *next_loop)
 {
-	int x;
-    int y;
+	ui_set_simple_button_function(winui,
+									"b_menu",
+									&dead_change_loop,
+									&(t_arg_menu){next_loop, 1});
+	ui_set_simple_button_function(winui,
+									"b_exit",
+									&dead_change_loop,
+									&(t_arg_menu){next_loop, 2});
+}
 
-    x = event.motion.x;
-    y = event.motion.y;
-    if ((x >= rect->x && x <= (rect->x + rect->w)) && (y >= rect->y && y <= (rect->y + rect->h)))
-    {   
-        if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT))
-            return (1);
+int		init_dead_menu(t_win *win)
+{
+	if (!(win->winui->ui.button_font = ui_load_font("TTF/DooM.ttf", 100)))
+    {
+        printf("en haut\n");
+		return (0);
     }
-    return (0);
+	if (!ui_load("interfaces/menu_dead", win->winui))
+    {
+        printf("en bas\n");
+        return (0);
+    }
+	SDL_SetRelativeMouseMode(SDL_FALSE);
+	return (1);
 }
 
-int    dead_moment(t_win *win, t_player *player, t_texHud *texHud, SDL_Event event)
- {  
-    SDL_Texture *textM;
-    SDL_Texture *textMB;
-    SDL_Texture *textQ;
-    SDL_Texture *textQB;
-    
-    textM = NULL;
-    textQ = NULL;
+static void	main_menu_quit(t_win *win, Uint32 ms)
+{
+	ui_free_ui(&win->winui->ui);
+	SDL_Delay(ms);
+}
+
+static void		dead_menu_ui(t_win *win)
+{
+	ui_set_draw_color(win->rend, &(SDL_Color){71, 27, 27, 255});
+	ui_clear_win(win->winui);
+	ui_display_frames(win->winui, win->winui->ui.frames);
+	ui_draw_rend(win->winui);
+	ui_poll_event(&win->winui->event);
+	ui_update_ui(win->winui);
+}
+
+int dead_menu(t_win *win, t_player *player)
+{
+    int next_loop;
+    int flag;
+
+    flag = 0;
+    next_loop = 0;
+    if (init_dead_menu(win) == 0)
+	    return (ret_error("dead_menu"));
     if (player->currentHp <= 0)
     {   
-        textM = generate_text(win->rend, win->main_menu->police, "MENU", (SDL_Color){255, 0, 0, 50});
-        textMB = generate_text(win->rend, win->main_menu->police, "MENU", (SDL_Color){0, 0, 0, 50});
-        textQ = generate_text(win->rend, win->main_menu->police, "QUIT", (SDL_Color){255, 0, 0, 50});
-        textQB = generate_text(win->rend, win->main_menu->police, "QUIT", (SDL_Color){0, 0, 0, 50});
-        SDL_RenderCopy(win->rend, texHud->tex[12], NULL, &(SDL_Rect){(0), (0), (win->w), (win->h)});
-        SDL_RenderCopy(win->rend, textMB, NULL, &(SDL_Rect){(win->w * 0.382), (win->h * 0.625), (win->w * 0.256), (win->h * 0.1325)});
-		SDL_RenderCopy(win->rend, textM, NULL, &(SDL_Rect){(win->w *0.38), (win->h * 0.625), (win->w * 0.25), (win->h * 0.125)});
-        SDL_RenderCopy(win->rend, textQB, NULL, &(SDL_Rect){(win->w * 0.382), (win->h * 0.75), (win->w * 0.256), (win->h * 0.1325)});
-        SDL_RenderCopy(win->rend, textQ, NULL, &(SDL_Rect){(win->w *0.38), (win->h * 0.75), (win->w * 0.25), (win->h * 0.125)});
-        SDL_SetRelativeMouseMode(SDL_FALSE);
-        if (clickOnPos(event, &(t_frect){(win->w * 0.38), (win->h * 0.625), (win->w * 0.25), (win->h * 0.125)}) == 1)
-            return (2);
-        if (clickOnPos(event, &(t_frect){(win->w * 0.38), (win->h * 0.75), (win->w * 0.25), (win->h * 0.125)}) == 1)
-            return (1);
-        destroyTextures(textM, textMB, textQ, textQB);
+        while (!next_loop)
+        {   
+            next_loop = 0;
+            if (!flag)
+            {   
+                set_menu_button_function(win->winui, &next_loop);
+                flag = 1;
+            }
+            dead_menu_ui(win);
+            if (next_loop != 0)
+            {   
+                main_menu_quit(win, 250);
+                return(next_loop);
+            }
+        }
     }
-	// event.type = SDL_FALSE;
     return (0);
 }

@@ -1,65 +1,34 @@
 #ifndef BORDEL_STRUCT_H
 # define BORDEL_STRUCT_H
 
+# include "ui_win.h"
 # include "SDL.h"
-
-typedef struct		s_dot
-{
-	int				x;
-	int				y;
-}					t_dot;
-
-typedef struct		s_fdot
-{
-	double			x;
-	double			y;
-}					t_fdot;
 
 typedef struct		s_fdot_3d
 {
-	double			x;
-	double			y;
-	double			z;
+	float			x;
+	float			y;
+	float			z;
 }					t_fdot_3d;
 
-typedef struct		s_matrice
+typedef struct		s_matrix
 {
-	double			_00;
-	double			_01;
-	double			_02;
-	double			_10;
-	double			_11;
-	double			_12;
-	double			_20;
-	double			_21;
-	double			_22;
-}					t_matrice;
+	float			_00;
+	float			_01;
+	float			_02;
+	float			_10;
+	float			_11;
+	float			_12;
+	float			_20;
+	float			_21;
+	float			_22;
+}					t_matrix;
 
 typedef struct		s_size
 {
 	int				w;
 	int				h;
 }					t_size;
-
-typedef struct		s_line
-{
-	t_dot			p1;
-	t_dot			p2;
-}					t_line;
-
-typedef struct		s_fline
-{
-	t_fdot			p1;
-	t_fdot			p2;
-}					t_fline;
-
-typedef struct 		s_frect
-{
-	double			x;
-	double			y;
-	double			w;
-	double			h;
-}					t_frect;
 
 typedef struct 		s_circle
 {
@@ -70,312 +39,82 @@ typedef struct 		s_circle
 
 typedef struct		s_affine
 {
-	double			a;
-	double			b;
+	float			a;
+	float			b;
 	int				isequation;
-	double			angle;
+	float			angle;
 }					t_affine;
 
 typedef struct		s_plan
 {
-	double			a;
-	double			b;
-	double			c;
-	double			d;
+	t_fdot_3d		v;
+	float			d;
 }					t_plan;
 
 typedef struct		s_cartesienne
 {
-	double			ox;
-	double			oy;
-	double			oz;
-	double			vx;
-	double			vy;
-	double			vz;
+	float			ox;	//Utilise pour les tp de ray intersecteur
+	float			oy;
+	float			oz;
+	float			vx;
+	float			vy;
+	float			vz;
 
-	int				x;
-	int				y;
+	// int				launch;
+	float			dist;
+	struct s_poly	*poly;
+	int				color;
 	struct s_cartesienne	*next;
 }					t_cartesienne;
 
-typedef struct		s_vector
-{
-	int				x;
-	int				y;
-}					t_vector;
-
-typedef struct		s_fvector
-{
-	double			x;
-	double			y;
-}					t_fvector;
-
 /*
 ** =====================================================================================
-** ================================== EVENT ============================================
+** ================================== UI_FUNCTION ======================================
 ** =====================================================================================
 */
 
-enum e_mouse
+typedef struct	s_arg_menu
 {
-	MOUSE_NONE = 0b0000
-};
+	int			*loop; // renommer en variable
+	int			value;
+}				t_arg_menu;
 
-enum e_mouse_button {MOUSE_LEFT, MOUSE_MIDDLE, MOUSE_RIGHT};
-
-typedef struct	s_mouse_button
+typedef enum	e_editor
 {
-	SDL_bool	pressed;
-	SDL_bool	pressing;
-	SDL_bool	releasing;
-}				t_mouse_button;
+	ED_NONE = 0,
+	ED_MODE_CHANGED = 1,
+	ED_SELECTION = 2,
+	ED_PLACE = 4,
+	ED_WALL = 8,
+	ED_FLAT = 16,
+	ED_INCLINED = 32,
+	ED_PLAYER = 64,
+	ED_DRAW_HELP = 128,
+	ED_MOB	= 256,
+	ED_HEAL = 512,
+	ED_SHIELD = 1024,
+	ED_TP = 2048,
+	ED_BOX = 4096,
+	ED_GRAVITY = 8192,
+	ED_BULLET = 16384
+}				t_editor_flag;
 
-/*
-**	---------------------------------- Mouse ----------------------------------
-*/
-
-typedef struct		s_mouse
+typedef enum	e_editor_calc
 {
-	int				x;
-	int				y;
-	Uint32			flags;
-	t_mouse_button	button[3];
-}					t_mouse;
+	ED_CALC_NONE = 0,
+	ED_CALC_NORMAL = 1,
+	ED_CALC_Z = 2
+}				t_editor_calc;
 
-/*
-** =======================================================================================
-** ================================== DISPLAY ============================================
-** =======================================================================================
-*/
+# define ED_ALL_TYPES ED_WALL + ED_FLAT + ED_INCLINED + ED_PLAYER + ED_MOB\
++ ED_HEAL + ED_SHIELD + ED_GRAVITY + ED_BULLET + ED_BOX
 
-/*
-**	---------------------------------- Interface Management ----------------------------------
-*/
-
-
-typedef enum	e_button_flag
+typedef struct		s_kit_flags
 {
-	SIMPLE_BUTTON_NONE = 0,
-	SIMPLE_BUTTON_NAME = 1
-}				t_button_flag;
-
-enum	e_text_entry
-{
-	TEXT_ENTRY_NONE = 0,
-	TEXT_ENTRY_DIGITAL = 1,
-	TEXT_ENTRY_ALPHANUM = 2,
-	TEXT_ENTRY_TMP = 4,
-	TEXT_ENTRY_LINKED = 8,
-	TEXT_ENTRY_SECTOR_NAME = 16,
-	TEXT_ENTRY_SECTOR_FLOOR = 32,
-	TEXT_ENTRY_SECTOR_CEIL = 64
-};
-
-typedef enum	e_button_state
-{
-	BUTTON_STATE_NONE = 0,
-	BUTTON_STATE_ON_MOUSE = 1,
-	BUTTON_STATE_CLICKED = 2
-}				t_button_state;
-
-typedef enum	e_menu_button
-{
-	BUTTON_MENU_NONE = 0,
-	BUTTON_MENU_CREDIT = 1,
-	BUTTON_MENU_QUIT = 2,
-	BUTTON_CREDIT_RETURN = 4,
-	BUTTON_DEAD_RETRY = 8,
-	BUTTON_DEAD_MENU = 16
-}				t_menu_button;
-
-typedef enum	e_button
-{
-	BUTTON_NONE = 0,
-	BUTTON_DEL_SECTOR = 1,
-	BUTTON_TEXT_ENTRY = 2,
-	BUTTON_EXPORT = 4,
-	BUTTON_GAMELOOP = 8,
-	BUTTON_EDITORLOOP = 16,
-	BUTTON_ID = 32,
-	BUTTON_L_TYPE = 64,
-	BUTTON_CLICKED = 128,
-	BUTTON_SECTOR_NAME = 256,
-	BUTTON_SIMPLE = 512,
-	BUTTON_MAP_NAME = 1024,
-	BUTTON_MAP_EXPORT = 2048,
-	BUTTON_SECTOR_INPUT = 4096,
-	BUTTON_LINEDEF_SIDE = 8192,
-	BUTTON_ADD_SECTOR = 16384,
-	BUTTON_LOAD_TEXTURE = 32768,
-	BUTTON_SCALE_BOX = 65536
-}				t_button_f;
-
-typedef struct		s_simple_button
-{
-	char			*name;
-	void			*link;
-	SDL_bool		clicked;
-	t_button_flag	flags;
-}					t_simple_button;
-
-typedef struct		s_text_entry
-{
-	char			*name;
-	int				max_size;
-	void			*variable;
-	Uint8			flags;
-}					t_text_entry;
-
-typedef struct		s_checkbox
-{
-	char			*name;
-	SDL_bool		checked;
-	void			*variable;
-}					t_checkbox;
-
-typedef enum		e_scaleboxf
-{
-	SCALEBOX_NONE = 0,
-	SCALEBOX_MUSIC_VOLUME = 1
-}					t_scaleboxf;
-
-typedef struct		s_scalebox
-{
-	int				percent;
+	t_editor_flag	*variable;
 	int				flags;
-}					t_scalebox;
+}					t_kit_flags;
 
-
-typedef struct		s_button
-{
-	t_frect			ratio;
-	SDL_Rect		rect;
-
-	SDL_Texture		*texture;
-	char			*text;
-
-	Uint32			flags;
-	Uint32			gflags;
-
-	void			*data;
-
-	struct s_button	*next;
-}					t_button;
-
-
-enum	e_frame
-{
-	FRAME_NONE = 0,
-	FRAME_SECTORS = 1,
-	FRAME_INFO = 2,
-	FRAME_HIDE = 4,
-	FRAME_L_INFO = 8,
-	FRAME_L_TYPE = 16,
-	FRAME_MAP = 32,
-	FRAME_PLAYER = 64,
-	FRAME_PORTAL = 128,
-	FRAME_TEXTURE = 256,
-	FRAME_MUSIC = 512,
-	FRAME_ERROR = 1024
-};
-
-typedef struct		s_frame
-{
-	t_frect			ratio;
-	SDL_Rect		rect;
-	SDL_Texture		*texture;
-
-	t_button		*buttons;
-	int				nb_buttons;
-
-	Uint32			flags;
-
-	struct s_frame	*next;
-}					t_frame;
-
-/*
-**	---------------------------------- hud --------------------------------------------
-*/
-typedef struct 	s_texHud
-{
-	SDL_Texture		*tex[14];
-	SDL_Texture		*tex_weapon[6];
-	SDL_Texture		*tex_reload[5];
-	TTF_Font		*police;
-}					t_texHud;
-
-/*
-**	---------------------------------- main_menu --------------------------------------------
-*/
-
-typedef struct s_main_menu
-{
-	SDL_Texture *text[4];
-	SDL_Texture	*textb[4];
-	TTF_Font	*police;
-
-}				t_main_menu;
-
-/*
-**	---------------------------------- Window ----------------------------------
-*/
-
-typedef struct		s_ed_texture
-{
-	SDL_Texture		*frame_texture;
-	SDL_Texture		*button;
-	SDL_Texture		*clear;
-	SDL_Texture		*clicked_button;
-	SDL_Texture		*on_mouse_button;
-	SDL_Texture		*digit_tab[10];
-}					t_ed_texture;
-
-typedef struct		s_font
-{
-	TTF_Font		*digital;
-	TTF_Font		*ui;
-}					t_font;
-
-typedef struct		s_doom_music
-{
-	Mix_Music		*editor_music;
-	Mix_Music		*credit_music;
-	Mix_Music		*menu_music;
-}					t_doom_music;
-
-
-typedef struct		s_win
-{
-	SDL_Window*		ptr;
-	SDL_Renderer	*rend;
-
-	int				w;
-	int				h;
-	double			middle_print;
-
-	t_mouse			*mouse;
-
-	SDL_Texture		**sectors_texture;
-	t_ed_texture	ed_texture;
-	SDL_Texture		**sectors_texture_selected;
-	SDL_Texture		*text_entry_texture;
-
-	char			*text_entry;
-
-	t_frame			*frames;
-	t_frame			*selected_frame;
-
-	t_button		*selected_button;
-
-	t_font			font;
-	t_texHud		*texHud;
-
-	t_doom_music	music;
-	t_main_menu		*main_menu;
-
-	char			**error_msg;
-	int				nb_error_msg;
-}					t_win;
 
 /*
 ** ====================================================================================
@@ -401,7 +140,7 @@ typedef struct	s_timer
 	uint32_t		time;
 	uint32_t		save;
 	int 			index;
-}					t_timer;
+}				t_timer;
 
 typedef struct s_timers
 {
@@ -415,19 +154,6 @@ typedef struct s_timers
     t_timer     mouse;
 }				t_timers;
 
-/*
-**	---------------------------------- mob --------------------------------------------
-*/
-	typedef struct s_mob
-	{	
-		t_dot			pos;
-		int 			live;
-		int 			nmob;
-		int				sector;
-		int 			id;
-		char 			*name;
-		struct s_mob	*next;
-	}					t_mob;
 /*
 **	---------------------------------- png --------------------------------------------
 */
@@ -472,8 +198,10 @@ enum	e_glinedef
 {
 	WALL = 0b0001,
 	PORTAL = 0b0010,
-	DOOR_CLOSE = 0b0100,
-	DOOR_OPEN = 0b00001000
+	FLOOR = 0b0100,
+	CEIL = 0b1000,
+	DOOR_OPEN = 0b00010000,
+	DOOR_CLOSE = 0b00100000
 };
 
 typedef enum	e_linedef_side
@@ -485,21 +213,136 @@ typedef enum	e_linedef_side
 
 typedef struct			s_linedef
 {
-	char				*name;
-	t_dot				p1;
-	t_dot				p2;
+	char				*name;		//Inutile
+	t_dot	    		p1;			//Stocke les donnees du fichier
+	t_dot               p2;			//
 	t_linedef_side		side;
-	t_affine			equation;
-	t_plan				equation_2;
-	double				angle;
+	
+	t_plan				equation;
+	t_fdot_3d			origin;
+	t_fdot_3d           i;
+	t_fdot_3d  			j;
+	
 	SDL_Surface			*texture;
 	Uint32				flags;
 	Uint32				gflags;
 	int					id;
+	
+	t_fdot_3d			poly_3d[4];
+	t_dot				poly_2d[4];
+	t_dot				poly_2d_origin;
+	int					poly_w;
+	int					poly_h;
+	
 	struct s_sector		*sector;
 	struct s_linedef	*destline;
 	struct s_linedef	*next;
 }						t_linedef;
+
+/*
+** =======================================================================================
+** ================================== DISPLAY ============================================
+** =======================================================================================
+*/
+
+/*
+**	---------------------------------- hud --------------------------------------------
+*/
+typedef struct 	s_texhud
+{
+	SDL_Texture		*tex[16];
+	SDL_Texture		*tex_weapon[6];
+	SDL_Texture		*tex_reload[5];
+	TTF_Font		*police;
+}					t_texhud;
+
+/*
+**	---------------------------------- main_menu --------------------------------------------
+*/
+
+typedef struct s_main_menu
+{
+	SDL_Texture *text[4];
+	SDL_Texture	*textb[4];
+	TTF_Font	*police;
+
+}				t_main_menu;
+
+/*
+**	---------------------------------- Window ----------------------------------
+*/
+
+typedef struct		s_ed_texture
+{
+	SDL_Texture		*frame_texture;
+	SDL_Texture		*button;
+	SDL_Texture		*clear;
+	SDL_Texture		*clicked_button;
+	SDL_Texture		*on_mouse_button;
+	SDL_Texture		*digit_tab[10];
+}					t_ed_texture;
+
+typedef struct		s_font
+{
+	TTF_Font		*digital;
+	TTF_Font		*ui;
+}					t_font;
+
+typedef struct		s_doom_music
+{
+	Mix_Music		*editor_music;
+	Mix_Music		*credit_music;
+	Mix_Music		*menu_music;
+}					t_doom_music;
+
+typedef enum		e_view
+{
+	TEXTURE_VIEW = 0b0001,
+	WALL_VIEW = 0b0010,
+	BOX_VIEW = 0b0100,
+	LIGHT_VIEW = 0b1000
+}					t_view;
+
+typedef struct		s_win
+{
+	struct s_map	*map;
+
+	SDL_Window*		ptr;
+	SDL_Renderer	*rend;
+	Uint32			*pixels;
+	SDL_Texture		*rend_texture;
+	t_timer			view_change_time;
+
+	struct s_thread	*threads;
+	int				w;
+	int				h;
+	float			w_div_fov;
+	float			h_div_fov;
+
+	SDL_Texture		**sectors_texture;
+	t_ed_texture	ed_texture;
+	SDL_Texture		**sectors_texture_selected;
+	SDL_Texture		*text_entry_texture;
+
+	char			*text_entry;
+
+	t_frame			*frames;
+	t_frame			*selected_frame;
+
+	t_button		*selected_button;
+
+	t_font			font;
+	t_texhud		*texhud;
+
+	t_doom_music	music;
+	t_main_menu		*main_menu;
+
+	char			**error_msg;
+	int				nb_error_msg;
+	
+	// libui
+	t_winui			*winui;
+}					t_win;
 
 /*
 **	---------------------------------- sector --------------------------------------------
@@ -508,77 +351,131 @@ typedef struct			s_linedef
 typedef struct				s_sector
 {
 	char					*name;
+    t_linedef				*lines;
+	int						floor_height;
+	int						ceil_height;
+	int						height;
+
+	// SDL_Color				color;
+	// t_plan					floor_equation;
+	// SDL_Surface				*floor_texture;
+	// t_plan					ceil_equation;
+	// SDL_Surface				*ceil_texture;
 
 	t_color_picker			color;
-	// SDL_Color				color;
-	int						floor_height;
-	t_plan					floor_equation;
-	SDL_Surface				*floor_texture;
-	int						ceil_height;
-	t_plan					ceil_equation;
-	SDL_Surface				*ceil_texture;
-
-	int						height;
 	int						light_level;
-    t_linedef				*lines;
 	// t_dot					center;
 	struct	s_sector 		*next;
 }							t_sector;
 
 typedef struct				s_textures
 {
-	SDL_Surface				*elephantride;
-	SDL_Surface				*tortue;
+	SDL_Surface				*wall_1;
+	SDL_Surface				*wall_2;
+	SDL_Surface				*floor;
+	SDL_Surface				*ceil;
 }							t_textures;
 
 /*
 **	----------------------------------- Raycasting ---------------------------------------
 */
 
+typedef	struct				s_poly
+{
+	int						index;
+	int						visible;
+	int						collide;
+	struct s_object			*object; 
+
+	t_fdot_3d				dots[N_DOTS_POLY];
+	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
+	// float					dist12;
+	// float					dist14;
+
+	t_plan					equation;
+	t_plan					equation_rotz_only;
+	t_fdot_3d				i;
+	t_fdot_3d				j;
+	t_fdot_3d				i_rotz_only;
+	t_fdot_3d				j_rotz_only;
+	float					i_mag;
+	float					j_mag;
+	float					ii;
+	float					jj;
+
+	int						is_slide_ban;	//Utile pour les angles
+	int						segment_code;
+
+	t_fdot_3d				dots_new[N_DOTS_POLY + 2];	//Un poly ne peut passe que 2 fois sur x
+	int						n_dot;
+	t_dot					dots_proj[N_DOTS_POLY * 2];
+	int						n_proj;	//*2 car une droite ne peut couper que 2 fois le bord de l'ecran
+	t_dot					box_x;
+	t_dot					box_y;
+
+	SDL_Surface				*texture;
+	float					light_coef;
+	char					*texture_name;
+	// t_enum_object			object;
+	struct s_poly			*next;
+}							t_poly;
+
+typedef struct				s_thread
+{
+	pthread_t				thread;
+	int						i;
+	t_win					*win;
+	struct s_map			*map;
+	struct s_player			*player;
+	t_poly					*poly;
+}							t_thread;
+
 typedef struct				s_calculs
 {
-	int						raycast;
-	int						column;
-	int						nportals;
-	double					alpha;
-	double					alpha_tmp;
-	double					alpha_up;
-	// double					alpha_up_tmp;
-	double					dangle;
-	double					dangle_up;
-	t_affine				ray;
-	t_cartesienne			ray_2;
-	double					dist;
-	double					dist_sum;
-	double					newdist;
-	t_fdot					closest;
-	t_fdot_3d				closest_2;
-	t_linedef				*collision_wall;
-	t_sector				*collision_sector;
-	int						collision_type;
-	double					up_wall;
-	double					low_wall;
+	int 					dist;
 }							t_calculs;
+
+/*
+**	---------------------------------- mob --------------------------------------------
+*/
+
+typedef struct s_mob
+{
+	t_poly			*poly;
+	t_fdot_3d		pos;
+	int 			width;
+	int 			width_2;
+	int 			height;
+	int 			height_2;
+	int 			vel;
+	int				alive;
+	int 			health;
+	int				damage;
+	int 			type;
+	struct s_mob	*next;
+	int				dir;
+	char 			*texture;
+}					t_mob;
 
 /*
 **	---------------------------------- Inventory --------------------------------------------
 */
 
-typedef struct s_item
+typedef struct		s_item
 {
-	SDL_Texture	*text;
-	SDL_Rect	*pos;
-	int			nb;
-}				t_item;
+	SDL_Texture		*text;
+	SDL_Rect		*pos;
+	int				nb;
+}					t_item;
 
-typedef struct s_inventory
+typedef struct		s_inventory
 {
-	t_item		*item[4];
-	int			weapon;
-	int 		magazine;
-	int			ammo;
-	int         selected_slot;
-}				t_inventory;
+	t_item			*item[5];
+	int				weapon;
+	int 			magazine;
+	int				ammo;
+	int         	selected_slot;
+}					t_inventory;
 
 /*
 **	---------------------------------- player --------------------------------------------
@@ -586,62 +483,105 @@ typedef struct s_inventory
 
 typedef struct		s_player
 {
+	int				debug;
 	int				win_w;
 	int				win_h;
 	t_fdot			pos;
 	t_fdot_3d		pos_up;
-	t_dot			dpos;
-	double			z;
-	char			jump;
-	char			shift;
-	t_fvector		vel;
-	double			const_vel;
-	double			dir;
-	double			dir_up;
-	double			fov;
-	double			fov_up;
-	double			ddir;
-	int				height;
-	int				width;
-	double			width_2;
-	double			width_10;
-	double			lenRay;
-	int				numsector;
+	int				on_floor;
 	t_sector		*sector;
+	t_dot			dpos;
+	t_fdot			vel;
+	float			const_vel;
+	float			dir_init;
+	float			fov;
+	float			fov_2;
+	float			fov_up;
+	float			fov_up_2;
+	float			ddir;
+	float			rot_y;
+	int				height;
+	float			height_10;
+	float			_9_height_10;
+	float			_4_height_10;
+	int				width;
+	float			width_2;
+	int				collision_on;
+
+	// int				numsector;
+	int 			damage;
 	int 			currentHp;
 	int 			maxHp;
 	int 			currentArmor;
 	int				maxArmor;
 	t_inventory		*inventory;
+	int				interaction_inventaire;
+	t_timer			interaction_inventaire_time;
 	t_timers		timers;
 	int				i_sector;
 	t_line			l[5];
 	int 			*bullet_drop;
 	int 			len_bullet;
-	double			demipetitaxe;
-	int 			damage;
+	float			demipetitaxe;
 
-	t_cartesienne	*rays;
-	t_matrice		rx;
-	t_matrice		rx_inv;
-	t_matrice		ry;
-	t_matrice		ry_inv;
-	t_matrice		rz;
-	t_matrice		rz_inv;
+	// t_cartesienne	*rays;
+	t_cartesienne	**rays;
+	t_matrix		rx;
+	t_matrix		rx_inv;
+	t_matrix		ry;
+	t_matrix		ry_inv;
+	t_matrix		rz;
+	t_matrix		rz_inv;
+
 }					t_player;
 
 /*
-**	---------------------------------- object --------------------------------------------
+**	---------------------------------- objects --------------------------------------------
 */
 
-typedef struct s_object
+typedef enum				e_enum_object
 {
-	t_fdot				pos;
-	int 				sector;
-	int 				id;
-	int					id_texture;
-	struct s_object		*next;
-}			            t_object;
+	HEAL = 0b0001,
+	ARMOR = 0b0010,
+	TP = 0b0100,
+	GUN = 0b1000,
+	BULLET = 0b10000,
+	GRAVITY_INV = 0b100000,
+	BOX = 0b1000000,
+	LIGHT = 0b10000000
+}							t_enum_object;
+
+// typedef struct bordel_struct
+// {
+// 	/* data */
+// }					
+
+
+typedef struct		s_object
+{
+	int				main_poly;
+	t_fdot_3d		pos_rotz_only;
+	t_fdot_3d		pos;
+	t_enum_object	type;
+	float			data;
+	int				visible;
+	int				collide;
+
+	float			rot_y_save;
+
+	int 			id;
+	int				id_texture;
+
+	t_poly			*poly;
+	int 			width;
+	int 			width_2;
+	int 			height;
+	int 			height_2;
+
+	int 			dir;
+	char 			*texture;
+	struct s_object	*next;
+}					t_object;
 
 /*
 **	---------------------------------- map_editor --------------------------------------------
@@ -649,57 +589,140 @@ typedef struct s_object
 
 enum	e_map_editor
 {
-	MAP_NONE = 0b0000,
+	MAP_NONE = 0,
 	DRAWING_LINE = 1,
 	MAP_SELECTING = 2,
 	MAP_TEXT_EDITING = 4,
 	MAP_MOVING_PLAYER = 8
 };
 
-typedef struct	s_map_editor
+typedef struct		s_map_editor
 {
-	char		*name;
-	int			x;
-	int			y;
-	int			w;
-	int			h;
-	double		unit;
-	t_sector	*sectors;
-	t_sector	*selected_sector;
-	SDL_Rect	rect_util;
-	Uint32		flags;
-	int			nb_lines;
-	t_player	player;
-	t_line		ordinate;
-	t_line		abscissa;
-	SDL_bool	abscissa_b;
-	SDL_bool	ordinate_b;
-}				t_map_editor;
+	char			*name;
+	int				x;
+	int				y;
+	int				w;
+	int				h;
+	float			unit;
+	t_sector		*sectors;
+	t_sector		*selected_sector;
+	SDL_Rect		rect_util;
+	Uint32			flags;
+	int				nb_lines;
+	t_player		player;
+	t_line			ordinate;
+	t_line			abscissa;
+	SDL_bool		abscissa_b;
+	SDL_bool		ordinate_b;
+}					t_map_editor;
+
+enum
+{
+	CURSOR_DEFAULT = 0,
+	CURSOR_SELECTING = 1
+};
+
+
+/*
+**	---------------------------------- save --------------------------------------------
+*/
+
+typedef struct s_save
+{
+	int ifPars;
+}				t_save;
 
 /*
 **	---------------------------------- map --------------------------------------------
 */
 
+typedef struct	s_export
+{
+	char		*path;
+	void		*map;
+}				t_export;
+
+#define	NEXT_RADIUS 20
+
+typedef struct		s_mob_settings
+{
+	int				z;
+	int				width;
+	int				height;
+	int				health;
+	int				damage;
+	int				velocity;
+}					t_mob_settings;
+
+typedef struct		s_min_max
+{
+	int				min;
+	int				max;
+}					t_min_max;
+
+typedef struct		s_inclined_settings
+{
+	int				z1;
+	int				z2;
+}					t_inclined_settings;
+
+typedef struct		s_object_settings
+{
+	int				z;
+	int				width;
+}					t_object_settings;
+
+typedef struct			s_settings
+{
+	t_mob_settings		mob;
+	t_inclined_settings	inclined;
+	t_min_max			wall;
+	t_object_settings	object;
+	int					flat_z;
+	char				*texture;
+}						t_settings;
+
+typedef struct		s_editor
+{
+	t_dot			pos;
+	t_dot			size;
+	float			unit;
+	int				z_min;
+	int				z_max;
+	t_settings		settings;
+	int				place_step;
+	t_rect			select_rect;
+	t_poly			*selected_poly;
+	t_mob			*selected_mob;
+	t_object		*selected_obj;
+	t_poly			*placing_poly;
+	int				min_pos_z;
+	int				max_pos_z;
+	t_editor_flag	flags;
+	t_editor_calc	calc;
+	t_arg_menu		arg_menu_tab[15];
+	SDL_Cursor		*cursor[2];
+	t_export		export;
+}					t_editor;
+
 typedef struct		s_map
 {
-	t_sector		*sectors;
+	t_poly			*polys;
+	t_poly			*polys_save;
 	t_textures		textures;
 	t_player		player;
-	t_object		*object;
+	t_view			view;
+	float			gravity;
+	t_timer			gravity_inv_time;
+	t_object		*objects;
+	t_object		*objects_save;
+	t_timer			objects_animation;
 	t_mob			*mob;
 	t_main_menu		main_menu;
+	SDL_Event		*event;
+	t_music			*music;
+	t_editor		editor;
+	t_save			save;
 }					t_map;
-
-/*
-** =================================================================================
-** ================================== EDITOR LOOP ==================================
-** =================================================================================
-*/
-
-enum	e_sc	// shortcut
-{
-	SC_NONE = 0,
-	SC_DRAW_FREE = SDL_SCANCODE_SPACE
-};
 
 #endif

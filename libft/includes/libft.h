@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   libft.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: gmonacho <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/03 10:23:36 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/15 18:18:39 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/31 17:24:07 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,6 +56,8 @@ void				ft_swap(int *elem1, int *elem2);
 void				ft_tabputint(int *tab, int len);
 void				ft_addtofloat(float *nb, float add);
 void				ft_intdel(int **tab);
+float				ft_atof(const char *str);
+int					ft_count_words(char *str);
 
 void				ft_2dstrdel(char ***tab);
 void    			ft_2dputendl(const char **str);
@@ -93,7 +95,8 @@ size_t				ft_tablen(void **tab);
 
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					ft_atoi(const char *str);
-double				ft_abs(double n);
+float				ft_abs(float n);
+int					ft_intabs(int value);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
 int					ft_isascii(int c);
@@ -109,7 +112,7 @@ int					ft_count_char(char *str, int c);
 int					get_next_line(const int fd, char **line);
 int					ft_index(const char *str, int c);
 int					ft_countnumbers(char *str);
-int					ft_round(double nb);
+int					ft_round(float nb);
 
 t_list				*ft_lstnew(void const *content, size_t content_size);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));

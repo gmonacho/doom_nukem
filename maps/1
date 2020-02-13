@@ -1,95 +1,166 @@
 Player
 {
-	posx = 639
-	posy = 407
-	width = 20
-	height = 20
-	sector = 0
-	velocity = 1
+	posx = 200
+	posy = 200
+	posz = 140
+	dir = -90
+	width = 30
+	height = 90
+	velocity = 10
 }
-Sector
+Mob
+{	
+	mob0
+	{	
+		type = 1
+		posx = 200
+		posy = 200
+		posz = 140
+		dir = -90
+		width = 30
+		height = 90
+		velocity = 10
+		health = 100
+	}
+	mob = 1
+	{	
+		type = 1
+		posx = 200
+		posy = 200
+		posz = 140
+		dir = -90
+		width = 30
+		height = 90
+		velocity = 10
+		health = 50
+	}
+	mob = 2
+	{
+		type = 3
+		posx = 200
+		posy = 200
+		posz = 140
+		dir = -90
+		width = 30
+		height = 90
+		velocity = 10
+		health = 50
+	}
+	mob = 3
+	{
+		type = 2
+		posx = 200
+		posy = 200
+		posz = 140
+		dir = -90
+		width = 30
+		height = 90
+		velocity = 10
+		health = 75
+	}
+}
+
+
+/* Salle du bas */
+Object
 {
-	name =  sector
-	ceilHeight = 75
-	floorHeight = 0
-	line
-	{
-		dot = (1169, 870)
-		dot = (1169, 322)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (557, 870)
-		dot = (1169, 870)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1169, 322)
-		dot = (557, 322)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (557, 322)
-		dot = (557, 870)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (869, 456)
-		dot = (720, 551)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (720, 551)
-		dot = (835, 692)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (835, 692)
-		dot = (998, 692)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (998, 692)
-		dot = (1070, 557)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (1070, 557)
-		dot = (891, 617)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
-	line
-	{
-		dot = (891, 617)
-		dot = (869, 456)
-		flags = WALL
-		id = 0
-		side = RIGHT
-	}
+	posx = 100
+	posy = 100
+	posz = 100
+	width = 100
+	height = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:100, y:650, z:200
+	dot = x:100, y:150, z:200
+	dot = x:100, y:150, z:50
+	dot = x:100, y:650, z:50
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:600, y:150, z:200
+	dot = x:600, y:650, z:200
+	dot = x:600, y:650, z:50
+	dot = x:600, y:150, z:50
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:100, y:150, z:200
+	dot = x:600, y:150, z:200
+	dot = x:600, y:150, z:50
+	dot = x:100, y:150, z:50
+	texture = Elephantride.png
+}
+Polygon
+{
+	dot = x:100, y:650, z:200
+	dot = x:600, y:650, z:200
+	dot = x:600, y:650, z:50
+	dot = x:100, y:650, z:50
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:100, y:650, z:50
+	dot = x:100, y:150, z:50
+	dot = x:600, y:150, z:50
+	dot = x:600, y:650, z:50
+	texture = Plafond.png
+}
+Polygon								//Plafond
+{
+	dot = x:100, y:1150, z:200
+	dot = x:100, y:150, z:200
+	dot = x:600, y:150, z:200
+	dot = x:600, y:1150, z:200
+	texture = Plafond.png
+}
+
+
+
+/* Salle du bas */
+
+Polygon
+{
+	dot = x:100, y:650, z:200
+	dot = x:100, y:1150, z:200
+	dot = x:100, y:1150, z:0
+	dot = x:100, y:650, z:0
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:100, y:1150, z:200
+	dot = x:600, y:1150, z:200
+	dot = x:600, y:1150, z:0
+	dot = x:100, y:1150, z:0
+	texture = Elephantride.png
+}
+Polygon
+{
+	dot = x:600, y:1150, z:200
+	dot = x:600, y:650, z:200
+	dot = x:600, y:650, z:0
+	dot = x:600, y:1150, z:0
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:100, y:650, z:0
+	dot = x:100, y:1150, z:0
+	dot = x:600, y:1150, z:0
+	dot = x:600, y:650, z:0
+	texture = Plafond.png
+}
+Polygon
+{
+	dot = x:100, y:650, z:0
+	dot = x:600, y:650, z:0
+	dot = x:600, y:650, z:50
+	dot = x:100, y:650, z:50
+	texture = Brique.png
 }

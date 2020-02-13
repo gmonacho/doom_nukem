@@ -1,116 +1,164 @@
 #include "doom_nukem.h"
+#include "ui_error.h"
 
-void		ft_fill_coord(t_sector **sector, char **tab, int i)
+// int			add_light_a_la_mano(t_map *map)
+// {
+// 	t_light	*light;
+
+// 	if (!(light = (t_light *)malloc(sizeof(t_light))))
+// 		return (1);
+// 	map->lights = light;
+// 	light->pos = (t_fdot_3d){300, 950, 150};
+// 	light->pos_rotz_only = (t_fdot_3d){300, 950, 150};
+// 	light->coef = 1;
+
+// 	if (!(light->next = (t_light *)malloc(sizeof(t_light))))
+// 		return (1);
+// 	light = light->next;
+// 	light->pos = (t_fdot_3d){200, 200, 190};
+// 	light->pos_rotz_only = (t_fdot_3d){200, 200, 190};
+// 	light->coef = 0.5;
+	
+// 	if (!(light->next = (t_light *)malloc(sizeof(t_light))))
+// 		return (1);
+// 	light = light->next;
+// 	light->pos = (t_fdot_3d){200, 200, 60};
+// 	light->pos_rotz_only = (t_fdot_3d){200, 200, 60};
+// 	light->coef = 0.5;
+
+// 	if (!(light->next = (t_light *)malloc(sizeof(t_light))))
+// 		return (1);
+// 	light = light->next;
+// 	light->pos = (t_fdot_3d){300, 500, 60};
+// 	light->pos_rotz_only = (t_fdot_3d){300, 500, 60};
+// 	light->coef = 0;
+// 	light->next = NULL;
+
+// 	map->n_lights = 4;
+// 	return (0);
+// }
+
+void		find_texture(char *tab, t_poly *poly)
 {
-	t_linedef	*line;
-	int			y;
-	int			flag;
+	char *tmp;
+	char *name;
 
-	if (!(line = (t_linedef*)ft_memalloc(sizeof(t_linedef))))
-	{	
-		ft_putendl("Error malloc parsing.c l.11\n");
+	name = NULL;
+	tmp = NULL;
+	name = ft_strdup(ft_strrchr(tab, '=') + 2);
+	poly->texture_name = name;
+	tmp = ft_strdup("textures/");
+	tmp = ft_strjoin(tmp, name);
+	if (!(poly->texture = IMG_Load(tmp)))
+	{
 		exit(0);
+		return ;
 	}
-	y = 0;
-	flag = 0;
-	while (!(ft_strchr(tab[i], '}')))
+	poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
+					SDL_PIXELFORMAT_ARGB8888, 0);
+	free(tmp);
+}
+
+void		ft_fill_data(char **tab, t_poly **poly, int i)
+{
+	int index;
+
+	index = 0;
+	add_poly(poly);
+	(*poly)->object = NULL;
+	while ((ft_strchr(tab[i], '}') == NULL))
 	{
-		if (ft_strstr(tab[i], "dot =") && flag == 0)
+		if (ft_strstr(tab[i], "dot = "))	// Dangereux si il y a x y ou z sur la meme ligne
 		{
-			ft_find_coord_p1(line, tab[i]);
-			flag++;
+			(*poly)->dots_rotz_only[index].x = ft_atoi(ft_strrchr(tab[i], 'x') + 2);
+			(*poly)->dots_rotz_only[index].y = ft_atoi(ft_strrchr(tab[i], 'y') + 2);
+			(*poly)->dots_rotz_only[index].z = ft_atoi(ft_strrchr(tab[i], 'z') + 2);
+			index++;
 		}
-		else if (ft_strstr(tab[i], "dot =") && flag != 0)
-			ft_find_coord_p2(line, tab[i]);
-		else if (ft_strstr(tab[i], "flags ="))
-			ft_find_type(tab[i], line);
-		else if (ft_strstr(tab[i], "id ="))			//////	Changes : agiordan le gros dep
-			ft_find_id(tab[i], line);
+		if (ft_strstr(tab[i], "texture ="))
+			find_texture(tab[i], *poly);
+		if (ft_strstr(tab[i], "light = "))
+			(*poly)->light_coef = ft_atoi(ft_strrchr(tab[i], '=') + 1) / 100.0;
 		i++;
 	}
-	add_linedef(&((*sector)->lines), init_linedef(line));
 }
 
-int			count_line(int fp1)
+void		fill_poly_mob(t_poly *poly, t_mob *mob)
 {
-	int		nb;
-	char	*line;
+	char *tmp;
 
-	nb = 0;
-	while (get_next_line(fp1, &line) > 0)
+	tmp = NULL;
+	while (poly->next)
+		poly = poly->next;
+	while (mob)
 	{
-		free(line);
-		nb++;
+		tmp = ft_strdup("textures/");
+		poly->next = mob->poly;
+		poly = poly->next;
+		tmp = ft_strjoin(tmp, mob->texture);
+		if (!(poly->texture = IMG_Load(tmp)))
+		{
+			exit(0);
+			return ;
+		}
+		poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
+						SDL_PIXELFORMAT_ARGB8888, 0);
+		mob = mob->next;
+		free(tmp);
 	}
-	return (nb);
 }
 
-char		**ft_fill_map(int fd, int fp1)
+void		fill_poly_object(t_poly *poly, t_object *object)
 {
-	char	*line;
-	char	**tab;
-	int		i;
-	int		nb;
+	char	*tmp;
+	t_poly	*poly_object;
 
-	i = 0;
-	nb = count_line(fp1);
-	if (!(tab = (char **)malloc(sizeof(char *) * (nb + 1))))
-		return (NULL);
-	while (get_next_line(fd, &line) > 0)
+	tmp = NULL;
+	while (poly->next)
+		poly = poly->next;
+	while (object)
 	{
-		tab[i] = ft_strdup(line);
-		free(line);
-		i++;
+		tmp = ft_strjoin("textures/", object->texture);
+		poly_object = object->poly;
+		while (poly_object)
+		{
+			fill_poly_object_norm(tmp, poly_object);
+			poly->next = poly_object;
+			poly = poly->next;
+			poly_object = poly_object->next;
+		}
+		ft_strdel(&tmp);
+		object = object->next;
 	}
-	tab[i] = NULL;
-	return (tab);
 }
 
-void		ft_fill_data(char **tab, t_sector **sector, int i)
-{	
-	add_sector(sector);
-	while ((ft_strchr(tab[i], '}') == NULL || ft_strchr(tab[i - 1], '}') == NULL))
-	{
-		if (ft_strstr(tab[i], "floorHeight ="))
-			(*sector)->floor_height =
-			ft_atoi(ft_strrchr(tab[i], '=') + 1);
-		if (ft_strstr(tab[i], "ceilHeight ="))
-			(*sector)->ceil_height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-		if (ft_strstr(tab[i], "name ="))
-			(*sector)->name = ft_strdup(ft_strrchr(tab[i], '=') + 1);
-		if (ft_strstr(tab[i], "line"))
-			ft_fill_coord(sector, tab, i);
-		i++;
-	}
-	/*printf("floor_heignt = %d\n", sector->floor_height);
-	printf("ceil_height = %d\n", sector->ceil_height);
-	printf("name = %s\n", sector->name);
-	printf("flags = %u\n", sector->lines->flags);
-	printf("p1.x = %d p1.y = %d\n", sector->lines->p1.x, sector->lines->p1.y);
-	printf("p2.x = %d p2.y = %d\n", sector->lines->p2.x, sector->lines->p2.y);
-	printf("id = %d\n", sector->lines->id);*/
-}
-
-t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player)
+t_poly		*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 {
 	char		**tab;
 	int			i;
-	t_sector	*sector;
+	t_poly		*poly;
 
 	i = -1;
-	sector = NULL;
-	tab = ft_fill_map(fd, fd1);
-	ft_parse_error(tab);
-	ft_player_data(tab, player);
+	poly = NULL;
+	map->mob = NULL;
+	tab = fillntesttab(fd, fd1);
+	win->texhud = define_texhud(win);
 	while (tab[++i])
 	{
-		if (ft_strstr(tab[i], "Sector"))
-			ft_fill_data(tab, &sector, i);
+		if (ft_strstr(tab[i], "Polygon"))
+			ft_fill_data(tab, &poly, i);
 		else if (ft_strstr(tab[i], "Object"))
-			object_data(tab, map->object, i);
+		{
+			if (object_data(tab, &(map->objects), i))
+				return (NULL); //LEAKS - C'est temporaire
+		}
+		else if (ft_strstr(tab[i], "Player"))
+			player_data(tab, &(map->player), i);
 		else if (ft_strstr(tab[i], "Mob"))
 			fill_mob_data(&(map->mob), tab, i);
 	}
-	printf("Fin parsing\n\n");
-	return (sector);
+	fill_poly(poly, map);
+	// if (add_light_a_la_mano(map))
+	// 	return (NULL);
+	return (poly);
 }

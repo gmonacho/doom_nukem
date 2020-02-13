@@ -2,6 +2,29 @@
 	"files.associations": {
 		"loop.h": "c",
 		"doom_nukem.h": "c",
-		"string.h": "c"
+		"string.h": "c",
+		"ios": "c",
+		"__locale": "c",
+		"ui_win.h": "c",
+		"ui_draw.h": "c",
+		"type_traits": "c",
+		"bitset": "c",
+		"libft.h": "c",
+		"bordel_proto.h": "c",
+		"__bit_reference": "c",
+		"__string": "c",
+		"algorithm": "c",
+		"memory": "c",
+		"__functional_base": "c",
+		"__functional_base_03": "c",
+		"__hash_table": "c",
+		"__tuple": "c",
+		"array": "c",
+		"chrono": "c",
+		"functional": "c",
+		"limits": "c",
+		"ratio": "c",
+		"tuple": "c",
+		"utility": "c"
 	}
 }

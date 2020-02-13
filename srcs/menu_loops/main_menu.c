@@ -1,155 +1,105 @@
 #include "doom_nukem.h"
+#include "ui_win.h"
+#include "ui.h"
+#include "ui_draw.h"
+#include "ui_error.h"
 
-static void	main_menu_quit(t_win *win)
+
+static void	main_menu_quit(t_win *win, Uint32 ms)
 {
-	free_frames(&win->frames);
-	Mix_FadeOutMusic(1000);
-	SDL_Delay(1000);
+	Mix_FadeOutMusic(ms);
+	ui_free_ui(&win->winui->ui);
+	SDL_Delay(ms);
 }
 
-
-static void	main_menu_display(t_win *win)
+static void		menu_change_loop(void *argument)
 {
-	t_frame *f;
-	t_button *b;
+	t_arg_menu	*arg_menu;
 
-	SDL_SetRenderDrawColor(win->rend, 200, 200, 200, 255);
-	f = win->frames;
-	while (f)
-	{
-		if (!(f->flags & FRAME_HIDE))
-		{
-			if (!f->texture)
-				draw_ratio_rect(win, &(SDL_Rect){0, 0, win->w, win->h}, &f->ratio);
-			b = f->buttons;
-			while (b)
-			{
-				if (b->texture)
-					SDL_RenderCopy(win->rend, b->texture, NULL, &b->rect);
-				else
-					draw_ratio_rect(win, &f->rect, &b->ratio);
-				b = b->next;
-			} 
-		}
-		f = f->next;
-	}
+	arg_menu = (t_arg_menu*)argument;
+	*(arg_menu->loop) = arg_menu->value;
 }
 
-
-static int	main_menu_click(t_win *win)
+static void		set_menu_button_function(t_winui *winui, t_map *map, int *next_loop)
 {
-	if (win->selected_button)
-	{
-		if (win->selected_button->flags & BUTTON_GAMELOOP)
-			return (2);
-		else if (win->selected_button->flags & BUTTON_EDITORLOOP)
-			return (3);
-		else if (win->selected_button->flags & BUTTON_MENU_QUIT)
-			return (4);
-		else if(win->selected_button->flags & BUTTON_MENU_CREDIT)
-			return (5);
-		else if(win->selected_button->flags & BUTTON_CREDIT_RETURN)
-			return (6);
-	}
-	return (1);
+	map->editor.arg_menu_tab[0] = (t_arg_menu){next_loop,
+											2};
+	map->editor.arg_menu_tab[1] = (t_arg_menu){next_loop,
+											3};
+	map->editor.arg_menu_tab[2] = (t_arg_menu){next_loop,
+											4};
+	map->editor.arg_menu_tab[3] = (t_arg_menu){next_loop,
+											0};
+	ui_set_simple_button_function(winui,
+									"b_play",
+									&menu_change_loop,
+									&map->editor.arg_menu_tab[0]);
+	ui_set_simple_button_function(winui,
+									"b_map_editor",
+									&menu_change_loop,
+									&map->editor.arg_menu_tab[1]);
+	ui_set_simple_button_function(winui,
+									"b_credit",
+									&menu_change_loop,
+									&map->editor.arg_menu_tab[2]);
+	ui_set_simple_button_function(winui,
+									"b_exit",
+									&menu_change_loop,
+									&map->editor.arg_menu_tab[3]);
 }
 
-static int	main_menu_event(t_win *win, int *loop)
-{	
-	SDL_Event	event;
-
-	if (win)
-	{
-		while (SDL_PollEvent(&event))
-		{
-			mouse_refresh();
-			if (event.type == SDL_QUIT || event.key.keysym.scancode  == SDL_SCANCODE_ESCAPE)
-				*loop = SDL_FALSE;
-			else if (event.type == SDL_MOUSEMOTION)
-				update_selected_ui(win);
-			else if(event.type == SDL_WINDOWEVENT)
-			{
-				if(event.window.event == SDL_WINDOWEVENT_RESIZED)
-				{
-					SDL_GetWindowSize(win->ptr, &win->w, &win->h);
-					update_ui_rect(win);
-					printf("winw = %d | winh = %d\n", win->w, win->h);
-				}
-			}
-			if (win->mouse->button[MOUSE_LEFT].releasing)
-				return (main_menu_click(win));
-		}
-	}
-	return (1);
-}
-
-static int	main_menu_init(t_win *win)
+int		init_main_menu(t_win *win)
 {
-	if (!(win->main_menu = (t_main_menu*)ft_memalloc(sizeof(t_main_menu))))
-	{	
-		ft_putendl("Error malloc main_menu.c l.94\n");
-		exit(0);
-	}
-	win->main_menu->police = TTF_OpenFont("TTF/DooM.ttf", 100);
-	win->main_menu->text[0] = generate_text(win->rend, win->main_menu->police, "Play", (SDL_Color){255, 0, 0, 50});
-	win->main_menu->text[1] = generate_text(win->rend, win->main_menu->police, "Map Editor", (SDL_Color){255, 0, 0, 50});
-	win->main_menu->text[2] = generate_text(win->rend, win->main_menu->police, "Credits", (SDL_Color){255, 0, 0, 50});
-	win->main_menu->text[3] = generate_text(win->rend, win->main_menu->police, "Quit", (SDL_Color){255, 0, 0, 50});
-	win->main_menu->textb[0] = generate_text(win->rend, win->main_menu->police, "Play", (SDL_Color){0, 0, 0, 50});
-	win->main_menu->textb[1] = generate_text(win->rend, win->main_menu->police, "Map Editor", (SDL_Color){0, 0, 0, 50});
-	win->main_menu->textb[2] = generate_text(win->rend, win->main_menu->police, "Credits", (SDL_Color){0, 0, 0, 50});
-	win->main_menu->textb[3] = generate_text(win->rend, win->main_menu->police, "Quit", (SDL_Color){0, 0, 0, 50});
-	//	menu frame
-	add_frame_to_window(win, new_frame((t_frect){-0.01, -0.01, 1.01, 1.01}, NULL, FRAME_NONE, NULL));
-	//	game_loop_button
-	add_button_to_frame(&win->frames, new_button((t_frect){0.35, 0.5, 0.3, 0.08}, win->main_menu->text[0], BUTTON_GAMELOOP));
-	//	editor_loop_button
-	add_button_to_frame(&win->frames, new_button((t_frect){0.35, 0.6, 0.3, 0.08}, win->main_menu->text[1], BUTTON_EDITORLOOP));
-	//	credit menu button
-	add_button_to_frame(&win->frames, new_button((t_frect){0.35, 0.7, 0.3, 0.08}, win->main_menu->text[2], BUTTON_MENU_CREDIT));
-	// quit menu button
-	add_button_to_frame(&win->frames, new_button((t_frect){0.35, 0.8, 0.3, 0.08}, win->main_menu->text[3], BUTTON_MENU_QUIT));
-	return (1);
-}
-
-void	print_back_text(t_win *win)
-{
-	int i;
-	float pos;
-
-	i = 0;
-	pos = 0.5;
-	while(i < 4)
-	{
-		SDL_RenderCopy(win->rend, win->main_menu->textb[i], NULL, &(SDL_Rect){(0.35 * win->w), (pos * win->h), (0.3 * win->w), (0.08 * win->h)});
-		pos += 0.1;
-		i++;
-	}
-}
-
-int			main_menu(t_win *win)
-{
-	int			loop;
-	int			next_loop;
-	SDL_Texture	*background;
-
-	background = load_texture(win->rend, "textures/imageMenu.png");
-	main_menu_init(win);
-	loop = SDL_TRUE;
+	if (!(win->winui->ui.button_font = ui_load_font("TTF/DooM.ttf", 100)))
+		return (ui_ret_error("init_main_menu", "ui_load_font failed", 0));
+	if (!ui_load("interfaces/menu_interface", win->winui))
+		return (ui_ret_error("init_main_menu", "ui_load failed", 0));
 	SDL_SetRelativeMouseMode(SDL_FALSE);
-	if (Mix_PlayMusic(win->music.menu_music, -1) == -1)
-		ft_putendl_fd("editor loop : Impossible to play doomMusic.wav", 2);
-	while (loop)
+	return (1);
+}
+
+static void		main_menu_ui(t_win *win)
+{
+	ui_set_draw_color(win->rend, &(SDL_Color){71, 27, 27, 255});
+	ui_clear_win(win->winui);
+	ui_display_frames(win->winui, win->winui->ui.frames);
+	ui_draw_rend(win->winui);
+	ui_wait_event(&win->winui->event);
+	ui_update_ui(win->winui);
+}
+
+int			main_menu(t_win *win, t_map *map)
+{
+	int			next_loop;
+	int			f_set;
+
+	next_loop = 1;
+	f_set = 0;
+	if (!init_main_menu(win))
+		return (ui_ret_error("main_menu", "init_main_menu failed", 0));
+	while (next_loop)
 	{
-		clear_rend(win->rend, 71, 27, 27); 
-		SDL_RenderCopy(win->rend, background, NULL, &(SDL_Rect){(0), (0.15 * win->h), (win->w), (0.7 * win->h)});
-		print_back_text(win);
-		main_menu_display(win);
-		next_loop = main_menu_event(win, &loop);
-		if (next_loop > 1)
-			loop = SDL_FALSE;
-		SDL_RenderPresent(win->rend);
+		next_loop = 1;
+		if (!f_set)
+		{
+			set_menu_button_function(win->winui, map, &next_loop);
+			f_set = 1;
+		}
+		main_menu_ui(win);
+		if (win->winui->event.type == SDL_QUIT)
+			next_loop = 0;
+		else if (next_loop != 1)
+		{
+			f_set = 0;
+			main_menu_quit(win, 100);
+			if (next_loop == 2)
+				game_loop(win, map);
+			else if (next_loop == 3)
+				editor_loop(win, map);
+			else if (next_loop == 4)
+				print_credit(win);
+		}
 	}
-	main_menu_quit(win);
-	return (next_loop);                      
+	main_menu_quit(win, 500);
+	return (next_loop);
 }

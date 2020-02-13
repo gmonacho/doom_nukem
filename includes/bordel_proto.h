@@ -9,11 +9,17 @@
 ** =====================================================================================
 */
 
-int		init_lines(t_map *map);
-int		init_sectors(t_map *map, t_player *player);
-int		init_music(t_doom_music	*music);
-int		init_textures(t_textures *textures);
-void	        init_player(t_win *win, t_player *player);
+int				init_music_timer(t_map *map, t_doom_music *music);
+int				init_textures(t_win *win, t_textures *textures);
+int				init_win_player(t_win *win, t_player *player);
+int				init_threads(t_win *win, t_map *map, t_player *player);
+
+/*
+**	---------------------------------- init_menu ----------------------------------
+*/
+
+int		        init_editor_menu(t_win *win, t_map *map);
+int				init_main_menu(t_win *win);
 
 /*
 ** =====================================================================================
@@ -21,20 +27,14 @@ void	        init_player(t_win *win, t_player *player);
 ** =====================================================================================
 */
 
-/*
-**	---------------------------------- Mouse ----------------------------------
-*/
+t_mouse			*mouse_refresh();
+t_fdot_3d		events_move(t_player *player, const Uint8 *state);
+void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *state);
+void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *state);
+void			events_others(t_win *win, t_player *player, const Uint8 *state);
 
-t_mouse		*mouse_refresh();
-t_dot		mouse_drag(int x, int y, SDL_bool end);
-
-/*
-**	---------------------------------- Event ----------------------------------
-*/
-
-int	        keyboard_state(t_win *win, t_player *player, t_music *music);
-int	        key_pressed(Uint32 sdl_keycode);
-void 	        mouse_state(t_win *win, t_player *player, SDL_Event event, t_music *music);
+int				key_pressed(Uint32 sdl_keycode);
+t_dot			mouse_drag(int x, int y, SDL_bool end);
 
 /*
 **	---------------------------------- Time ----------------------------------
@@ -76,45 +76,11 @@ SDL_Texture	*load_texture(SDL_Renderer *rend, const char *file);
 **	---------------------------------- text ----------------------------------
 */
 
-int		display_text(t_win *win, t_dot pos, int max_width, char *text);
+int			display_text(t_win *win, t_dot pos, int max_width, char *text);
 SDL_Texture	*generate_text(SDL_Renderer *rend, TTF_Font *font, const char *text, SDL_Color fg);
 SDL_Texture	*create_bg_text_input(t_win *win, SDL_Rect rect, SDL_Color l_color, SDL_Color r_color);
 SDL_Texture	*blit_text(SDL_Renderer *rend, SDL_Texture *bg_texture, SDL_Texture *text, SDL_Rect *text_rect);
 t_dot		get_text_size(t_win *win, char *text);
-/*
-**	---------------------------------- button ----------------------------------
-*/
-
-void		add_button(t_button **buttons, t_button *new_button);
-void	        remove_button(t_button **button, t_button *button_del);
-void		free_buttons(t_button **buttons);
-void	        free_button(t_button **button);
-int             get_nb_buttons(t_button **buttons);
-t_button	*new_button(const t_frect ratio, SDL_Texture *texture, Uint32 button_flags);
-
-int		update_buttons(t_win *win, t_button_state state);
-int             update_button(t_win *win, t_button *b, t_button_state state);
-t_simple_button	*new_simple_button(char *name, t_button_flag flags, void *link);
-
-int             update_text_entry_texture(t_win *win, t_button *button, const char *text);
-int	        fill_variable(t_win *win, t_map_editor *map, t_button *button, const void *result);
-void	        remove_link_sector_button(t_win *win, t_button **buttons, t_sector *sector);
-t_button        *get_button_by_flags(t_button **buttons, Uint32 flags);
-t_text_entry	*new_text_entry(char *name, int max_size, void *variable, Uint8 flags);
-
-
-/*
-**	---------------------------------- frame ----------------------------------
-*/
-
-int		update_frame_button_texture_by_flags(t_win *win, t_button_f flags, t_button_flag data_flags);
-void		add_frame(t_frame **frames, t_frame *new_frame);
-void		add_button_to_frame(t_frame **frame, t_button *button);
-void		add_frame_flags(t_frame **frame, Uint32 target_flags, Uint32 added_flags);
-void		free_frames(t_frame **frames);
-t_frame		*new_frame(const t_frect ratio, SDL_Texture *texture, Uint32 frame_flags, t_button *buttons);
-t_frame		*get_frame(t_frame **frames, Uint32 flags);
-t_button	*get_text_entry_by_name(t_frame **frames, const char *name);
 
 /*
 **	---------------------------------- Window ----------------------------------
@@ -138,22 +104,22 @@ void		clear_rend(SDL_Renderer *rend, Uint8 r, Uint8 g, Uint8 b);
 void		print_column(t_win *win, t_linedef *wall, t_player *player, t_calculs *calculs);
 void		fill_portals(t_win *win, t_player *player);
 void		draw_line(t_win *win, t_dot p1, t_dot p2);
+void		draw_t_line(t_win *win, t_line line);
 void		draw_column(t_win *win, int x, int ylow, int yup);
 void		draw_rect(t_win *win, SDL_Rect rect);
 void		fill_rect(t_win *win, SDL_Rect rect);
 void		draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio);
 void		draw_circle(t_win *win, t_circle circle);
-void	        draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
-void		draw(t_win *win, t_map *map, t_player *player);
+void		draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
 
 /*
 **	---------------------------------- texture ----------------------------------
 */
 
-void		hud(t_win *win, t_player *player, t_texHud *texHud);
-void    	inventory_hud(t_win *win, t_texHud *texHud, t_player *player);
-void		print_weapon(t_win *win, t_player *player, t_texHud *texHud);
-void            main_animation(t_map *map, t_win *win, t_texHud *texHud);
+void		hud(t_win *win, t_player *player, t_texhud *texhud);
+void    	inventory_hud(t_win *win, t_texhud *texhud, t_player *player);
+void		print_weapon(t_win *win, t_player *player, t_texhud *texhud);
+void            main_animation(t_map *map, t_win *win, t_texhud *texhud);
 void 		print_shot(t_win *win, t_player *player);
 void 		define_line_shot(t_win *win, t_player *player);
 void 	        print_shot(t_win *win, t_player *player);
@@ -168,11 +134,11 @@ SDL_Texture	*load_texture(SDL_Renderer *rend, const char *file);
 void   	        main_inventory(t_win *win, t_player *player);
 void            add_items(t_inventory *inventory, int id);
 void            print_items(t_win *win, t_inventory *inventory);
-void            print_content_slot(t_win *win, t_player *player, t_texHud *texHud);
-void            use_item(t_player *player, t_music *music, int slotSelected);
+void            print_content_slot(t_win *win, t_player *player, t_texhud *texhud);
+void            use_item(t_map *map, t_player *player, t_music *music, int slotSelected);
 void            reload_ammo(t_player *player);
 t_inventory     *define_inventory();
-
+void			drop_box(t_map *map, t_player *player);
 
 /*
 ** ==========================================================================
@@ -180,6 +146,15 @@ t_inventory     *define_inventory();
 ** ==========================================================================
 */
 
+/*
+**	---------------------------------- Poly ----------------------------------
+*/
+
+void    add_poly(t_poly **poly);
+void    add_existing_poly(t_poly **polys, t_poly *poly);
+void	delete_poly(t_poly **polys, t_poly *poly);
+void	print_polys(t_poly **polys);
+    
 /*
 **	---------------------------------- png ----------------------------------
 */
@@ -190,15 +165,15 @@ int             parser_png(char *png_file);
 **	---------------------------------- linedef ----------------------------------
 */
 
-int		get_nb_linedef(t_linedef *lines, Uint32 flags);
+int			get_nb_linedef(t_linedef *lines, Uint32 flags);
 void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
 void		add_linedef_flags(t_linedef **lines, Uint32 flags);
-void	        remove_sector(t_sector **sector, t_sector *del_sector);
+void	    remove_sector(t_sector **sector, t_sector *del_sector);
 void		free_linedef(t_linedef *linedef);
 void		free_linedefs(t_linedef **lines);
 t_linedef	*new_void_linedef(void);
 t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags);
-t_linedef	*init_linedef(t_linedef *line);
+t_linedef	*init_equation(t_linedef *line);
 
 /*
 **	---------------------------------- sector ----------------------------------
@@ -215,13 +190,20 @@ void		free_sectors(t_sector **sectors);
 **	---------------------------------- player ----------------------------------
 */
 
-int             dead_moment(t_win *win, t_player *player, t_texHud *texHud, SDL_Event event);
-void    	damage_heal(t_player *player, t_music *music, int armor, int heal);
-
+int         dead_menu(t_win *win, t_player *player);
+void    	apply_damage(t_map *map, t_player *player, int damage);
+void    	apply_heal(t_player *player, int heal);
+void    	apply_armor(t_player *player, int armor);
 /*
 **	---------------------------------- mob ----------------------------------
 */
-void            fill_mob_data(t_mob **mob, char **tab, int i);   
+
+void		fill_mob_data(t_mob **mob, char **tab, int i);   
+void    	set_mobs_dots(t_mob *mob);
+void		mobs_attack_move(t_map *map, t_player *player, t_mob *mobs);
+void		hit_mobs(t_mob *mobs, int damage);
+void    	add_mob(t_mob **mob);
+void   		add_existing_mob(t_mob **mob, t_mob *new_mob);
 /*
 **	---------------------------------- map ----------------------------------
 */
@@ -233,10 +215,10 @@ void		delete_linedef(t_linedef **lines, Uint32 delete_flags);
 void		delete_sector_linedef(t_sector *sectors, Uint32 delete_flags);
 
 void	        fill_abscissa_ordinate(t_map_editor *map, t_dot mouse, int gap);
-void		map_zoom(t_map_editor *map, double zoom);
+void		map_zoom(t_map_editor *map, float zoom);
 void		map_add_line(t_map *map, int n_sector, t_linedef *line);
-SDL_bool	is_line_horizontally(t_dot lp1, t_dot lp2, double angle);
-SDL_bool	is_line_vertically(t_dot lp1, t_dot lp2, double angle);
+SDL_bool	is_line_horizontally(t_dot lp1, t_dot lp2, float angle);
+SDL_bool	is_line_vertically(t_dot lp1, t_dot lp2, float angle);
 SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 
 /*
@@ -253,19 +235,26 @@ SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 int 		ft_parse_error(char **tab);
 void		ft_find_coord_p1(t_linedef *line, char *tab);
 void		ft_find_coord_p2(t_linedef *line, char *tab);
-void	        ft_find_type(char *tab, t_linedef *line);
+void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
-t_sector	*ft_data_storing(int fd, int fd1, t_map *map, t_player *player);
+t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_win *win);
+char 		**fillntesttab(int fd, int fd1);
+void		fill_poly(t_poly *poly, t_map *map);
+void		fill_poly_object(t_poly *poly, t_object *object);
+void		fill_poly_mob(t_poly *poly, t_mob *mob);
+void 		fill_poly_object_norm(char *tmp, t_poly	*poly_object);
+char		*object_data_fill(char **tab, t_object **object, int i);
+void		fill_mob_data_norm(t_mob **mob, char *tab);
 
-void		ft_player_data(char **tab, t_player *player);
+void		player_data(char **tab, t_player *player, int i);
 
-void		object_data(char **tab, t_object *object, int i);
-t_texHud   	*define_texHud(t_win *win);
+int			object_data(char **tab, t_object **object, int i);
+t_texhud   	*define_texhud(t_win *win);
 
 /*
 **	---------------------------------- music ----------------------------------
 */
-t_music         *define_music();
+t_music         *define_music(void);
 /*
 ** =============================================================================
 ** ================================== EXPORT ===================================
@@ -290,6 +279,7 @@ SDL_bool	is_line_vertical(int x1, int x2, int pitch);
 SDL_bool	is_in_rect(SDL_Rect rect, t_dot p);
 SDL_bool	intersect_line_rect(t_line line, SDL_Rect rect);
 SDL_bool 	is_next_point(t_dot dot, t_dot other, int distance);
+
 /*
 ** =================================================================================
 ** ================================== MENU LOOPS ==================================
@@ -300,7 +290,7 @@ SDL_bool 	is_next_point(t_dot dot, t_dot other, int distance);
 ** ================================== main_menu ===================================
 */
 
-int		main_menu(t_win *win);
+int				main_menu(t_win *win, t_map *map);
 void            print_credit(t_win *win);
 //static int	main_menu_event(t_win *win, int *loop);
 
@@ -311,84 +301,186 @@ void            print_credit(t_win *win);
 */
 
 int	        editor_loop(t_win *win, t_map *map);
-int		editor_event(t_win *win, t_map_editor *map, SDL_bool *loop);
-int		resolve_ui_left_press(t_win *win, t_map_editor *map);
-int		load_ui(int fd, t_win *win);
-int		add_sector_button(t_win *win, t_frame *f, int nb_sectors);
-void		editor_display(t_win *win, t_map_editor *map);
+int 		ed_event(t_win *win, t_map *map);
+int			resolve_ui_left_press(t_win *win, t_map_editor *map);
+int			load_ui(int fd, t_win *win);
+int			add_sector_button(t_win *win, t_frame *f, int nb_sectors);
+void		ed_display(t_win *win, const t_map *map);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 void		check_file(t_map_editor *map);
-	
+
+
+void		ed_display_wall(t_win *win, const t_map *map, t_poly *poly);
+void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
+void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
+void		ed_display_selected_poly(t_win *win, const t_map *map);
+void		ed_display_selected_mob(t_win *win, const t_map *map);
+void		ed_display_selected_obj(t_win *win, const t_map *map);
+void		ed_display_player(t_win *win, const t_map *map);
+void		ed_display_mobs(t_win *win, const t_map *map);
+void		ed_display_object(t_win *win, const t_map *map, t_object *obj);
+void		ed_display_objects(t_win *win, const t_map *map);
+
+t_line		ed_get_display_line(const t_map *map, t_dot p1, t_dot p2);
+t_dot		ed_get_display_point(const t_map *map, t_dot p);
+int			ed_get_map_x(const t_map *map, int n);
+int			ed_get_map_y(const t_map *map, int n);
+t_dot		ed_get_map_point(const t_map *map, t_dot p);
+
+int			ed_place_wall(t_win *win, t_map *map);
+int			ed_place_flat(t_win *win, t_map *map);
+int			ed_place_inclined(t_win *win, t_map *map);
+
+int			ed_get_line_len(t_line *line);
+
+int			ed_get_z_min(const t_poly *polys);
+int			ed_get_z_max(const t_poly *polys);
+
+void		ed_delete_map(void *map_ptr);
+void		ed_delete_mob(t_mob **mobs, t_mob *mob);
+
+SDL_Color	ed_get_wall_display_color(const t_map *map, t_poly *poly);
+SDL_Color	ed_get_flat_display_color(const t_map *map, t_poly *poly);
+SDL_Color	ed_get_mob_display_color(const t_map *map, t_mob *m);
+SDL_Color	ed_get_obj_display_color(const t_map *map, t_object *obj);
+
+SDL_bool	ed_is_flat(t_poly *poly);
+SDL_bool	ed_is_inclined(t_poly *poly);
+SDL_bool	ed_is_wall(t_poly *poly);
+t_poly		*ed_get_selected_poly(t_win *win, t_map *map);
+SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
+
+t_dot		ed_is_next_to_poly(const t_map *map, t_dot point, int radius);
+
+
+void		ed_export(void *ed_export);
+void		ed_write_player(int fd, const t_player *player);
+void		ed_write_poly(int fd, const t_poly *poly, const t_player *player);
+void		ed_write_mob(int fd, const t_mob *m);
+void		ed_write_item(int fd, const t_object *obj);
 /*
 ** ===============================================================================
 ** ================================== GAME LOOP ==================================
 ** ===============================================================================
 */
 
+int			game_loop(t_win *win, t_map *map);
+
+/*
+** ============================= Objects ======================
+*/
+
+void		add_existing_object(t_object **objects, t_object *new_object);
+int			objects_actions(t_map *map, t_player *player, t_object *object);
+void		objects_movements(t_map *map, t_player *player, t_object *object);
+int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float height_2);
+
+/*
+** ============================= Polys ======================
+*/
+
+int					lstlen(t_poly *poly);
+void				copy_poly_lst(t_poly *dst, t_poly *src);
+// void				copy_poly_lst(t_poly *dst, t_poly *src, t_object *dst_obj, t_object *src_obj);
+int					create_poly_save(t_map *map);
+void				poly_del(t_poly *poly);
+
 /*
 ** ================================== Physics ===================================
 */
 
-int			game_loop(t_win *win, t_map *map);
-int			physics(t_win *win, t_map *map, t_player *player);
-int			actions(t_win *win, t_map *map, t_linedef *portal, double h);
-int			raycasting(t_win *win, t_player *player);
-void		launch_ray_2d(t_win *win, t_player *player, t_calculs *calculs);
-void		set_new_position(t_fdot *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
-void		set_ray_angle(double *ray_angle, t_linedef *line1, t_linedef *line2);
-void		set_ray_equation(t_win *win, t_player *player, t_affine *ray, t_fdot source);
-t_linedef	*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
-
-int			raycasting_3d(t_win *win, t_player *player);
-int			sence(t_cartesienne ray, t_fdot_3d collision);
-void		set_new_position_3d(t_fdot_3d *pos, t_linedef *line1, t_linedef *line2, t_sector **sector);
-
-
-int				raycasting_3d_static_rays(t_win *win, t_player *player);
-void			teleportation_ray(t_cartesienne *ray, t_linedef *line1, t_linedef *line2, t_sector **sector);
+void				raycasting_3d(t_win *win, t_player *player);
+int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
+// t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
+int					sence(t_cartesienne ray, t_fdot_3d collision);
+void				draw_all_square(t_win *win);
+void				draw_projection(t_win *win);
+void				surround_walls(t_win *win, t_map *map);
+void				poly_reduction(t_win *win, t_poly *poly);
+t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
+// int			physics(t_win *win, t_map *map, t_player *player);
+// int			actions(t_win *win, t_map *map, t_linedef *portal, float h);
 
 int					init_rays(t_win *win, t_player *player);
-void				rotate(t_cartesienne *line, t_matrice matrice);
-void				rotate_all(t_cartesienne *line, t_matrice matrice);
+void				translate_dot(t_fdot_3d *dot, t_fdot_3d translation);
+void				translate_all(t_map *map, t_fdot_3d translation);
+void				translate_all_poly(t_poly *poly, t_fdot_3d translation);
+void				translate_all_objects(t_object *object, t_fdot_3d translation);
+void				translate_all_rotz_only(t_map *map, t_poly *poly, t_fdot_3d translation);
+void				translate_all_poly_rotz_only(t_poly *poly, t_fdot_3d translation);
+void				translate_all_objects_rotz_only(t_object *object, t_fdot_3d translation);
+t_fdot_3d			rotate_dot(t_fdot_3d dot, t_matrix matrix);
+// void				rotate_all_dots(t_poly *sector, t_matrix matrix);
+void				rotate_all_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
+void				copy_rotate_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
+void				rotate_box(t_map *map, t_player *player, t_object *object);
+void				translate_box(t_map *map, t_object *object);
 
-void				set_origin_rays(t_cartesienne *rays, t_fdot_3d origin);
-void				set_cartesienne(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);
-void				set_cartesienne_static(t_cartesienne *ray, t_fdot_3d origin, double alpha, double alpha_up);
-t_matrice			create_matrice(double angle);
-void				init_matrice_rx(t_player *player);
-void				init_matrice_rx_inv(t_player *player);
-void				init_matrice_ry(t_player *player);
-void				init_matrice_ry_inv(t_player *player);
-void				init_matrice_rz(t_player *player);
-void				init_matrice_rz_inv(t_player *player);
+void 				print_poly(t_poly *poly, int arg);
+
+t_matrix			create_matrix(t_fdot_3d axe, float angle);
+t_matrix			create_rx_matrix(float angle);
+t_matrix			create_ry_matrix(float angle);
+t_matrix			create_rz_matrix(float angle);
+void				init_matrix_rx(t_player *player);
+void				init_matrix_rx_inv(t_player *player);
+void				init_matrix_ry(t_player *player);
+void				init_matrix_ry_inv(t_player *player);
+void				init_matrix_rz(t_player *player);
+void				init_matrix_rz_inv(t_player *player);
+void				init_polygone(t_poly *poly);
+
+t_poly				*collisions(t_player *player, t_poly *poly);
+int					is_poly_collision(t_player *player, t_poly *poly);
+void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_fdot_3d poly_collide_v);
+
+t_poly				*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban_interest);
+int					collision_poly(t_map *map, t_player *player, t_poly *poly);
+int					collision_segment(t_map *map, t_fdot_3d dots[4], float width_2);
+t_fdot_3d			segment_slide(t_fdot_3d dots[N_DOTS_POLY], t_plan plan, int segment_code);
+int					collision_dots(t_map *map, t_fdot_3d dots[N_DOTS_POLY], float ray);
+int					is_collision_box(t_object *object, t_cartesienne *ray);
 
 /*
 ** ================================== Time ===================================
 */
 
-int             test_timer(t_timer *timer);
-void            start_cooldown(t_timer *timer, Uint32 time);
-void            init_cd(t_map *map);
-void            reload_cd(t_map *map);
+int    				test_timer(t_timer *timer);
+int					test_timer_refresh(t_timer *timer);
+void				start_cooldown(t_timer *timer, Uint32 time);
+// void				init_cd(t_map *map);
+void				reload_cd(t_map *map);
 
 /*
 ** =========================== Math functions ===================================
 */
 
-// double		dist(t_dot p1, t_dot p2);
-double  	modulo(double nbr, double mod);
-double		fdist(t_fdot p1, t_fdot p2);
-double          fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
-// double	mag(t_vector vector);
-// double	fmag(t_fvector vector);
-int		sign(double nbr);
-void		normalize(double *angle);
+float				scalar_product(t_fdot_3d v1, t_fdot_3d v2);
+t_fdot_3d			vectoriel_product(t_fdot_3d v1, t_fdot_3d v2);
+float  				modulo(float nbr, float mod);
+float				fdist(t_fdot p1, t_fdot p2);
+float				fdist_3d(t_fdot_3d p1, t_fdot_3d p2);
+float				fdist_3d_squared(t_fdot_3d p1, t_fdot_3d p2);
+t_fdot_3d			fdot_3d_add(t_fdot_3d d1, t_fdot_3d d2);
+t_fdot_3d			fdot_3d_sub(t_fdot_3d d1, t_fdot_3d d2);
+float				mag(t_fdot_3d v);
+int					sign(float nbr);
+t_fdot_3d			normalize(t_fdot_3d vector);
+int					is_null(float nbr, float precision);
+t_fdot_3d			mid_segment(t_fdot_3d d1, t_fdot_3d d2);
 
-int	        lines_intersection(t_fdot *intersection, t_affine *line1, t_affine *line2);
-void		draw_affine(t_win *win, t_affine function);
-void		draw_ray(t_win *win, t_player *player, t_affine ray);
-double		fprop(double value, t_fdot inter1, t_fdot inter2);
-double		prop(double value, t_dot inter1, t_dot inter2);
-int		intersection_plan_line_static(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
+
+t_dot				intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge);
+void				draw_affine(t_win *win, t_affine function);
+void				draw_ray(t_win *win, t_player *player, t_affine ray);
+float				fprop(float value, t_fdot inter1, t_fdot inter2);
+float				prop(float value, t_dot inter1, t_dot inter2);
+int					is_intersection_cercle_poly(t_poly *poly, int radius);
+int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray);
+int					intersection_plan_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne ray);
+int					resolve_polynome(t_fdot_3d polynome, float *x1, float *x2);
+void				proj_ortho_plan(t_fdot_3d dot, t_plan plan, t_fdot_3d *proj_ortho);
+t_fdot_3d			proj_ortho_origin_line(t_fdot_3d l1, t_fdot_3d l2, t_fdot_3d *proj);
+int					is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2);
 
 #endif

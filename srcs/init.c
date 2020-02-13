@@ -1,199 +1,96 @@
 #include "doom_nukem.h"
 
-static int		find_portal_id(t_map *map, t_linedef *line1, int id)
-{
-	t_sector	*sector;
-	t_linedef	*line;
+/*
+**	Produit vectoriel des vecteurs unitaire i et j
+**	pour trouver le vecteur normal au plan
+*/
 
-	sector = map->sectors;
-	while (sector)
+void		init_polygone(t_poly *poly)
+{
+	int		i;
+
+	i = 0;
+	while (poly)
 	{
-		line = sector->lines;
-		while (line)
-		{
-			if (id == line->id && line1 != line)
-			{
-				line1->destline = line;
-				return (1);
-			}
-			line = line->next;
-		}
-		sector = sector->next;
+		poly->light_coef = 1;
+		poly->visible = 1;
+		poly->collide = 1;
+		poly->index = i++;
+		poly->is_slide_ban = 0;
+		ft_memcpy(poly->dots, poly->dots_rotz_only, sizeof(t_fdot_3d) * N_DOTS_POLY);
+		// ft_memcpy(poly->dots_rotz_only, poly->dots, sizeof(t_fdot_3d) * N_DOTS_POLY);
+		poly->i_rotz_only = fdot_3d_sub(poly->dots_rotz_only[1], poly->dots_rotz_only[0]);
+		poly->j_rotz_only = fdot_3d_sub(poly->dots_rotz_only[N_DOTS_POLY - 1], poly->dots_rotz_only[0]);
+		poly->i = poly->i_rotz_only;
+		poly->j = poly->j_rotz_only;
+		poly->i_mag = mag(poly->i);
+		poly->j_mag = mag(poly->j);
+		poly->ii = poly->i_mag * poly->i_mag;
+		poly->jj = poly->j_mag * poly->j_mag;
+		poly->equation_rotz_only.v = normalize(vectoriel_product(poly->i_rotz_only, poly->j_rotz_only));
+		poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
+								poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
+								poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
+		poly->equation = poly->equation_rotz_only;
+		// if (poly->object)
+		// {
+		// 	printf("dot %f %f %f\n", poly->dots_rotz_only[0].x, poly->dots_rotz_only[0].y, poly->dots_rotz_only[0].z);
+		// 	print_poly(poly, 1);
+		// }
+		poly = poly->next;
 	}
-	return (0);
+	// exit(0);
 }
 
-// static int	set_clockwise(t_map *map, t_sector *sector, t_linedef *line)
-// {
-// 	if (line->next && line->next->side == line->side)
-// 	{
-// 		if (line->next->p1.x == line->p2.x && line->next->p1.y == line->p2.y)
-// 			return (0);
-// 		else
-// 			ft_swap(&(line->next->p1), &(line->next->p2));
-// 	}
-// 	else
-// 	{
-
-// 	}
-// }
-
-static void	check_lines(t_map *map)
+static void		init_player_maths(t_win *win, t_player *player)
 {
-	t_sector	*sector;
-	t_linedef	*line;
-	t_linedef	*last;
-	t_linedef	*tmp;
+	// win->map->view = TEXTURE_VIEW | WALL_VIEW | BOX_VIEW;
+	win->map->view = TEXTURE_VIEW;
+	// translate_all(win->map, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
 
-	sector = map->sectors;
-	while (sector)
-	{
-		last = NULL;
-		line = sector->lines;
-		while (line)
-		{
-			if (line->p1.x == line->p2.x && line->p1.y == line->p2.y)
-			{
-				if (last)
-					last->next = line->next;
-				else
-					sector->lines = line->next;
-				ft_strdel(&(line->name));
-				tmp = line;
-				line = line->next;
-				free(tmp);
-			}
-			else
-			{
-				last = line;
-				line = line->next;
-			}
-		}
-		sector = sector->next;
-	}
-}
-
-int		init_lines(t_map *map)
-{
-	t_sector	*sector;
-	t_linedef	*line;
-
-	sector = map->sectors;
-	while (sector)
-	{
-		line = sector->lines;
-		while (line)
-		{
-			line->destline = NULL;
-			line->sector = sector;
-			line->side = SIDE_RIGHT;
-			if (line->flags & PORTAL && !find_portal_id(map, line, line->id))
-				return (1);
-			if (line->flags & PORTAL)
-			{
-				if (!(line->texture = IMG_Load("textures/sol.png")))
-				{
-					ft_putendl(SDL_GetError());
-					return (1);
-				}
-			}
-			else
-				line->texture = map->textures.tortue;
-			printf("Line : %p %p\n", line, line->destline);
-			line = line->next;
-			// if (set_clockwise(map, sector, line))
-			// 	return ();
-		}
-		sector = sector->next;
-	}
-	check_lines(map);
-	return (0);
-}
-
-// static void		set_center(t_map *map)
-// {
-// 	t_sector	*sector;
-// 	t_linedef	*line;
-// 	int			ndot;
-
-// 	ndot = 0;
-// 	sector = map->sectors;
-// 	while (sector)
-// 	{
-// 		ndot = 0;
-// 		line = sector->lines;
-// 		while (line)
-// 		{
-// 			sector->center.x += line->p1.x;
-// 			sector->center.y += line->p1.y;
-// 			ndot++;
-// 			line = line->next;
-// 		}
-// 		if (ndot)
-// 		{
-// 			sector->center.x /= ndot;
-// 			sector->center.y /= ndot;
-// 		}
-// 		printf("Center : %d\t%d\tndot : %d\n", sector->center.x, sector->center.y, ndot);
-// 		sector = sector->next;
-// 	}
-// }
-
-int		init_sectors(t_map *map, t_player *player)
-{
-	t_sector	*sector;
-	int			i;
-
-	//set_center(map);
-	sector = map->sectors;
-	while (sector)
-	{
-		if (!(sector->ceil_texture = IMG_Load("textures/mur_pierre.png")) ||
-			!(sector->floor_texture = IMG_Load("textures/sol.png")))
-		{
-			ft_putendl(SDL_GetError());
-			return (1);
-		}
-		if (sector->floor_height >= sector->ceil_height)
-			return (1);
-		sector->height = sector->ceil_height - sector->floor_height;
-		// printf("Ceil height = %d\n", sector->ceil_height);
-		sector->ceil_equation =		(t_plan){0, 0, 1, -sector->ceil_height};
-		sector->floor_equation =	(t_plan){0, 0, 1, -sector->floor_height};
-		sector = sector->next;
-	}
-	player->sector = map->sectors;
-	i = -1;
-	while (++i < player->numsector)
-		player->sector = player->sector->next;
-	return (0);
-}
-
-void	init_player(t_win *win, t_player *player)
-{
-	player->win_w = win->w;
-	player->win_h = win->h;
-	player->pos_up = (t_fdot_3d){	player->pos.x,\
-									player->pos.y,\
-									player->sector->floor_height + player->height};
-	player->inventory = define_inventory();
-	player->dir = 0;
-	player->fov = _PI_4;
-	player->dir_up = 0;
-	player->fov_up = _PI_4;
-	player->ddir = 0.1;
+	translate_all_rotz_only(win->map, win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
+	rotate_all_rotz_only(win->map, win->map->polys, create_rz_matrix(-player->dir_init));
+	// copy_rotate_rotz_only(win->map, win->map->polys, create_ry_matrix(0));
+	player->rot_y = 0;
+	player->ddir = 0.05;
+	player->fov = win->w * M_PI_2 / 1000;
+	player->fov_up = win->h * M_PI_2 / 1000;
+	player->fov_2 = player->fov / 2;
+	player->fov_up_2 = player->fov_up / 2;
+	player->width_2 = player->width / 2;
+	player->height_10 = player->height / 10;
+	player->_9_height_10 = 9 * player->height_10;
+	player->_4_height_10 = 4 * player->height_10;
+	player->collision_on = 1;
+	win->w_div_fov = win->w / player->fov;
+	win->h_div_fov = win->h / player->fov_up;
 	if (init_rays(win, player))
 		return (ft_putendl("Erreur malloc rays"));
-	player->maxHp = 50;
+
+	// t_object	*object;
+	// object = win->map->objects;
+	// while (object)
+	// {
+	// 	// if (object->type == LIGHT)
+	// 	print_poly(object->poly, 1);
+	// 	printf("Pos rotz %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
+	// 	printf("Pos      %f %f %f\n\n", object->pos.x, object->pos.y, object->pos.z);
+	// 	object = object->next;
+	// }
+	// exit(0);
+}
+
+static void		init_player_hud(t_player *player)
+{
+	player->inventory = define_inventory();
+	player->maxHp = 100;
 	player->currentHp = player->maxHp;
-	player->maxArmor = 50;
+	player->maxArmor = 100;
 	player->currentArmor = player->maxArmor;
 	player->inventory->ammo = 15;
 	player->inventory->magazine = 120;
-	player->width_2 = player->width / 2;
-	player->width_10 = player->width / 10;
 	start_cooldown(&(player->timers.bullet_cd), 130);
-	start_cooldown(&(player->timers.item_cd), 200);
+	start_cooldown(&(player->timers.item_cd), 100);
 	start_cooldown(&(player->timers.text_cd), 600);
 	start_cooldown(&(player->timers.reload_cd), 600);
 	start_cooldown(&(player->timers.animation_cd), 1000);
@@ -203,32 +100,22 @@ void	init_player(t_win *win, t_player *player)
     player->timers.reload_cd.index = 5;
     player->timers.bullet_cd.index = 5;
     player->timers.bullet_cd.index = 0;
-	define_line_shot(win, player);
-
-
-
-	// t_cartesienne	ray = (t_cartesienne){0, 0, 0, 1, 1, 1, 0, 0, NULL};
-	// t_fdot_3d		collision = (t_fdot_3d){0, 0, 0};
-	// printf("Sence %d\n", sence(ray, collision));
-	// printf("V %f %f %f / %f %f %f\n", line.ox, line.oy, line.oz, line.vx, line.vy, line.vz);
-	// exit(0);
 }
 
-int		init_textures(t_textures *textures)
+int			init_win_player(t_win *win, t_player *player)
 {
-	if (!(textures->elephantride = IMG_Load("textures/walls/elephantride.png")) ||
-		!(textures->tortue = IMG_Load("textures/walls/randomPNG/Brick.png")))
-		// !(textures->tortue = IMG_Load("textures/walls/moine.png")))
-		// !(textures->tortue = IMG_Load("textures/walls/tortue.png")))
-	{
-		ft_putendl(SDL_GetError());
+	if (!(win->pixels = (Uint32 *)malloc(sizeof(Uint32) * win->w * win->h)))
 		return (1);
-	}
+	start_cooldown(&(win->view_change_time), 250);
+	start_cooldown(&(win->map->objects_animation), 20);
+	start_cooldown(&(player->interaction_inventaire_time), 250);
+	init_player_maths(win, player);
+	init_player_hud(player);
+	// exit(0);
 	return (0);
 }
 
-
-int		init_music(t_doom_music	*music)
+int			init_music_timer(t_map *map, t_doom_music *music)
 {
 	if (music)
 	{
@@ -239,5 +126,7 @@ int		init_music(t_doom_music	*music)
 		if (!(music->menu_music = Mix_LoadMUS("sounds/doomMenu.wav")))
 			return (ret_error(SDL_GetError()));
 	}
+	// start_cooldown(&(map->gravity_inv_time), 5000);
+	map = NULL;
 	return (1);
 }

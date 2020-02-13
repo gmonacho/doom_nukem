@@ -1,0 +1,130 @@
+Player
+{
+	posx = 0
+	posy = 0
+	posz = 0
+	dir = 0
+	width = 30
+	height = 60
+	velocity = 10
+}
+Mob
+{
+	posx = -198
+	posy = 629
+	posz = 5
+	height = 30
+	width = 30
+	damage = 1
+	dir = -90
+	velocity = 1
+	texture = Brique.png
+}
+Mob
+{
+	posx = -265
+	posy = 575
+	posz = 5
+	height = 30
+	width = 30
+	damage = 1
+	dir = -90
+	velocity = 1
+	texture = Brique.png
+}
+Mob
+{
+	posx = -130
+	posy = 575
+	posz = 5
+	height = 30
+	width = 30
+	damage = 1
+	dir = -90
+	velocity = 1
+	texture = Brique.png
+}
+Mob
+{
+	posx = -213
+	posy = 499
+	posz = 5
+	height = 30
+	width = 30
+	damage = 1
+	dir = -90
+	velocity = 1
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-322 y:-67 z:-50
+	dot = x:239 y:-67 z:-50
+	dot = x:239 y:372 z:-50
+	dot = x:-322 y:372 z:-50
+	texture = sol.png
+}
+Polygon
+{
+	dot = x:-322 y:-67 z:50
+	dot = x:-322 y:372 z:50
+	dot = x:-322 y:372 z:-50
+	dot = x:-322 y:-67 z:-50
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-322 y:-67 z:50
+	dot = x:239 y:-67 z:50
+	dot = x:239 y:-67 z:-50
+	dot = x:-322 y:-67 z:-50
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:239 y:-67 z:50
+	dot = x:239 y:372 z:50
+	dot = x:239 y:372 z:-50
+	dot = x:239 y:-67 z:-50
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:239 y:372 z:50
+	dot = x:-83 y:372 z:50
+	dot = x:-83 y:372 z:-50
+	dot = x:239 y:372 z:-50
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-322 y:-67 z:50
+	dot = x:239 y:-67 z:50
+	dot = x:239 y:372 z:50
+	dot = x:-322 y:372 z:50
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-322 y:372 z:-50
+	dot = x:-83 y:372 z:-50
+	dot = x:-83 y:742 z:-50
+	dot = x:-322 y:742 z:-50
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-322 y:372 z:50
+	dot = x:-322 y:742 z:50
+	dot = x:-322 y:742 z:-50
+	dot = x:-322 y:372 z:-50
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-83 y:372 z:50
+	dot = x:-83 y:742 z:50
+	dot = x:-83 y:742 z:-50
+	dot = x:-83 y:372 z:-50
+	texture = Brique.png
+}

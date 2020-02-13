@@ -1,37 +1,96 @@
 #include "doom_nukem.h"
 
-void    add_mob(t_mob **mob)
+<<<<<<< HEAD
+void		set_mobs_dots(t_mob *mob)
 {
-    t_mob   *new_mob;
-
-    if (!(new_mob = (t_mob *)ft_memalloc(sizeof(t_mob))))
-        ft_putendl("error malloc in parsing_mob.c l.8");
-    new_mob->next = *mob;
-    *mob = new_mob;
-    
+	mob->poly->dots[0].x = mob->pos.x - mob->width_2;
+	mob->poly->dots[0].y = mob->pos.y;
+	mob->poly->dots[0].z = mob->pos.z - mob->height_2;
+	mob->poly->dots[1].x = mob->pos.x + mob->width_2;
+	mob->poly->dots[1].y = mob->pos.y;
+	mob->poly->dots[1].z = mob->pos.z - mob->height_2;
+	mob->poly->dots[2].x = mob->pos.x + mob->width_2;
+	mob->poly->dots[2].y = mob->pos.y;
+	mob->poly->dots[2].z = mob->pos.z + mob->height_2;
+	mob->poly->dots[3].x = mob->pos.x - mob->width_2;
+	mob->poly->dots[3].y = mob->pos.y;
+	mob->poly->dots[3].z = mob->pos.z + mob->height_2;
+=======
+void    set_mobs_dots_rotz_only(t_mob *mob)
+{
+    mob->poly->dots_rotz_only[0].x = mob->pos.x - mob->width_2;
+    mob->poly->dots_rotz_only[0].y = mob->pos.y;
+    mob->poly->dots_rotz_only[0].z = mob->pos.z - mob->height_2;
+    mob->poly->dots_rotz_only[1].x = mob->pos.x + mob->width_2;
+    mob->poly->dots_rotz_only[1].y = mob->pos.y;
+    mob->poly->dots_rotz_only[1].z = mob->pos.z - mob->height_2;
+    mob->poly->dots_rotz_only[2].x = mob->pos.x + mob->width_2;
+    mob->poly->dots_rotz_only[2].y = mob->pos.y;
+    mob->poly->dots_rotz_only[2].z = mob->pos.z + mob->height_2;
+    mob->poly->dots_rotz_only[3].x = mob->pos.x - mob->width_2;
+    mob->poly->dots_rotz_only[3].y = mob->pos.y;
+    mob->poly->dots_rotz_only[3].z = mob->pos.z + mob->height_2;
+>>>>>>> 06c140fd071f5c86527080cb8f99f9b95d078c27
 }
 
-void    fill_mob_data(t_mob **mob, char **tab, int i)
-{   
-    while (ft_strchr(tab[i], '}') == NULL || ft_strchr(tab[i - 1], '}') == NULL)
-    {
-        add_mob(mob);
-        if (ft_strstr(tab[i], "name ="))
-            (*mob)->name = ft_strdup(ft_strrchr(tab[i], '=') + 1);
-        while (!(ft_strchr(tab[i], '}')))
-        {
-            if (ft_strstr(tab[i], "nbmob = "))
-                (*mob)->nmob = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "posx = "))
-                (*mob)->pos.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "posy = "))
-                (*mob)->pos.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "sector = "))
-                (*mob)->sector = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            if (ft_strstr(tab[i], "live = "))
-                (*mob)->live = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-            i++;
-        }
-        i++;
-    }
+void		add_mob(t_mob **mob)
+{
+	t_mob	*new_mob;
+
+	if (!(new_mob = (t_mob *)ft_memalloc(sizeof(t_mob))))
+		ft_putendl("error malloc in parsing_mob.c l.24");
+	new_mob->next = *mob;
+	new_mob->alive = 1;
+	*mob = new_mob;
+}
+
+void		add_existing_mob(t_mob **mob, t_mob *new_mob)
+{
+	if (new_mob)
+	{
+		new_mob->next = *mob;
+		*mob = new_mob;
+	}
+}
+
+void		add_poly_mob(t_mob **mob)
+{
+<<<<<<< HEAD
+	(*mob)->poly = (t_poly *)ft_memalloc(sizeof(t_poly));
+	if ((*mob)->poly != NULL)
+		set_mobs_dots(*mob);
+=======
+    (*mob)->poly = (t_poly *)ft_memalloc(sizeof(t_poly));
+    if ((*mob)->poly != NULL)
+        set_mobs_dots_rotz_only(*mob);
+>>>>>>> 06c140fd071f5c86527080cb8f99f9b95d078c27
+}
+
+void		fill_mob_data(t_mob **mob, char **tab, int i)
+{
+	add_mob(mob);
+	while (ft_strchr(tab[i], '}') == NULL)
+	{
+		fill_mob_data_norm(mob, tab[i]);
+		if (ft_strstr(tab[i], "width = "))
+		{
+			(*mob)->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+			(*mob)->width_2 = (*mob)->width / 2;
+		}
+		if (ft_strstr(tab[i], "height = "))
+		{
+			(*mob)->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+			(*mob)->height_2 = (*mob)->height / 2;
+		}
+		if (ft_strstr(tab[i], "velocity = "))
+			(*mob)->vel = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+		if (ft_strstr(tab[i], "health = "))
+			(*mob)->health = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+		if (ft_strstr(tab[i], "damage = "))
+			(*mob)->damage = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+		if (ft_strstr(tab[i], "texture = "))
+			(*mob)->texture = ft_strdup(ft_strrchr(tab[i], '=') + 2);
+		i++;
+	}
+	add_poly_mob(mob);
 }
