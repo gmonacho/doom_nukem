@@ -1,7 +1,7 @@
 #include "doom_nukem.h"
 
 char		*object_data_fill(char **tab, t_object **object, int i)
-{	
+{
 	char *type;
 
 	type = NULL;

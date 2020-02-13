@@ -47,17 +47,3 @@ void		ft_find_id(char *id, t_linedef *line)		//////agiordan
 	line->id = ft_atoi(tmp);
 	ft_strdel(&tmp);
 }
-
-void		poly_del(t_poly *poly)
-{
-	t_poly *tmp_next;
-
-	tmp_next = NULL;
-	while (poly)
-	{
-		tmp_next = poly->next;
-		free(poly);
-		poly = tmp_next;
-	}
-	poly = NULL;
-}

@@ -55,6 +55,7 @@ int					main(int argc, char **argv)
 			return (ret_error(SDL_GetError()));
 		if ((Mix_Init(MIX_INIT_MP3) & MIX_INIT_MP3) != MIX_INIT_MP3)
 			return (ret_error(SDL_GetError()));
+		map.save.ifPars = 0;
 		if (SDL_GetDesktopDisplayMode(0, &screen) != 0)
 		{
 			SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());

@@ -244,6 +244,7 @@ void		fill_poly_object(t_poly *poly, t_object *object);
 void		fill_poly_mob(t_poly *poly, t_mob *mob);
 void 		fill_poly_object_norm(char *tmp, t_poly	*poly_object);
 char		*object_data_fill(char **tab, t_object **object, int i);
+void		fill_mob_data_norm(t_mob **mob, char *tab);
 
 void		player_data(char **tab, t_player *player, int i);
 
@@ -253,7 +254,7 @@ t_texhud   	*define_texhud(t_win *win);
 /*
 **	---------------------------------- music ----------------------------------
 */
-t_music         *define_music();
+t_music         *define_music(void);
 /*
 ** =============================================================================
 ** ================================== EXPORT ===================================
