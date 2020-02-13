@@ -327,7 +327,7 @@ static t_object	*ed_get_selected_obj(t_win *win, const t_map *map)
 {
 	t_object	*obj;
 
-	obj = map->object;
+	obj = map->objects;
 	while (obj)
 	{
 		if (ed_is_obj_selected(win, map, obj))
@@ -486,7 +486,7 @@ static void	ed_place_item(t_win *win, t_map *map)
 			obj->pos.z = map->editor.settings.object.z;
 			obj->width = map->editor.settings.object.width;
 			obj->height = map->editor.settings.object.width;
-			add_existing_object(&map->object, obj);
+			add_existing_object(&map->objects, obj);
 		}
 	}
 }
@@ -607,7 +607,7 @@ int 		ed_event(t_win *win, t_map *map)
 		}
 		else if (map->editor.selected_obj)
 		{
-			ed_delete_obj(&map->object, map->editor.selected_obj);
+			ed_delete_obj(&map->objects, map->editor.selected_obj);
 			map->editor.selected_obj = NULL;
 		}
 	}

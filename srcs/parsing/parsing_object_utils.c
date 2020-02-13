@@ -21,6 +21,8 @@ char		*object_data_fill(char **tab, t_object **object, int i)
 			(*object)->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "height = "))
 			(*object)->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+		if (ft_strstr(tab[i], "light = "))
+			(*object)->light_coef = ft_atof(ft_strrchr(tab[i], '=') + 1);
 		i++;
 	}
 	return (type);

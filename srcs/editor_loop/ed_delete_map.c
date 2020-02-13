@@ -44,13 +44,13 @@ void			ed_delete_map(void *map_ptr)
 			m = next;
 		}
 		map->mob = NULL;
-		obj = map->object;
+		obj = map->objects;
 		while (obj)
 		{
 			next = obj->next;
 			free(obj);
 			obj = next;
 		}
-		map->object = NULL;
+		map->objects = NULL;
 	}
 }

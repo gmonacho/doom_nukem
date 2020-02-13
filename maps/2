@@ -18,6 +18,7 @@ Object
 	width = 30
 	height = 30
 	data = 100
+	light = 0.55
 	texture = pq.png
 }
 Oobject
@@ -39,6 +40,7 @@ Object
 	posz = 150
 	width = 30
 	height = 30
+	light = 0.5
 	texture = healthPotion.png
 }
 Object
@@ -59,6 +61,7 @@ Object
 	posz = 70
 	width = 30
 	height = 30
+	light = 0.75
 	texture = 150x150.png
 }
 
@@ -70,6 +73,7 @@ Object
 	posz = 70
 	width = 30
 	height = 30
+	light = 0.25
 	texture = 150x150.png
 }
 
@@ -128,7 +132,7 @@ Oobject
 	texture = Elephantride.png
 }
 
-Mooooob
+Mob
 {
 	posx = 400
 	posy = 650

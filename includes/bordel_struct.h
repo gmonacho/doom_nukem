@@ -455,6 +455,7 @@ typedef struct s_mob
 	struct s_mob	*next;
 	int				dir;
 	char 			*texture;
+	float			light_coef;
 }					t_mob;
 
 /*
@@ -577,6 +578,7 @@ typedef struct		s_object
 	int 			width_2;
 	int 			height;
 	int 			height_2;
+	float					light_coef;
 
 	int 			dir;
 	char 			*texture;

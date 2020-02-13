@@ -50,7 +50,7 @@ void			add_poly_object_norm(t_object *object, char *type_str)
 	{
 		object->type = BOX;
 		set_box_object(object, object->pos_rotz_only, object->width_2, object->height_2);
-		return (0);
+		return ;
 	}
 	else if (!ft_strcmp(type_str, "LIGHT"))
 		object->type = LIGHT;
