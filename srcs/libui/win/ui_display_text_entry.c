@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:36:55 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/02 16:23:07 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 12:50:19 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -92,6 +92,7 @@ static void		ui_draw_name_side(t_winui *win,
 								r.h * win->ui.button_text_ratio,
 								win->ui.button_font,
 								TEXT_ALIGN_CENTER | TEXT_ALIGN_V_MIDDLE});
+			SDL_DestroyTexture(text_texture);
 		}
 	}
 }
@@ -113,7 +114,10 @@ static void		ui_draw_text_entry_normally(t_winui *win,
 										win->ui.button_font,
 										text,
 										&win->ui.button_text_color)))
+	{
 		ui_draw_text_side(win, rect, text_entry_button, text);
+		SDL_DestroyTexture(text_texture);
+	}
 }
 
 void			ui_display_text_entry(t_winui *win,

@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 17:36:48 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/12 16:39:53 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 12:43:27 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,10 @@ void			ui_display_simple(t_winui *win,
 			if ((text_texture = ui_new_text(win->rend,
 					win->ui.button_font, simple_button->text,
 					&win->ui.button_text_color)))
+			{
 				ui_display_simple_draw_text(win, simple_button, rect);
+				SDL_DestroyTexture(text_texture);
+			}
 			else
 				ui_ret_error("ui_display_simple", "ui_new_text failed", 0);
 		}
