@@ -10,6 +10,16 @@ Player
 }
 Object
 {
+	type = LIGHT
+	posx = 308
+	posy = -93
+	posz = 0
+	width = 30
+	height = 30
+	texture = Pq.png
+}
+Object
+{
 	type = BOX
 	posx = 308
 	posy = -93

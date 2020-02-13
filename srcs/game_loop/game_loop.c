@@ -11,7 +11,6 @@ static int		tests_before_slide(t_map *map, t_poly *poly_collide, t_fdot_3d move)
 		// printf("Dot is in Poly, return last state\n");
 		// copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
 		translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
-		translate_all_objects_rotz_only(map->objects, move);
 		return (1);
 	}
 	translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
@@ -23,6 +22,7 @@ static int		tests_before_slide(t_map *map, t_poly *poly_collide, t_fdot_3d move)
 		// printf("Segment code : %d -> %d %d\n", poly_collide->segment_code, poly_collide->segment_code & 0b11, (poly_collide->segment_code & 0b1100) >> 2);
 		// printf("Segment -> plan slide : %f %f %f\n", poly_collide_v.x, poly_collide_v.y, poly_collide_v.z);
 	}
+	move.x = move.x;
 	slide(map, map->polys, map->polys_save, poly_collide_v);   //Collision avec slide
 	return (0);
 }
@@ -54,10 +54,10 @@ static void		move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 	// 	translate_all_objects_rotz_only(map->objects, move);
 	if (collisions_sphere(map, player, map->polys, 0))
 	{
-		printf("Toujours collision ! Return last state\n");
-		copy_poly_lst(map->polys_save, map->polys);                 //Collision sans slide               //Collision sans slide
+		// printf("Toujours collision ! Return last state\n");
+		copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide               //Collision sans slide
 	}
-	translate_all_objects(map->objects, fdot_3d_sub(map->polys->dots_rotz_only[0],\
+	translate_all_objects_rotz_only(map->objects, fdot_3d_sub(map->polys->dots_rotz_only[0],\
 													map->polys_save->dots_rotz_only[0]));
 }
 

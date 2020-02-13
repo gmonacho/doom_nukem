@@ -75,39 +75,6 @@ Object
 
 Object
 {	
-	type = BOX
-	posx = 200
-	posy = 700
-	posz = 70
-	width = 30
-	height = 30
-	texture = 150x150.png
-}
-
-Object
-{	
-	type = BOX
-	posx = 200
-	posy = 700
-	posz = 70
-	width = 30
-	height = 30
-	texture = 150x150.png
-}
-
-Object
-{	
-	type = BOX
-	posx = 200
-	posy = 700
-	posz = 70
-	width = 30
-	height = 30
-	texture = 150x150.png
-}
-
-Object
-{	
 	type = GRAVITY_INV
 	posx = 150
 	posy = 200

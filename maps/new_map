@@ -4,7 +4,7 @@ Player
 	posy = 0
 	posz = 0
 	dir = 0
-	width = 30
+	width = 60
 	height = 60
 	velocity = 10
 }

@@ -25,6 +25,8 @@
 		"limits": "c",
 		"ratio": "c",
 		"tuple": "c",
-		"utility": "c"
+		"utility": "c",
+		"iosfwd": "c",
+		"iterator": "c"
 	}
 }

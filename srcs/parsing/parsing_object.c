@@ -3,6 +3,7 @@
 // void    set_poly_dots_rotz_only(t_object *object)
 static void    set_poly_dots_rotz_only(t_poly *poly, t_fdot_3d pos, float width_2, float height_2)
 {
+	printf("poly %p\nDots \n", poly);
     poly->dots_rotz_only[0].x = pos.x - width_2;
     poly->dots_rotz_only[0].y = pos.y;
     poly->dots_rotz_only[0].z = pos.z - height_2;
@@ -15,8 +16,8 @@ static void    set_poly_dots_rotz_only(t_poly *poly, t_fdot_3d pos, float width_
     poly->dots_rotz_only[3].x = pos.x - width_2;
     poly->dots_rotz_only[3].y = pos.y;
     poly->dots_rotz_only[3].z = pos.z + height_2;
-	print_poly(poly, 1);
 	printf("pos %f %f %f\n", pos.x, pos.y, pos.z);
+	print_poly(poly, 1);
 }
 
 void			add_object(t_object **object)
@@ -52,6 +53,8 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 	else if (!ft_strcmp(type_str, "BOX"))
 	{
 		object->type = BOX;
+	// printf("argegr\n");
+	// printf("argegr\n");
 		set_box_object(object, object->pos_rotz_only, object->width_2, object->height_2);
 		return (0);
 	}
@@ -59,9 +62,11 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 		object->type = LIGHT;
 	else
 		ft_putendl("Error: Type of object is wrong !");
-	set_poly_dots_rotz_only(object->poly, object->pos_rotz_only, object->width_2, object->height_2);
+	// printf("argegr 2\n");
+	// printf("argegr\n");
 	if (!(object->poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
 		return (1);
+	set_poly_dots_rotz_only(object->poly, object->pos_rotz_only, object->width_2, object->height_2);
 	object->poly->object = object;
 	object->poly->next = NULL;
 	return (0);

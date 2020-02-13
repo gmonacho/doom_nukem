@@ -126,7 +126,7 @@ void		fill_poly_object(t_poly *poly, t_object *object)
 			poly->next = poly_object;
 			poly = poly->next;
 			poly_object = poly_object->next;
-			printf("Poly : %p, plan  %f %f %f\n", poly, poly->dots_rotz_only[0].x, poly->dots_rotz_only[0].y, poly->dots_rotz_only[0].z);
+			// printf("Poly : %p, plan  %f %f %f\n", poly, poly->dots_rotz_only[0].x, poly->dots_rotz_only[0].y, poly->dots_rotz_only[0].z);
 		}
 		ft_strdel(&tmp);
 		object = object->next;
@@ -146,6 +146,7 @@ t_poly		*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 	win->texhud = define_texhud(win);
 	while (tab[++i])
 	{
+		printf("i %d\ttab i |%s\n", i, tab[i]);
 		if (ft_strstr(tab[i], "Polygon"))
 			ft_fill_data(tab, &poly, i);
 		else if (ft_strstr(tab[i], "Object"))
