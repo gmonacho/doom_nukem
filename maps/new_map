@@ -8,6 +8,28 @@ Player
 	height = 50
 	velocity = 5
 }
+Object
+{
+	type = HEAL
+	posx = 336
+	posy = -33
+	posz = 50
+	width = 30
+	height = 30
+	texture = healthPotion.png
+}
+Mob
+{
+	posx = 182
+	posy = -17
+	posz = 0
+	height = 100
+	width = 100
+	damage = 1
+	dir = -90
+	velocity = 1
+	texture = ghost.png
+}
 Polygon
 {
 	dot = x:86 y:-98 z:-50
