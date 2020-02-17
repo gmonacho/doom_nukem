@@ -753,14 +753,14 @@ static void	ed_set_buttons_object(t_win *win, t_object *selected)
 
 static void	ed_selection(t_win *win, t_map *map)
 {
-	if (win->winui->mouse.clicking & UI_MOUSE_LEFT)
+	if (win->winui->mouse.clicking & UI_MOUSE_LEFT || win->winui->mouse.clicking & UI_MOUSE_RIGHT)
 	{	
 		map->editor.select_rect.x = ed_get_map_x(map, win->winui->mouse.pos.x);
 		map->editor.select_rect.y = ed_get_map_y(map, win->winui->mouse.pos.y);
 		map->editor.select_rect.w = 0;
 		map->editor.select_rect.h = 0;
 	}
-	else if (win->winui->mouse.clicked & UI_MOUSE_LEFT)
+	else if (win->winui->mouse.clicked & UI_MOUSE_LEFT || win->winui->mouse.clicked & UI_MOUSE_RIGHT)
 	{
 		map->editor.select_rect.w = ed_get_map_x(map, win->winui->mouse.pos.x)
 									- map->editor.select_rect.x;
@@ -916,7 +916,7 @@ static void	ed_action(t_win *win, t_map *map)
 {
 	// else if (map->editor.flags & ED_PLAYER)
 	// 	ed_place_player(win, map);
-	if (map->editor.flags & ED_SELECTION && !win->winui->ui.on_mouse_button)
+	if ((win->winui->mouse.clicked & UI_MOUSE_RIGHT || map->editor.flags & ED_SELECTION) && !win->winui->ui.on_mouse_button)
 		ed_selection(win, map);
 	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD || map->editor.flags & ED_GRAVITY || map->editor.flags & ED_BULLET || map->editor.flags & ED_BOX) && !win->winui->ui.on_mouse_button)
 		ed_place_item(win , map);

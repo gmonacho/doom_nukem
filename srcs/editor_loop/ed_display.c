@@ -303,8 +303,9 @@ static void			ed_display_selection_rect(t_win *win, const t_map *map)
 	pos = ed_get_display_point(map, (t_dot){map->editor.select_rect.x,
 											map->editor.select_rect.y});
 	ui_set_draw_color(win->winui->rend, &(SDL_Color){225, 225, 225, 255});
-	if (map->editor.flags & ED_SELECTION
-		&& win->winui->mouse.clicked & UI_MOUSE_LEFT)
+	if (win->winui->mouse.clicked & UI_MOUSE_RIGHT ||
+		(map->editor.flags & ED_SELECTION
+		&& win->winui->mouse.clicked & UI_MOUSE_LEFT))
 		ui_draw_rect(win->winui->rend, &(t_rect){
 		pos.x,
 		pos.y,

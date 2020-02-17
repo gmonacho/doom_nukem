@@ -340,7 +340,7 @@ frame
         ratio : 0.1 0.1 0.8 0.075
         data
         {
-            name : "?"
+            name : ""
             text : ""
             max_text_size : 20
             min_int : 0
@@ -360,7 +360,7 @@ frame
         ratio : 0.1 0.2 0.8 0.075
         data
         {
-            name : "?"
+            name : ""
             text : ""
             max_text_size : 6
             min_int : -30000
@@ -380,7 +380,7 @@ frame
         ratio : 0.1 0.3 0.8 0.075
         data
         {
-            name : "?"
+            name : ""
             text : ""
             max_text_size : 6
             min_int : -30000
@@ -400,7 +400,7 @@ frame
         ratio : 0.1 0.4 0.8 0.075
         data
         {
-            name : "?"
+            name : ""
             text : ""
             max_text_size : 6
             min_int : -30000
@@ -420,7 +420,7 @@ frame
         ratio : 0.1 0.5 0.8 0.075
         data
         {
-            name : "?"
+            name : ""
             text : ""
             max_text_size : 6
             min_int : -30000
@@ -440,7 +440,7 @@ frame
         ratio : 0.1 0.6 0.8 0.075
         data
         {
-            name : "?"
+            name : ""
             text : ""
             max_text_size : 6
             min_int : -30000
@@ -460,7 +460,7 @@ frame
         ratio : 0.1 0.7 0.8 0.075
         data
         {
-            name : "?"
+            name : ""
             text : ""
             max_text_size : 6
             min_int : -30000
