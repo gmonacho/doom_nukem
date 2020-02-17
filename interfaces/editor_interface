@@ -247,7 +247,7 @@ frame
 {
 	type : UI_FRAME_SIMPLE
 	resize_type : UI_RESIZE_ALL_LINEAR
-	ratio : 0.85 0.2 0.1 0.2
+	ratio : 0.85 0.1 0.1 0.2
 	data
 	{
 		texture : "textures/ui_frame.png"
@@ -312,22 +312,37 @@ frame
 {
 	type : UI_FRAME_SIMPLE
 	resize_type : UI_RESIZE_ALL_LINEAR
-	ratio : 0.74 0.15 0.21 0.03
+	ratio : 0.75 0.35 0.2 0.48
 	data
 	{
 		texture : "textures/ui_frame.png"
+	}
+    button
+    {
+        id : "b_properties"
+        type : UI_BUTTON_TEXT_AREA
+        resize_type : UI_RESIZE_ALL_LINEAR
+        ratio : 0 0 1 0.075
+        data
+        {
+            text : "Properties"
+            resize_text : UI_RESIZE_TEXT_LINEAR
+            text_height : 1
+            text_align : TEXT_ALIGN_CENTER
+            text_color : 255 255 255 255
+        }
     }
     button
     {
-        id : "b_texture"
+        id : "b_property_1"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0 0 1 1
+        ratio : 0.1 0.1 0.8 0.075
         data
         {
-            name : "texture"
-            text : "Brique.png"
-            max_text_size : 25
+            name : "?"
+            text : ""
+            max_text_size : 20
             min_int : 0
             max_int : 0
             name_side_texture : "textures/ui_text_entry_button_normal.png"
@@ -337,41 +352,16 @@ frame
             text_type : UI_TEXT_TYPE_NONE
         }
     }
-}
-frame
-{
-	type : UI_FRAME_SIMPLE
-	resize_type : UI_RESIZE_ALL_LINEAR
-	ratio : 0.74 0.2 0.1 0.2
-	data
-	{
-		texture : "textures/ui_frame.png"
-	}
     button
     {
-        id : "b_mob_settings"
-        type : UI_BUTTON_TEXT_AREA
-        resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0 0.8 0.25
-        data
-        {
-            text : "Mobs Settings"
-            resize_text : UI_RESIZE_TEXT_LINEAR
-            text_height : 0.5
-            text_align : TEXT_ALIGN_CENTER
-            text_color : 255 255 255 255
-        }
-    }
-    button
-    {
-        id : "b_mob_z"
+        id : "b_property_2"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.25 0.8 0.125
+        ratio : 0.1 0.2 0.8 0.075
         data
         {
-            name : "z"
-            text : "5"
+            name : "?"
+            text : ""
             max_text_size : 6
             min_int : -30000
             max_int : 30000
@@ -384,34 +374,14 @@ frame
     }
     button
     {
-        id : "b_mob_width"
+        id : "b_property_3"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.4 0.8 0.125
+        ratio : 0.1 0.3 0.8 0.075
         data
         {
-            name : "width"
-            text : "30"
-            max_text_size : 3
-            min_int : -30000
-            max_int : 30000
-            name_side_texture : "textures/ui_text_entry_button_normal.png"
-            normal_box_texture : "textures/ui_text_entry_button_normal.png"
-            writting_box_texture : "textures/ui_text_entry_button_writting.png"
-            text_side : UI_TEXT_SIDE_LEFT
-            text_type : UI_TEXT_TYPE_DIGITAL
-        }
-    }
-    button
-    {
-        id : "b_mob_height"
-        type : UI_BUTTON_TEXT_ENTRY
-        resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.55 0.8 0.125
-        data
-        {
-            name : "height"
-            text : "30"
+            name : "?"
+            text : ""
             max_text_size : 6
             min_int : -30000
             max_int : 30000
@@ -424,14 +394,14 @@ frame
     }
     button
     {
-        id : "b_mob_damage"
+        id : "b_property_4"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.7 0.8 0.125
+        ratio : 0.1 0.4 0.8 0.075
         data
         {
-            name : "damage"
-            text : "1"
+            name : "?"
+            text : ""
             max_text_size : 6
             min_int : -30000
             max_int : 30000
@@ -444,59 +414,14 @@ frame
     }
     button
     {
-        id : "b_mob_velocity"
+        id : "b_property_5"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.85 0.8 0.125
+        ratio : 0.1 0.5 0.8 0.075
         data
         {
-            name : "velocity"
-            text : "1"
-            max_text_size : 6
-            min_int : -30000
-            max_int : 30000
-            name_side_texture : "textures/ui_text_entry_button_normal.png"
-            normal_box_texture : "textures/ui_text_entry_button_normal.png"
-            writting_box_texture : "textures/ui_text_entry_button_writting.png"
-            text_side : UI_TEXT_SIDE_LEFT
-            text_type : UI_TEXT_TYPE_DIGITAL
-        }
-    }
-}
-frame
-{
-	type : UI_FRAME_SIMPLE
-	resize_type : UI_RESIZE_ALL_LINEAR
-	ratio : 0.74 0.45 0.1 0.2
-    data
-	{
-		texture : "textures/ui_frame.png"
-	}
-    button
-    {
-        id : "b_inclined_settings"
-        type : UI_BUTTON_TEXT_AREA
-        resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0 0.8 0.25
-        data
-        {`
-            text : "Inclined Settings"
-            resize_text : UI_RESIZE_TEXT_LINEAR
-            text_height : 0.5
-            text_align : TEXT_ALIGN_CENTER
-            text_color : 255 255 255 255
-        }
-    }
-    button
-    {
-        id : "b_inclined_z1"
-        type : UI_BUTTON_TEXT_ENTRY
-        resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.4 0.8 0.175
-        data
-        {
-            name : "z1"
-            text : "0"
+            name : "?"
+            text : ""
             max_text_size : 6
             min_int : -30000
             max_int : 30000
@@ -509,59 +434,14 @@ frame
     }
     button
     {
-        id : "b_inclined_z2"
+        id : "b_property_6"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.65 0.8 0.175
+        ratio : 0.1 0.6 0.8 0.075
         data
         {
-            name : "z2"
-            text : "100"
-            max_text_size : 6
-            min_int : -30000
-            max_int : 30000
-            name_side_texture : "textures/ui_text_entry_button_normal.png"
-            normal_box_texture : "textures/ui_text_entry_button_normal.png"
-            writting_box_texture : "textures/ui_text_entry_button_writting.png"
-            text_side : UI_TEXT_SIDE_LEFT
-            text_type : UI_TEXT_TYPE_DIGITAL
-        }
-    }
-}
-frame
-{
-	type : UI_FRAME_SIMPLE
-	resize_type : UI_RESIZE_ALL_LINEAR
-	ratio : 0.74 0.7 0.1 0.125
-    data
-	{
-		texture : "textures/ui_frame.png"
-	}
-    button
-    {
-        id : "b_object_settings"
-        type : UI_BUTTON_TEXT_AREA
-        resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0 0.8 0.175
-        data
-        {`
-            text : "Object Settings"
-            resize_text : UI_RESIZE_TEXT_LINEAR
-            text_height : 1
-            text_align : TEXT_ALIGN_CENTER
-            text_color : 255 255 255 255
-        }
-    }
-    button
-    {
-        id : "b_object_z"
-        type : UI_BUTTON_TEXT_ENTRY
-        resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.4 0.8 0.25
-        data
-        {
-            name : "z"
-            text : "0"
+            name : "?"
+            text : ""
             max_text_size : 6
             min_int : -30000
             max_int : 30000
@@ -574,124 +454,14 @@ frame
     }
     button
     {
-        id : "b_object_width"
+        id : "b_property_7"
         type : UI_BUTTON_TEXT_ENTRY
         resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.7 0.8 0.25
+        ratio : 0.1 0.7 0.8 0.075
         data
         {
-            name : "width"
-            text : "30"
-            max_text_size : 6
-            min_int : -30000
-            max_int : 30000
-            name_side_texture : "textures/ui_text_entry_button_normal.png"
-            normal_box_texture : "textures/ui_text_entry_button_normal.png"
-            writting_box_texture : "textures/ui_text_entry_button_writting.png"
-            text_side : UI_TEXT_SIDE_LEFT
-            text_type : UI_TEXT_TYPE_DIGITAL
-        }
-    }
-}
-frame
-{
-	type : UI_FRAME_SIMPLE
-	resize_type : UI_RESIZE_ALL_LINEAR
-	ratio : 0.85 0.45 0.1 0.2
-	data
-	{
-		texture : "textures/ui_frame.png"
-	}
-    button
-    {
-        id : "b_wall_settings"
-        type : UI_BUTTON_TEXT_AREA
-        resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0 0.8 0.25
-        data
-        {
-            text : "Wall Settings"
-            resize_text : UI_RESIZE_TEXT_LINEAR
-            text_height : 0.5
-            text_align : TEXT_ALIGN_CENTER
-            text_color : 255 255 255 255
-        }
-    }
-    button
-    {
-        id : "b_wall_min"
-        type : UI_BUTTON_TEXT_ENTRY
-        resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.4 0.8 0.175
-        data
-        {
-            name : "z min"
-            text : "0"
-            max_text_size : 6
-            min_int : -30000
-            max_int : 30000
-            name_side_texture : "textures/ui_text_entry_button_normal.png"
-            normal_box_texture : "textures/ui_text_entry_button_normal.png"
-            writting_box_texture : "textures/ui_text_entry_button_writting.png"
-            text_side : UI_TEXT_SIDE_LEFT
-            text_type : UI_TEXT_TYPE_DIGITAL
-        }
-    }
-    button
-    {
-        id : "b_wall_max"
-        type : UI_BUTTON_TEXT_ENTRY
-        resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.65 0.8 0.175
-        data
-        {
-            name : "z max"
-            text : "100"
-            max_text_size : 6
-            min_int : -30000
-            max_int : 30000
-            name_side_texture : "textures/ui_text_entry_button_normal.png"
-            normal_box_texture : "textures/ui_text_entry_button_normal.png"
-            writting_box_texture : "textures/ui_text_entry_button_writting.png"
-            text_side : UI_TEXT_SIDE_LEFT
-            text_type : UI_TEXT_TYPE_DIGITAL
-        }
-    }
-}
-frame
-{
-	type : UI_FRAME_SIMPLE
-	resize_type : UI_RESIZE_ALL_LINEAR
-	ratio : 0.85 0.7 0.1 0.125
-	data
-	{
-		texture : "textures/ui_frame.png"
-	}
-    button
-    {
-        id : "b_flat_settings"
-        type : UI_BUTTON_TEXT_AREA
-        resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0 0.8 0.4
-        data
-        {
-            text : "Flat Settings"
-            resize_text : UI_RESIZE_TEXT_LINEAR
-            text_height : 0.5
-            text_align : TEXT_ALIGN_CENTER
-            text_color : 255 255 255 255
-        }
-    }
-    button
-    {
-        id : "b_flat_z"
-        type : UI_BUTTON_TEXT_ENTRY
-        resize_type : UI_RESIZE_ALL_LINEAR
-        ratio : 0.1 0.65 0.8 0.275
-        data
-        {
-            name : "z"
-            text : "0"
+            name : "?"
+            text : ""
             max_text_size : 6
             min_int : -30000
             max_int : 30000
@@ -826,15 +596,5 @@ frame
             texture_on_mouse : "textures/ui_on_mouse_button.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
-	}
-}
-frame
-{
-	type : UI_FRAME_SIMPLE
-	resize_type : UI_RESIZE_ALL_LINEAR
-	ratio : 0.15 0.025 0.7 0.05
-	data
-	{
-		texture : "textures/ui_frame.png"
 	}
 }

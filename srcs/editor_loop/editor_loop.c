@@ -405,20 +405,7 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								map);
 	ui_set_text_entry_function(win->winui, "b_z_min", &set_int_value, &map->editor.z_min);
 	ui_set_text_entry_function(win->winui, "b_z_max", &set_int_value, &map->editor.z_max);
-	ui_set_text_entry_function(win->winui, "b_wall_min", &set_int_value, &map->editor.settings.wall.min);
-	ui_set_text_entry_function(win->winui, "b_wall_max", &set_int_value, &map->editor.settings.wall.max);
-	ui_set_text_entry_function(win->winui, "b_mob_z", &set_int_value, &map->editor.settings.mob.z);
-	ui_set_text_entry_function(win->winui, "b_mob_width", &set_int_value, &map->editor.settings.mob.width);
-	ui_set_text_entry_function(win->winui, "b_mob_height", &set_int_value, &map->editor.settings.mob.height);
-	ui_set_text_entry_function(win->winui, "b_mob_damage", &set_int_value, &map->editor.settings.mob.damage);
-	ui_set_text_entry_function(win->winui, "b_mob_velocity", &set_int_value, &map->editor.settings.mob.velocity);
-	ui_set_text_entry_function(win->winui, "b_flat_z", &set_int_value, &map->editor.settings.flat_z);
-	ui_set_text_entry_function(win->winui, "b_inclined_z1", &set_int_value, &map->editor.settings.inclined.z1);
-	ui_set_text_entry_function(win->winui, "b_inclined_z2", &set_int_value, &map->editor.settings.inclined.z2);
 	ui_set_text_entry_function(win->winui, "b_export_path", &set_str_value, &map->editor.export.path);
-	ui_set_text_entry_function(win->winui, "b_texture", &set_str_value, &map->editor.settings.texture);
-	ui_set_text_entry_function(win->winui, "b_object_z", &set_int_value, &map->editor.settings.object.z);
-	ui_set_text_entry_function(win->winui, "b_object_width", &set_int_value, &map->editor.settings.object.width);
 }
 
 int		init_editor_menu(t_win *win, t_map *map)

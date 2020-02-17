@@ -10,6 +10,14 @@ Player
 }
 Polygon
 {
+	dot = x:86 y:-98 z:-50
+	dot = x:443 y:-98 z:50
+	dot = x:443 y:147 z:50
+	dot = x:86 y:147 z:-50
+	texture = Brique.png
+}
+Polygon
+{
 	dot = x:443 y:-83 z:50
 	dot = x:824 y:-83 z:50
 	dot = x:824 y:418 z:50
@@ -170,14 +178,6 @@ Polygon
 }
 Polygon
 {
-	dot = x:86 y:-98 z:50
-	dot = x:86 y:147 z:50
-	dot = x:86 y:147 z:-50
-	dot = x:86 y:-98 z:-50
-	texture = Brique.png
-}
-Polygon
-{
 	dot = x:-93 y:-98 z:50
 	dot = x:-93 y:147 z:50
 	dot = x:-93 y:147 z:-50
@@ -215,4 +215,20 @@ Polygon
 	dot = x:31 y:147 z:30
 	dot = x:-31 y:147 z:30
 	texture = Brique.png
+}
+Polygon
+{
+	dot = x:824 y:147 z:50
+	dot = x:824 y:204 z:50
+	dot = x:824 y:204 z:30
+	dot = x:824 y:147 z:30
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:824 y:147 z:-50
+	dot = x:824 y:204 z:-50
+	dot = x:824 y:204 z:30
+	dot = x:824 y:147 z:30
+	texture = sol.png
 }
