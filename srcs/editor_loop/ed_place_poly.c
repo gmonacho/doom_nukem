@@ -31,6 +31,7 @@ int		ed_place_wall(t_win *win, t_map *map)
 									map->editor.settings.wall.min};
 		map->editor.placing_poly = poly;
 		poly->texture_name = ft_strdup(map->editor.settings.texture);
+		poly->light_coef = 1;
 	}
 	else
 	{
@@ -141,6 +142,7 @@ int				ed_place_flat(t_win *win, t_map *map)
 									map->editor.settings.flat_z};
 		map->editor.placing_poly = poly;
 		poly->texture_name = ft_strdup(map->editor.settings.texture);
+		poly->light_coef = 1;
 	}
 	else if (map->editor.place_step == 1)
 	{
@@ -194,6 +196,7 @@ int				ed_place_inclined(t_win *win, t_map *map)
 									map->editor.settings.inclined.z1};
 		map->editor.placing_poly = poly;
 		poly->texture_name = ft_strdup(map->editor.settings.texture);
+		poly->light_coef = 1;
 	}
 	else if (map->editor.place_step == 1)
 	{

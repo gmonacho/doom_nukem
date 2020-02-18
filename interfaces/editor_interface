@@ -16,9 +16,9 @@ frame
 		data
 		{
 			text : "Wall"
-            texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_normal : "textures/ui_normal_button_square.png"
+            texture_clicked : "textures/ui_clicked_button_square.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_square.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -31,9 +31,9 @@ frame
 		data
 		{
 			text : "Flat"
-            texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_normal : "textures/ui_normal_button_square.png"
+            texture_clicked : "textures/ui_clicked_button_square.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_square.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -46,9 +46,9 @@ frame
 		data
 		{
 			text : "RAMPE"
-            texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_normal : "textures/ui_normal_button_square.png"
+            texture_clicked : "textures/ui_clicked_button_square.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_square.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -60,10 +60,10 @@ frame
 		ratio : 0 0.225 1 0.075
 		data
 		{
-			text : "X"
-            texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+			text : "Player"
+            texture_normal : "textures/ui_normal_button_square.png"
+            texture_clicked : "textures/ui_clicked_button_square.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_square.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -78,7 +78,7 @@ frame
 			text : ""
             texture_normal : "textures/ghost.png"
             texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_grey.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -93,7 +93,7 @@ frame
 			text : ""
             texture_normal : "textures/healthPotion.png"
             texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_grey.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -108,7 +108,7 @@ frame
 			text : ""
             texture_normal : "textures/shieldPotion.png"
             texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_grey.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -123,7 +123,7 @@ frame
 			text : ""
             texture_normal : "textures/pq.png"
             texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_grey.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -138,7 +138,7 @@ frame
 			text : ""
             texture_normal : "textures/Ammo_box_icon.png"
             texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_grey.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -151,9 +151,9 @@ frame
 		data
 		{
 			text : "BOX"
-            texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_normal : "textures/ui_normal_button_square.png"
+            texture_clicked : "textures/ui_clicked_button_square.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_square.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -176,9 +176,9 @@ frame
 		data
 		{
 			text : "S"
-            texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_normal : "textures/ui_normal_button_square.png"
+            texture_clicked : "textures/ui_clicked_button_square.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_square.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -223,7 +223,7 @@ frame
 			text : "Export"
             texture_normal : "textures/ui_normal_button.png"
             texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_grey.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -238,7 +238,7 @@ frame
 			text : "Delete Map"
             texture_normal : "textures/ui_normal_button.png"
             texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_grey.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -576,9 +576,9 @@ frame
 		data
 		{
 			text : "T"
-            texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_normal : "textures/ui_normal_button_square.png"
+            texture_clicked : "textures/ui_clicked_button_square.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_square.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
@@ -591,9 +591,9 @@ frame
 		data
 		{
 			text : "Z"
-            texture_normal : "textures/ui_normal_button.png"
-            texture_clicked : "textures/ui_clicked_button.png"
-            texture_on_mouse : "textures/ui_on_mouse_button.png"
+            texture_normal : "textures/ui_normal_button_square.png"
+            texture_clicked : "textures/ui_clicked_button_square.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_square.png"
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}

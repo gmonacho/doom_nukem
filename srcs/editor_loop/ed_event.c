@@ -407,15 +407,15 @@ static void		set_str_value(void *argument, char *button_output)
 	*((char**)argument) = ft_strdup(button_output);
 }
 
-static void	ed_clean_property(t_win *win, int property_i)
+static void	ed_clean_property(t_win *win, int i_start)
 {
 	t_text_entry_button	*text_entry;
 	char				*id;
 	char				*tmp;
 
-	while (property_i < 8)
+	while (i_start < 8)
 	{
-		tmp = ft_itoa(property_i);
+		tmp = ft_itoa(i_start);
 		id = ft_strjoin("b_property_", tmp);
 		ft_strdel(&tmp);
 		text_entry = ui_get_text_entry_button(win->winui, id);
@@ -426,7 +426,7 @@ static void	ed_clean_property(t_win *win, int property_i)
 				ft_bzero(text_entry->name, ft_strlen(text_entry->name));
 		}
 		ft_strdel(&id);
-		property_i++;
+		i_start++;
 	}
 }
 
@@ -791,6 +791,7 @@ static void	ed_selection(t_win *win, t_map *map)
 		}
 		else
 		{
+			ed_clean_property(win, 1);
 			map->editor.selected_mob = NULL;
 			map->editor.selected_poly = NULL;
 			map->editor.selected_obj = NULL;	
@@ -918,6 +919,8 @@ static void	ed_action(t_win *win, t_map *map)
 	// 	ed_place_player(win, map);
 	if ((win->winui->mouse.clicked & UI_MOUSE_RIGHT || map->editor.flags & ED_SELECTION) && !win->winui->ui.on_mouse_button)
 		ed_selection(win, map);
+	else if (map->editor.flags & ED_PLAYER  && !win->winui->ui.on_mouse_button)
+		ed_place_player(win, map);
 	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD || map->editor.flags & ED_GRAVITY || map->editor.flags & ED_BULLET || map->editor.flags & ED_BOX) && !win->winui->ui.on_mouse_button)
 		ed_place_item(win , map);
 	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
@@ -1014,8 +1017,9 @@ int 		ed_event(t_win *win, t_map *map)
 		if (state[SDL_SCANCODE_S])
 			map->editor.pos.y += vel;
 	}
-	if (state[SDL_SCANCODE_DELETE])
+	if (state[SDL_SCANCODE_DELETE] && (map->editor.selected_poly || map->editor.selected_mob || map->editor.selected_obj))
 	{
+		ed_clean_property(win, 1);
 		if (map->editor.selected_poly)
 		{
 			delete_poly(&map->polys, map->editor.selected_poly);

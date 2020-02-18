@@ -80,7 +80,7 @@ int					main(int argc, char **argv)
 				((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 				return (ret_error("open error"));
 			if (!(win.map->polys = ft_data_storing(fd, fd1, &map, &win))) // FREE SDL, FREE FD, FREE MUSIC
-				return (1);	//LEAKS TA UN GROS SEXE ALEXANDRE
+				return (1);	//LEAKS T'AS UN GROS SEXE ALEXANDRE
 			map.gravity = map.player.const_vel / 2;
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));
