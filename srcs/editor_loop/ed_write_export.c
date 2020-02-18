@@ -60,12 +60,17 @@ static void	ed_write_dot(int fd, const t_fdot_3d *dot, const t_player *player)
 
 void	ed_write_poly(int fd, const t_poly *poly, const t_player *player)
 {
+	char	*tmp;
+
 	ft_putendl_fd("Polygon", fd);
 	ft_putendl_fd("{", fd);
 	ed_write_dot(fd, &poly->dots[0], player);
 	ed_write_dot(fd, &poly->dots[1], player);
 	ed_write_dot(fd, &poly->dots[2], player);
 	ed_write_dot(fd, &poly->dots[3], player);
+	tmp = ft_itoa(poly->light_coef * 100);
+	ed_write_line(fd, "\tlight", tmp);
+	ft_strdel(&tmp);
 	ed_write_line(fd, "\ttexture", poly->texture_name);
 	ft_putendl_fd("}", fd);
 }
@@ -97,6 +102,9 @@ void	ed_write_mob(int fd, const t_mob *m)
 	ed_write_line(fd, "\tdir", "-90");
 	tmp = ft_itoa(m->vel);
 	ed_write_line(fd, "\tvelocity", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(mob->light_coef * 100);
+	ed_write_line(fd, "\tlight", tmp);
 	ft_strdel(&tmp);
 	ed_write_line(fd, "\ttexture", m->texture);
 	ft_putendl_fd("}", fd);
@@ -133,6 +141,9 @@ void	ed_write_item(int fd, const t_object *obj)
 	ft_strdel(&tmp);
 	tmp = ft_itoa(obj->height);
 	ed_write_line(fd, "\theight", tmp);
+	ft_strdel(&tmp);
+	tmp = ft_itoa(obj->light_coef * 100);
+	ed_write_line(fd, "\tlight", tmp);
 	ft_strdel(&tmp);
 	ed_write_line(fd, "\ttexture", obj->texture);
 	ft_putendl_fd("}", fd);

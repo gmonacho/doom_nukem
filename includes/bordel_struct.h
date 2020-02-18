@@ -578,7 +578,7 @@ typedef struct		s_object
 	int 			width_2;
 	int 			height;
 	int 			height_2;
-	float					light_coef;
+	float			light_coef;
 
 	int 			dir;
 	char 			*texture;
