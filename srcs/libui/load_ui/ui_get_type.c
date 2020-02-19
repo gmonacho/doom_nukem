@@ -94,12 +94,14 @@ int					get_text_align(const char *line)
 		return (ui_ret_error("get_text_align", "\" : \" not found", -1));
 	if (!(flags_tab = get_flags_tab(flags)))
 	{
+		ft_2dstrdel((char***)&flags_tab);
 		return (ui_ret_error("get_text_align",
 		"text_align : <t_text_align> expected", -1));
 	}
 	i = 0;
 	while (flags_tab[i])
 		text_align |= convert_str_flag(flags_tab[i++]);
+	ft_2dstrdel((char***)&flags_tab);
 	if (text_align)
 		return (text_align);
 	else

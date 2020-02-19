@@ -1,5 +1,9 @@
 #include "doom_nukem.h"
 
+/*
+**	Points dans l'ordre de sorte que l'algo puisse generer 3 des 6 faces
+*/
+
 int				set_box_object(t_object *object, t_fdot_3d pos, float width_2, float height_2)
 {
 	t_fdot_3d	box[8];
@@ -20,28 +24,28 @@ int				set_box_object(t_object *object, t_fdot_3d pos, float width_2, float heig
 		return (1);
 	poly = object->poly;
 	poly->object = object;
-	poly->dots[0] = box[0];
-	poly->dots[1] = box[3];
-	poly->dots[2] = box[4];
-	poly->dots[3] = box[7];
+	poly->dots_rotz_only[0] = box[0];
+	poly->dots_rotz_only[1] = box[3];
+	poly->dots_rotz_only[2] = box[4];
+	poly->dots_rotz_only[3] = box[7];
 	
 	if (!(poly->next = (t_poly *)ft_memalloc(sizeof(t_poly))))
 		return (1);
 	poly = poly->next;
 	poly->object = object;
-	poly->dots[0] = box[1];
-	poly->dots[1] = box[2];
-	poly->dots[2] = box[5];
-	poly->dots[3] = box[6];
+	poly->dots_rotz_only[0] = box[1];
+	poly->dots_rotz_only[1] = box[2];
+	poly->dots_rotz_only[2] = box[5];
+	poly->dots_rotz_only[3] = box[6];
 
 	if (!(poly->next = (t_poly *)ft_memalloc(sizeof(t_poly))))
 		return (1);
 	poly = poly->next;
 	poly->object = object;
-	poly->dots[0] = box[0];
-	poly->dots[1] = box[1];
-	poly->dots[2] = box[6];
-	poly->dots[3] = box[7];
+	poly->dots_rotz_only[0] = box[0];
+	poly->dots_rotz_only[1] = box[1];
+	poly->dots_rotz_only[2] = box[6];
+	poly->dots_rotz_only[3] = box[7];
 
 	i = 0;
 	while (i < 5)
@@ -53,8 +57,8 @@ int				set_box_object(t_object *object, t_fdot_3d pos, float width_2, float heig
 		j = -1;
 		while (++j < 4)
 		{
-			poly->dots[j] = box[i + j];
-			// printf("Segment : %d %d\n", );
+			poly->dots_rotz_only[j] = box[i + j];
+			printf("Segment %d : %d\n", j, i + j);
 		}
 		i += 2;
 	}

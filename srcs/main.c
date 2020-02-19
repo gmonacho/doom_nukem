@@ -17,7 +17,6 @@
 **	Gerer les leaks
 **	Norme all
 **
-**	Seg fault sur certaines text att !
 */
 
 static int			init(t_win *win, t_map *map, t_player *player)

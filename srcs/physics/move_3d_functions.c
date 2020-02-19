@@ -17,7 +17,7 @@ void				translate_box(t_map *map, t_object *object)
 								poly->dots_rotz_only[0].y / 2,\
 								poly->dots_rotz_only[0].z / 2};
 	i = -1;
-	while (++i < 6)
+	while (poly && ++i < 6)
 	{
 		translate_dot(&(poly->dots_rotz_only[0]), translation);
 		translate_dot(&(poly->dots_rotz_only[1]), translation);
@@ -48,7 +48,7 @@ void				rotate_box(t_map *map, t_player *player, t_object *object)
 	// translate = (t_fdot_3d){object->pos.x / 4, object->pos.y / 4, object->pos.z / 4};
 	poly = object->poly;
 	i = -1;
-	while (++i < 6)
+	while (poly && ++i < 6)
 	{
 		poly->equation_rotz_only.v = rotate_dot(poly->equation_rotz_only.v, matrix);
 

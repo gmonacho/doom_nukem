@@ -24,7 +24,10 @@ static t_object		*catch_box(t_player *player, t_object *object)
 			if (intersection_plan_my_ray(&collision, poly->equation, &ray) &&\
 				is_in_poly(poly, &coord, collision) &&\
 				mag(collision) < player->width * 2)
+			{
+				// printf("Find box, grab her\n");
 				return (object);
+			}
 			poly = poly->next;
 		}
 		object = object->next;
