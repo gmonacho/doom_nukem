@@ -56,7 +56,7 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 	// printf("argegr\n");
 	// printf("argegr\n");
 		set_box_object(object, object->pos_rotz_only, object->width_2, object->height_2);
-		return ;
+		return 0;
 	}
 	else if (!ft_strcmp(type_str, "LIGHT"))
 		object->type = LIGHT;
