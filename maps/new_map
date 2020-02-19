@@ -8,6 +8,19 @@ Player
 	height = 50
 	velocity = 5
 }
+Object
+{
+	posx = 201
+	posy = 18
+	posz = 5
+	height = 30
+	width = 30
+	damage = 1
+	dir = -90
+	velocity = 1
+	light = 0
+	texture = Brique.png
+}
 Polygon
 {
 	dot = x:454 y:-98 z:50
@@ -74,10 +87,19 @@ Polygon
 }
 Polygon
 {
+<<<<<<< HEAD
 	dot = x:-82 y:132 z:50
 	dot = x:-20 y:132 z:50
 	dot = x:-20 y:132 z:-50
 	dot = x:-82 y:132 z:-50
+=======
+	dot = x:-83 y:196 z:50
+	dot = x:-21 y:196 z:50
+	dot = x:-21 y:196 z:-50
+	dot = x:-83 y:196 z:-50
+	light = 100
+
+>>>>>>> 79d054dee0bcdc69da2afec2c185e2519ce20344
 	texture = Brique.png
 }
 Polygon

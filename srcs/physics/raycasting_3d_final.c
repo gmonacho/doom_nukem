@@ -62,24 +62,25 @@ int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 	return (coord->x < 0 || coord->x > 1 || coord->y < 0 || coord->y > 1 ? 0 : 1);
 }
 
-// static int			is_in_shadow(t_map *map, t_poly *poly_collision, t_fdot_3d light, t_fdot_3d pos, t_fdot_3d ray)
+// static int			is_in_shadow(t_map *map, t_poly *poly_light, t_fdot_3d light, t_fdot_3d pos, t_fdot_3d vector)
 // {
 // 	t_poly			*poly;
 // 	t_fdot_3d		collision;
 // 	t_fdot			coord;
+// 	t_cartesienne		ray;
 
 // 	// printf("Light %f, %f, %f\n", light.x, light.y, light.z);
 // 	// printf("Ray %f, %f, %f\n", ray.x, ray.y, ray.z);
+// 	ray = (t_cartesienne){light.x, light.y, light.z,\
+// 							vector.x, vector.y, vector.z,\
+// 							0, NULL, 0, NULL};
 // 	poly = map->polys;
 // 	while (poly)
 // 	{
-// 		if (poly != poly_collision)
+// 		if (poly != poly_light && !(poly->object && poly->object->visible == 0))
 // 		{
 // 			// printf("Poly eq. %f %f %f %f\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
-// 			if (intersection_plan_ray(&collision, poly->equation,\
-// 										(t_cartesienne){light.x, light.y, light.z,\
-// 														ray.x, ray.y, ray.z,\
-// 														0, NULL, 0, NULL}))
+// 			if (intersection_plan_ray(&collision, poly->equation, ray))
 // 			{
 // 				// printf("Collision %f, %f, %f\n", collision.x, collision.y, collision.z);
 // 				if (is_in_poly(poly, &coord, collision) &&\
@@ -110,9 +111,13 @@ static int			process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int co
 	float			sc_product;
 	float			light_coef;
 	t_object		*object;
+	float			best_light_coef;
+	float			tmp;
 	int i = -1;
 
+	tmp = -1;
 	light_coef = 0;
+	best_light_coef = 0;
 	object = map->objects;
 	while (object)
 	{
@@ -122,26 +127,29 @@ static int			process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int co
 			//rien faire si scalar < 0
 			// printf("Pos %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
 			ray = fdot_3d_sub(collision, object->pos);
-			// if (is_in_shadow(map, poly, object->pos, collision, ray))
+			// if (is_in_shadow(map, object->poly, object->pos, collision, ray))
 			// {
-			// 	light_coef += 0;
+			// 	light_coef = 0;
 			// }
 			// else
 			// {
 				sc_product = fabs(scalar_product(poly->equation.v, normalize(ray)));
 				if ((dist = mag(ray)) < 1000)
-					light_coef += sc_product * (1 - dist / 1000) * poly->light_coef * object->data;
+					light_coef = sc_product * (1 - dist / 1000)/* * object->data*/;
 			// }
+			if (light_coef > best_light_coef)
+				best_light_coef = light_coef;
 			i++;
 		}
 		object = object->next;
 	}
+	// best_light_coef *= poly->light_coef;
 	// printf("N lights : %d\n", i);
 	// exit(0);
-	return (0xFF000000 +\
-			((int)((color >> 16 & 0xFF) * light_coef) << 16) +\
-			((int)((color >> 8 & 0xFF) * light_coef) << 8) +\
-			(int)((color & 0xFF) * light_coef));
+	return (0xFF000000 +
+			((int)((color >> 16 & 0xFF) * best_light_coef) << 16) +\
+			((int)((color >> 8 & 0xFF) * best_light_coef) << 8) +\
+			(int)((color & 0xFF) * best_light_coef));
 }
 
 

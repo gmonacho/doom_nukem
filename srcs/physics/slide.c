@@ -47,7 +47,7 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_fdot_3d poly_coll
 	// printf("Slide :  %f %f %f\n", proj_ortho.x, proj_ortho.y, proj_ortho.z);
 	copy_poly_lst(map->polys, map->polys_save);
 	// copy_poly_lst(map->polys, map->polys_save, map->objects, map->objects_save);
-	translate_all_rotz_only(map, polys, (t_fdot_3d){-proj_ortho.x,\
+	translate_all_poly_rotz_only(polys, (t_fdot_3d){-proj_ortho.x,\
 													-proj_ortho.y,\
 													-proj_ortho.z});
 	// translate_all_rotz_only(map, polys, (t_fdot_3d){-proj_ortho.x,\
