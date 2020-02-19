@@ -94,6 +94,7 @@ void		fill_poly_mob(t_poly *poly, t_mob *mob)
 	{
 		tmp = ft_strdup("textures/");
 		poly->next = mob->poly;
+		poly->light_coef = mob->light_coef;
 		poly = poly->next;
 		tmp = ft_strjoin(tmp, mob->texture);
 		if (!(poly->texture = IMG_Load(tmp)))
@@ -120,6 +121,7 @@ void		fill_poly_object(t_poly *poly, t_object *object)
 	{
 		tmp = ft_strjoin("textures/", object->texture);
 		poly_object = object->poly;
+		poly->light_coef = object->light_coef;
 		while (poly_object)
 		{
 			fill_poly_object_norm(tmp, poly_object);

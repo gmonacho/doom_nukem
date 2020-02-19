@@ -337,16 +337,430 @@ static t_object	*ed_get_selected_obj(t_win *win, const t_map *map)
 	return (NULL);
 }
 
+static void		set_int_value(void *argument, char *button_output)
+{
+	*((int*)argument) = ft_atoi(button_output);
+}
+
+static void		set_float_value(void *argument, char *button_output)
+{
+	*((float*)argument) = ft_atoi(button_output);
+}
+
+static void		set_coef_value(void *argument, char *button_output)
+{
+	*((float*)argument) = ft_atoi(button_output) / 100.f;
+}
+
+static void			set_wall_z1(void *argument, char *button_output)
+{
+	t_poly	*poly;
+
+	poly = argument;
+	poly->dots[0].z = ft_atoi(button_output);
+	poly->dots[1].z = ft_atoi(button_output);
+}
+
+static void			set_wall_z2(void *argument, char *button_output)
+{
+	t_poly	*poly;
+
+	poly = argument;
+	poly->dots[2].z = ft_atoi(button_output);
+	poly->dots[3].z = ft_atoi(button_output);
+}
+
+
+static void			set_flat_z(void *argument, char *button_output)
+{
+	t_poly	*poly;
+
+	poly = argument;
+	poly->dots[0].z = ft_atoi(button_output);
+	poly->dots[1].z = ft_atoi(button_output);
+	poly->dots[2].z = ft_atoi(button_output);
+	poly->dots[3].z = ft_atoi(button_output);
+}
+
+static void			set_inclined_z1(void *argument, char *button_output)
+{
+	t_poly	*poly;
+
+	poly = argument;
+	poly->dots[0].z = ft_atoi(button_output);
+	poly->dots[3].z = ft_atoi(button_output);
+}
+
+static void			set_inclined_z2(void *argument, char *button_output)
+{
+	t_poly	*poly;
+
+	poly = argument;
+	poly->dots[1].z = ft_atoi(button_output);
+	poly->dots[2].z = ft_atoi(button_output);
+}
+
+static void		set_str_value(void *argument, char *button_output)
+{
+	if (*((char**)argument))
+		ft_strdel((char**)argument);
+	*((char**)argument) = ft_strdup(button_output);
+}
+
+static void	ed_clean_property(t_win *win, int i_start)
+{
+	t_text_entry_button	*text_entry;
+	char				*id;
+	char				*tmp;
+
+	while (i_start < 8)
+	{
+		tmp = ft_itoa(i_start);
+		id = ft_strjoin("b_property_", tmp);
+		ft_strdel(&tmp);
+		text_entry = ui_get_text_entry_button(win->winui, id);
+		if (text_entry)
+		{
+			ft_bzero(text_entry->text, ft_strlen(text_entry->text));
+			if (text_entry->name)
+				ft_bzero(text_entry->name, ft_strlen(text_entry->name));
+		}
+		ft_strdel(&id);
+		i_start++;
+	}
+}
+
+static void	ed_set_buttons_wall(t_win *win, t_poly *selected)
+{
+	t_text_entry_button	*text_entry;
+	char				*tmp;
+
+	ui_set_text_entry_function(win->winui, "b_property_1", &set_str_value, &selected->texture_name);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_1");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("texture");
+		}
+		if (selected->texture_name && ft_strcmp(text_entry->text, selected->texture_name) != 0)
+			ft_strcpy(text_entry->text, selected->texture_name);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_2", &set_wall_z1, selected);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_2");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("z1");
+		}
+		tmp = ft_itoa(selected->dots[0].z);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_3", &set_wall_z2, selected);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_3");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("z2");
+		}
+		tmp = ft_itoa(selected->dots[2].z);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_4", &set_coef_value, &selected->light_coef);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_4");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("light %");
+		}
+		tmp = ft_itoa(selected->light_coef * 100);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ed_clean_property(win, 5);
+}
+
+static void	ed_set_buttons_flat(t_win *win, t_poly *selected)
+{
+	t_text_entry_button	*text_entry;
+	char				*tmp;
+
+	ui_set_text_entry_function(win->winui, "b_property_1", &set_str_value, &selected->texture_name);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_1");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("texture");
+		}
+		if (selected->texture_name && ft_strcmp(text_entry->text, selected->texture_name) != 0)
+			ft_strcpy(text_entry->text, selected->texture_name);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_2", &set_flat_z, selected);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_2");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("z");
+		}
+		tmp = ft_itoa(selected->dots[0].z);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_3", &set_coef_value, &selected->light_coef);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_3");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("light %");
+		}
+		tmp = ft_itoa(selected->light_coef * 100);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ed_clean_property(win, 4);
+}
+
+static void	ed_set_buttons_inclined(t_win *win, t_poly *selected)
+{
+	t_text_entry_button	*text_entry;
+	char				*tmp;
+
+	ui_set_text_entry_function(win->winui, "b_property_1", &set_str_value, &selected->texture_name);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_1");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("texture");
+		}
+		if (selected->texture_name && ft_strcmp(text_entry->text, selected->texture_name) != 0)
+			ft_strcpy(text_entry->text, selected->texture_name);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_2", &set_inclined_z1, selected);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_2");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("z1");
+		}
+		tmp = ft_itoa(selected->dots[0].z);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_3", &set_inclined_z2, selected);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_3");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("z2");
+		}
+		tmp = ft_itoa(selected->dots[1].z);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_4", &set_coef_value, &selected->light_coef);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_4");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("light %");
+		}
+		tmp = ft_itoa(selected->light_coef * 100);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ed_clean_property(win, 5);
+}
+
+static void	ed_set_buttons_mob(t_win *win, t_mob *selected)
+{
+	t_text_entry_button	*text_entry;
+	char				*tmp;
+
+	ui_set_text_entry_function(win->winui, "b_property_1", &set_str_value, &selected->texture);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_1");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("texture");
+		}
+		if (selected->texture && ft_strcmp(text_entry->text, selected->texture) != 0)
+			ft_strcpy(text_entry->text, selected->texture);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_2", &set_float_value, &selected->pos.z);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_2");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("z");
+		}
+		tmp = ft_itoa(selected->pos.z);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_3", &set_int_value, &selected->width);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_3");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("width");
+		}
+		tmp = ft_itoa(selected->width);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_4", &set_int_value, &selected->height);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_4");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("height");
+		}
+		tmp = ft_itoa(selected->height);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_5", &set_int_value, &selected->health);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_5");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("health");
+		}
+		tmp = ft_itoa(selected->health);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_6", &set_int_value, &selected->damage);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_6");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("damage");
+		}
+		tmp = ft_itoa(selected->damage);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_7", &set_int_value, &selected->vel);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_7");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("velocity");
+		}
+		tmp = ft_itoa(selected->vel);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+}
+
+
+static void	ed_set_buttons_object(t_win *win, t_object *selected)
+{
+	t_text_entry_button	*text_entry;
+	char				*tmp;
+
+	ui_set_text_entry_function(win->winui, "b_property_1", &set_str_value, &selected->texture);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_1");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("texture");
+		}
+		if (selected->texture && ft_strcmp(text_entry->text, selected->texture) != 0)
+			ft_strcpy(text_entry->text, selected->texture);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_2", &set_float_value, &selected->pos.z);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_2");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("z");
+		}
+		tmp = ft_itoa(selected->pos.z);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_3", &set_int_value, &selected->width);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_3");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("width");
+		}
+		tmp = ft_itoa(selected->width);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_4", &set_int_value, &selected->height);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_4");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("height");
+		}
+		tmp = ft_itoa(selected->height);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ed_clean_property(win, 5);
+}
+
 static void	ed_selection(t_win *win, t_map *map)
 {
-	if (win->winui->mouse.clicking & UI_MOUSE_LEFT)
+	if (win->winui->mouse.clicking & UI_MOUSE_LEFT || win->winui->mouse.clicking & UI_MOUSE_RIGHT)
 	{	
 		map->editor.select_rect.x = ed_get_map_x(map, win->winui->mouse.pos.x);
 		map->editor.select_rect.y = ed_get_map_y(map, win->winui->mouse.pos.y);
 		map->editor.select_rect.w = 0;
 		map->editor.select_rect.h = 0;
 	}
-	else if (win->winui->mouse.clicked & UI_MOUSE_LEFT)
+	else if (win->winui->mouse.clicked & UI_MOUSE_LEFT || win->winui->mouse.clicked & UI_MOUSE_RIGHT)
 	{
 		map->editor.select_rect.w = ed_get_map_x(map, win->winui->mouse.pos.x)
 									- map->editor.select_rect.x;
@@ -354,26 +768,34 @@ static void	ed_selection(t_win *win, t_map *map)
 									- map->editor.select_rect.y;
 		if ((map->editor.selected_mob = ed_get_selected_mob(win, map)))
 		{
+			ed_set_buttons_mob(win, map->editor.selected_mob);
 			map->editor.selected_obj = NULL;
 			map->editor.selected_poly = NULL;
 		}
 		else if ((map->editor.selected_obj = ed_get_selected_obj(win, map)))
 		{
+			ed_set_buttons_object(win, map->editor.selected_obj);
 			map->editor.selected_mob = NULL;
 			map->editor.selected_poly = NULL;
 		}
 		else if ((map->editor.selected_poly = ed_get_selected_poly(win, map)))
 		{
+			if (ed_is_wall(map->editor.selected_poly))
+				ed_set_buttons_wall(win, map->editor.selected_poly);
+			else if (ed_is_flat(map->editor.selected_poly))
+				ed_set_buttons_flat(win, map->editor.selected_poly);
+			else if (ed_is_inclined(map->editor.selected_poly))
+				ed_set_buttons_inclined(win, map->editor.selected_poly);
 			map->editor.selected_mob = NULL;
 			map->editor.selected_obj = NULL;
 		}
 		else
 		{
+			ed_clean_property(win, 1);
 			map->editor.selected_mob = NULL;
 			map->editor.selected_poly = NULL;
 			map->editor.selected_obj = NULL;	
 		}
-		
 	}
 }
 
@@ -495,8 +917,10 @@ static void	ed_action(t_win *win, t_map *map)
 {
 	// else if (map->editor.flags & ED_PLAYER)
 	// 	ed_place_player(win, map);
-	if (map->editor.flags & ED_SELECTION)
+	if ((win->winui->mouse.clicked & UI_MOUSE_RIGHT || map->editor.flags & ED_SELECTION) && !win->winui->ui.on_mouse_button)
 		ed_selection(win, map);
+	else if (map->editor.flags & ED_PLAYER  && !win->winui->ui.on_mouse_button)
+		ed_place_player(win, map);
 	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD || map->editor.flags & ED_GRAVITY || map->editor.flags & ED_BULLET || map->editor.flags & ED_BOX) && !win->winui->ui.on_mouse_button)
 		ed_place_item(win , map);
 	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
@@ -593,8 +1017,9 @@ int 		ed_event(t_win *win, t_map *map)
 		if (state[SDL_SCANCODE_S])
 			map->editor.pos.y += vel;
 	}
-	if (state[SDL_SCANCODE_DELETE])
+	if (state[SDL_SCANCODE_DELETE] && (map->editor.selected_poly || map->editor.selected_mob || map->editor.selected_obj))
 	{
+		ed_clean_property(win, 1);
 		if (map->editor.selected_poly)
 		{
 			delete_poly(&map->polys, map->editor.selected_poly);
