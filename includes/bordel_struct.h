@@ -456,7 +456,6 @@ typedef struct s_mob
 	int				dir;
 	char 			*texture;
 	float			light_coef;
-	//t_fdot_3d		box[8];
 }					t_mob;
 
 /*
@@ -557,6 +556,7 @@ typedef enum				e_enum_object
 // {
 // 	/* data */
 // }					
+
 
 typedef struct		s_object
 {
