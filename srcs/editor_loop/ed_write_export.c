@@ -103,7 +103,7 @@ void	ed_write_mob(int fd, const t_mob *m)
 	tmp = ft_itoa(m->vel);
 	ed_write_line(fd, "\tvelocity", tmp);
 	ft_strdel(&tmp);
-	tmp = ft_itoa(mob->light_coef * 100);
+	tmp = ft_itoa(m->light_coef * 100);
 	ed_write_line(fd, "\tlight", tmp);
 	ft_strdel(&tmp);
 	ed_write_line(fd, "\ttexture", m->texture);
