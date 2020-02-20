@@ -61,6 +61,7 @@ static void		init_player_maths(t_win *win, t_player *player)
 	// player->height_10 = player->height / 10;
 	// player->_9_height_10 = 9 * player->height_10;
 	player->_4_height_10 = 2 * (float)player->height / 5;
+	player->snick = 0;
 	player->collision_on = 1;
 	win->w_div_fov = win->w / player->fov;
 	win->h_div_fov = win->h / player->fov_up;

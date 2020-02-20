@@ -1,5 +1,9 @@
 #include "doom_nukem.h"
 
+/*
+**	Code segment : 2 bits par segment 0bxxyy 0 <= xx <= 3
+*/
+
 static int		is_in_poly_rotz_only(t_poly *poly, t_fdot_3d dot)
 {
 	t_fdot		coord1;
@@ -35,7 +39,7 @@ int				is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2)
 	}
 }
 
-int				collision_dots(t_map *map, t_fdot_3d dots[N_DOTS_POLY], float ray)
+int				collision_dots(t_fdot_3d dots[N_DOTS_POLY], float ray)
 {
 	if (mag(dots[0]) <= ray ||\
 		mag(dots[1]) <= ray ||\
@@ -44,7 +48,6 @@ int				collision_dots(t_map *map, t_fdot_3d dots[N_DOTS_POLY], float ray)
 	{
 		return (1);
 	}
-	map = NULL;
 	return (0);
 }
 
@@ -103,7 +106,7 @@ int				collision_poly(t_map *map, t_player *player, t_poly *poly)
 	}
 
 	if ((poly->segment_code = collision_segment(map, poly->dots_rotz_only, player->width_2)) ||\
-		collision_dots(map, poly->dots_rotz_only, map->player.width_2))
+		collision_dots(poly->dots_rotz_only, map->player.width_2))
 		return (1);
 	// printf("Poly is not in the Sphere\n");
 	return (0);

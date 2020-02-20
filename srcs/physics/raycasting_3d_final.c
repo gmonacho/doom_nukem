@@ -21,26 +21,33 @@
 /*
 **	- Nouveau 'collisions_sphere()' :	~ 0.5-1.7	. 10e-4
 **	- Nouveau 'raycasting_3d()' :		~ 280-400	. 10e-4
-**	- Nouveau 'game()' :				~ 280-400	. 10e-4 (Pareil que raycasing_3d())
+**	- Nouveau 'game()' :				~ 280-400	. 10e-4 (Pareil que raycasting_3d())
 */
 
 
-static void		draw(t_win *win, t_player *player)
+static void			*draw(void *param)
 {
+	t_thread		*thread;
 	t_cartesienne	**rays;
 	t_cartesienne	*ray;
 	int				x;
 	int				y;
+	int				y_max;
 
-	rays = player->rays;
-	y = -1;
-	while (++y < win->h)
+	thread = (t_thread *)param;
+	y = (thread->i / (float)N_THREADS) * thread->win->h - 1;
+	y_max = ((thread->i + 1) / (float)N_THREADS) * thread->win->h;
+	rays = thread->player->rays + y + 1;
+	// printf("y = %d\ty_max = %d\trays = %p\n", y, y_max, rays);
+	while (++y < y_max)
 	{
 		ray = *rays;
 		x = -1;
-		while (++x < win->w)
+		while (++x < thread->win->w)
 		{
-			win->pixels[y * win->w + x] = ray->poly && win->map->view & LIGHT_VIEW ? process_light(win->map, ray->poly, ray->collision, ray->color) : ray->color;
+			thread->win->pixels[y * thread->win->w + x] = ray->poly && thread->win->map->view & LIGHT_VIEW ?\
+											process_light(thread->win->map, ray->poly, ray->collision, ray->color) :\
+											ray->color;
 			ray->poly = NULL;
 			ray->color = 0xFF505050;
 			ray++;
@@ -48,9 +55,34 @@ static void		draw(t_win *win, t_player *player)
 		rays++;
 	}
 	// printf("\n\n");
-	SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, win->w * sizeof(Uint32));
-	SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
+	return (NULL);
 }
+// static void		draw(t_win *win, t_player *player)
+// {
+// 	t_cartesienne	**rays;
+// 	t_cartesienne	*ray;
+// 	int				x;
+// 	int				y;
+
+// 	rays = player->rays;
+// 	y = -1;
+// 	while (++y < win->h)
+// 	{
+// 		ray = *rays;
+// 		x = -1;
+// 		while (++x < win->w)
+// 		{
+// 			win->pixels[y * win->w + x] = ray->poly && win->map->view & LIGHT_VIEW ? process_light(win->map, ray->poly, ray->collision, ray->color) : ray->color;
+// 			ray->poly = NULL;
+// 			ray->color = 0xFF505050;
+// 			ray++;
+// 		}
+// 		rays++;
+// 	}
+// 	// printf("\n\n");
+// 	SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, win->w * sizeof(Uint32));
+// 	SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
+// }
 
 
 
@@ -196,16 +228,8 @@ static void			*square_tracing(void *param)
 		{
 			x = poly->box_x.x;
 			while (++x < poly->box_x.y)
-			{
 				if (0 <= x && x < thread->win->w)
-				{
-					// while (thread->player->rays[y][x].launch)
-						// ;
-					// thread->player->rays[y][x].launch = 1;
 					launch_ray_3d(poly, &(thread->player->rays[y][x]));
-					// thread->player->rays[y][x].launch = 0;
-				}
-			}
 		}
 	thread->poly = thread->poly->next;
 	// printf("i = %d\tNext square\n", thread->i);
@@ -213,33 +237,46 @@ static void			*square_tracing(void *param)
 	return (NULL);
 }
 
-void		raycasting_3d(t_win *win, t_player *player)
+void		raycasting_3d(t_win *win, t_map *map)
 {
 	int		i;
+	// clock_t		t1;
+	// clock_t		t2;
+	// t1 = clock();
+	// t2 = clock();
+	// printf("Delta time %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
-	surround_walls(win, win->map);
-	if (win->map->view & TEXTURE_VIEW)
+	surround_walls(win, map);
+	if (map->view & TEXTURE_VIEW)
 	{
-
 		//-------------------
-		// printf("Debut raytracing\n");
+		// printf("Debut raytracing\n");	
 		i = -1;
 		while (++i < N_THREADS)
 		{
-			win->threads[i].poly = win->map->polys;
+			win->threads[i].poly = map->polys;
 			pthread_create(&(win->threads[i].thread), NULL, square_tracing, &(win->threads[i]));
 		}
 		i = -1;
 		while (++i < N_THREADS)
 			pthread_join(win->threads[i].thread, NULL);
-		// exit(0);
 		//-------------------
-
-		draw(win, player);
+		
+		//-------------------
+		i = -1;
+		while (++i < N_THREADS)
+			pthread_create(&(win->threads[i].thread), NULL, draw, &(win->threads[i]));
+		i = -1;
+		while (++i < N_THREADS)
+			pthread_join(win->threads[i].thread, NULL);
+		SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, win->w * sizeof(Uint32));
+		SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
+		//-------------------
+		// draw(win, player);
 	}
-	if (win->map->view & WALL_VIEW)
+	if (map->view & WALL_VIEW)
 		draw_projection(win);
-	if (win->map->view & BOX_VIEW)
+	if (map->view & BOX_VIEW)
 		draw_all_square(win);
 	draw_fps();
 }

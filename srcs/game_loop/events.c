@@ -58,11 +58,11 @@ static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8
 	}
 }
 
-t_fdot_3d		events_move(t_player *player, const Uint8 *state)
+t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state)
 {
 	t_fdot_3d	move;
 
-	move = (t_fdot_3d){0, 0, 0};
+	move = (t_fdot_3d){};
 	if (state[SDL_SCANCODE_W])
 		move = fdot_3d_add(move, (t_fdot_3d){-player->const_vel, 0, 0});
 	if (state[SDL_SCANCODE_S])
@@ -74,7 +74,21 @@ t_fdot_3d		events_move(t_player *player, const Uint8 *state)
 	if (state[SDL_SCANCODE_SPACE])
 		move = fdot_3d_add(move, (t_fdot_3d){0, 0, -player->const_vel});
 	if (state[SDL_SCANCODE_LSHIFT])
-		move = fdot_3d_add(move, (t_fdot_3d){0, 0, player->const_vel});
+	{
+		// move = fdot_3d_add(move, (t_fdot_3d){0, 0, player->const_vel});
+		// if (!player->snick)
+			// translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
+			// translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
+		player->snick = 1;
+	}
+	else
+	{
+		// if (player->snick)
+			// translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
+			// translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
+		player->snick = 0;
+	}
+	map = NULL;
 	return (move);
 }
 

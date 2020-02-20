@@ -502,12 +502,12 @@ typedef struct		s_player
 	float			fov_up_2;
 	float			ddir;
 	float			rot_y;
-	int				height;
-	// float			height_10;
-	// float			_9_height_10;
-	float			_4_height_10;
 	int				width;
 	float			width_2;
+	int				height;
+	float			_4_height_10;
+	int				snick;
+	// int				front_montant_snick;
 	int				collision_on;
 
 	// int				numsector;

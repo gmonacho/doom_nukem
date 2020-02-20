@@ -28,7 +28,7 @@ int				init_main_menu(t_win *win);
 */
 
 t_mouse			*mouse_refresh();
-t_fdot_3d		events_move(t_player *player, const Uint8 *state);
+t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state);
 void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *state);
 void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *state);
 void			events_others(t_win *win, t_player *player, const Uint8 *state);
@@ -392,7 +392,7 @@ void				poly_del(t_poly *poly);
 ** ================================== Physics ===================================
 */
 
-void				raycasting_3d(t_win *win, t_player *player);
+void				raycasting_3d(t_win *win, t_map *map);
 int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
 // t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
@@ -444,7 +444,7 @@ t_poly				*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban
 int					collision_poly(t_map *map, t_player *player, t_poly *poly);
 int					collision_segment(t_map *map, t_fdot_3d dots[4], float width_2);
 t_fdot_3d			segment_slide(t_fdot_3d dots[N_DOTS_POLY], t_plan plan, int segment_code);
-int					collision_dots(t_map *map, t_fdot_3d dots[N_DOTS_POLY], float ray);
+int					collision_dots(t_fdot_3d dots[N_DOTS_POLY], float ray);
 int					is_collision_box(t_object *object, t_cartesienne *ray);
 
 /*

@@ -6,7 +6,7 @@ static int		tests_before_slide(t_map *map, t_poly *poly_collide, t_fdot_3d move)
 	t_fdot_3d	poly_collide_v;
 
 	translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
-	if (collision_dots(map, poly_collide->dots_rotz_only, map->player.width_2))
+	if (collision_dots(poly_collide->dots_rotz_only, map->player.width_2))
 	{
 		// printf("Dot is in Poly, return last state\n");
 		// copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide
@@ -85,14 +85,22 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 	events_rotate(win, map, player, state);
     events_others(win, player, state);
 
-	move_and_collide(map, player, events_move(player, state));
+	move_and_collide(map, player, events_move(map, player, state));
 	move_and_collide(map, player, (t_fdot_3d){0, 0, map->gravity});
 	mobs_attack_move(map, player, map->mob);
 
 	events_actions(win, map, player, state);
 	// copy_rotate_rotz_only(player, map->polys, create_ry_matrix(-player->rot_y));
-	copy_rotate_rotz_only(map, map->polys, create_ry_matrix(-player->rot_y));
 	
+	if (player->snick)
+	{
+		translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
+		copy_rotate_rotz_only(map, map->polys, create_ry_matrix(-player->rot_y));
+		translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
+	}
+	else
+		copy_rotate_rotz_only(map, map->polys, create_ry_matrix(-player->rot_y));
+		
 	
 	// t_object	*object;
 	// object = map->objects;
@@ -111,7 +119,7 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 	objects_movements(map, player, map->objects);
 
 	clear_rend(win->rend, 0x40, 0x40, 0x40);
-	raycasting_3d(win, player);
+	raycasting_3d(win, map);
 
 	reload_cd(map);
 	hud(win, player, win->texhud);
