@@ -404,6 +404,9 @@ t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
 // int			physics(t_win *win, t_map *map, t_player *player);
 // int			actions(t_win *win, t_map *map, t_linedef *portal, float h);
 
+int					process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int color);
+int					is_in_shadow(t_map *map, t_poly *poly_light, t_fdot_3d light, t_poly *poly_collision, t_fdot_3d pos, t_fdot_3d vector);
+
 int					init_rays(t_win *win, t_player *player);
 void				translate_dot(t_fdot_3d *dot, t_fdot_3d translation);
 void				translate_all(t_map *map, t_fdot_3d translation);

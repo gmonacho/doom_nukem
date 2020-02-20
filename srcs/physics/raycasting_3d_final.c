@@ -24,6 +24,7 @@
 **	- Nouveau 'game()' :				~ 280-400	. 10e-4 (Pareil que raycasing_3d())
 */
 
+
 static void		draw(t_win *win, t_player *player)
 {
 	t_cartesienne	**rays;
@@ -40,7 +41,10 @@ static void		draw(t_win *win, t_player *player)
 		while (++x < win->w)
 		{
 			// printf("%p\t", ray->poly);
-			win->pixels[y * win->w + x] = ray->poly ? ray->color : 0xFF505050;
+			if (ray->color)
+				win->pixels[y * win->w + x] = win->map->view & LIGHT_VIEW ? process_light(win->map, ray->poly, ray->collision, ray->color) : ray->color;
+			else
+				win->pixels[y * win->w + x] = 0xFF505050;
 			ray->poly = NULL;
 			ray->color = 0;
 			ray++;
@@ -60,96 +64,6 @@ int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 	coord->x = scalar_product(dot, poly->i) / poly->ii;
 	coord->y = scalar_product(dot, poly->j) / poly->jj;
 	return (coord->x < 0 || coord->x > 1 || coord->y < 0 || coord->y > 1 ? 0 : 1);
-}
-
-// static int			is_in_shadow(t_map *map, t_poly *poly_light, t_fdot_3d light, t_fdot_3d pos, t_fdot_3d vector)
-// {
-// 	t_poly			*poly;
-// 	t_fdot_3d		collision;
-// 	t_fdot			coord;
-// 	t_cartesienne		ray;
-
-// 	// printf("Light %f, %f, %f\n", light.x, light.y, light.z);
-// 	// printf("Ray %f, %f, %f\n", ray.x, ray.y, ray.z);
-// 	ray = (t_cartesienne){light.x, light.y, light.z,\
-// 							vector.x, vector.y, vector.z,\
-// 							0, NULL, 0, NULL};
-// 	poly = map->polys;
-// 	while (poly)
-// 	{
-// 		if (poly != poly_light && !(poly->object && poly->object->visible == 0))
-// 		{
-// 			// printf("Poly eq. %f %f %f %f\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
-// 			if (intersection_plan_ray(&collision, poly->equation, ray))
-// 			{
-// 				// printf("Collision %f, %f, %f\n", collision.x, collision.y, collision.z);
-// 				if (is_in_poly(poly, &coord, collision) &&\
-// 					is_in_segment(collision, light, pos))
-// 				{
-// 					// printf("Coord %f %f\n", coord.x, coord.y);
-// 					// printf("In poly\n");
-// 					return (1);
-// 				}
-// 				// printf("Collision %d %d\n", coord.x, coord.y);
-// 			}
-// 			else
-// 			{
-// 				// printf("Parrallele\n");
-// 				return (1);
-// 			}
-// 		}
-// 		poly = poly->next;
-// 	}
-// 	// printf("Not in shadow\n");
-// 	return (0);
-// }
-
-static int			process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int color)
-{
-	t_fdot_3d		ray;
-	float			dist;
-	float			sc_product;
-	float			light_coef;
-	t_object		*object;
-	float			best_light_coef;
-	float			tmp;
-	int i = -1;
-
-	tmp = -1;
-	light_coef = 0;
-	best_light_coef = 0;
-	object = map->objects;
-	while (object)
-	{
-		if (object->type == LIGHT)
-		{
-			// printf("Poly collide %f, %f, %f\n", collision.x, collision.y, collision.z);
-			//rien faire si scalar < 0
-			// printf("Pos %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
-			ray = fdot_3d_sub(collision, object->pos);
-			// if (is_in_shadow(map, object->poly, object->pos, collision, ray))
-			// {
-			// 	light_coef = 0;
-			// }
-			// else
-			// {
-				sc_product = fabs(scalar_product(poly->equation.v, normalize(ray)));
-				if ((dist = mag(ray)) < 1000)
-					light_coef = sc_product * (1 - dist / 1000)/* * object->data*/;
-			// }
-			if (light_coef > best_light_coef)
-				best_light_coef = light_coef;
-			i++;
-		}
-		object = object->next;
-	}
-	// best_light_coef *= poly->light_coef;
-	// printf("N lights : %d\n", i);
-	// exit(0);
-	return (0xFF000000 +
-			((int)((color >> 16 & 0xFF) * best_light_coef) << 16) +\
-			((int)((color >> 8 & 0xFF) * best_light_coef) << 8) +\
-			(int)((color & 0xFF) * best_light_coef));
 }
 
 
@@ -180,9 +94,10 @@ static int			find_pixel(t_map *map, t_poly *poly, t_fdot_3d collision)
 		exit(0);
 	}
 	// printf("Collision %f %f %f\n", collision.x, collision.y, collision.z);
-	if (map->view & LIGHT_VIEW)
-		return (process_light(map, poly, collision, ((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]));
-	else
+	// if (map->view & LIGHT_VIEW)
+	// 	return (process_light(map, poly, collision, ((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]));
+	// else
+	map = NULL;
 		return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
 }
 
@@ -211,21 +126,7 @@ static void			launch_ray_3d(t_map *map, t_poly *poly, t_cartesienne *ray)
 	if (!intersection_plan_my_ray(&collision, poly->equation, ray))
 		return ;
 	newdist = collision.x * collision.x + collision.y * collision.y + collision.z * collision.z;
-	// newdist = sqrt(newdist);
 
-	// color = find_pixel(poly, collision);
-	// if (color != -1)
-	// {
-	// 	if (!ray->poly)
-	// 		ray->color = color;
-	// 	else if (newdist < ray->dist)
-	// 		ray->color = average_color(color, ray->color, color >> 24);
-	// 	else
-	// 		ray->color = average_color(ray->color, color, ray->color >> 24);
-	// 	ray->poly = poly;
-	// 	ray->dist = newdist;
-	// 	// ray->collision = collision;
-	// }
 	if (collision.x != collision.x)
 	{
 		printf("Ray parra %f %f %f\n", ray->vx, ray->vy, ray->vz);
@@ -234,6 +135,7 @@ static void			launch_ray_3d(t_map *map, t_poly *poly, t_cartesienne *ray)
 	{
 		ray->poly = poly;
 		ray->color = color;
+		ray->collision = collision;
 		ray->dist = newdist;
 	}
 }

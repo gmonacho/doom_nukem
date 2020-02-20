@@ -15,7 +15,7 @@ static t_object		*catch_box(t_player *player, t_object *object)
 	t_poly			*poly;
 	t_cartesienne	ray;
 
-	ray = (t_cartesienne){0, 0, 0, 1, 0, 0, 0, NULL, 0, NULL};
+	ray = (t_cartesienne){0, 0, 0, 1, 0, 0, 0, NULL, 0, (t_fdot_3d){}, NULL};
 	while (object)
 	{
 		poly = object->poly;
@@ -125,16 +125,6 @@ int				objects_actions(t_map *map, t_player *player, t_object *object)
 		map->gravity = -map->gravity;
 		start_cooldown(&(map->gravity_inv_time), 10000);
 	}
-	// if (object->type == BOX)
-	// {
-	// 	if (player->interaction_inventaire)
-	// 	{
-	// 		player->inventory->item[4]->nb++;
-	// 		object->rot_y_save = player->rot_y;
-	// 	}
-	// 	else
-	// 		return (0);
-	// }
 	object->collide = 0;
 	object->visible = 0;
 	return (1);

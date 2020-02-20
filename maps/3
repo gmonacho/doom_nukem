@@ -20,7 +20,7 @@ Object
 	data = 100
 	texture = pq.png
 }
-Oobject
+Object
 {	
 	type = LIGHT
 	posx = 300
@@ -116,7 +116,7 @@ Polygon									//Mur entier
 	dot = x:100, y:150, z:200
 	dot = x:100, y:150, z:50
 	dot = x:100, y:650, z:50
-	light = 70
+	light = 50
 	texture = Brique.png
 }
 Polygon									//Demi-mur
@@ -152,6 +152,7 @@ Polygon									//Fond renfoncement 3
 	dot = x:600, y:650, z:200
 	dot = x:600, y:650, z:125
 	dot = x:700, y:650, z:125
+	light = 100
 	texture = Brique.png
 }
 Polygon									//Fond
@@ -160,6 +161,7 @@ Polygon									//Fond
 	dot = x:600, y:150, z:200
 	dot = x:600, y:150, z:50
 	dot = x:100, y:150, z:50
+	light = 100
 	texture = Elephantride.png
 }
 

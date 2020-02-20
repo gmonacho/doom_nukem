@@ -11,7 +11,7 @@ void				hit_mobs(t_mob *mobs, int damage)
 
 	closest = NULL;
 	dist_min = -1;
-	ray = (t_cartesienne){0, 0, 0, 1, 0, 0, 0, NULL, 0, NULL};
+	ray = (t_cartesienne){0, 0, 0, 1, 0, 0, 0, NULL, 0, (t_fdot_3d){}, NULL};
 	while (mobs)
 	{
 		if (mobs->alive)

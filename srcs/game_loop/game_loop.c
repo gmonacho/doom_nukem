@@ -98,11 +98,11 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 	// object = map->objects;
 	// while (object)
 	// {
-	// 	// if (object->type == LIGHT)
-	// 		// printf("Pos %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
-	// 	t_fdot_3d mid = fdot_3d_add(object->poly->dots[0], object->poly->dots[2]);
-	// 	printf("Pos %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
-	// 	printf("Mid %f %f %f\n", mid.x / 2, mid.y / 2, mid.z / 2);
+	// 	if (object->type == LIGHT)
+	// 		printf("Pos %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
+	// 	// t_fdot_3d mid = fdot_3d_add(object->poly->dots[0], object->poly->dots[2]);
+	// 	// printf("Pos %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
+	// 	// printf("Mid %f %f %f\n", mid.x / 2, mid.y / 2, mid.z / 2);
 	// 	object = object->next;
 	// }
 	// printf("\n");

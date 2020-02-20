@@ -64,6 +64,7 @@ typedef struct		s_cartesienne
 	float			dist;
 	struct s_poly	*poly;
 	int				color;
+	t_fdot_3d		collision;
 	struct s_cartesienne	*next;
 }					t_cartesienne;
 

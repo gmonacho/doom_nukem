@@ -29,8 +29,8 @@ void				proj_ortho_plan(t_fdot_3d dot, t_plan plan, t_fdot_3d *proj_ortho)
 {
 	intersection_plan_ray(proj_ortho, plan,\
 					(t_cartesienne){dot.x, dot.y, dot.z, plan.v.x, plan.v.y, plan.v.z,\
-									0, NULL, 0, NULL});
-									// 0, 0, NULL, 0, NULL});
+									0, NULL, 0, (t_fdot_3d){}, NULL});
+									// 0, 0, NULL, 0, (t_fdot_3d){}, NULL});
 }
 
 int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienne *ray)
