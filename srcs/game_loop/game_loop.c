@@ -74,7 +74,7 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 	// t2 = clock();
 	// printf("Delta time %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
-	player->debug = 0;
+	// player->debug = 0;
 	SDL_GetWindowSize(win->ptr, &win->w, &win->h);
 	SDL_PollEvent(&event);
 	map->event = &event;

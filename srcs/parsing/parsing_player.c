@@ -5,11 +5,11 @@ void	player_data(char **tab, t_player *player, int i)
 	while (ft_strrchr(tab[i], '}') == NULL)
 	{
 		if (ft_strstr(tab[i], "posx ="))
-			player->pos_up.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+			player->pos.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		else if (ft_strstr(tab[i], "posy ="))
-			player->pos_up.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+			player->pos.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		else if (ft_strstr(tab[i], "posz ="))
-			player->pos_up.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+			player->pos.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		else if (ft_strstr(tab[i], "width ="))
 			player->width = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		else if (ft_strstr(tab[i], "height ="))

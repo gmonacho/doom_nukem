@@ -7,6 +7,8 @@ void    add_poly(t_poly **poly)
   	if (!(new_poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
 		return (ft_putendl("poly allocation failed in poly.c"));
   	new_poly->next = *poly;
+	new_poly->light_coef = 1;
+	//Mettre toute les variables de la structure poly a une valeur par default
   	*poly = new_poly;
 }
 

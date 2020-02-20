@@ -46,9 +46,9 @@ static void		init_player_maths(t_win *win, t_player *player)
 {
 	// win->map->view = TEXTURE_VIEW | WALL_VIEW | BOX_VIEW;
 	win->map->view = TEXTURE_VIEW;
-	// translate_all(win->map, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
+	// translate_all(win->map, (t_fdot_3d){-player->pos.x, -player->pos.y, -player->pos.z});
 
-	translate_all_rotz_only(win->map, win->map->polys, (t_fdot_3d){-player->pos_up.x, -player->pos_up.y, -player->pos_up.z});
+	translate_all_rotz_only(win->map, win->map->polys, (t_fdot_3d){-player->pos.x, -player->pos.y, -player->pos.z});
 	rotate_all_rotz_only(win->map, win->map->polys, create_rz_matrix(-player->dir_init));
 	// copy_rotate_rotz_only(win->map, win->map->polys, create_ry_matrix(0));
 	player->rot_y = 0;
@@ -58,9 +58,9 @@ static void		init_player_maths(t_win *win, t_player *player)
 	player->fov_2 = player->fov / 2;
 	player->fov_up_2 = player->fov_up / 2;
 	player->width_2 = player->width / 2;
-	player->height_10 = player->height / 10;
-	player->_9_height_10 = 9 * player->height_10;
-	player->_4_height_10 = 4 * player->height_10;
+	// player->height_10 = player->height / 10;
+	// player->_9_height_10 = 9 * player->height_10;
+	player->_4_height_10 = 2 * (float)player->height / 5;
 	player->collision_on = 1;
 	win->w_div_fov = win->w / player->fov;
 	win->h_div_fov = win->h / player->fov_up;

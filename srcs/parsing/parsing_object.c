@@ -31,6 +31,8 @@ void			add_object(t_object **object)
 	new_object->visible = 1;
 	new_object->width = 50;
 	new_object->height = 50;
+	new_object->light_coef = 1;
+	new_object->data = 1;
 	*object = new_object;
 }
 

@@ -15,13 +15,13 @@ void	ed_write_player(int fd, const t_player *player)
 	{
 		ft_putendl_fd("Player", fd);
 		ft_putendl_fd("{", fd);
-		tmp = ft_itoa(player->pos_up.x);
+		tmp = ft_itoa(player->pos.x);
 		ed_write_line(fd, "\tposx", tmp);
 		ft_strdel(&tmp);
-		tmp = ft_itoa(player->pos_up.y);
+		tmp = ft_itoa(player->pos.y);
 		ed_write_line(fd, "\tposy", tmp);
 		ft_strdel(&tmp);
-		tmp = ft_itoa(player->pos_up.z);
+		tmp = ft_itoa(player->pos.z);
 		ed_write_line(fd, "\tposz", tmp);
 		ft_strdel(&tmp);
 		tmp = ft_itoa(player->dir_init);
@@ -45,15 +45,15 @@ static void	ed_write_dot(int fd, const t_fdot_3d *dot, const t_player *player)
 	char	*tmp;
 
 	ft_putstr_fd("\tdot = x:", fd);
-	tmp = ft_itoa(dot->x + player->pos_up.x);
+	tmp = ft_itoa(dot->x + player->pos.x);
 	ft_putstr_fd(tmp, fd);
 	ft_strdel(&tmp);
 	ft_putstr_fd(" y:", fd);
-	tmp = ft_itoa(dot->y + player->pos_up.y);
+	tmp = ft_itoa(dot->y + player->pos.y);
 	ft_putstr_fd(tmp, fd);
 	ft_strdel(&tmp);
 	ft_putstr_fd(" z:", fd);
-	tmp = ft_itoa(dot->z + player->pos_up.z);
+	tmp = ft_itoa(dot->z + player->pos.z);
 	ft_putendl_fd(tmp, fd);
 	ft_strdel(&tmp);
 }

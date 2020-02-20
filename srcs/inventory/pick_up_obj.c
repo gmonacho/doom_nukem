@@ -25,7 +25,7 @@
 // 	{	
 // 		if (ft_strcmp(map->polys->type, "object") == 0)
 // 		{
-// 			if (comp_pos(&(map->player.pos_up), &(map->polys->dots)) == 1)
+// 			if (comp_pos(&(map->player.pos), &(map->polys->dots)) == 1)
 // 			{
 				
 // 			}

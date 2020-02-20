@@ -78,7 +78,7 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 		if (ft_strstr(tab[i], "texture ="))
 			find_texture(tab[i], *poly);
 		if (ft_strstr(tab[i], "light = "))
-			(*poly)->light_coef = ft_atoi(ft_strrchr(tab[i], '=') + 1) / 100.0;
+			(*poly)->light_coef = ft_atof(ft_strrchr(tab[i], '=') + 1);
 		i++;
 	}
 }

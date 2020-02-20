@@ -485,11 +485,11 @@ typedef struct		s_inventory
 
 typedef struct		s_player
 {
-	int				debug;
+	// int				debug;
 	int				win_w;
 	int				win_h;
-	t_fdot			pos;
-	t_fdot_3d		pos_up;
+	t_fdot_3d		pos;
+	// t_fdot_3d		pos_up;
 	int				on_floor;
 	t_sector		*sector;
 	t_dot			dpos;
@@ -503,8 +503,8 @@ typedef struct		s_player
 	float			ddir;
 	float			rot_y;
 	int				height;
-	float			height_10;
-	float			_9_height_10;
+	// float			height_10;
+	// float			_9_height_10;
 	float			_4_height_10;
 	int				width;
 	float			width_2;

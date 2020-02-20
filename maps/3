@@ -17,7 +17,8 @@ Object
 	posz = 150
 	width = 30
 	height = 30
-	data = 100
+	data = 0.2
+	light = 1
 	texture = pq.png
 }
 Object
@@ -28,7 +29,8 @@ Object
 	posz = 150
 	width = 30
 	height = 30
-	data = 30
+	data = 1
+	light = 1
 	texture = pq.png
 }
 Object
@@ -39,6 +41,7 @@ Object
 	posz = 150
 	width = 30
 	height = 30
+	light = 1
 	texture = healthPotion.png
 }
 Object
@@ -49,6 +52,7 @@ Object
 	posz = 150
 	width = 30
 	height = 30
+	light = 1
 	texture = shieldPotion.png
 }
 Object
@@ -59,6 +63,7 @@ Object
 	posz = 70
 	width = 30
 	height = 30
+	light = 1
 	texture = 150x150.png
 }
 
@@ -70,6 +75,7 @@ Object
 	posz = 70
 	width = 30
 	height = 30
+	light = 1
 	texture = 150x150.png
 }
 
@@ -81,6 +87,7 @@ Object
 	posz = 160
 	width = 30
 	height = 30
+	light = 1
 	texture = 150x150.png
 }
 
@@ -92,6 +99,7 @@ Oobject
 	posz = 100
 	width = 30
 	height = 30
+	light = 1
 	texture = Elephantride.png
 }
 
@@ -106,6 +114,7 @@ Mooooob
 	damage = 1
 	dir = -90
 	velocity = 2
+	light = 1
 	texture = Mario_Ghost.png
 }
 
@@ -116,7 +125,7 @@ Polygon									//Mur entier
 	dot = x:100, y:150, z:200
 	dot = x:100, y:150, z:50
 	dot = x:100, y:650, z:50
-	light = 50
+	light = 1
 	texture = Brique.png
 }
 Polygon									//Demi-mur
@@ -125,7 +134,7 @@ Polygon									//Demi-mur
 	dot = x:600, y:650, z:125
 	dot = x:600, y:650, z:50
 	dot = x:600, y:150, z:50
-	light = 100
+	light = 1
 	texture = Brique.png
 }
 Polygon									//Fond principal renfoncement
@@ -134,7 +143,7 @@ Polygon									//Fond principal renfoncement
 	dot = x:700, y:650, z:200
 	dot = x:700, y:650, z:125
 	dot = x:700, y:150, z:125
-	light = 100
+	light = 1
 	texture = Plafond.png
 }
 Polygon									//Fond renfoncement 2
@@ -143,7 +152,7 @@ Polygon									//Fond renfoncement 2
 	dot = x:600, y:150, z:200
 	dot = x:600, y:150, z:125
 	dot = x:700, y:150, z:125
-	light = 100
+	light = 1
 	texture = Brique.png
 }
 Polygon									//Fond renfoncement 3
@@ -152,7 +161,7 @@ Polygon									//Fond renfoncement 3
 	dot = x:600, y:650, z:200
 	dot = x:600, y:650, z:125
 	dot = x:700, y:650, z:125
-	light = 100
+	light = 1
 	texture = Brique.png
 }
 Polygon									//Fond
@@ -161,7 +170,7 @@ Polygon									//Fond
 	dot = x:600, y:150, z:200
 	dot = x:600, y:150, z:50
 	dot = x:100, y:150, z:50
-	light = 100
+	light = 1
 	texture = Elephantride.png
 }
 
@@ -175,7 +184,7 @@ Polygon									//Mur complet
 	dot = x:100, y:1150, z:200
 	dot = x:100, y:1150, z:0
 	dot = x:100, y:650, z:0
-	light = 100
+	light = 1
 	texture = Brique.png
 }
 Polygon									//Mur complet
@@ -184,7 +193,7 @@ Polygon									//Mur complet
 	dot = x:600, y:650, z:200
 	dot = x:600, y:650, z:0
 	dot = x:600, y:1150, z:0
-	light = 100
+	light = 1
 	texture = Brique.png
 }
 Polygon									//Fond
@@ -193,7 +202,7 @@ Polygon									//Fond
 	dot = x:600, y:1150, z:200
 	dot = x:600, y:1150, z:0
 	dot = x:100, y:1150, z:0
-	light = 100
+	light = 1
 	texture = Elephantride.png
 }
 
@@ -204,7 +213,7 @@ Polygon								//Rampe
 	dot = x:100, y:1150, z:80
 	dot = x:600, y:1150, z:80
 	dot = x:600, y:900, z:0
-	light = 100
+	light = 1
 	texture = Brique.png
 }
 
@@ -215,7 +224,7 @@ Polygon								//Sol bas
 	dot = x:100, y:1150, z:0
 	dot = x:600, y:1150, z:0
 	dot = x:600, y:650, z:0
-	light = 100
+	light = 1
 	texture = Mario_Ghost.png
 }
 Polygon								//Marche
@@ -224,7 +233,7 @@ Polygon								//Marche
 	dot = x:600, y:650, z:0
 	dot = x:600, y:650, z:50
 	dot = x:100, y:650, z:50
-	light = 100
+	light = 1
 	texture = Brique.png
 }
 Polygon								//Sol haut
@@ -233,7 +242,7 @@ Polygon								//Sol haut
 	dot = x:100, y:150, z:50
 	dot = x:600, y:150, z:50
 	dot = x:600, y:650, z:50
-	light = 100
+	light = 0.1
 	texture = Plafond.png
 }
 Polygon								//Sol renfoncement
@@ -242,7 +251,7 @@ Polygon								//Sol renfoncement
 	dot = x:700, y:650, z:125
 	dot = x:600, y:650, z:125
 	dot = x:600, y:150, z:125
-	light = 100
+	light = 1
 	texture = Plafond.png
 }
 
@@ -254,7 +263,7 @@ Polygon								//Plafond
 	dot = x:100, y:150, z:200
 	dot = x:600, y:150, z:200
 	dot = x:600, y:1150, z:200
-	light = 100
+	light = 1
 	texture = Plafond.png
 }
 Polygon								//Plafond renforcement
@@ -263,7 +272,7 @@ Polygon								//Plafond renforcement
 	dot = x:600, y:150, z:200
 	dot = x:700, y:150, z:200
 	dot = x:700, y:650, z:200
-	light = 100
+	light = 1
 	texture = Plafond.png
 }
 
@@ -273,7 +282,7 @@ Polygon								//Merde volante
 	dot = x:200, y:800, z:100
 	dot = x:300, y:800, z:100
 	dot = x:300, y:500, z:140
-	light = 100
+	light = 1
 	texture = Plafond.png
 }
 
@@ -283,6 +292,6 @@ Poldygon								//Vitre
 	dot = x:600, y:650, z:200
 	dot = x:600, y:650, z:50
 	dot = x:100, y:650, z:50
-	light = 100
+	light = 1
 	texture = Vitre.png
 }

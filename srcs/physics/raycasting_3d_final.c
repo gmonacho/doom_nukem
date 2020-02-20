@@ -40,13 +40,9 @@ static void		draw(t_win *win, t_player *player)
 		x = -1;
 		while (++x < win->w)
 		{
-			// printf("%p\t", ray->poly);
-			if (ray->color)
-				win->pixels[y * win->w + x] = win->map->view & LIGHT_VIEW ? process_light(win->map, ray->poly, ray->collision, ray->color) : ray->color;
-			else
-				win->pixels[y * win->w + x] = 0xFF505050;
+			win->pixels[y * win->w + x] = ray->poly && win->map->view & LIGHT_VIEW ? process_light(win->map, ray->poly, ray->collision, ray->color) : ray->color;
 			ray->poly = NULL;
-			ray->color = 0;
+			ray->color = 0xFF505050;
 			ray++;
 		}
 		rays++;
@@ -68,7 +64,7 @@ int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 
 
 
-static int			find_pixel(t_map *map, t_poly *poly, t_fdot_3d collision)
+static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 {
 	t_fdot			coord_plan;
 	t_dot			coord_texture;
@@ -93,12 +89,7 @@ static int			find_pixel(t_map *map, t_poly *poly, t_fdot_3d collision)
 		printf("Coord texture/plan %d %d / %f %f\n", coord_texture.x, coord_texture.y, coord_plan.x, coord_plan.y);
 		exit(0);
 	}
-	// printf("Collision %f %f %f\n", collision.x, collision.y, collision.z);
-	// if (map->view & LIGHT_VIEW)
-	// 	return (process_light(map, poly, collision, ((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]));
-	// else
-	map = NULL;
-		return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
+	return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
 }
 
 // static int			average_color(int c1, int c2, int alpha)
@@ -117,7 +108,7 @@ static int			find_pixel(t_map *map, t_poly *poly, t_fdot_3d collision)
 // 	// return (average);
 // }
 
-static void			launch_ray_3d(t_map *map, t_poly *poly, t_cartesienne *ray)
+static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 {
 	t_fdot_3d		collision;
 	float			newdist;
@@ -126,12 +117,7 @@ static void			launch_ray_3d(t_map *map, t_poly *poly, t_cartesienne *ray)
 	if (!intersection_plan_my_ray(&collision, poly->equation, ray))
 		return ;
 	newdist = collision.x * collision.x + collision.y * collision.y + collision.z * collision.z;
-
-	if (collision.x != collision.x)
-	{
-		printf("Ray parra %f %f %f\n", ray->vx, ray->vy, ray->vz);
-	}
-	if ((!ray->poly || newdist < ray->dist) && (color = find_pixel(map, poly, collision)) != -1 && (color >> 24) & 0xFF)
+	if ((!ray->poly || newdist < ray->dist) && (color = find_pixel(poly, collision)) != -1 && (color >> 24) & 0xFF)
 	{
 		ray->poly = poly;
 		ray->color = color;
@@ -216,7 +202,7 @@ static void			*square_tracing(void *param)
 					// while (thread->player->rays[y][x].launch)
 						// ;
 					// thread->player->rays[y][x].launch = 1;
-					launch_ray_3d(thread->map, poly, &(thread->player->rays[y][x]));
+					launch_ray_3d(poly, &(thread->player->rays[y][x]));
 					// thread->player->rays[y][x].launch = 0;
 				}
 			}
