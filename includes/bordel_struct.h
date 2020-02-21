@@ -490,7 +490,7 @@ typedef struct		s_player
 	int				win_h;
 	t_fdot_3d		pos;
 	// t_fdot_3d		pos_up;
-	int				on_floor;
+	int				flys;
 	t_sector		*sector;
 	t_dot			dpos;
 	t_fdot			vel;
@@ -506,9 +506,11 @@ typedef struct		s_player
 	float			width_2;
 	int				height;
 	float			_4_height_10;
-	int				snick;
-	// int				front_montant_snick;
+	int				sneak;
+	// int				front_montant_sneak;
 	int				collision_on;
+	int				fly_on;
+	int				jump;
 
 	// int				numsector;
 	int 			damage;
@@ -712,6 +714,7 @@ typedef struct		s_map
 {
 	t_poly			*polys;
 	t_poly			*polys_save;
+	t_fdot_3d		last_move;
 	t_textures		textures;
 	t_player		player;
 	t_view			view;

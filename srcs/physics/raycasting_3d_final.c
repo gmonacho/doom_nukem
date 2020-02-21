@@ -91,7 +91,7 @@ int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 	dot = fdot_3d_sub(dot, poly->dots[0]);
 	coord->x = scalar_product(dot, poly->i) / poly->ii;
 	coord->y = scalar_product(dot, poly->j) / poly->jj;
-	return (coord->x < 0 || coord->x > 1 || coord->y < 0 || coord->y > 1 ? 0 : 1);
+	return (coord->x <= 0 || coord->x > 1 || coord->y <= 0 || coord->y > 1 ? 0 : 1);
 }
 
 
@@ -108,8 +108,10 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 		printf("texture null : %p\n", poly->texture);
 		exit(0);
 	}
-	coord_texture = (t_dot){modulo(coord_plan.x * poly->i_mag, poly->texture->w),\
-							modulo(coord_plan.y * poly->j_mag, poly->texture->h)};
+	coord_texture = poly->object ? (t_dot){coord_plan.x * poly->texture->w,\
+											(1 - coord_plan.y) * poly->texture->h} :\
+									(t_dot){modulo(coord_plan.x * poly->i_mag, poly->texture->w),\
+											modulo(coord_plan.y * poly->j_mag, poly->texture->h)};
 	if (coord_texture.x < 0 || coord_texture.y < 0 || coord_texture.x > poly->texture->w || coord_texture.y > poly->texture->h)
 	{
 		printf("\nSeg fault !\n");

@@ -5,7 +5,7 @@
 **	En hauteur aussi
 **
 **	player->dir_up est le milieu y du mur sur lecran,
-**	On +/- le y du perso et le snick.
+**	On +/- le y du perso et le sneak.
 **	La vision du perso retrecie en haut et en bas (On diminue HEIGHT_WALL)
 **	On multiplie car prop() joue un role de facteur d'agrandissement
 **	La taille du mur depend de la distance jusqua lui (1 / lenray)

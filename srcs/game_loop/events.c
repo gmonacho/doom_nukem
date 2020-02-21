@@ -71,23 +71,17 @@ t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state)
 		move = fdot_3d_add(move, (t_fdot_3d){0, -player->const_vel, 0});
 	if (state[SDL_SCANCODE_A])
 		move = fdot_3d_add(move, (t_fdot_3d){0, player->const_vel, 0});
-	if (state[SDL_SCANCODE_SPACE])
-		move = fdot_3d_add(move, (t_fdot_3d){0, 0, -player->const_vel});
-	if (state[SDL_SCANCODE_LSHIFT])
+	if (state[SDL_SCANCODE_SPACE] && (player->fly_on || is_null(map->last_move.z, 0.25)))
 	{
-		// move = fdot_3d_add(move, (t_fdot_3d){0, 0, player->const_vel});
-		// if (!player->snick)
-			// translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
-			// translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
-		player->snick = 1;
+		player->jump = -0.5 - map->gravity -\
+						sqrt(0.24 + map->gravity * (map->gravity + 1) + player->height);
+		// printf("Jump !!! %d\n", player->jump);
+		// player->jump = -0.5 - sqrt(1 + 4 * player->height);
+		// player->jump = -map->gravity * 5;
+		// move = fdot_3d_add(move, (t_fdot_3d){0, 0, -player->const_vel});
 	}
-	else
-	{
-		// if (player->snick)
-			// translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
-			// translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
-		player->snick = 0;
-	}
+	map->last_move = (t_fdot_3d){};
+	player->sneak = state[SDL_SCANCODE_LSHIFT] ? 1 : 0;
 	map = NULL;
 	return (move);
 }

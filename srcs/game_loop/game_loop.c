@@ -29,6 +29,7 @@ static int		tests_before_slide(t_map *map, t_poly *poly_collide, t_fdot_3d move)
 
 static void		move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 {
+	t_fdot_3d	move_slide;
 	t_poly      *poly_collide;
 	int			i;
 
@@ -57,8 +58,10 @@ static void		move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 		// printf("Toujours collision ! Return last state\n");
 		copy_poly_lst(map->polys, map->polys_save);                 //Collision sans slide               //Collision sans slide
 	}
-	translate_all_objects_rotz_only(map->objects, fdot_3d_sub(map->polys->dots_rotz_only[0],\
-													map->polys_save->dots_rotz_only[0]));
+	move_slide = fdot_3d_sub(map->polys->dots_rotz_only[0],\
+							map->polys_save->dots_rotz_only[0]);
+	map->last_move = fdot_3d_add(map->last_move, move_slide);
+	translate_all_objects_rotz_only(map->objects, move_slide);
 }
 
 static SDL_bool game(t_win *win, t_map *map, t_player *player)
@@ -74,6 +77,7 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 	// t2 = clock();
 	// printf("Delta time %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 
+	// printf("Player z = %f\n", map->polys->dots_rotz_only[0].z);
 	// player->debug = 0;
 	SDL_GetWindowSize(win->ptr, &win->w, &win->h);
 	SDL_PollEvent(&event);
@@ -86,13 +90,15 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
     events_others(win, player, state);
 
 	move_and_collide(map, player, events_move(map, player, state));
-	move_and_collide(map, player, (t_fdot_3d){0, 0, map->gravity});
+	move_and_collide(map, player, (t_fdot_3d){0, 0, map->gravity + player->jump});
+	if (player->jump < 0)
+		player->jump++;
 	mobs_attack_move(map, player, map->mob);
 
 	events_actions(win, map, player, state);
 	// copy_rotate_rotz_only(player, map->polys, create_ry_matrix(-player->rot_y));
 	
-	if (player->snick)
+	if (player->sneak)
 	{
 		translate_all_poly_rotz_only(map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
 		copy_rotate_rotz_only(map, map->polys, create_ry_matrix(-player->rot_y));
