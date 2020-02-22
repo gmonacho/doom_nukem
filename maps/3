@@ -70,11 +70,11 @@ Object
 Object
 {	
 	type = BOX
-	posx = 200
+	posx = 450
 	posy = 700
 	posz = 70
-	width = 30
-	height = 30
+	width = 60
+	height = 60
 	light = 1
 	texture = 150x150.png
 }
@@ -89,18 +89,6 @@ Object
 	height = 30
 	light = 1
 	texture = 150x150.png
-}
-
-Oooooobject
-{	
-	type = BOX
-	posx = 500
-	posy = 950
-	posz = 100
-	width = 30
-	height = 30
-	light = 1
-	texture = Elephantride.png
 }
 
 Mooooob
@@ -152,7 +140,7 @@ Polygon									//Fond renfoncement 2
 	dot = x:600, y:150, z:200
 	dot = x:600, y:150, z:125
 	dot = x:700, y:150, z:125
-	light = 1
+	
 	texture = Brique.png
 }
 Polygon									//Fond renfoncement 3
@@ -242,7 +230,7 @@ Polygon								//Sol haut
 	dot = x:100, y:150, z:50
 	dot = x:600, y:150, z:50
 	dot = x:600, y:650, z:50
-	light = 0.1
+	light = 1
 	texture = Plafond.png
 }
 Polygon								//Sol renfoncement

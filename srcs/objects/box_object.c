@@ -24,6 +24,7 @@ int				set_box_object(t_object *object, t_fdot_3d pos, float width_2, float heig
 		return (1);
 	poly = object->poly;
 	poly->object = object;
+	poly->light_coef = object->light_coef;
 	poly->dots_rotz_only[0] = box[0];
 	poly->dots_rotz_only[1] = box[3];
 	poly->dots_rotz_only[2] = box[4];
@@ -33,6 +34,7 @@ int				set_box_object(t_object *object, t_fdot_3d pos, float width_2, float heig
 		return (1);
 	poly = poly->next;
 	poly->object = object;
+	poly->light_coef = object->light_coef;
 	poly->dots_rotz_only[0] = box[1];
 	poly->dots_rotz_only[1] = box[2];
 	poly->dots_rotz_only[2] = box[5];
@@ -42,6 +44,7 @@ int				set_box_object(t_object *object, t_fdot_3d pos, float width_2, float heig
 		return (1);
 	poly = poly->next;
 	poly->object = object;
+	poly->light_coef = object->light_coef;
 	poly->dots_rotz_only[0] = box[0];
 	poly->dots_rotz_only[1] = box[1];
 	poly->dots_rotz_only[2] = box[6];
@@ -54,6 +57,7 @@ int				set_box_object(t_object *object, t_fdot_3d pos, float width_2, float heig
 			return (1);
 		poly = poly->next;
 		poly->object = object;
+		poly->light_coef = object->light_coef;
 		j = -1;
 		while (++j < 4)
 		{

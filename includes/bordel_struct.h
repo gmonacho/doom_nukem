@@ -388,17 +388,15 @@ typedef	struct				s_poly
 	int						collide;
 	struct s_object			*object; 
 
-	t_fdot_3d				dots[N_DOTS_POLY];
 	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
-	// float					dist12;
-	// float					dist14;
+	t_fdot_3d				dots[N_DOTS_POLY];
 
-	t_plan					equation;
 	t_plan					equation_rotz_only;
-	t_fdot_3d				i;
-	t_fdot_3d				j;
+	t_plan					equation;
 	t_fdot_3d				i_rotz_only;
 	t_fdot_3d				j_rotz_only;
+	t_fdot_3d				i;
+	t_fdot_3d				j;
 	float					i_mag;
 	float					j_mag;
 	float					ii;
@@ -509,8 +507,10 @@ typedef struct		s_player
 	int				sneak;
 	// int				front_montant_sneak;
 	int				collision_on;
-	int				fly_on;
+	int				fly;
+	t_timer			fly_timer;
 	int				jump;
+	float			sprint;
 
 	// int				numsector;
 	int 			damage;
@@ -552,7 +552,8 @@ typedef enum				e_enum_object
 	BULLET = 0b10000,
 	GRAVITY_INV = 0b100000,
 	BOX = 0b1000000,
-	LIGHT = 0b10000000
+	LIGHT = 0b10000000,
+	END = 0b100000000
 }							t_enum_object;
 
 // typedef struct bordel_struct

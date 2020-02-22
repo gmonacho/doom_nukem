@@ -12,7 +12,6 @@ void		init_polygone(t_poly *poly)
 	i = 0;
 	while (poly)
 	{
-		poly->light_coef = 1;
 		poly->visible = 1;
 		poly->collide = 1;
 		poly->index = i++;
@@ -63,7 +62,7 @@ static void		init_player_maths(t_win *win, t_player *player)
 	player->_4_height_10 = 2 * (float)player->height / 5;
 	player->sneak = 0;
 	player->collision_on = 1;
-	player->fly_on = 0;
+	player->fly = 0;
 	win->w_div_fov = win->w / player->fov;
 	win->h_div_fov = win->h / player->fov_up;
 	if (init_rays(win, player))
@@ -111,6 +110,7 @@ int			init_win_player(t_win *win, t_player *player)
 	start_cooldown(&(win->view_change_time), 250);
 	start_cooldown(&(win->map->objects_animation), 20);
 	start_cooldown(&(player->interaction_inventaire_time), 250);
+	start_cooldown(&(player->fly_timer), 250);
 	init_player_maths(win, player);
 	init_player_hud(player);
 	// exit(0);

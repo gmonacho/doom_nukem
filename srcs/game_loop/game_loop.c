@@ -106,21 +106,15 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 	}
 	else
 		copy_rotate_rotz_only(map, map->polys, create_ry_matrix(-player->rot_y));
-		
-	
-	// t_object	*object;
-	// object = map->objects;
-	// while (object)
+
+	// t_poly	*poly;
+	// poly = map->polys;
+	// while (poly)
 	// {
-	// 	if (object->type == LIGHT)
-	// 		printf("Pos %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
-	// 	// t_fdot_3d mid = fdot_3d_add(object->poly->dots[0], object->poly->dots[2]);
-	// 	// printf("Pos %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
-	// 	// printf("Mid %f %f %f\n", mid.x / 2, mid.y / 2, mid.z / 2);
-	// 	object = object->next;
+	// 	printf("Light coef = %f\n", poly->light_coef);
+	// 	poly = poly->next;
 	// }
 	// printf("\n");
-
 
 	objects_movements(map, player, map->objects);
 

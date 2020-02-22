@@ -3,6 +3,7 @@
 /*
 **	A faire :
 **
+**	Elements de decors
 **	Tenter de casser le parsing
 **	OpenAL !!!! POUR LE SON
 **	Clean code/fichier inutiles
@@ -70,7 +71,7 @@ int					main(int argc, char **argv)
 			if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||\
 				((fd1 = open(argv[1], O_RDONLY)) <= 0)))
 				return (ret_error("open error"));
-			if (!(win.map->polys = ft_data_storing(fd, fd1, &map, &win))) // FREE SDL, FREE FD, FREE MUSIC
+			if (!(map.polys = ft_data_storing(fd, fd1, &map, &win))) // FREE SDL, FREE FD, FREE MUSIC
 				return (1);	//LEAKS T'AS UN GROS SEXE ALEXANDRE
 			map.gravity = map.player.const_vel / 2;
 			if ((ret = init(&win, &map, &(map.player))))

@@ -70,6 +70,7 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 		return (1);
 	set_poly_dots_rotz_only(object->poly, object->pos_rotz_only, object->width_2, object->height_2);
 	object->poly->object = object;
+	object->poly->light_coef = object->light_coef;
 	object->poly->next = NULL;
 	return (0);
 }

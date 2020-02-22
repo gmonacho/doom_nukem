@@ -45,9 +45,8 @@ static void			*draw(void *param)
 		x = -1;
 		while (++x < thread->win->w)
 		{
-			thread->win->pixels[y * thread->win->w + x] = ray->poly && thread->win->map->view & LIGHT_VIEW ?\
-											process_light(thread->win->map, ray->poly, ray->collision, ray->color) :\
-											ray->color;
+			thread->win->pixels[y * thread->win->w + x] =\
+				process_light(thread->win->map, ray->poly, ray->collision, ray->color);
 			ray->poly = NULL;
 			ray->color = 0xFF505050;
 			ray++;
@@ -91,7 +90,8 @@ int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 	dot = fdot_3d_sub(dot, poly->dots[0]);
 	coord->x = scalar_product(dot, poly->i) / poly->ii;
 	coord->y = scalar_product(dot, poly->j) / poly->jj;
-	return (coord->x <= 0 || coord->x > 1 || coord->y <= 0 || coord->y > 1 ? 0 : 1);
+	return (coord->x < 0 || coord->x > 1 || coord->y < 0 || coord->y > 1 ||\
+			is_null(coord->x - 1, 0.0005) || is_null(coord->y, 0.0005) ? 0 : 1);
 }
 
 
@@ -112,12 +112,13 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 											(1 - coord_plan.y) * poly->texture->h} :\
 									(t_dot){modulo(coord_plan.x * poly->i_mag, poly->texture->w),\
 											modulo(coord_plan.y * poly->j_mag, poly->texture->h)};
-	if (coord_texture.x < 0 || coord_texture.y < 0 || coord_texture.x > poly->texture->w || coord_texture.y > poly->texture->h)
+	if (coord_texture.x < 0 || coord_texture.y < 0 || coord_texture.x >= poly->texture->w || coord_texture.y >= poly->texture->h)
 	{
 		printf("\nSeg fault !\n");
 		print_poly(poly, 0);
 		print_poly(poly, 1);
 		print_poly(poly, 2);
+		printf("Object ? %p\n", poly->object);
 		printf("box %d %d / %d %d\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
 		printf("Collision %f %f %f\n", collision.x, collision.y, collision.z);
 		printf("Coord texture/plan %d %d / %f %f\n", coord_texture.x, coord_texture.y, coord_plan.x, coord_plan.y);

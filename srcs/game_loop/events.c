@@ -63,43 +63,37 @@ t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state)
 	t_fdot_3d	move;
 
 	move = (t_fdot_3d){};
+	player->sprint = state[SDL_SCANCODE_LCTRL] ? 2 : 1;
 	if (state[SDL_SCANCODE_W])
-		move = fdot_3d_add(move, (t_fdot_3d){-player->const_vel, 0, 0});
+		move = fdot_3d_add(move, (t_fdot_3d){-player->const_vel * player->sprint, 0, 0});
 	if (state[SDL_SCANCODE_S])
-		move = fdot_3d_add(move, (t_fdot_3d){player->const_vel, 0, 0});
+		move = fdot_3d_add(move, (t_fdot_3d){player->const_vel * player->sprint, 0, 0});
 	if (state[SDL_SCANCODE_D])
-		move = fdot_3d_add(move, (t_fdot_3d){0, -player->const_vel, 0});
+		move = fdot_3d_add(move, (t_fdot_3d){0, -player->const_vel * player->sprint, 0});
 	if (state[SDL_SCANCODE_A])
-		move = fdot_3d_add(move, (t_fdot_3d){0, player->const_vel, 0});
-	if (state[SDL_SCANCODE_SPACE] && (player->fly_on || is_null(map->last_move.z, 0.25)))
-	{
+		move = fdot_3d_add(move, (t_fdot_3d){0, player->const_vel * player->sprint, 0});
+	if (state[SDL_SCANCODE_SPACE] && (player->fly || is_null(map->last_move.z, 0.25)))
 		player->jump = -0.5 - map->gravity -\
 						sqrt(0.24 + map->gravity * (map->gravity + 1) + player->height);
-		// printf("Jump !!! %d\n", player->jump);
-		// player->jump = -0.5 - sqrt(1 + 4 * player->height);
-		// player->jump = -map->gravity * 5;
-		// move = fdot_3d_add(move, (t_fdot_3d){0, 0, -player->const_vel});
-	}
 	map->last_move = (t_fdot_3d){};
 	player->sneak = state[SDL_SCANCODE_LSHIFT] ? 1 : 0;
-	map = NULL;
 	return (move);
 }
 
 // void			events_move(t_win *win, t_player *player, const Uint8 *state)
 // {
 // 	if (state[SDL_SCANCODE_W])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){-player->const_vel, 0, 0});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){-player->const_vel * player->sprint, 0, 0});
 // 	if (state[SDL_SCANCODE_S])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){player->const_vel, 0, 0});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){player->const_vel * player->sprint, 0, 0});
 // 	if (state[SDL_SCANCODE_D])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, -player->const_vel, 0});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, -player->const_vel * player->sprint, 0});
 // 	if (state[SDL_SCANCODE_A])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, player->const_vel, 0});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, player->const_vel * player->sprint, 0});
 // 	if (state[SDL_SCANCODE_SPACE])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, 0, -player->const_vel});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, 0, -player->const_vel * player->sprint});
 // 	if (state[SDL_SCANCODE_LSHIFT])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, 0, player->const_vel});
+// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, 0, player->const_vel * player->sprint});
 // }
 
 void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *state)
@@ -168,6 +162,8 @@ void			events_others(t_win *win, t_player *player, const Uint8 *state)
 		win->map->view += (win->map->view & LIGHT_VIEW ? -LIGHT_VIEW : LIGHT_VIEW);
 	if (state[SDL_SCANCODE_C])
 		player->collision_on = player->collision_on ? 0 : 1;
+	if (state[SDL_SCANCODE_F] && test_timer_refresh(&(player->fly_timer)))
+		player->fly = player->fly ? 0 : 1;
 	if (state[SDL_SCANCODE_P])
 	{
 		poly = win->map->polys;
