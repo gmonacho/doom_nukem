@@ -472,6 +472,26 @@ frame
             text_type : UI_TEXT_TYPE_DIGITAL
         }
     }
+    button
+    {
+        id : "b_property_8"
+        type : UI_BUTTON_TEXT_ENTRY
+        resize_type : UI_RESIZE_ALL_LINEAR
+        ratio : 0.1 0.8 0.8 0.075
+        data
+        {
+            name : ""
+            text : ""
+            max_text_size : 6
+            min_int : -30000
+            max_int : 30000
+            name_side_texture : "textures/ui_text_entry_button_normal.png"
+            normal_box_texture : "textures/ui_text_entry_button_normal.png"
+            writting_box_texture : "textures/ui_text_entry_button_writting.png"
+            text_side : UI_TEXT_SIDE_LEFT
+            text_type : UI_TEXT_TYPE_DIGITAL
+        }
+    }
 }
 frame
 {

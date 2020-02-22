@@ -304,14 +304,15 @@ static void		set_editor_flags(void *argument)
 				*(arg_menu->loop) ^= ED_GRAVITY;
 			else if (*(arg_menu->loop) & ED_BULLET)
 				*(arg_menu->loop) ^= ED_BULLET;
+			else if (*(arg_menu->loop) & ED_BOX)
+				*(arg_menu->loop) ^= ED_BOX;
+			else if (*(arg_menu->loop) & ED_PLAYER)
+				*(arg_menu->loop) ^= ED_PLAYER;
 			if (*(arg_menu->loop) & ED_SELECTION)
 				*(arg_menu->loop) ^= ED_SELECTION;
-			if (*(arg_menu->loop) & ED_BOX)
-				*(arg_menu->loop) ^= ED_BOX;
 			*(arg_menu->loop) |= arg_menu->value;
 			*(arg_menu->loop) |= ED_PLACE;
 		}
-		
 	}
 	else
 	{
