@@ -67,7 +67,7 @@ Object
 	texture = 150x150.png
 }
 
-Object
+Ooobject
 {	
 	type = BOX
 	posx = 450
@@ -77,6 +77,30 @@ Object
 	height = 60
 	light = 1
 	texture = 150x150.png
+}
+Object
+{	
+	type = TP
+	posx = 350
+	posy = 300
+	posz = 120
+	width = 60
+	height = 60
+	light = 1
+	data = 1
+	texture = tortue.png
+}
+Object
+{	
+	type = TP
+	posx = 450
+	posy = 700
+	posz = 70
+	width = 60
+	height = 60
+	light = 1
+	data = 1
+	texture = tortue.png
 }
 
 Object

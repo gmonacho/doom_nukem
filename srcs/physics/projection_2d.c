@@ -161,6 +161,10 @@ void			surround_walls(t_win *win, t_map *map)
 		poly->box_x = (t_dot){win->w, 0};
 		poly->box_y = (t_dot){win->h, 0};
 		poly->is_slide_ban = 0;
+		// if (poly->object && poly->object->type == TP)
+		// {
+		// 	printf("Find box %p, visible : %d %d\n", poly->object, poly->object->visible, poly->object->collide);
+		// }
 		if (((poly->object && poly->object->visible) ||\
 			(!poly->object && poly->visible)))
 		{

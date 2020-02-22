@@ -724,6 +724,7 @@ typedef struct		s_map
 	t_object		*objects;
 	t_object		*objects_save;
 	t_timer			objects_animation;
+	t_timer			objects_tp_timer;
 	t_mob			*mob;
 	t_main_menu		main_menu;
 	SDL_Event		*event;

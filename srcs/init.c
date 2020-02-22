@@ -12,6 +12,13 @@ void		init_polygone(t_poly *poly)
 	i = 0;
 	while (poly)
 	{
+		if (i < 31)
+		{
+			translate_dot(&(poly->dots_rotz_only[0]), (t_fdot_3d){100, 400, 150});
+			translate_dot(&(poly->dots_rotz_only[1]), (t_fdot_3d){100, 400, 150});
+			translate_dot(&(poly->dots_rotz_only[2]), (t_fdot_3d){100, 400, 150});
+			translate_dot(&(poly->dots_rotz_only[3]), (t_fdot_3d){100, 400, 150});
+		}
 		poly->visible = 1;
 		poly->collide = 1;
 		poly->index = i++;
@@ -109,6 +116,7 @@ int			init_win_player(t_win *win, t_player *player)
 		return (1);
 	start_cooldown(&(win->view_change_time), 250);
 	start_cooldown(&(win->map->objects_animation), 20);
+	start_cooldown(&(win->map->objects_tp_timer), 2000);
 	start_cooldown(&(player->interaction_inventaire_time), 250);
 	start_cooldown(&(player->fly_timer), 250);
 	init_player_maths(win, player);

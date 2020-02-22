@@ -1,12 +1,27 @@
 #include "doom_nukem.h"
 
-static void			tp(t_map *map, t_player *player, t_poly *polys)
-{
+// static void			tp(t_map *map, t_object *objects, t_object *object)
+// {
+// 	// t_fdot_3d		translate;
 
-	map = NULL;
-	player = NULL;
-	polys = NULL;
-}
+// 	// while (objects)
+// 	// {
+// 	// 	if (objects->type == TP && objects != object && objects->data == object->data)
+// 	// 	{
+// 	// 		translate_all_rotz_only(map, map->polys,\
+// 	// 						translate = fdot_3d_sub(object->pos_rotz_only, objects->pos_rotz_only));
+// 	// 		printf("Translate : %f %f %f\n", translate.x, translate.y, translate.z);
+// 	// 		object->collide = 0;
+// 	// 		object->poly->light_coef /= 3;
+// 	// 		printf("TtttttppppppP\n");
+// 	// 		return ;
+// 	// 	}
+// 	// 	objects = objects->next;
+// 	// }
+// 	map = NULL;
+// 	objects = NULL;
+// 	object = NULL;
+// }
 
 static t_object		*catch_box(t_player *player, t_object *object)
 {
@@ -19,11 +34,11 @@ static t_object		*catch_box(t_player *player, t_object *object)
 	while (object)
 	{
 		poly = object->poly;
-		while (object->visible && poly)
+		while (object->type == BOX && object->visible && poly)
 		{
 			if (intersection_plan_my_ray(&collision, poly->equation, &ray) &&\
 				is_in_poly(poly, &coord, collision) &&\
-				mag(collision) < player->width * 2)
+				mag(collision) < player->width * 3)
 			{
 				// printf("Find box, grab her\n");
 				return (object);
@@ -66,7 +81,6 @@ void				drop_box(t_map *map, t_player *player)
 static void			rotate_all_objects(t_player *player, t_object *object)
 {
 	t_fdot_3d	pos;
-	// t_poly		*poly;
 
 	while (object)
 	{
@@ -81,27 +95,9 @@ static void			rotate_all_objects(t_player *player, t_object *object)
 		}
 		object = object->next;
 	}
-	// while (object)
-	// {
-	// 	poly = object->poly;
-	// 	if (object->type == BOX)
-	// 		pos = object->pos;
-	// 	else
-	// 		pos = mid_segment(poly->dots_rotz_only[0], poly->dots_rotz_only[2]);
-	// 	while (poly)
-	// 	{
-	// 		poly->equation_rotz_only.v = rotate_dot(poly->equation_rotz_only.v, player->rz);
-	// 		poly->dots_rotz_only[0] = fdot_3d_add(rotate_dot(fdot_3d_sub(poly->dots_rotz_only[0], pos), player->rz), pos);
-	// 		poly->dots_rotz_only[1] = fdot_3d_add(rotate_dot(fdot_3d_sub(poly->dots_rotz_only[1], pos), player->rz), pos);
-	// 		poly->dots_rotz_only[2] = fdot_3d_add(rotate_dot(fdot_3d_sub(poly->dots_rotz_only[2], pos), player->rz), pos);
-	// 		poly->dots_rotz_only[3] = fdot_3d_add(rotate_dot(fdot_3d_sub(poly->dots_rotz_only[3], pos), player->rz), pos);
-	// 		poly = poly->next;
-	// 	}
-	// 	object = object->next;
-	// }
 }
 
-int				objects_actions(t_map *map, t_player *player, t_object *object)
+void			objects_actions(t_map *map, t_player *player, t_object *object)
 {
 	// printf("Object : %d\n", object->type);
 	if (object->type == HEAL)
@@ -114,8 +110,12 @@ int				objects_actions(t_map *map, t_player *player, t_object *object)
 		player->inventory->item[1]->nb++;
 		// printf("Popo armor +1\n");
 	}
-	if (object->type == TP)
-		tp(map, player, map->polys);
+	// if (object->type == TP)
+	// {
+	// 	if (object->collide && test_timer_refresh(&(map->objects_tp_timer)))
+	// 		tp(map, map->objects, object);
+	// 	return ;
+	// }
 	if (object->type == GUN)
 		player->inventory->weapon = 1;
 	if (object->type == BULLET)
@@ -127,7 +127,6 @@ int				objects_actions(t_map *map, t_player *player, t_object *object)
 	}
 	object->collide = 0;
 	object->visible = 0;
-	return (1);
 }
 
 void			objects_movements(t_map *map, t_player *player, t_object *objects)

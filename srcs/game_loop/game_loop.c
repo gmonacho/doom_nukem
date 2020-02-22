@@ -45,8 +45,7 @@ static void		move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 
 		// if (poly_collide->object)
 		if (poly_collide->object && poly_collide->object->type != BOX)
-			if (objects_actions(map, player, poly_collide->object))
-				continue ;
+			objects_actions(map, player, poly_collide->object);
 		if (i++ == 4 ||\
 			tests_before_slide(map, poly_collide, move))
 			break ;
@@ -117,6 +116,16 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 	// printf("\n");
 
 	objects_movements(map, player, map->objects);
+	// t_object	*object;
+	// object = map->objects;
+	// while (object)
+	// {
+	// 	if (object->type == BOX)
+	// 		printf("boooox\n");
+	// 	printf("Object visible = %d\n", object->visible);
+	// 	object = object->next;
+	// }
+	// printf("\n");
 
 	clear_rend(win->rend, 0x40, 0x40, 0x40);
 	raycasting_3d(win, map);
