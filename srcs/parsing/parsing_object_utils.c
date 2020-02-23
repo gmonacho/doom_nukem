@@ -25,6 +25,8 @@ char		*object_data_fill(char **tab, t_object **object, int i)
 			(*object)->light_coef = ft_atof(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "data = "))
 			(*object)->data = ft_atof(ft_strrchr(tab[i], '=') + 1);
+		if (ft_strstr(tab[i], "dir = "))
+			(*object)->dir = ft_atof(ft_strrchr(tab[i], '=') + 1);
 		i++;
 	}
 	return (type);

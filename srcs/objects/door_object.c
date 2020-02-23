@@ -1,5 +1,36 @@
 #include "doom_nukem.h"
 
+int				orientate_door(t_object *door, t_fdot_3d pos)
+{
+	int i;
+	t_poly *poly;
+	
+	float tmp_x;
+	float tmp_y;
+	float rotated_x;
+	float rotated_y;
+	float theta;
+	//rotation de tous les vecteurs d'un objet par 90 degres autour du z axis passant par le centre de l'objet
+	// j'imagine qu'on a deja une fonction qui fait le taf mais jsuis un fdp
+	theta = ((door->dir % 4) * 90) * M_PI/ 180; 
+	poly = door->poly;
+	while (poly)
+	{
+		i = -1;
+		while (++i < 4)
+		{
+			tmp_x = poly->dots_rotz_only[i].x - pos.x;
+			tmp_y = poly->dots_rotz_only[i].y - pos.y;
+			rotated_x = tmp_x * cos(theta) - tmp_y * sin(theta);
+			rotated_y = tmp_x * sin(theta) + tmp_y * cos(theta);
+			poly->dots_rotz_only[i].x = rotated_x + pos.x;
+			poly->dots_rotz_only[i].y = rotated_y + pos.y;
+		}
+		poly = poly->next;
+	}
+	return (1);
+}
+
 int				interact_door(t_object	*door)
 {
 	if (!door || door->type != DOOR || !door->poly || !door->poly->next)
@@ -60,6 +91,8 @@ int				set_door_object(t_object *object, t_fdot_3d pos, float width_2, float hei
 	poly->dots_rotz_only[3] = box[3];
 	poly->next = NULL;
 	object->collide = 0;
-	printf("created door at %p, with polys %p |%d|and %p |%d|\n", object, object->poly, object->poly->visible, object->poly->next, object->poly->next->visible);
+	if (object->dir)
+		orientate_door(object, pos);
+	printf("created door at %p, with polys %p |%d| and %p |%d| and dir %d\n", object, object->poly, object->poly->visible, object->poly->next, object->poly->next->visible, object->dir);
 	return (0);
 }

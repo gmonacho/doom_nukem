@@ -123,7 +123,7 @@ Object						// test box 3
 	light = 1
 	texture = Pq.png
 }
-Object						// test porte
+Object						// test porte 1
 {	
 	type = DOOR
 	posx = 500
@@ -132,9 +132,22 @@ Object						// test porte
 	width = 40
 	height = 80
 	light = 1
+	dir = 0
 	texture = doorfront.png
 }
 Object						// test porte 2
+{	
+	type = DOOR
+	posx = 500
+	posy = 350
+	posz = 100
+	width = 40
+	height = 80
+	light = 1
+	dir = 1
+	texture = doorfront.png
+}
+Object						// test porte 3
 {	
 	type = DOOR
 	posx = 500
@@ -143,6 +156,19 @@ Object						// test porte 2
 	width = 40
 	height = 80
 	light = 1
+	dir = 2
+	texture = doorfront.png
+}
+Object						// test porte 4
+{	
+	type = DOOR
+	posx = 500
+	posy = 550
+	posz = 100
+	width = 40
+	height = 80
+	light = 1
+	dir = 3
 	texture = doorfront.png
 }
 Object
