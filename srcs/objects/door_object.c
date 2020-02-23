@@ -12,7 +12,7 @@ int				orientate_door(t_object *door, t_fdot_3d pos)
 	float theta;
 	//rotation de tous les vecteurs d'un objet par 90 degres autour du z axis passant par le centre de l'objet
 	// j'imagine qu'on a deja une fonction qui fait le taf mais jsuis un fdp
-	theta = ((door->dir % 4) * 90) * M_PI/ 180; 
+	theta = ((door->dir % 4) * 90) * M_PI/ 180;
 	poly = door->poly;
 	while (poly)
 	{
@@ -72,8 +72,8 @@ int				set_door_object(t_object *object, t_fdot_3d pos, float width_2, float hei
 	poly = object->poly;
 	poly->object = object;
 	poly->light_coef = object->light_coef;
-	poly->visible = 1;
-	poly->collide = 1;
+	poly->visible = 0;
+	poly->collide = 0;
 	poly->dots_rotz_only[0] = box[0];
 	poly->dots_rotz_only[1] = box[1];
 	poly->dots_rotz_only[2] = box[2];
@@ -83,8 +83,8 @@ int				set_door_object(t_object *object, t_fdot_3d pos, float width_2, float hei
 	poly = poly->next;
 	poly->object = object;
 	poly->light_coef = object->light_coef;
-	poly->visible = 0;
-	poly->collide = 0;
+	poly->visible = 1;
+	poly->collide = 1;
 	poly->dots_rotz_only[0] = box[0];
 	poly->dots_rotz_only[1] = box[4];
 	poly->dots_rotz_only[2] = box[5];

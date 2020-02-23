@@ -129,7 +129,7 @@ Object						// test porte 1
 	posx = 500
 	posy = 250
 	posz = 100
-	width = 40
+	width = 60
 	height = 80
 	light = 1
 	dir = 0
@@ -141,7 +141,7 @@ Object						// test porte 2
 	posx = 500
 	posy = 350
 	posz = 100
-	width = 40
+	width = 60
 	height = 80
 	light = 1
 	dir = 1
@@ -153,7 +153,7 @@ Object						// test porte 3
 	posx = 500
 	posy = 450
 	posz = 100
-	width = 40
+	width = 60
 	height = 80
 	light = 1
 	dir = 2
@@ -165,7 +165,7 @@ Object						// test porte 4
 	posx = 500
 	posy = 550
 	posz = 100
-	width = 40
+	width = 60
 	height = 80
 	light = 1
 	dir = 3
