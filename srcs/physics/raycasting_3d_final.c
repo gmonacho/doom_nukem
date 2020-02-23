@@ -226,7 +226,7 @@ static void			*square_tracing(void *param)
 	y = poly->box_y.x + (poly->box_y.y - poly->box_y.x) * (thread->i / (float)N_THREADS) - 1;
 	y_max = poly->box_y.x + (poly->box_y.y - poly->box_y.x) * ((thread->i + 1) / (float)N_THREADS);
 	// printf("box ymax - %d %d / %d\n", poly->box_y.x, poly->box_y.y, y_max);
-	while (++y < y_max)
+	while (poly->visible && ++y < y_max)
 		if (0 <= y && y < thread->win->h)
 		{
 			x = poly->box_x.x;

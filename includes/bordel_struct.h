@@ -553,7 +553,8 @@ typedef enum				e_enum_object
 	GRAVITY_INV = 0b100000,
 	BOX = 0b1000000,
 	LIGHT = 0b10000000,
-	END = 0b100000000
+	END = 0b100000000,
+	DOOR = 0b1000000000
 }							t_enum_object;
 
 // typedef struct bordel_struct

@@ -90,6 +90,61 @@ Ooobject
 	light = 1
 	texture = 150x150.png
 }
+Object						// test box 1
+{	
+	type = BOX
+	posx = 120
+	posy = 250
+	posz = 100
+	width = 20
+	height = 20
+	light = 1
+	texture = 150x150.png
+}
+Object						// test box 2
+{	
+	type = BOX
+	posx = 120
+	posy = 200
+	posz = 100
+	width = 20
+	height = 20
+	light = 1
+	texture = Elephantride.png
+}
+Object						// test box 3
+{	
+	type = BOX
+	posx = 120
+	posy = 300
+	posz = 100
+	width = 20
+	height = 20
+	light = 1
+	texture = Pq.png
+}
+Object						// test porte
+{	
+	type = DOOR
+	posx = 500
+	posy = 250
+	posz = 100
+	width = 40
+	height = 80
+	light = 1
+	texture = doorfront.png
+}
+Object						// test porte 2
+{	
+	type = DOOR
+	posx = 500
+	posy = 450
+	posz = 100
+	width = 40
+	height = 80
+	light = 1
+	texture = doorfront.png
+}
 Object
 {	
 	type = TP

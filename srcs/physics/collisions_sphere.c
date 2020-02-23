@@ -118,6 +118,9 @@ t_poly			*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban_
 	while (poly)
 	{
 		// print_poly(poly, 1);
+		if (poly->object && poly->object->type == DOOR && poly->collide &&
+			(!ban_interest || !poly->is_slide_ban) && collision_poly(map, player, poly))
+			return (poly);
 		if (((poly->object && poly->object->collide) || (!poly->object && poly->collide)) &&\
 			(!ban_interest || !poly->is_slide_ban) &&\
 			collision_poly(map, player, poly))

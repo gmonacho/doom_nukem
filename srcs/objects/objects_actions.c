@@ -29,20 +29,22 @@ static t_object		*catch_box(t_player *player, t_object *object)
 	t_fdot			coord;
 	t_poly			*poly;
 	t_cartesienne	ray;
+	int				i;
 
 	ray = (t_cartesienne){0, 0, 0, 1, 0, 0, 0, NULL, 0, (t_fdot_3d){}, NULL};
 	while (object)
 	{
+		i = 0;
 		poly = object->poly;
-		while (object->type == BOX && object->visible && poly)
+		while ((object->type == BOX || object->type == DOOR) && object->visible && poly)
 		{
 			if (intersection_plan_my_ray(&collision, poly->equation, &ray) &&\
 				is_in_poly(poly, &coord, collision) &&\
 				mag(collision) < player->width * 3)
-			{
-				// printf("Find box, grab her\n");
 				return (object);
-			}
+			i++;
+			if ((i > 6 && object->type == BOX) || (i > 1 && object->type == DOOR))
+				break; //sans ca, boucle sur tous les polys de tous les objets et return le premier object de la liste a chaque fois
 			poly = poly->next;
 		}
 		object = object->next;
@@ -84,7 +86,7 @@ static void			rotate_all_objects(t_player *player, t_object *object)
 
 	while (object)
 	{
-		if (object->type != BOX)
+		if (object->type != BOX && object->type != DOOR)
 		{
 			pos = mid_segment(object->poly->dots_rotz_only[0], object->poly->dots_rotz_only[2]);
 			object->poly->equation_rotz_only.v = rotate_dot(object->poly->equation_rotz_only.v, player->rz);
@@ -116,6 +118,8 @@ void			objects_actions(t_map *map, t_player *player, t_object *object)
 	// 		tp(map, map->objects, object);
 	// 	return ;
 	// }
+	if (object->type == DOOR)
+		return ;
 	if (object->type == GUN)
 		player->inventory->weapon = 1;
 	if (object->type == BULLET)
@@ -139,9 +143,14 @@ void			objects_movements(t_map *map, t_player *player, t_object *objects)
 		map->gravity = -map->gravity;
 	if (player->interaction_inventaire && (object = catch_box(player, objects)))
 	{
-		player->inventory->item[4]->nb++;
-		object->rot_y_save = player->rot_y;
-		object->collide = 0;
-		object->visible = 0;
+		if (object->type == DOOR)
+			interact_door(object);
+		else
+		{
+			player->inventory->item[4]->nb++;
+			object->rot_y_save = player->rot_y;
+			object->collide = 0;
+			object->visible = 0;
+		}
 	}
 }

@@ -19,7 +19,8 @@ void		init_polygone(t_poly *poly)
 			translate_dot(&(poly->dots_rotz_only[2]), (t_fdot_3d){100, 400, 150});
 			translate_dot(&(poly->dots_rotz_only[3]), (t_fdot_3d){100, 400, 150});
 		}
-		poly->visible = 1;
+		if (!(poly->object && poly->object->type && poly->object->type == DOOR))
+			poly->visible = 1;
 		poly->collide = 1;
 		poly->index = i++;
 		poly->is_slide_ban = 0;
