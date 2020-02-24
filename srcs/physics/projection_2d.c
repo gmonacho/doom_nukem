@@ -165,8 +165,8 @@ void			surround_walls(t_win *win, t_map *map)
 		// {
 		// 	printf("Find box %p, visible : %d %d\n", poly->object, poly->object->visible, poly->object->collide);
 		// }
-		if (((poly->object && poly->object->visible) ||\
-			(!poly->object && poly->visible)))
+		if ((poly->object && poly->object->visible) ||\
+			(!poly->object && poly->visible))
 		{
 			// if (poly->object)
 			// {

@@ -429,11 +429,6 @@ typedef struct				s_thread
 	t_poly					*poly;
 }							t_thread;
 
-typedef struct				s_calculs
-{
-	int 					dist;
-}							t_calculs;
-
 /*
 **	---------------------------------- mob --------------------------------------------
 */

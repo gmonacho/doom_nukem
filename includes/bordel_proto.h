@@ -101,7 +101,6 @@ void		clear_rend(SDL_Renderer *rend, Uint8 r, Uint8 g, Uint8 b);
 **	---------------------------------- Drawing functon ----------------------------------
 */
 
-void		print_column(t_win *win, t_linedef *wall, t_player *player, t_calculs *calculs);
 void		fill_portals(t_win *win, t_player *player);
 void		draw_line(t_win *win, t_dot p1, t_dot p2);
 void		draw_t_line(t_win *win, t_line line);
@@ -396,7 +395,6 @@ void				poly_del(t_poly *poly);
 
 void				raycasting_3d(t_win *win, t_map *map);
 int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
-// t_linedef			*intersection_ray_wall(t_win *win, t_player *player, t_fdot *source, t_sector *sector, t_calculs *calculs);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
 void				draw_all_square(t_win *win);
 void				draw_projection(t_win *win);

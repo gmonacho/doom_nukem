@@ -14,7 +14,8 @@ int					is_in_shadow(t_map *map, t_poly *poly_light, t_fdot_3d light, t_poly *po
 	while (poly)
 	{
 		if (poly != poly_light && poly != poly_collision &&\
-			!(poly->object && poly->object->visible == 0) &&\
+			!(poly->object && ((poly->object->type == DOOR && poly->visible == 0) ||\
+								(poly->object->type != DOOR && poly->object->visible == 0))) &&\
 			intersection_plan_ray(&intersec, poly->equation, ray) &&\
 			is_in_poly(poly, &coord, intersec) &&\
 			is_in_segment(intersec, light, collision))

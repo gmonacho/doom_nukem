@@ -9,7 +9,7 @@ Player
 	velocity = 5
 }
 
-Object
+Oobject
 {	
 	type = LIGHT
 	posx = 300
@@ -33,7 +33,7 @@ Object
 	light = 1
 	texture = pq.png
 }
-Object
+Oobject
 {	
 	type = LIGHT
 	posx = -50
@@ -41,7 +41,7 @@ Object
 	posz = 200
 	width = 30
 	height = 30
-	data = 0.2
+	data = 1
 	light = 1
 	texture = pq.png
 }

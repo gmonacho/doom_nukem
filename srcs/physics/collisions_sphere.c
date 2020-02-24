@@ -120,7 +120,10 @@ t_poly			*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban_
 		// print_poly(poly, 1);
 		if (poly->object && poly->object->type == DOOR && poly->collide &&
 			(!ban_interest || !poly->is_slide_ban) && collision_poly(map, player, poly))
+		{
+			translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
 			return (poly);
+		}
 		if (((poly->object && poly->object->collide) || (!poly->object && poly->collide)) &&\
 			(!ban_interest || !poly->is_slide_ban) &&\
 			collision_poly(map, player, poly))
