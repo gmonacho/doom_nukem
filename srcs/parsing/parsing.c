@@ -85,9 +85,12 @@ void		fill_poly_object(t_poly *poly, t_object *object)
 		poly = poly->next;
 	while (object)
 	{
+		printf("ptr is %p\n", object);
 		tmp = ft_strjoin("textures/", object->texture);
 		poly_object = object->poly;
 		poly->light_coef = object->light_coef;
+		printf("poly has %.f light coef\n", poly->light_coef);
+		printf("after ft_strjoin & lighcoef\n");
 		while (poly_object)
 		{
 			fill_poly_object_norm(tmp, poly_object);
@@ -110,11 +113,12 @@ t_poly		*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 	i = -1;
 	poly = NULL;
 	map->mob = NULL;
+	map->objects = NULL;
 	tab = fillntesttab(fd, fd1);
 	win->texhud = define_texhud(win);
 	while (tab[++i])
 	{
-		// printf("i %d\ttab i |%s\n", i, tab[i]);
+		printf("i %d\ttab i |%s\n", i, tab[i]);
 		if (ft_strstr(tab[i], "Polygon"))
 			ft_fill_data(tab, &poly, i);
 		else if (ft_strstr(tab[i], "Object"))

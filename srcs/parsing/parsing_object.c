@@ -34,6 +34,7 @@ void			add_object(t_object **object)
 	new_object->light_coef = 1;
 	new_object->data = 1;
 	*object = new_object;
+
 }
 
 static int		add_poly_object_norm(t_object *object, char *type_str)
