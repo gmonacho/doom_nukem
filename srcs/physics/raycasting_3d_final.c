@@ -91,7 +91,7 @@ int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 	coord->x = scalar_product(dot, poly->i) / poly->ii;
 	coord->y = scalar_product(dot, poly->j) / poly->jj;
 	return (coord->x < 0 || coord->x > 1 || coord->y < 0 || coord->y > 1 ||\
-			is_null(coord->x - 1, 0.0005) || is_null(coord->y, 0.0005) ? 0 : 1);
+			is_null(coord->x - 1, 0.0005) || is_null(coord->y, 0.0005) ? 0 : 1); //????????
 }
 
 

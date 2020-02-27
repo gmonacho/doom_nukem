@@ -171,7 +171,7 @@ Object						// test porte 4
 	dir = 3
 	texture = doorfront.png
 }
-Object
+Oobject
 {	
 	type = TP
 	posx = 350
@@ -183,7 +183,7 @@ Object
 	data = 1
 	texture = tortue.png
 }
-Object
+Oobject
 {	
 	type = TP
 	posx = 450
