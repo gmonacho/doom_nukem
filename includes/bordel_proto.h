@@ -408,7 +408,6 @@ int					process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int color);
 int					is_in_shadow(t_map *map, t_poly *poly_light, t_fdot_3d light, t_poly *poly_collision, t_fdot_3d pos, t_fdot_3d vector);
 
 int					init_rays(t_win *win, t_player *player);
-void				translate_dot(t_fdot_3d *dot, t_fdot_3d translation);
 void				translate_all(t_map *map, t_fdot_3d translation);
 void				translate_all_poly(t_poly *poly, t_fdot_3d translation);
 void				translate_all_objects(t_object *object, t_fdot_3d translation);
@@ -419,8 +418,8 @@ t_fdot_3d			rotate_dot(t_fdot_3d dot, t_matrix matrix);
 // void				rotate_all_dots(t_poly *sector, t_matrix matrix);
 void				rotate_all_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
 void				copy_rotate_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
-void				rotate_box(t_map *map, t_player *player, t_object *object);
-void				translate_box(t_map *map, t_object *object);
+void				rotate_box(t_player *player, t_object *object);
+void				translate_box(t_object *object);
 
 void 				print_poly(t_poly *poly, int arg);
 
@@ -442,7 +441,7 @@ void				slide(t_map *map, t_poly *polys, t_poly *polys_save, t_fdot_3d poly_coll
 
 t_poly				*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban_interest);
 int					collision_poly(t_map *map, t_player *player, t_poly *poly);
-int					collision_segment(t_map *map, t_fdot_3d dots[4], float width_2);
+int					collision_segment(t_fdot_3d dots[4], float width_2);
 t_fdot_3d			segment_slide(t_fdot_3d dots[N_DOTS_POLY], t_plan plan, int segment_code);
 int					collision_dots(t_fdot_3d dots[N_DOTS_POLY], float ray);
 int					is_collision_box(t_object *object, t_cartesienne *ray);

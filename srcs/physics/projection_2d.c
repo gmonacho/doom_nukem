@@ -146,7 +146,17 @@ static void		create_dot_on_axe_y(t_poly *poly)
 	// printf("\n");
 }
 
-//BOX SORTENT  DE LECRAN WTFF ??
+static void		resize_box(t_win *win, t_poly *poly)
+{
+	if (poly->box_x.x < 0)
+		poly->box_x.x = 0;
+	if (poly->box_x.y > win->w)
+		poly->box_x.y = win->w;
+	if (poly->box_y.x < 0)
+		poly->box_y.x = 0;
+	if (poly->box_y.y > win->h)
+		poly->box_y.y = win->h;
+}
 
 void			surround_walls(t_win *win, t_map *map)
 {
@@ -179,8 +189,9 @@ void			surround_walls(t_win *win, t_map *map)
 			// }
 			create_dot_on_axe_y(poly);
 			set_proj(win, poly);
-			poly_reduction(win, poly);
+			// poly_reduction(win, poly);
 			set_box(poly, &(poly->box_x), &(poly->box_y), poly->dots_proj);
+			resize_box(win, poly);
 			// printf("BOX xy %d %d / %d %d\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
 		}
 		poly = poly->next;

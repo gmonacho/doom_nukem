@@ -17,8 +17,8 @@ Oobject
 	posz = 150
 	width = 30
 	height = 30
-	data = 1
-	light = 1
+	data = 100
+	light = 100
 	texture = pq.png
 }
 Object
@@ -29,8 +29,8 @@ Object
 	posz = 150
 	width = 30
 	height = 30
-	data = 1
-	light = 1
+	data = 100
+	light = 100
 	texture = pq.png
 }
 Oobject
@@ -41,8 +41,8 @@ Oobject
 	posz = 200
 	width = 30
 	height = 30
-	data = 1
-	light = 1
+	data = 100
+	light = 100
 	texture = pq.png
 }
 Object

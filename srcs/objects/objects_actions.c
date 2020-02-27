@@ -55,29 +55,19 @@ static t_object		*catch_box(t_player *player, t_object *object)
 void				drop_box(t_map *map, t_player *player)
 {
 	t_object		*object;
-	// t_poly			*poly;
-	// t_fdot_3d		translate;
-	// t_fdot_3d		tmp;
-	// int				i;
 
-	// printf("Drop box !!!\n");
 	object = map->objects;
 	while (object)
 	{
 		if (object->type == BOX && !object->visible && !object->collide)
 		{
-			rotate_box(map, player, object);
-			// translate_box(map, object);
-			// printf("Find box ramasse a : %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
-			// object->pos = fdot_3d_add(object->pos, );
-			// printf("Find box ramasse a : %f %f %f\n", object->pos.x, object->pos.y, object->pos.z);
-			object->collide = 1;
+			rotate_box(player, object);
+		object->collide = 1;
 			object->visible = 1;
 			return ;
 		}
 		object = object->next;
 	}
-	player = NULL;
 }
 
 static void			rotate_all_objects(t_player *player, t_object *object)

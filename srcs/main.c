@@ -13,6 +13,7 @@
 */
 //Enlever les wildcards
 
+//DEG fault editor -> game
 /////ABSOLUMENT faire une fonction qui teste si les poly sont des parrallelogramme
 
 static int			init(t_win *win, t_map *map, t_player *player)

@@ -46,13 +46,18 @@ static void		poly_reduction_up(t_win *win, t_poly *poly, t_dot proj[N_DOTS_POLY 
 	int			i;
 	int			i2;
 
+	if (poly->n_proj > 8)
+	{
+		printf("n proj > 8 ???? %d\n", poly->n_proj);
+		exit(0);
+	}
 	tmp_n_proj = 0;
 	i = -1;
 	while (++i < poly->n_proj)
 	{
 		if (i == N_DOTS_POLY * 2)
 		{
-			printf("WTF PROJ NULL TAB STATIC UP NTM FILS DE PROJETDOOM DE MERDE : %d\n", poly->n_proj);
+			printf("WTF PROJ NULL TAB STATIC UP NTM FILS DE PROJETDOOM DE MERDE up : %d\n", poly->n_proj);
 			exit(0); //n proj == 765 ???????????????????????????????????????????????????
 		}
 		i2 = i ? i - 1 : poly->n_proj - 1;
@@ -83,13 +88,18 @@ static void		poly_reduction_right(t_win *win, t_poly *poly, t_dot proj[N_DOTS_PO
 	int			i;
 	int			i2;
 
+	if (poly->n_proj > 8)
+	{
+		printf("n proj > 8 ???? %d\n", poly->n_proj);
+		exit(0);
+	}
 	tmp_n_proj = 0;
 	i = -1;
 	while (++i < poly->n_proj)
 	{
 		if (i == N_DOTS_POLY * 2)
 		{
-			printf("WTF PROJ NULL TAB STATIC RIGHT NTM FILS DE PROJETDOOM DE MERDE : %d\n", poly->n_proj);
+			printf("WTF PROJ NULL TAB STATIC RIGHT NTM FILS DE PROJETDOOM DE MERDE right : %d\n", poly->n_proj);
 			exit(0);
 		}
 		i2 = i ? i - 1 : poly->n_proj - 1;
@@ -120,13 +130,18 @@ static void		poly_reduction_down(t_win *win, t_poly *poly, t_dot proj[N_DOTS_POL
 	int			i;
 	int			i2;
 
+	if (poly->n_proj > 8)
+	{
+		printf("n proj > 8 ???? %d\n", poly->n_proj);
+		exit(0);
+	}
 	tmp_n_proj = 0;
 	i = -1;
 	while (++i < poly->n_proj)
 	{
 		if (i == N_DOTS_POLY * 2)
 		{
-			printf("WTF PROJ NULL TAB STATIC DOWN NTM FILS DE PROJETDOOM DE MERDE : %d\n", poly->n_proj);
+			printf("WTF PROJ NULL TAB STATIC DOWN NTM FILS DE PROJETDOOM DE MERDE down : %d\n", poly->n_proj);
 			exit(0);
 		}
 		i2 = i ? i - 1 : poly->n_proj - 1;
@@ -157,6 +172,11 @@ static void		poly_reduction_left(t_win *win, t_poly *poly, t_dot proj[N_DOTS_POL
 	int			i;
 	int			i2;
 
+	if (poly->n_proj > 8)
+	{
+		printf("n proj > 8 ???? %d\n", poly->n_proj);
+		exit(0);
+	}
 	tmp_n_proj = 0;
 	i = -1;
 	while (++i < poly->n_proj)
@@ -164,7 +184,7 @@ static void		poly_reduction_left(t_win *win, t_poly *poly, t_dot proj[N_DOTS_POL
 		i2 = i ? i - 1 : poly->n_proj - 1;
 		if (i == N_DOTS_POLY * 2)
 		{
-			printf("WTF PROJ NULL TAB STATIC LEFT NTM FILS DE PROJETDOOM DE MERDE : %d\n", poly->n_proj);
+			printf("WTF PROJ NULL TAB STATIC LEFT NTM FILS DE PROJETDOOM DE MERDE left : %d\n", poly->n_proj);
 			exit(0);
 		}
 		if (proj[i].x >= 0)

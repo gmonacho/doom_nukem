@@ -50,10 +50,10 @@ static void		mobs_move(t_fdot_3d pos, t_poly *poly, float dist_mob, float vel)
 						-pos.y * cst_vel,\
 						-pos.z * cst_vel};
 	// translate_dot(&(pos), move);
-	translate_dot(&(poly->dots_rotz_only[0]), move);
-	translate_dot(&(poly->dots_rotz_only[1]), move);
-	translate_dot(&(poly->dots_rotz_only[2]), move);
-	translate_dot(&(poly->dots_rotz_only[3]), move);
+	poly->dots_rotz_only[0] = fdot_3d_add(poly->dots_rotz_only[0], move);
+	poly->dots_rotz_only[1] = fdot_3d_add(poly->dots_rotz_only[1], move);
+	poly->dots_rotz_only[2] = fdot_3d_add(poly->dots_rotz_only[2], move);
+	poly->dots_rotz_only[3] = fdot_3d_add(poly->dots_rotz_only[3], move);
 	poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
 									poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
 									poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);

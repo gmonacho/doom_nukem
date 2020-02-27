@@ -12,13 +12,13 @@ void		init_polygone(t_poly *poly)
 	i = 0;
 	while (poly)
 	{
-		if (i < 31)
-		{
-			translate_dot(&(poly->dots_rotz_only[0]), (t_fdot_3d){100, 400, 150});
-			translate_dot(&(poly->dots_rotz_only[1]), (t_fdot_3d){100, 400, 150});
-			translate_dot(&(poly->dots_rotz_only[2]), (t_fdot_3d){100, 400, 150});
-			translate_dot(&(poly->dots_rotz_only[3]), (t_fdot_3d){100, 400, 150});
-		}
+		// if (i < 31) //Attention
+		// {
+		// 	translate_dot(&(poly->dots_rotz_only[0]), (t_fdot_3d){100, 400, 150});
+		// 	translate_dot(&(poly->dots_rotz_only[1]), (t_fdot_3d){100, 400, 150});
+		// 	translate_dot(&(poly->dots_rotz_only[2]), (t_fdot_3d){100, 400, 150});
+		// 	translate_dot(&(poly->dots_rotz_only[3]), (t_fdot_3d){100, 400, 150});
+		// }
 		if (!(poly->object && poly->object->type && poly->object->type == DOOR))
 		{
 			poly->visible = 1;
