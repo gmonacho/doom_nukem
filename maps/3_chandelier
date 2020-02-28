@@ -208,7 +208,7 @@ Object
 	texture = 150x150.png
 }
 
-Mob
+Moob
 {
 	posx = 400
 	posy = 650

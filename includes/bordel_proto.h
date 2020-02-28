@@ -249,6 +249,7 @@ void		player_data(char **tab, t_player *player, int i);
 
 int			object_data(char **tab, t_object **object, int i);
 t_texhud   	*define_texhud(t_win *win);
+// void		save_lights(t_map *map);
 
 /*
 **	---------------------------------- music ----------------------------------

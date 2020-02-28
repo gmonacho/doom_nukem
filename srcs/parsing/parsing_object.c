@@ -27,6 +27,7 @@ void			add_object(t_object **object)
 	printf("New object\n");
 	new_object = (t_object *)ft_memalloc(sizeof(t_object));
 	new_object->next = *object;
+	// new_object->next_light = NULL;
 	new_object->collide = 1;
 	new_object->visible = 1;
 	new_object->width = 50;
@@ -72,7 +73,10 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 		return 0;
 	}
 	else if (!ft_strcmp(type_str, "LIGHT"))
+	{
 		object->type = LIGHT;
+
+	}
 	else
 	{
 		ft_putendl("Error: Type of object is wrong !");
@@ -84,6 +88,7 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 		return (1);
 	set_poly_dots_rotz_only(object->poly, object->pos_rotz_only, object->width_2, object->height_2);
 	object->poly->object = object;
+	object->poly->mob = NULL;
 	object->poly->light_coef = object->light_coef;
 	object->poly->next = NULL;
 	return (0);

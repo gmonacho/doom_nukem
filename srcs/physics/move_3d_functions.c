@@ -132,8 +132,8 @@ void			translate_all_objects(t_object *object, t_fdot_3d dpos)
 
 void			translate_all(t_map *map, t_fdot_3d dpos)
 {
-	translate_all_objects(map->objects, dpos);
 	translate_all_poly(map->polys, dpos);
+	translate_all_objects(map->objects, dpos);
 }
 
 void			translate_all_poly_rotz_only(t_poly *poly, t_fdot_3d dpos)
@@ -160,7 +160,7 @@ void			translate_all_objects_rotz_only(t_object *object, t_fdot_3d dpos)
 {
 	while (object)
 	{
-		object->pos = fdot_3d_add(object->pos_rotz_only, dpos);
+		object->pos_rotz_only = fdot_3d_add(object->pos_rotz_only, dpos);
 		object = object->next;
 	}
 }

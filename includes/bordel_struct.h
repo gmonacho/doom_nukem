@@ -387,6 +387,7 @@ typedef	struct				s_poly
 	int						visible;
 	int						collide;
 	struct s_object			*object; 
+	struct s_mob			*mob; 
 
 	t_fdot_3d				dots_rotz_only[N_DOTS_POLY];
 	t_fdot_3d				dots[N_DOTS_POLY];
@@ -583,6 +584,7 @@ typedef struct		s_object
 	int 			dir;
 	char 			*texture;
 	struct s_object	*next;
+	// struct s_object	*next_light;
 }					t_object;
 
 /*
@@ -721,6 +723,7 @@ typedef struct		s_map
 	t_object		*objects_save;
 	t_timer			objects_animation;
 	t_timer			objects_tp_timer;
+	// t_object		*lights;
 	t_mob			*mob;
 	t_main_menu		main_menu;
 	SDL_Event		*event;

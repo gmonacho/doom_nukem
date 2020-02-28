@@ -29,6 +29,7 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 	index = 0;
 	add_poly(poly);
 	(*poly)->object = NULL;
+	(*poly)->mob = NULL;
 	while ((ft_strchr(tab[i], '}') == NULL))
 	{
 		if (ft_strstr(tab[i], "dot = "))	// Dangereux si il y a x y ou z sur la meme ligne

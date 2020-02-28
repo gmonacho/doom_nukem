@@ -33,11 +33,14 @@ static void			*draw(void *param)
 	int				x;
 	int				y;
 	int				y_max;
-
+	// clock_t		t1;
+	// clock_t		t2;
+	
 	thread = (t_thread *)param;
 	y = (thread->i / (float)N_THREADS) * thread->win->h - 1;
 	y_max = ((thread->i + 1) / (float)N_THREADS) * thread->win->h;
 	rays = thread->player->rays + y + 1;
+	// t1 = clock();
 	while (++y < y_max)
 	{
 		ray = *rays;
@@ -53,6 +56,8 @@ static void			*draw(void *param)
 		}
 		rays++;
 	}
+	// t2 = clock();
+	// printf("Delta time %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 	return (NULL);
 }
 
@@ -157,8 +162,8 @@ static void			*square_tracing(void *param)
 void		raycasting_3d(t_win *win, t_map *map)
 {
 	int		i;
-	clock_t		t1;
-	clock_t		t2;
+	// clock_t		t1;
+	// clock_t		t2;
 
 	surround_walls(win, map);
 	// t1 = clock();
@@ -176,7 +181,7 @@ void		raycasting_3d(t_win *win, t_map *map)
 		while (++i < N_THREADS)
 			pthread_join(win->threads[i].thread, NULL);
 		//-------------------
-		
+
 		//-------------------
 		i = -1;
 		while (++i < N_THREADS)

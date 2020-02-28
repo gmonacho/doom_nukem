@@ -40,7 +40,11 @@ void		add_poly_mob(t_mob **mob)
 {
     (*mob)->poly = (t_poly *)ft_memalloc(sizeof(t_poly));
     if ((*mob)->poly != NULL)
+	{
         set_mobs_dots_rotz_only(*mob);
+		(*mob)->poly->mob = *mob;
+		(*mob)->poly->object = NULL;
+	}
 }
 
 void		fill_mob_data(t_mob **mob, char **tab, int i)

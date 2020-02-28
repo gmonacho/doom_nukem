@@ -25,6 +25,7 @@ static int			init(t_win *win, t_map *map, t_player *player)
 	create_poly_save(map);
 	if (init_threads(win, map, player))
 		return (1);
+	// save_lights(map);
 	printf("Fin init\n");
 	return (0);
 }
