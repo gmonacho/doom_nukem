@@ -42,7 +42,7 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 			find_texture(tab[i], *poly);
 		if (ft_strstr(tab[i], "light = "))
 		{
-			(*poly)->light_coef = ft_atof(ft_strrchr(tab[i], '=') + 1);
+			(*poly)->light_coef = ft_atof(ft_strrchr(tab[i], '=') + 1) / 100;
 			printf("Str = '%s'\tCoef = %f\n", ft_strrchr(tab[i], '=') + 1, (*poly)->light_coef);
 		}
 		i++;
@@ -85,12 +85,9 @@ void		fill_poly_object(t_poly *poly, t_object *object)
 		poly = poly->next;
 	while (object)
 	{
-		printf("ptr is %p\n", object);
 		tmp = ft_strjoin("textures/", object->texture);
 		poly_object = object->poly;
 		poly->light_coef = object->light_coef;
-		printf("poly has %.f light coef\n", poly->light_coef);
-		printf("after ft_strjoin & lighcoef\n");
 		while (poly_object)
 		{
 			fill_poly_object_norm(tmp, poly_object);

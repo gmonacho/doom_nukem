@@ -33,6 +33,7 @@ void			add_object(t_object **object)
 	new_object->height = 50;
 	new_object->light_coef = 1;
 	new_object->data = 1;
+	new_object->dir = 0;
 	*object = new_object;
 
 }
@@ -40,7 +41,10 @@ void			add_object(t_object **object)
 static int		add_poly_object_norm(t_object *object, char *type_str)
 {
 	if (type_str == NULL)
+	{
 		ft_putendl("Error: Type of object is wrong !");
+		return (1);
+	}
 	if (!ft_strcmp(type_str, "HEAL"))
 		object->type = HEAL;
 	else if (!ft_strcmp(type_str, "ARMOR"))
@@ -70,7 +74,10 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 	else if (!ft_strcmp(type_str, "LIGHT"))
 		object->type = LIGHT;
 	else
+	{
 		ft_putendl("Error: Type of object is wrong !");
+		return (1);
+	}
 	// printf("argegr 2\n");
 	// printf("argegr\n");
 	if (!(object->poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
@@ -85,7 +92,8 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 int				add_poly_object(t_object *object, char *type_str)
 {
 	printf("Pos rotz : %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
-	add_poly_object_norm(object, type_str);
+	if (add_poly_object_norm(object, type_str))
+		return (1);
 	printf("BOOOX pos %f %f %f\n", object->pos_rotz_only.x, object->pos_rotz_only.y, object->pos_rotz_only.z);
 	return (0);
 }

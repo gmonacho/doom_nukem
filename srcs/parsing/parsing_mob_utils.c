@@ -13,7 +13,7 @@ void		fill_mob_data_norm(t_mob **mob, char *tab)
 	if (ft_strstr(tab, "dir = "))
 		(*mob)->dir = ft_atoi(ft_strrchr(tab, '=') + 1);
 	if (ft_strstr(tab, "light = "))
-		(*mob)->light_coef = ft_atof(ft_strrchr(tab, '=') + 1);
+		(*mob)->light_coef = ft_atof(ft_strrchr(tab, '=') + 1) / 100;
 }
 
 void		poly_del(t_poly *poly)
