@@ -38,7 +38,6 @@ static void			*draw(void *param)
 	y = (thread->i / (float)N_THREADS) * thread->win->h - 1;
 	y_max = ((thread->i + 1) / (float)N_THREADS) * thread->win->h;
 	rays = thread->player->rays + y + 1;
-	// printf("y = %d\ty_max = %d\trays = %p\n", y, y_max, rays);
 	while (++y < y_max)
 	{
 		ray = *rays;
@@ -46,43 +45,16 @@ static void			*draw(void *param)
 		while (++x < thread->win->w)
 		{
 			thread->win->pixels[y * thread->win->w + x] =\
-				process_light(thread->win->map, ray->poly, ray->collision, ray->color);
+				process_light(thread->win->map, ray->poly,\
+								ray->collision, ray->color);
 			ray->poly = NULL;
 			ray->color = 0xFF505050;
 			ray++;
 		}
 		rays++;
 	}
-	// printf("\n\n");
 	return (NULL);
 }
-// static void		draw(t_win *win, t_player *player)
-// {
-// 	t_cartesienne	**rays;
-// 	t_cartesienne	*ray;
-// 	int				x;
-// 	int				y;
-
-// 	rays = player->rays;
-// 	y = -1;
-// 	while (++y < win->h)
-// 	{
-// 		ray = *rays;
-// 		x = -1;
-// 		while (++x < win->w)
-// 		{
-// 			win->pixels[y * win->w + x] = ray->poly && win->map->view & LIGHT_VIEW ? process_light(win->map, ray->poly, ray->collision, ray->color) : ray->color;
-// 			ray->poly = NULL;
-// 			ray->color = 0xFF505050;
-// 			ray++;
-// 		}
-// 		rays++;
-// 	}
-// 	// printf("\n\n");
-// 	SDL_UpdateTexture(win->rend_texture, NULL, win->pixels, win->w * sizeof(Uint32));
-// 	SDL_RenderCopy(win->rend, win->rend_texture, NULL, NULL);
-// }
-
 
 
 int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
@@ -108,11 +80,14 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 		printf("texture null : %p\n", poly->texture);
 		exit(0);
 	}
-	coord_texture = poly->object ? (t_dot){coord_plan.x * poly->texture->w,\
-											(1 - coord_plan.y) * poly->texture->h} :\
-									(t_dot){modulo(coord_plan.x * poly->i_mag, poly->texture->w),\
-											modulo(coord_plan.y * poly->j_mag, poly->texture->h)};
-	if (coord_texture.x < 0 || coord_texture.y < 0 || coord_texture.x >= poly->texture->w || coord_texture.y >= poly->texture->h)
+	coord_texture = poly->object ?\
+				(t_dot){coord_plan.x * poly->texture->w,\
+						(1 - coord_plan.y) * poly->texture->h} :\
+				(t_dot){modulo(coord_plan.x * poly->i_mag, poly->texture->w),\
+						modulo(coord_plan.y * poly->j_mag, poly->texture->h)};
+	if (coord_texture.x < 0 || coord_texture.y < 0 ||\
+		coord_texture.x >= poly->texture->w ||\
+		coord_texture.y >= poly->texture->h)
 	{
 		printf("\nSeg fault !\n");
 		print_poly(poly, 0);
@@ -124,24 +99,9 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 		printf("Coord texture/plan %d %d / %f %f\n", coord_texture.x, coord_texture.y, coord_plan.x, coord_plan.y);
 		exit(0);
 	}
-	return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w + coord_texture.x]);
+	return (((int *)poly->texture->pixels)[coord_texture.y * poly->texture->w +\
+											coord_texture.x]);
 }
-
-// static int			average_color(int c1, int c2, int alpha)
-// {
-// 	return ((alpha + (c2 >> 24) * (255 - alpha) / 255) << 24 |\
-// 			((((c1 >> 16) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 16) & 0xFF)) / 255) << 16 |\
-// 			((((c1 >> 8) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 8) & 0xFF)) / 255) << 8 |\
-// 			((((c1 >> 0) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 0) & 0xFF)) / 255) << 0);
-
-// 	// unsigned char	average;
-
-// 	// average = ((c1 >> 24) + (c2 >> 24) * (255 - c1 >> 24) / 255) << 24;
-// 	// average += ((((c1 >> 16) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 26) & 0xFF)) / 255) << 16;
-// 	// average += ((((c1 >> 8) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 8) & 0xFF)) / 255) << 8;
-// 	// average += ((((c1 >> 0) & 0xFF) * alpha) / 255 + ((255 - alpha) * ((c2 >> 0) & 0xFF)) / 255) << 0;
-// 	// return (average);
-// }
 
 static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 {
@@ -151,8 +111,11 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 
 	if (!intersection_plan_my_ray(&collision, poly->equation, ray))
 		return ;
-	newdist = collision.x * collision.x + collision.y * collision.y + collision.z * collision.z;
-	if ((!ray->poly || newdist < ray->dist) && (color = find_pixel(poly, collision)) != -1 && (color >> 24) & 0xFF)
+	newdist = collision.x * collision.x +\
+				collision.y * collision.y +\
+				collision.z * collision.z;
+	if ((!ray->poly || newdist < ray->dist) &&\
+		(color = find_pixel(poly, collision)) != -1 && (color >> 24) & 0xFF)
 	{
 		ray->poly = poly;
 		ray->color = color;
@@ -160,52 +123,6 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 		ray->dist = newdist;
 	}
 }
-
-/*
-**	Attention certaine box > 1000 sur x !
-*/
-
-// static void			square_tracing(t_win *win, t_player *player, t_poly *poly)
-// {
-// 	int				x;
-// 	int				y;
-
-// 	y = poly->box_y.x;
-// 	while (++y < poly->box_y.y)
-// 		if (0 <= y && y < win->h)
-// 		{
-// 			x = poly->box_x.x;
-// 			while (++x < poly->box_x.y)
-// 			{
-// 				if (0 <= x && x < win->w)
-// 					launch_ray_3d(poly, &(player->rays[y][x]));
-// 			}
-// 		}
-// }
-
-// void		raycasting_3d(t_win *win, t_player *player)
-// {
-// 	t_poly	*poly;
-
-// 	surround_walls(win, win->map);
-// 	if (win->map->view & TEXTURE_VIEW)
-// 	{
-// 		poly = win->map->polys;
-// 		while (poly)
-// 		{
-// 			// printf("texture %p\n", poly->texture);
-// 			poly->is_slide_ban = 0;
-// 			square_tracing(win, player, poly);
-// 			poly = poly->next;
-// 		}
-// 		draw(win, player);
-// 	}
-// 	if (win->map->view & WALL_VIEW)
-// 		draw_projection(win);
-// 	if (win->map->view & BOX_VIEW)
-// 		draw_all_square(win);
-// 	draw_fps();
-// }
 
 static void			*square_tracing(void *param)
 {
@@ -222,10 +139,8 @@ static void			*square_tracing(void *param)
 		pthread_exit(NULL);//Opti ?
 		return (NULL);
 	}
-	// printf("Poly %d thread %d\n", poly->index, thread->i);
 	y = poly->box_y.x + (poly->box_y.y - poly->box_y.x) * (thread->i / (float)N_THREADS) - 1;
 	y_max = poly->box_y.x + (poly->box_y.y - poly->box_y.x) * ((thread->i + 1) / (float)N_THREADS);
-	// printf("box ymax - %d %d / %d\n", poly->box_y.x, poly->box_y.y, y_max);
 	while (poly->visible && ++y < y_max)
 		if (0 <= y && y < thread->win->h)
 		{
@@ -235,7 +150,6 @@ static void			*square_tracing(void *param)
 					launch_ray_3d(poly, &(thread->player->rays[y][x]));
 		}
 	thread->poly = thread->poly->next;
-	// printf("i = %d\tNext square\n", thread->i);
 	square_tracing(thread);
 	return (NULL);
 }
