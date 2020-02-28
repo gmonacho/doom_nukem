@@ -394,15 +394,17 @@ Polygon								//Merde volante
 	texture = Plafond.png
 }
 
-Poldygon								//Vitre
+Polygon								//Descente
 {
-	dot = x:100, y:650, z:200
-	dot = x:600, y:650, z:200
-	dot = x:600, y:650, z:50
-	dot = x:100, y:650, z:50
+	dot = x:-100, y:150, z:50
+	dot = x:100, y:150, z:50
+	dot = x:100, y:-150, z:-50
+	dot = x:-100, y:-150, z:-50
 	light = 100
-	texture = Vitre.png
+	texture = Plafond.png
 }
+
+
 
 	/* Chandelier origin (100, 400, 150) */
 		/* Chandelier devant */
