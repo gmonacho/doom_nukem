@@ -42,7 +42,7 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 			find_texture(tab[i], *poly);
 		if (ft_strstr(tab[i], "light = "))
 		{
-			(*poly)->light_coef = ft_atof(ft_strrchr(tab[i], '=') + 1) / 100;
+			(*poly)->light_coef = ft_atoi(ft_strrchr(tab[i], '=') + 1) / 100.0;
 			printf("Str = '%s'\tCoef = %f\n", ft_strrchr(tab[i], '=') + 1, (*poly)->light_coef);
 		}
 		i++;

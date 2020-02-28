@@ -157,13 +157,11 @@ static void			*square_tracing(void *param)
 void		raycasting_3d(t_win *win, t_map *map)
 {
 	int		i;
-	// clock_t		t1;
-	// clock_t		t2;
-	// t1 = clock();
-	// t2 = clock();
-	// printf("Delta time %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
+	clock_t		t1;
+	clock_t		t2;
 
 	surround_walls(win, map);
+	// t1 = clock();
 	if (map->view & TEXTURE_VIEW)
 	{
 		//-------------------
@@ -191,6 +189,8 @@ void		raycasting_3d(t_win *win, t_map *map)
 		//-------------------
 		// draw(win, player);
 	}
+	// t2 = clock();
+	// printf("Delta time %lf\n", ((float)t2 - t1) / (float)CLOCKS_PER_SEC);
 	if (map->view & WALL_VIEW)
 		draw_projection(win);
 	if (map->view & BOX_VIEW)
