@@ -22,7 +22,7 @@ char		*object_data_fill(char **tab, t_object **object, int i)
 		if (ft_strstr(tab[i], "height = "))
 			(*object)->height = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "light = "))
-			(*object)->light_coef = ft_atof(ft_strrchr(tab[i], '=') + 1);
+			(*object)->light_coef = ft_atof(ft_strrchr(tab[i], '=') + 1) / 100;
 		if (ft_strstr(tab[i], "data = "))
 			(*object)->data = ft_atof(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "dir = "))

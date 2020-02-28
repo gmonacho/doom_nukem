@@ -53,7 +53,7 @@ Object
 	posz = 150
 	width = 30
 	height = 30
-	light = 1
+	light = 100
 	texture = healthPotion.png
 }
 Object
@@ -64,7 +64,7 @@ Object
 	posz = 150
 	width = 30
 	height = 30
-	light = 1
+	light = 100
 	texture = shieldPotion.png
 }
 Object
@@ -75,7 +75,7 @@ Object
 	posz = 70
 	width = 30
 	height = 30
-	light = 1
+	light = 100
 	texture = 150x150.png
 }
 
@@ -87,7 +87,7 @@ Ooobject
 	posz = 70
 	width = 60
 	height = 60
-	light = 1
+	light = 100
 	texture = 150x150.png
 }
 Object						// test box 1
@@ -98,7 +98,7 @@ Object						// test box 1
 	posz = 100
 	width = 20
 	height = 20
-	light = 1
+	light = 100
 	texture = 150x150.png
 }
 Object						// test box 2
@@ -109,7 +109,7 @@ Object						// test box 2
 	posz = 100
 	width = 20
 	height = 20
-	light = 1
+	light = 100
 	texture = Elephantride.png
 }
 Object						// test box 3
@@ -120,7 +120,7 @@ Object						// test box 3
 	posz = 100
 	width = 20
 	height = 20
-	light = 1
+	light = 100
 	texture = Pq.png
 }
 Object						// test porte 1
@@ -131,7 +131,7 @@ Object						// test porte 1
 	posz = 100
 	width = 60
 	height = 80
-	light = 1
+	light = 100
 	dir = 0
 	texture = doorfront.png
 }
@@ -143,7 +143,7 @@ Object						// test porte 2
 	posz = 100
 	width = 60
 	height = 80
-	light = 1
+	light = 100
 	dir = 1
 	texture = doorfront.png
 }
@@ -155,7 +155,7 @@ Object						// test porte 3
 	posz = 100
 	width = 60
 	height = 80
-	light = 1
+	light = 100
 	dir = 2
 	texture = doorfront.png
 }
@@ -167,7 +167,7 @@ Object						// test porte 4
 	posz = 100
 	width = 60
 	height = 80
-	light = 1
+	light = 100
 	dir = 3
 	texture = doorfront.png
 }
@@ -179,7 +179,7 @@ Oobject
 	posz = 120
 	width = 60
 	height = 60
-	light = 1
+	light = 100
 	data = 1
 	texture = tortue.png
 }
@@ -191,7 +191,7 @@ Oobject
 	posz = 70
 	width = 60
 	height = 60
-	light = 1
+	light = 100
 	data = 1
 	texture = tortue.png
 }
@@ -204,11 +204,11 @@ Object
 	posz = 160
 	width = 30
 	height = 30
-	light = 1
+	light = 100
 	texture = 150x150.png
 }
 
-Mooooob
+Mob
 {
 	posx = 400
 	posy = 650
@@ -219,7 +219,7 @@ Mooooob
 	damage = 1
 	dir = -90
 	velocity = 2
-	light = 1
+	light = 100
 	texture = Mario_Ghost.png
 }
 
@@ -230,7 +230,7 @@ Polygon									//Mur entier
 	dot = x:-100, y:150, z:300
 	dot = x:-100, y:150, z:50
 	dot = x:-100, y:650, z:50
-	light = 1
+	light = 100
 	texture = Brique.png
 }
 Polygon									//Demi-mur
@@ -239,7 +239,7 @@ Polygon									//Demi-mur
 	dot = x:600, y:650, z:125
 	dot = x:600, y:650, z:50
 	dot = x:600, y:150, z:50
-	light = 1
+	light = 100
 	texture = Brique.png
 }
 Polygon									//Fond principal renfoncement
@@ -248,7 +248,7 @@ Polygon									//Fond principal renfoncement
 	dot = x:700, y:650, z:200
 	dot = x:700, y:650, z:125
 	dot = x:700, y:150, z:125
-	light = 1
+	light = 100
 	texture = Plafond.png
 }
 Polygon									//Fond renfoncement 2
@@ -257,7 +257,7 @@ Polygon									//Fond renfoncement 2
 	dot = x:600, y:150, z:200
 	dot = x:600, y:150, z:125
 	dot = x:700, y:150, z:125
-	light = 1
+	light = 100
 	texture = Brique.png
 }
 Polygon									//Fond renfoncement 3
@@ -266,7 +266,7 @@ Polygon									//Fond renfoncement 3
 	dot = x:600, y:650, z:200
 	dot = x:600, y:650, z:125
 	dot = x:700, y:650, z:125
-	light = 1
+	light = 100
 	texture = Brique.png
 }
 Polygon									//Fond
@@ -275,7 +275,7 @@ Polygon									//Fond
 	dot = x:600, y:150, z:200
 	dot = x:600, y:150, z:50
 	dot = x:100, y:150, z:50
-	light = 1
+	light = 100
 	texture = Elephantride.png
 }
 
@@ -289,7 +289,7 @@ Polygon									//Mur complet
 	dot = x:100, y:1150, z:200
 	dot = x:100, y:1150, z:0
 	dot = x:100, y:650, z:0
-	light = 1
+	light = 100
 	texture = Brique.png
 }
 Polygon									//Mur complet
@@ -298,7 +298,7 @@ Polygon									//Mur complet
 	dot = x:600, y:650, z:200
 	dot = x:600, y:650, z:0
 	dot = x:600, y:1150, z:0
-	light = 1
+	light = 100
 	texture = Brique.png
 }
 Polygon									//Fond
@@ -307,7 +307,7 @@ Polygon									//Fond
 	dot = x:600, y:1150, z:200
 	dot = x:600, y:1150, z:0
 	dot = x:100, y:1150, z:0
-	light = 1
+	light = 100
 	texture = Elephantride.png
 }
 
@@ -318,7 +318,7 @@ Polygon								//Rampe
 	dot = x:100, y:1150, z:80
 	dot = x:600, y:1150, z:80
 	dot = x:600, y:900, z:0
-	light = 1
+	light = 100
 	texture = Brique.png
 }
 
@@ -331,7 +331,7 @@ Polygon								//Sol bas
 	dot = x:100, y:1150, z:0
 	dot = x:600, y:1150, z:0
 	dot = x:600, y:650, z:0
-	light = 1
+	light = 100
 	texture = Mario_Ghost.png
 }
 Polygon								//Marche
@@ -340,7 +340,7 @@ Polygon								//Marche
 	dot = x:600, y:650, z:0
 	dot = x:600, y:650, z:50
 	dot = x:100, y:650, z:50
-	light = 1
+	light = 100
 	texture = Brique.png
 }
 Polygon								//Sol haut
@@ -349,7 +349,7 @@ Polygon								//Sol haut
 	dot = x:-100, y:150, z:50
 	dot = x:600, y:150, z:50
 	dot = x:600, y:650, z:50
-	light = 1
+	light = 100
 	texture = Plafond.png
 }
 Polygon								//Sol renfoncement
@@ -358,7 +358,7 @@ Polygon								//Sol renfoncement
 	dot = x:700, y:650, z:125
 	dot = x:600, y:650, z:125
 	dot = x:600, y:150, z:125
-	light = 1
+	light = 100
 	texture = Plafond.png
 }
 
@@ -371,7 +371,7 @@ Polygon								//Plafond
 	dot = x:100, y:150, z:200
 	dot = x:600, y:150, z:200
 	dot = x:600, y:1150, z:200
-	light = 1
+	light = 100
 	texture = Plafond.png
 }
 Polygon								//Plafond renforcement
@@ -380,7 +380,7 @@ Polygon								//Plafond renforcement
 	dot = x:600, y:150, z:200
 	dot = x:700, y:150, z:200
 	dot = x:700, y:650, z:200
-	light = 1
+	light = 100
 	texture = Plafond.png
 }
 
@@ -390,7 +390,7 @@ Polygon								//Merde volante
 	dot = x:200, y:800, z:100
 	dot = x:300, y:800, z:100
 	dot = x:300, y:500, z:140
-	light = 1
+	light = 100
 	texture = Plafond.png
 }
 
@@ -400,7 +400,7 @@ Poldygon								//Vitre
 	dot = x:600, y:650, z:200
 	dot = x:600, y:650, z:50
 	dot = x:100, y:650, z:50
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 
@@ -413,7 +413,7 @@ Polygon									//Manche
 	dot = x:8, y:2, z:6
 	dot = x:8, y:2, z:-2
 	dot = x:8, y:-2, z:-2
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Socle
@@ -422,7 +422,7 @@ Polygon									//Socle
 	dot = x:8, y:10, z:10
 	dot = x:8, y:10, z:6
 	dot = x:8, y:-10, z:6
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Bougie 1
@@ -431,7 +431,7 @@ Polygon									//Bougie 1
 	dot = x:8, y:-6, z:27
 	dot = x:8, y:-6, z:10
 	dot = x:8, y:-10, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 Polygon									//Bougie 2
@@ -440,7 +440,7 @@ Polygon									//Bougie 2
 	dot = x:8, y:2, z:27
 	dot = x:8, y:2, z:10
 	dot = x:8, y:-2, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 Polygon									//Bougie 3
@@ -449,7 +449,7 @@ Polygon									//Bougie 3
 	dot = x:8, y:10, z:27
 	dot = x:8, y:10, z:10
 	dot = x:8, y:6, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 
@@ -461,7 +461,7 @@ Polygon									//Manche bas
 	dot = x:0, y:2, z:2
 	dot = x:0, y:2, z:-2
 	dot = x:0, y:-2, z:-2
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Manche haut
@@ -470,7 +470,7 @@ Polygon									//Manche haut
 	dot = x:4, y:2, z:6
 	dot = x:4, y:2, z:2
 	dot = x:4, y:-2, z:2
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Socle
@@ -479,7 +479,7 @@ Polygon									//Socle
 	dot = x:4, y:10, z:10
 	dot = x:4, y:10, z:6
 	dot = x:4, y:-10, z:6
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Bougie 1
@@ -488,7 +488,7 @@ Polygon									//Bougie 1
 	dot = x:4, y:-6, z:27
 	dot = x:4, y:-6, z:10
 	dot = x:4, y:-10, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 Polygon									//Bougie 2
@@ -497,7 +497,7 @@ Polygon									//Bougie 2
 	dot = x:4, y:2, z:27
 	dot = x:4, y:2, z:10
 	dot = x:4, y:-2, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 Polygon									//Bougie 3
@@ -506,7 +506,7 @@ Polygon									//Bougie 3
 	dot = x:4, y:10, z:27
 	dot = x:4, y:10, z:10
 	dot = x:4, y:6, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 
@@ -518,7 +518,7 @@ Polygon									//Manche bas
 	dot = x:8, y:-2, z:2
 	dot = x:8, y:-2, z:-2
 	dot = x:0, y:-2, z:-2
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Manche haut
@@ -527,7 +527,7 @@ Polygon									//Manche haut
 	dot = x:8, y:-2, z:6
 	dot = x:8, y:-2, z:2
 	dot = x:4, y:-2, z:2
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Socle
@@ -536,7 +536,7 @@ Polygon									//Socle
 	dot = x:8, y:-10, z:10
 	dot = x:8, y:-10, z:6
 	dot = x:4, y:-10, z:6
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Bougie 1
@@ -545,7 +545,7 @@ Polygon									//Bougie 1
 	dot = x:8, y:-10, z:27
 	dot = x:8, y:-10, z:10
 	dot = x:4, y:-10, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 Polygon									//Bougie 2
@@ -554,7 +554,7 @@ Polygon									//Bougie 2
 	dot = x:8, y:-2, z:27
 	dot = x:8, y:-2, z:10
 	dot = x:4, y:-2, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 Polygon									//Bougie 3
@@ -563,7 +563,7 @@ Polygon									//Bougie 3
 	dot = x:8, y:6, z:27
 	dot = x:8, y:6, z:10
 	dot = x:4, y:6, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 
@@ -575,7 +575,7 @@ Polygon									//Manche bas
 	dot = x:8, y:2, z:2
 	dot = x:8, y:2, z:-2
 	dot = x:0, y:2, z:-2
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Manche haut
@@ -584,7 +584,7 @@ Polygon									//Manche haut
 	dot = x:8, y:2, z:6
 	dot = x:8, y:2, z:2
 	dot = x:4, y:2, z:2
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Socle
@@ -593,7 +593,7 @@ Polygon									//Socle
 	dot = x:8, y:10, z:10
 	dot = x:8, y:10, z:6
 	dot = x:4, y:10, z:6
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Bougie 1
@@ -602,7 +602,7 @@ Polygon									//Bougie 1
 	dot = x:8, y:-6, z:27
 	dot = x:8, y:-6, z:10
 	dot = x:4, y:-6, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 Polygon									//Bougie 2
@@ -611,7 +611,7 @@ Polygon									//Bougie 2
 	dot = x:8, y:2, z:27
 	dot = x:8, y:2, z:10
 	dot = x:4, y:2, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 Polygon									//Bougie 3
@@ -620,7 +620,7 @@ Polygon									//Bougie 3
 	dot = x:8, y:10, z:27
 	dot = x:8, y:10, z:10
 	dot = x:4, y:10, z:10
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 
@@ -632,7 +632,7 @@ Polygon									//Bougie 1
 	dot = x:4, y:-6, z:27
 	dot = x:8, y:-6, z:27
 	dot = x:8, y:-10, z:27
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 Polygon									//Bougie 2
@@ -641,7 +641,7 @@ Polygon									//Bougie 2
 	dot = x:4, y:2, z:27
 	dot = x:8, y:2, z:27
 	dot = x:8, y:-2, z:27
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 Polygon									//Bougie 3
@@ -650,7 +650,7 @@ Polygon									//Bougie 3
 	dot = x:4, y:10, z:27
 	dot = x:8, y:10, z:27
 	dot = x:8, y:6, z:27
-	light = 1
+	light = 100
 	texture = Vitre.png
 }
 Polygon									//Socle 12
@@ -659,7 +659,7 @@ Polygon									//Socle 12
 	dot = x:4, y:-2, z:10
 	dot = x:8, y:-2, z:10
 	dot = x:8, y:-6, z:10
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Socle 23
@@ -668,7 +668,7 @@ Polygon									//Socle 23
 	dot = x:4, y:6, z:10
 	dot = x:8, y:6, z:10
 	dot = x:8, y:2, z:10
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Manche
@@ -677,7 +677,7 @@ Polygon									//Manche
 	dot = x:0, y:2, z:2
 	dot = x:4, y:2, z:2
 	dot = x:4, y:-2, z:2
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 
@@ -689,7 +689,7 @@ Polygon									//Manche
 	dot = x:8, y:10, z:6
 	dot = x:4, y:10, z:6
 	dot = x:4, y:-10, z:6
-	light = 1
+	light = 100
 	texture = Sol.png
 }
 Polygon									//Manche
@@ -698,6 +698,6 @@ Polygon									//Manche
 	dot = x:8, y:2, z:-2
 	dot = x:0, y:2, z:-2
 	dot = x:0, y:-2, z:-2
-	light = 1
+	light = 100
 	texture = Sol.png
 }

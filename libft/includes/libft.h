@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   libft.h                                          .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/03 10:23:36 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/31 17:24:07 by gmonacho    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/03 10:23:36 by gmonacho          #+#    #+#             */
+/*   Updated: 2020/02/27 20:25:49 by widrye           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -117,5 +117,9 @@ int					ft_round(float nb);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstsplit(const char *s1, char c);
+t_list				*ft_create_elem(char *line);
+t_list				*ft_lst_pb(t_list **begin_list, char *line);
+void				ft_free_list(t_list *lst);
+int					ft_content_already_inlist(t_list *lst, char *texname);
 
 #endif

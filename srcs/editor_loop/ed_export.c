@@ -10,6 +10,9 @@ void		ed_export(void *ed_export)
 	t_export	*export;
 	t_map		*map;
 
+	int grdy;
+
+	grdy = 0; // TO DO: AJOUTER UNE OPTION SUR L'EDITEUR
 	export = (t_export*)ed_export;
 	map = (t_map*)export->map;
 	printf("path = %s\n", export->path);
@@ -31,12 +34,14 @@ void		ed_export(void *ed_export)
 			m = m->next;
 		}
 		p = map->polys;
-		while (p)
+		while (p && !p->object) // && !p->object sinon boucle aussi sur les polys de obj et m
 		{
 			ed_write_poly(fd, p, &map->player);
 			p = p->next;
 		}
+		if (grdy && !ed_export_ready(fd, map))
+			ui_ret_error("ed_export (gameready)", "opening/creating failed", 0);	
 	}
 	else
-		ui_ret_error("ed_export", "openning/creating failed", 0);
+		ui_ret_error("ed_export", "opening/creating failed", 0);
 }

@@ -126,14 +126,20 @@ void	ed_write_item(int fd, const t_object *obj)
 		tmp = "BULLET";
 	else if (obj->type & BOX)
 		tmp = "BOX";
+	else if (obj->type & DOOR)
+		tmp = "DOOR";
+	else if (obj->type & LIGHT)
+		tmp = "LIGHT";
+	else if (obj->type & TP)
+		tmp = "TP";
 	ed_write_line(fd, "\ttype", tmp);
-	tmp = ft_itoa(obj->pos.x);
+	tmp = ft_itoa(obj->pos_rotz_only.x);
 	ed_write_line(fd, "\tposx", tmp);
 	ft_strdel(&tmp);
-	tmp = ft_itoa(obj->pos.y);
+	tmp = ft_itoa(obj->pos_rotz_only.y);
 	ed_write_line(fd, "\tposy", tmp);
 	ft_strdel(&tmp);
-	tmp = ft_itoa(obj->pos.z);
+	tmp = ft_itoa(obj->pos_rotz_only.z);
 	ed_write_line(fd, "\tposz", tmp);
 	ft_strdel(&tmp);
 	tmp = ft_itoa(obj->width);
@@ -142,6 +148,12 @@ void	ed_write_item(int fd, const t_object *obj)
 	tmp = ft_itoa(obj->height);
 	ed_write_line(fd, "\theight", tmp);
 	ft_strdel(&tmp);
+	if (obj->dir)
+	{
+		tmp = ft_itoa(obj->dir);
+		ed_write_line(fd, "\tdir", tmp);
+		ft_strdel(&tmp);
+	}
 	tmp = ft_itoa(obj->light_coef * 100);
 	ed_write_line(fd, "\tlight", tmp);
 	ft_strdel(&tmp);

@@ -2,22 +2,25 @@
 
 void		attribute_texture(t_texhud *texhud, t_win *win)
 {
-	texhud->tex[0] = load_texture(win->rend, "textures/ammoIcon.png");
-	texhud->tex[1] = load_texture(win->rend, "textures/healthBar.png");
-	texhud->tex[2] = load_texture(win->rend, "textures/healthPixel.png");
-	texhud->tex[3] = load_texture(win->rend, "textures/shieldBar.png");
-	texhud->tex[4] = load_texture(win->rend, "textures/shieldPixel.png");
-	texhud->tex[5] = load_texture(win->rend, "textures/slotIcon.png");
-	texhud->tex[6] = load_texture(win->rend, "textures/selectedSlot.png");
-	texhud->tex[7] = load_texture(win->rend, "textures/healthPotion.png");
-	texhud->tex[8] = load_texture(win->rend, "textures/shieldPotion.png");
-	texhud->tex[9] = load_texture(win->rend, "textures/pq.png");
-	texhud->tex[11] = load_texture(win->rend, "textures/crosshairIcon.png");
-	texhud->tex[12] = load_texture(win->rend, "textures/gameOverScreen.png");
-	texhud->tex[13] = load_texture(win->rend, "textures/miniMap.png");
-	texhud->tex[14] = load_texture(win->rend, "textures/boxPortalIcon.png");
-	texhud->tex[15] = load_texture(win->rend, "textures/Ammo_box_icon.png");
-	texhud->police = TTF_OpenFont("TTF/DooM.ttf", 65);
+	printf("trying to load HUD texture\n");
+	if (!(texhud->tex[0] = load_texture(win->rend, "textures/ammoIcon.png")) ||
+	!(texhud->tex[1] = load_texture(win->rend, "textures/healthBar.png")) ||
+	!(texhud->tex[2] = load_texture(win->rend, "textures/healthPixel.png")) ||
+	!(texhud->tex[3] = load_texture(win->rend, "textures/shieldBar.png")) ||
+	!(texhud->tex[4] = load_texture(win->rend, "textures/shieldPixel.png")) ||
+	!(texhud->tex[5] = load_texture(win->rend, "textures/slotIcon.png")) ||
+	!(texhud->tex[6] = load_texture(win->rend, "textures/selectedSlot.png")) ||
+	!(texhud->tex[7] = load_texture(win->rend, "textures/healthPotion.png")) ||
+	!(texhud->tex[8] = load_texture(win->rend, "textures/shieldPotion.png")) ||
+	!(texhud->tex[9] = load_texture(win->rend, "textures/pq.png")) ||
+	!(texhud->tex[11] = load_texture(win->rend, "textures/crosshairIcon.png")) ||
+	!(texhud->tex[12] = load_texture(win->rend, "textures/gameOverScreen.png")) ||
+	!(texhud->tex[13] = load_texture(win->rend, "textures/miniMap.png")) ||
+	!(texhud->tex[14] = load_texture(win->rend, "textures/boxPortalIcon.png")) ||
+	!(texhud->tex[15] = load_texture(win->rend, "textures/Ammo_box_icon.png")))
+		ft_putendl("failed to load HUD texture");
+	if (!(texhud->police = TTF_OpenFont("TTF/DooM.ttf", 65)))
+		ft_putendl("failed to Font TTF/DooM.ttf");
 }
 
 void		attribute_texture_weapon(t_texhud *texhud, t_win *win)
