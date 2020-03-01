@@ -18,47 +18,72 @@ void		fill_poly_object_norm(char *tmp, t_poly *poly_object)
 	}
 }
 
-int			count_line(int fp1)
+char		**lst_to_tab(t_list *lst, int height)
 {
-	int		nb;
-	char	*line;
-
-	nb = 0;
-	while (get_next_line(fp1, &line) > 0)
-	{
-		free(line);
-		nb++;
-	}
-	return (nb);
-}
-
-char		**ft_fill_map(int fd, int fp1)
-{
-	char	*line;
-	char	**tab;
 	int		i;
-	int		nb;
+	char	**tab;
+	t_list	*l;
 
 	i = 0;
-	nb = count_line(fp1);
-	if (!(tab = (char **)malloc(sizeof(char *) * (nb + 1))))
+	l = lst;
+	if (!(tab = (char **)malloc(sizeof(char *) * height)))
 		return (NULL);
-	while (get_next_line(fd, &line) > 0)
+	while (l && i < height)
 	{
-		tab[i] = ft_strdup(line);
-		free(line);
+		if (!(tab[i] = ft_strdup(l->content)))
+			return (NULL);
 		i++;
+		l = l->next;
 	}
 	tab[i] = NULL;
+	ft_free_list(lst);
 	return (tab);
 }
 
-char		**fillntesttab(int fd, int fd1)
+char		**ft_fill_map(int fd)
 {
-	char **tab;
+	char	*line;
+	t_list	*lst;
+	int		i;
+	int		ret;
+	int		grdy;
 
+	i = 0;
+	lst = NULL;
+	grdy = 0;
+	while ((ret = get_next_line(fd, &line)) != 0) //comme ca on ne read qu'une seule fois, c + opti
+	{
+		printf("%s\n", line);
+		if (ret == -1 || (lst = ft_lst_pb(&lst, line)) == NULL)
+		{
+			ft_free_list(lst);
+			return (NULL);
+		}
+		i++;
+	}
+	return (lst_to_tab(lst, i));
+}
+
+char		**fillntesttab(int fd)
+{
+	char		**tab;
+	int			n;
+	int			i;
+	static char tmp[11];
+
+	i = 0;
+	if ((n = read(fd, tmp, 12)) && (!ft_strcmp(tmp, "#GAMEREADY#\n")))
+	{
+		mkdir("textures", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		mkdir("sounds", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		if (!create_tmp_files(fd, "textures/"))
+			ft_putendl("failed to create tmp textures files");
+		if (!create_tmp_files(fd, "sounds/"))
+			ft_putendl("failed to create tmp sound files");
+		// mkdir("TTF", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	}
 	tab = NULL;
-	tab = ft_fill_map(fd, fd1);
+	tab = ft_fill_map(fd);
 	ft_parse_error(tab);
 	return (tab);
 }

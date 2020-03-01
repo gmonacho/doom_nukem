@@ -13,7 +13,6 @@
 */
 //Enlever les wildcards
 
-//DEG fault editor -> game
 /////ABSOLUMENT faire une fonction qui teste si les poly sont des parrallelogramme
 
 static int			init(t_win *win, t_map *map, t_player *player)
@@ -33,7 +32,7 @@ static int			init(t_win *win, t_map *map, t_player *player)
 int					main(int argc, char **argv)
 {
 	int				fd;
-	int				fd1;
+	// int				fd1;
 	int				ret;
 	t_win			win;
 	t_map			map;
@@ -64,7 +63,7 @@ int					main(int argc, char **argv)
 								win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE))
 			return (1);
 		loop = SDL_TRUE;
-		if (!init_music_timer(&map, &(win.music)))
+		if (!init_music_timer(&map, &(win.music)) && argc == 1)
 		{
 			ft_putendl("init_music failed");
 			return (4);
@@ -73,11 +72,15 @@ int					main(int argc, char **argv)
 			editor_loop(&win, &map);
 		else
 		{
-			if ((((fd = open(argv[1], O_RDONLY)) <= 0) ||\
-				((fd1 = open(argv[1], O_RDONLY)) <= 0)))
+			if ((fd = open(argv[1], O_RDONLY)) <= 0)
 				return (ret_error("open error"));
-			if (!(map.polys = ft_data_storing(fd, fd1, &map, &win))) // FREE SDL, FREE FD, FREE MUSIC
+			if (!(map.polys = ft_data_storing(fd, &map, &win))) // FREE SDL, FREE FD, FREE MUSIC
 				return (1);	//LEAKS T'AS UN GROS SEXE ALEXANDRE
+			if (!init_music_timer(&map, &(win.music))) //deuxieme essai mtn que les fichiers audio ont été créés
+			{
+				ft_putendl("init_music failed");
+				return (4);
+			}
 			map.gravity = map.player.const_vel / 2;
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));

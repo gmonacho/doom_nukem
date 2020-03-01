@@ -14,7 +14,7 @@ void		find_texture(char *tab, t_poly *poly)
 	tmp = ft_strjoin(tmp, name);
 	if (!(poly->texture = IMG_Load(tmp)))
 	{
-		exit(0);
+		exit(0); // attention
 		return ;
 	}
 	poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
@@ -66,7 +66,7 @@ void		fill_poly_mob(t_poly *poly, t_mob *mob)
 		tmp = ft_strjoin(tmp, mob->texture);
 		if (!(poly->texture = IMG_Load(tmp)))
 		{
-			exit(0);
+			exit(0); //attention
 			return ;
 		}
 		poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
@@ -102,7 +102,7 @@ void		fill_poly_object(t_poly *poly, t_object *object)
 	}
 }
 
-t_poly		*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
+t_poly		*ft_data_storing(int fd, t_map *map, t_win *win)
 {
 	char		**tab;
 	int			i;
@@ -112,7 +112,7 @@ t_poly		*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 	poly = NULL;
 	map->mob = NULL;
 	map->objects = NULL;
-	tab = fillntesttab(fd, fd1);
+	tab = fillntesttab(fd);
 	win->texhud = define_texhud(win);
 	while (tab[++i])
 	{

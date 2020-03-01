@@ -230,14 +230,14 @@ SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 **	---------------------------------- map ----------------------------------
 */
 
-
+int		    create_tmp_files(int fd, char *dir);
 int 		ft_parse_error(char **tab);
 void		ft_find_coord_p1(t_linedef *line, char *tab);
 void		ft_find_coord_p2(t_linedef *line, char *tab);
 void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
-t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_win *win);
-char 		**fillntesttab(int fd, int fd1);
+t_poly	    *ft_data_storing(int fd, t_map *map, t_win *win);
+char 		**fillntesttab(int fd);
 void		fill_poly(t_poly *poly, t_map *map);
 void		fill_poly_object(t_poly *poly, t_object *object);
 void		fill_poly_mob(t_poly *poly, t_mob *mob);
@@ -357,12 +357,12 @@ t_dot		ed_is_next_to_poly(const t_map *map, t_dot point, int radius);
 
 
 void		ed_export(void *ed_export);
-int 		ed_export_ready(int fd, t_map *map);
+int         ed_export_textures(int fd, t_map *map);
 int         ed_export_sounds(int fd);
 void		ed_write_player(int fd, const t_player *player);
 void		ed_write_poly(int fd, const t_poly *poly, const t_player *player);
 void		ed_write_mob(int fd, const t_mob *m);
-void		ed_write_item(int fd, const t_object *obj);
+void		ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos);
 /*
 ** ===============================================================================
 ** ================================== GAME LOOP ==================================
