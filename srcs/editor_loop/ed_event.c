@@ -792,7 +792,7 @@ static void	ed_move_player_z(t_map *map)
 	obj = map->objects;
 	while (obj)
 	{
-		obj->pos.z -= map->player.pos.z;
+		obj->pos_rotz_only.z -= map->player.pos.z;
 		obj = obj->next;
 	}
 	mob = map->mob;
