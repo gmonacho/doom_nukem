@@ -24,10 +24,19 @@ static t_mob	*ed_get_selected_mob(t_win *win, const t_map *map)
 	return (NULL);
 }
 
+static t_player	*ed_get_selected_player(t_win *win, t_map *map)
+{
+	if (ed_get_line_len(&(t_line){ed_get_map_point(map, win->winui->mouse.pos),
+			(t_dot){map->player.pos.x, map->player.pos.y}}) < map->player.width)
+		return (&map->player);
+	else
+		return (NULL);
+}
+
 static SDL_bool	ed_is_obj_selected(t_win *win, const t_map *map, const t_object *object)
 {
 	if (ed_get_line_len(&(t_line){ed_get_map_point(map, win->winui->mouse.pos),
-						(t_dot){object->pos.x, object->pos.y}}) < object->width)
+						(t_dot){object->pos_rotz_only.x, object->pos_rotz_only.y}}) < object->width)
 		return (SDL_TRUE);
 	else
 		return (SDL_FALSE);
@@ -487,6 +496,27 @@ static void	ed_set_buttons_object(t_win *win, t_object *selected)
 	ed_clean_property(win, 6);
 }
 
+static void	ed_set_buttons_player(t_win *win, t_player *selected)
+{
+	t_text_entry_button	*text_entry;
+	char				*tmp;
+
+	ui_set_text_entry_function(win->winui, "b_property_1", &set_float_value, &selected->pos.z);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_1");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("z");
+		}
+		tmp = ft_itoa(selected->pos.z);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ed_clean_property(win, 2);
+}
+
 static void	ed_selection(t_win *win, t_map *map)
 {
 	if (win->winui->mouse.clicking & UI_MOUSE_LEFT || win->winui->mouse.clicking & UI_MOUSE_RIGHT)
@@ -507,12 +537,21 @@ static void	ed_selection(t_win *win, t_map *map)
 			ed_set_buttons_mob(win, map->editor.selected_mob);
 			map->editor.selected_obj = NULL;
 			map->editor.selected_poly = NULL;
+			map->editor.selected_player = NULL;
+		}
+		else if ((map->editor.selected_player = ed_get_selected_player(win, map)))
+		{
+			ed_set_buttons_player(win, map->editor.selected_player);
+			map->editor.selected_obj = NULL;
+			map->editor.selected_poly = NULL;
+			map->editor.selected_mob = NULL;
 		}
 		else if ((map->editor.selected_obj = ed_get_selected_obj(win, map)))
 		{
 			ed_set_buttons_object(win, map->editor.selected_obj);
 			map->editor.selected_mob = NULL;
 			map->editor.selected_poly = NULL;
+			map->editor.selected_player = NULL;
 		}
 		else if ((map->editor.selected_poly = ed_get_selected_poly(win, map)))
 		{
@@ -524,6 +563,7 @@ static void	ed_selection(t_win *win, t_map *map)
 				ed_set_buttons_inclined(win, map->editor.selected_poly);
 			map->editor.selected_mob = NULL;
 			map->editor.selected_obj = NULL;
+			map->editor.selected_player = NULL;
 		}
 		else
 		{
@@ -639,11 +679,12 @@ static void	ed_place_item(t_win *win, t_map *map)
 				obj->type = BOX;
 				obj->texture = map->editor.settings.texture;
 			}
-			obj->pos.x = pos.x;
-			obj->pos.y = pos.y;
-			obj->pos.z = map->editor.settings.object.z;
+			obj->pos_rotz_only.x = pos.x;
+			obj->pos_rotz_only.y = pos.y;
+			obj->pos_rotz_only.z = map->editor.settings.object.z;
 			obj->width = map->editor.settings.object.width;
 			obj->height = map->editor.settings.object.width;
+			obj->light_coef = 0.5;
 			add_existing_object(&map->objects, obj);
 		}
 	}
@@ -733,12 +774,44 @@ void	ed_delete_obj(t_object **objects, t_object *object)
 	}
 }
 
+static void	ed_move_player_z(t_map *map)
+{
+	t_poly		*p;
+	t_mob		*mob;
+	t_object	*obj;
+	int			i;
+
+	p = map->polys;
+	while (p)
+	{
+		i = 0;
+		while (i < 4)
+			p->dots[i++].z -= map->player.pos.z;
+		p = p->next;
+	}
+	obj = map->objects;
+	while (obj)
+	{
+		obj->pos.z -= map->player.pos.z;
+		obj = obj->next;
+	}
+	mob = map->mob;
+	while (mob)
+	{
+		mob->pos.z -= map->player.pos.z;
+		mob = mob->next;
+	}
+	map->player.pos.z = 0;	
+}
+
 int 		ed_event(t_win *win, t_map *map)
 {
 	const Uint8	*state;
 	int			vel;
 
 	state = SDL_GetKeyboardState(NULL);
+	if (map->player.pos.z != 0)
+		ed_move_player_z(map);
 	if (!win->winui->ui.clicked_button)
 	{
 		vel = 3;

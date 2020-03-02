@@ -699,6 +699,7 @@ typedef struct		s_editor
 	t_poly			*selected_poly;
 	t_mob			*selected_mob;
 	t_object		*selected_obj;
+	t_player		*selected_player;
 	t_poly			*placing_poly;
 	int				min_pos_z;
 	int				max_pos_z;
