@@ -77,9 +77,10 @@ int					main(int argc, char **argv)
 			ft_putendl("init_music failed");
 			return (4);
 		}
+		init_map(&map);
 		if (argc == 1)
 		{
-			init_map(&map);
+			// init_map(&map);
 			editor_loop(&win, &map);
 		}
 		else
