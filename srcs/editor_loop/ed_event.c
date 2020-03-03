@@ -712,68 +712,6 @@ static void	ed_action(t_win *win, t_map *map)
 	}
 }
 
-void	ed_delete_mob(t_mob **mobs, t_mob *mob)
-{
-	t_mob	*m;
-	t_mob	*tmp_prev;
-	t_mob	*tmp_next;
-
-	if (mobs && mob)
-	{
-		tmp_prev = NULL;
-		m = *mobs;
-		while (m)
-		{
-			if (m == mob)			
-			{
-				tmp_next = m->next;
-				free(m);
-				if (tmp_prev)
-					tmp_prev->next = tmp_next;
-				else
-					*mobs = tmp_next;
-				m = tmp_next;
-			}
-			else
-			{
-				tmp_prev = m;
-				m = m->next;
-			}
-		}
-	}
-}
-
-void	ed_delete_obj(t_object **objects, t_object *object)
-{
-	t_object	*obj;
-	t_object	*tmp_prev;
-	t_object	*tmp_next;
-
-	if (objects && object)
-	{
-		tmp_prev = NULL;
-		obj = *objects;
-		while (obj)
-		{
-			if (obj == object)
-			{
-				tmp_next = obj->next;
-				free(obj);
-				if (tmp_prev)
-					tmp_prev->next = tmp_next;
-				else
-					*objects = tmp_next;
-				obj = tmp_next;
-			}
-			else
-			{
-				tmp_prev = obj;
-				obj = obj->next;
-			}	
-		}
-	}
-}
-
 static void	ed_move_player_z(t_map *map)
 {
 	t_poly		*p;
@@ -841,7 +779,7 @@ int 		ed_event(t_win *win, t_map *map)
 		}
 		else if (map->editor.selected_obj)
 		{
-			ed_delete_obj(&map->objects, map->editor.selected_obj);
+			ed_delete_obj(map, &map->objects, map->editor.selected_obj);
 			map->editor.selected_obj = NULL;
 		}
 	}

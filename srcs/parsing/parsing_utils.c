@@ -26,8 +26,9 @@ char		**lst_to_tab(t_list *lst, int height)
 
 	i = 0;
 	l = lst;
-	if (!(tab = (char **)malloc(sizeof(char *) * height)))
+	if (!(tab = (char **)malloc(sizeof(char *) * (height + 1))))
 		return (NULL);
+	tab[height] = NULL;
 	while (l && i < height)
 	{
 		if (!(tab[i] = ft_strdup(l->content)))
@@ -35,7 +36,6 @@ char		**lst_to_tab(t_list *lst, int height)
 		i++;
 		l = l->next;
 	}
-	tab[i] = NULL;
 	ft_free_list(lst);
 	return (tab);
 }
@@ -67,12 +67,12 @@ char		**ft_fill_map(int fd)
 char		**fillntesttab(int fd)
 {
 	char		**tab;
-	int			n;
 	int			i;
-	static char tmp[11];
+	static char tmp[13];
 
 	i = 0;
-	if ((n = read(fd, tmp, 12)) && (!ft_strcmp(tmp, "#GAMEREADY#\n")))
+	tmp[12] = '\0';
+	if (read(fd, tmp, 12) > 0 && (!ft_strcmp(tmp, "#GAMEREADY#\n")))
 	{
 		mkdir("textures", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 		mkdir("sounds", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);

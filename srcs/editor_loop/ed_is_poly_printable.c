@@ -14,16 +14,6 @@ static SDL_bool		ed_is_mob_poly(const t_map *map, const t_poly *poly)
 	return (SDL_FALSE);
 }
 
-static int			ed_get_object_poly_count(const t_object *obj)
-{
-	if (obj->type == BOX || obj->type == LIGHT)
-		return (6);
-	else if (obj->type == DOOR)
-		return (2);
-	else
-		return (1);
-}
-
 static SDL_bool		ed_is_object_poly(const t_map *map, const t_poly *poly)
 {
 	const t_object	*obj;
@@ -66,8 +56,8 @@ SDL_bool		ed_is_poly_printable(const t_map *map, t_poly *poly)
 	int	min;
 	int	max;
 
-	if (!ed_is_real_poly(map, poly))
-		return (0);
+	// if (!ed_is_real_poly(map, poly))
+	// 	return (0);
 	inter = ft_abs(map->editor.max_pos_z - map->editor.min_pos_z);
 	min = map->editor.min_pos_z + inter * (map->editor.z_min / 100.f);
 	max = map->editor.min_pos_z + inter * (map->editor.z_max / 100.f);
