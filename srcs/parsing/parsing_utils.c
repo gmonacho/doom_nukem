@@ -1,21 +1,20 @@
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-void		fill_poly_object_norm(char *tmp, t_poly *poly_object)
+int		fill_poly_object_norm(char *tmp, t_poly *poly_object)
 {
 	if (!(poly_object->texture = IMG_Load(tmp)))
 	{
 		ui_ret_error("fill_poly_object", SDL_GetError(), 0);
-		exit(0);
-		return ;
+		return (-1);
 	}
 	if (!(poly_object->texture = SDL_ConvertSurfaceFormat(
 		poly_object->texture, SDL_PIXELFORMAT_ARGB8888, 0)))
 	{
 		ui_ret_error("fill_poly_object", SDL_GetError(), 0);
-		exit(0);
-		return ;
+		return (-1);
 	}
+	return (0);
 }
 
 char		**lst_to_tab(t_list *lst, int height)
@@ -26,7 +25,7 @@ char		**lst_to_tab(t_list *lst, int height)
 
 	i = 0;
 	l = lst;
-	if (!(tab = (char **)malloc(sizeof(char *) * height)))
+	if (!(tab = (char **)malloc(sizeof(char *) * (height + 1))))
 		return (NULL);
 	while (l && i < height)
 	{
@@ -64,15 +63,53 @@ char		**ft_fill_map(int fd)
 	return (lst_to_tab(lst, i));
 }
 
+void clear_leaks(t_map *map)
+{
+	t_poly		*poly_tmp_next;
+	t_object	*object_tmp_next;
+	t_mob		*mob_tmp_next;
+
+	if (map->polys)
+	{
+		while (map->polys)
+		{
+			poly_tmp_next = map->polys->next;
+			free(map->polys);
+			map->polys = poly_tmp_next;
+		}
+		map->polys = NULL;
+	}
+	if (map->mob)
+	{
+		while (map->mob)
+		{
+			mob_tmp_next = map->mob->next;
+			free(map->mob);
+			map->mob = mob_tmp_next;
+		}
+		map->mob = NULL;
+	}
+	if (map->objects)
+	{
+		while (map->objects)
+		{
+			object_tmp_next = map->objects->next;
+			free(map->objects);
+			map->objects = object_tmp_next;
+		}
+		map->objects = NULL;
+	}
+}
+
 char		**fillntesttab(int fd)
 {
 	char		**tab;
-	int			n;
 	int			i;
-	static char tmp[11];
+	static char tmp[13];
 
+	tmp[12] = '\0';
 	i = 0;
-	if ((n = read(fd, tmp, 12)) && (!ft_strcmp(tmp, "#GAMEREADY#\n")))
+	if ((read(fd, tmp, 12)) > 0 && (!ft_strcmp(tmp, "#GAMEREADY#\n")))
 	{
 		mkdir("textures", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 		mkdir("sounds", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
@@ -88,9 +125,10 @@ char		**fillntesttab(int fd)
 	return (tab);
 }
 
-void		fill_poly(t_poly *poly, t_map *map)
-{
-	fill_poly_mob(poly, map->mob);
-	fill_poly_object(poly, map->objects);
+int		fill_poly(t_poly *poly, t_map *map)
+{	
+	if (fill_poly_mob(poly, map->mob) == -1 || fill_poly_object(poly, map->objects) == -1)
+		return (-1);
 	ft_putendl("Fin parsing\n");
+	return (0);
 }

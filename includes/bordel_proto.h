@@ -197,11 +197,11 @@ void    	apply_armor(t_player *player, int armor);
 **	---------------------------------- mob ----------------------------------
 */
 
-void		fill_mob_data(t_mob **mob, char **tab, int i);   
+int		    fill_mob_data(t_mob **mob, char **tab, int i);   
 void    	set_mobs_dots(t_mob *mob);
 void		mobs_attack_move(t_map *map, t_player *player, t_mob *mobs);
 void		hit_mobs(t_mob *mobs, int damage);
-void    	add_mob(t_mob **mob);
+int     	add_mob(t_mob **mob);
 void   		add_existing_mob(t_mob **mob, t_mob *new_mob);
 /*
 **	---------------------------------- map ----------------------------------
@@ -238,10 +238,10 @@ void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
 t_poly	    *ft_data_storing(int fd, t_map *map, t_win *win);
 char 		**fillntesttab(int fd);
-void		fill_poly(t_poly *poly, t_map *map);
-void		fill_poly_object(t_poly *poly, t_object *object);
-void		fill_poly_mob(t_poly *poly, t_mob *mob);
-void 		fill_poly_object_norm(char *tmp, t_poly	*poly_object);
+int		    fill_poly(t_poly *poly, t_map *map);
+int		    fill_poly_object(t_poly *poly, t_object *object);
+int		    fill_poly_mob(t_poly *poly, t_mob *mob);
+int 		fill_poly_object_norm(char *tmp, t_poly	*poly_object);
 char		*object_data_fill(char **tab, t_object **object, int i);
 void		fill_mob_data_norm(t_mob **mob, char *tab);
 
@@ -249,6 +249,8 @@ void		player_data(char **tab, t_player *player, int i);
 
 int			object_data(char **tab, t_object **object, int i);
 t_texhud   	*define_texhud(t_win *win);
+
+void        clear_leaks(t_map *map);
 // void		save_lights(t_map *map);
 
 /*

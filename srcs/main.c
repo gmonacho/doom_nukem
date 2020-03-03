@@ -74,8 +74,13 @@ int					main(int argc, char **argv)
 		{
 			if ((fd = open(argv[1], O_RDONLY)) <= 0)
 				return (ret_error("open error"));
-			if (!(map.polys = ft_data_storing(fd, &map, &win))) // FREE SDL, FREE FD, FREE MUSIC
-				return (1);	//LEAKS T'AS UN GROS SEXE ALEXANDRE
+			if (!(win.map->polys = ft_data_storing(fd, &map, &win)))
+			{
+				clear_leaks(win.map);
+				SDL_DestroyWindow(win.ptr);
+				SDL_DestroyRenderer(win.rend);
+				SDL_Quit();
+			}
 			if (!init_music_timer(&map, &(win.music))) //deuxieme essai mtn que les fichiers audio ont été créés
 			{
 				ft_putendl("init_music failed");
