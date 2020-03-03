@@ -27,6 +27,7 @@ char		**lst_to_tab(t_list *lst, int height)
 	l = lst;
 	if (!(tab = (char **)malloc(sizeof(char *) * (height + 1))))
 		return (NULL);
+	tab[height] = NULL;
 	while (l && i < height)
 	{
 		if (!(tab[i] = ft_strdup(l->content)))
@@ -34,7 +35,6 @@ char		**lst_to_tab(t_list *lst, int height)
 		i++;
 		l = l->next;
 	}
-	tab[i] = NULL;
 	ft_free_list(lst);
 	return (tab);
 }

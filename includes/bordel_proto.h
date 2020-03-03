@@ -331,6 +331,7 @@ t_dot		ed_get_display_point(const t_map *map, t_dot p);
 int			ed_get_map_x(const t_map *map, int n);
 int			ed_get_map_y(const t_map *map, int n);
 t_dot		ed_get_map_point(const t_map *map, t_dot p);
+int			ed_get_object_poly_count(const t_object *obj);
 
 int			ed_place_wall(t_win *win, t_map *map);
 int			ed_place_flat(t_win *win, t_map *map);
@@ -343,6 +344,7 @@ int			ed_get_z_max(const t_poly *polys);
 
 void		ed_delete_map(void *map_ptr);
 void		ed_delete_mob(t_mob **mobs, t_mob *mob);
+void		ed_delete_obj(t_map *map, t_object **objects, t_object *object);
 
 SDL_Color	ed_get_wall_display_color(const t_map *map, t_poly *poly);
 SDL_Color	ed_get_flat_display_color(const t_map *map, t_poly *poly);
