@@ -27,6 +27,7 @@ void			add_object(t_object **object)
 	printf("New object\n");
 	new_object = (t_object *)ft_memalloc(sizeof(t_object));
 	new_object->next = *object;
+	printf("obj = %p\n", object);
 	// new_object->next_light = NULL;
 	new_object->collide = 1;
 	new_object->visible = 1;
@@ -114,6 +115,6 @@ int				object_data(char **tab, t_object **object, int i)
 	(*object)->height_2 = (*object)->height / 2;
 	if (add_poly_object(*object, type))
 		return (1);
-	free(type);
+	ft_strdel(&type);
 	return (0);
 }
