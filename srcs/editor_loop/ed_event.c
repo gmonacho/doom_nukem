@@ -143,6 +143,7 @@ static void	ed_clean_property(t_win *win, int i_start)
 			ft_bzero(text_entry->text, ft_strlen(text_entry->text));
 			if (text_entry->name)
 				ft_bzero(text_entry->name, ft_strlen(text_entry->name));
+			text_entry->f = NULL;
 		}
 		ft_strdel(&id);
 		i_start++;
@@ -685,6 +686,7 @@ static void	ed_place_item(t_win *win, t_map *map)
 			obj->width = map->editor.settings.object.width;
 			obj->height = map->editor.settings.object.width;
 			obj->light_coef = 0.5;
+			obj->poly = NULL;
 			add_existing_object(&map->objects, obj);
 		}
 	}

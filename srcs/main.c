@@ -15,6 +15,15 @@
 
 /////ABSOLUMENT faire une fonction qui teste si les poly sont des parrallelogramme
 
+static void			init_map(t_map *map)
+{
+	map->objects = NULL;
+	map->polys = NULL;
+	map->mob = NULL;
+	map->player.width = 30;
+	map->player.height = 30;
+}
+
 static int			init(t_win *win, t_map *map, t_player *player)
 {
 	printf("Debut init\n");
@@ -69,7 +78,10 @@ int					main(int argc, char **argv)
 			return (4);
 		}
 		if (argc == 1)
+		{
+			init_map(&map);
 			editor_loop(&win, &map);
+		}
 		else
 		{
 			if ((fd = open(argv[1], O_RDONLY)) <= 0)
