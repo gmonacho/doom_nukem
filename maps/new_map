@@ -1,186 +1,588 @@
+
+###########
 Player
 {
-	posx = 0
-	posy = 0
+	posx = 200
+	posy = 200
 	posz = 0
 	dir = 0
-	width = 30
-	height = 50
+	width = 70
+	height = 70
 	velocity = 5
 }
 Object
 {
-	type = 	posx = 0
-	posy = 0
-	posz = 0
-	width = 30
-	height = 30
-	light = 50
-	texture = pq.png
-}
-Object
-{
-	type = HEAL
-	posx = 0
-	posy = 0
-	posz = 0
-	width = 30
-	height = 30
-	light = 5000
-	texture = healthPotion.png
-}
-Object
-{
-	type = ARMOR
-	posx = 0
-	posy = 0
-	posz = 0
-	width = 30
-	height = 30
-	light = 10000
-	texture = shieldPotion.png
-}
-Object
-{
 	type = GRAVITY_INV
-	posx = 0
-	posy = 0
-	posz = 0
+	posx = 150
+	posy = 200
+	posz = -140
 	width = 30
 	height = 30
-	light = 7500
+	light = 100
 	texture = 150x150.png
 }
 Object
 {
-	type = BOX
-	posx = 0
-	posy = 0
-	posz = 0
-	width = 30
-	height = 30
-	light = 2500
-	texture = 150x150.png
+	type = DOOR
+	posx = 500
+	posy = 550
+	posz = -200
+	width = 60
+	height = 80
+	dir = 3
+	light = 100
+	texture = doorfront.png
+}
+Object
+{
+	type = DOOR
+	posx = 500
+	posy = 450
+	posz = -200
+	width = 60
+	height = 80
+	dir = 2
+	light = 100
+	texture = doorfront.png
+}
+Object
+{
+	type = DOOR
+	posx = 500
+	posy = 350
+	posz = -200
+	width = 60
+	height = 80
+	dir = 1
+	light = 100
+	texture = doorfront.png
+}
+Object
+{
+	type = DOOR
+	posx = 500
+	posy = 250
+	posz = -200
+	width = 60
+	height = 80
+	light = 100
+	texture = doorfront.png
 }
 Object
 {
 	type = BOX
-	posx = 0
-	posy = 0
-	posz = 0
-	width = 30
-	height = 30
-	light = 10000
-	texture = 150x150.png
-}
-Object
-{
-	type = BOX
-	posx = 0
-	posy = 0
-	posz = 0
-	width = 30
-	height = 30
-	light = 10000
-	texture = 150x150.png
-}
-Object
-{
-	type = BOX
-	posx = 0
-	posy = 0
-	posz = 0
-	width = 30
-	height = 30
-	light = 10000
+	posx = 120
+	posy = 300
+	posz = -200
+	width = 20
+	height = 20
+	light = 100
 	texture = Pq.png
 }
 Object
 {
 	type = BOX
-	posx = 0
-	posy = 0
-	posz = 0
-	width = 30
-	height = 30
-	light = 10000
+	posx = 120
+	posy = 200
+	posz = -200
+	width = 20
+	height = 20
+	light = 100
 	texture = Elephantride.png
 }
 Object
 {
-	type = HEAL
-	posx = 0
-	posy = 0
-	posz = 0
+	type = BOX
+	posx = 120
+	posy = 250
+	posz = -200
+	width = 20
+	height = 20
+	light = 100
+	texture = 150x150.png
+}
+Object
+{
+	type = GRAVITY_INV
+	posx = 300
+	posy = 750
+	posz = -230
 	width = 30
 	height = 30
-	light = 10000
+	light = 100
+	texture = 150x150.png
+}
+Object
+{
+	type = ARMOR
+	posx = 200
+	posy = 950
+	posz = -150
+	width = 30
+	height = 30
+	light = 100
+	texture = shieldPotion.png
+}
+Object
+{
+	type = HEAL
+	posx = 400
+	posy = 950
+	posz = -150
+	width = 30
+	height = 30
+	light = 100
 	texture = healthPotion.png
 }
-Mob
+Object
 {
-	posx = 400
-	posy = 650
-	posz = 150
-	height = 50
+	type = LIGHT
+	posx = 300
+	posy = 300
+	posz = -150
 	width = 30
-	damage = 1
-	dir = -90
-	velocity = 2
-	light = 29
+	height = 30
+	light = 100
+	texture = pq.png
+}
+Polygon
+{
+	dot = x:8 y:-2 z:-302
+	dot = x:8 y:2 z:-302
+	dot = x:0 y:2 z:-302
+	dot = x:0 y:-2 z:-302
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:8 y:-10 z:-294
+	dot = x:8 y:10 z:-294
+	dot = x:4 y:10 z:-294
+	dot = x:4 y:-10 z:-294
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:0 y:-2 z:-298
+	dot = x:0 y:2 z:-298
+	dot = x:4 y:2 z:-298
+	dot = x:4 y:-2 z:-298
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:4 y:2 z:-290
+	dot = x:4 y:6 z:-290
+	dot = x:8 y:6 z:-290
+	dot = x:8 y:2 z:-290
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:4 y:-6 z:-290
+	dot = x:4 y:-2 z:-290
+	dot = x:8 y:-2 z:-290
+	dot = x:8 y:-6 z:-290
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:4 y:6 z:-273
+	dot = x:4 y:10 z:-273
+	dot = x:8 y:10 z:-273
+	dot = x:8 y:6 z:-273
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:-2 z:-273
+	dot = x:4 y:2 z:-273
+	dot = x:8 y:2 z:-273
+	dot = x:8 y:-2 z:-273
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:-10 z:-273
+	dot = x:4 y:-6 z:-273
+	dot = x:8 y:-6 z:-273
+	dot = x:8 y:-10 z:-273
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:10 z:-273
+	dot = x:8 y:10 z:-273
+	dot = x:8 y:10 z:-290
+	dot = x:4 y:10 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:2 z:-273
+	dot = x:8 y:2 z:-273
+	dot = x:8 y:2 z:-290
+	dot = x:4 y:2 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:-6 z:-273
+	dot = x:8 y:-6 z:-273
+	dot = x:8 y:-6 z:-290
+	dot = x:4 y:-6 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:10 z:-290
+	dot = x:8 y:10 z:-290
+	dot = x:8 y:10 z:-294
+	dot = x:4 y:10 z:-294
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:4 y:2 z:-294
+	dot = x:8 y:2 z:-294
+	dot = x:8 y:2 z:-298
+	dot = x:4 y:2 z:-298
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:0 y:2 z:-298
+	dot = x:8 y:2 z:-298
+	dot = x:8 y:2 z:-302
+	dot = x:0 y:2 z:-302
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:4 y:6 z:-273
+	dot = x:8 y:6 z:-273
+	dot = x:8 y:6 z:-290
+	dot = x:4 y:6 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:-2 z:-273
+	dot = x:8 y:-2 z:-273
+	dot = x:8 y:-2 z:-290
+	dot = x:4 y:-2 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:-10 z:-273
+	dot = x:8 y:-10 z:-273
+	dot = x:8 y:-10 z:-290
+	dot = x:4 y:-10 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:-10 z:-290
+	dot = x:8 y:-10 z:-290
+	dot = x:8 y:-10 z:-294
+	dot = x:4 y:-10 z:-294
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:4 y:-2 z:-294
+	dot = x:8 y:-2 z:-294
+	dot = x:8 y:-2 z:-298
+	dot = x:4 y:-2 z:-298
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:0 y:-2 z:-298
+	dot = x:8 y:-2 z:-298
+	dot = x:8 y:-2 z:-302
+	dot = x:0 y:-2 z:-302
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:4 y:6 z:-273
+	dot = x:4 y:10 z:-273
+	dot = x:4 y:10 z:-290
+	dot = x:4 y:6 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:-2 z:-273
+	dot = x:4 y:2 z:-273
+	dot = x:4 y:2 z:-290
+	dot = x:4 y:-2 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:-10 z:-273
+	dot = x:4 y:-6 z:-273
+	dot = x:4 y:-6 z:-290
+	dot = x:4 y:-10 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:4 y:-10 z:-290
+	dot = x:4 y:10 z:-290
+	dot = x:4 y:10 z:-294
+	dot = x:4 y:-10 z:-294
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:4 y:-2 z:-294
+	dot = x:4 y:2 z:-294
+	dot = x:4 y:2 z:-298
+	dot = x:4 y:-2 z:-298
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:0 y:-2 z:-298
+	dot = x:0 y:2 z:-298
+	dot = x:0 y:2 z:-302
+	dot = x:0 y:-2 z:-302
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:8 y:6 z:-273
+	dot = x:8 y:10 z:-273
+	dot = x:8 y:10 z:-290
+	dot = x:8 y:6 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:8 y:-2 z:-273
+	dot = x:8 y:2 z:-273
+	dot = x:8 y:2 z:-290
+	dot = x:8 y:-2 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:8 y:-10 z:-273
+	dot = x:8 y:-6 z:-273
+	dot = x:8 y:-6 z:-290
+	dot = x:8 y:-10 z:-290
+	light = 100
+	texture = Vitre.png
+}
+Polygon
+{
+	dot = x:8 y:-10 z:-290
+	dot = x:8 y:10 z:-290
+	dot = x:8 y:10 z:-294
+	dot = x:8 y:-10 z:-294
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:8 y:-2 z:-294
+	dot = x:8 y:2 z:-294
+	dot = x:8 y:2 z:-302
+	dot = x:8 y:-2 z:-302
+	light = 100
+	texture = Sol.png
+}
+Polygon
+{
+	dot = x:-100 y:150 z:-250
+	dot = x:100 y:150 z:-250
+	dot = x:100 y:-150 z:-350
+	dot = x:-100 y:-150 z:-350
+	light = 100
+	texture = Plafond.png
+}
+Polygon
+{
+	dot = x:200 y:500 z:-160
+	dot = x:200 y:800 z:-200
+	dot = x:300 y:800 z:-200
+	dot = x:300 y:500 z:-160
+	light = 100
+	texture = Plafond.png
+}
+Polygon
+{
+	dot = x:600 y:650 z:-100
+	dot = x:600 y:150 z:-100
+	dot = x:700 y:150 z:-100
+	dot = x:700 y:650 z:-100
+	light = 100
+	texture = Plafond.png
+}
+Polygon
+{
+	dot = x:100 y:1150 z:-100
+	dot = x:100 y:150 z:-100
+	dot = x:600 y:150 z:-100
+	dot = x:600 y:1150 z:-100
+	light = 100
+	texture = Plafond.png
+}
+Polygon
+{
+	dot = x:700 y:150 z:-175
+	dot = x:700 y:650 z:-175
+	dot = x:600 y:650 z:-175
+	dot = x:600 y:150 z:-175
+	light = 100
+	texture = Plafond.png
+}
+Polygon
+{
+	dot = x:-100 y:650 z:-250
+	dot = x:-100 y:150 z:-250
+	dot = x:600 y:150 z:-250
+	dot = x:600 y:650 z:-250
+	light = 100
+	texture = Plafond.png
+}
+Polygon
+{
+	dot = x:100 y:650 z:-300
+	dot = x:600 y:650 z:-300
+	dot = x:600 y:650 z:-250
+	dot = x:100 y:650 z:-250
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:100 y:650 z:-300
+	dot = x:100 y:1150 z:-300
+	dot = x:600 y:1150 z:-300
+	dot = x:600 y:650 z:-300
+	light = 100
 	texture = Mario_Ghost.png
 }
 Polygon
 {
-	dot = x:-234 y:-284 z:100
-	dot = x:417 y:-288 z:100
-	dot = x:420 y:298 z:100
-	dot = x:-230 y:302 z:100
-	light = 100
-	texture = Pq.png
-}
-Polygon
-{
-	dot = x:421 y:299 z:100
-	dot = x:-231 y:303 z:100
-	dot = x:-231 y:303 z:-100
-	dot = x:421 y:299 z:-100
+	dot = x:100 y:900 z:-300
+	dot = x:100 y:1150 z:-220
+	dot = x:600 y:1150 z:-220
+	dot = x:600 y:900 z:-300
 	light = 100
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:417 y:-288 z:100
-	dot = x:421 y:299 z:100
-	dot = x:421 y:299 z:-100
-	dot = x:417 y:-288 z:-100
+	dot = x:100 y:1150 z:-100
+	dot = x:600 y:1150 z:-100
+	dot = x:600 y:1150 z:-300
+	dot = x:100 y:1150 z:-300
+	light = 100
+	texture = Elephantride.png
+}
+Polygon
+{
+	dot = x:600 y:1150 z:-100
+	dot = x:600 y:650 z:-100
+	dot = x:600 y:650 z:-300
+	dot = x:600 y:1150 z:-300
 	light = 100
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:-234 y:-284 z:100
-	dot = x:417 y:-288 z:100
-	dot = x:417 y:-288 z:-100
-	dot = x:-234 y:-284 z:-100
+	dot = x:100 y:650 z:-100
+	dot = x:100 y:1150 z:-100
+	dot = x:100 y:1150 z:-300
+	dot = x:100 y:650 z:-300
 	light = 100
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:-234 y:-284 z:100
-	dot = x:-231 y:303 z:100
-	dot = x:-231 y:303 z:-100
-	dot = x:-234 y:-284 z:-100
+	dot = x:100 y:150 z:-100
+	dot = x:600 y:150 z:-100
+	dot = x:600 y:150 z:-250
+	dot = x:100 y:150 z:-250
+	light = 100
+	texture = Elephantride.png
+}
+Polygon
+{
+	dot = x:700 y:650 z:-100
+	dot = x:600 y:650 z:-100
+	dot = x:600 y:650 z:-175
+	dot = x:700 y:650 z:-175
 	light = 100
 	texture = Brique.png
 }
 Polygon
 {
-	dot = x:-231 y:303 z:-100
-	dot = x:421 y:299 z:-100
-	dot = x:417 y:-288 z:-100
-	dot = x:-234 y:-284 z:-100
+	dot = x:700 y:150 z:-100
+	dot = x:600 y:150 z:-100
+	dot = x:600 y:150 z:-175
+	dot = x:700 y:150 z:-175
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:700 y:150 z:-100
+	dot = x:700 y:650 z:-100
+	dot = x:700 y:650 z:-175
+	dot = x:700 y:150 z:-175
+	light = 100
+	texture = Plafond.png
+}
+Polygon
+{
+	dot = x:600 y:150 z:-175
+	dot = x:600 y:650 z:-175
+	dot = x:600 y:650 z:-250
+	dot = x:600 y:150 z:-250
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-100 y:650 z:0
+	dot = x:-100 y:150 z:0
+	dot = x:-100 y:150 z:-250
+	dot = x:-100 y:650 z:-250
 	light = 100
 	texture = Brique.png
 }

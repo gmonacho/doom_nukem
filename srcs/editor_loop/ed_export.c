@@ -49,9 +49,10 @@ void		ed_export(void *ed_export)
 			m = m->next;
 		}
 		p = map->polys;
-		while (p && !p->object) // && !p->object sinon boucle aussi sur les polys de obj et m
+		while (p)
 		{
-			ed_write_poly(fd, p, &map->player);
+			if (ed_is_real_poly(map, p))
+				ed_write_poly(fd, p, &map->player);
 			p = p->next;
 		}
 	}

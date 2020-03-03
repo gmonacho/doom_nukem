@@ -351,6 +351,8 @@ SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
 SDL_bool	ed_is_wall(t_poly *poly);
 t_poly		*ed_get_selected_poly(t_win *win, t_map *map);
+
+SDL_bool	ed_is_real_poly(const t_map *map, const t_poly *poly);
 SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
 
 t_dot		ed_is_next_to_poly(const t_map *map, t_dot point, int radius);

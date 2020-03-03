@@ -769,7 +769,7 @@ void	ed_delete_obj(t_object **objects, t_object *object)
 			{
 				tmp_prev = obj;
 				obj = obj->next;
-			}
+			}	
 		}
 	}
 }
