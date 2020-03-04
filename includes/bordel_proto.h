@@ -363,6 +363,7 @@ t_dot		ed_is_next_to_poly(const t_map *map, t_dot point, int radius);
 
 
 void		ed_export(void *ed_export);
+void		ed_package(void *ed_exp);
 int         ed_export_textures(int fd, t_map *map);
 int         ed_export_sounds(int fd);
 void		ed_write_player(int fd, const t_player *player);
