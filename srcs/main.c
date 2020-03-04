@@ -79,12 +79,10 @@ int					main(int argc, char **argv)
 		}
 		init_map(&map);
 		if (argc == 1)
-		{
-			// init_map(&map);
 			editor_loop(&win, &map);
-		}
 		else
 		{
+			map.editor.export.path = ft_strdup(argv[1]);
 			if ((fd = open(argv[1], O_RDONLY)) <= 0)
 				return (ret_error("open error"));
 			if (!(win.map->polys = ft_data_storing(fd, &map, &win)))
