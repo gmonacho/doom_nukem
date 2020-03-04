@@ -48,7 +48,6 @@ int					main(int argc, char **argv)
 	SDL_bool		loop;
 	SDL_DisplayMode	screen;
 
-	sleep(10);
 	if (argc == 1 || argc == 2)
 	{
 		win.w = WIDTH;
