@@ -49,15 +49,15 @@ static void		mobs_move(t_fdot_3d pos, t_poly *poly, float dist_mob, float vel)
 	move = (t_fdot_3d){-pos.x * cst_vel,\
 						-pos.y * cst_vel,\
 						-pos.z * cst_vel};
-	// translate_dot(&(pos), move);
 	poly->dots_rotz_only[0] = fdot_3d_add(poly->dots_rotz_only[0], move);
 	poly->dots_rotz_only[1] = fdot_3d_add(poly->dots_rotz_only[1], move);
 	poly->dots_rotz_only[2] = fdot_3d_add(poly->dots_rotz_only[2], move);
 	poly->dots_rotz_only[3] = fdot_3d_add(poly->dots_rotz_only[3], move);
-	poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
-									poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
-									poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
-	// printf("cst_vel %f\tvel %f\tdits_mob %f\n", cst_vel, vel, dist_mob);
+	poly->equation_rotz_only.d = -scalar_product(poly->equation_rotz_only.v,\
+													poly->dots_rotz_only[0]);
+	// poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
+	// 								poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
+	// 								poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
 }
 
 static void		mobs_rotate(t_player *player, t_fdot_3d pos, t_poly *poly)
@@ -82,10 +82,6 @@ static void		mobs_rotate(t_player *player, t_fdot_3d pos, t_poly *poly)
 	poly->dots_rotz_only[1] = fdot_3d_add(rotate_dot(fdot_3d_sub(poly->dots_rotz_only[1], pos), rotation), pos);
 	poly->dots_rotz_only[2] = fdot_3d_add(rotate_dot(fdot_3d_sub(poly->dots_rotz_only[2], pos), rotation), pos);
 	poly->dots_rotz_only[3] = fdot_3d_add(rotate_dot(fdot_3d_sub(poly->dots_rotz_only[3], pos), rotation), pos);
-	//Inutile
-	// poly->equation_rotz_only.d = -(poly->equation_rotz_only.v.x * poly->dots_rotz_only[0].x +\
-	// 								poly->equation_rotz_only.v.y * poly->dots_rotz_only[0].y +\
-	// 								poly->equation_rotz_only.v.z * poly->dots_rotz_only[0].z);
 }
 
 void			mobs_attack_move(t_map *map, t_player *player, t_mob *mobs)

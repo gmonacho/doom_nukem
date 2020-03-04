@@ -129,7 +129,7 @@ Object
 	posy = 272
 	posz = -20
 	width = 60
-	height = 80
+	height = 40
 	dir = 3
 	light = 100
 	texture = doorfront.png
@@ -144,6 +144,53 @@ Object
 	height = 30
 	light = 100
 	texture = 150x150.png
+}
+Object
+{
+	type = DOOR
+	posx = 133
+	posy = 372
+	posz = 0
+	width = 80
+	height = 140
+	light = 100
+	texture = doorfront.png
+}
+Polygon
+{
+	dot = x:185 y:373 z:60
+	dot = x:94 y:372 z:60
+	dot = x:94 y:372 z:80
+	dot = x:185 y:373 z:80
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:694 y:131 z:100
+	dot = x:694 y:131 z:100
+	dot = x:694 y:131 z:0
+	dot = x:694 y:131 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:185 y:373 z:-70
+	dot = x:374 y:372 z:-70
+	dot = x:374 y:372 z:80
+	dot = x:185 y:373 z:80
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-126 y:372 z:-70
+	dot = x:94 y:372 z:-70
+	dot = x:94 y:372 z:80
+	dot = x:-126 y:372 z:80
+	light = 100
+	texture = Brique.png
 }
 Polygon
 {
