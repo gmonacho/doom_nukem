@@ -702,6 +702,7 @@ typedef struct		s_editor
 	t_object		*selected_obj;
 	t_player		*selected_player;
 	t_poly			*placing_poly;
+	t_object		*placing_door;
 	int				min_pos_z;
 	int				max_pos_z;
 	t_editor_flag	flags;
