@@ -244,6 +244,7 @@ static void		init_map_export(t_win *win, t_map *map)
 		printf("path = %s\n", map->editor.export.path);
 		ft_strcpy(text_entry->text, map->editor.export.path);
 	}
+	map->editor.export.fd = 0;
 	map->editor.export.map = map;
 }
 
