@@ -154,19 +154,10 @@ void				surround_walls(t_win *win, t_map *map)
 		{
 			create_dot_on_axe_y(poly);
 			set_proj(win, poly);
-			// poly_reduction(win, poly);
 			set_box(poly, &(poly->box_x), &(poly->box_y), poly->dots_proj);
 			resize_box(win, poly);
-			printf("box x/y %d %d\t%d %d\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
-			if (poly->box_x.x == 0 && poly->box_x.y == 1200 && poly->box_y.x == 0 && poly->box_y.y == 800)
-			{
-				print_poly(poly, 0);
-				print_poly(poly, 1);
-				print_poly(poly, 2);
-				print_poly(poly, 3);
-			}
+			// printf("box x/y %d %d\t%d %d\n", poly->box_x.x, poly->box_x.y, poly->box_y.x, poly->box_y.y);
 		}
 		poly = poly->next;
 	}
-	// printf("\n");
 }

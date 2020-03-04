@@ -328,6 +328,7 @@ void		ed_display_objects(t_win *win, const t_map *map);
 
 
 void		ed_place_player(t_win *win, t_map *map);
+void		ed_place_door_event(t_win *win, t_map *map);
 
 t_line		ed_get_display_line(const t_map *map, t_dot p1, t_dot p2);
 t_dot		ed_get_display_point(const t_map *map, t_dot p);
