@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 19:35:55 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/01 11:02:46 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 22:52:17 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int ed_write_sounds(int fd, char *name)
 	fd_sound = open(ft_strjoin("sounds/", name), O_RDONLY);
 	if (fd_sound < 0)
 		return (0);
-	ft_putendl_fd("", fd);
+	ft_putchar_fd('\n', fd);
 	ft_putendl_fd(name, fd);
 	bytes = 0;
 	while ((n = read(fd_sound, tmp, sizeof(tmp))))

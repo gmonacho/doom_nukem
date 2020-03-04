@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 10:47:47 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/01 10:48:58 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 22:51:32 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int ed_write_texture(int fd, t_list **lst, char *texname)
 		fd_text = open(ft_strjoin("textures/", texname), O_RDONLY);
 		while ((n = read(fd_text, tmp, sizeof(tmp))))
 			write(fd, tmp, n);
-		ft_putendl_fd("", fd);
+		ft_putchar_fd('\n', fd);
 	}
 	return (1);
 }
