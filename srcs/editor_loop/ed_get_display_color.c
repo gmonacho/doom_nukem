@@ -133,5 +133,7 @@ SDL_Color		ed_get_obj_display_color(const t_map *map, t_object *obj)
 		return ((SDL_Color){255, 215, 0, 255});
 	else if (obj->type == BOX)
 		return ((SDL_Color){100, 100, 100, 255});
+	else if (obj->type == DOOR)
+		return ((SDL_Color){150, 120, 120, 255});
 	return ((SDL_Color){255, 215, 0, 255});
 }

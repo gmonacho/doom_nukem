@@ -15,8 +15,6 @@ static void		ed_free_mob(t_mob **mob)
 	*mob = NULL;
 }
 
-
-
 void			ed_delete_map(void *map_ptr)
 {
 	t_map		*map;

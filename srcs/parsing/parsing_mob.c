@@ -16,15 +16,16 @@ void    set_mobs_dots_rotz_only(t_mob *mob)
     mob->poly->dots_rotz_only[3].z = mob->pos.z + mob->height_2;
 }
 
-void		add_mob(t_mob **mob)
+int		add_mob(t_mob **mob)
 {
 	t_mob	*new_mob;
 
 	if (!(new_mob = (t_mob *)ft_memalloc(sizeof(t_mob))))
-		ft_putendl("error malloc in parsing_mob.c l.24");
+		return (-1);
 	new_mob->next = *mob;
 	new_mob->alive = 1;
 	*mob = new_mob;
+	return (0);
 }
 
 void		add_existing_mob(t_mob **mob, t_mob *new_mob)
@@ -47,9 +48,10 @@ void		add_poly_mob(t_mob **mob)
 	}
 }
 
-void		fill_mob_data(t_mob **mob, char **tab, int i)
+int		fill_mob_data(t_mob **mob, char **tab, int i)
 {
-	add_mob(mob);
+	if (add_mob(mob) == -1)
+		return(-1);
 	while (ft_strchr(tab[i], '}') == NULL)
 	{
 		fill_mob_data_norm(mob, tab[i]);
@@ -74,4 +76,5 @@ void		fill_mob_data(t_mob **mob, char **tab, int i)
 		i++;
 	}
 	add_poly_mob(mob);
+	return (0);
 }

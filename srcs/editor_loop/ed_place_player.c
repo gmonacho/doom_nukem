@@ -26,8 +26,8 @@ void	ed_place_player(t_win *win, t_map *map)
 		obj = map->objects;
 		while (obj)
 		{
-			obj->pos.x -= player_pos.x;
-			obj->pos.y -= player_pos.y;
+			obj->pos_rotz_only.x -= player_pos.x;
+			obj->pos_rotz_only.y -= player_pos.y;
 			obj = obj->next;
 		}
 		mob = map->mob;

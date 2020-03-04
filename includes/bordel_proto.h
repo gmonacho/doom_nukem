@@ -197,11 +197,11 @@ void    	apply_armor(t_player *player, int armor);
 **	---------------------------------- mob ----------------------------------
 */
 
-void		fill_mob_data(t_mob **mob, char **tab, int i);   
+int		    fill_mob_data(t_mob **mob, char **tab, int i);   
 void    	set_mobs_dots(t_mob *mob);
 void		mobs_attack_move(t_map *map, t_player *player, t_mob *mobs);
 void		hit_mobs(t_mob *mobs, int damage);
-void    	add_mob(t_mob **mob);
+int     	add_mob(t_mob **mob);
 void   		add_existing_mob(t_mob **mob, t_mob *new_mob);
 /*
 **	---------------------------------- map ----------------------------------
@@ -230,18 +230,18 @@ SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 **	---------------------------------- map ----------------------------------
 */
 
-
+int		    create_tmp_files(int fd, char *dir);
 int 		ft_parse_error(char **tab);
 void		ft_find_coord_p1(t_linedef *line, char *tab);
 void		ft_find_coord_p2(t_linedef *line, char *tab);
 void	    ft_find_type(char *tab, t_linedef *line);
 void		ft_find_id(char *id, t_linedef *line);
-t_poly	    *ft_data_storing(int fd, int fd1, t_map *map, t_win *win);
-char 		**fillntesttab(int fd, int fd1);
-void		fill_poly(t_poly *poly, t_map *map);
-void		fill_poly_object(t_poly *poly, t_object *object);
-void		fill_poly_mob(t_poly *poly, t_mob *mob);
-void 		fill_poly_object_norm(char *tmp, t_poly	*poly_object);
+t_poly	    *ft_data_storing(int fd, t_map *map, t_win *win);
+char 		**fillntesttab(int fd);
+int		    fill_poly(t_poly *poly, t_map *map);
+int		    fill_poly_object(t_poly *poly, t_object *object);
+int		    fill_poly_mob(t_poly *poly, t_mob *mob);
+int 		fill_poly_object_norm(char *tmp, t_poly	*poly_object);
 char		*object_data_fill(char **tab, t_object **object, int i);
 void		fill_mob_data_norm(t_mob **mob, char *tab);
 
@@ -249,6 +249,8 @@ void		player_data(char **tab, t_player *player, int i);
 
 int			object_data(char **tab, t_object **object, int i);
 t_texhud   	*define_texhud(t_win *win);
+
+void        clear_leaks(t_map *map);
 // void		save_lights(t_map *map);
 
 /*
@@ -300,6 +302,9 @@ void            print_credit(t_win *win);
 ** =================================================================================
 */
 
+
+void		ed_init_map_editor(t_win *win, t_map *map);
+
 int	        editor_loop(t_win *win, t_map *map);
 int 		ed_event(t_win *win, t_map *map);
 int			resolve_ui_left_press(t_win *win, t_map_editor *map);
@@ -329,6 +334,7 @@ t_dot		ed_get_display_point(const t_map *map, t_dot p);
 int			ed_get_map_x(const t_map *map, int n);
 int			ed_get_map_y(const t_map *map, int n);
 t_dot		ed_get_map_point(const t_map *map, t_dot p);
+int			ed_get_object_poly_count(const t_object *obj);
 
 int			ed_place_wall(t_win *win, t_map *map);
 int			ed_place_flat(t_win *win, t_map *map);
@@ -341,6 +347,7 @@ int			ed_get_z_max(const t_poly *polys);
 
 void		ed_delete_map(void *map_ptr);
 void		ed_delete_mob(t_mob **mobs, t_mob *mob);
+void		ed_delete_obj(t_map *map, t_object **objects, t_object *object);
 
 SDL_Color	ed_get_wall_display_color(const t_map *map, t_poly *poly);
 SDL_Color	ed_get_flat_display_color(const t_map *map, t_poly *poly);
@@ -351,18 +358,21 @@ SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
 SDL_bool	ed_is_wall(t_poly *poly);
 t_poly		*ed_get_selected_poly(t_win *win, t_map *map);
+
+SDL_bool	ed_is_real_poly(const t_map *map, const t_poly *poly);
 SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
 
 t_dot		ed_is_next_to_poly(const t_map *map, t_dot point, int radius);
 
 
 void		ed_export(void *ed_export);
-int 		ed_export_ready(int fd, t_map *map);
+void		ed_package(void *ed_exp);
+int         ed_export_textures(int fd, t_map *map);
 int         ed_export_sounds(int fd);
 void		ed_write_player(int fd, const t_player *player);
 void		ed_write_poly(int fd, const t_poly *poly, const t_player *player);
 void		ed_write_mob(int fd, const t_mob *m);
-void		ed_write_item(int fd, const t_object *obj);
+void		ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos);
 /*
 ** ===============================================================================
 ** ================================== GAME LOOP ==================================

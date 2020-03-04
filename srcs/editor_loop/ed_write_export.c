@@ -110,7 +110,7 @@ void	ed_write_mob(int fd, const t_mob *m)
 	ft_putendl_fd("}", fd);
 }
 
-void	ed_write_item(int fd, const t_object *obj)
+void	ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos)
 {
 	char	*tmp;
 
@@ -133,13 +133,13 @@ void	ed_write_item(int fd, const t_object *obj)
 	else if (obj->type & TP)
 		tmp = "TP";
 	ed_write_line(fd, "\ttype", tmp);
-	tmp = ft_itoa(obj->pos_rotz_only.x);
+	tmp = ft_itoa(obj->pos_rotz_only.x + playerpos.x);
 	ed_write_line(fd, "\tposx", tmp);
 	ft_strdel(&tmp);
-	tmp = ft_itoa(obj->pos_rotz_only.y);
+	tmp = ft_itoa(obj->pos_rotz_only.y + playerpos.y);
 	ed_write_line(fd, "\tposy", tmp);
 	ft_strdel(&tmp);
-	tmp = ft_itoa(obj->pos_rotz_only.z);
+	tmp = ft_itoa(obj->pos_rotz_only.z + playerpos.z);
 	ed_write_line(fd, "\tposz", tmp);
 	ft_strdel(&tmp);
 	tmp = ft_itoa(obj->width);

@@ -1,8 +1,8 @@
 Player
 {
-	posx = 200
-	posy = 200
-	posz = 140
+	posx = 0
+	posy = 0
+	posz = 0
 	dir = -90
 	width = 30
 	height = 90

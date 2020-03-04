@@ -62,7 +62,7 @@ void				drop_box(t_map *map, t_player *player)
 		if (object->type == BOX && !object->visible && !object->collide)
 		{
 			rotate_box(player, object);
-		object->collide = 1;
+			object->collide = 1;
 			object->visible = 1;
 			return ;
 		}

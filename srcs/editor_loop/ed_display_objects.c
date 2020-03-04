@@ -5,7 +5,7 @@ void	ed_display_object(t_win *win, const t_map *map, t_object *obj)
 {
 	t_dot		pos;
 
-	pos = ed_get_display_point(map, (t_dot){obj->pos.x, obj->pos.y});
+	pos = ed_get_display_point(map, (t_dot){obj->pos_rotz_only.x, obj->pos_rotz_only.y});
 	draw_circle(win, (t_circle){pos.x, pos.y, obj->width * map->editor.unit / 2});
 }
 

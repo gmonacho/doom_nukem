@@ -43,8 +43,8 @@ void		ed_display_selected_obj(t_win *win, const t_map *map)
 	if (map->editor.selected_obj)
 	{
 		ui_set_draw_color(win->winui->rend, &(SDL_Color){0, 200, 200, 255});
-		pos = ed_get_display_point(map, (t_dot){map->editor.selected_obj->pos.x,
-												map->editor.selected_obj->pos.y});
+		pos = ed_get_display_point(map, (t_dot){map->editor.selected_obj->pos_rotz_only.x,
+												map->editor.selected_obj->pos_rotz_only.y});
 		draw_circle(win, (t_circle){pos.x, pos.y, map->editor.selected_obj->width * map->editor.unit / 2});
 	}
 }

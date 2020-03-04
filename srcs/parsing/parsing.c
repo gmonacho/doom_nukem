@@ -14,7 +14,7 @@ void		find_texture(char *tab, t_poly *poly)
 	tmp = ft_strjoin(tmp, name);
 	if (!(poly->texture = IMG_Load(tmp)))
 	{
-		exit(0);
+		exit(0); // attention
 		return ;
 	}
 	poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
@@ -50,7 +50,7 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 	}
 }
 
-void		fill_poly_mob(t_poly *poly, t_mob *mob)
+int		fill_poly_mob(t_poly *poly, t_mob *mob)
 {
 	char *tmp;
 
@@ -66,17 +66,18 @@ void		fill_poly_mob(t_poly *poly, t_mob *mob)
 		tmp = ft_strjoin(tmp, mob->texture);
 		if (!(poly->texture = IMG_Load(tmp)))
 		{
-			exit(0);
-			return ;
+			ft_strdel(&tmp);
+			return (-1);
 		}
 		poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
 						SDL_PIXELFORMAT_ARGB8888, 0);
 		mob = mob->next;
-		free(tmp);
+		ft_strdel(&tmp);
 	}
+	return (0);
 }
 
-void		fill_poly_object(t_poly *poly, t_object *object)
+int		fill_poly_object(t_poly *poly, t_object *object)
 {
 	char	*tmp;
 	t_poly	*poly_object;
@@ -85,13 +86,16 @@ void		fill_poly_object(t_poly *poly, t_object *object)
 	while (poly->next)
 		poly = poly->next;
 	while (object)
-	{
+	{	
+		printf("adress = %p\n", object);
 		tmp = ft_strjoin("textures/", object->texture);
+		printf("tmp = %s \n", tmp);
 		poly_object = object->poly;
 		poly->light_coef = object->light_coef;
 		while (poly_object)
 		{
-			fill_poly_object_norm(tmp, poly_object);
+			if (fill_poly_object_norm(tmp, poly_object) == -1)
+				return (-1); 
 			poly->next = poly_object;
 			poly = poly->next;
 			poly_object = poly_object->next;
@@ -100,9 +104,10 @@ void		fill_poly_object(t_poly *poly, t_object *object)
 		ft_strdel(&tmp);
 		object = object->next;
 	}
+	return (0);
 }
 
-t_poly		*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
+t_poly		*ft_data_storing(int fd, t_map *map, t_win *win)
 {
 	char		**tab;
 	int			i;
@@ -111,24 +116,30 @@ t_poly		*ft_data_storing(int fd, int fd1, t_map *map, t_win *win)
 	i = -1;
 	poly = NULL;
 	map->mob = NULL;
-	map->objects = NULL;
-	tab = fillntesttab(fd, fd1);
+	tab = fillntesttab(fd);
 	win->texhud = define_texhud(win);
 	while (tab[++i])
 	{
-		printf("i %d\ttab i |%s\n", i, tab[i]);
 		if (ft_strstr(tab[i], "Polygon"))
 			ft_fill_data(tab, &poly, i);
 		else if (ft_strstr(tab[i], "Object"))
 		{
 			if (object_data(tab, &(map->objects), i))
-				return (NULL); //LEAKS - C'est temporaire
+				return (NULL);
 		}
 		else if (ft_strstr(tab[i], "Player"))
 			player_data(tab, &(map->player), i);
 		else if (ft_strstr(tab[i], "Mob"))
-			fill_mob_data(&(map->mob), tab, i);
+			if (fill_mob_data(&(map->mob), tab, i) == -1)
+				return (NULL);
 	}
-	fill_poly(poly, map);
+	i = 0;
+	while (tab[i])
+	{	
+		ft_strdel(&tab[i]);
+		i++;
+	}
+	if (fill_poly(poly, map) == -1) 
+		return (NULL);
 	return (poly);
 }

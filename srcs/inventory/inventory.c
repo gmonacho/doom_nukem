@@ -40,7 +40,7 @@ void        print_value_item(t_win *win, t_texhud *texhud, int nb, int slotposx)
     tmp = ft_strjoin( " X ", ft_itoa(nb));
     text = generate_text(win->rend, texhud->police, tmp, (SDL_Color){255, 255, 255, 50});
     SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(slotposx + 60), (win->h * 0.95), (win->w * 0.035), (win->h * 0.04375)});
-    free(tmp);
+    ft_strdel(&tmp);
 }
 
 void        print_content_slot(t_win *win, t_player *player, t_texhud *texhud)

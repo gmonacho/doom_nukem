@@ -1,71 +1,134 @@
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-void		fill_poly_object_norm(char *tmp, t_poly *poly_object)
+int		fill_poly_object_norm(char *tmp, t_poly *poly_object)
 {
 	if (!(poly_object->texture = IMG_Load(tmp)))
 	{
 		ui_ret_error("fill_poly_object", SDL_GetError(), 0);
-		exit(0);
-		return ;
+		return (-1);
 	}
 	if (!(poly_object->texture = SDL_ConvertSurfaceFormat(
 		poly_object->texture, SDL_PIXELFORMAT_ARGB8888, 0)))
 	{
 		ui_ret_error("fill_poly_object", SDL_GetError(), 0);
-		exit(0);
-		return ;
+		return (-1);
 	}
+	return (0);
 }
 
-int			count_line(int fp1)
+char		**lst_to_tab(t_list *lst, int height)
 {
-	int		nb;
-	char	*line;
-
-	nb = 0;
-	while (get_next_line(fp1, &line) > 0)
-	{
-		free(line);
-		nb++;
-	}
-	return (nb);
-}
-
-char		**ft_fill_map(int fd, int fp1)
-{
-	char	*line;
-	char	**tab;
 	int		i;
-	int		nb;
+	char	**tab;
+	t_list	*l;
 
 	i = 0;
-	nb = count_line(fp1);
-	if (!(tab = (char **)malloc(sizeof(char *) * (nb + 1))))
+	l = lst;
+	if (!(tab = (char **)malloc(sizeof(char *) * (height + 1))))
 		return (NULL);
-	while (get_next_line(fd, &line) > 0)
+	tab[height] = NULL;
+	while (l && i < height)
 	{
-		tab[i] = ft_strdup(line);
-		free(line);
+		if (!(tab[i] = ft_strdup(l->content)))
+			return (NULL);
 		i++;
+		l = l->next;
 	}
-	tab[i] = NULL;
+	ft_free_list(lst);
 	return (tab);
 }
 
-char		**fillntesttab(int fd, int fd1)
+char		**ft_fill_map(int fd)
 {
-	char **tab;
+	char	*line;
+	t_list	*lst;
+	int		i;
+	int		ret;
+	int		grdy;
 
+	i = 0;
+	lst = NULL;
+	grdy = 0;
+	while ((ret = get_next_line(fd, &line)) != 0) //comme ca on ne read qu'une seule fois, c + opti
+	{
+		printf("%s\n", line);
+		if (ret == -1 || (lst = ft_lst_pb(&lst, line)) == NULL)
+		{
+			ft_free_list(lst);
+			return (NULL);
+		}
+		i++;
+	}
+	return (lst_to_tab(lst, i));
+}
+
+void clear_leaks(t_map *map)
+{
+	t_poly		*poly_tmp_next;
+	t_object	*object_tmp_next;
+	t_mob		*mob_tmp_next;
+
+	if (map->polys)
+	{
+		while (map->polys)
+		{
+			poly_tmp_next = map->polys->next;
+			free(map->polys);
+			map->polys = poly_tmp_next;
+		}
+		map->polys = NULL;
+	}
+	if (map->mob)
+	{
+		while (map->mob)
+		{
+			mob_tmp_next = map->mob->next;
+			free(map->mob);
+			map->mob = mob_tmp_next;
+		}
+		map->mob = NULL;
+	}
+	if (map->objects)
+	{
+		while (map->objects)
+		{
+			object_tmp_next = map->objects->next;
+			free(map->objects);
+			map->objects = object_tmp_next;
+		}
+		map->objects = NULL;
+	}
+}
+
+char		**fillntesttab(int fd)
+{
+	char		**tab;
+	int			i;
+	static char tmp[13];
+
+	tmp[12] = '\0';
+	i = 0;
+	if ((read(fd, tmp, 12)) > 0 && (!ft_strcmp(tmp, "#GAMEREADY#\n")))
+	{
+		mkdir("textures", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		mkdir("sounds", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		if (!create_tmp_files(fd, "textures/"))
+			ft_putendl("failed to create tmp textures files");
+		if (!create_tmp_files(fd, "sounds/"))
+			ft_putendl("failed to create tmp sound files");
+		// mkdir("TTF", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	}
 	tab = NULL;
-	tab = ft_fill_map(fd, fd1);
+	tab = ft_fill_map(fd);
 	ft_parse_error(tab);
 	return (tab);
 }
 
-void		fill_poly(t_poly *poly, t_map *map)
-{
-	fill_poly_mob(poly, map->mob);
-	fill_poly_object(poly, map->objects);
+int		fill_poly(t_poly *poly, t_map *map)
+{	
+	if (fill_poly_mob(poly, map->mob) == -1 || fill_poly_object(poly, map->objects) == -1)
+		return (-1);
 	ft_putendl("Fin parsing\n");
+	return (0);
 }
