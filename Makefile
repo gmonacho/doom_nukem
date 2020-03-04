@@ -16,15 +16,15 @@ SRCS_PATH_12 =  ui
 SRCS_PATH_13 =	player
 SRCS_PATH_14 =	mobs
 SRCS_PATH_15 =	objects
-SRCS_LIBUI = libui
-SRCS_LIBUI_0 = button
-SRCS_LIBUI_1 = draw
-SRCS_LIBUI_2 = event
-SRCS_LIBUI_3 = frame
-SRCS_LIBUI_4 = load_ui
-SRCS_LIBUI_5 = shape
-SRCS_LIBUI_6 = texture
-SRCS_LIBUI_7 = win
+SRCS_LIBUI =	libui
+SRCS_LIBUI_0 =	button
+SRCS_LIBUI_1 =	draw
+SRCS_LIBUI_2 =	event
+SRCS_LIBUI_3 =	frame
+SRCS_LIBUI_4 =	load_ui
+SRCS_LIBUI_5 =	shape
+SRCS_LIBUI_6 =	texture
+SRCS_LIBUI_7 =	win
 
 #Pas le droit aux wildcards
 SRCS =      $(wildcard $(SRCS_PATH)/*.c)\
