@@ -114,7 +114,7 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 	float			newdist;
 	int				color;
 
-	if (!intersection_plan_my_ray(&collision, poly->equation, ray))
+	if (!intersection_plan_my_ray(&collision, poly->equation, ray) || collision.x < 0)
 		return ;
 	newdist = collision.x * collision.x +\
 				collision.y * collision.y +\

@@ -34,14 +34,6 @@ int					intersection_plan_my_ray(t_fdot_3d *collision, t_plan plan, t_cartesienn
 	collision->x = t;
 	collision->y = ray->vy * t;
 	collision->z = ray->vz * t;
-	if (collision->x != collision->x || ray->vy != ray->vy || t != t)
-	{
-		printf("Collision %f %f %f\n", collision->x, collision->y, collision->z);
-		printf("Plan %f %f %f\n", plan.v.x, plan.v.y, plan.v.z);
-		printf("Ray %f %f %f\n", ray->vx, ray->vy, ray->vz);
-		printf("t %f\n", t);
-		exit(0);
-	}
 	return (1);
 }
 
@@ -71,58 +63,7 @@ int				resolve_polynome(t_fdot_3d polynome, float *x1, float *x2)
 	return (1);
 }
 
-// static int		is_intersection_cercle_segment(t_fdot_3d d1, t_fdot_3d d2, int radius)
-// {
-// 	t_fdot_3d	polynome;
-// 	t_fdot_3d	c1;
-// 	t_fdot_3d	c2;
-// 	float		a;
-// 	float		b;
-// 	float		denom;
-	
-// 	if (is_null(denom = d2.x - d1.x, 0.005))
-// 	{
-// 		if ((denom = radius * radius - d1.x * d1.x) >= 0)
-// 		{
-// 			denom = sqrt(denom);
-// 			if (!((denom < d1.y && denom < d2.y) ||\
-// 				(denom > d1.y && denom > d2.y)))
-// 				return (1);
-// 		}
-// 		return (0);
-// 	}
-// 	a = (d2.y - d1.y) / denom;
-// 	b = d1.y - a * d1.x;
-// 	polynome.x = 1 + a * a;
-// 	polynome.y = 2 * a * b;
-// 	polynome.z = b * b - radius * radius;
-// 	if (!resolve_polynome(polynome, &(c1.x), &(c2.x)))
-// 		return (0);
-// 	c1.y = a * c1.x + b;
-// 	c2.y = a * c2.x + b;
-// 	if (((c1.x < d1.x && c1.x < d2.x) ||\
-// 		(c1.x > d1.x && c1.x > d2.x) ||\
-// 		(c1.y < d1.y && c1.y < d2.y) ||\
-// 		(c1.y > d1.y && c1.y > d2.y)) &&\
-// 		((c2.x < d1.x && c2.x < d2.x) ||\
-// 		(c2.x > d1.x && c2.x > d2.x) ||\
-// 		(c2.y < d1.y && c2.y < d2.y) ||\
-// 		(c2.y > d1.y && c2.y > d2.y)))
-// 		return (0);
-// 	return (1);
-// }
-
-// int				is_intersection_cercle_poly(t_poly *poly, int radius)
-// {
-// 	int			i;
-
-// 	i = -1;
-// 	while (++i < N_DOTS_POLY)
-// 		if (is_intersection_cercle_segment(poly->dots_rotz_only[i], poly->dots_rotz_only[(i ? i : N_DOTS_POLY) - 1], radius))
-// 			return (1);
-// 	return (0);
-// }
-
+/*
 t_dot			intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge)
 {
 	float		a;
@@ -143,3 +84,4 @@ t_dot			intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge)
 	else
 		return ((t_dot){0, b});
 }
+*/
