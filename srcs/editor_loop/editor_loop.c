@@ -171,6 +171,10 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								&ed_export,
 								&map->editor.export);
 	ui_set_simple_button_function(win->winui,
+								"b_package",
+								&ed_package,
+								&map->editor.export);
+	ui_set_simple_button_function(win->winui,
 								"b_delete",
 								&ed_delete_map,
 								map);
