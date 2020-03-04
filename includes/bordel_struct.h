@@ -644,6 +644,7 @@ typedef struct s_save
 typedef struct	s_export
 {
 	char		*path;
+	int			fd;
 	void		*map;
 }				t_export;
 
