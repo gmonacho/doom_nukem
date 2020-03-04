@@ -302,6 +302,9 @@ void            print_credit(t_win *win);
 ** =================================================================================
 */
 
+
+void		ed_init_map_editor(t_win *win, t_map *map);
+
 int	        editor_loop(t_win *win, t_map *map);
 int 		ed_event(t_win *win, t_map *map);
 int			resolve_ui_left_press(t_win *win, t_map_editor *map);

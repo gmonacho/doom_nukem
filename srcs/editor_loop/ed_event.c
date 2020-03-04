@@ -693,6 +693,11 @@ static void	ed_place_item(t_win *win, t_map *map)
 				obj->type = BOX;
 				obj->texture = map->editor.settings.texture;
 			}
+			else if (map->editor.flags & ED_DOOR)
+			{
+				obj->type = DOOR;
+				obj->texture = map->editor.settings.texture;
+			}
 			obj->pos_rotz_only.x = pos.x;
 			obj->pos_rotz_only.y = pos.y;
 			obj->pos_rotz_only.z = map->editor.settings.object.z;
@@ -713,7 +718,12 @@ static void	ed_action(t_win *win, t_map *map)
 		ed_selection(win, map);
 	else if (map->editor.flags & ED_PLAYER  && !win->winui->ui.on_mouse_button)
 		ed_place_player(win, map);
-	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD || map->editor.flags & ED_GRAVITY || map->editor.flags & ED_BULLET || map->editor.flags & ED_BOX) && !win->winui->ui.on_mouse_button)
+	else if ((map->editor.flags & ED_HEAL ||
+				map->editor.flags & ED_SHIELD ||
+				map->editor.flags & ED_GRAVITY ||
+				map->editor.flags & ED_BULLET ||
+				map->editor.flags & ED_BOX ||
+				map->editor.flags & ED_DOOR) && !win->winui->ui.on_mouse_button)
 		ed_place_item(win , map);
 	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
 		ed_place_poly(win, map);
