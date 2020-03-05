@@ -65,6 +65,7 @@ int					process_light(t_map *map, t_poly *poly,\
 			((int)((color >> 8 & 0xFF) * light_coef) << 8) +\
 			(int)((color & 0xFF) * light_coef));
 }
+
 // int					process_light(t_map *map, t_poly *poly,\
 // 									t_fdot_3d collision, int color)
 // {
