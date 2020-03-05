@@ -62,8 +62,8 @@ int				set_door_object(t_object *object, t_fdot_3d pos, float width, float heigh
 
 	box[0] = (t_fdot_3d){pos.x, pos.y, pos.z + height};
 	box[1] = (t_fdot_3d){pos.x + width, pos.y, pos.z + height};
-	box[2] = (t_fdot_3d){pos.x + width, pos.y - width, pos.z};
-	box[3] = (t_fdot_3d){pos.x, pos.y, pos.z - height};
+	box[2] = (t_fdot_3d){pos.x + width, pos.y, pos.z};
+	box[3] = (t_fdot_3d){pos.x, pos.y, pos.z};
 	box[4] = (t_fdot_3d){pos.x, pos.y + width, pos.z + height};
 	box[5] = (t_fdot_3d){pos.x, pos.y + width, pos.z};
 

@@ -20,6 +20,8 @@ static int	ed_place_door(t_win *win, t_map *map)
 			return (ui_ret_error("ed_place_door",
 			"door allocation failed", 0));
 		}
+		door->pos_rotz_only.x = p1.x;
+		door->pos_rotz_only.y = p1.y;
 		door->dir = 1;
 		door->type = DOOR;
 		door->height = 60;
@@ -31,8 +33,8 @@ static int	ed_place_door(t_win *win, t_map *map)
 	else
 	{
 		printf("p1 %d %d p %d %d\n", p1.x, p1.y, p.x, p.y);
-		map->editor.placing_door->pos_rotz_only.x = (p1.x + p.x) / 2;
-		map->editor.placing_door->pos_rotz_only.y = (p1.y + p.y) / 2;
+		// map->editor.placing_door->pos_rotz_only.x = (p1.x + p.x) / 2;
+		// map->editor.placing_door->pos_rotz_only.y = (p1.y + p.y) / 2;
 		map->editor.placing_door->width = ed_get_line_len(&(t_line){p1, p});
 	}
 	return (1);

@@ -111,9 +111,13 @@ t_poly      *ft_data_storing(int fd, t_map *map, t_win *win)
     int         i;
     t_poly      *poly;
     i = -1;
-    poly = NULL;
+    add_poly(&poly);
+	poly->dots_rotz_only[0].x = -10000;
+	poly->dots_rotz_only[1].x = -10000;
+	poly->dots_rotz_only[2].x = -10000;
+	poly->dots_rotz_only[3].x = -10000;
     map->mob = NULL;
-    if (tab = fillntesttab(fd) == NULL)
+    if ((tab = fillntesttab(fd)) == NULL)
         return (NULL);
     win->texhud = define_texhud(win);
     while (tab[++i])
