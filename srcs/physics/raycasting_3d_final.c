@@ -114,7 +114,7 @@ static void			launch_ray_3d(t_poly *poly, t_cartesienne *ray)
 	float			newdist;
 	int				color;
 
-	if (!intersection_plan_my_ray(&collision, poly->equation, ray))
+	if (!intersection_plan_my_ray(&collision, poly->equation, ray) || collision.x < 0)
 		return ;
 	newdist = collision.x * collision.x +\
 				collision.y * collision.y +\
@@ -144,16 +144,19 @@ static void			*square_tracing(void *param)
 		pthread_exit(NULL);//Opti ?
 		return (NULL);
 	}
-	y = poly->box_y.x + (poly->box_y.y - poly->box_y.x) * (thread->i / (float)N_THREADS) - 1;
-	y_max = poly->box_y.x + (poly->box_y.y - poly->box_y.x) * ((thread->i + 1) / (float)N_THREADS);
-	while (poly->visible && ++y < y_max)
-		if (0 <= y && y < thread->win->h)
-		{
-			x = poly->box_x.x;
-			while (++x < poly->box_x.y)
-				if (0 <= x && x < thread->win->w)
-					launch_ray_3d(poly, &(thread->player->rays[y][x]));
-		}
+	// if (!(poly->box_x.x >= poly->box_x.y || poly->box_y.x >= poly->box_y.y))
+	// {
+		y = poly->box_y.x + (poly->box_y.y - poly->box_y.x) * (thread->i / (float)N_THREADS) - 1;
+		y_max = poly->box_y.x + (poly->box_y.y - poly->box_y.x) * ((thread->i + 1) / (float)N_THREADS);
+		while (poly->visible && ++y < y_max)
+			// if (0 <= y && y < thread->win->h)
+			{
+				x = poly->box_x.x;
+				while (++x < poly->box_x.y)
+					// if (0 <= x && x < thread->win->w)
+						launch_ray_3d(poly, &(thread->player->rays[y][x]));
+			}
+	// }
 	thread->poly = thread->poly->next;
 	square_tracing(thread);
 	return (NULL);

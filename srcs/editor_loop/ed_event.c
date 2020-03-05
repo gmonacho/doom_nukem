@@ -515,7 +515,33 @@ static void	ed_set_buttons_player(t_win *win, t_player *selected)
 		ft_strcpy(text_entry->text, tmp);
 		ft_strdel(&tmp);
 	}
-	ed_clean_property(win, 2);
+	ui_set_text_entry_function(win->winui, "b_property_2", &set_int_value, &selected->width);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_2");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("width");
+		}
+		tmp = ft_itoa(selected->width);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ui_set_text_entry_function(win->winui, "b_property_3", &set_float_value, &selected->const_vel);
+	text_entry = ui_get_text_entry_button(win->winui, "b_property_3");
+	if (text_entry)
+	{
+		if (text_entry->name)
+		{
+			ft_strdel(&text_entry->name);
+			text_entry->name = ft_strdup("velocity");
+		}
+		tmp = ft_itoa(selected->const_vel);
+		ft_strcpy(text_entry->text, tmp);
+		ft_strdel(&tmp);
+	}
+	ed_clean_property(win, 4);
 }
 
 static void	ed_selection(t_win *win, t_map *map)
@@ -694,13 +720,17 @@ static void	ed_place_item(t_win *win, t_map *map)
 
 static void	ed_action(t_win *win, t_map *map)
 {
-	// else if (map->editor.flags & ED_PLAYER)
-	// 	ed_place_player(win, map);
 	if ((win->winui->mouse.clicked & UI_MOUSE_RIGHT || map->editor.flags & ED_SELECTION) && !win->winui->ui.on_mouse_button)
 		ed_selection(win, map);
 	else if (map->editor.flags & ED_PLAYER  && !win->winui->ui.on_mouse_button)
 		ed_place_player(win, map);
-	else if ((map->editor.flags & ED_HEAL || map->editor.flags & ED_SHIELD || map->editor.flags & ED_GRAVITY || map->editor.flags & ED_BULLET || map->editor.flags & ED_BOX) && !win->winui->ui.on_mouse_button)
+	else if (map->editor.flags & ED_DOOR && !win->winui->ui.on_mouse_button)
+		ed_place_door_event(win, map);
+	else if ((map->editor.flags & ED_HEAL ||
+				map->editor.flags & ED_SHIELD ||
+				map->editor.flags & ED_GRAVITY ||
+				map->editor.flags & ED_BULLET ||
+				map->editor.flags & ED_BOX) && !win->winui->ui.on_mouse_button)
 		ed_place_item(win , map);
 	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
 		ed_place_poly(win, map);

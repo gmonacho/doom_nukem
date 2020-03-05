@@ -18,7 +18,6 @@ void				draw_projection(t_win *win)
 {
 	t_poly			*poly;
 	int				i;
-	int				k = -1;
 
 	poly = win->map->polys;
 	SDL_SetRenderDrawColor(win->rend, 0x50, 0xEE, 0x50, 0xFF);
@@ -30,10 +29,8 @@ void				draw_projection(t_win *win)
 			while (++i < poly->n_proj)
 				draw_line(win, poly->dots_proj[i],\
 							poly->dots_proj[i ? i - 1 : poly->n_proj - 1]);
-		k++;
 		poly = poly->next;
 	}
-	printf("n poly : %d\n", k);
 }
 
 void				draw_all_square(t_win *win)
@@ -127,17 +124,17 @@ static void			create_dot_on_axe_y(t_poly *poly)
 	}
 }
 
-// static void			resize_box(t_win *win, t_poly *poly)
-// {
-// 	if (poly->box_x.x < 0)
-// 		poly->box_x.x = 0;
-// 	if (poly->box_x.y > win->w)
-// 		poly->box_x.y = win->w;
-// 	if (poly->box_y.x < 0)
-// 		poly->box_y.x = 0;
-// 	if (poly->box_y.y > win->h)
-// 		poly->box_y.y = win->h;
-// }
+static void			resize_box(t_win *win, t_poly *poly)
+{
+	if (poly->box_x.x < 0)
+		poly->box_x.x = 0;
+	if (poly->box_x.y > win->w)
+		poly->box_x.y = win->w;
+	if (poly->box_y.x < 0)
+		poly->box_y.x = 0;
+	if (poly->box_y.y > win->h)
+		poly->box_y.y = win->h;
+}
 
 void				surround_walls(t_win *win, t_map *map)
 {
@@ -154,9 +151,8 @@ void				surround_walls(t_win *win, t_map *map)
 		{
 			create_dot_on_axe_y(poly);
 			set_proj(win, poly);
-			poly_reduction(win, poly);
 			set_box(poly, &(poly->box_x), &(poly->box_y), poly->dots_proj);
-			// resize_box(win, poly);
+			resize_box(win, poly);
 		}
 		poly = poly->next;
 	}

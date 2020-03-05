@@ -41,7 +41,6 @@ static void		set_editor_flags(void *argument)
 	t_arg_menu	*arg_menu;
 
 	arg_menu = (t_arg_menu*)argument;
-
 	if (ED_ALL_TYPES & arg_menu->value)
 	{
 		if (*(arg_menu->loop) & arg_menu->value)
@@ -67,8 +66,12 @@ static void		set_editor_flags(void *argument)
 				*(arg_menu->loop) ^= ED_BULLET;
 			else if (*(arg_menu->loop) & ED_BOX)
 				*(arg_menu->loop) ^= ED_BOX;
+			else if (*(arg_menu->loop) & ED_DOOR)
+				*(arg_menu->loop) ^= ED_DOOR;
 			else if (*(arg_menu->loop) & ED_PLAYER)
 				*(arg_menu->loop) ^= ED_PLAYER;
+			else if (*(arg_menu->loop) & ED_MOB)
+				*(arg_menu->loop) ^= ED_MOB;
 			if (*(arg_menu->loop) & ED_SELECTION)
 				*(arg_menu->loop) ^= ED_SELECTION;
 			*(arg_menu->loop) |= arg_menu->value;
@@ -158,8 +161,16 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[12]);
 	ui_set_simple_button_function(win->winui,
+								"b_door",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[13]);
+	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,
+								&map->editor.export);
+	ui_set_simple_button_function(win->winui,
+								"b_package",
+								&ed_package,
 								&map->editor.export);
 	ui_set_simple_button_function(win->winui,
 								"b_delete",
@@ -183,15 +194,8 @@ int		init_editor_menu(t_win *win, t_map *map)
 	return (1);
 }
 
-int				editor_loop(t_win *win, t_map *map)
+static void		init_map_editor_settings(t_map *map)
 {
-	SDL_bool			loop;
-
-	map->editor.pos = (t_dot){0, 0};
-	map->editor.size = (t_dot){0, 0};
-	map->editor.unit = 1;
-	map->editor.z_min = 0;
-	map->editor.z_max = 100;
 	map->editor.settings.wall.min = 0;
 	map->editor.settings.wall.max = 100;
 	map->editor.settings.mob.z = 5;
@@ -206,14 +210,10 @@ int				editor_loop(t_win *win, t_map *map)
 	map->editor.settings.texture = ft_strdup("Brique.png");
 	map->editor.settings.object.z = 0;
 	map->editor.settings.object.width = 30;
-	map->editor.place_step = 0;
-	map->editor.selected_poly = NULL;
-	map->editor.selected_mob = NULL;
-	map->editor.selected_obj = NULL;
-	map->editor.selected_player = NULL;
-	map->editor.placing_poly = NULL;
-	map->editor.flags = ED_NONE;
-	map->editor.calc = ED_CALC_NORMAL;
+}
+
+static void		init_map_editor_arg_tab(t_map *map)
+{
 	map->editor.arg_menu_tab[0] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_SELECTION};
 	map->editor.arg_menu_tab[1] = (t_arg_menu){(int*)&map->editor.flags,
@@ -240,12 +240,52 @@ int				editor_loop(t_win *win, t_map *map)
 											ED_BULLET};
 	map->editor.arg_menu_tab[12] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_BOX};
+	map->editor.arg_menu_tab[13] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_DOOR};
+}
+
+static void		init_map_export(t_win *win, t_map *map)
+{
+	t_text_entry_button	*text_entry;
+
+	if ((text_entry = ui_get_text_entry_button(win->winui, "b_export_path")))
+	{
+		printf("path = %s\n", map->editor.export.path);
+		ft_strcpy(text_entry->text, map->editor.export.path);
+	}
+	map->editor.export.fd = 0;
+	map->editor.export.map = map;
+}
+
+static void		init_map_editor(t_win *win, t_map *map)
+{
+	map->editor.pos = (t_dot){0, 0};
+	map->editor.size = (t_dot){0, 0};
+	map->editor.unit = 1;
+	map->editor.z_min = 0;
+	map->editor.z_max = 100;
+	map->editor.place_step = 0;
+	map->editor.selected_poly = NULL;
+	map->editor.selected_mob = NULL;
+	map->editor.selected_obj = NULL;
+	map->editor.selected_player = NULL;
+	map->editor.placing_poly = NULL;
+	map->editor.flags = ED_NONE;
+	map->editor.calc = ED_CALC_NORMAL;
+	init_map_export(win, map);
+	init_map_editor_settings(map);
+	init_map_editor_arg_tab(map);
 	map->editor.cursor[CURSOR_DEFAULT] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	map->editor.cursor[CURSOR_SELECTING] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
-	map->editor.export.path = ft_strdup("./maps/new_map");
-	map->editor.export.map = map;
+}
+
+int				editor_loop(t_win *win, t_map *map)
+{
+	SDL_bool			loop;
+
 	if (!init_editor_menu(win, map))
 		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));
+	init_map_editor(win, map);
 	loop = SDL_TRUE;
 	// ed_delete_mob_polys(map);
 	// ed_delete_object_polys(map);

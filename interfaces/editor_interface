@@ -45,7 +45,7 @@ frame
 		ratio : 0 0.15 1 0.075
 		data
 		{
-			text : "RAMPE"
+			text : "Rampe"
             texture_normal : "textures/ui_normal_button_square.png"
             texture_clicked : "textures/ui_clicked_button_square.png"
             texture_on_mouse : "textures/ui_on_mouse_button_square.png"
@@ -150,7 +150,22 @@ frame
 		ratio : 0 0.675 1 0.075
 		data
 		{
-			text : "BOX"
+			text : "Box"
+            texture_normal : "textures/ui_normal_button_square.png"
+            texture_clicked : "textures/ui_clicked_button_square.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_square.png"
+			clicked_condition : UI_MOUSE_LEFT
+		}
+	}
+	button
+	{
+		id : "b_door"
+		type : UI_BUTTON_SIMPLE
+		resize_type : UI_RESIZE_ALL_LINEAR
+		ratio : 0 0.75 1 0.075
+		data
+		{
+			text : "Door"
             texture_normal : "textures/ui_normal_button_square.png"
             texture_clicked : "textures/ui_clicked_button_square.png"
             texture_on_mouse : "textures/ui_on_mouse_button_square.png"
@@ -221,6 +236,21 @@ frame
 		data
 		{
 			text : "Export"
+            texture_normal : "textures/ui_normal_button.png"
+            texture_clicked : "textures/ui_clicked_button.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_grey.png"
+			clicked_condition : UI_MOUSE_LEFT
+		}
+	}
+    button
+	{
+		id : "b_package"
+		type : UI_BUTTON_SIMPLE
+		resize_type : UI_RESIZE_ALL_LINEAR
+		ratio : 0.7 0.6 0.3 0.35
+		data
+		{
+			text : "Package"
             texture_normal : "textures/ui_normal_button.png"
             texture_clicked : "textures/ui_clicked_button.png"
             texture_on_mouse : "textures/ui_on_mouse_button_grey.png"

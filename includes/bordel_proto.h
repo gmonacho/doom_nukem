@@ -302,6 +302,9 @@ void            print_credit(t_win *win);
 ** =================================================================================
 */
 
+
+void		ed_init_map_editor(t_win *win, t_map *map);
+
 int	        editor_loop(t_win *win, t_map *map);
 int 		ed_event(t_win *win, t_map *map);
 int			resolve_ui_left_press(t_win *win, t_map_editor *map);
@@ -325,6 +328,7 @@ void		ed_display_objects(t_win *win, const t_map *map);
 
 
 void		ed_place_player(t_win *win, t_map *map);
+void		ed_place_door_event(t_win *win, t_map *map);
 
 t_line		ed_get_display_line(const t_map *map, t_dot p1, t_dot p2);
 t_dot		ed_get_display_point(const t_map *map, t_dot p);
@@ -363,6 +367,7 @@ t_dot		ed_is_next_to_poly(const t_map *map, t_dot point, int radius);
 
 
 void		ed_export(void *ed_export);
+void		ed_package(void *ed_exp);
 int         ed_export_textures(int fd, t_map *map);
 int         ed_export_sounds(int fd);
 void		ed_write_player(int fd, const t_player *player);
