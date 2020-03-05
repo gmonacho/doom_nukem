@@ -41,7 +41,6 @@ static void		set_editor_flags(void *argument)
 	t_arg_menu	*arg_menu;
 
 	arg_menu = (t_arg_menu*)argument;
-
 	if (ED_ALL_TYPES & arg_menu->value)
 	{
 		if (*(arg_menu->loop) & arg_menu->value)
@@ -67,8 +66,12 @@ static void		set_editor_flags(void *argument)
 				*(arg_menu->loop) ^= ED_BULLET;
 			else if (*(arg_menu->loop) & ED_BOX)
 				*(arg_menu->loop) ^= ED_BOX;
+			else if (*(arg_menu->loop) & ED_DOOR)
+				*(arg_menu->loop) ^= ED_DOOR;
 			else if (*(arg_menu->loop) & ED_PLAYER)
 				*(arg_menu->loop) ^= ED_PLAYER;
+			else if (*(arg_menu->loop) & ED_MOB)
+				*(arg_menu->loop) ^= ED_MOB;
 			if (*(arg_menu->loop) & ED_SELECTION)
 				*(arg_menu->loop) ^= ED_SELECTION;
 			*(arg_menu->loop) |= arg_menu->value;
@@ -158,6 +161,10 @@ static void		set_menu_button_function(t_win *win, t_map *map)
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[12]);
 	ui_set_simple_button_function(win->winui,
+								"b_door",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[13]);
+	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,
 								&map->editor.export);
@@ -233,6 +240,8 @@ static void		init_map_editor_arg_tab(t_map *map)
 											ED_BULLET};
 	map->editor.arg_menu_tab[12] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_BOX};
+	map->editor.arg_menu_tab[13] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_DOOR};
 }
 
 static void		init_map_export(t_win *win, t_map *map)

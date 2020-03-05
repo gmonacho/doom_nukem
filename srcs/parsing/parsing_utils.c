@@ -101,28 +101,35 @@ void clear_leaks(t_map *map)
 	}
 }
 
-char		**fillntesttab(int fd)
+char        **fillntesttab(int fd)
 {
-	char		**tab;
-	int			i;
-	static char tmp[13];
-
-	tmp[12] = '\0';
-	i = 0;
-	if ((read(fd, tmp, 12)) > 0 && (!ft_strcmp(tmp, "#GAMEREADY#\n")))
-	{
-		mkdir("textures", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-		mkdir("sounds", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-		if (!create_tmp_files(fd, "textures/"))
-			ft_putendl("failed to create tmp textures files");
-		if (!create_tmp_files(fd, "sounds/"))
-			ft_putendl("failed to create tmp sound files");
-		// mkdir("TTF", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-	}
-	tab = NULL;
-	tab = ft_fill_map(fd);
-	ft_parse_error(tab);
-	return (tab);
+    char        **tab;
+    int         i;
+    static char tmp[13];
+    tmp[12] = '\0';
+    i = 0;
+    if ((read(fd, tmp, 12)) > 0)
+    {
+        if (!(ft_strcmp(tmp, "#GAMEREADY#\n")))
+        {
+            mkdir("textures", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+            mkdir("sounds", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+            if (!create_tmp_files(fd, "textures/"))
+                ft_putendl("failed to create tmp textures files");
+            if (!create_tmp_files(fd, "sounds/"))
+                ft_putendl("failed to create tmp sound files");
+            // mkdir("TTF", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+        }
+        else if (ft_strcmp(tmp, "\n###########") != 0)
+        {
+            ft_putendl("error map syntax");
+            return (NULL);
+        }
+    }
+    tab = NULL;
+    tab = ft_fill_map(fd);
+    ft_parse_error(tab);
+    return (tab);
 }
 
 int		fill_poly(t_poly *poly, t_map *map)
