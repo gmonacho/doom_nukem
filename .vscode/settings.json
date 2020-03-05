@@ -27,6 +27,7 @@
 		"tuple": "c",
 		"utility": "c",
 		"iosfwd": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"stat.h": "c"
 	}
 }

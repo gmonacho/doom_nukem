@@ -128,7 +128,7 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 	// printf("\n");
 
 	clear_rend(win->rend, 0x40, 0x40, 0x40);
-	raycasting_3d(win, map);
+	graphics_engine(win, map);
 
 	reload_cd(map);
 	hud(win, player, win->texhud);

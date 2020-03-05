@@ -1,4 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   poly_reductions.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/05 17:24:06 by agiordan          #+#    #+#             */
+/*   Updated: 2020/03/05 18:45:10 by agiordan         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
+
+//Fonction de debug a supprimer avant push
 
 void	print_poly(t_poly *poly, int arg)
 {

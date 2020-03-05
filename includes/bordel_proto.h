@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bordel_proto.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
+/*   Updated: 2020/03/05 18:43:29 by agiordan         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BORDEL_PROTO_H
 # define BORDEL_PROTO_H
 
@@ -407,7 +419,7 @@ void				poly_del(t_poly *poly);
 ** ================================== Physics ===================================
 */
 
-void				raycasting_3d(t_win *win, t_map *map);
+void				graphics_engine(t_win *win, t_map *map);
 int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
 void				draw_all_square(t_win *win);
@@ -419,7 +431,6 @@ t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
 // int			actions(t_win *win, t_map *map, t_linedef *portal, float h);
 
 int					process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int color);
-int					is_in_shadow(t_map *map, t_poly *poly_light, t_fdot_3d light, t_poly *poly_collision, t_fdot_3d pos, t_fdot_3d vector);
 
 int					init_rays(t_win *win, t_player *player);
 void				translate_all(t_map *map, t_fdot_3d translation);
@@ -459,6 +470,8 @@ int					collision_segment(t_fdot_3d dots[4], float width_2);
 t_fdot_3d			segment_slide(t_fdot_3d dots[N_DOTS_POLY], t_plan plan, int segment_code);
 int					collision_dots(t_fdot_3d dots[N_DOTS_POLY], float ray);
 int					is_collision_box(t_object *object, t_cartesienne *ray);
+
+void				*draw(void *param);
 
 /*
 ** ================================== Time ===================================
@@ -501,5 +514,7 @@ int					resolve_polynome(t_fdot_3d polynome, float *x1, float *x2);
 void				proj_ortho_plan(t_fdot_3d dot, t_plan plan, t_fdot_3d *proj_ortho);
 t_fdot_3d			proj_ortho_origin_line(t_fdot_3d l1, t_fdot_3d l2, t_fdot_3d *proj);
 int					is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2);
+int					is_in_poly_rotz_only(t_poly *poly, t_fdot_3d dot);
+t_fdot_3d			intersection_axe_y(t_fdot_3d d1, t_fdot_3d d2);
 
 #endif

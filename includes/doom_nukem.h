@@ -9,7 +9,7 @@
 # include <pthread.h>
 # include <stdio.h>///////////////////
 
-#include <sys/stat.h> //mkdir pour creation de fichiers .png et .mp3
+# include <sys/stat.h> //mkdir pour creation de fichiers .png et .mp3
 
 # include "SDL.h"
 # include "SDL_ttf.h"

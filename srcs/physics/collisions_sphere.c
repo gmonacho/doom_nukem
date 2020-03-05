@@ -1,19 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   collisions_sphere.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/05 17:10:22 by agiordan          #+#    #+#             */
+/*   Updated: 2020/03/05 18:15:10 by agiordan         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 
 /*
 **	Code segment : 2 bits par segment 0bxxyy 0 <= xx <= 3
 */
-
-static int		is_in_poly_rotz_only(t_poly *poly, t_fdot_3d dot)
-{
-	t_fdot		coord1;
-
-	dot = fdot_3d_sub(dot, poly->dots_rotz_only[0]);
-	coord1.x = scalar_product(dot, poly->i_rotz_only) / poly->ii;
-	coord1.y = scalar_product(dot, poly->j_rotz_only) / poly->jj;
-	return (coord1.x < 0 || 1 < coord1.x ||\
-			coord1.y < 0 || 1 < coord1.y ? 0 : 1);
-}
 
 int				is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2)
 {
@@ -77,37 +78,39 @@ int				collision_poly(t_map *map, t_player *player, t_poly *poly)
 {
 	t_fdot_3d	proj_ortho;
 
-	proj_ortho_plan((t_fdot_3d){0, 0, 0}, poly->equation_rotz_only, &proj_ortho);
+	proj_ortho_plan((t_fdot_3d){0, 0, 0}, poly->equation_rotz_only,\
+					&proj_ortho);
 	if (mag(proj_ortho) > player->width_2)
 		return (0);
 	if (is_in_poly_rotz_only(poly, proj_ortho))
 		return (1);
-	if ((poly->segment_code = collision_segment(poly->dots_rotz_only, player->width_2)) ||\
+	if ((poly->segment_code = collision_segment(poly->dots_rotz_only,\
+												player->width_2)) ||\
 		collision_dots(poly->dots_rotz_only, map->player.width_2))
 		return (1);
 	return (0);
 }
 
-t_poly			*collisions_sphere(t_map *map, t_player *player, t_poly *poly, int ban_interest)
+t_poly			*collisions_sphere(t_map *map, t_player *player,\
+									t_poly *poly, int ban_interest)
 {
-	translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, map->player._4_height_10});
+	translate_all_rotz_only(map, map->polys,\
+							(t_fdot_3d){0, 0, map->player._4_height_10});
 	while (poly)
 	{
-		if (poly->object && poly->object->type == DOOR && poly->collide &&
-			(!ban_interest || !poly->is_slide_ban) && collision_poly(map, player, poly))
-		{
-			translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
-			return (poly);
-		}
-		if (((poly->object && poly->object->collide) || (!poly->object && poly->collide)) &&\
+		if (((poly->object && poly->object->collide) ||\
+			(!poly->object && poly->collide) ||\
+			(poly->object && poly->object->type == DOOR && poly->collide)) &&\
 			(!ban_interest || !poly->is_slide_ban) &&\
 			collision_poly(map, player, poly))
 		{
-			translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
+			translate_all_rotz_only(map, map->polys,\
+								(t_fdot_3d){0, 0, -map->player._4_height_10});
 			return (poly);
 		}
 		poly = poly->next;
 	}
-	translate_all_rotz_only(map, map->polys, (t_fdot_3d){0, 0, -map->player._4_height_10});
+	translate_all_rotz_only(map, map->polys,\
+								(t_fdot_3d){0, 0, -map->player._4_height_10});
 	return (NULL);
 }
