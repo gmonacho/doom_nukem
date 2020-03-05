@@ -12,7 +12,7 @@ int				orientate_door(t_object *door, t_fdot_3d pos)
 	float theta;
 	//rotation de tous les vecteurs d'un objet par 90 degres autour du z axis passant par le centre de l'objet
 	// j'imagine qu'on a deja une fonction qui fait le taf mais jsuis un fdp
-	theta = ((door->dir % 4) * 90) * M_PI/ 180;
+	theta = door->dir * M_PI/ 180;
 	poly = door->poly;
 	while (poly)
 	{
@@ -55,17 +55,17 @@ int				interact_door(t_object	*door)
 	return (1);
 }
 
-int				set_door_object(t_object *object, t_fdot_3d pos, float width_2, float height_2)
+int				set_door_object(t_object *object, t_fdot_3d pos, float width, float height)
 {
 	t_fdot_3d	box[6];
 	t_poly		*poly;
 
-	box[0] = (t_fdot_3d){pos.x - width_2, pos.y - width_2, pos.z + height_2};
-	box[1] = (t_fdot_3d){pos.x + width_2, pos.y - width_2, pos.z + height_2};
-	box[2] = (t_fdot_3d){pos.x + width_2, pos.y - width_2, pos.z - height_2};
-	box[3] = (t_fdot_3d){pos.x - width_2, pos.y - width_2, pos.z - height_2};
-	box[4] = (t_fdot_3d){pos.x - width_2, pos.y + width_2, pos.z + height_2};
-	box[5] = (t_fdot_3d){pos.x - width_2, pos.y + width_2, pos.z - height_2};
+	box[0] = (t_fdot_3d){pos.x, pos.y, pos.z + height};
+	box[1] = (t_fdot_3d){pos.x + width, pos.y, pos.z + height};
+	box[2] = (t_fdot_3d){pos.x + width, pos.y - width, pos.z};
+	box[3] = (t_fdot_3d){pos.x, pos.y, pos.z - height};
+	box[4] = (t_fdot_3d){pos.x, pos.y + width, pos.z + height};
+	box[5] = (t_fdot_3d){pos.x, pos.y + width, pos.z};
 
 	if (!(object->poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
 		return (1);

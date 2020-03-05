@@ -62,7 +62,7 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 	else if (!ft_strcmp(type_str, "DOOR"))
 	{
 		object->type = DOOR;
-		set_door_object(object, object->pos_rotz_only, object->width_2, object->height_2);
+		set_door_object(object, object->pos_rotz_only, object->width, object->height);
 		return (0);
 	}
 	else if (!ft_strcmp(type_str, "BOX"))

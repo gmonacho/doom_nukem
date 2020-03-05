@@ -442,7 +442,7 @@ static void	ed_set_buttons_object(t_win *win, t_object *selected)
 		if (selected->texture && ft_strcmp(text_entry->text, selected->texture) != 0)
 			ft_strcpy(text_entry->text, selected->texture);
 	}
-	ui_set_text_entry_function(win->winui, "b_property_2", &set_float_value, &selected->pos.z);
+	ui_set_text_entry_function(win->winui, "b_property_2", &set_float_value, &selected->pos_rotz_only.z);
 	text_entry = ui_get_text_entry_button(win->winui, "b_property_2");
 	if (text_entry)
 	{
@@ -451,7 +451,7 @@ static void	ed_set_buttons_object(t_win *win, t_object *selected)
 			ft_strdel(&text_entry->name);
 			text_entry->name = ft_strdup("z");
 		}
-		tmp = ft_itoa(selected->pos.z);
+		tmp = ft_itoa(selected->pos_rotz_only.z);
 		ft_strcpy(text_entry->text, tmp);
 		ft_strdel(&tmp);
 	}

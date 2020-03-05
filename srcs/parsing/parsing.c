@@ -55,7 +55,7 @@ int		fill_poly_mob(t_poly *poly, t_mob *mob)
 	char *tmp;
 
 	tmp = NULL;
-	while (poly->next)
+	while (poly && poly->next)
 		poly = poly->next;
 	while (mob)
 	{
@@ -83,13 +83,11 @@ int		fill_poly_object(t_poly *poly, t_object *object)
 	t_poly	*poly_object;
 
 	tmp = NULL;
-	while (poly->next)
+	while (poly && poly->next)
 		poly = poly->next;
 	while (object)
 	{	
-		printf("adress = %p\n", object);
 		tmp = ft_strjoin("textures/", object->texture);
-		printf("tmp = %s \n", tmp);
 		poly_object = object->poly;
 		poly->light_coef = object->light_coef;
 		while (poly_object)
@@ -107,39 +105,39 @@ int		fill_poly_object(t_poly *poly, t_object *object)
 	return (0);
 }
 
-t_poly		*ft_data_storing(int fd, t_map *map, t_win *win)
+t_poly      *ft_data_storing(int fd, t_map *map, t_win *win)
 {
-	char		**tab;
-	int			i;
-	t_poly		*poly;
-
-	i = -1;
-	poly = NULL;
-	map->mob = NULL;
-	tab = fillntesttab(fd);
-	win->texhud = define_texhud(win);
-	while (tab[++i])
-	{
-		if (ft_strstr(tab[i], "Polygon"))
-			ft_fill_data(tab, &poly, i);
-		else if (ft_strstr(tab[i], "Object"))
-		{
-			if (object_data(tab, &(map->objects), i))
-				return (NULL);
-		}
-		else if (ft_strstr(tab[i], "Player"))
-			player_data(tab, &(map->player), i);
-		else if (ft_strstr(tab[i], "Mob"))
-			if (fill_mob_data(&(map->mob), tab, i) == -1)
-				return (NULL);
-	}
-	i = 0;
-	while (tab[i])
-	{	
-		ft_strdel(&tab[i]);
-		i++;
-	}
-	if (fill_poly(poly, map) == -1) 
-		return (NULL);
-	return (poly);
+    char        **tab;
+    int         i;
+    t_poly      *poly;
+    i = -1;
+    poly = NULL;
+    map->mob = NULL;
+    if (tab = fillntesttab(fd) == NULL)
+        return (NULL);
+    win->texhud = define_texhud(win);
+    while (tab[++i])
+    {
+        if (ft_strstr(tab[i], "Polygon"))
+            ft_fill_data(tab, &poly, i);
+        else if (ft_strstr(tab[i], "Object"))
+        {
+            if (object_data(tab, &(map->objects), i))
+                return (NULL);
+        }
+        else if (ft_strstr(tab[i], "Player"))
+            player_data(tab, &(map->player), i);
+        else if (ft_strstr(tab[i], "Mob"))
+            if (fill_mob_data(&(map->mob), tab, i) == -1)
+                return (NULL);
+    }
+    i = 0;
+    while (tab[i])
+    {
+        ft_strdel(&tab[i]);
+        i++;
+    }
+    if (fill_poly(poly, map) == -1)
+        return (NULL);
+    return (poly);
 }
