@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:18:49 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/05 17:59:19 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/05 20:16:10 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 		printf("texture null : %p\n", poly->texture);
 		exit(0);
 	}
-	coord_texture = poly->object ?\
+	coord_texture = (poly->object || poly->mob) ?\
 				(t_dot){coord_plan.x * poly->texture->w,\
 						(1 - coord_plan.y) * poly->texture->h} :\
 				(t_dot){modulo(coord_plan.x * poly->i_mag, poly->texture->w),\
