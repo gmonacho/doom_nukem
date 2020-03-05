@@ -1,9 +1,5 @@
 #include "doom_nukem.h"
 
-/*
-**	ATTENTION les sin doivent doivent etre inverse par rapport aux matrixs normales
-*/
-
 void				init_matrix_rz(t_player *player)
 {
 	player->rz._00 = cos(player->ddir);
@@ -32,5 +28,7 @@ void				init_matrix_rz_inv(t_player *player)
 
 t_matrix			create_rz_matrix(float angle)
 {
-	return ((t_matrix){cos(angle), -sin(angle), 0, sin(angle), cos(angle), 0, 0, 0, 1});
+	return ((t_matrix){cos(angle), -sin(angle), 0,\
+						sin(angle), cos(angle), 0,\
+						0, 0, 1});
 }
