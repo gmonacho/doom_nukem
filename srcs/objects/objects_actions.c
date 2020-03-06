@@ -1,28 +1,5 @@
 #include "doom_nukem.h"
 
-// static void			tp(t_map *map, t_object *objects, t_object *object)
-// {
-// 	// t_fdot_3d		translate;
-
-// 	// while (objects)
-// 	// {
-// 	// 	if (objects->type == TP && objects != object && objects->data == object->data)
-// 	// 	{
-// 	// 		translate_all_rotz_only(map, map->polys,\
-// 	// 						translate = fdot_3d_sub(object->pos_rotz_only, objects->pos_rotz_only));
-// 	// 		printf("Translate : %f %f %f\n", translate.x, translate.y, translate.z);
-// 	// 		object->collide = 0;
-// 	// 		object->poly->light_coef /= 3;
-// 	// 		printf("TtttttppppppP\n");
-// 	// 		return ;
-// 	// 	}
-// 	// 	objects = objects->next;
-// 	// }
-// 	map = NULL;
-// 	objects = NULL;
-// 	object = NULL;
-// }
-
 static t_object		*catch_box(t_player *player, t_object *object)
 {
 	t_fdot_3d		collision;
@@ -39,6 +16,7 @@ static t_object		*catch_box(t_player *player, t_object *object)
 		while ((object->type == BOX || object->type == DOOR) && object->visible && poly)
 		{
 			if (intersection_plan_my_ray(&collision, poly->equation, &ray) &&\
+				collision.x > 0 &&\
 				is_in_poly(poly, &coord, collision) &&\
 				mag(collision) < player->width * 3)
 				return (object);

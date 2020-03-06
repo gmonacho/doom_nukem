@@ -16,25 +16,3 @@ void		map_zoom(t_map_editor *map, float zoom)
 	map->y -= map->unit * zoom * map->h / 2;
 	map->unit += map->unit * zoom;
 }
-
-// void	map_add_line(t_map *map, int n_sector, t_linedef *line)
-// {
-// 	t_sector	*sector;
-// 	t_linedef	*tmp;
-// 	int			i;
-
-// 	sector = map->sectors;
-// 	i = -1;
-// 	while (++i < n_sector)
-// 		sector = sector->next;
-// 	if (sector->lines)
-// 	{
-// 		tmp = sector->lines;
-// 		while (tmp->next)
-// 			tmp = tmp->next;
-// 		tmp->next = line;
-// 	}
-// 	else
-// 		sector->lines = line;
-// }
-

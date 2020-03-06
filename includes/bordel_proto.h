@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/05 18:43:29 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 18:48:25 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,7 @@ char		*object_data_fill(char **tab, t_object **object, int i);
 void		fill_mob_data_norm(t_mob **mob, char *tab);
 
 void		player_data(char **tab, t_player *player, int i);
+void		fill_sky_box(t_map *map, char **tab, int i);
 
 int			object_data(char **tab, t_object **object, int i);
 t_texhud   	*define_texhud(t_win *win);
@@ -472,6 +473,7 @@ int					collision_dots(t_fdot_3d dots[N_DOTS_POLY], float ray);
 int					is_collision_box(t_object *object, t_cartesienne *ray);
 
 void				*draw(void *param);
+int					sky_box(t_sphere *sky_box, t_cartesienne *ray);
 
 /*
 ** ================================== Time ===================================
@@ -500,7 +502,6 @@ int					sign(float nbr);
 t_fdot_3d			normalize(t_fdot_3d vector);
 int					is_null(float nbr, float precision);
 t_fdot_3d			mid_segment(t_fdot_3d d1, t_fdot_3d d2);
-
 
 t_dot				intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge);
 void				draw_affine(t_win *win, t_affine function);

@@ -1,11 +1,16 @@
-#include "doom_nukem.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   events.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/06 16:47:53 by agiordan          #+#    #+#             */
+/*   Updated: 2020/03/06 19:24:19 by agiordan         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*
-**	Pour debugger les matrixs de rotation il faut :
-**	- Sauvegarder la rotation sur l'autre axe puis l'annuler
-**	- Rotater sur le bon axe
-**	- Remettre la sauvegarde de la rotation sur lautre axe
-*/
+#include "doom_nukem.h"
 
 static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8 *state)
 {
@@ -65,38 +70,29 @@ t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state)
 	move = (t_fdot_3d){};
 	player->sprint = state[SDL_SCANCODE_LCTRL] ? 2 : 1;
 	if (state[SDL_SCANCODE_W])
-		move = fdot_3d_add(move, (t_fdot_3d){-player->const_vel * player->sprint, 0, 0});
+		move = fdot_3d_add(move,\
+						(t_fdot_3d){-player->const_vel * player->sprint, 0, 0});
 	if (state[SDL_SCANCODE_S])
-		move = fdot_3d_add(move, (t_fdot_3d){player->const_vel * player->sprint, 0, 0});
+		move = fdot_3d_add(move,\
+						(t_fdot_3d){player->const_vel * player->sprint, 0, 0});
 	if (state[SDL_SCANCODE_D])
-		move = fdot_3d_add(move, (t_fdot_3d){0, -player->const_vel * player->sprint, 0});
+		move = fdot_3d_add(move,\
+						(t_fdot_3d){0, -player->const_vel * player->sprint, 0});
 	if (state[SDL_SCANCODE_A])
-		move = fdot_3d_add(move, (t_fdot_3d){0, player->const_vel * player->sprint, 0});
-	if (state[SDL_SCANCODE_SPACE] && (player->fly || is_null(map->last_move.z, 0.25)))
+		move = fdot_3d_add(move,\
+						(t_fdot_3d){0, player->const_vel * player->sprint, 0});
+	if (state[SDL_SCANCODE_SPACE] &&\
+		(player->fly || is_null(map->last_move.z, 0.25)))
 		player->jump = -0.5 - map->gravity -\
-						sqrt(0.24 + map->gravity * (map->gravity + 1) + player->height);
+						sqrt(0.24 + map->gravity * (map->gravity + 1) +\
+						player->height);
 	map->last_move = (t_fdot_3d){};
 	player->sneak = state[SDL_SCANCODE_LSHIFT] ? 1 : 0;
 	return (move);
 }
 
-// void			events_move(t_win *win, t_player *player, const Uint8 *state)
-// {
-// 	if (state[SDL_SCANCODE_W])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){-player->const_vel * player->sprint, 0, 0});
-// 	if (state[SDL_SCANCODE_S])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){player->const_vel * player->sprint, 0, 0});
-// 	if (state[SDL_SCANCODE_D])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, -player->const_vel * player->sprint, 0});
-// 	if (state[SDL_SCANCODE_A])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, player->const_vel * player->sprint, 0});
-// 	if (state[SDL_SCANCODE_SPACE])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, 0, -player->const_vel * player->sprint});
-// 	if (state[SDL_SCANCODE_LSHIFT])
-// 		translate_all_rotz_only(map, win->map->polys, (t_fdot_3d){0, 0, player->const_vel * player->sprint});
-// }
-
-void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *state)
+void			events_rotate(t_win *win, t_map *map,\
+								t_player *player, const Uint8 *state)
 {
 	if (map->event->motion.xrel || map->event->motion.yrel)
 	{
@@ -113,15 +109,14 @@ void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *stat
 		rotate_all_rotz_only(map, map->polys, player->rz);
 	if (state[SDL_SCANCODE_LEFT])
 		rotate_all_rotz_only(map, map->polys, player->rz_inv);
-	if (state[SDL_SCANCODE_UP])
+	if (state[SDL_SCANCODE_UP] && player->rot_y < M_PI_2)
 		player->rot_y += player->ddir;
-	// if (state[SDL_SCANCODE_UP] && player->rot_y < M_PI / 2 - 20 * player->ddir)
-	if (state[SDL_SCANCODE_DOWN])
+	if (state[SDL_SCANCODE_DOWN] && player->rot_y > -M_PI_2)
 		player->rot_y -= player->ddir;
-	// if (state[SDL_SCANCODE_DOWN] && player->rot_y > -M_PI / 2 + 20 * player->ddir)
 }
 
-void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *state)
+void			events_actions(t_win *win, t_map *map,\
+								t_player *player, const Uint8 *state)
 {	
 	events_weapon(win, map, player, state);
 	if (state[SDL_SCANCODE_I])
@@ -136,7 +131,8 @@ void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *sta
 		player->inventory->item[3]->nb += 1;
 		player->inventory->item[4]->nb += 1;
 	}
-	if (state[SDL_SCANCODE_E] && test_timer_refresh(&(player->interaction_inventaire_time)) == 1)
+	if (state[SDL_SCANCODE_E] &&\
+		test_timer_refresh(&(player->interaction_inventaire_time)) == 1)
 		use_item(map, player, map->music, player->inventory->selected_slot);
 	else
 		player->interaction_inventaire = 0;
@@ -146,51 +142,22 @@ void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *sta
 
 void			events_others(t_win *win, t_player *player, const Uint8 *state)
 {
-	t_poly		*poly;
-
 	if (state[SDL_SCANCODE_KP_MINUS])
 		player->fov += -0.03 + (player->fov - 0.03 < 0 ? _2_PI : 0);
 	if (state[SDL_SCANCODE_KP_PLUS])
 		player->fov +=  0.03 - (player->fov + 0.03 > _2_PI ? _2_PI : 0);
 	if (state[SDL_SCANCODE_1] && test_timer_refresh(&(win->view_change_time)))
-		win->map->view += (win->map->view & TEXTURE_VIEW ? -TEXTURE_VIEW : TEXTURE_VIEW);
+		win->map->view += (win->map->view & TEXTURE_VIEW ?\
+												-TEXTURE_VIEW : TEXTURE_VIEW);
 	if (state[SDL_SCANCODE_2] && test_timer_refresh(&(win->view_change_time)))
 		win->map->view += (win->map->view & WALL_VIEW ? -WALL_VIEW : WALL_VIEW);
 	if (state[SDL_SCANCODE_3] && test_timer_refresh(&(win->view_change_time)))
 		win->map->view += (win->map->view & BOX_VIEW ? -BOX_VIEW : BOX_VIEW);
 	if (state[SDL_SCANCODE_4] && test_timer_refresh(&(win->view_change_time)))
-		win->map->view += (win->map->view & LIGHT_VIEW ? -LIGHT_VIEW : LIGHT_VIEW);
+		win->map->view += (win->map->view & LIGHT_VIEW ?\
+													-LIGHT_VIEW : LIGHT_VIEW);
 	if (state[SDL_SCANCODE_C])
 		player->collision_on = player->collision_on ? 0 : 1;
 	if (state[SDL_SCANCODE_F] && test_timer_refresh(&(player->fly_timer)))
 		player->fly = player->fly ? 0 : 1;
-	if (state[SDL_SCANCODE_P])
-	{
-		poly = win->map->polys;
-		while (poly)
-		{
-			printf("Equation %f x + %f y + %f z + %f = 0\n", poly->equation.v.x, poly->equation.v.y, poly->equation.v.z, poly->equation.d);
-			print_poly(poly, 0);
-			printf("I %f %f %f\n", poly->i.x, poly->i.y, poly->i.z);
-			printf("J %f %f %f\n", poly->j.x, poly->j.y, poly->j.z);
-			poly = poly->next;
-		}
-		printf("\n\n");
-	}
 }
-
-// void 		mouse_state(t_win *win, t_player *player, SDL_Event event, t_music *music)
-// {
-// 	if (event.motion.xrel || event.motion.yrel)
-// 	{
-// 		mouse_move(win, player);
-// 		player->timers.mouse.index = 1;
-// 	}
-// 	if (event.window.event == SDL_WINDOWEVENT_RESIZED)
-// 	{
-// 		SDL_GetWindowSize(win->ptr, &win->w, &win->h);
-// 		update_ui_rect(win);
-// 		define_line_shot(win, player);
-// 	}
-// }
-

@@ -11,7 +11,7 @@ void		find_texture(char *tab, t_poly *poly)
 	name = ft_strdup(ft_strrchr(tab, '=') + 2);
 	poly->texture_name = name;
 	tmp = ft_strdup("textures/");
-	tmp = ft_strjoin(tmp, name);
+	tmp = ft_strjoin(tmp, name); //Leaks ??? On perd tmp ici
 	if (!(poly->texture = IMG_Load(tmp)))
 	{
 		exit(0); // attention
@@ -32,14 +32,14 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 	(*poly)->mob = NULL;
 	while ((ft_strchr(tab[i], '}') == NULL))
 	{
-		if (ft_strstr(tab[i], "dot = "))	// Dangereux si il y a x y ou z sur la meme ligne
+		if (ft_strstr(tab[i], "dot = "))
 		{
 			(*poly)->dots_rotz_only[index].x = ft_atoi(ft_strrchr(tab[i], 'x') + 2);
 			(*poly)->dots_rotz_only[index].y = ft_atoi(ft_strrchr(tab[i], 'y') + 2);
 			(*poly)->dots_rotz_only[index].z = ft_atoi(ft_strrchr(tab[i], 'z') + 2);
 			index++;
 		}
-		if (ft_strstr(tab[i], "texture ="))
+		if (ft_strstr(tab[i], "texture = "))
 			find_texture(tab[i], *poly);
 		if (ft_strstr(tab[i], "light = "))
 		{
@@ -131,6 +131,8 @@ t_poly      *ft_data_storing(int fd, t_map *map, t_win *win)
         }
         else if (ft_strstr(tab[i], "Player"))
             player_data(tab, &(map->player), i);
+        if (ft_strstr(tab[i], "Sky_box"))
+            fill_sky_box(map, tab, i);
         else if (ft_strstr(tab[i], "Mob"))
             if (fill_mob_data(&(map->mob), tab, i) == -1)
                 return (NULL);
@@ -141,6 +143,7 @@ t_poly      *ft_data_storing(int fd, t_map *map, t_win *win)
         ft_strdel(&tab[i]);
         i++;
     }
+	printf("Sky box : r %f\tTex addr %p\n", map->sky_box.radius, map->sky_box.texture);
     if (fill_poly(poly, map) == -1)
         return (NULL);
     return (poly);

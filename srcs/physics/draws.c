@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:56:29 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/05 18:21:22 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 18:18:45 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void				*draw(void *param)
 			thread->win->pixels[y * thread->win->w + x] = ray->poly ?\
 								process_light(thread->win->map, ray->poly,\
 												ray->collision, ray->color) :\
-								ray->color;
+								sky_box(&(thread->win->map->sky_box), ray);
 			ray->poly = NULL;
 			ray->color = 0xFF505050;
 		}
