@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 22:54:45 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/07 16:42:42 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/07 21:21:10 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void		fill_sphere(t_sphere *sphere, char **tab, int i)
 			tmp = ft_strjoin("textures/", ft_strrchr(tab[i], '=') + 2);
 			if (!(sphere->texture = IMG_Load(tmp)))
 			{
+				printf("Texture sphere of the file failed\n");
 				exit(0);
 				return ;
 			}
@@ -52,11 +53,17 @@ void			new_sphere(t_sphere *sphere, char **tab, int i)
 	sphere->pos_rotz_only = (t_fdot_3d){0, 0, 0};
 	sphere->pos = (t_fdot_3d){0, 0, 0};
 	sphere->radius = 1000;
-	fill_sphere(sphere, tab, i);
+	if (!(sphere->texture = IMG_Load("textures/fractale1.jpg")))
+	{
+		printf("Default texture sphere failed\n");
+		exit(0);
+		return ;
+	}
 	sphere->i_rotz_only = (t_fdot_3d){1, 0, 0};
 	sphere->i = (t_fdot_3d){1, 0, 0};
 	sphere->j_rotz_only = (t_fdot_3d){0, 0, 1};
 	sphere->j = (t_fdot_3d){0, 0, 1};
+	fill_sphere(sphere, tab, i);
 }
 
 // static int		push_front_sphere(t_sphere **sphere)

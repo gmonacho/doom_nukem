@@ -114,6 +114,7 @@ int				object_data(char **tab, t_object **object, int i)
 	type = object_data_fill(tab, object, i);
 	(*object)->width_2 = (*object)->width / 2;
 	(*object)->height_2 = (*object)->height / 2;
+	(*object)->data = 1;
 	if (add_poly_object(*object, type))
 		return (1);
 	ft_strdel(&type);
