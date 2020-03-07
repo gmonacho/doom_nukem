@@ -20,9 +20,9 @@ static t_object		*catch_box(t_player *player, t_object *object)
 				is_in_poly(poly, &coord, collision) &&\
 				mag(collision) < player->width * 3)
 				return (object);
-			i++;
-			if ((i > 6 && object->type == BOX) || (i > 1 && object->type == DOOR))
-				break; //sans ca, boucle sur tous les polys de tous les objets et return le premier object de la liste a chaque fois
+			// i++;
+			if ((++i > 6 && object->type == BOX) || (i > 1 && object->type == DOOR))
+				break ;
 			poly = poly->next;
 		}
 		object = object->next;
@@ -69,23 +69,10 @@ static void			rotate_all_objects(t_player *player, t_object *object)
 
 void			objects_actions(t_map *map, t_player *player, t_object *object)
 {
-	// printf("Object : %d\n", object->type);
 	if (object->type == HEAL)
-	{
 		player->inventory->item[0]->nb++;
-		// printf("Popo heal +1\n");
-	}
 	if (object->type == ARMOR)
-	{
 		player->inventory->item[1]->nb++;
-		// printf("Popo armor +1\n");
-	}
-	// if (object->type == TP)
-	// {
-	// 	if (object->collide && test_timer_refresh(&(map->objects_tp_timer)))
-	// 		tp(map, map->objects, object);
-	// 	return ;
-	// }
 	if (object->type == DOOR)
 		return ;
 	if (object->type == GUN)

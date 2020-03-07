@@ -70,7 +70,12 @@ typedef struct		s_cartesienne
 
 typedef struct		s_sphere
 {
+	t_fdot_3d		pos_rotz_only;
 	t_fdot_3d		pos;
+	t_fdot_3d		i_rotz_only;
+	t_fdot_3d		j_rotz_only;
+	t_fdot_3d		i;
+	t_fdot_3d		j;
 	float			radius;
 	SDL_Surface		*texture;
 }					t_sphere;

@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 18:06:48 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/05 18:12:26 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/07 16:37:54 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void			rotate_all_rotz_only(t_map *map, t_poly *poly, t_matrix matrix)
 		poly = poly->next;
 	}
 	rotate_all_objects_rotz_only(map->objects, matrix);
+	map->sky_box.pos_rotz_only = rotate_dot(map->sky_box.pos_rotz_only, matrix);
+	map->sky_box.i_rotz_only = rotate_dot(map->sky_box.i_rotz_only, matrix);
+	map->sky_box.j_rotz_only = rotate_dot(map->sky_box.j_rotz_only, matrix);
 }
 
 static void		copy_rotate_objects_rotz_only(t_object *object, t_matrix matrix)
@@ -78,4 +81,7 @@ void			copy_rotate_rotz_only(t_map *map, t_poly *poly, t_matrix matrix)
 		poly = poly->next;
 	}
 	copy_rotate_objects_rotz_only(map->objects, matrix);
+	map->sky_box.pos = rotate_dot(map->sky_box.pos_rotz_only, matrix);
+	map->sky_box.i = rotate_dot(map->sky_box.i_rotz_only, matrix);
+	map->sky_box.j = rotate_dot(map->sky_box.j_rotz_only, matrix);
 }

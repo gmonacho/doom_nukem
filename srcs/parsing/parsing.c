@@ -110,6 +110,7 @@ t_poly      *ft_data_storing(int fd, t_map *map, t_win *win)
     char        **tab;
     int         i;
     t_poly      *poly;
+
     i = -1;
     add_poly(&poly);
 	poly->dots_rotz_only[0].x = -10000;
@@ -131,8 +132,8 @@ t_poly      *ft_data_storing(int fd, t_map *map, t_win *win)
         }
         else if (ft_strstr(tab[i], "Player"))
             player_data(tab, &(map->player), i);
-        if (ft_strstr(tab[i], "Sky_box"))
-            fill_sky_box(map, tab, i);
+        if (ft_strstr(tab[i], "Sphere"))
+        	new_sphere(&(map->sky_box), tab, i);
         else if (ft_strstr(tab[i], "Mob"))
             if (fill_mob_data(&(map->mob), tab, i) == -1)
                 return (NULL);

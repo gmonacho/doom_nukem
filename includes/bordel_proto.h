@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/06 18:48:25 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 23:10:35 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,7 @@ char		*object_data_fill(char **tab, t_object **object, int i);
 void		fill_mob_data_norm(t_mob **mob, char *tab);
 
 void		player_data(char **tab, t_player *player, int i);
-void		fill_sky_box(t_map *map, char **tab, int i);
+void		new_sphere(t_sphere *sphere, char **tab, int i);
 
 int			object_data(char **tab, t_object **object, int i);
 t_texhud   	*define_texhud(t_win *win);

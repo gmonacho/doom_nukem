@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:36:46 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/06 19:19:10 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/07 19:20:41 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ int			is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot)
 	coord->x = scalar_product(dot, poly->i) / poly->ii;
 	coord->y = scalar_product(dot, poly->j) / poly->jj;
 	return (coord->x < 0 || coord->x > 1 || coord->y < 0 || coord->y > 1 ||\
-			is_null(coord->x - 1, 0.0005) || is_null(coord->y, 0.0005) ? 0 : 1);
+	is_null(coord->x - 1, 0.000005) || is_null(coord->y, 0.000005) ? 0 : 1);
 }

@@ -61,6 +61,10 @@ static void		move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 							map->polys_save->dots_rotz_only[0]);
 	map->last_move = fdot_3d_add(map->last_move, move_slide);
 	translate_all_objects_rotz_only(map->objects, move_slide);
+	// printf("Pos %f %f %f\n", map->sky_box.pos.x, map->sky_box.pos.y, map->sky_box.pos.z);
+	// map->sky_box.pos = fdot_3d_add(map->sky_box.pos, move_slide);
+	map->sky_box.pos_rotz_only = fdot_3d_add(map->sky_box.pos_rotz_only, move_slide);
+	// printf("Pos %f %f %f\n", map->sky_box.pos.x, map->sky_box.pos.y, map->sky_box.pos.z);
 }
 
 static SDL_bool game(t_win *win, t_map *map, t_player *player)

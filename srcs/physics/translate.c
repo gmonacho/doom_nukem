@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_3d_functions.c                                :+:      :+:    :+:   */
+/*   translate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:24:03 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/05 18:10:43 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 21:46:20 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ void			translate_all(t_map *map, t_fdot_3d dpos)
 {
 	translate_all_poly(map->polys, dpos);
 	translate_all_objects(map->objects, dpos);
+	map->sky_box.pos = fdot_3d_add(map->sky_box.pos, dpos);
 }
