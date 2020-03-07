@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 18:10:25 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/07 16:38:57 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/07 21:23:51 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,4 @@ void			translate_all_rotz_only(t_map *map, t_poly *poly,\
 	translate_all_poly_rotz_only(poly, dpos);
 	translate_all_objects_rotz_only(map->objects, dpos);
 	map->sky_box.pos_rotz_only = fdot_3d_add(map->sky_box.pos_rotz_only, dpos);
-	map->sky_box.i_rotz_only = fdot_3d_add(map->sky_box.i_rotz_only, dpos);
-	map->sky_box.j_rotz_only = fdot_3d_add(map->sky_box.j_rotz_only, dpos);
 }

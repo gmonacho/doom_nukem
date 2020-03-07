@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 22:54:45 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/07 21:21:10 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/07 21:45:24 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static void		fill_sphere_pos(t_sphere *sphere, char **tab, int i)
 {
 	if (ft_strstr(tab[i], "posx ="))
-		sphere->pos.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+		sphere->pos_rotz_only.x = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 	else if (ft_strstr(tab[i], "posy ="))
-		sphere->pos.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+		sphere->pos_rotz_only.y = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 	else if (ft_strstr(tab[i], "posz ="))
-		sphere->pos.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+		sphere->pos_rotz_only.z = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 }
 
 static void		fill_sphere(t_sphere *sphere, char **tab, int i)
