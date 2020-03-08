@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draws.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:56:29 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/07 19:20:55 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/08 06:14:56 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void				*draw(void *param)
 			thread->win->pixels[y * thread->win->w + x] = ray->poly ?\
 								process_light(thread->win->map, ray->poly,\
 												ray->collision, ray->color) :\
-								sky_box(&(thread->win->map->sky_box), ray);
+								(thread->win->map->sky_box.texture ? //pas a la norme mais sinon ca segfault sur les maps sans Sphere
+								sky_box(&(thread->win->map->sky_box), ray) : 0x808080);
 			ray->poly = NULL;
 			ray->color = 0xFF505050;
 		}

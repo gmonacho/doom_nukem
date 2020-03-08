@@ -10,8 +10,6 @@ int				orientate_door(t_object *door, t_fdot_3d pos)
 	float rotated_x;
 	float rotated_y;
 	float theta;
-	//rotation de tous les vecteurs d'un objet par 90 degres autour du z axis passant par le centre de l'objet
-	// j'imagine qu'on a deja une fonction qui fait le taf mais jsuis un fdp
 	theta = door->dir * M_PI/ 180;
 	poly = door->poly;
 	while (poly)
@@ -36,8 +34,7 @@ int				interact_door(t_object	*door)
 	if (!door || door->type != DOOR || !door->poly || !door->poly->next)
 		return (0);
 	if (door->poly->next->visible && door->poly->next->collide)
-	{
-		printf("next is visible\n");	
+	{	
 		door->poly->next->visible = 0;
 		door->poly->next->collide = 0;
 		door->poly->visible = 1;
@@ -45,13 +42,11 @@ int				interact_door(t_object	*door)
 	}
 	else if (door->poly->visible && door->poly->collide)
 	{
-		printf("front is visible\n");	
 		door->poly->visible = 0;
 		door->poly->collide = 0;
 		door->poly->next->visible = 1;
 		door->poly->next->collide = 1;
 	}
-	printf("done interact door\n");
 	return (1);
 }
 
@@ -72,8 +67,8 @@ int				set_door_object(t_object *object, t_fdot_3d pos, float width, float heigh
 	poly = object->poly;
 	poly->object = object;
 	poly->light_coef = object->light_coef;
-	poly->visible = 0;
-	poly->collide = 0;
+	poly->visible = 1;
+	poly->collide = 1;
 	poly->dots_rotz_only[0] = box[0];
 	poly->dots_rotz_only[1] = box[1];
 	poly->dots_rotz_only[2] = box[2];
@@ -83,8 +78,8 @@ int				set_door_object(t_object *object, t_fdot_3d pos, float width, float heigh
 	poly = poly->next;
 	poly->object = object;
 	poly->light_coef = object->light_coef;
-	poly->visible = 1;
-	poly->collide = 1;
+	poly->visible = 0;
+	poly->collide = 0;
 	poly->dots_rotz_only[0] = box[0];
 	poly->dots_rotz_only[1] = box[4];
 	poly->dots_rotz_only[2] = box[5];

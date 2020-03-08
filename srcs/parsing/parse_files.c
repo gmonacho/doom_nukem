@@ -15,13 +15,13 @@ int		write_tmp_file(int fd, char *texname, size_t bytes, char *dir)
 	return (1);
 }
 
-int		create_tmp_files(int fd, char *dir) //bim bam boum la recursive a MacDoom
+int		create_tmp_files(int fd, char *dir)
 {
 	size_t	n;
 	char	tmp[1];
-	int j;
-	int k;
-	int i;
+	int		j;
+	int		k;
+	int		i;
 	char texname[BUFSIZ];
 	char texlen[BUFSIZ];
 	int ret;

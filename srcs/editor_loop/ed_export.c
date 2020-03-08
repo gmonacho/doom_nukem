@@ -1,11 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ed_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/08 05:57:01 by widrye            #+#    #+#             */
+/*   Updated: 2020/03/08 06:13:01 by widrye           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-void		ed_export(void *ed_export)
+void		export_content(t_export *export)
 {
 	t_mob		*m;
 	t_poly		*p;
 	t_object	*obj;
+	t_map		*map;
+
+	map = (t_map*)export->map;
+	obj = map->objects;
+	while (obj)
+	{
+		ed_write_item(export->fd, obj, map->player.pos);
+		obj = obj->next;
+	}
+	m = map->mob;
+	while (m)
+	{
+		ed_write_mob(export->fd, m);
+		m = m->next;
+	}
+	p = map->polys;
+	while (p)
+	{
+		if (ed_is_real_poly(map, p))
+			ed_write_poly(export->fd, p, &map->player);
+		p = p->next;
+	}
+}
+
+void		ed_export(void *ed_export)
+{
 	t_export	*export;
 	t_map		*map;
 
@@ -19,30 +57,12 @@ void		ed_export(void *ed_export)
 	{
 		ft_putendl_fd("\n###########", export->fd);
 		ed_write_player(export->fd, &map->player);
-		obj = map->objects;
-		while (obj)
-		{
-			ed_write_item(export->fd, obj, map->player.pos);
-			obj = obj->next;
-		}
-		m = map->mob;
-		while (m)
-		{
-			ed_write_mob(export->fd, m);
-			m = m->next;
-		}
-		p = map->polys;
-		while (p)
-		{
-			if (ed_is_real_poly(map, p))
-				ed_write_poly(export->fd, p, &map->player);
-			p = p->next;
-		}
+		ed_write_sphere(export->fd, &map->sky_box);
+		export_content(export);
 	}
 	else
 		ui_ret_error("ed_export", "opening/creating failed", 0);
 }
-
 
 void		ed_package(void *ed_exp)
 {
@@ -51,8 +71,8 @@ void		ed_package(void *ed_exp)
 
 	export = (t_export*)ed_exp;
 	map = (t_map*)export->map;
-	export->fd = open(export->path,  O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR |
-	S_IWUSR | S_IRGRP | S_IROTH);
+	export->fd = open(export->path, O_CREAT | O_WRONLY | O_TRUNC,
+	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	ft_putendl_fd("#GAMEREADY#", export->fd);
 	ft_putendl_fd("Textures", export->fd);
 	if (!ed_export_textures(export->fd, map))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bordel_proto.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/06 23:10:35 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/08 01:59:37 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void		draw_column(t_win *win, int x, int ylow, int yup);
 void		draw_rect(t_win *win, SDL_Rect rect);
 void		fill_rect(t_win *win, SDL_Rect rect);
 void		draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio);
+void        draw_quarter_circle(t_win *win, t_circle circle, float dir_start);
 void		draw_circle(t_win *win, t_circle circle);
 void		draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
 
@@ -342,6 +343,7 @@ void		ed_display_objects(t_win *win, const t_map *map);
 
 void		ed_place_player(t_win *win, t_map *map);
 void		ed_place_door_event(t_win *win, t_map *map);
+float 	    ed_get_line_degrees(t_line	*l);
 
 t_line		ed_get_display_line(const t_map *map, t_dot p1, t_dot p2);
 t_dot		ed_get_display_point(const t_map *map, t_dot p);
@@ -384,6 +386,7 @@ void		ed_package(void *ed_exp);
 int         ed_export_textures(int fd, t_map *map);
 int         ed_export_sounds(int fd);
 void		ed_write_player(int fd, const t_player *player);
+void        ed_write_sphere(int fd, const t_sphere *skybox);
 void		ed_write_poly(int fd, const t_poly *poly, const t_player *player);
 void		ed_write_mob(int fd, const t_mob *m);
 void		ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos);

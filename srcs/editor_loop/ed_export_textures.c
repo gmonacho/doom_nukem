@@ -6,18 +6,18 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 10:47:47 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/04 22:51:32 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/08 06:04:25 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-int ed_write_texture(int fd, t_list **lst, char *texname)
+int		ed_write_texture(int fd, t_list **lst, char *texname)
 {
-	static char tmp[BUFSIZ];
-	int fd_text;
-	int n;
-	int bytes;
+	static char		tmp[BUFSIZ];
+	int				fd_text;
+	int				n;
+	int				bytes;
 
 	if (!ft_content_already_inlist(*lst, texname))
 	{
@@ -38,7 +38,7 @@ int ed_write_texture(int fd, t_list **lst, char *texname)
 	return (1);
 }
 
-int	export_weapon_textures(int fd)
+int		export_weapon_textures(int fd)
 {
 	t_list		*lst;
 
@@ -58,7 +58,7 @@ int	export_weapon_textures(int fd)
 	return (1);
 }
 
-int	export_hud_textures(int fd)
+int		export_hud_textures(int fd)
 {
 	t_list		*lst;
 
@@ -87,7 +87,7 @@ int	export_hud_textures(int fd)
 	return (1);
 }
 
-int	export_ui_textures(int fd)
+int		export_ui_textures(int fd)
 {
 	t_list		*lst;
 
@@ -104,7 +104,8 @@ int	export_ui_textures(int fd)
 		!ed_write_texture(fd, &lst, "ui_frame.png") ||
 		!ed_write_texture(fd, &lst, "ui_on_mouse_button.png") ||
 		!ed_write_texture(fd, &lst, "ui_on_mouse_button_grey.png") ||
-		!ed_write_texture(fd, &lst, "ui_on_mouse_button_square.png"))
+		!ed_write_texture(fd, &lst, "ui_on_mouse_button_square.png") ||
+		!ed_write_texture(fd, &lst, "fractale1.jpg"))
 	{
 		ft_free_list(lst);
 		return (0);
@@ -113,7 +114,7 @@ int	export_ui_textures(int fd)
 	return (1);
 }
 
-int ed_export_textures(int fd, t_map *map)
+int		ed_export_textures(int fd, t_map *map)
 {
 	t_list		*lst;
 	t_object	*obj;
@@ -133,7 +134,8 @@ int ed_export_textures(int fd, t_map *map)
 	while (ret && mob && (ret = ed_write_texture(fd, &lst, mob->texture)))
 		mob = mob->next;
 	poly = map->polys;
-	while (ret && poly && !poly->object && (ret = ed_write_texture(fd, &lst, poly->texture_name)))
+	while (ret && poly && !poly->object &&
+	(ret = ed_write_texture(fd, &lst, poly->texture_name)))
 		poly = poly->next;
 	ft_free_list(lst);
 	return (ret);

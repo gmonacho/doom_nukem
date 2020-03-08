@@ -112,17 +112,20 @@ t_poly      *ft_data_storing(int fd, t_map *map, t_win *win)
     t_poly      *poly;
 
     i = -1;
+	poly = NULL;
     add_poly(&poly);
 	poly->dots_rotz_only[0].x = -10000;
 	poly->dots_rotz_only[1].x = -10000;
 	poly->dots_rotz_only[2].x = -10000;
 	poly->dots_rotz_only[3].x = -10000;
+	poly->texture_name = ft_strdup("Brique.png");
     map->mob = NULL;
     if ((tab = fillntesttab(fd)) == NULL)
         return (NULL);
     win->texhud = define_texhud(win);
     while (tab[++i])
     {
+		printf("%s\n", tab[i]);
         if (ft_strstr(tab[i], "Polygon"))
             ft_fill_data(tab, &poly, i);
         else if (ft_strstr(tab[i], "Object"))
