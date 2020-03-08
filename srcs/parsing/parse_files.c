@@ -39,7 +39,7 @@ int		create_tmp_files(int fd, char *dir)
 			if (i == 1)
 			{
 				texname[j] = '\0';
-				if (!ft_strcmp(texname, "Sounds") || !ft_strcmp(texname, "###########"))
+				if (!ft_strcmp(texname, "Sounds") || !ft_strcmp(texname, "Fonts") || !ft_strcmp(texname, "###########"))
 					return (1);
 			}
 			if (i == 2)

@@ -114,11 +114,13 @@ char        **fillntesttab(int fd)
         {
             mkdir("textures", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
             mkdir("sounds", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+			mkdir("TTF", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
             if (!create_tmp_files(fd, "textures/"))
                 ft_putendl("failed to create tmp textures files");
             if (!create_tmp_files(fd, "sounds/"))
                 ft_putendl("failed to create tmp sound files");
-            // mkdir("TTF", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+			if (!create_tmp_files(fd, "TTF/"))
+                ft_putendl("failed to create tmp .TTF files");
         }
         else if (ft_strcmp(tmp, "\n###########") != 0)
         {

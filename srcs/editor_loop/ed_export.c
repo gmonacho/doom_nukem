@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 05:57:01 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/08 06:13:01 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/08 12:14:32 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,12 @@ void		ed_export(void *ed_export)
 void		ed_package(void *ed_exp)
 {
 	t_export	*export;
-	t_map		*map;
 
 	export = (t_export*)ed_exp;
-	map = (t_map*)export->map;
 	export->fd = open(export->path, O_CREAT | O_WRONLY | O_TRUNC,
 	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	ft_putendl_fd("#GAMEREADY#", export->fd);
-	ft_putendl_fd("Textures", export->fd);
-	if (!ed_export_textures(export->fd, map))
+	ft_putendl_fd("#GAMEREADY#\nTextures", export->fd);
+	if (!ed_export_textures(export->fd, (t_map *)export->map))
 	{
 		ui_ret_error("ed_package", "failed to export textures", 0);
 		return ;
@@ -83,7 +80,13 @@ void		ed_package(void *ed_exp)
 	ft_putendl_fd("Sounds", export->fd);
 	if (!ed_export_sounds(export->fd))
 	{
-		ui_ret_error("ed_package", "failed to export textures", 0);
+		ui_ret_error("ed_package", "failed to export sounds", 0);
+		return ;
+	}
+	ft_putendl_fd("\nFonts", export->fd);
+	if (!ed_export_fonts(export->fd))
+	{
+		ui_ret_error("ed_package", "failed to export fonts", 0);
 		return ;
 	}
 	ed_export(ed_exp);

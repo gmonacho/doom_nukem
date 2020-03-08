@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/08 01:59:37 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/08 09:33:24 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,6 +385,7 @@ void		ed_export(void *ed_export);
 void		ed_package(void *ed_exp);
 int         ed_export_textures(int fd, t_map *map);
 int         ed_export_sounds(int fd);
+int         ed_export_fonts(int fd);
 void		ed_write_player(int fd, const t_player *player);
 void        ed_write_sphere(int fd, const t_sphere *skybox);
 void		ed_write_poly(int fd, const t_poly *poly, const t_player *player);

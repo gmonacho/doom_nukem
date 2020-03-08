@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 10:47:47 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/08 06:04:25 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/08 12:09:39 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		ed_write_texture(int fd, t_list **lst, char *texname)
 	int				n;
 	int				bytes;
 
+	if (!texname)
+		texname = ft_strdup("Brique.png");
 	if (!ft_content_already_inlist(*lst, texname))
 	{
 		*lst = ft_lst_pb(lst, ft_strdup(texname));
@@ -105,6 +107,7 @@ int		export_ui_textures(int fd)
 		!ed_write_texture(fd, &lst, "ui_on_mouse_button.png") ||
 		!ed_write_texture(fd, &lst, "ui_on_mouse_button_grey.png") ||
 		!ed_write_texture(fd, &lst, "ui_on_mouse_button_square.png") ||
+		!ed_write_texture(fd, &lst, "ghost.png") ||
 		!ed_write_texture(fd, &lst, "fractale1.jpg"))
 	{
 		ft_free_list(lst);
