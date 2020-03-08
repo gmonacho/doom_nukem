@@ -6,18 +6,18 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 06:52:40 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/08 12:05:53 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/08 12:38:25 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-int     ed_write_fonts(int fd, char *name)
+int		ed_write_fonts(int fd, char *name)
 {
-	static char tmp[BUFSIZ];
-	int fd_font;
-	int n;
-	int	bytes;
+	static char		tmp[BUFSIZ];
+	int				fd_font;
+	int				n;
+	int				bytes;
 
 	fd_font = open(ft_strjoin("TTF/", name), O_RDONLY);
 	if (fd_font < 0)
@@ -34,7 +34,7 @@ int     ed_write_fonts(int fd, char *name)
 	return (1);
 }
 
-int     ed_export_fonts(int fd)
+int		ed_export_fonts(int fd)
 {
 	if (!ed_write_fonts(fd, "arial.ttf"))
 		return (0);
@@ -42,6 +42,5 @@ int     ed_export_fonts(int fd)
 		return (0);
 	if (!ed_write_fonts(fd, "Raleway-Regular.ttf"))
 		return (0);
-    printf("DONE EXPORTING FONTS\n");
 	return (1);
 }

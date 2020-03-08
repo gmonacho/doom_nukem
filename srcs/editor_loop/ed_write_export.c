@@ -7,14 +7,13 @@ static void	ed_write_line(int fd, const char *name, const char *value)
 	ft_putendl_fd(value, fd);
 }
 
-void	ed_write_sphere(int fd, const t_sphere *skybox)
+void		ed_write_sphere(int fd, const t_sphere *skybox)
 {
 	char	*tmp;
 
 	if (skybox)
 	{
-		ft_putendl_fd("Sphere", fd);
-		ft_putendl_fd("{", fd);
+		ft_putendl_fd("Sphere\n{", fd);
 		tmp = ft_itoa(skybox->pos_rotz_only.x);
 		ed_write_line(fd, "\tposx", tmp);
 		ft_strdel(&tmp);

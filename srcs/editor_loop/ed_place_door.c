@@ -1,11 +1,11 @@
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-float		ed_get_line_degrees(t_line	*l)
+float			ed_get_line_degrees(t_line *l)
 {
-	float dy;
-	float dx;
-	float angle;
+	float		dy;
+	float		dx;
+	float		angle;
 
 	dy = l->p2.y - l->p1.y;
 	dx = l->p2.x - l->p1.x;
@@ -53,8 +53,7 @@ static int		ed_place_door(t_win *win, t_map *map)
 	else
 	{
 		map->editor.placing_door->dir = ed_get_line_degrees(&(t_line){p1, p});
-		
-		printf("door dir = %d\n", map->editor.placing_door->dir);
+		// printf("door dir = %d\n", map->editor.placing_door->dir);
 		// map->editor.placing_door->pos_rotz_only.x = (p1.x + p.x) / 2;
 		// map->editor.placing_door->pos_rotz_only.y = (p1.y + p.y) / 2;
 		map->editor.placing_door->width = ed_get_line_len(&(t_line){p1, p});
@@ -62,7 +61,7 @@ static int		ed_place_door(t_win *win, t_map *map)
 	return (1);
 }
 
-void	ed_place_door_event(t_win *win, t_map *map)
+void		ed_place_door_event(t_win *win, t_map *map)
 {
 	if (win->winui->mouse.releasing & UI_MOUSE_LEFT)
 	{

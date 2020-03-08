@@ -6,18 +6,18 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 19:35:55 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/08 11:54:14 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/08 12:37:14 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-int ed_write_sounds(int fd, char *name)
+int		ed_write_sounds(int fd, char *name)
 {
-	static char tmp[BUFSIZ];
-	int fd_sound;
-	int n;
-	int	bytes;
+	static char	tmp[BUFSIZ];
+	int			fd_sound;
+	int			n;
+	int			bytes;
 
 	fd_sound = open(ft_strjoin("sounds/", name), O_RDONLY);
 	if (fd_sound < 0)
@@ -34,7 +34,7 @@ int ed_write_sounds(int fd, char *name)
 	return (1);
 }
 
-int ed_export_sounds(int fd)
+int		ed_export_sounds(int fd)
 {
 	if (!ed_write_sounds(fd, "shotGun.mp3"))
 		return (0);
