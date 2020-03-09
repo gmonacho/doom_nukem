@@ -83,6 +83,7 @@ void				mobs_attack_move(t_map *map, t_player *player, t_mob *mobs)
 	float			dist;
 
 	dist = player->width_2 + mobs->width_2;
+	  
 	while (mobs)
 	{
 		if (mobs->alive)

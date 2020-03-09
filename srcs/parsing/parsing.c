@@ -113,37 +113,6 @@ t_poly      *ft_data_storing(int fd, t_map *map, t_win *win)
 
     i = -1;
 	poly = NULL;
-<<<<<<< HEAD
-	map->mob = NULL;
-	if ((tab = fillntesttab(fd)) == NULL)
-		return (NULL);
-	win->texhud = define_texhud(win);
-	while (tab[++i])
-	{
-		if (ft_strstr(tab[i], "Polygon"))
-			ft_fill_data(tab, &poly, i);
-		else if (ft_strstr(tab[i], "Object"))
-		{
-			if (object_data(tab, &(map->objects), i))
-				return (NULL);
-		}
-		else if (ft_strstr(tab[i], "Player"))
-			player_data(tab, &(map->player), i);
-		else if (ft_strstr(tab[i], "Mob"))
-			if (fill_mob_data(&(map->mob), tab, i) == -1)
-				return (NULL);
-	}
-	i = 0;
-	while (tab[i])
-	{	
-		ft_strdel(&tab[i]);
-		i++;
-	}
-	if (fill_poly(poly, map) == -1) 
-		return (NULL);
-	return (poly);
-}
-=======
     add_poly(&poly);
 	poly->dots_rotz_only[0].x = -10000;
 	poly->dots_rotz_only[1].x = -10000;
@@ -183,4 +152,3 @@ t_poly      *ft_data_storing(int fd, t_map *map, t_win *win)
         return (NULL);
     return (poly);
 }
->>>>>>> 2d8a4ec6832448019b043a2ca45d947eb55aa27a
