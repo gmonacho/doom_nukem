@@ -1,13 +1,6 @@
 #include "doom_nukem.h"
 #include "ui_draw.h"
 
-// static void	ed_draw_inclined_height()
-// static void	ed_draw_flat_height()
-
-// static void	ed_draw_wall_height(t_win *win, const t_map *map, t_poly *poly)
-// {	
-// }
-
 void		ed_display_selected_poly(t_win *win, const t_map *map)
 {
 	if (map->editor.selected_poly
@@ -30,9 +23,12 @@ void		ed_display_selected_mob(t_win *win, const t_map *map)
 	if (map->editor.selected_mob)
 	{
 		ui_set_draw_color(win->winui->rend, &(SDL_Color){0, 200, 200, 255});
-		pos = ed_get_display_point(map, (t_dot){map->editor.selected_mob->pos.x,
-												map->editor.selected_mob->pos.y});
-		draw_circle(win, (t_circle){pos.x, pos.y, map->editor.selected_mob->width * map->editor.unit / 2});
+		pos = ed_get_display_point(map,
+									(t_dot){map->editor.selected_mob->pos.x,
+											map->editor.selected_mob->pos.y});
+		draw_circle(win,
+			(t_circle){pos.x, pos.y,
+			map->editor.selected_mob->width * map->editor.unit / 2});
 	}
 }
 
@@ -43,11 +39,15 @@ void		ed_display_selected_obj(t_win *win, const t_map *map)
 	if (map->editor.selected_obj)
 	{
 		ui_set_draw_color(win->winui->rend, &(SDL_Color){0, 200, 200, 255});
-		pos = ed_get_display_point(map, (t_dot){map->editor.selected_obj->pos_rotz_only.x,
-												map->editor.selected_obj->pos_rotz_only.y});
+		pos = ed_get_display_point(map,
+						(t_dot){map->editor.selected_obj->pos_rotz_only.x,
+						map->editor.selected_obj->pos_rotz_only.y});
 		if (map->editor.selected_obj->type == DOOR)
-			draw_quarter_circle(win, (t_circle){pos.x, pos.y, map->editor.selected_obj->width * map->editor.unit}, map->editor.selected_obj->dir);
+			draw_quarter_circle(win, (t_circle){pos.x, pos.y,
+							map->editor.selected_obj->width * map->editor.unit},
+							map->editor.selected_obj->dir);
 		else
-			draw_circle(win, (t_circle){pos.x, pos.y, map->editor.selected_obj->width * map->editor.unit / 2});
+			draw_circle(win, (t_circle){pos.x, pos.y,
+				map->editor.selected_obj->width * map->editor.unit / 2});
 	}
 }

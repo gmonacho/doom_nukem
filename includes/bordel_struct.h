@@ -700,6 +700,15 @@ typedef struct			s_settings
 	char				*texture;
 }						t_settings;
 
+typedef struct			s_property
+{
+	char				*id;
+	char				*name;
+	void				(*fn)(void *argument, char *button_output);
+	void				*variable;
+	char				*content;
+}						t_property;
+
 typedef struct		s_editor
 {
 	t_dot			pos;

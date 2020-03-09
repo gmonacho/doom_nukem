@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   bordel_proto.h                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/08 09:33:24 by widrye           ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   bordel_proto.h                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
+/*   Updated: 2020/03/09 16:10:44 by gmonacho    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #ifndef BORDEL_PROTO_H
 # define BORDEL_PROTO_H
 
@@ -320,7 +320,6 @@ void            print_credit(t_win *win);
 void		ed_init_map_editor(t_win *win, t_map *map);
 
 int	        editor_loop(t_win *win, t_map *map);
-int 		ed_event(t_win *win, t_map *map);
 int			resolve_ui_left_press(t_win *win, t_map_editor *map);
 int			load_ui(int fd, t_win *win);
 int			add_sector_button(t_win *win, t_frame *f, int nb_sectors);
@@ -328,7 +327,27 @@ void		ed_display(t_win *win, const t_map *map);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 void		check_file(t_map_editor *map);
 
+int 		ed_event(t_win *win, t_map *map);
+void		ed_set_property(t_win *win, t_property *p);
+void		ed_clean_property(t_win *win, int i_start);
+void		ed_set_buttons_wall(t_win *win, t_poly *selected);
+void		ed_set_buttons_flat(t_win *win, t_poly *selected);
+void		ed_set_buttons_inclined(t_win *win, t_poly *selected);
 
+void		set_int_value(void *argument, char *button_output);
+void		set_float_value(void *argument, char *button_output);
+void		set_coef_value(void *argument, char *button_output);
+void		set_wall_z1(void *argument, char *button_output);
+void		set_wall_z2(void *argument, char *button_output);
+void		set_flat_z(void *argument, char *button_output);
+void		set_inclined_z1(void *argument, char *button_output);
+void		set_inclined_z2(void *argument, char *button_output);
+void		set_str_value(void *argument, char *button_output);
+
+void		ed_display_polys(t_win *win, const t_map *map);
+void		ed_display_polys_flat(t_win *win, const t_map *map);
+void		ed_display_polys_inclined(t_win *win, const t_map *map);
+void		ed_display_polys_wall(t_win *win, const t_map *map);
 void		ed_display_wall(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
@@ -339,7 +358,6 @@ void		ed_display_player(t_win *win, const t_map *map);
 void		ed_display_mobs(t_win *win, const t_map *map);
 void		ed_display_object(t_win *win, const t_map *map, t_object *obj);
 void		ed_display_objects(t_win *win, const t_map *map);
-
 
 void		ed_place_player(t_win *win, t_map *map);
 void		ed_place_door_event(t_win *win, t_map *map);
@@ -373,6 +391,10 @@ SDL_Color	ed_get_obj_display_color(const t_map *map, t_object *obj);
 SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
 SDL_bool	ed_is_wall(t_poly *poly);
+
+t_object	*ed_get_selected_obj(t_win *win, const t_map *map);
+t_player	*ed_get_selected_player(t_win *win, t_map *map);
+t_mob		*ed_get_selected_mob(t_win *win, const t_map *map);
 t_poly		*ed_get_selected_poly(t_win *win, t_map *map);
 
 SDL_bool	ed_is_real_poly(const t_map *map, const t_poly *poly);

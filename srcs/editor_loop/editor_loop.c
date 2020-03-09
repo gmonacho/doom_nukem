@@ -24,18 +24,6 @@ static void		editor_menu_disp(t_win *win, t_map *map)
 	ui_update_ui(win->winui);
 }
 
-static void		set_int_value(void *argument, char *button_output)
-{
-	*((int*)argument) = ft_atoi(button_output);
-}
-
-static void		set_str_value(void *argument, char *button_output)
-{
-	if (*((char**)argument))
-		ft_strdel((char**)argument);
-	*((char**)argument) = ft_strdup(button_output);
-}
-
 static void		set_editor_flags(void *argument)
 {
 	t_arg_menu	*arg_menu;
