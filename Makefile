@@ -64,7 +64,7 @@ LIBRARIES = $(LIBSDL2) ./$(LIBFT)/$(LIBFT).a
 INCLUDE_PATH = ./includes
 INCLUDES = $(wildcard $(INCLUDE_PATH)/*.h)
 CC = gcc
-CFLAGS += -Wall -Wextra -Werror -O3 -flto -ffast-math -march=native -I$(INCLUDE_PATH)\
+CFLAGS += -Wall -Wextra -march=native -flto -ffast-math -O3 -Werror -I$(INCLUDE_PATH)\
 														-I$(INCLUDE_PATH)/libui/\
                                                         -I$(LIBFT)/includes/\
 														-I./$(LIBSDLMIXER)/\
