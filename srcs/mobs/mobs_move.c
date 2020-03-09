@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mobs_move.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/05 19:46:19 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/05 19:46:40 by agiordan         ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   mobs_move.c                                      .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2020/03/05 19:46:19 by agiordan     #+#   ##    ##    #+#       */
+/*   Updated: 2020/03/09 16:24:39 by gmonacho    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "doom_nukem.h"
 
 static void			mobs_move(t_fdot_3d pos, t_poly *poly,\
@@ -82,19 +82,22 @@ void				mobs_attack_move(t_map *map, t_player *player, t_mob *mobs)
 	float			dist_mob;
 	float			dist;
 
-	dist = player->width_2 + mobs->width_2;
-	while (mobs)
+	if (mobs)
 	{
-		if (mobs->alive)
+		dist = player->width_2 + mobs->width_2;
+		while (mobs)
 		{
-			pos = mid_segment(mobs->poly->dots_rotz_only[0],\
-								mobs->poly->dots_rotz_only[2]);
-			mobs_rotate(player, pos, mobs->poly);
-			if (is_null(dist_mob = mag(pos), 1) || dist_mob < dist)
-				apply_damage(map, player, mobs->damage);
-			else
-				mobs_move(pos, mobs->poly, dist_mob, mobs->vel);
+			if (mobs->alive)
+			{
+				pos = mid_segment(mobs->poly->dots_rotz_only[0],\
+									mobs->poly->dots_rotz_only[2]);
+				mobs_rotate(player, pos, mobs->poly);
+				if (is_null(dist_mob = mag(pos), 1) || dist_mob < dist)
+					apply_damage(map, player, mobs->damage);
+				else
+					mobs_move(pos, mobs->poly, dist_mob, mobs->vel);
+			}
+			mobs = mobs->next;
 		}
-		mobs = mobs->next;
 	}
 }
