@@ -7,6 +7,35 @@ static void	ed_write_line(int fd, const char *name, const char *value)
 	ft_putendl_fd(value, fd);
 }
 
+void		ed_write_sphere(int fd, const t_sphere *skybox)
+{
+	char	*tmp;
+
+	if (skybox)
+	{
+		ft_putendl_fd("Sphere\n{", fd);
+		tmp = ft_itoa(skybox->pos_rotz_only.x);
+		ed_write_line(fd, "\tposx", tmp);
+		ft_strdel(&tmp);
+		tmp = ft_itoa(skybox->pos_rotz_only.y);
+		ed_write_line(fd, "\tposy", tmp);
+		ft_strdel(&tmp);
+		tmp = ft_itoa(skybox->pos_rotz_only.z);
+		ed_write_line(fd, "\tposz", tmp);
+		ft_strdel(&tmp);
+		if (!skybox->radius)
+			ed_write_line(fd, "\tradius", "10000");
+		else
+		{	
+			tmp = ft_itoa(skybox->radius);
+			ed_write_line(fd, "\tradius", tmp);
+			ft_strdel(&tmp);
+		}
+		ed_write_line(fd, "\ttexture", "fractale1.jpg");
+		ft_putendl_fd("}", fd);
+	}
+}
+
 void	ed_write_player(int fd, const t_player *player)
 {
 	char	*tmp;
@@ -33,9 +62,14 @@ void	ed_write_player(int fd, const t_player *player)
 		tmp = ft_itoa(player->height);
 		ed_write_line(fd, "\theight", tmp);
 		ft_strdel(&tmp);
-		tmp = ft_itoa(player->const_vel);
-		ed_write_line(fd, "\tvelocity", tmp);
-		ft_strdel(&tmp);
+		if (!player->const_vel)
+			ed_write_line(fd, "\tvelocity", "2");
+		else
+		{
+			tmp = ft_itoa(player->const_vel);
+			ed_write_line(fd, "\tvelocity", tmp);
+			ft_strdel(&tmp);
+		}
 		ft_putendl_fd("}", fd);
 	}
 }
@@ -148,12 +182,12 @@ void	ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos)
 	tmp = ft_itoa(obj->height);
 	ed_write_line(fd, "\theight", tmp);
 	ft_strdel(&tmp);
-	if (obj->dir)
-	{
+	// if (obj->dir)
+	// {
 		tmp = ft_itoa(obj->dir);
 		ed_write_line(fd, "\tdir", tmp);
 		ft_strdel(&tmp);
-	}
+	// }
 	tmp = ft_itoa(obj->light_coef * 100);
 	ed_write_line(fd, "\tlight", tmp);
 	ft_strdel(&tmp);

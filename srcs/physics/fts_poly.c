@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fts_poly.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/05 17:23:48 by agiordan          #+#    #+#             */
+/*   Updated: 2020/03/05 20:03:36 by agiordan         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 
 int			lstlen(t_poly *poly)
@@ -36,7 +48,7 @@ int			create_poly_save(t_map *map)
 	int		length;
 	t_poly	*poly;
 
-	if ((length = lstlen(map->polys)) &&\
+	if (!(length = lstlen(map->polys)) ||\
 		!(map->polys_save = (t_poly *)malloc(sizeof(t_poly))))
 		return (1);
 	poly = map->polys_save;

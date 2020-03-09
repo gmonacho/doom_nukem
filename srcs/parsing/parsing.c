@@ -11,7 +11,7 @@ void		find_texture(char *tab, t_poly *poly)
 	name = ft_strdup(ft_strrchr(tab, '=') + 2);
 	poly->texture_name = name;
 	tmp = ft_strdup("textures/");
-	tmp = ft_strjoin(tmp, name);
+	tmp = ft_strjoin(tmp, name); //Leaks ??? On perd tmp ici
 	if (!(poly->texture = IMG_Load(tmp)))
 	{
 		exit(0); // attention
@@ -32,14 +32,14 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 	(*poly)->mob = NULL;
 	while ((ft_strchr(tab[i], '}') == NULL))
 	{
-		if (ft_strstr(tab[i], "dot = "))	// Dangereux si il y a x y ou z sur la meme ligne
+		if (ft_strstr(tab[i], "dot = "))
 		{
 			(*poly)->dots_rotz_only[index].x = ft_atoi(ft_strrchr(tab[i], 'x') + 2);
 			(*poly)->dots_rotz_only[index].y = ft_atoi(ft_strrchr(tab[i], 'y') + 2);
 			(*poly)->dots_rotz_only[index].z = ft_atoi(ft_strrchr(tab[i], 'z') + 2);
 			index++;
 		}
-		if (ft_strstr(tab[i], "texture ="))
+		if (ft_strstr(tab[i], "texture = "))
 			find_texture(tab[i], *poly);
 		if (ft_strstr(tab[i], "light = "))
 		{
@@ -55,7 +55,7 @@ int		fill_poly_mob(t_poly *poly, t_mob *mob)
 	char *tmp;
 
 	tmp = NULL;
-	while (poly->next)
+	while (poly && poly->next)
 		poly = poly->next;
 	while (mob)
 	{
@@ -83,13 +83,11 @@ int		fill_poly_object(t_poly *poly, t_object *object)
 	t_poly	*poly_object;
 
 	tmp = NULL;
-	while (poly->next)
+	while (poly && poly->next)
 		poly = poly->next;
 	while (object)
 	{	
-		printf("adress = %p\n", object);
 		tmp = ft_strjoin("textures/", object->texture);
-		printf("tmp = %s \n", tmp);
 		poly_object = object->poly;
 		poly->light_coef = object->light_coef;
 		while (poly_object)
@@ -107,14 +105,15 @@ int		fill_poly_object(t_poly *poly, t_object *object)
 	return (0);
 }
 
-t_poly		*ft_data_storing(int fd, t_map *map, t_win *win)
+t_poly      *ft_data_storing(int fd, t_map *map, t_win *win)
 {
-	char		**tab;
-	int			i;
-	t_poly		*poly;
+    char        **tab;
+    int         i;
+    t_poly      *poly;
 
-	i = -1;
+    i = -1;
 	poly = NULL;
+<<<<<<< HEAD
 	map->mob = NULL;
 	if ((tab = fillntesttab(fd)) == NULL)
 		return (NULL);
@@ -144,3 +143,44 @@ t_poly		*ft_data_storing(int fd, t_map *map, t_win *win)
 		return (NULL);
 	return (poly);
 }
+=======
+    add_poly(&poly);
+	poly->dots_rotz_only[0].x = -10000;
+	poly->dots_rotz_only[1].x = -10000;
+	poly->dots_rotz_only[2].x = -10000;
+	poly->dots_rotz_only[3].x = -10000;
+	poly->texture_name = ft_strdup("Brique.png");
+    map->mob = NULL;
+    if ((tab = fillntesttab(fd)) == NULL)
+        return (NULL);
+    win->texhud = define_texhud(win);
+    while (tab[++i])
+    {
+		printf("%s\n", tab[i]);
+        if (ft_strstr(tab[i], "Polygon"))
+            ft_fill_data(tab, &poly, i);
+        else if (ft_strstr(tab[i], "Object"))
+        {
+            if (object_data(tab, &(map->objects), i))
+                return (NULL);
+        }
+        else if (ft_strstr(tab[i], "Player"))
+            player_data(tab, &(map->player), i);
+        if (ft_strstr(tab[i], "Sphere"))
+        	new_sphere(&(map->sky_box), tab, i);
+        else if (ft_strstr(tab[i], "Mob"))
+            if (fill_mob_data(&(map->mob), tab, i) == -1)
+                return (NULL);
+    }
+    i = 0;
+    while (tab[i])
+    {
+        ft_strdel(&tab[i]);
+        i++;
+    }
+	printf("Sky box : r %f\tTex addr %p\n", map->sky_box.radius, map->sky_box.texture);
+    if (fill_poly(poly, map) == -1)
+        return (NULL);
+    return (poly);
+}
+>>>>>>> 2d8a4ec6832448019b043a2ca45d947eb55aa27a

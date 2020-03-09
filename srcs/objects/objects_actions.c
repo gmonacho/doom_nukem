@@ -1,50 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects_actions.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/07 21:59:27 by agiordan          #+#    #+#             */
+/*   Updated: 2020/03/07 22:07:29 by agiordan         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 
-// static void			tp(t_map *map, t_object *objects, t_object *object)
-// {
-// 	// t_fdot_3d		translate;
-
-// 	// while (objects)
-// 	// {
-// 	// 	if (objects->type == TP && objects != object && objects->data == object->data)
-// 	// 	{
-// 	// 		translate_all_rotz_only(map, map->polys,\
-// 	// 						translate = fdot_3d_sub(object->pos_rotz_only, objects->pos_rotz_only));
-// 	// 		printf("Translate : %f %f %f\n", translate.x, translate.y, translate.z);
-// 	// 		object->collide = 0;
-// 	// 		object->poly->light_coef /= 3;
-// 	// 		printf("TtttttppppppP\n");
-// 	// 		return ;
-// 	// 	}
-// 	// 	objects = objects->next;
-// 	// }
-// 	map = NULL;
-// 	objects = NULL;
-// 	object = NULL;
-// }
-
-static t_object		*catch_box(t_player *player, t_object *object)
+static t_object	*catch_box(t_player *player, t_object *object,\
+															t_cartesienne ray)
 {
-	t_fdot_3d		collision;
-	t_fdot			coord;
-	t_poly			*poly;
-	t_cartesienne	ray;
-	int				i;
+	t_fdot_3d	collision;
+	t_fdot		coord;
+	t_poly		*poly;
+	int			i;
 
-	ray = (t_cartesienne){0, 0, 0, 1, 0, 0, 0, NULL, 0, (t_fdot_3d){}, NULL};
 	while (object)
 	{
 		i = 0;
 		poly = object->poly;
-		while ((object->type == BOX || object->type == DOOR) && object->visible && poly)
+		while ((object->type == BOX || object->type == DOOR) &&\
+				object->visible && poly)
 		{
 			if (intersection_plan_my_ray(&collision, poly->equation, &ray) &&\
+				collision.x > 0 &&\
 				is_in_poly(poly, &coord, collision) &&\
 				mag(collision) < player->width * 3)
 				return (object);
-			i++;
-			if ((i > 6 && object->type == BOX) || (i > 1 && object->type == DOOR))
-				break; //sans ca, boucle sur tous les polys de tous les objets et return le premier object de la liste a chaque fois
+			if ((++i > 6 && object->type == BOX) ||\
+				(i > 1 && object->type == DOOR))
+				break ;
 			poly = poly->next;
 		}
 		object = object->next;
@@ -52,9 +42,9 @@ static t_object		*catch_box(t_player *player, t_object *object)
 	return (NULL);
 }
 
-void				drop_box(t_map *map, t_player *player)
+void			drop_box(t_map *map, t_player *player)
 {
-	t_object		*object;
+	t_object	*object;
 
 	object = map->objects;
 	while (object)
@@ -70,20 +60,26 @@ void				drop_box(t_map *map, t_player *player)
 	}
 }
 
-static void			rotate_all_objects(t_player *player, t_object *object)
+static void		rotate_all_objects(t_player *player, t_object *object)
 {
-	t_fdot_3d	pos;
+	t_fdot_3d	p;
 
 	while (object)
 	{
 		if (object->type != BOX && object->type != DOOR)
 		{
-			pos = mid_segment(object->poly->dots_rotz_only[0], object->poly->dots_rotz_only[2]);
-			object->poly->equation_rotz_only.v = rotate_dot(object->poly->equation_rotz_only.v, player->rz);
-			object->poly->dots_rotz_only[0] = fdot_3d_add(rotate_dot(fdot_3d_sub(object->poly->dots_rotz_only[0], pos), player->rz), pos);
-			object->poly->dots_rotz_only[1] = fdot_3d_add(rotate_dot(fdot_3d_sub(object->poly->dots_rotz_only[1], pos), player->rz), pos);
-			object->poly->dots_rotz_only[2] = fdot_3d_add(rotate_dot(fdot_3d_sub(object->poly->dots_rotz_only[2], pos), player->rz), pos);
-			object->poly->dots_rotz_only[3] = fdot_3d_add(rotate_dot(fdot_3d_sub(object->poly->dots_rotz_only[3], pos), player->rz), pos);
+			p = mid_segment(object->poly->dots_rotz_only[0],\
+							object->poly->dots_rotz_only[2]);
+			object->poly->equation_rotz_only.v = rotate_dot(\
+								object->poly->equation_rotz_only.v, player->rz);
+			object->poly->dots_rotz_only[0] = fdot_3d_add(rotate_dot(\
+			fdot_3d_sub(object->poly->dots_rotz_only[0], p), player->rz), p);
+			object->poly->dots_rotz_only[1] = fdot_3d_add(rotate_dot(\
+			fdot_3d_sub(object->poly->dots_rotz_only[1], p), player->rz), p);
+			object->poly->dots_rotz_only[2] = fdot_3d_add(rotate_dot(\
+			fdot_3d_sub(object->poly->dots_rotz_only[2], p), player->rz), p);
+			object->poly->dots_rotz_only[3] = fdot_3d_add(rotate_dot(\
+			fdot_3d_sub(object->poly->dots_rotz_only[3], p), player->rz), p);
 		}
 		object = object->next;
 	}
@@ -91,23 +87,10 @@ static void			rotate_all_objects(t_player *player, t_object *object)
 
 void			objects_actions(t_map *map, t_player *player, t_object *object)
 {
-	// printf("Object : %d\n", object->type);
 	if (object->type == HEAL)
-	{
 		player->inventory->item[0]->nb++;
-		// printf("Popo heal +1\n");
-	}
 	if (object->type == ARMOR)
-	{
 		player->inventory->item[1]->nb++;
-		// printf("Popo armor +1\n");
-	}
-	// if (object->type == TP)
-	// {
-	// 	if (object->collide && test_timer_refresh(&(map->objects_tp_timer)))
-	// 		tp(map, map->objects, object);
-	// 	return ;
-	// }
 	if (object->type == DOOR)
 		return ;
 	if (object->type == GUN)
@@ -123,7 +106,8 @@ void			objects_actions(t_map *map, t_player *player, t_object *object)
 	object->visible = 0;
 }
 
-void			objects_movements(t_map *map, t_player *player, t_object *objects)
+void			objects_movements(t_map *map, t_player *player,\
+															t_object *objects)
 {
 	t_object	*object;
 
@@ -131,7 +115,10 @@ void			objects_movements(t_map *map, t_player *player, t_object *objects)
 		rotate_all_objects(player, objects);
 	if (map->gravity < 0 && test_timer(&(map->gravity_inv_time)))
 		map->gravity = -map->gravity;
-	if (player->interaction_inventaire && (object = catch_box(player, objects)))
+	if (player->interaction_inventaire &&\
+		(object = catch_box(player, objects, (t_cartesienne){0, 0, 0,\
+															1, 0, 0,\
+									0, NULL, 0, (t_fdot_3d){0, 0, 0}, NULL})))
 	{
 		if (object->type == DOOR)
 			interact_door(object);

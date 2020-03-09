@@ -83,6 +83,24 @@ void	draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio)
 	draw_line(win, (t_dot){x, y + h}, (t_dot){x, y});
 }
 
+void	draw_quarter_circle(t_win *win, t_circle circle, float dir_start)
+{
+	t_fdot	p;
+	float	angle;
+	float	end;
+
+	dir_start = 360 - dir_start;
+	angle = dir_start * M_PI / 180;
+	end = (dir_start + 90) * M_PI / 180;
+	while (angle < end)
+	{
+		p.x = circle.x + circle.radius * sin(angle);
+		p.y = circle.y + circle.radius * cos(angle);
+		SDL_RenderDrawPoint(win->rend, p.x, p.y);
+		angle += 0.01;
+	}
+}
+
 void	draw_circle(t_win *win, t_circle circle)
 {
 	int		x;

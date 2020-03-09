@@ -68,6 +68,18 @@ typedef struct		s_cartesienne
 	struct s_cartesienne	*next;
 }					t_cartesienne;
 
+typedef struct		s_sphere
+{
+	t_fdot_3d		pos_rotz_only;
+	t_fdot_3d		pos;
+	t_fdot_3d		i_rotz_only;
+	t_fdot_3d		j_rotz_only;
+	t_fdot_3d		i;
+	t_fdot_3d		j;
+	float			radius;
+	SDL_Surface		*texture;
+}					t_sphere;
+
 /*
 ** =====================================================================================
 ** ================================== UI_FUNCTION ======================================
@@ -688,6 +700,15 @@ typedef struct			s_settings
 	char				*texture;
 }						t_settings;
 
+typedef struct			s_property
+{
+	char				*id;
+	char				*name;
+	void				(*fn)(void *argument, char *button_output);
+	void				*variable;
+	char				*content;
+}						t_property;
+
 typedef struct		s_editor
 {
 	t_dot			pos;
@@ -718,7 +739,8 @@ typedef struct		s_map
 	t_poly			*polys;
 	t_poly			*polys_save;
 	t_fdot_3d		last_move;
-	t_textures		textures;
+	t_sphere		sky_box;
+	// t_textures		textures;
 	t_player		player;
 	t_view			view;
 	float			gravity;

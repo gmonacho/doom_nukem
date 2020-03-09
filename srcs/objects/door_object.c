@@ -1,18 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   door_object.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/08 13:03:18 by widrye            #+#    #+#             */
+/*   Updated: 2020/03/08 13:05:35 by widrye           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 
 int				orientate_door(t_object *door, t_fdot_3d pos)
 {
-	int i;
-	t_poly *poly;
-	
+	int		i;
+	t_poly	*poly;
 	float tmp_x;
 	float tmp_y;
 	float rotated_x;
 	float rotated_y;
 	float theta;
-	//rotation de tous les vecteurs d'un objet par 90 degres autour du z axis passant par le centre de l'objet
-	// j'imagine qu'on a deja une fonction qui fait le taf mais jsuis un fdp
-	theta = ((door->dir % 4) * 90) * M_PI/ 180;
+	
+	theta = door->dir * M_PI/ 180;
 	poly = door->poly;
 	while (poly)
 	{
@@ -36,8 +46,7 @@ int				interact_door(t_object	*door)
 	if (!door || door->type != DOOR || !door->poly || !door->poly->next)
 		return (0);
 	if (door->poly->next->visible && door->poly->next->collide)
-	{
-		printf("next is visible\n");	
+	{	
 		door->poly->next->visible = 0;
 		door->poly->next->collide = 0;
 		door->poly->visible = 1;
@@ -45,54 +54,64 @@ int				interact_door(t_object	*door)
 	}
 	else if (door->poly->visible && door->poly->collide)
 	{
-		printf("front is visible\n");	
 		door->poly->visible = 0;
 		door->poly->collide = 0;
 		door->poly->next->visible = 1;
 		door->poly->next->collide = 1;
 	}
-	printf("done interact door\n");
 	return (1);
 }
 
-int				set_door_object(t_object *object, t_fdot_3d pos, float width_2, float height_2)
+static t_poly	*set_door_front(t_object *object, t_poly *poly, t_fdot_3d box[6])
 {
-	t_fdot_3d	box[6];
-	t_poly		*poly;
-
-	box[0] = (t_fdot_3d){pos.x - width_2, pos.y - width_2, pos.z + height_2};
-	box[1] = (t_fdot_3d){pos.x + width_2, pos.y - width_2, pos.z + height_2};
-	box[2] = (t_fdot_3d){pos.x + width_2, pos.y - width_2, pos.z - height_2};
-	box[3] = (t_fdot_3d){pos.x - width_2, pos.y - width_2, pos.z - height_2};
-	box[4] = (t_fdot_3d){pos.x - width_2, pos.y + width_2, pos.z + height_2};
-	box[5] = (t_fdot_3d){pos.x - width_2, pos.y + width_2, pos.z - height_2};
-
-	if (!(object->poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
-		return (1);
-	poly = object->poly;
-	poly->object = object;
-	poly->light_coef = object->light_coef;
-	poly->visible = 0;
-	poly->collide = 0;
-	poly->dots_rotz_only[0] = box[0];
-	poly->dots_rotz_only[1] = box[1];
-	poly->dots_rotz_only[2] = box[2];
-	poly->dots_rotz_only[3] = box[3];
-	if (!(poly->next = (t_poly *)ft_memalloc(sizeof(t_poly))))
-		return (1);
-	poly = poly->next;
+	if (!(poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
+		return (NULL);
+	poly->next = NULL;
 	poly->object = object;
 	poly->light_coef = object->light_coef;
 	poly->visible = 1;
 	poly->collide = 1;
 	poly->dots_rotz_only[0] = box[0];
+	poly->dots_rotz_only[1] = box[1];
+	poly->dots_rotz_only[2] = box[2];
+	poly->dots_rotz_only[3] = box[3];
+	return (poly);
+}
+
+static	t_poly	*set_door_back(t_object *object, t_poly *poly, t_fdot_3d box[6])
+{
+	if (!(poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
+		return (NULL);
+	poly->next = NULL;
+	poly->object = object;
+	poly->light_coef = object->light_coef;
+	poly->visible = 0;
+	poly->collide = 0;
+	poly->dots_rotz_only[0] = box[0];
 	poly->dots_rotz_only[1] = box[4];
 	poly->dots_rotz_only[2] = box[5];
 	poly->dots_rotz_only[3] = box[3];
-	poly->next = NULL;
+	return (poly);
+}
+
+int				set_door_object(t_object *object, t_fdot_3d pos, float width, float height)
+{
+	t_fdot_3d	box[6];
+	t_poly		*poly;
+
+	box[0] = (t_fdot_3d){pos.x, pos.y, pos.z + height};
+	box[1] = (t_fdot_3d){pos.x + width, pos.y, pos.z + height};
+	box[2] = (t_fdot_3d){pos.x + width, pos.y, pos.z};
+	box[3] = (t_fdot_3d){pos.x, pos.y, pos.z};
+	box[4] = (t_fdot_3d){pos.x, pos.y + width, pos.z + height};
+	box[5] = (t_fdot_3d){pos.x, pos.y + width, pos.z};
+	poly = NULL;
+	if (!(object->poly = set_door_front(object, poly, box)))
+		return (1);
+	if ((!(object->poly->next = set_door_back(object, poly, box))))
+		return (1);
 	object->collide = 0;
 	if (object->dir)
 		orientate_door(object, pos);
-	printf("created door at %p, with polys %p |%d| and %p |%d| and dir %d\n", object, object->poly, object->poly->visible, object->poly->next, object->poly->next->visible, object->dir);
 	return (0);
 }

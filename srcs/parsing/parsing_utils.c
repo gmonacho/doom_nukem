@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/08 12:23:08 by widrye            #+#    #+#             */
+/*   Updated: 2020/03/08 12:28:40 by widrye           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-int		fill_poly_object_norm(char *tmp, t_poly *poly_object)
+int			fill_poly_object_norm(char *tmp, t_poly *poly_object)
 {
 	if (!(poly_object->texture = IMG_Load(tmp)))
 	{
@@ -50,7 +62,7 @@ char		**ft_fill_map(int fd)
 	i = 0;
 	lst = NULL;
 	grdy = 0;
-	while ((ret = get_next_line(fd, &line)) != 0) //comme ca on ne read qu'une seule fois, c + opti
+	while ((ret = get_next_line(fd, &line)) != 0)
 	{
 		printf("%s\n", line);
 		if (ret == -1 || (lst = ft_lst_pb(&lst, line)) == NULL)
@@ -63,7 +75,7 @@ char		**ft_fill_map(int fd)
 	return (lst_to_tab(lst, i));
 }
 
-void clear_leaks(t_map *map)
+void		clear_leaks(t_map *map)
 {
 	t_poly		*poly_tmp_next;
 	t_object	*object_tmp_next;
@@ -105,7 +117,7 @@ char		**fillntesttab(int fd)
 {
 	char		**tab;
 	int			i;
-	static char tmp[13];
+	static char	tmp[13];
 
 	tmp[12] = '\0';
 	i = 0;
@@ -115,27 +127,30 @@ char		**fillntesttab(int fd)
 		{
 			mkdir("textures", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 			mkdir("sounds", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+			mkdir("TTF", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 			if (!create_tmp_files(fd, "textures/"))
 				ft_putendl("failed to create tmp textures files");
 			if (!create_tmp_files(fd, "sounds/"))
 				ft_putendl("failed to create tmp sound files");
-			// mkdir("TTF", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+			if (!create_tmp_files(fd, "TTF/"))
+				ft_putendl("failed to create tmp .TTF files");
 		}
-		else if ((ft_strcmp(tmp, "\n###########")) != 0)
+		else if (ft_strcmp(tmp, "\n###########") != 0)
 		{
 			ft_putendl("error map syntax");
 			return (NULL);
 		}
-	} 
+	}
 	tab = NULL;
 	tab = ft_fill_map(fd);
 	ft_parse_error(tab);
 	return (tab);
 }
 
-int		fill_poly(t_poly *poly, t_map *map)
-{	
-	if (fill_poly_mob(poly, map->mob) == -1 || fill_poly_object(poly, map->objects) == -1)
+int			fill_poly(t_poly *poly, t_map *map)
+{
+	if (fill_poly_mob(poly, map->mob) == -1 ||
+	fill_poly_object(poly, map->objects) == -1)
 		return (-1);
 	ft_putendl("Fin parsing\n");
 	return (0);

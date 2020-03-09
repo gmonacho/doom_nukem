@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   bordel_proto.h                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
+/*   Updated: 2020/03/09 16:10:44 by gmonacho    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #ifndef BORDEL_PROTO_H
 # define BORDEL_PROTO_H
 
@@ -108,6 +120,7 @@ void		draw_column(t_win *win, int x, int ylow, int yup);
 void		draw_rect(t_win *win, SDL_Rect rect);
 void		fill_rect(t_win *win, SDL_Rect rect);
 void		draw_ratio_rect(t_win *win, const SDL_Rect *rect, const t_frect *ratio);
+void        draw_quarter_circle(t_win *win, t_circle circle, float dir_start);
 void		draw_circle(t_win *win, t_circle circle);
 void		draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
 
@@ -248,6 +261,7 @@ char		*object_data_fill(char **tab, t_object **object, int i);
 void		fill_mob_data_norm(t_mob **mob, char *tab);
 
 void		player_data(char **tab, t_player *player, int i);
+void		new_sphere(t_sphere *sphere, char **tab, int i);
 
 int			object_data(char **tab, t_object **object, int i);
 t_texhud   	*define_texhud(t_win *win);
@@ -308,7 +322,6 @@ void            print_credit(t_win *win);
 void		ed_init_map_editor(t_win *win, t_map *map);
 
 int	        editor_loop(t_win *win, t_map *map);
-int 		ed_event(t_win *win, t_map *map);
 int			resolve_ui_left_press(t_win *win, t_map_editor *map);
 int			load_ui(int fd, t_win *win);
 int			add_sector_button(t_win *win, t_frame *f, int nb_sectors);
@@ -316,7 +329,27 @@ void		ed_display(t_win *win, const t_map *map);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 void		check_file(t_map_editor *map);
 
+int 		ed_event(t_win *win, t_map *map);
+void		ed_set_property(t_win *win, t_property *p);
+void		ed_clean_property(t_win *win, int i_start);
+void		ed_set_buttons_wall(t_win *win, t_poly *selected);
+void		ed_set_buttons_flat(t_win *win, t_poly *selected);
+void		ed_set_buttons_inclined(t_win *win, t_poly *selected);
 
+void		set_int_value(void *argument, char *button_output);
+void		set_float_value(void *argument, char *button_output);
+void		set_coef_value(void *argument, char *button_output);
+void		set_wall_z1(void *argument, char *button_output);
+void		set_wall_z2(void *argument, char *button_output);
+void		set_flat_z(void *argument, char *button_output);
+void		set_inclined_z1(void *argument, char *button_output);
+void		set_inclined_z2(void *argument, char *button_output);
+void		set_str_value(void *argument, char *button_output);
+
+void		ed_display_polys(t_win *win, const t_map *map);
+void		ed_display_polys_flat(t_win *win, const t_map *map);
+void		ed_display_polys_inclined(t_win *win, const t_map *map);
+void		ed_display_polys_wall(t_win *win, const t_map *map);
 void		ed_display_wall(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
@@ -328,9 +361,9 @@ void		ed_display_mobs(t_win *win, const t_map *map);
 void		ed_display_object(t_win *win, const t_map *map, t_object *obj);
 void		ed_display_objects(t_win *win, const t_map *map);
 
-
 void		ed_place_player(t_win *win, t_map *map);
 void		ed_place_door_event(t_win *win, t_map *map);
+float 	    ed_get_line_degrees(t_line	*l);
 
 t_line		ed_get_display_line(const t_map *map, t_dot p1, t_dot p2);
 t_dot		ed_get_display_point(const t_map *map, t_dot p);
@@ -360,6 +393,10 @@ SDL_Color	ed_get_obj_display_color(const t_map *map, t_object *obj);
 SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
 SDL_bool	ed_is_wall(t_poly *poly);
+
+t_object	*ed_get_selected_obj(t_win *win, const t_map *map);
+t_player	*ed_get_selected_player(t_win *win, t_map *map);
+t_mob		*ed_get_selected_mob(t_win *win, const t_map *map);
 t_poly		*ed_get_selected_poly(t_win *win, t_map *map);
 
 SDL_bool	ed_is_real_poly(const t_map *map, const t_poly *poly);
@@ -372,7 +409,9 @@ void		ed_export(void *ed_export);
 void		ed_package(void *ed_exp);
 int         ed_export_textures(int fd, t_map *map);
 int         ed_export_sounds(int fd);
+int         ed_export_fonts(int fd);
 void		ed_write_player(int fd, const t_player *player);
+void        ed_write_sphere(int fd, const t_sphere *skybox);
 void		ed_write_poly(int fd, const t_poly *poly, const t_player *player);
 void		ed_write_mob(int fd, const t_mob *m);
 void		ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos);
@@ -409,7 +448,7 @@ void				poly_del(t_poly *poly);
 ** ================================== Physics ===================================
 */
 
-void				raycasting_3d(t_win *win, t_map *map);
+void				graphics_engine(t_win *win, t_map *map);
 int					is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
 int					sence(t_cartesienne ray, t_fdot_3d collision);
 void				draw_all_square(t_win *win);
@@ -421,7 +460,6 @@ t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
 // int			actions(t_win *win, t_map *map, t_linedef *portal, float h);
 
 int					process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int color);
-int					is_in_shadow(t_map *map, t_poly *poly_light, t_fdot_3d light, t_poly *poly_collision, t_fdot_3d pos, t_fdot_3d vector);
 
 int					init_rays(t_win *win, t_player *player);
 void				translate_all(t_map *map, t_fdot_3d translation);
@@ -462,6 +500,9 @@ t_fdot_3d			segment_slide(t_fdot_3d dots[N_DOTS_POLY], t_plan plan, int segment_
 int					collision_dots(t_fdot_3d dots[N_DOTS_POLY], float ray);
 int					is_collision_box(t_object *object, t_cartesienne *ray);
 
+void				*draw(void *param);
+int					sky_box(t_sphere *sky_box, t_cartesienne *ray);
+
 /*
 ** ================================== Time ===================================
 */
@@ -490,7 +531,6 @@ t_fdot_3d			normalize(t_fdot_3d vector);
 int					is_null(float nbr, float precision);
 t_fdot_3d			mid_segment(t_fdot_3d d1, t_fdot_3d d2);
 
-
 t_dot				intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge);
 void				draw_affine(t_win *win, t_affine function);
 void				draw_ray(t_win *win, t_player *player, t_affine ray);
@@ -503,5 +543,7 @@ int					resolve_polynome(t_fdot_3d polynome, float *x1, float *x2);
 void				proj_ortho_plan(t_fdot_3d dot, t_plan plan, t_fdot_3d *proj_ortho);
 t_fdot_3d			proj_ortho_origin_line(t_fdot_3d l1, t_fdot_3d l2, t_fdot_3d *proj);
 int					is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2);
+int					is_in_poly_rotz_only(t_poly *poly, t_fdot_3d dot);
+t_fdot_3d			intersection_axe_y(t_fdot_3d d1, t_fdot_3d d2);
 
 #endif

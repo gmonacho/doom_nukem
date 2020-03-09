@@ -33,7 +33,6 @@ static int			init(t_win *win, t_map *map, t_player *player)
 	create_poly_save(map);
 	if (init_threads(win, map, player))
 		return (1);
-	// save_lights(map);
 	printf("Fin init\n");
 	return (0);
 }
@@ -41,7 +40,6 @@ static int			init(t_win *win, t_map *map, t_player *player)
 int					main(int argc, char **argv)
 {
 	int				fd;
-	// int				fd1;
 	int				ret;
 	t_win			win;
 	t_map			map;
