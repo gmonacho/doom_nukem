@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
-/*   Updated: 2020/03/09 16:10:44 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/03/09 17:17:49 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -337,6 +337,9 @@ void		ed_clean_property(t_win *win, int i_start);
 void		ed_set_buttons_wall(t_win *win, t_poly *selected);
 void		ed_set_buttons_flat(t_win *win, t_poly *selected);
 void		ed_set_buttons_inclined(t_win *win, t_poly *selected);
+void		ed_set_buttons_mob(t_win *win, t_mob *selected);
+void		ed_set_buttons_object(t_win *win, t_object *selected);
+void		ed_set_buttons_player(t_win *win, t_player *selected);
 
 void		set_int_value(void *argument, char *button_output);
 void		set_float_value(void *argument, char *button_output);
@@ -374,6 +377,9 @@ int			ed_get_map_y(const t_map *map, int n);
 t_dot		ed_get_map_point(const t_map *map, t_dot p);
 int			ed_get_object_poly_count(const t_object *obj);
 
+
+void		ed_place_poly_base(t_win *win, t_map *map);
+void		ed_place_item(t_win *win, t_map *map);
 int			ed_place_wall(t_win *win, t_map *map);
 int			ed_place_flat(t_win *win, t_map *map);
 int			ed_place_inclined(t_win *win, t_map *map);
@@ -396,6 +402,8 @@ SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
 SDL_bool	ed_is_wall(t_poly *poly);
 
+
+void		ed_selection(t_win *win, t_map *map);
 t_object	*ed_get_selected_obj(t_win *win, const t_map *map);
 t_player	*ed_get_selected_player(t_win *win, t_map *map);
 t_mob		*ed_get_selected_mob(t_win *win, const t_map *map);
