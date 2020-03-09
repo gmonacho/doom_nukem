@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
-/*   Updated: 2020/03/09 17:00:29 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/03/09 17:17:49 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -375,6 +375,9 @@ int			ed_get_map_y(const t_map *map, int n);
 t_dot		ed_get_map_point(const t_map *map, t_dot p);
 int			ed_get_object_poly_count(const t_object *obj);
 
+
+void		ed_place_poly_base(t_win *win, t_map *map);
+void		ed_place_item(t_win *win, t_map *map);
 int			ed_place_wall(t_win *win, t_map *map);
 int			ed_place_flat(t_win *win, t_map *map);
 int			ed_place_inclined(t_win *win, t_map *map);
