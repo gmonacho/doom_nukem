@@ -2,7 +2,6 @@
 ###########
 Player
 {
-<<<<<<< HEAD
     posx = 10
     posy = 10
     posz = 10
@@ -10,66 +9,6 @@ Player
     width = 70
     height = 70
     velocity = 5
-=======
-	posx = 0
-	posy = 0
-	posz = 0
-	dir = -90
-	width = 30
-	height = 90
-	velocity = 10
-}
-Mob
-{	
-	mob0
-	{	
-		type = 1
-		posx = 200
-		posy = 200
-		posz = 140
-		dir = -90
-		width = 30
-		height = 90
-		velocity = 10
-		health = 100
-	}
-	mob = 1
-	{	
-		type = 1
-		posx = 200
-		posy = 200
-		posz = 140
-		dir = -90
-		width = 30
-		height = 90
-		velocity = 10
-		health = 50
-	}
-	mob = 2
-	{
-		type = 3
-		posx = 200
-		posy = 200
-		posz = 140
-		dir = -90
-		width = 30
-		height = 90
-		velocity = 10
-		health = 50
-	}
-	mob = 3
-	{
-		type = 2
-		posx = 200
-		posy = 200
-		posz = 140
-		dir = -90
-		width = 30
-		height = 90
-		velocity = 10
-		health = 75
-	}
->>>>>>> 6296b48cd5ce64d47d60264e46abeea4e2908352
 }
 Object
 {

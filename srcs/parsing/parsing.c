@@ -116,7 +116,8 @@ t_poly		*ft_data_storing(int fd, t_map *map, t_win *win)
 	i = -1;
 	poly = NULL;
 	map->mob = NULL;
-	tab = fillntesttab(fd);
+	if ((tab = fillntesttab(fd)) == NULL)
+		return (NULL);
 	win->texhud = define_texhud(win);
 	while (tab[++i])
 	{

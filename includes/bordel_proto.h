@@ -116,6 +116,7 @@ void		draw_color_picker(t_win *win, float picker_position, SDL_Rect rect);
 */
 
 void		hud(t_win *win, t_player *player, t_texhud *texhud);
+void		print_items_s(t_win *win, SDL_Texture *tex, int slotposx);
 void    	inventory_hud(t_win *win, t_texhud *texhud, t_player *player);
 void		print_weapon(t_win *win, t_player *player, t_texhud *texhud);
 void            main_animation(t_map *map, t_win *win, t_texhud *texhud);
@@ -138,6 +139,7 @@ void            use_item(t_map *map, t_player *player, t_music *music, int slotS
 void            reload_ammo(t_player *player);
 t_inventory     *define_inventory();
 void			drop_box(t_map *map, t_player *player);
+void			print_value_item(t_win *win, t_texhud *texhud, int nb, int slotposx);
 
 /*
 ** ==========================================================================
