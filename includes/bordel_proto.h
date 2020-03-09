@@ -139,6 +139,8 @@ void 	        print_shot(t_win *win, t_player *player);
 void		add_bullet(t_player *player);
 void	        del_bullet(t_player *player);
 SDL_Texture	*load_texture(SDL_Renderer *rend, const char *file);
+void		dead_menu_ui(t_win *win);
+t_line		is_point(int p1x, int p1y, int p2x, int p2y);
 
 /*
 **	---------------------------------- inventory ----------------------------------
