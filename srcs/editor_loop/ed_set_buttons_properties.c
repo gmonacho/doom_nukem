@@ -61,3 +61,48 @@ void	ed_set_buttons_inclined(t_win *win, t_poly *selected)
 	ft_strdel(&tmp);
 	ed_clean_property(win, 5);
 }
+
+void	ed_set_buttons_object(t_win *win, t_object *selected)
+{
+	char	*tmp;
+
+	ed_set_property(win, &(t_property){"b_property_1", "texture",
+							&set_str_value, &selected->texture,
+							selected->texture});
+	tmp = ft_itoa(selected->pos_rotz_only.z);
+	ed_set_property(win, &(t_property){"b_property_2", "z",
+							&set_float_value, &selected->pos_rotz_only.z, tmp});
+	ft_strdel(&tmp);
+	tmp = ft_itoa(selected->width);
+	ed_set_property(win, &(t_property){"b_property_3", "width",
+							&set_int_value, &selected->width, tmp});
+	ft_strdel(&tmp);
+	tmp = ft_itoa(selected->height);
+	ed_set_property(win, &(t_property){"b_property_4", "height",
+							&set_int_value, &selected->height, tmp});
+	ft_strdel(&tmp);
+	tmp = ft_itoa(selected->light_coef * 100);
+	ed_set_property(win, &(t_property){"b_property_5", "light %",
+							&set_coef_value, &selected->light_coef, tmp});
+	ft_strdel(&tmp);
+	ed_clean_property(win, 6);
+}
+
+void	ed_set_buttons_player(t_win *win, t_player *selected)
+{
+	char				*tmp;
+
+	tmp = ft_itoa(selected->pos.z);
+	ed_set_property(win, &(t_property){"b_property_1", "z",
+							&set_float_value, &selected->pos.z, tmp});
+	ft_strdel(&tmp);
+	tmp = ft_itoa(selected->width);
+	ed_set_property(win, &(t_property){"b_property_2", "width",
+							&set_int_value, &selected->width, tmp});
+	ft_strdel(&tmp);
+	tmp = ft_itoa(selected->const_vel);
+	ed_set_property(win, &(t_property){"b_property_3", "vel",
+							&set_int_value, &selected->const_vel, tmp});
+	ft_strdel(&tmp);
+	ed_clean_property(win, 4);
+}

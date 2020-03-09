@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
-/*   Updated: 2020/03/09 16:10:44 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/03/09 16:51:23 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -335,6 +335,9 @@ void		ed_clean_property(t_win *win, int i_start);
 void		ed_set_buttons_wall(t_win *win, t_poly *selected);
 void		ed_set_buttons_flat(t_win *win, t_poly *selected);
 void		ed_set_buttons_inclined(t_win *win, t_poly *selected);
+void		ed_set_buttons_mob(t_win *win, t_mob *selected);
+void		ed_set_buttons_object(t_win *win, t_object *selected);
+void		ed_set_buttons_player(t_win *win, t_player *selected);
 
 void		set_int_value(void *argument, char *button_output);
 void		set_float_value(void *argument, char *button_output);
