@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
-/*   Updated: 2020/03/09 16:51:23 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/03/09 17:00:29 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -397,6 +397,8 @@ SDL_bool	ed_is_flat(t_poly *poly);
 SDL_bool	ed_is_inclined(t_poly *poly);
 SDL_bool	ed_is_wall(t_poly *poly);
 
+
+void		ed_selection(t_win *win, t_map *map);
 t_object	*ed_get_selected_obj(t_win *win, const t_map *map);
 t_player	*ed_get_selected_player(t_win *win, t_map *map);
 t_mob		*ed_get_selected_mob(t_win *win, const t_map *map);
