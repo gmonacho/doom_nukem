@@ -142,7 +142,7 @@ typedef struct		s_kit_flags
 
 typedef struct s_music
 {
-	Mix_Chunk 	*tmusic[6];
+	Mix_Chunk 	*tmusic[7];
 }				t_music;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:03:18 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/08 13:05:35 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 07:16:41 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				orientate_door(t_object *door, t_fdot_3d pos)
 	return (1);
 }
 
-int				interact_door(t_object	*door)
+int				interact_door(t_map *map, t_object	*door)
 {
 	if (!door || door->type != DOOR || !door->poly || !door->poly->next)
 		return (0);
@@ -59,6 +59,7 @@ int				interact_door(t_object	*door)
 		door->poly->next->visible = 1;
 		door->poly->next->collide = 1;
 	}
+	Mix_PlayChannel(1, map->music->tmusic[6], 0);
 	return (1);
 }
 

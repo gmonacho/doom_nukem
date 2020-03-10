@@ -8,6 +8,7 @@ void		attribute_music(t_music *music)
 	music->tmusic[3] = Mix_LoadWAV("sounds/shieldsound.mp3");
 	music->tmusic[4] = Mix_LoadWAV("sounds/slotsound.mp3");
 	music->tmusic[5] = Mix_LoadWAV("sounds/damageSound.mp3");
+	music->tmusic[6] = Mix_LoadWAV("sounds/doorsound.mp3");
 }
 
 t_music		*define_music(void)

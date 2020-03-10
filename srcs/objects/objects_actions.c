@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects_actions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 21:59:27 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/07 22:07:29 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 07:17:20 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void			objects_movements(t_map *map, t_player *player,\
 									0, NULL, 0, (t_fdot_3d){0, 0, 0}, NULL})))
 	{
 		if (object->type == DOOR)
-			interact_door(object);
+			interact_door(map, object);
 		else
 		{
 			player->inventory->item[4]->nb++;

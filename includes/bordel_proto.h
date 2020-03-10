@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/10 06:16:12 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 07:20:31 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -442,7 +442,7 @@ int			game_loop(t_win *win, t_map *map);
 void		add_existing_object(t_object **objects, t_object *new_object);
 void		objects_actions(t_map *map, t_player *player, t_object *object);
 void		objects_movements(t_map *map, t_player *player, t_object *object);
-int			interact_door(t_object	*door);
+int			interact_door(t_map *map, t_object	*door);
 int			set_door_object(t_object *object, t_fdot_3d pos, float width_2, float height_2);
 int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float height_2);
 
