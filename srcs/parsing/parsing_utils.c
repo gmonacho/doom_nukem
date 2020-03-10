@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:23:08 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/08 12:28:40 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 08:40:37 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,17 +124,7 @@ char		**fillntesttab(int fd)
 	if ((read(fd, tmp, 12)) > 0)
 	{
 		if (!(ft_strcmp(tmp, "#GAMEREADY#\n")))
-		{
-			mkdir("textures", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-			mkdir("sounds", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-			mkdir("TTF", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-			if (!create_tmp_files(fd, "textures/"))
-				ft_putendl("failed to create tmp textures files");
-			if (!create_tmp_files(fd, "sounds/"))
-				ft_putendl("failed to create tmp sound files");
-			if (!create_tmp_files(fd, "TTF/"))
-				ft_putendl("failed to create tmp .TTF files");
-		}
+			create_tmp_bin_files(fd);
 		else if (ft_strcmp(tmp, "\n###########") != 0)
 		{
 			ft_putendl("error map syntax");

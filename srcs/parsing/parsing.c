@@ -50,7 +50,7 @@ void		ft_fill_data(char **tab, t_poly **poly, int i)
 	}
 }
 
-int		fill_poly_mob(t_poly *poly, t_mob *mob)
+int			fill_poly_mob(t_poly *poly, t_mob *mob)
 {
 	char *tmp;
 
@@ -77,7 +77,7 @@ int		fill_poly_mob(t_poly *poly, t_mob *mob)
 	return (0);
 }
 
-int		fill_poly_object(t_poly *poly, t_object *object)
+int			fill_poly_object(t_poly *poly, t_object *object)
 {
 	char	*tmp;
 	t_poly	*poly_object;
@@ -105,7 +105,7 @@ int		fill_poly_object(t_poly *poly, t_object *object)
 	return (0);
 }
 
-t_poly      *ft_data_storing(int fd, t_map *map, t_win *win)
+t_poly		*ft_data_storing(int fd, t_map *map, t_win *win)
 {
     char        **tab;
     int         i;

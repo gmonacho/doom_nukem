@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/10 07:55:32 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 08:39:54 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,7 @@ SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 */
 
 int		    create_tmp_files(int fd, char *dir);
+void		create_tmp_bin_files(int fd);
 int 		ft_parse_error(char **tab);
 void		ft_find_coord_p1(t_linedef *line, char *tab);
 void		ft_find_coord_p2(t_linedef *line, char *tab);

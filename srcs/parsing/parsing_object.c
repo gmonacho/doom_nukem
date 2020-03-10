@@ -1,20 +1,20 @@
 #include "doom_nukem.h"
 
-static void    set_poly_dots_rotz_only(t_poly *poly, t_fdot_3d pos,\
+static void		set_poly_dots_rotz_only(t_poly *poly, t_fdot_3d pos,\
 												float width_2, float height_2)
 {
-    poly->dots_rotz_only[0].x = pos.x - width_2;
-    poly->dots_rotz_only[0].y = pos.y;
-    poly->dots_rotz_only[0].z = pos.z - height_2;
-    poly->dots_rotz_only[1].x = pos.x + width_2;
-    poly->dots_rotz_only[1].y = pos.y;
-    poly->dots_rotz_only[1].z = pos.z - height_2;
-    poly->dots_rotz_only[2].x = pos.x + width_2;
-    poly->dots_rotz_only[2].y = pos.y;
-    poly->dots_rotz_only[2].z = pos.z + height_2;
-    poly->dots_rotz_only[3].x = pos.x - width_2;
-    poly->dots_rotz_only[3].y = pos.y;
-    poly->dots_rotz_only[3].z = pos.z + height_2;
+	poly->dots_rotz_only[0].x = pos.x - width_2;
+	poly->dots_rotz_only[0].y = pos.y;
+	poly->dots_rotz_only[0].z = pos.z - height_2;
+	poly->dots_rotz_only[1].x = pos.x + width_2;
+	poly->dots_rotz_only[1].y = pos.y;
+	poly->dots_rotz_only[1].z = pos.z - height_2;
+	poly->dots_rotz_only[2].x = pos.x + width_2;
+	poly->dots_rotz_only[2].y = pos.y;
+	poly->dots_rotz_only[2].z = pos.z + height_2;
+	poly->dots_rotz_only[3].x = pos.x - width_2;
+	poly->dots_rotz_only[3].y = pos.y;
+	poly->dots_rotz_only[3].z = pos.z + height_2;
 	print_poly(poly, 1);
 }
 
