@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ed_place_door.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/10 00:02:45 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/10 00:35:26 by widrye           ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ed_place_door.c                                  .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2020/03/10 00:02:45 by widrye       #+#   ##    ##    #+#       */
+/*   Updated: 2020/03/10 15:48:10 by gmonacho    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "doom_nukem.h"
 #include "ui_error.h"
 
@@ -71,6 +71,7 @@ static int			ed_place_door(t_win *win, t_map *map)
 	{
 		map->editor.placing_door->dir = ed_get_line_degrees(&(t_line){p1, p});
 		map->editor.placing_door->width = ed_get_line_len(&(t_line){p1, p});
+		win->winui->mouse.pos = ed_get_display_point(map, p);
 	}
 	return (1);
 }

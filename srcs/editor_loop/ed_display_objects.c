@@ -1,17 +1,31 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ed_display_objects.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/08 05:54:07 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/08 05:56:08 by widrye           ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ed_display_objects.c                             .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2020/03/08 05:54:07 by widrye       #+#   ##    ##    #+#       */
+/*   Updated: 2020/03/10 15:42:25 by gmonacho    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "doom_nukem.h"
 #include "ui_draw.h"
+
+void	ed_display_placing_door(t_win *win, const t_map *map)
+{
+	t_line	line;
+
+	if (map->editor.placing_door)
+	{
+		line.p1 = ed_get_display_point(map, (t_dot){map->editor.placing_door->pos_rotz_only.x,
+												map->editor.placing_door->pos_rotz_only.y});
+		line.p2 = win->winui->mouse.pos;
+		ui_set_draw_color(win->rend, &(SDL_Color){150, 255, 100, 255});
+		ui_draw_line(win->rend, &line);
+	}
+}
 
 void	ed_display_door(t_win *win, const t_map *map, t_object *obj)
 {

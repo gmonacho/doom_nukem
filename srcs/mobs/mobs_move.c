@@ -12,6 +12,33 @@
 /* ************************************************************************** */
 #include "doom_nukem.h"
 
+/*
+static int			is_in_shadow((t_map *map, t_fdot_3d mob)
+{
+	t_poly			*poly;
+	t_fdot_3d		intersec;
+	t_fdot			coord;
+	t_cartesienne		ray;
+
+	ray = (t_cartesienne){0, 0, 0,\
+				mob.x, mob.y, mob.z,\
+				0, NULL, 0, (t_fdot_3d){0, 0, 0}, NULL};
+	poly = map->polys;
+	while (poly)
+	{
+		if (!poly->mob && (!poly->object ||\
+			(poly->visible == 1 && (poly->object->DOOR ||\
+			poly->object->BOX))) &&\
+			intersection_plan_ray(&intersec, poly->equation, ray) &&\
+			is_in_segment(intersec, (t_fdot_3d){0, 0, 0}, mob) &&\
+			is_in_poly(poly, &coord, intersec))
+			return (1);
+		poly = poly->next;
+	}
+	return (0);
+}
+*/
+
 static void			mobs_move(t_fdot_3d pos, t_poly *poly,\
 							float dist_mob, float vel)
 {
@@ -94,6 +121,7 @@ void				mobs_attack_move(t_map *map, t_player *player, t_mob *mobs)
 				mobs_rotate(player, pos, mobs->poly);
 				if (is_null(dist_mob = mag(pos), 1) || dist_mob < dist)
 					apply_damage(map, player, mobs->damage);
+				//else if (!is_in_shadow(map, pos))
 				else
 					mobs_move(pos, mobs->poly, dist_mob, mobs->vel);
 			}

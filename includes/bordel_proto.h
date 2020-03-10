@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   bordel_proto.h                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/10 08:39:54 by widrye           ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   bordel_proto.h                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
+/*   Updated: 2020/03/10 16:34:10 by gmonacho    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #ifndef BORDEL_PROTO_H
 # define BORDEL_PROTO_H
 
@@ -355,6 +355,8 @@ void		set_flat_z(void *argument, char *button_output);
 void		set_inclined_z1(void *argument, char *button_output);
 void		set_inclined_z2(void *argument, char *button_output);
 void		set_str_value(void *argument, char *button_output);
+void		set_editor_flags(void *argument);
+void		ed_set_menu_button_function(t_win *win, t_map *map);
 
 void		ed_display_polys(t_win *win, const t_map *map);
 void		ed_display_polys_flat(t_win *win, const t_map *map);
@@ -370,6 +372,7 @@ void		ed_display_player(t_win *win, const t_map *map);
 void		ed_display_mobs(t_win *win, const t_map *map);
 void		ed_display_object(t_win *win, const t_map *map, t_object *obj);
 void		ed_display_objects(t_win *win, const t_map *map);
+void		ed_display_placing_door(t_win *win, const t_map *map);
 
 void		ed_place_player(t_win *win, t_map *map);
 void		ed_place_door_event(t_win *win, t_map *map);
@@ -414,6 +417,7 @@ t_player	*ed_get_selected_player(t_win *win, t_map *map);
 t_mob		*ed_get_selected_mob(t_win *win, const t_map *map);
 t_poly		*ed_get_selected_poly(t_map *map, int i);
 
+SDL_bool	ed_is_poly_point(const t_poly *poly);
 SDL_bool	ed_is_real_poly(const t_map *map, const t_poly *poly);
 SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
 

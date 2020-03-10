@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ed_export.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/08 05:57:01 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/08 12:14:32 by widrye           ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ed_export.c                                      .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2020/03/08 05:57:01 by widrye       #+#   ##    ##    #+#       */
+/*   Updated: 2020/03/10 16:36:00 by gmonacho    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "doom_nukem.h"
 #include "ui_error.h"
 
@@ -36,7 +36,7 @@ void		export_content(t_export *export)
 	p = map->polys;
 	while (p)
 	{
-		if (ed_is_real_poly(map, p))
+		if (ed_is_real_poly(map, p) && !ed_is_poly_point(p))
 			ed_write_poly(export->fd, p, &map->player);
 		p = p->next;
 	}
@@ -49,7 +49,6 @@ void		ed_export(void *ed_export)
 
 	export = (t_export*)ed_export;
 	map = (t_map*)export->map;
-	printf("path = %s\n", export->path);
 	if (!export->fd)
 		export->fd = open(export->path, O_WRONLY | O_CREAT | O_TRUNC,
 		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
@@ -62,6 +61,7 @@ void		ed_export(void *ed_export)
 	}
 	else
 		ui_ret_error("ed_export", "opening/creating failed", 0);
+	ft_putendl("--Map Exported--");
 }
 
 void		ed_package(void *ed_exp)
