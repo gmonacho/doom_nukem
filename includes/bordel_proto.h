@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   bordel_proto.h                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/10 08:39:54 by widrye           ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   bordel_proto.h                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
+/*   Updated: 2020/03/10 14:11:55 by gmonacho    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #ifndef BORDEL_PROTO_H
 # define BORDEL_PROTO_H
 
@@ -352,6 +352,8 @@ void		set_flat_z(void *argument, char *button_output);
 void		set_inclined_z1(void *argument, char *button_output);
 void		set_inclined_z2(void *argument, char *button_output);
 void		set_str_value(void *argument, char *button_output);
+void		set_editor_flags(void *argument);
+void		ed_set_menu_button_function(t_win *win, t_map *map);
 
 void		ed_display_polys(t_win *win, const t_map *map);
 void		ed_display_polys_flat(t_win *win, const t_map *map);
