@@ -20,8 +20,12 @@ void		define_line_shot(t_win *win, t_player *player)
 	i = 1;
 	player->bullet_drop = NULL;
 	player->len_bullet = 0;
-	player->l[1] = is_point(win->w * 0.68, win->h * 0.65, win->w * 0.637, win->h * 0.625);
-	player->l[2] = is_point(win->w * 0.637, win->h * 0.625, win->w * 0.595, win->h * 0.6);
-	player->l[3] = is_point(win->w * 0.595, win->h * 0.6, win->w * 0.552, win->h * 0.575);
-	player->l[4] = is_point(win->w * 0.552, win->h * 0.575, win->w * 0.51, win->h * 0.55);
+	player->l[1] = is_point(win->w * 0.68, win->h * 0.65,
+		win->w * 0.637, win->h * 0.625);
+	player->l[2] = is_point(win->w * 0.637, win->h * 0.625,
+		win->w * 0.595, win->h * 0.6);
+	player->l[3] = is_point(win->w * 0.595, win->h * 0.6,
+		win->w * 0.552, win->h * 0.575);
+	player->l[4] = is_point(win->w * 0.552, win->h * 0.575,
+		win->w * 0.51, win->h * 0.55);
 }
