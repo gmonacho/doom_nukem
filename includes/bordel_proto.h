@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
-/*   Updated: 2020/03/10 15:36:27 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/03/10 16:34:10 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -414,6 +414,7 @@ t_player	*ed_get_selected_player(t_win *win, t_map *map);
 t_mob		*ed_get_selected_mob(t_win *win, const t_map *map);
 t_poly		*ed_get_selected_poly(t_map *map, int i);
 
+SDL_bool	ed_is_poly_point(const t_poly *poly);
 SDL_bool	ed_is_real_poly(const t_map *map, const t_poly *poly);
 SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
 
