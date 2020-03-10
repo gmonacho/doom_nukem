@@ -1,23 +1,35 @@
 #include "doom_nukem.h"
 
-void	ed_write_poly(int fd, const t_poly *poly, const t_player *player)
+void		ed_write_sphere(int fd, const t_sphere *skybox)
 {
 	char	*tmp;
 
-	ft_putendl_fd("Polygon", fd);
-	ft_putendl_fd("{", fd);
-	ed_write_dot(fd, &poly->dots[0], player);
-	ed_write_dot(fd, &poly->dots[1], player);
-	ed_write_dot(fd, &poly->dots[2], player);
-	ed_write_dot(fd, &poly->dots[3], player);
-	tmp = ft_itoa(poly->light_coef * 100);
-	ed_write_line(fd, "\tlight", tmp);
-	ft_strdel(&tmp);
-	ed_write_line(fd, "\ttexture", poly->texture_name);
-	ft_putendl_fd("}", fd);
+	if (skybox)
+	{
+		ft_putendl_fd("Sphere\n{", fd);
+		tmp = ft_itoa(skybox->pos_rotz_only.x);
+		ed_write_line(fd, "\tposx", tmp);
+		ft_strdel(&tmp);
+		tmp = ft_itoa(skybox->pos_rotz_only.y);
+		ed_write_line(fd, "\tposy", tmp);
+		ft_strdel(&tmp);
+		tmp = ft_itoa(skybox->pos_rotz_only.z);
+		ed_write_line(fd, "\tposz", tmp);
+		ft_strdel(&tmp);
+		if (!skybox->radius)
+			ed_write_line(fd, "\tradius", "10000");
+		else
+		{
+			tmp = ft_itoa(skybox->radius);
+			ed_write_line(fd, "\tradius", tmp);
+			ft_strdel(&tmp);
+		}
+		ed_write_line(fd, "\ttexture", "fractale1.jpg");
+		ft_putendl_fd("}", fd);
+	}
 }
 
-void	ed_write_mob_cont(int fd, const t_mob *m)
+void		ed_write_mob_cont(int fd, const t_mob *m)
 {
 	char	*tmp;
 
@@ -37,7 +49,7 @@ void	ed_write_mob_cont(int fd, const t_mob *m)
 	ed_write_line(fd, "\ttexture", m->texture);
 }
 
-void	ed_write_mob(int fd, const t_mob *m)
+void		ed_write_mob(int fd, const t_mob *m)
 {
 	char	*tmp;
 
@@ -59,7 +71,7 @@ void	ed_write_mob(int fd, const t_mob *m)
 	ft_putendl_fd("}", fd);
 }
 
-void	ed_write_item_cont(int fd, const t_object *obj, t_fdot_3d playerpos)
+void		ed_write_item_cont(int fd, const t_object *obj, t_fdot_3d playerpos)
 {
 	char	*tmp;
 
@@ -87,10 +99,11 @@ void	ed_write_item_cont(int fd, const t_object *obj, t_fdot_3d playerpos)
 	ed_write_line(fd, "\ttexture", obj->texture);
 }
 
-void	ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos)
+void		ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos)
 {
 	char	*tmp;
 
+	tmp = NULL;
 	ft_putendl_fd("Object", fd);
 	ft_putendl_fd("{", fd);
 	if (obj->type & HEAL)
