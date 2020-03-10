@@ -24,6 +24,7 @@ int			ed_get_map_x(const t_map *map, int n)
 {
 	return (n / map->editor.unit + map->editor.pos.x);
 }
+
 int			ed_get_map_y(const t_map *map, int n)
 {
 	return (n / map->editor.unit + map->editor.pos.y);

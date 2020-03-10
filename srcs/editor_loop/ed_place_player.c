@@ -1,40 +1,46 @@
 #include "doom_nukem.h"
 
-void	ed_place_player(t_win *win, t_map *map)
+static void		ed_translate_pos(t_fdot_3d *pos, t_dot player_pos)
+{
+	pos->x -= player_pos.x;
+	pos->y -= player_pos.y;
+}
+
+static void		ed_translate_polys(t_poly *poly, t_dot player_pos)
 {
 	t_poly		*p;
+	int			i;
+
+	p = poly;
+	while (p)
+	{
+		i = -1;
+		while (++i < 4)
+			ed_translate_pos(&p->dots[i], player_pos);
+		p = p->next;
+	}
+}
+
+void			ed_place_player(t_win *win, t_map *map)
+{
 	t_object	*obj;
 	t_mob		*mob;
 	t_dot		player_pos;
-	int			i;
 
 	if (win->winui->mouse.releasing & UI_MOUSE_LEFT)
 	{
 		player_pos = ed_get_map_point(map, win->winui->mouse.pos);
-		p = map->polys;
-		while (p)
-		{
-			i = 0;
-			while (i < 4)
-			{
-				p->dots[i].x -= player_pos.x;
-				p->dots[i].y -= player_pos.y;
-				i++;
-			}
-			p = p->next;
-		}
+		ed_translate_polys(map->polys, player_pos);
 		obj = map->objects;
 		while (obj)
 		{
-			obj->pos_rotz_only.x -= player_pos.x;
-			obj->pos_rotz_only.y -= player_pos.y;
+			ed_translate_pos(&obj->pos_rotz_only, player_pos);
 			obj = obj->next;
 		}
 		mob = map->mob;
 		while (mob)
 		{
-			mob->pos.x -= player_pos.x;
-			mob->pos.y -= player_pos.y;
+			ed_translate_pos(&mob->pos, player_pos);
 			mob = mob->next;
 		}
 		map->editor.pos.x -= player_pos.x;

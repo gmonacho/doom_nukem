@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ed_place_door.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/10 00:02:45 by widrye            #+#    #+#             */
+/*   Updated: 2020/03/10 00:35:26 by widrye           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-float			ed_get_line_degrees(t_line *l)
+float				ed_get_line_degrees(t_line *l)
 {
 	float		dy;
 	float		dx;
@@ -21,7 +33,24 @@ float			ed_get_line_degrees(t_line *l)
 	return (angle);
 }
 
-static int		ed_place_door(t_win *win, t_map *map)
+static t_object		*ed_init_door(t_dot p)
+{
+	t_object		*door;
+
+	if (!(door = ft_memalloc(sizeof(t_object))))
+		return (NULL);
+	door->pos_rotz_only.x = p.x;
+	door->pos_rotz_only.y = p.y;
+	door->dir = 1;
+	door->type = DOOR;
+	door->height = 120;
+	door->width = 30;
+	door->texture = ft_strdup("doorfront.png");
+	door->light_coef = 1;
+	return (door);
+}
+
+static int			ed_place_door(t_win *win, t_map *map)
 {
 	static t_dot	p1 = (t_dot){0, 0};
 	t_object		*door;
@@ -34,34 +63,19 @@ static int		ed_place_door(t_win *win, t_map *map)
 	if (!map->editor.placing_door)
 	{
 		p1 = p;
-		printf("p1 %d %d\n", p1.x, p1.y);
-		if (!(door = ft_memalloc(sizeof(t_object))))
-		{
+		if (!(map->editor.placing_door = ed_init_door(p1)))
 			return (ui_ret_error("ed_place_door",
-			"door allocation failed", 0));
-		}
-		door->pos_rotz_only.x = p1.x;
-		door->pos_rotz_only.y = p1.y;
-		door->dir = 1;
-		door->type = DOOR;
-		door->height = 120;
-		door->width = 30;
-		map->editor.placing_door = door;
-		door->texture = ft_strdup("doorfront.png");
-		door->light_coef = 1;
+		"door allocation failed", 0));
 	}
 	else
 	{
 		map->editor.placing_door->dir = ed_get_line_degrees(&(t_line){p1, p});
-		// printf("door dir = %d\n", map->editor.placing_door->dir);
-		// map->editor.placing_door->pos_rotz_only.x = (p1.x + p.x) / 2;
-		// map->editor.placing_door->pos_rotz_only.y = (p1.y + p.y) / 2;
 		map->editor.placing_door->width = ed_get_line_len(&(t_line){p1, p});
 	}
 	return (1);
 }
 
-void		ed_place_door_event(t_win *win, t_map *map)
+void				ed_place_door_event(t_win *win, t_map *map)
 {
 	if (win->winui->mouse.releasing & UI_MOUSE_LEFT)
 	{

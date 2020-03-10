@@ -26,7 +26,7 @@ void		ed_write_sphere(int fd, const t_sphere *skybox)
 		if (!skybox->radius)
 			ed_write_line(fd, "\tradius", "10000");
 		else
-		{	
+		{
 			tmp = ft_itoa(skybox->radius);
 			ed_write_line(fd, "\tradius", tmp);
 			ft_strdel(&tmp);
@@ -182,12 +182,9 @@ void	ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos)
 	tmp = ft_itoa(obj->height);
 	ed_write_line(fd, "\theight", tmp);
 	ft_strdel(&tmp);
-	// if (obj->dir)
-	// {
-		tmp = ft_itoa(obj->dir);
-		ed_write_line(fd, "\tdir", tmp);
-		ft_strdel(&tmp);
-	// }
+	tmp = ft_itoa(obj->dir);
+	ed_write_line(fd, "\tdir", tmp);
+	ft_strdel(&tmp);
 	tmp = ft_itoa(obj->light_coef * 100);
 	ed_write_line(fd, "\tlight", tmp);
 	ft_strdel(&tmp);

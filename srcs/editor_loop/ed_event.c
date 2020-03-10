@@ -1,33 +1,6 @@
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-static void	ed_action(t_win *win, t_map *map)
-{
-	if ((win->winui->mouse.clicked & UI_MOUSE_RIGHT
-		|| map->editor.flags & ED_SELECTION) && !win->winui->ui.on_mouse_button)
-		ed_selection(win, map);
-	else if (map->editor.flags & ED_PLAYER && !win->winui->ui.on_mouse_button)
-		ed_place_player(win, map);
-	else if (map->editor.flags & ED_DOOR && !win->winui->ui.on_mouse_button)
-		ed_place_door_event(win, map);
-	else if ((map->editor.flags & ED_HEAL ||
-				map->editor.flags & ED_SHIELD ||
-				map->editor.flags & ED_GRAVITY ||
-				map->editor.flags & ED_BULLET ||
-				map->editor.flags & ED_BOX) && !win->winui->ui.on_mouse_button)
-		ed_place_item(win, map);
-	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
-		ed_place_poly_base(win, map);
-	if (map->editor.flags & ED_MODE_CHANGED)
-	{
-		map->editor.flags ^= ED_MODE_CHANGED;
-		if (map->editor.flags & ED_SELECTION || map->editor.flags & ED_PLACE)
-			SDL_SetCursor(map->editor.cursor[CURSOR_SELECTING]);
-		else
-			SDL_SetCursor(map->editor.cursor[CURSOR_DEFAULT]);
-	}
-}
-
 static void	ed_move_player_z(t_map *map)
 {
 	t_poly		*p;
@@ -55,7 +28,6 @@ static void	ed_move_player_z(t_map *map)
 		mob->pos.z -= map->player.pos.z;
 		mob = mob->next;
 	}
-	map->player.pos.z = 0;
 }
 
 static void	ed_delete_event(t_win *win, t_map *map)
@@ -97,28 +69,35 @@ static void	ed_next_events(t_win *win, t_map *map, const Uint8 *state)
 	}
 }
 
+static void	ed_edit_vel(const Uint8 *state, t_dot *pos)
+{
+	int vel;
+
+	vel = 3;
+	if (state[SDL_SCANCODE_LSHIFT])
+		vel += 4;
+	if (state[SDL_SCANCODE_A])
+		pos->x -= vel;
+	if (state[SDL_SCANCODE_D])
+		pos->x += vel;
+	if (state[SDL_SCANCODE_W])
+		pos->y -= vel;
+	if (state[SDL_SCANCODE_S])
+		pos->y += vel;
+}
+
 int			ed_event(t_win *win, t_map *map)
 {
 	const Uint8	*state;
-	int			vel;
 
 	state = SDL_GetKeyboardState(NULL);
 	if (map->player.pos.z != 0)
-		ed_move_player_z(map);
-	if (!win->winui->ui.clicked_button)
 	{
-		vel = 3;
-		if (state[SDL_SCANCODE_LSHIFT])
-			vel += 4;
-		if (state[SDL_SCANCODE_A])
-			map->editor.pos.x -= vel;
-		if (state[SDL_SCANCODE_D])
-			map->editor.pos.x += vel;
-		if (state[SDL_SCANCODE_W])
-			map->editor.pos.y -= vel;
-		if (state[SDL_SCANCODE_S])
-			map->editor.pos.y += vel;
+		ed_move_player_z(map);
+		map->player.pos.z = 0;
 	}
+	if (!win->winui->ui.clicked_button)
+		ed_edit_vel(state, &map->editor.pos);
 	if (state[SDL_SCANCODE_DELETE]
 		&& (map->editor.selected_poly
 			|| map->editor.selected_mob

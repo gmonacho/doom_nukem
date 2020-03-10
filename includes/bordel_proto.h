@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   bordel_proto.h                                   .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
-/*   Updated: 2020/03/09 17:17:49 by gmonacho    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bordel_proto.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
+/*   Updated: 2020/03/10 04:48:07 by widrye           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #ifndef BORDEL_PROTO_H
 # define BORDEL_PROTO_H
 
@@ -332,6 +332,7 @@ void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 void		check_file(t_map_editor *map);
 
 int 		ed_event(t_win *win, t_map *map);
+void	    ed_action(t_win *win, t_map *map);
 void		ed_set_property(t_win *win, t_property *p);
 void		ed_clean_property(t_win *win, int i_start);
 void		ed_set_buttons_wall(t_win *win, t_poly *selected);
@@ -407,7 +408,7 @@ void		ed_selection(t_win *win, t_map *map);
 t_object	*ed_get_selected_obj(t_win *win, const t_map *map);
 t_player	*ed_get_selected_player(t_win *win, t_map *map);
 t_mob		*ed_get_selected_mob(t_win *win, const t_map *map);
-t_poly		*ed_get_selected_poly(t_win *win, t_map *map);
+t_poly		*ed_get_selected_poly(t_map *map, int i);
 
 SDL_bool	ed_is_real_poly(const t_map *map, const t_poly *poly);
 SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);

@@ -31,7 +31,7 @@ static int	ed_second_fill_selected(t_win *win, t_map *map)
 		map->editor.selected_player = NULL;
 		return (1);
 	}
-	else if ((map->editor.selected_poly = ed_get_selected_poly(win, map)))
+	else if ((map->editor.selected_poly = ed_get_selected_poly(map, 0)))
 	{
 		if (ed_is_wall(map->editor.selected_poly))
 			ed_set_buttons_wall(win, map->editor.selected_poly);

@@ -35,11 +35,8 @@ static SDL_bool		ed_is_object_poly(const t_map *map, const t_poly *poly)
 				i++;
 			}
 		}
-		else
-		{
-			if (obj->poly == poly)
-				return (SDL_TRUE);
-		}
+		else if (obj->poly == poly)
+			return (SDL_TRUE);
 		obj = obj->next;
 	}
 	return (SDL_FALSE);
