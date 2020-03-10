@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: aducimet <aducimet@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:23:08 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/10 08:40:37 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 19:08:29 by aducimet         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,8 @@ char		**fillntesttab(int fd)
 	}
 	tab = NULL;
 	tab = ft_fill_map(fd);
-	if (ft_parse_error == (-1))
+	if (ft_parse_error(tab) == (-1))
 		return (NULL);
-	ft_parse_error(tab);
 	return (tab);
 }
 

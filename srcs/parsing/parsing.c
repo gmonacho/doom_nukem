@@ -6,7 +6,7 @@
 /*   By: aducimet <aducimet@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:04:39 by aducimet          #+#    #+#             */
-/*   Updated: 2020/03/10 18:04:41 by aducimet         ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 19:07:38 by aducimet         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,9 @@ t_poly	*ft_data_storing(int fd, t_map *map, t_win *win)
 	init_fpoly(&poly);
 	map->mob = NULL;
 	if ((tab = fillntesttab(fd)) == NULL)
+	{
 		return (NULL);
+	}
 	win->texhud = define_texhud(win);
 	while (tab[++i])
 		ft_data_storing2(&poly, map, tab, i);

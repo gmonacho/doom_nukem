@@ -6,7 +6,7 @@
 /*   By: aducimet <aducimet@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:05:52 by aducimet          #+#    #+#             */
-/*   Updated: 2020/03/10 18:05:53 by aducimet         ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 18:14:45 by aducimet         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void		fill_mob_data_norm(t_mob **mob, char *tab)
 		(*mob)->dir = ft_atoi(ft_strrchr(tab, '=') + 1);
 	if (ft_strstr(tab, "light = "))
 		(*mob)->light_coef = ft_atoi(ft_strrchr(tab, '=') + 1) / 100.0;
-	if (ft_strstr(tab[i], "damage = "))
-		(*mob)->damage = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-	if (ft_strstr(tab[i], "texture = "))
-		(*mob)->texture = ft_strdup(ft_strrchr(tab[i], '=') + 2);
+	if (ft_strstr(tab, "damage = "))
+		(*mob)->damage = ft_atoi(ft_strrchr(tab, '=') + 1);
+	if (ft_strstr(tab, "texture = "))
+		(*mob)->texture = ft_strdup(ft_strrchr(tab, '=') + 2);
 }
 
 void		poly_del(t_poly *poly)

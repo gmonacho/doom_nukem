@@ -6,7 +6,7 @@
 /*   By: aducimet <aducimet@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:04:54 by aducimet          #+#    #+#             */
-/*   Updated: 2020/03/10 18:06:09 by aducimet         ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 19:08:51 by aducimet         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static int	ft_if_value(char **tab)
 	int y;
 	int count;
 
-	y = 0;
-	i = 0;
+	y = -1;
+	i = -1;
 	count = 0;
 	while (tab[i++])
 	{
@@ -37,6 +37,7 @@ static int	ft_if_value(char **tab)
 				return (-1);
 		}
 	}
+	return (0);
 }
 
 static int	ft_count_brace(char **tab)
@@ -56,11 +57,12 @@ static int	ft_count_brace(char **tab)
 	}
 	if (brace != 0)
 		return (-1);
+	return (0);
 }
 
 int			ft_parse_error(char **tab)
 {
-	if ((ft_is_value(tab) || ft_count_brace(tab)) == -1)
+	if ((ft_if_value(tab) == -1) || (ft_count_brace(tab) == -1))
 		return (-1);
 	return (0);
 }
