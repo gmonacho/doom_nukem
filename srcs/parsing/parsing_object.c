@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_object.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aducimet <aducimet@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/10 18:05:29 by aducimet          #+#    #+#             */
+/*   Updated: 2020/03/10 18:05:30 by aducimet         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 
 static void		set_poly_dots_rotz_only(t_poly *poly, t_fdot_3d pos,\
@@ -36,19 +48,12 @@ static int		add_object(t_object **object)
 	return (0);
 }
 
-static int		add_poly_object_norm(t_object *object, char *type_str)
+int				add_poly_object_norm2(t_object *object, char *type_str)
 {
-	if (type_str == NULL)
-	{
-		ft_putendl("Error: Type of object is wrong !");
-		return (1);
-	}
-	if (!ft_strcmp(type_str, "HEAL"))
-		object->type = HEAL;
+	if (!ft_strcmp(type_str, "TP"))
+		object->type = TP;
 	else if (!ft_strcmp(type_str, "ARMOR"))
 		object->type = ARMOR;
-	else if (!ft_strcmp(type_str, "TP"))
-		object->type = TP;
 	else if (!ft_strcmp(type_str, "GUN"))
 		object->type = GUN;
 	else if (!ft_strcmp(type_str, "BULLET"))
@@ -57,7 +62,7 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 		object->type = GRAVITY_INV;
 	else if (!ft_strcmp(type_str, "LIGHT"))
 		object->type = LIGHT;
-	else if (!ft_strcmp(type_str, "BOX"))
+	if (!ft_strcmp(type_str, "BOX"))
 	{
 		object->type = BOX;
 		if (set_box_object(object, object->pos_rotz_only,\
@@ -65,6 +70,15 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 			return (1);
 		return (0);
 	}
+	return (0);
+}
+
+static int		add_poly_object_norm(t_object *object, char *type_str)
+{
+	if (add_poly_object_norm2(object, type_str) == 1)
+		return (1);
+	if (!ft_strcmp(type_str, "HEAL"))
+		object->type = HEAL;
 	else if (!ft_strcmp(type_str, "DOOR"))
 	{
 		object->type = DOOR;
@@ -72,7 +86,7 @@ static int		add_poly_object_norm(t_object *object, char *type_str)
 												object->width, object->height);
 		return (0);
 	}
-	else
+	else if (type_str == NULL)
 	{
 		ft_putendl("Error: Type of object is wrong !");
 		return (1);

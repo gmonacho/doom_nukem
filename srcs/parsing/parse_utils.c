@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aducimet <aducimet@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/10 18:05:56 by aducimet          #+#    #+#             */
+/*   Updated: 2020/03/10 18:05:58 by aducimet         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 
 void		ft_find_coord_p1(t_linedef *line, char *tab)
@@ -38,7 +50,7 @@ void		ft_find_type(char *tab, t_linedef *line)
 	ft_strdel(&tmp);
 }
 
-void		ft_find_id(char *id, t_linedef *line)		//////agiordan
+void		ft_find_id(char *id, t_linedef *line)
 {
 	char	*tmp;
 

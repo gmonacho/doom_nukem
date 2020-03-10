@@ -170,6 +170,7 @@ void    add_poly(t_poly **poly);
 void    add_existing_poly(t_poly **polys, t_poly *poly);
 void	delete_poly(t_poly **polys, t_poly *poly);
 void	print_polys(t_poly **polys);
+void	init_fpoly(t_poly **poly);
     
 /*
 **	---------------------------------- png ----------------------------------
@@ -260,8 +261,10 @@ int		    fill_poly(t_poly *poly, t_map *map);
 int		    fill_poly_object(t_poly *poly, t_object *object);
 int		    fill_poly_mob(t_poly *poly, t_mob *mob);
 int 		fill_poly_object_norm(char *tmp, t_poly	*poly_object);
+int			ft_data_storing2(t_poly **poly, t_map *map, char **tab, int i);
 char		*object_data_fill(char **tab, t_object **object, int i);
 void		fill_mob_data_norm(t_mob **mob, char *tab);
+int			ft_fill_data(char **tab, t_poly **poly, int i);
 
 void		player_data(char **tab, t_player *player, int i);
 void		new_sphere(t_sphere *sphere, char **tab, int i);

@@ -57,14 +57,11 @@ char		**ft_fill_map(int fd)
 	t_list	*lst;
 	int		i;
 	int		ret;
-	int		grdy;
 
 	i = 0;
 	lst = NULL;
-	grdy = 0;
 	while ((ret = get_next_line(fd, &line)) != 0)
 	{
-		printf("%s\n", line);
 		if (ret == -1 || (lst = ft_lst_pb(&lst, line)) == NULL)
 		{
 			ft_free_list(lst);
@@ -73,44 +70,6 @@ char		**ft_fill_map(int fd)
 		i++;
 	}
 	return (lst_to_tab(lst, i));
-}
-
-void		clear_leaks(t_map *map)
-{
-	t_poly		*poly_tmp_next;
-	t_object	*object_tmp_next;
-	t_mob		*mob_tmp_next;
-
-	if (map->polys)
-	{
-		while (map->polys)
-		{
-			poly_tmp_next = map->polys->next;
-			free(map->polys);
-			map->polys = poly_tmp_next;
-		}
-		map->polys = NULL;
-	}
-	if (map->mob)
-	{
-		while (map->mob)
-		{
-			mob_tmp_next = map->mob->next;
-			free(map->mob);
-			map->mob = mob_tmp_next;
-		}
-		map->mob = NULL;
-	}
-	if (map->objects)
-	{
-		while (map->objects)
-		{
-			object_tmp_next = map->objects->next;
-			free(map->objects);
-			map->objects = object_tmp_next;
-		}
-		map->objects = NULL;
-	}
 }
 
 char		**fillntesttab(int fd)
@@ -133,6 +92,8 @@ char		**fillntesttab(int fd)
 	}
 	tab = NULL;
 	tab = ft_fill_map(fd);
+	if (ft_parse_error == (-1))
+		return (NULL);
 	ft_parse_error(tab);
 	return (tab);
 }

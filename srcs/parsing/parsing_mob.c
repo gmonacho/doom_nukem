@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_mob.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aducimet <aducimet@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/10 18:05:46 by aducimet          #+#    #+#             */
+/*   Updated: 2020/03/10 18:05:47 by aducimet         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 
 void	set_mobs_dots_rotz_only(t_mob *mob)
@@ -71,10 +83,6 @@ int		fill_mob_data(t_mob **mob, char **tab, int i)
 			(*mob)->vel = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "health = "))
 			(*mob)->health = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-		if (ft_strstr(tab[i], "damage = "))
-			(*mob)->damage = ft_atoi(ft_strrchr(tab[i], '=') + 1);
-		if (ft_strstr(tab[i], "texture = "))
-			(*mob)->texture = ft_strdup(ft_strrchr(tab[i], '=') + 2);
 		i++;
 	}
 	return (add_poly_mob(mob));

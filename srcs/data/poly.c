@@ -12,6 +12,22 @@ void    add_poly(t_poly **poly)
   	*poly = new_poly;
 }
 
+void		init_fpoly(t_poly **poly)
+{
+	t_poly	*new_poly;
+
+	if (!(new_poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
+		return (ft_putendl("poly allocation failed in poly.c"));
+	new_poly->next = *poly;
+	new_poly->light_coef = 1;
+	new_poly->dots_rotz_only[0].x = -10000;
+	new_poly->dots_rotz_only[1].x = -10000;
+	new_poly->dots_rotz_only[2].x = -10000;
+	new_poly->dots_rotz_only[3].x = -10000;
+	new_poly->texture_name = ft_strdup("Brique.png");
+	*poly = new_poly;
+}
+
 void    add_existing_poly(t_poly **polys, t_poly *poly)
 {
 	if (poly)
