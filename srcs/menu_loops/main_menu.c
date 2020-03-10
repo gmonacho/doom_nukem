@@ -95,7 +95,10 @@ int			main_menu(t_win *win, t_map *map)
 			if (next_loop == 2)
 				game_loop(win, map);
 			else if (next_loop == 3)
+			{
 				editor_loop(win, map);
+				next_loop = 0;
+			}
 			else if (next_loop == 4)
 				print_credit(win);
 		}
