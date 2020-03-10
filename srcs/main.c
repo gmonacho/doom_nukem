@@ -70,7 +70,7 @@ int					main(int argc, char **argv)
 								win.w, win.h}, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE))
 			return (1);
 		loop = SDL_TRUE;
-		if (!init_music_timer(&map, &(win.music)) && argc == 1)
+		if (argc == 1 && !init_music_timer(&map, &(win.music)))
 		{
 			ft_putendl("init_music failed");
 			return (4);

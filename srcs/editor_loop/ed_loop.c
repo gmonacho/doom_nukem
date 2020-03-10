@@ -26,8 +26,8 @@ static void		editor_menu_disp(t_win *win, t_map *map)
 
 int		init_editor_menu(t_win *win, t_map *map)
 {
-	if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
-		ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
+	// if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
+	// 	ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
 	if (!(win->winui->ui.button_font = ui_load_font("TTF/arial.ttf", 100)))
 		return (ui_ret_error("init_editor_menu", "ui_load_font failed", 0));
 	if (!ui_load("interfaces/editor_interface", win->winui))
