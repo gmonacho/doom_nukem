@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 19:35:55 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/08 12:37:14 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 07:54:23 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int		ed_export_sounds(int fd)
 	if (!ed_write_sounds(fd, "Remember_chill.mp3"))
 		return (0);
 	if (!ed_write_sounds(fd, "doomMenu.wav"))
+		return (0);
+	if (!ed_write_sounds(fd, "doorsound.mp3"))
 		return (0);
 	return (1);
 }
