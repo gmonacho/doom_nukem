@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
-/*   Updated: 2020/03/10 14:11:55 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/03/10 15:36:27 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -369,6 +369,7 @@ void		ed_display_player(t_win *win, const t_map *map);
 void		ed_display_mobs(t_win *win, const t_map *map);
 void		ed_display_object(t_win *win, const t_map *map, t_object *obj);
 void		ed_display_objects(t_win *win, const t_map *map);
+void		ed_display_placing_door(t_win *win, const t_map *map);
 
 void		ed_place_player(t_win *win, t_map *map);
 void		ed_place_door_event(t_win *win, t_map *map);

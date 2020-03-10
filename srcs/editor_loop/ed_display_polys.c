@@ -73,4 +73,5 @@ void		ed_display_polys(t_win *win, const t_map *map)
 	ed_display_selected_poly(win, map);
 	ed_display_selected_mob(win, map);
 	ed_display_placing_poly(win, map);
+	ed_display_placing_door(win, map);
 }
