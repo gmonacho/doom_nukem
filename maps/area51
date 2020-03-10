@@ -1,0 +1,494 @@
+
+###########
+Player
+{
+	posx = 0
+	posy = 0
+	posz = 0
+	dir = 0
+	width = 30
+	height = 30
+	velocity = 3
+}
+Sphere
+{
+	posx = 0
+	posy = 0
+	posz = 0
+	radius = 10000
+	texture = desert.jpg
+}
+Object
+{
+	type = DOOR
+	posx = -38
+	posy = -140
+	posz = -30
+	width = 72
+	height = 100
+	dir = 0
+	light = 100
+	texture = metaldoor.png
+}
+Object
+{
+	type = DOOR
+	posx = -386
+	posy = -514
+	posz = -30
+	width = 80
+	height = 100
+	dir = 90
+	light = 100
+	texture = metaldoor.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-386 y:-705 z:-95
+	dot = x:-386 y:-682 z:-120
+	dot = x:361 y:-682 z:-120
+	dot = x:361 y:-705 z:-95
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-386 y:-656 z:-120
+	dot = x:361 y:-656 z:-120
+	dot = x:361 y:-682 z:-120
+	dot = x:-386 y:-682 z:-120
+	light = 100
+	texture = desertground.jpg
+}
+Polygon
+{
+	dot = x:-386 y:-656 z:-70
+	dot = x:361 y:-656 z:-70
+	dot = x:361 y:-656 z:-120
+	dot = x:-386 y:-656 z:-120
+	light = 100
+	texture = gravel.jpg
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-386 y:-282 z:-70
+	dot = x:-186 y:-282 z:-70
+	dot = x:-186 y:-282 z:-30
+	dot = x:-386 y:-282 z:-30
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-186 y:-282 z:-70
+	dot = x:-186 y:-140 z:-70
+	dot = x:-186 y:-140 z:-30
+	dot = x:-186 y:-282 z:-30
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-186 y:-140 z:-30
+	dot = x:-186 y:-282 z:-70
+	dot = x:189 y:-282 z:-70
+	dot = x:189 y:-140 z:-30
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:-10
+	dot = x:-10000 y:0 z:-10
+	dot = x:-10000 y:0 z:-10
+	dot = x:-10000 y:0 z:-10
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-40 y:210 z:70
+	dot = x:-186 y:210 z:70
+	dot = x:-186 y:210 z:-30
+	dot = x:-40 y:210 z:-30
+	light = 100
+	texture = fence.png
+}
+Polygon
+{
+	dot = x:36 y:210 z:70
+	dot = x:189 y:210 z:70
+	dot = x:189 y:210 z:-30
+	dot = x:36 y:210 z:-30
+	light = 100
+	texture = fence.png
+}
+Polygon
+{
+	dot = x:-186 y:-140 z:-30
+	dot = x:-186 y:210 z:-30
+	dot = x:189 y:210 z:-30
+	dot = x:189 y:-140 z:-30
+	light = 100
+	texture = desertground.jpg
+}
+Polygon
+{
+	dot = x:-40 y:210 z:70
+	dot = x:36 y:210 z:70
+	dot = x:36 y:210 z:-30
+	dot = x:-40 y:210 z:-30
+	light = 100
+	texture = metaldoor.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:-10
+	dot = x:-10000 y:0 z:-10
+	dot = x:-10000 y:0 z:-10
+	dot = x:-10000 y:0 z:-10
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-186 y:-282 z:-70
+	dot = x:189 y:-282 z:-70
+	dot = x:189 y:-656 z:-70
+	dot = x:-186 y:-656 z:-70
+	light = 100
+	texture = rocks.jpg
+}
+Polygon
+{
+	dot = x:361 y:-656 z:-30
+	dot = x:189 y:-656 z:-70
+	dot = x:189 y:-282 z:-70
+	dot = x:361 y:-282 z:-30
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-386 y:-282 z:-30
+	dot = x:-186 y:-282 z:-70
+	dot = x:-186 y:-656 z:-70
+	dot = x:-386 y:-656 z:-30
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-386 y:-282 z:-30
+	dot = x:-186 y:-282 z:-30
+	dot = x:-186 y:-140 z:-30
+	dot = x:-386 y:-140 z:-30
+	light = 100
+	texture = desertground.jpg
+}
+Polygon
+{
+	dot = x:189 y:-282 z:-30
+	dot = x:361 y:-282 z:-30
+	dot = x:361 y:-140 z:-30
+	dot = x:189 y:-140 z:-30
+	light = 100
+	texture = desertground.jpg
+}
+Polygon
+{
+	dot = x:-38 y:-140 z:70
+	dot = x:-186 y:-140 z:70
+	dot = x:-186 y:-140 z:-30
+	dot = x:-38 y:-140 z:-30
+	light = 100
+	texture = fence.png
+}
+Polygon
+{
+	dot = x:34 y:-140 z:70
+	dot = x:189 y:-140 z:70
+	dot = x:189 y:-140 z:-30
+	dot = x:34 y:-140 z:-30
+	light = 100
+	texture = fence.png
+}
+Polygon
+{
+	dot = x:189 y:-140 z:70
+	dot = x:361 y:-282 z:70
+	dot = x:361 y:-282 z:-30
+	dot = x:189 y:-140 z:-30
+	light = 100
+	texture = fence.png
+}
+Polygon
+{
+	dot = x:-186 y:-140 z:70
+	dot = x:-386 y:-282 z:70
+	dot = x:-386 y:-282 z:-30
+	dot = x:-186 y:-140 z:-30
+	light = 100
+	texture = fence.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-386 y:-282 z:70
+	dot = x:-386 y:-434 z:70
+	dot = x:-386 y:-434 z:-30
+	dot = x:-386 y:-282 z:-30
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-386 y:-656 z:70
+	dot = x:-386 y:-514 z:70
+	dot = x:-386 y:-514 z:-30
+	dot = x:-386 y:-656 z:-30
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:189 y:-140 z:-70
+	dot = x:189 y:-282 z:-70
+	dot = x:189 y:-282 z:-30
+	dot = x:189 y:-140 z:-30
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:189 y:-282 z:-70
+	dot = x:361 y:-282 z:-70
+	dot = x:361 y:-282 z:-30
+	dot = x:189 y:-282 z:-30
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-186 y:-140 z:-30
+	dot = x:-186 y:210 z:-30
+	dot = x:-386 y:210 z:-30
+	dot = x:-386 y:-140 z:-30
+	light = 100
+	texture = desertground.jpg
+}
+Polygon
+{
+	dot = x:189 y:-140 z:-30
+	dot = x:189 y:210 z:-30
+	dot = x:361 y:210 z:-30
+	dot = x:361 y:-140 z:-30
+	light = 100
+	texture = desertground.jpg
+}
+Polygon
+{
+	dot = x:-186 y:210 z:70
+	dot = x:-285 y:36 z:70
+	dot = x:-285 y:36 z:-30
+	dot = x:-186 y:210 z:-30
+	light = 100
+	texture = fence.png
+}
+Polygon
+{
+	dot = x:-285 y:36 z:70
+	dot = x:-186 y:-140 z:70
+	dot = x:-186 y:-140 z:-30
+	dot = x:-285 y:36 z:-30
+	light = 100
+	texture = fence.png
+}
+Polygon
+{
+	dot = x:189 y:210 z:70
+	dot = x:277 y:32 z:70
+	dot = x:277 y:32 z:-30
+	dot = x:189 y:210 z:-30
+	light = 100
+	texture = fence.png
+}
+Polygon
+{
+	dot = x:277 y:32 z:70
+	dot = x:189 y:-140 z:70
+	dot = x:189 y:-140 z:-30
+	dot = x:277 y:32 z:-30
+	light = 100
+	texture = fence.png
+}
+Polygon
+{
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	dot = x:-10000 y:0 z:0
+	light = 100
+	texture = Brique.png
+}

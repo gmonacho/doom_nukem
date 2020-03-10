@@ -24,7 +24,7 @@ void		ed_write_sphere(int fd, const t_sphere *skybox)
 			ed_write_line(fd, "\tradius", tmp);
 			ft_strdel(&tmp);
 		}
-		ed_write_line(fd, "\ttexture", "fractale1.jpg");
+		ed_write_line(fd, "\ttexture", "desert.jpg");
 		ft_putendl_fd("}", fd);
 	}
 }

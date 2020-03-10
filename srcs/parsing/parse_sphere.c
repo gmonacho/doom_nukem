@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 22:54:45 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/08 05:04:41 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 09:12:42 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void			new_sphere(t_sphere *sphere, char **tab, int i)
 	sphere->pos_rotz_only = (t_fdot_3d){0, 0, 0};
 	sphere->pos = (t_fdot_3d){0, 0, 0};
 	sphere->radius = 1000;
-	if (!(sphere->texture = IMG_Load("textures/fractale1.jpg")))
+	if (!(sphere->texture = IMG_Load("textures/desert.jpg")))
 	{
 		printf("Default texture sphere failed\n");
 		exit(0);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sky_box.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:12:01 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/07 21:14:46 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 10:17:50 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-static int		sphere_mapping(t_sphere *sphere, t_fdot_3d collision)
+static int		sphere_mapping(t_sphere *sphere, t_fdot_3d collision) //modifié pour que l'horion soit comme sur l'image de depart		#widrye
 {
 	t_fdot_3d	normal_dot;
 	float		u;
@@ -20,9 +20,9 @@ static int		sphere_mapping(t_sphere *sphere, t_fdot_3d collision)
 	float		tmp;
 
 	normal_dot = normalize(fdot_3d_sub(collision, sphere->pos));
-	tmp = acos(-scalar_product(sphere->j, normal_dot));
+	tmp = acos(-scalar_product(sphere->i, normal_dot));	// j'ai remplacé sphere->j par sphere->j		#widrye
 	v = tmp / M_PI;
-	tmp = scalar_product(normal_dot, sphere->i) / sin(tmp);
+	tmp = scalar_product(normal_dot, sphere->j) / sin(tmp); // j'ai remplacé sphere->i par sphere->i		#widrye
 	if (tmp < -1.0f)
 		tmp = -1.0f;
 	tmp = ((float)acos(tmp)) / _2_PI;

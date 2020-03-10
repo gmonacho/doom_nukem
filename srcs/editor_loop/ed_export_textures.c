@@ -6,7 +6,7 @@
 /*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 10:47:47 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/08 12:37:25 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 09:00:09 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		export_ui_textures(int fd)
 		!ed_write_texture(fd, &lst, "ui_on_mouse_button_grey.png") ||
 		!ed_write_texture(fd, &lst, "ui_on_mouse_button_square.png") ||
 		!ed_write_texture(fd, &lst, "ghost.png") ||
-		!ed_write_texture(fd, &lst, "fractale1.jpg"))
+		!ed_write_texture(fd, &lst, "desert.jpg"))
 	{
 		ft_free_list(lst);
 		return (0);
