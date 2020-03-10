@@ -42,12 +42,12 @@ static SDL_bool		ed_is_object_poly(const t_map *map, const t_poly *poly)
 	return (SDL_FALSE);
 }
 
-SDL_bool		ed_is_real_poly(const t_map *map, const t_poly *poly)
+SDL_bool			ed_is_real_poly(const t_map *map, const t_poly *poly)
 {
 	return (!(ed_is_mob_poly(map, poly) || ed_is_object_poly(map, poly)));
 }
 
-SDL_bool		ed_is_poly_printable(const t_map *map, t_poly *poly)
+SDL_bool			ed_is_poly_printable(const t_map *map, t_poly *poly)
 {
 	int	inter;
 	int	min;

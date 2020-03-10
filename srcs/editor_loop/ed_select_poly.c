@@ -19,9 +19,9 @@ static int		do_segs_intersect(t_line l1, t_line l2)
 	return (0);
 }
 
-static t_rect		ed_get_selected_rect(const t_rect *rect)
+static t_rect	ed_get_selected_rect(const t_rect *rect)
 {
-	t_rect	selected_rect;
+	t_rect		selected_rect;
 
 	selected_rect = (t_rect){0, 0, 0, 0};
 	if (rect)
@@ -41,12 +41,12 @@ static t_rect		ed_get_selected_rect(const t_rect *rect)
 	return (selected_rect);
 }
 
-int					rect_intersect_poly(t_map *map, t_poly poly)
+int				rect_intersect_poly(t_map *map, t_poly poly)
 {
-	t_line	l1;
-	t_line	l2;
-	t_rect	rect;
-	t_line	rect_diag;
+	t_line		l1;
+	t_line		l2;
+	t_rect		rect;
+	t_line		rect_diag;
 
 	rect = ed_get_selected_rect(&map->editor.select_rect);
 	l1.p1 = (t_dot){poly.dots[0].x, poly.dots[0].y};
@@ -64,12 +64,12 @@ int					rect_intersect_poly(t_map *map, t_poly poly)
 	return (0);
 }
 
-static SDL_bool		ed_is_wall_selected(const t_map *map, const t_poly poly)
+static SDL_bool	ed_is_wall_selected(const t_map *map, const t_poly poly)
 {
-	t_line	l;
-	t_line	rect_side[6];
-	t_rect	rect;
-	int		i;
+	t_line		l;
+	t_line		rect_side[6];
+	t_rect		rect;
+	int			i;
 
 	l.p1 = (t_dot){poly.dots[0].x, poly.dots[0].y};
 	l.p2 = (t_dot){poly.dots[1].x, poly.dots[1].y};
@@ -93,9 +93,9 @@ static SDL_bool		ed_is_wall_selected(const t_map *map, const t_poly poly)
 	return (0);
 }
 
-t_poly				*ed_get_selected_poly(t_map *map, int i)
+t_poly			*ed_get_selected_poly(t_map *map, int i)
 {
-	t_poly	*poly;
+	t_poly		*poly;
 
 	if (i < 3 && map)
 	{
@@ -104,9 +104,12 @@ t_poly				*ed_get_selected_poly(t_map *map, int i)
 		{
 			if (ed_is_poly_printable(map, poly))
 			{
-				if ((i == 0 && ed_is_wall(poly) && ed_is_wall_selected(map, *poly)) ||
-				(i == 1 && ed_is_flat(poly) && rect_intersect_poly(map, *poly)) || 
-				(i == 2 && ed_is_inclined(poly) && rect_intersect_poly(map, *poly)))
+				if ((i == 0 && ed_is_wall(poly) &&
+				ed_is_wall_selected(map, *poly)) ||
+				(i == 1 && ed_is_flat(poly) &&
+				rect_intersect_poly(map, *poly)) ||
+				(i == 2 && ed_is_inclined(poly) &&
+				rect_intersect_poly(map, *poly)))
 					return (poly);
 			}
 			poly = poly->next;
