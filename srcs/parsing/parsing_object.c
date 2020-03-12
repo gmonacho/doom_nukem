@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_object.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aducimet <aducimet@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:05:29 by aducimet          #+#    #+#             */
-/*   Updated: 2020/03/10 18:05:30 by aducimet         ###   ########lyon.fr   */
+/*   Updated: 2020/03/12 21:06:05 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ int				add_poly_object_norm2(t_object *object, char *type_str)
 		object->type = GRAVITY_INV;
 	else if (!ft_strcmp(type_str, "LIGHT"))
 		object->type = LIGHT;
+	if (!ft_strcmp(type_str, "HEAL"))
+		object->type = HEAL;
+	return (0);
+}
+
+static int		add_poly_object_norm3(t_object *object, char *type_str)
+{
 	if (!ft_strcmp(type_str, "BOX"))
 	{
 		object->type = BOX;
@@ -70,27 +77,30 @@ int				add_poly_object_norm2(t_object *object, char *type_str)
 			return (1);
 		return (0);
 	}
-	return (0);
+	else if (!ft_strcmp(type_str, "DOOR"))
+	{
+		object->type = DOOR;
+		if (set_door_object(object, object->pos_rotz_only,\
+												object->width, object->height))
+			return (1);
+		return (0);
+	}
+	return (2);
 }
 
 static int		add_poly_object_norm(t_object *object, char *type_str)
 {
-	if (add_poly_object_norm2(object, type_str) == 1)
-		return (1);
-	if (!ft_strcmp(type_str, "HEAL"))
-		object->type = HEAL;
-	else if (!ft_strcmp(type_str, "DOOR"))
-	{
-		object->type = DOOR;
-		set_door_object(object, object->pos_rotz_only,\
-												object->width, object->height);
-		return (0);
-	}
-	else if (type_str == NULL)
+	int ret;
+
+	ret = -1;
+	if (type_str == NULL)
 	{
 		ft_putendl("Error: Type of object is wrong !");
 		return (1);
 	}
+	else if ((ret = add_poly_object_norm3(object, type_str)) == 0 || ret == 1)
+		return (ret);
+	add_poly_object_norm2(object, type_str);
 	if (!(object->poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
 		return (1);
 	set_poly_dots_rotz_only(object->poly, object->pos_rotz_only,\

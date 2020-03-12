@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aducimet <aducimet@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:04:54 by aducimet          #+#    #+#             */
-/*   Updated: 2020/03/10 19:08:51 by aducimet         ###   ########lyon.fr   */
+/*   Updated: 2020/03/12 20:42:59 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,14 @@ static int	ft_if_value(char **tab)
 	int y;
 	int count;
 
-	y = -1;
 	i = -1;
 	count = 0;
-	while (tab[i++])
+	while (tab[++i])
 	{
 		if (ft_strstr(tab[i], "="))
 		{
-			y = 0;
-			while (tab[i][y++])
+			y = -1;
+			while (tab[i][++y])
 			{
 				count = 0;
 				if ((tab[i][y] >= 48 && tab[i][y] <= 122) ||

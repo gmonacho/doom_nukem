@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   box_object.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 19:25:38 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/06 21:35:58 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/03/12 20:52:54 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int				set_box_object(t_object *object, t_fdot_3d pos,\
 	t_fdot_3d	box[8];
 	t_poly		*poly;
 
+	printf("box\n");
 	box[0] = (t_fdot_3d){pos.x + width_2, pos.y - width_2, pos.z + height_2};
 	box[1] = (t_fdot_3d){pos.x + width_2, pos.y + width_2, pos.z + height_2};
 	box[2] = (t_fdot_3d){pos.x - width_2, pos.y - width_2, pos.z + height_2};
