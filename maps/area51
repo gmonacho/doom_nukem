@@ -73,7 +73,7 @@ Object
 	posy = -545
 	posz = -180
 	width = 57
-	height = 57
+	height = 47
 	dir = 135
 	light = 100
 	texture = airvent.png
@@ -102,6 +102,33 @@ Mob
 	velocity = 0
 	light = 0
 	texture = madara.png
+}
+Polygon
+{
+	dot = x:-143 y:-556 z:-133
+	dot = x:-386 y:-556 z:-163
+	dot = x:-386 y:-603 z:-163
+	dot = x:-143 y:-603 z:-133
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-143 y:-556 z:-133
+	dot = x:-102 y:-602 z:-133
+	dot = x:-153 y:-649 z:-133
+	dot = x:-195 y:-602 z:-133
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-102 y:-602 z:-180
+	dot = x:-386 y:-602 z:-210
+	dot = x:-386 y:-517 z:-210
+	dot = x:-102 y:-517 z:-180
+	light = 100
+	texture = metal3s.jpg
 }
 Polygon
 {
@@ -822,4 +849,58 @@ Polygon
 	dot = x:111 y:-371 z:-106
 	light = 100
 	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-143 y:-556 z:-133
+	dot = x:-385 y:-556 z:-133
+	dot = x:-385 y:-556 z:-210
+	dot = x:-143 y:-556 z:-210
+	light = 100
+	texture = metal2s.png
+}
+Polygon
+{
+	dot = x:-102 y:-602 z:-133
+	dot = x:-348 y:-602 z:-133
+	dot = x:-348 y:-602 z:-210
+	dot = x:-102 y:-602 z:-210
+	light = 100
+	texture = metal2s.png
+}
+Polygon
+{
+	dot = x:-348 y:-602 z:-250
+	dot = x:-386 y:-602 z:-250
+	dot = x:-386 y:-640 z:-250
+	dot = x:-348 y:-640 z:-250
+	light = 100
+	texture = Brique.png
+}
+Polygon
+{
+	dot = x:-348 y:-602 z:-133
+	dot = x:-348 y:-640 z:-133
+	dot = x:-348 y:-640 z:-250
+	dot = x:-348 y:-602 z:-250
+	light = 100
+	texture = metal1s.png
+}
+Polygon
+{
+	dot = x:-348 y:-640 z:-133
+	dot = x:-386 y:-640 z:-133
+	dot = x:-386 y:-640 z:-250
+	dot = x:-348 y:-640 z:-250
+	light = 100
+	texture = metal1s.png
+}
+Polygon
+{
+	dot = x:-386 y:-640 z:-133
+	dot = x:-386 y:-602 z:-133
+	dot = x:-386 y:-602 z:-250
+	dot = x:-386 y:-640 z:-250
+	light = 100
+	texture = metal1s.png
 }
