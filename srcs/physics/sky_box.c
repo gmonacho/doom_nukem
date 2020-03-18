@@ -61,3 +61,9 @@ int				sky_box(t_sphere *sky_box, t_cartesienne *ray)
 												ray->vy * t1,\
 												ray->vz * t1}));
 }
+/*
+int				is_outside_sky_box(t_sphere *sphere)
+{
+	return (mag(sphere->pos_rotz_only) > sphere->radius ? 1 : 0);	
+}
+*/
