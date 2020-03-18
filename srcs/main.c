@@ -30,6 +30,11 @@ static int			init(t_win *win, t_map *map, t_player *player)
 	if (init_win_player(win, player))
 		return (1);
 	init_polygone(map->polys);
+	/*if (check_polys(map->polys))
+	{
+		ft_putendl("A poly is not a parallelogramme");
+		return (1);
+	}*/
 	create_poly_save(map);
 	if (init_threads(win, map, player))
 		return (1);
