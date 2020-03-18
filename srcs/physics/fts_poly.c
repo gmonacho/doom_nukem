@@ -62,3 +62,20 @@ int			create_poly_save(t_map *map)
 	poly->next = NULL;
 	return (0);
 }
+/*
+int			check_polys(t_poly *poly)
+{
+	while (poly)
+	{
+		if (!is_null(poly->dots_rotz_only[0].x + poly->i_rotz_only.x +\
+			poly->j_rotz_only.x - poly->dots_rotz_only[2].x, 0.0005) ||\
+		   !is_null(poly->dots_rotz_only[0].y + poly->i_rotz_only.y +\
+			poly->j_rotz_only.y - poly->dots_rotz_only[2].y, 0.0005) ||\
+		   !is_null(poly->dots_rotz_only[0].z + poly->i_rotz_only.z +\
+			poly->j_rotz_only.z - poly->dots_rotz_only[2].z, 0.0005))
+			return (1);
+		poly = poly->next;	
+	}
+	return (0);
+}
+*/
