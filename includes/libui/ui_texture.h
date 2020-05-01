@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 18:20:45 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 18:20:51 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/05/01 18:32:49 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -126,5 +126,6 @@ void				ui_draw_text_in_rect(SDL_Renderer *rend,
 int					ui_get_x_alignment(t_rect rect,
 										t_text_align aligment,
 										int text_width);
+int					get_dst_y(t_text_line_kit *text);
 
 #endif

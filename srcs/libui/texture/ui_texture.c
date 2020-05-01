@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ui_texture.c                                     .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/21 17:36:27 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:36:29 by gmonacho    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
-/* ************************************************************************** */
-
 #include "ui_texture.h"
 #include "SDL.h"
 #include "SDL_image.h"
@@ -22,7 +9,10 @@ SDL_Texture			*ui_load_image(SDL_Renderer *rend, const char *file)
 	SDL_Texture	*texture;
 
 	if (!(surface = IMG_Load(file)))
-		return (ui_ret_null_error("ui_load_image", IMG_GetError(), NULL));
+	{
+		return (ui_ret_null_error("ui_load_image IMG_Load",
+				IMG_GetError(), NULL));
+	}
 	if (!(texture = SDL_CreateTextureFromSurface(rend, surface)))
 		return (ui_ret_null_error("ui_load_image", SDL_GetError(), NULL));
 	SDL_FreeSurface(surface);
