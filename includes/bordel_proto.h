@@ -6,7 +6,7 @@
 /*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
-/*   Updated: 2020/03/10 16:34:10 by gmonacho    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/05/01 17:26:25 by gmonacho    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -508,6 +508,7 @@ void				init_matrix_ry_inv(t_player *player);
 void				init_matrix_rz(t_player *player);
 void				init_matrix_rz_inv(t_player *player);
 void				init_polygone(t_poly *poly);
+void				init_player_maths(t_win *win, t_player *player);
 
 t_poly				*collisions(t_player *player, t_poly *poly);
 int					is_poly_collision(t_player *player, t_poly *poly);
