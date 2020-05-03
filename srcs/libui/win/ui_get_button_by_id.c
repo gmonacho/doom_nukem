@@ -1,7 +1,7 @@
 #include "ui_win.h"
 #include "libft.h"
 
-t_text_area		*ui_get_text_area_button(t_winui *win, const char *id)
+t_text_area			*ui_get_text_area_button(t_winui *win, const char *id)
 {
 	t_frame		*f;
 	t_button	*b;
