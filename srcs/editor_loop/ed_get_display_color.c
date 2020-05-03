@@ -95,6 +95,8 @@ SDL_Color		ed_get_type_color(int type)
 		return ((SDL_Color){100, 100, 100, 255});
 	else if (type == DOOR)
 		return ((SDL_Color){150, 120, 120, 255});
+	else if (type == END)
+		return ((SDL_Color){255, 100, 255, 255});
 	return ((SDL_Color){255, 215, 0, 255});
 }
 

@@ -14,7 +14,8 @@ void	ed_action(t_win *win, t_map *map)
 				map->editor.flags & ED_SHIELD ||
 				map->editor.flags & ED_GRAVITY ||
 				map->editor.flags & ED_BULLET ||
-				map->editor.flags & ED_BOX) && !win->winui->ui.on_mouse_button)
+				map->editor.flags & ED_BOX ||
+				map->editor.flags & ED_END) && !win->winui->ui.on_mouse_button)
 		ed_place_item(win, map);
 	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
 		ed_place_poly_base(win, map);

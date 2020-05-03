@@ -75,6 +75,10 @@ static void	set_menu_button_function_third(t_win *win, t_map *map)
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[13]);
 	ui_set_simple_button_function(win->winui,
+								"b_end",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[14]);
+	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,
 								&map->editor.export);

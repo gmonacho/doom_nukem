@@ -172,6 +172,21 @@ frame
 			clicked_condition : UI_MOUSE_LEFT
 		}
 	}
+	button
+	{
+		id : "b_end"
+		type : UI_BUTTON_SIMPLE
+		resize_type : UI_RESIZE_ALL_LINEAR
+		ratio : 0 0.825 1 0.075
+		data
+		{
+			text : "End"
+            texture_normal : "textures/ui_normal_button_square.png"
+            texture_clicked : "textures/ui_clicked_button_square.png"
+            texture_on_mouse : "textures/ui_on_mouse_button_square.png"
+			clicked_condition : UI_MOUSE_LEFT
+		}
+	}
 }
 frame
 {

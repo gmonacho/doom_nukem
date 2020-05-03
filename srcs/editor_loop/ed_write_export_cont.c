@@ -122,6 +122,8 @@ void		ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos)
 		tmp = "LIGHT";
 	else if (obj->type & TP)
 		tmp = "TP";
+	else if (obj->type & END)
+		tmp = "END";
 	ed_write_line(fd, "\ttype", tmp);
 	ed_write_item_cont(fd, obj, playerpos);
 	ft_putendl_fd("}", fd);

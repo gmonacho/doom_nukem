@@ -34,6 +34,8 @@ static void		init_map_editor_arg_tab_bis(t_map *map)
 											ED_BOX};
 	map->editor.arg_menu_tab[13] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_DOOR};
+	map->editor.arg_menu_tab[14] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_END};
 }
 
 static void		init_map_editor_arg_tab(t_map *map)

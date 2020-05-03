@@ -27,6 +27,11 @@ static void	ed_set_item_flag_texture(t_map *map, t_object *obj)
 		obj->type = BOX;
 		obj->texture = map->editor.settings.texture;
 	}
+	else if (map->editor.flags & ED_END)
+	{
+		obj->type = END;
+		obj->texture = map->editor.settings.texture;
+	}
 }
 
 void		ed_place_item(t_win *win, t_map *map)

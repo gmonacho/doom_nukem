@@ -24,6 +24,8 @@ static void	ed_remove_loop_flags(t_arg_menu *arg_menu)
 		*(arg_menu->loop) ^= ED_PLAYER;
 	else if (*(arg_menu->loop) & ED_MOB)
 		*(arg_menu->loop) ^= ED_MOB;
+	else if (*(arg_menu->loop) & ED_END)
+		*(arg_menu->loop) ^= ED_END;
 	if (*(arg_menu->loop) & ED_SELECTION)
 		*(arg_menu->loop) ^= ED_SELECTION;
 	*(arg_menu->loop) |= arg_menu->value;
