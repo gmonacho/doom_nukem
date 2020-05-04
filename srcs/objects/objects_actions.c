@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects_actions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 21:59:27 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/10 07:17:20 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/05/04 21:11:38 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void			objects_actions(t_map *map, t_player *player, t_object *object)
 		map->gravity = -map->gravity;
 		start_cooldown(&(map->gravity_inv_time), 10000);
 	}
+	if (object->type == END)
+		end();
 	object->collide = 0;
 	object->visible = 0;
 }

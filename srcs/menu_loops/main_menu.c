@@ -4,7 +4,6 @@
 #include "ui_draw.h"
 #include "ui_error.h"
 
-
 static void	main_menu_quit(t_win *win, Uint32 ms)
 {
 	Mix_FadeOutMusic(ms);

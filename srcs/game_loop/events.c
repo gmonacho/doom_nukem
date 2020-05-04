@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 16:47:53 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/06 19:24:19 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/04 21:07:21 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state)
 {
 	t_fdot_3d	move;
 
-	move = (t_fdot_3d){};
+	move = (t_fdot_3d){0, 0, 0};
 	player->sprint = state[SDL_SCANCODE_LCTRL] ? 2 : 1;
 	if (state[SDL_SCANCODE_W])
 		move = fdot_3d_add(move,\
@@ -86,7 +86,7 @@ t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state)
 		player->jump = -0.5 - map->gravity -\
 						sqrt(0.24 + map->gravity * (map->gravity + 1) +\
 						player->height);
-	map->last_move = (t_fdot_3d){};
+	map->last_move = (t_fdot_3d){0, 0, 0};
 	player->sneak = state[SDL_SCANCODE_LSHIFT] ? 1 : 0;
 	return (move);
 }
@@ -117,7 +117,7 @@ void			events_rotate(t_win *win, t_map *map,\
 
 void			events_actions(t_win *win, t_map *map,\
 								t_player *player, const Uint8 *state)
-{	
+{
 	events_weapon(win, map, player, state);
 	if (state[SDL_SCANCODE_I])
 		player->inventory->item[0]->nb += 1;
@@ -145,7 +145,7 @@ void			events_others(t_win *win, t_player *player, const Uint8 *state)
 	if (state[SDL_SCANCODE_KP_MINUS])
 		player->fov += -0.03 + (player->fov - 0.03 < 0 ? _2_PI : 0);
 	if (state[SDL_SCANCODE_KP_PLUS])
-		player->fov +=  0.03 - (player->fov + 0.03 > _2_PI ? _2_PI : 0);
+		player->fov += 0.03 - (player->fov + 0.03 > _2_PI ? _2_PI : 0);
 	if (state[SDL_SCANCODE_1] && test_timer_refresh(&(win->view_change_time)))
 		win->map->view += (win->map->view & TEXTURE_VIEW ?\
 												-TEXTURE_VIEW : TEXTURE_VIEW);

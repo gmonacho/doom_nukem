@@ -5,10 +5,11 @@
 **
 **	Elements de decors
 **	Tenter de casser le parsing
-**	OpenAL !!!! POUR LE SON
 **	Clean code/fichier inutiles
 **	Gerer les leaks
 **	Norme all
+**		Norme events.c -> events_weapon
+**		Norme main_menu.c
 **
 */
 //Enlever les wildcards

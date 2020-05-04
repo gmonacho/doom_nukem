@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/04 20:53:56 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/04 21:11:30 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,7 @@ SDL_bool 	is_next_point(t_dot dot, t_dot other, int distance);
 
 int				main_menu(t_win *win, t_map *map);
 void            print_credit(t_win *win);
+void			end();
 //static int	main_menu_event(t_win *win, int *loop);
 
 /*
