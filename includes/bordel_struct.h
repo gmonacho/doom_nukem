@@ -198,63 +198,6 @@ typedef struct		s_color_picker
 }					t_color_picker;
 
 /*
-**	---------------------------------- linedef --------------------------------------------
-*/
-
-enum	e_linedef
-{
-	LINEDEF_NONE = 0b0000,
-	LINEDEF_SELECTED = 0b0001,
-	LINEDEF_MOUSE_POINTED = 0b0010,
-	LINEDEF_MOUSE_NEXT = 0b0100
-};
-
-enum	e_glinedef
-{
-	WALL = 0b0001,
-	PORTAL = 0b0010,
-	FLOOR = 0b0100,
-	CEIL = 0b1000,
-	DOOR_OPEN = 0b00010000,
-	DOOR_CLOSE = 0b00100000
-};
-
-typedef enum	e_linedef_side
-{
-	SIDE_NONE = 0,
-	SIDE_RIGHT = 1,
-	SIDE_LEFT = 2
-}				t_linedef_side;
-
-typedef struct			s_linedef
-{
-	char				*name;		//Inutile
-	t_dot	    		p1;			//Stocke les donnees du fichier
-	t_dot               p2;			//
-	t_linedef_side		side;
-	
-	t_plan				equation;
-	t_fdot_3d			origin;
-	t_fdot_3d           i;
-	t_fdot_3d  			j;
-	
-	SDL_Surface			*texture;
-	Uint32				flags;
-	Uint32				gflags;
-	int					id;
-	
-	t_fdot_3d			poly_3d[4];
-	t_dot				poly_2d[4];
-	t_dot				poly_2d_origin;
-	int					poly_w;
-	int					poly_h;
-	
-	struct s_sector		*sector;
-	struct s_linedef	*destline;
-	struct s_linedef	*next;
-}						t_linedef;
-
-/*
 ** =======================================================================================
 ** ================================== DISPLAY ============================================
 ** =======================================================================================
@@ -334,9 +277,7 @@ typedef struct		s_win
 	float			w_div_fov;
 	float			h_div_fov;
 
-	SDL_Texture		**sectors_texture;
 	t_ed_texture	ed_texture;
-	SDL_Texture		**sectors_texture_selected;
 	SDL_Texture		*text_entry_texture;
 
 	char			*text_entry;
@@ -358,30 +299,6 @@ typedef struct		s_win
 	// libui
 	t_winui			*winui;
 }					t_win;
-
-/*
-**	---------------------------------- sector --------------------------------------------
-*/
-
-typedef struct				s_sector
-{
-	char					*name;
-    t_linedef				*lines;
-	int						floor_height;
-	int						ceil_height;
-	int						height;
-
-	// SDL_Color				color;
-	// t_plan					floor_equation;
-	// SDL_Surface				*floor_texture;
-	// t_plan					ceil_equation;
-	// SDL_Surface				*ceil_texture;
-
-	t_color_picker			color;
-	int						light_level;
-	// t_dot					center;
-	struct	s_sector 		*next;
-}							t_sector;
 
 typedef struct				s_textures
 {
@@ -499,7 +416,6 @@ typedef struct		s_player
 	t_fdot_3d		pos;
 	// t_fdot_3d		pos_up;
 	int				flys;
-	t_sector		*sector;
 	t_dot			dpos;
 	t_fdot			vel;
 	float			const_vel;
@@ -522,7 +438,6 @@ typedef struct		s_player
 	int				jump;
 	float			sprint;
 
-	// int				numsector;
 	int 			damage;
 	int 			currentHp;
 	int 			maxHp;
@@ -532,7 +447,6 @@ typedef struct		s_player
 	int				interaction_inventaire;
 	t_timer			interaction_inventaire_time;
 	t_timers		timers;
-	int				i_sector;
 	t_line			l[5];
 	int 			*bullet_drop;
 	int 			len_bullet;
@@ -622,8 +536,6 @@ typedef struct		s_map_editor
 	int				w;
 	int				h;
 	float			unit;
-	t_sector		*sectors;
-	t_sector		*selected_sector;
 	SDL_Rect		rect_util;
 	Uint32			flags;
 	int				nb_lines;

@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   bordel_proto.h                                   .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/03/05 17:10:31 by agiordan     #+#   ##    ##    #+#       */
-/*   Updated: 2020/05/01 17:26:25 by gmonacho    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bordel_proto.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
+/*   Updated: 2020/05/04 20:53:56 by agiordan         ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #ifndef BORDEL_PROTO_H
 # define BORDEL_PROTO_H
 
@@ -179,31 +179,6 @@ void	init_fpoly(t_poly **poly);
 int             parser_png(char *png_file);
 
 /*
-**	---------------------------------- linedef ----------------------------------
-*/
-
-int			get_nb_linedef(t_linedef *lines, Uint32 flags);
-void		add_linedef(t_linedef **lines, t_linedef *new_linedef);
-void		add_linedef_flags(t_linedef **lines, Uint32 flags);
-void	    remove_sector(t_sector **sector, t_sector *del_sector);
-void		free_linedef(t_linedef *linedef);
-void		free_linedefs(t_linedef **lines);
-t_linedef	*new_void_linedef(void);
-t_linedef	*new_linedef(t_line line, SDL_Surface *texture, Uint32 flags);
-t_linedef	*init_equation(t_linedef *line);
-
-/*
-**	---------------------------------- sector ----------------------------------
-*/
-
-//t_sector	*create_sector(void);
-int	        get_nb_sectors(t_sector *sector);
-void		add_sector(t_sector **sectors);
-void	        reverse_sectors(t_sector **sectors);
-void		free_sector(t_sector *sector);
-void		free_sectors(t_sector **sectors);
-
-/*
 **	---------------------------------- player ----------------------------------
 */
 
@@ -225,18 +200,10 @@ void   		add_existing_mob(t_mob **mob, t_mob *new_mob);
 **	---------------------------------- map ----------------------------------
 */
 
-void		selected_linedef(t_map_editor *map, t_linedef *lines, Uint32 flags);
-void		selected_sector_linedef(t_map_editor *map, t_sector *sectors, Uint32 flags);
-
-void		delete_linedef(t_linedef **lines, Uint32 delete_flags);
-void		delete_sector_linedef(t_sector *sectors, Uint32 delete_flags);
-
-void	        fill_abscissa_ordinate(t_map_editor *map, t_dot mouse, int gap);
+void		fill_abscissa_ordinate(t_map_editor *map, t_dot mouse, int gap);
 void		map_zoom(t_map_editor *map, float zoom);
-void		map_add_line(t_map *map, int n_sector, t_linedef *line);
 SDL_bool	is_line_horizontally(t_dot lp1, t_dot lp2, float angle);
 SDL_bool	is_line_vertically(t_dot lp1, t_dot lp2, float angle);
-SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 
 /*
 ** =============================================================================
@@ -251,10 +218,6 @@ SDL_bool 	is_next_to_linedef(t_map_editor *map, t_dot *dot, int radius);
 int		    create_tmp_files(int fd, char *dir);
 void		create_tmp_bin_files(int fd);
 int 		ft_parse_error(char **tab);
-void		ft_find_coord_p1(t_linedef *line, char *tab);
-void		ft_find_coord_p2(t_linedef *line, char *tab);
-void	    ft_find_type(char *tab, t_linedef *line);
-void		ft_find_id(char *id, t_linedef *line);
 t_poly	    *ft_data_storing(int fd, t_map *map, t_win *win);
 char 		**fillntesttab(int fd);
 int		    fill_poly(t_poly *poly, t_map *map);
@@ -287,9 +250,7 @@ t_music         *define_music(void);
 
 void		check_map(t_win *win, t_map_editor *map);
 void		write_line(int fd, int nb_tab, const char *str);
-void		write_sector(t_sector *sector, int fd);
 void		write_player(t_player *player, int fd);
-int		export_sector(t_player *player, t_sector *sector, const char* filename);
 int		export_map(t_map_editor *map, const char *filename);
 
 /*
@@ -330,7 +291,6 @@ void		ed_init_map_editor(t_win *win, t_map *map);
 int	        editor_loop(t_win *win, t_map *map);
 int			resolve_ui_left_press(t_win *win, t_map_editor *map);
 int			load_ui(int fd, t_win *win);
-int			add_sector_button(t_win *win, t_frame *f, int nb_sectors);
 void		ed_display(t_win *win, const t_map *map);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 void		check_file(t_map_editor *map);
@@ -476,8 +436,6 @@ void				draw_projection(t_win *win);
 void				surround_walls(t_win *win, t_map *map);
 void				poly_reduction(t_win *win, t_poly *poly);
 t_poly				*inside_poly(t_poly *last_poly, t_poly *poly, int x, int y);
-// int			physics(t_win *win, t_map *map, t_player *player);
-// int			actions(t_win *win, t_map *map, t_linedef *portal, float h);
 
 int					process_light(t_map *map, t_poly *poly, t_fdot_3d collision, int color);
 
@@ -489,7 +447,6 @@ void				translate_all_rotz_only(t_map *map, t_poly *poly, t_fdot_3d translation)
 void				translate_all_poly_rotz_only(t_poly *poly, t_fdot_3d translation);
 void				translate_all_objects_rotz_only(t_object *object, t_fdot_3d translation);
 t_fdot_3d			rotate_dot(t_fdot_3d dot, t_matrix matrix);
-// void				rotate_all_dots(t_poly *sector, t_matrix matrix);
 void				rotate_all_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
 void				copy_rotate_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
 void				rotate_box(t_player *player, t_object *object);
