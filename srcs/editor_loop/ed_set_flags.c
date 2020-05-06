@@ -6,13 +6,13 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:36 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:22:37 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 14:31:06 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-static void	ed_remove_loop_flags(t_arg_menu *arg_menu)
+static void	ed_remove_flags(t_arg_menu *arg_menu)
 {
 	if (*(arg_menu->loop) & ED_WALL)
 		*(arg_menu->loop) ^= ED_WALL;
@@ -38,6 +38,11 @@ static void	ed_remove_loop_flags(t_arg_menu *arg_menu)
 		*(arg_menu->loop) ^= ED_MOB;
 	else if (*(arg_menu->loop) & ED_END)
 		*(arg_menu->loop) ^= ED_END;
+}
+
+static void	ed_remove_loop_flags(t_arg_menu *arg_menu)
+{
+	ed_remove_flags(arg_menu);
 	if (*(arg_menu->loop) & ED_SELECTION)
 		*(arg_menu->loop) ^= ED_SELECTION;
 	*(arg_menu->loop) |= arg_menu->value;

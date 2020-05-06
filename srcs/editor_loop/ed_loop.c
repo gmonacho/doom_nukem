@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:30 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:21:30 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 14:43:39 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ui_draw.h"
 #include "ui_error.h"
 
-static void	editor_menu_quit(t_win *win, t_map *map, Uint32 ms)
+static void		editor_menu_quit(t_win *win, t_map *map, Uint32 ms)
 {
 	Mix_FadeOutMusic(ms);
 	ui_free_ui(&win->winui->ui);
@@ -36,10 +36,10 @@ static void		editor_menu_disp(t_win *win, t_map *map)
 	ui_update_ui(win->winui);
 }
 
-int		init_editor_menu(t_win *win, t_map *map)
+int				init_editor_menu(t_win *win, t_map *map)
 {
-	// if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
-	// 	ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
+	if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
+		ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
 	if (!(win->winui->ui.button_font = ui_load_font("TTF/arial.ttf", 100)))
 		return (ui_ret_error("init_editor_menu", "ui_load_font failed", 0));
 	if (!ui_load("interfaces/editor_interface", win->winui))

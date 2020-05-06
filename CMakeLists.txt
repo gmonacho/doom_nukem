@@ -73,6 +73,7 @@ srcs/editor_loop/ed_set_menu_button_function.c
 srcs/editor_loop/ed_set_z_functions.c
 srcs/editor_loop/ed_write_export.c
 srcs/editor_loop/ed_write_export_cont.c
+srcs/editor_loop/ed_write_item.c
 srcs/event/event.c
 srcs/event/mouse.c
 srcs/event/time.c

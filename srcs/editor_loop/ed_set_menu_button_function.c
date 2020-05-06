@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:22:42 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 14:44:36 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		set_editor_calc(void *argument)
 	*(arg->loop) = arg->value;
 }
 
-static void	set_menu_button_function_first(t_win *win, t_map *map)
+static void		set_menu_button_function_first(t_win *win, t_map *map)
 {
 	ui_set_simple_button_function(win->winui,
 								"b_select",
@@ -48,7 +48,7 @@ static void	set_menu_button_function_first(t_win *win, t_map *map)
 								&map->editor.arg_menu_tab[5]);
 }
 
-static void	set_menu_button_function_second(t_win *win, t_map *map)
+static void		set_menu_button_function_second(t_win *win, t_map *map)
 {
 	ui_set_simple_button_function(win->winui,
 								"b_calc_z",
@@ -76,7 +76,7 @@ static void	set_menu_button_function_second(t_win *win, t_map *map)
 								&map->editor.arg_menu_tab[11]);
 }
 
-static void	set_menu_button_function_third(t_win *win, t_map *map)
+static void		set_menu_button_function_third(t_win *win, t_map *map)
 {
 	ui_set_simple_button_function(win->winui,
 								"b_box",
@@ -104,7 +104,7 @@ static void	set_menu_button_function_third(t_win *win, t_map *map)
 								map);
 }
 
-void		ed_set_menu_button_function(t_win *win, t_map *map)
+void			ed_set_menu_button_function(t_win *win, t_map *map)
 {
 	set_menu_button_function_first(win, map);
 	set_menu_button_function_second(win, map);

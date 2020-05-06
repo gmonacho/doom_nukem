@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:23 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:20:24 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 14:48:46 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	ed_display_placing_door(t_win *win, const t_map *map)
 
 	if (map->editor.placing_door)
 	{
-		line.p1 = ed_get_display_point(map, (t_dot){map->editor.placing_door->pos_rotz_only.x,
-												map->editor.placing_door->pos_rotz_only.y});
+		line.p1 = ed_get_display_point(map,
+				(t_dot){map->editor.placing_door->pos_rotz_only.x,
+				map->editor.placing_door->pos_rotz_only.y});
 		line.p2 = win->winui->mouse.pos;
 		ui_set_draw_color(win->rend, &(SDL_Color){150, 255, 100, 255});
 		ui_draw_line(win->rend, &line);

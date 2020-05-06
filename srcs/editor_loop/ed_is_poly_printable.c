@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:27 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:21:28 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 14:32:00 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,12 @@ SDL_bool			ed_is_poly_point(const t_poly *poly)
 {
 	if (poly)
 	{
-		if (poly->dots[0].x == poly->dots[1].x && poly->dots[0].y == poly->dots[1].y &&
-			poly->dots[1].x == poly->dots[2].x && poly->dots[1].y == poly->dots[2].y &&
-			poly->dots[2].x == poly->dots[3].x && poly->dots[2].y == poly->dots[3].y)
+		if (poly->dots[0].x == poly->dots[1].x
+			&& poly->dots[0].y == poly->dots[1].y &&
+			poly->dots[1].x == poly->dots[2].x
+			&& poly->dots[1].y == poly->dots[2].y &&
+			poly->dots[2].x == poly->dots[3].x
+			&& poly->dots[2].y == poly->dots[3].y)
 			return (SDL_TRUE);
 	}
 	return (SDL_FALSE);
