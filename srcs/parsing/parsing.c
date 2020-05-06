@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aducimet <aducimet@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:04:39 by aducimet          #+#    #+#             */
-/*   Updated: 2020/03/10 19:07:38 by aducimet         ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 16:56:15 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,18 @@
 
 int		find_texture(char *tab, t_poly *poly)
 {
-	char *tmp;
-	char *name;
+	char	*tmp;
+	char	*name;
+	char	*tmp_free;
 
 	name = NULL;
 	tmp = NULL;
 	name = ft_strdup(ft_strrchr(tab, '=') + 2);
 	poly->texture_name = name;
 	tmp = ft_strdup("textures/");
+	tmp_free = tmp;
 	tmp = ft_strjoin(tmp, name);
+	ft_strdel(&tmp_free);
 	ft_strdel(&name);
 	if (!(poly->texture = IMG_Load(tmp)))
 	{
@@ -32,7 +35,7 @@ int		find_texture(char *tab, t_poly *poly)
 	}
 	poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
 					SDL_PIXELFORMAT_ARGB8888, 0);
-	free(tmp);
+	ft_strdel(&tmp);
 	return (0);
 }
 
@@ -67,7 +70,8 @@ int		ft_fill_data(char **tab, t_poly **poly, int i)
 
 int		fill_poly_mob(t_poly *poly, t_mob *mob)
 {
-	char *tmp;
+	char	*tmp;
+	char	*tmp_free;
 
 	tmp = NULL;
 	while (poly && poly->next)
@@ -78,7 +82,9 @@ int		fill_poly_mob(t_poly *poly, t_mob *mob)
 		poly->next = mob->poly;
 		poly->light_coef = mob->light_coef;
 		poly = poly->next;
+		tmp_free = tmp;
 		tmp = ft_strjoin(tmp, mob->texture);
+		ft_strdel(&tmp_free);
 		if (!(poly->texture = IMG_Load(tmp)))
 		{
 			ft_strdel(&tmp);

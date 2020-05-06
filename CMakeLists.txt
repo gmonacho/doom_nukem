@@ -18,6 +18,7 @@ srcs/error.c
 srcs/init.c
 srcs/init_player_maths.c
 srcs/init_polygone.c
+srcs/main_free.c
 srcs/main.c
 srcs/animation/animation.c
 srcs/data/map_editor.c

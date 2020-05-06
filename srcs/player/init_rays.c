@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 21:31:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/07 21:50:32 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 17:29:46 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			malloc_ray(t_win *win, t_player *player,\
 
 	dangle_xy = player->fov / win->w;
 	if (!(player->rays[coord_y] = (t_cartesienne *)malloc(\
-										sizeof(t_cartesienne) * win->w)))
+										sizeof(t_cartesienne) * (win->w + 1))))
 		return (1);
 	angle_xy = -player->fov_2;
 	coord_x = -1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bordel_proto.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/04 21:11:30 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 16:22:14 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define BORDEL_PROTO_H
 
 # include "SDL.h"
+
+
+void			main_free(t_win *win, t_map *map);
 
 /*
 ** =====================================================================================
@@ -417,10 +420,7 @@ int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float heigh
 
 /*
 ** ============================= Polys ======================
-*/
-
-int					lstlen(t_poly *poly);
-void				copy_poly_lst(t_poly *dst, t_poly *src);
+*/;
 // void				copy_poly_lst(t_poly *dst, t_poly *src, t_object *dst_obj, t_object *src_obj);
 int					create_poly_save(t_map *map);
 void				poly_del(t_poly *poly);

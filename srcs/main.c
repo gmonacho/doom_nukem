@@ -106,6 +106,8 @@ int					main(int argc, char **argv)
 				return (ret_num_error("Init error", ret));
 			main_menu(&win, &map);
 		}
+		ui_free_win(&win.winui);
+		main_free(&win, &map);
 		SDL_DestroyWindow(win.ptr);
 		SDL_DestroyRenderer(win.rend);
 		SDL_Quit();
