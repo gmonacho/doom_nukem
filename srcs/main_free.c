@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 16:06:45 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 17:31:16 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 19:18:32 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void		main_free_polys(t_poly **polys)
 			free(p);
 			p = next;
 		}
-		printf("la\n");
 		*polys = NULL;
 	}
 }
@@ -75,6 +74,8 @@ static void		main_free_map(t_map *map)
 		main_free_player(&map->player);
 		if (map->editor.export.path)
 			ft_strdel(&map->editor.export.path);
+		if (map->editor.settings.texture)
+			ft_strdel(&map->editor.settings.texture);
 		if (map->polys_save)
 			main_free_polys(&map->polys_save);
 	}

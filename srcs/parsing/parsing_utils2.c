@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aducimet <aducimet@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:05:10 by aducimet          #+#    #+#             */
-/*   Updated: 2020/03/10 18:05:13 by aducimet         ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 18:49:35 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void		clear_leaks(t_map *map)
 	t_poly		*poly_tmp_next;
 	t_mob		*mob_tmp_next;
 
+	if (map->editor.export.path)
+		ft_strdel(&map->editor.export.path);
 	if (map->polys)
 	{
 		while (map->polys)

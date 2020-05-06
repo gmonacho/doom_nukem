@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:21 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 15:07:46 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 19:12:41 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,12 @@ static void		init_map_export(t_win *win, t_map *map)
 
 	if ((text_entry = ui_get_text_entry_button(win->winui, "b_export_path")))
 	{
-		if ((map->editor.export.path =
-			ft_memalloc(sizeof(char) * (text_entry->max_text_size + 1))))
-			ft_strcpy(text_entry->text, map->editor.export.path);
+		if (!map->editor.export.path)
+		{
+			if ((map->editor.export.path =
+				ft_memalloc(sizeof(char) * (text_entry->max_text_size + 1))))
+				ft_strcpy(text_entry->text, map->editor.export.path);
+		}
 	}
 	map->editor.export.map = map;
 }

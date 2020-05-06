@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:30 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 15:14:47 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 19:07:34 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int				editor_loop(t_win *win, t_map *map)
 		ed_event(win, map);
 	}
 	editor_menu_quit(win, map, 500);
+	if (map->editor.export.path)
+		ft_strdel(&map->editor.export.path);
 	init_main_menu(win);
 	return (1);
 }
