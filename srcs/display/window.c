@@ -16,8 +16,11 @@ int 			create_window(t_win *win, const char *title, SDL_Rect rect, Uint32 flags)
 	SDL_SetRenderDrawBlendMode(win->rend, SDL_BLENDMODE_BLEND);
 	if (!(win->winui = (t_winui*)ft_memalloc(sizeof(t_winui))))
 		return (ui_ret_error("create_window", "win->winui allocation failed", 0));
+	win->texhud = NULL;
 	win->winui->ptr = win->ptr;
 	win->winui->rend = win->rend;
+	win->pixels = NULL;
+	win->threads = NULL;
 	SDL_PollEvent(&win->winui->event);
 	ui_event_update_mouse(&win->winui->mouse);
 	win->winui->ui.frames = NULL;

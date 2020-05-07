@@ -20,9 +20,12 @@ static void			init_map(t_map *map)
 {
 	map->objects = NULL;
 	map->polys = NULL;
+	map->polys_save = NULL;
 	map->mob = NULL;
 	map->player.width = 30;
 	map->player.height = 30;
+	map->player.inventory = NULL;
+	map->player.rays = NULL;
 }
 
 static int			init(t_win *win, t_map *map, t_player *player)
@@ -41,6 +44,23 @@ static int			init(t_win *win, t_map *map, t_player *player)
 		return (1);
 	printf("Fin init\n");
 	return (0);
+}
+
+void	set_hud_to_null(t_win *win)
+{
+	int i;
+
+	i = 0;
+	while (i < 16)
+		win->texhud->tex[i++] = NULL;
+	i = 0;
+	while (i < 6)
+		win->texhud->tex_weapon[i++] = NULL;
+	i = 0;
+	while (i < 5)
+		win->texhud->tex_reload[i++] = NULL;
+	win->texhud->police = NULL;
+
 }
 
 int					main(int argc, char **argv)
@@ -83,7 +103,10 @@ int					main(int argc, char **argv)
 		}
 		init_map(&map);
 		if (argc == 1)
+		{
+			map.editor.export.path = ft_strdup("./maps/new_map");
 			editor_loop(&win, &map);
+		}
 		else
 		{
 			map.editor.export.path = ft_strdup(argv[1]);
