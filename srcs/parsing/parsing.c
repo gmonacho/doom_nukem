@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:04:39 by aducimet          #+#    #+#             */
-/*   Updated: 2020/05/06 16:56:15 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 11:59:34 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		find_texture(char *tab, t_poly *poly)
 	name = NULL;
 	tmp = NULL;
 	name = ft_strdup(ft_strrchr(tab, '=') + 2);
-	poly->texture_name = name;
+	poly->texture_name = ft_strdup(name);
 	tmp = ft_strdup("textures/");
 	tmp_free = tmp;
 	tmp = ft_strjoin(tmp, name);

@@ -53,6 +53,8 @@ void	delete_poly(t_poly **polys, t_poly *poly)
 			if (p == poly)
 			{
 				tmp_next = p->next;
+				if (p->texture_name)
+					ft_strdel(&p->texture_name);
 				free(p);
 				if (tmp_prev)
 					tmp_prev->next = tmp_next;

@@ -9,7 +9,7 @@ find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
 set (CMAKE_C_FLAGS "-g3 -fsanitize=address")
- #-march=native -flto -ffast-math -O3 
+# -ffast-math -march=native -flto  -O3
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes ${CMAKE_CURRENT_SOURCE_DIR}/includes/libui ${CMAKE_CURRENT_SOURCE_DIR}/libft/includes ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR})
 
 add_executable(${PROJECT_NAME}	
