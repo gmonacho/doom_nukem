@@ -26,6 +26,7 @@ static void			init_map(t_map *map)
 	map->player.height = 30;
 	map->player.inventory = NULL;
 	map->player.rays = NULL;
+	map->editor.settings.texture = NULL;
 }
 
 static int			init(t_win *win, t_map *map, t_player *player)
@@ -112,23 +113,27 @@ int					main(int argc, char **argv)
 			map.editor.export.path = ft_strdup(argv[1]);
 			if ((fd = open(argv[1], O_RDONLY)) <= 0)
 				return (ret_error("open error"));
-			if (!(win.map->polys = ft_data_storing(fd, &map, &win)))
+			// if (!(win.map->polys = ft_data_storing(fd, &map, &win)))
+			// {
+			// 	clear_leaks(win.map);
+			// 	SDL_DestroyWindow(win.ptr);
+			// 	SDL_DestroyRenderer(win.rend);
+			// 	SDL_Quit();
+			// }
+			if ((win.map->polys = ft_data_storing(fd, &map, &win)))
 			{
-				clear_leaks(win.map);
-				SDL_DestroyWindow(win.ptr);
-				SDL_DestroyRenderer(win.rend);
-				SDL_Quit();
+				if (!init_music_timer(&map, &(win.music))) //deuxieme essai mtn que les fichiers audio ont été créés
+				{
+					ft_putendl("init_music failed");
+					return (4);
+				}
+				map.gravity = map.player.const_vel / 2;
+				if ((ret = init(&win, &map, &(map.player))))
+					return (ret_num_error("Init error", ret));
+				main_menu(&win, &map);
 			}
-			if (!init_music_timer(&map, &(win.music))) //deuxieme essai mtn que les fichiers audio ont été créés
-			{
-				ft_putendl("init_music failed");
-				return (4);
-			}
-			map.gravity = map.player.const_vel / 2;
-			if ((ret = init(&win, &map, &(map.player))))
-				return (ret_num_error("Init error", ret));
-			main_menu(&win, &map);
 		}
+		// clear_leaks(win.map);
 		ui_free_win(&win.winui);
 		main_free(&win, &map);
 		SDL_DestroyWindow(win.ptr);

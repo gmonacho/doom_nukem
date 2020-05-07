@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:13 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:20:14 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 13:05:41 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static void	ed_delete_obj_link(t_object **objects,
 								t_object **tmp_next)
 {
 	*tmp_next = (*obj)->next;
+	if ((*obj)->texture)
+		ft_strdel(&(*obj)->texture);
 	free(*obj);
 	if (*tmp_prev)
 		(*tmp_prev)->next = *tmp_next;

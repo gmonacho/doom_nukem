@@ -5,10 +5,15 @@ void	hud_ammo(t_win *win, t_player *player, t_texhud *texhud)
 	SDL_Texture		*text;
 	char			*tmp;
 	char			*tmp2;
+	char			*tmp_free;
 
 	tmp = ft_itoa(player->inventory->ammo);
+	tmp_free = tmp;
 	tmp = ft_strjoin(tmp, " | ");
-	tmp2 = ft_strjoin(tmp, ft_itoa(player->inventory->magazine));
+	ft_strdel(&tmp_free);
+	tmp_free =  ft_itoa(player->inventory->magazine);
+	tmp2 = ft_strjoin(tmp, tmp_free);
+	ft_strdel(&tmp_free);
 	text = generate_text(win->rend, texhud->police, tmp2,
 		(SDL_Color){255, 255, 255, 50});
 	SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(win->w * 0.09),

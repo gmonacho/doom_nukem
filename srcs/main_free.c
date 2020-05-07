@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 16:06:45 by gal               #+#    #+#             */
-/*   Updated: 2020/05/07 12:49:54 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 13:58:36 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,31 @@ static void		main_free_rays(t_cartesienne **rays)
 
 }
 
+static void		main_free_inventory(t_inventory *inventory)
+{
+	int i;
+
+	i = 0;
+	while (i < 5)
+	{
+		if (inventory->item[i])
+		{
+			// if (inventory->item[i]->pos)
+			// 	free(inventory->item[i]->pos);
+			free(inventory->item[i]);
+		}
+		i++;
+	}
+}
+
 static void		main_free_player(t_player *player)
 {
 	if (player->inventory)
+	{
+		main_free_inventory(player->inventory);
 		free(player->inventory);
+		player->inventory = NULL;
+	}
 	if (player->rays)
 	{
 		main_free_rays(player->rays);
@@ -67,6 +88,18 @@ static void		main_free_polys(t_poly **polys)
 	}
 }
 
+static void		main_free_music(t_music *music)
+{
+	int i = 0;
+
+	while (i < 7)
+	{
+		if (music->tmusic[i])
+			Mix_FreeChunk(music->tmusic[i]);
+		i++;
+	}
+}
+
 static void		main_free_map(t_map *map)
 {
 	if (map)
@@ -78,6 +111,13 @@ static void		main_free_map(t_map *map)
 			ft_strdel(&map->editor.settings.texture);
 		if (map->polys_save)
 			main_free_polys(&map->polys_save);
+		if (map->music)
+		{
+			main_free_music(map->music);
+			free(map->music);
+			map->music = NULL;
+		}
+		ed_delete_map(map);
 	}
 }
 
