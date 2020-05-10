@@ -6,42 +6,12 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:04:39 by aducimet          #+#    #+#             */
-/*   Updated: 2020/05/10 13:06:57 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 17:37:31 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 #include "ui_error.h"
-
-int		find_texture(char *tab, t_poly *poly)
-{
-	char	*tmp;
-	char	*name;
-	char	*tmp_free;
-
-	name = NULL;
-	tmp = NULL;
-	name = ft_strdup(ft_strrchr(tab, '=') + 2);
-	poly->texture_name = ft_strdup(name);
-	tmp = ft_strdup("textures/");
-	tmp_free = tmp;
-	tmp = ft_strjoin(tmp, name);
-	ft_strdel(&tmp_free);
-	ft_strdel(&name);
-	if (!(poly->texture = IMG_Load(tmp)))
-	{
-		ft_strdel(&name);
-		return (ui_ret_error("find_texture", SDL_GetError(), -1));
-	}
-	if (!(poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
-					SDL_PIXELFORMAT_ARGB8888, 0)))
-	{
-		ft_strdel(&name);
-		return (ui_ret_error("find_texture", SDL_GetError(), -1));
-	}
-	ft_strdel(&tmp);
-	return (0);
-}
 
 int		ft_fill_data(char **tab, t_poly **poly, int i)
 {

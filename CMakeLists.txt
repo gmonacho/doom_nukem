@@ -110,6 +110,7 @@ srcs/parsing/parsing_sphere.c
 srcs/parsing/parsing_texture.c
 srcs/parsing/parsing_utils2.c
 srcs/parsing/parsing_utils.c
+srcs/parsing/find_texture.c
 srcs/physics/collisions_sphere.c
 srcs/physics/draws.c
 srcs/physics/fts_maths_algebra.c

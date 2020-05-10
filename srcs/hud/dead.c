@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 16:34:00 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 16:34:00 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 17:49:31 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ int				init_dead_menu(t_win *win)
 		return (0);
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	return (1);
-}
-
-static void		main_menu_quit(t_win *win, Uint32 ms)
-{
-	ui_free_ui(&win->winui->ui);
-	SDL_Delay(ms);
 }
 
 int				dead_menu(t_win *win, t_player *player)

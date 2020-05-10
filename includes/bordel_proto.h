@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 17:14:31 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 17:52:39 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,7 @@ char		*object_data_fill(char **tab, t_object **object, int i);
 void		fill_mob_data_norm(t_mob **mob, char *tab);
 int			ft_fill_data(char **tab, t_poly **poly, int i);
 
+int			find_texture(char *tab, t_poly *poly);
 void		player_data(char **tab, t_player *player, int i);
 void		new_sphere(t_sphere *sphere, char **tab, int i);
 
@@ -282,6 +283,7 @@ SDL_bool 	is_next_point(t_dot dot, t_dot other, int distance);
 int				main_menu(t_win *win, t_map *map);
 void            print_credit(t_win *win);
 void			end();
+void		    main_menu_quit(t_win *win, Uint32 ms);
 //static int	main_menu_event(t_win *win, int *loop);
 
 /*

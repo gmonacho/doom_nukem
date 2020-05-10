@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_object.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:03:18 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/10 07:16:41 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 17:28:37 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,35 @@ int				orientate_door(t_object *door, t_fdot_3d pos)
 {
 	int		i;
 	t_poly	*poly;
-	float tmp_x;
-	float tmp_y;
-	float rotated_x;
-	float rotated_y;
-	float theta;
-	
-	theta = door->dir * M_PI/ 180;
+	t_fdot	tmp;
+	t_fdot	rotated;
+	float	theta;
+
+	theta = door->dir * M_PI / 180;
 	poly = door->poly;
 	while (poly)
 	{
 		i = -1;
 		while (++i < 4)
 		{
-			tmp_x = poly->dots_rotz_only[i].x - pos.x;
-			tmp_y = poly->dots_rotz_only[i].y - pos.y;
-			rotated_x = tmp_x * cos(theta) - tmp_y * sin(theta);
-			rotated_y = tmp_x * sin(theta) + tmp_y * cos(theta);
-			poly->dots_rotz_only[i].x = rotated_x + pos.x;
-			poly->dots_rotz_only[i].y = rotated_y + pos.y;
+			tmp.x = poly->dots_rotz_only[i].x - pos.x;
+			tmp.y = poly->dots_rotz_only[i].y - pos.y;
+			rotated.x = tmp.x * cos(theta) - tmp.y * sin(theta);
+			rotated.y = tmp.x * sin(theta) + tmp.y * cos(theta);
+			poly->dots_rotz_only[i].x = rotated.x + pos.x;
+			poly->dots_rotz_only[i].y = rotated.y + pos.y;
 		}
 		poly = poly->next;
 	}
 	return (1);
 }
 
-int				interact_door(t_map *map, t_object	*door)
+int				interact_door(t_map *map, t_object *door)
 {
 	if (!door || door->type != DOOR || !door->poly || !door->poly->next)
 		return (0);
 	if (door->poly->next->visible && door->poly->next->collide)
-	{	
+	{
 		door->poly->next->visible = 0;
 		door->poly->next->collide = 0;
 		door->poly->visible = 1;
@@ -63,7 +61,8 @@ int				interact_door(t_map *map, t_object	*door)
 	return (1);
 }
 
-static t_poly	*set_door_front(t_object *object, t_poly *poly, t_fdot_3d box[6])
+static t_poly	*set_door_front(t_object *object,
+				t_poly *poly, t_fdot_3d box[6])
 {
 	if (!(poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
 		return (NULL);
@@ -95,7 +94,8 @@ static	t_poly	*set_door_back(t_object *object, t_poly *poly, t_fdot_3d box[6])
 	return (poly);
 }
 
-int				set_door_object(t_object *object, t_fdot_3d pos, float width, float height)
+int				set_door_object(t_object *object, t_fdot_3d pos,
+								float width, float height)
 {
 	t_fdot_3d	box[6];
 	t_poly		*poly;

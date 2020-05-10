@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 17:03:33 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 17:13:43 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 17:49:06 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "ui_draw.h"
 #include "ui_error.h"
 
-static void		main_menu_quit(t_win *win, Uint32 ms)
+void		main_menu_quit(t_win *win, Uint32 ms)
 {
 	Mix_FadeOutMusic(ms);
 	ui_free_ui(&win->winui->ui);

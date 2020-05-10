@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 22:54:45 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 15:33:18 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 17:34:03 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,9 @@ static void		fill_sphere(t_sphere *sphere, char **tab, int i)
 			{
 				sphere->texture = SDL_ConvertSurfaceFormat(\
 								sphere->texture, SDL_PIXELFORMAT_ARGB8888, 0);
-
 			}
 			else
 				ui_ret_error("fill_sphere", SDL_GetError(), 0);
-			
 			ft_strdel(&tmp);
 		}
 		else if (ft_strstr(tab[i], "radius = "))

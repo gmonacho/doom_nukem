@@ -6,11 +6,13 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 17:12:00 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 17:14:12 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 17:50:23 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+#include "ui_error.h"
+#include "ui.h"
 
 int				init_main_menu(t_win *win)
 {
@@ -28,19 +30,19 @@ void			condition_loop(t_win *win, t_map *map,
 							int *next_loop, int *f_set)
 {
 	if (win->winui->event.type == SDL_QUIT)
-		next_loop = 0;
-	else if (next_loop != 1)
+		*next_loop = 0;
+	else if (*next_loop != 1)
 	{
-		f_set = 0;
+		*f_set = 0;
 		main_menu_quit(win, 100);
-		if (next_loop == 2)
+		if (*next_loop == 2)
 			game_loop(win, map);
-		else if (next_loop == 3)
+		else if (*next_loop == 3)
 		{
 			editor_loop(win, map);
-			next_loop = 0;
+			*next_loop = 0;
 		}
-		else if (next_loop == 4)
+		else if (*next_loop == 4)
 			print_credit(win);
 	}
 }
