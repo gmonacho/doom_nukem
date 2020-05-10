@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hud.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/10 16:34:27 by gal               #+#    #+#             */
+/*   Updated: 2020/05/10 16:36:23 by gal              ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 
 void	hud_ammo(t_win *win, t_player *player, t_texhud *texhud)
@@ -11,7 +23,7 @@ void	hud_ammo(t_win *win, t_player *player, t_texhud *texhud)
 	tmp_free = tmp;
 	tmp = ft_strjoin(tmp, " | ");
 	ft_strdel(&tmp_free);
-	tmp_free =  ft_itoa(player->inventory->magazine);
+	tmp_free = ft_itoa(player->inventory->magazine);
 	tmp2 = ft_strjoin(tmp, tmp_free);
 	ft_strdel(&tmp_free);
 	text = generate_text(win->rend, texhud->police, tmp2,
