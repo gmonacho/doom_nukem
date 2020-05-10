@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_object.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:05:29 by aducimet          #+#    #+#             */
-/*   Updated: 2020/03/12 21:06:05 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 18:34:05 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,6 @@ static int		add_object(t_object **object)
 	new_object->data = 1;
 	new_object->dir = 0;
 	*object = new_object;
-	return (0);
-}
-
-int				add_poly_object_norm2(t_object *object, char *type_str)
-{
-	if (!ft_strcmp(type_str, "TP"))
-		object->type = TP;
-	else if (!ft_strcmp(type_str, "ARMOR"))
-		object->type = ARMOR;
-	else if (!ft_strcmp(type_str, "GUN"))
-		object->type = GUN;
-	else if (!ft_strcmp(type_str, "BULLET"))
-		object->type = BULLET;
-	else if (!ft_strcmp(type_str, "GRAVITY_INV"))
-		object->type = GRAVITY_INV;
-	else if (!ft_strcmp(type_str, "LIGHT"))
-		object->type = LIGHT;
-	if (!ft_strcmp(type_str, "HEAL"))
-		object->type = HEAL;
 	return (0);
 }
 

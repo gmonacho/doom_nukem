@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:04:39 by aducimet          #+#    #+#             */
-/*   Updated: 2020/05/10 17:37:31 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 17:57:33 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,40 +38,6 @@ int		ft_fill_data(char **tab, t_poly **poly, int i)
 				return (ui_ret_error("ft_fill_data", "texture not found", -1));
 		if (ft_strstr(tab[i], "light = "))
 			(*poly)->light_coef = ft_atoi(ft_strrchr(tab[i], '=') + 1) / 100.0;
-	}
-	return (0);
-}
-
-int		fill_poly_mob(t_poly *poly, t_mob *mob)
-{
-	char	*tmp;
-	char	*tmp_free;
-
-	tmp = NULL;
-	while (poly && poly->next)
-		poly = poly->next;
-	while (mob)
-	{
-		tmp = ft_strdup("textures/");
-		poly->next = mob->poly;
-		poly->light_coef = mob->light_coef;
-		poly = poly->next;
-		tmp_free = tmp;
-		tmp = ft_strjoin(tmp, mob->texture);
-		ft_strdel(&tmp_free);
-		if (!(poly->texture = IMG_Load(tmp)))
-		{
-			ft_strdel(&tmp);
-			return (-1);
-		}
-		if (!(poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
-						SDL_PIXELFORMAT_ARGB8888, 0)))
-		{
-			ft_strdel(&tmp);
-			return (-1);
-		}
-		mob = mob->next;
-		ft_strdel(&tmp);
 	}
 	return (0);
 }

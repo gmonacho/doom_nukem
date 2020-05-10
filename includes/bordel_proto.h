@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 17:52:39 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 18:34:47 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,11 +228,13 @@ int		    fill_poly(t_poly *poly, t_map *map);
 int		    fill_poly_object(t_poly *poly, t_object *object);
 int		    fill_poly_mob(t_poly *poly, t_mob *mob);
 int 		fill_poly_object_norm(char *tmp, t_poly	*poly_object);
+int     	add_poly_object_norm2(t_object *object, char *type_str);
 int			ft_data_storing2(t_poly **poly, t_map *map, char **tab, int i);
 char		*object_data_fill(char **tab, t_object **object, int i);
 void		fill_mob_data_norm(t_mob **mob, char *tab);
 int			ft_fill_data(char **tab, t_poly **poly, int i);
 
+int			fill_poly_mob(t_poly *poly, t_mob *mob);
 int			find_texture(char *tab, t_poly *poly);
 void		player_data(char **tab, t_player *player, int i);
 void		new_sphere(t_sphere *sphere, char **tab, int i);
@@ -423,7 +425,7 @@ int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float heigh
 
 /*
 ** ============================= Polys ======================
-*/;
+*/
 // void				copy_poly_lst(t_poly *dst, t_poly *src, t_object *dst_obj, t_object *src_obj);
 void				copy_poly_lst(t_poly *dst, t_poly *src);
 int					create_poly_save(t_map *map);
