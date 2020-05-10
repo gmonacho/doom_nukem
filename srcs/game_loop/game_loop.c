@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 22:13:37 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/07 22:16:48 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 17:18:38 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ static SDL_bool game(t_win *win, t_map *map, t_player *player)
 		i = dead_menu(win, player);
 		if (i == 2)
 		{
+			ui_free_win(&win->winui);
+			main_free(win, map);
 			SDL_DestroyWindow(win->ptr);
 			SDL_DestroyRenderer(win->rend);
 			SDL_Quit();

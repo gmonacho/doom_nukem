@@ -389,7 +389,7 @@ Polygon
 	dot = x:361 y:-682 z:-120
 	dot = x:361 y:-705 z:-95
 	light = 100
-	texture = Brique.png
+	texture = brique.png
 }
 Polygon
 {
@@ -479,7 +479,7 @@ Polygon
 	dot = x:189 y:-282 z:-70
 	dot = x:361 y:-282 z:-30
 	light = 100
-	texture = Brique.png
+	texture = brique.png
 }
 Polygon
 {
@@ -488,7 +488,7 @@ Polygon
 	dot = x:-186 y:-656 z:-70
 	dot = x:-386 y:-656 z:-30
 	light = 100
-	texture = Brique.png
+	texture = brique.png
 }
 Polygon
 {
@@ -551,7 +551,7 @@ Polygon
 	dot = x:-386 y:-434 z:-30
 	dot = x:-386 y:-282 z:-30
 	light = 100
-	texture = Brique.png
+	texture = brique.png
 }
 Polygon
 {
@@ -560,7 +560,7 @@ Polygon
 	dot = x:-386 y:-514 z:-30
 	dot = x:-386 y:-656 z:-30
 	light = 100
-	texture = Brique.png
+	texture = brique.png
 }
 Polygon
 {
@@ -641,7 +641,7 @@ Polygon
 	dot = x:19 y:-768 z:100
 	dot = x:-44 y:-768 z:100
 	light = 100
-	texture = Brique.png
+	texture = brique.png
 }
 Polygon
 {
@@ -974,5 +974,5 @@ Polygon
 	dot = x:-43 y:-705 z:30
 	dot = x:-186 y:-705 z:30
 	light = 100
-	texture = Brique.png
+	texture = brique.png
 }

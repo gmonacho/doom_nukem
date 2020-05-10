@@ -6,11 +6,12 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:05:10 by aducimet          #+#    #+#             */
-/*   Updated: 2020/05/06 18:49:35 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 12:59:46 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+#include "ui_error.h"
 
 int			ft_data_storing2(t_poly **poly, t_map *map, char **tab, int i)
 {
@@ -19,7 +20,7 @@ int			ft_data_storing2(t_poly **poly, t_map *map, char **tab, int i)
 	else if (ft_strstr(tab[i], "Object"))
 	{
 		if (object_data(tab, &(map->objects), i))
-			return (-1);
+			return (ui_ret_error("ft_data_storing2", "object_data", -1));
 	}
 	else if (ft_strstr(tab[i], "Player"))
 		player_data(tab, &(map->player), i);
@@ -28,7 +29,7 @@ int			ft_data_storing2(t_poly **poly, t_map *map, char **tab, int i)
 	else if (ft_strstr(tab[i], "Mob"))
 	{
 		if (fill_mob_data(&(map->mob), tab, i) == -1)
-			return (-1);
+			return (ui_ret_error("ft_data_storing2", "fill_mob_data", -1));
 	}
 	return (0);
 }

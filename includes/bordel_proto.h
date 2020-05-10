@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/06 16:22:14 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 17:07:03 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -422,6 +422,7 @@ int			set_box_object(t_object *object, t_fdot_3d pos, float width_2, float heigh
 ** ============================= Polys ======================
 */;
 // void				copy_poly_lst(t_poly *dst, t_poly *src, t_object *dst_obj, t_object *src_obj);
+void				copy_poly_lst(t_poly *dst, t_poly *src);
 int					create_poly_save(t_map *map);
 void				poly_del(t_poly *poly);
 

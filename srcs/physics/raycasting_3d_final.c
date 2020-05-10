@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_3d_final.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:18:49 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/06 17:25:32 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 13:50:22 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+#include "ui_error.h"
 
 /*
 **	- Times of 'raycasting_3d()' : ~125-140 . 10e-3
@@ -43,10 +44,7 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	if (!is_in_poly(poly, &coord_plan, collision))
 		return (-1);
 	if (!poly->texture)
-	{
-		printf("texture null : %p\n", poly->texture);
-		exit(0);
-	}
+		return (ui_ret_error("find_pixel", "poly->texture is null", 0));
 	coord_texture = (poly->object || poly->mob) ?\
 				(t_dot){coord_plan.x * poly->texture->w,\
 						(1 - coord_plan.y) * poly->texture->h} :\

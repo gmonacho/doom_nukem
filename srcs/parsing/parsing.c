@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:04:39 by aducimet          #+#    #+#             */
-/*   Updated: 2020/05/07 11:59:34 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 13:06:57 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,14 @@ int		find_texture(char *tab, t_poly *poly)
 	if (!(poly->texture = IMG_Load(tmp)))
 	{
 		ft_strdel(&name);
-		return (-1);
+		return (ui_ret_error("find_texture", SDL_GetError(), -1));
 	}
-	poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
-					SDL_PIXELFORMAT_ARGB8888, 0);
+	if (!(poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
+					SDL_PIXELFORMAT_ARGB8888, 0)))
+	{
+		ft_strdel(&name);
+		return (ui_ret_error("find_texture", SDL_GetError(), -1));
+	}
 	ft_strdel(&tmp);
 	return (0);
 }
@@ -61,7 +65,7 @@ int		ft_fill_data(char **tab, t_poly **poly, int i)
 		}
 		if (ft_strstr(tab[i], "texture = "))
 			if (find_texture(tab[i], *poly) == -1)
-				return (-1);
+				return (ui_ret_error("ft_fill_data", "texture not found", -1));
 		if (ft_strstr(tab[i], "light = "))
 			(*poly)->light_coef = ft_atoi(ft_strrchr(tab[i], '=') + 1) / 100.0;
 	}
@@ -90,8 +94,12 @@ int		fill_poly_mob(t_poly *poly, t_mob *mob)
 			ft_strdel(&tmp);
 			return (-1);
 		}
-		poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
-						SDL_PIXELFORMAT_ARGB8888, 0);
+		if (!(poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
+						SDL_PIXELFORMAT_ARGB8888, 0)))
+		{
+			ft_strdel(&tmp);
+			return (-1);
+		}
 		mob = mob->next;
 		ft_strdel(&tmp);
 	}
@@ -135,13 +143,14 @@ t_poly	*ft_data_storing(int fd, t_map *map, t_win *win)
 	poly = NULL;
 	init_fpoly(&poly);
 	map->mob = NULL;
-	if ((tab = fillntesttab(fd)) == NULL)
-	{
+	if (!(tab = fillntesttab(fd)))
 		return (NULL);
-	}
 	win->texhud = define_texhud(win);
 	while (tab[++i])
-		ft_data_storing2(&poly, map, tab, i);
+	{
+		if (!ft_data_storing2(&poly, map, tab, i) == -1)
+			return (ui_ret_null_error("ft_data_storing", "2 failed", NULL));
+	}
 	ft_2dstrdel(&tab);
 	if (fill_poly(poly, map) == -1)
 		return (NULL);

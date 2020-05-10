@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_sphere.c                                     :+:      :+:    :+:   */
+/*   parsing_sphere.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 22:54:45 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/10 09:12:42 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 13:32:19 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ static void		fill_sphere(t_sphere *sphere, char **tab, int i)
 		if (ft_strstr(tab[i], "texture = "))
 		{
 			tmp = ft_strjoin("textures/", ft_strrchr(tab[i], '=') + 2);
-			if (!(sphere->texture = IMG_Load(tmp)))
+			if ((sphere->texture = IMG_Load(tmp)))
 			{
 				printf("Texture sphere of the file failed\n");
-				exit(0);
-				return ;
+				sphere->texture = SDL_ConvertSurfaceFormat(\
+								sphere->texture, SDL_PIXELFORMAT_ARGB8888, 0);
+
 			}
-			sphere->texture = SDL_ConvertSurfaceFormat(\
-							sphere->texture, SDL_PIXELFORMAT_ARGB8888, 0);
 			ft_strdel(&tmp);
 		}
 		else if (ft_strstr(tab[i], "radius = "))
@@ -53,15 +52,10 @@ void			new_sphere(t_sphere *sphere, char **tab, int i)
 	sphere->pos_rotz_only = (t_fdot_3d){0, 0, 0};
 	sphere->pos = (t_fdot_3d){0, 0, 0};
 	sphere->radius = 1000;
-	if (!(sphere->texture = IMG_Load("textures/desert.jpg")))
-	{
-		printf("Default texture sphere failed\n");
-		exit(0);
-		return ;
-	}
 	sphere->i_rotz_only = (t_fdot_3d){0, 0, -1};
 	sphere->i = (t_fdot_3d){0, 0, -1};
 	sphere->j_rotz_only = (t_fdot_3d){1, 0, 0};
 	sphere->j = (t_fdot_3d){1, 0, 0};
 	fill_sphere(sphere, tab, i);
+	printf("1)sphere->texture = %p\n", sphere->texture);
 }

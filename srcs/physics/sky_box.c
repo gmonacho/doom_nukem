@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sky_box.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:12:01 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/10 10:17:50 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 13:28:54 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ static int		sphere_mapping(t_sphere *sphere, t_fdot_3d collision) //modifié pou
 		u = 0;
 	if (is_null(v - 1, 0.000005))
 		v = 0;
-	if (u < 0 || u > 1 || v < 0 || v > 1)
-		exit(0);
-	return (((int *)sphere->texture->pixels)[(int)(v * sphere->texture->h) *\
+	if (!__isnanf(u) && !(u < 0 || u > 1 || v < 0 || v > 1))
+	{
+		return (((int *)sphere->texture->pixels)[(int)(v * sphere->texture->h) *\
 						sphere->texture->w + (int)(u * sphere->texture->w)]);
+	}
 }
 
 int				sky_box(t_sphere *sky_box, t_cartesienne *ray)
