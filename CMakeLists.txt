@@ -8,7 +8,7 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
-set (CMAKE_C_FLAGS "-ffast-math -march=native -flto -O3")
+set (CMAKE_C_FLAGS "-ffast-math -march=native -flto -O3 -g3 -fsanitize=address")
 # -g3 -fsanitize=address
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes ${CMAKE_CURRENT_SOURCE_DIR}/includes/libui ${CMAKE_CURRENT_SOURCE_DIR}/libft/includes ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR})
 
@@ -21,11 +21,11 @@ srcs/init_polygone.c
 srcs/main_free.c
 srcs/main.c
 srcs/animation/animation.c
-srcs/data/map_editor.c
-srcs/data/png_parser.c
 srcs/data/poly.c
+srcs/data/delete_poly.c
 srcs/display/renderer.c
 srcs/display/simple_draw.c
+srcs/display/draw_s.c
 srcs/display/text.c
 srcs/display/texture.c
 srcs/display/window.c
@@ -75,8 +75,6 @@ srcs/editor_loop/ed_set_z_functions.c
 srcs/editor_loop/ed_write_export.c
 srcs/editor_loop/ed_write_export_cont.c
 srcs/editor_loop/ed_write_item.c
-srcs/event/event.c
-srcs/event/mouse.c
 srcs/event/time.c
 srcs/game_loop/events.c
 srcs/game_loop/game_loop.c
@@ -92,6 +90,7 @@ srcs/libui/ui_error.c
 srcs/libui/ui_init.c
 srcs/menu_loops/end.c
 srcs/menu_loops/main_menu.c
+srcs/menu_loops/main_menu_init_cond.c
 srcs/mobs/hit_mobs.c
 srcs/mobs/mobs_move.c
 srcs/objects/box_object.c

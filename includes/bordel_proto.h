@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/07 17:07:03 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 17:14:31 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int				init_threads(t_win *win, t_map *map, t_player *player);
 
 int		        init_editor_menu(t_win *win, t_map *map);
 int				init_main_menu(t_win *win);
-
+void			condition_loop(t_win *win, t_map *map,
+							int *next_loop, int *f_set);
 /*
 ** =====================================================================================
 ** ================================== EVENT ============================================
