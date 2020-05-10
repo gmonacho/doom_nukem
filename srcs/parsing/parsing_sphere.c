@@ -6,11 +6,12 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 22:54:45 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 13:32:19 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 15:33:18 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+#include "ui_error.h"
 
 static void		fill_sphere_pos(t_sphere *sphere, char **tab, int i)
 {
@@ -34,11 +35,13 @@ static void		fill_sphere(t_sphere *sphere, char **tab, int i)
 			tmp = ft_strjoin("textures/", ft_strrchr(tab[i], '=') + 2);
 			if ((sphere->texture = IMG_Load(tmp)))
 			{
-				printf("Texture sphere of the file failed\n");
 				sphere->texture = SDL_ConvertSurfaceFormat(\
 								sphere->texture, SDL_PIXELFORMAT_ARGB8888, 0);
 
 			}
+			else
+				ui_ret_error("fill_sphere", SDL_GetError(), 0);
+			
 			ft_strdel(&tmp);
 		}
 		else if (ft_strstr(tab[i], "radius = "))

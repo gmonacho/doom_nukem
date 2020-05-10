@@ -1,18 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   poly.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/10 15:21:58 by gal               #+#    #+#             */
+/*   Updated: 2020/05/10 15:22:07 by gal              ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 
-void    add_poly(t_poly **poly)
+void	add_poly(t_poly **poly)
 {
-  	t_poly  *new_poly;
+	t_poly	*new_poly;
 
-  	if (!(new_poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
+	if (!(new_poly = (t_poly *)ft_memalloc(sizeof(t_poly))))
 		return (ft_putendl("poly allocation failed in poly.c"));
-  	new_poly->next = *poly;
+	new_poly->next = *poly;
 	new_poly->light_coef = 1;
-	//Mettre toute les variables de la structure poly a une valeur par default
-  	*poly = new_poly;
+	*poly = new_poly;
 }
 
-void		init_fpoly(t_poly **poly)
+void	init_fpoly(t_poly **poly)
 {
 	t_poly	*new_poly;
 
@@ -28,46 +39,12 @@ void		init_fpoly(t_poly **poly)
 	*poly = new_poly;
 }
 
-void    add_existing_poly(t_poly **polys, t_poly *poly)
+void	add_existing_poly(t_poly **polys, t_poly *poly)
 {
 	if (poly)
 	{
 		poly->next = *polys;
 		*polys = poly;
-	}
-}
-
-
-void	delete_poly(t_poly **polys, t_poly *poly)
-{
-	t_poly	*p;
-	t_poly	*tmp_prev;
-	t_poly	*tmp_next;
-
-	if (polys && poly)
-	{
-		tmp_prev = NULL;
-		p = *polys;
-		while (p)
-		{
-			if (p == poly)
-			{
-				tmp_next = p->next;
-				if (p->texture_name)
-					ft_strdel(&p->texture_name);
-				free(p);
-				if (tmp_prev)
-					tmp_prev->next = tmp_next;
-				else
-					*polys = tmp_next;
-				p = tmp_next;
-			}
-			else
-			{
-				tmp_prev = p;
-				p = p->next;
-			}
-		}
 	}
 }
 
