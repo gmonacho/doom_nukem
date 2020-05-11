@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 21:15:30 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/11 02:22:17 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 02:30:04 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void		apply_armor(t_player *player, int armor)
 		player->current_armor = 100;
 }
 
-static void	use_item_cut(t_map *map, t_player *player,
-		t_music *music, int slot_selected)
+static void	use_item_cut(t_map *map, t_player *player, int slot_selected)
 {
 	if (slot_selected == 2 && player->inventory->item[2]->nb > 0)
 		player->inventory->item[2]->nb -= 1;
