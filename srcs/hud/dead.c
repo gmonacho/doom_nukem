@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dead.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 16:34:00 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 17:49:31 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 22:46:44 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int				dead_menu(t_win *win, t_player *player)
 	next_loop = 0;
 	if (init_dead_menu(win) == 0)
 		return (ret_error("dead_menu"));
-	if (player->currentHp <= 0)
+	if (player->current_hp <= 0)
 	{
 		while (!next_loop)
 		{

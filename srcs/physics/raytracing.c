@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting_3d_final.c                              :+:      :+:    :+:   */
+/*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:18:49 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 13:50:22 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 00:18:19 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static void			raytracing(t_win *win, t_map *map)
 	i = -1;
 	while (++i < N_THREADS)
 		pthread_create(&(win->threads[i].thread), NULL,\
-						draw, &(win->threads[i]));
+						draw_ray, &(win->threads[i]));
 	i = -1;
 	while (++i < N_THREADS)
 		pthread_join(win->threads[i].thread, NULL);

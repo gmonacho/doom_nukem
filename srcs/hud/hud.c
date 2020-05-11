@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 16:34:27 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 16:36:23 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 22:48:16 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	hud_health(t_win *win, t_player *player, t_texhud *texhud)
 	SDL_RenderCopy(win->rend, texhud->tex[1], NULL,
 		(&(SDL_Rect){(win->w * 0.76), (win->h * 0.8875),
 		(win->w * 0.2), (win->h * 0.0875)}));
-	while (i++ < player->currentHp)
+	while (i++ < player->current_hp)
 	{
 		SDL_RenderCopy(win->rend, texhud->tex[2], NULL,
 			(&(SDL_Rect){(hpposx), (win->h * 0.92),
@@ -65,7 +65,7 @@ void	hud_armor(t_win *win, t_player *player, t_texhud *texhud)
 	SDL_RenderCopy(win->rend, texhud->tex[3], NULL,
 	(&(SDL_Rect){(win->w * 0.76), (win->h * 0.7875),
 	(win->w * 0.2), (win->h * 0.0875)}));
-	while (i < player->currentArmor)
+	while (i < player->current_armor)
 	{
 		SDL_RenderCopy(win->rend, texhud->tex[4], NULL,
 		(&(SDL_Rect){(armorposx), (win->h * 0.8225),

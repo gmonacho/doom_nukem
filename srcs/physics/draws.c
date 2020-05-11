@@ -3,16 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   draws.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:56:29 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/08 06:14:56 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 00:19:49 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-void				*draw(void *param)
+void				draw(t_win *win, t_map *map, t_player *player)
+{
+	if (player->sneak)
+	{
+		translate_all_poly_rotz_only(map->polys,\
+				(t_fdot_3d){0, 0, map->player._4_height_10});
+		copy_rotate_rotz_only(map, map->polys,\
+				create_ry_matrix(-player->rot_y));
+		translate_all_poly_rotz_only(map->polys,\
+				(t_fdot_3d){0, 0, -map->player._4_height_10});
+	}
+	else
+		copy_rotate_rotz_only(map, map->polys,\
+				create_ry_matrix(-player->rot_y));
+	objects_movements(map, player, map->objects);
+	clear_rend(win->rend, 0x40, 0x40, 0x40);
+	graphics_engine(win, map);
+	reload_cd(map);
+	hud(win, player, win->texhud);
+	print_content_slot(win, player, win->texhud);
+}
+
+static int			select_color(t_thread *thread, t_cartesienne *ray)
+{
+	if (ray->poly)
+		return (process_light(thread->win->map, ray->poly,\
+								ray->collision, ray->color));
+	else
+		return (thread->win->map->sky_box.texture ?\
+								sky_box(&(thread->win->map->sky_box), ray) :\
+								0xFF505050);
+}
+
+void				*draw_ray(void *param)
 {
 	t_thread		*thread;
 	t_cartesienne	*ray;
@@ -29,11 +62,8 @@ void				*draw(void *param)
 		while (++x < thread->win->w)
 		{
 			ray = &(thread->player->rays[y][x]);
-			thread->win->pixels[y * thread->win->w + x] = ray->poly ?\
-								process_light(thread->win->map, ray->poly,\
-												ray->collision, ray->color) :\
-								(thread->win->map->sky_box.texture ? //pas a la norme mais sinon ca segfault sur les maps sans Sphere
-								sky_box(&(thread->win->map->sky_box), ray) : 0x808080);
+			thread->win->pixels[y * thread->win->w + x] =\
+													select_color(thread, ray);
 			ray->poly = NULL;
 			ray->color = 0xFF505050;
 		}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sky_box.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:12:01 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 13:28:54 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 21:39:24 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-static int		sphere_mapping(t_sphere *sphere, t_fdot_3d collision) //modifié pour que l'horion soit comme sur l'image de depart		#widrye
+static int		sphere_mapping(t_sphere *sphere, t_fdot_3d collision)
 {
 	t_fdot_3d	normal_dot;
 	float		u;
@@ -20,9 +20,9 @@ static int		sphere_mapping(t_sphere *sphere, t_fdot_3d collision) //modifié pou
 	float		tmp;
 
 	normal_dot = normalize(fdot_3d_sub(collision, sphere->pos));
-	tmp = acos(-scalar_product(sphere->i, normal_dot));	// j'ai remplacé sphere->j par sphere->j		#widrye
+	tmp = acos(-scalar_product(sphere->i, normal_dot));
 	v = tmp / M_PI;
-	tmp = scalar_product(normal_dot, sphere->j) / sin(tmp); // j'ai remplacé sphere->i par sphere->i		#widrye
+	tmp = scalar_product(normal_dot, sphere->j) / sin(tmp);
 	if (tmp < -1.0f)
 		tmp = -1.0f;
 	tmp = ((float)acos(tmp)) / _2_PI;
@@ -32,11 +32,10 @@ static int		sphere_mapping(t_sphere *sphere, t_fdot_3d collision) //modifié pou
 		u = 0;
 	if (is_null(v - 1, 0.000005))
 		v = 0;
-	if (!__isnanf(u) && !(u < 0 || u > 1 || v < 0 || v > 1))
-	{
-		return (((int *)sphere->texture->pixels)[(int)(v * sphere->texture->h) *\
-						sphere->texture->w + (int)(u * sphere->texture->w)]);
-	}
+	if (__isnanf(u) || u < 0 || u > 1 || v < 0 || v > 1)
+		return (0xFF505050);
+	return (((int *)sphere->texture->pixels)[(int)(v * sphere->texture->h) *\
+					sphere->texture->w + (int)(u * sphere->texture->w)]);
 }
 
 int				sky_box(t_sphere *sky_box, t_cartesienne *ray)
@@ -62,9 +61,3 @@ int				sky_box(t_sphere *sky_box, t_cartesienne *ray)
 												ray->vy * t1,\
 												ray->vz * t1}));
 }
-/*
-int				is_outside_sky_box(t_sphere *sphere)
-{
-	return (mag(sphere->pos_rotz_only) > sphere->radius ? 1 : 0);	
-}
-*/

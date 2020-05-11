@@ -6,7 +6,7 @@
 /*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 16:47:53 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/04 21:07:21 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 01:37:25 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8
 		{	
 			player->timers.bullet_cd.index = 0;
 			Mix_PlayChannel(2, map->music->tmusic[0], 0);
-			//Mix_PlayMusic(music->tmusic[0], 1);
 			player->inventory->ammo -= 1;
 			add_bullet(player);
 			hit_mobs(map->mob, 10);

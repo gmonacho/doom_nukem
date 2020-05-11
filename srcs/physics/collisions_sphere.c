@@ -3,17 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   collisions_sphere.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:22 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/05 18:15:10 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 23:17:25 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
 /*
+**	Si le plan est plus loin que la longueur du rayon de la sphere -> !col
+**	Si la projection orthogonale du centre de la sphere est dans le poly -> col
+**	Si un segment du poly est dans la sphere -> col
+**	Si un angle du poly est la sphere -> col
+**
 **	Code segment : 2 bits par segment 0bxxyy 0 <= xx <= 3
+**	Utile pour le slide sur segment et non pas sur plan
 */
 
 int				is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bordel_proto.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 18:34:47 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 02:07:06 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state);
 void			events_rotate(t_win *win, t_map *map, t_player *player, const Uint8 *state);
 void			events_actions(t_win *win, t_map *map, t_player *player, const Uint8 *state);
 void			events_others(t_win *win, t_player *player, const Uint8 *state);
+void			events_game_loop(t_win *win, t_map *map, t_player *player, SDL_Event *event);
 
 int				key_pressed(Uint32 sdl_keycode);
 t_dot			mouse_drag(int x, int y, SDL_bool end);
@@ -117,6 +118,7 @@ void		clear_rend(SDL_Renderer *rend, Uint8 r, Uint8 g, Uint8 b);
 **	---------------------------------- Drawing functon ----------------------------------
 */
 
+void		draw(t_win *win, t_map *map, t_player *player);
 void		fill_portals(t_win *win, t_player *player);
 void		draw_line(t_win *win, t_dot p1, t_dot p2);
 void		draw_t_line(t_win *win, t_line line);
@@ -411,7 +413,6 @@ void		ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos);
 */
 
 int			game_loop(t_win *win, t_map *map);
-
 /*
 ** ============================= Objects ======================
 */
@@ -485,7 +486,9 @@ t_fdot_3d			segment_slide(t_fdot_3d dots[N_DOTS_POLY], t_plan plan, int segment_
 int					collision_dots(t_fdot_3d dots[N_DOTS_POLY], float ray);
 int					is_collision_box(t_object *object, t_cartesienne *ray);
 
-void				*draw(void *param);
+void				move_and_collide(t_map *map, t_player *player, t_fdot_3d move);
+
+void				*draw_ray(void *param);
 int					sky_box(t_sphere *sky_box, t_cartesienne *ray);
 
 /*
@@ -518,7 +521,6 @@ t_fdot_3d			mid_segment(t_fdot_3d d1, t_fdot_3d d2);
 
 t_dot				intersection_segment_edge(t_win *win, t_dot d1, t_dot d2, int edge);
 void				draw_affine(t_win *win, t_affine function);
-void				draw_ray(t_win *win, t_player *player, t_affine ray);
 float				fprop(float value, t_fdot inter1, t_fdot inter2);
 float				prop(float value, t_dot inter1, t_dot inter2);
 int					is_intersection_cercle_poly(t_poly *poly, int radius);

@@ -3,10 +3,10 @@
 static void		init_player_hud(t_player *player)
 {
 	player->inventory = define_inventory();
-	player->maxHp = 100;
-	player->currentHp = player->maxHp;
-	player->maxArmor = 100;
-	player->currentArmor = player->maxArmor;
+	player->max_hp = 100;
+	player->current_hp = player->max_hp;
+	player->max_armor = 100;
+	player->current_armor = player->max_armor;
 	player->inventory->ammo = 15;
 	player->inventory->magazine = 120;
 	start_cooldown(&(player->timers.bullet_cd), 130);

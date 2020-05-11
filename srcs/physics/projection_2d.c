@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projection_2d.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:43 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/05 17:58:08 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 21:57:20 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,14 @@
 
 /*
 **	Pour chaque poly :
-**		On creer un nouveau tab de dot 3d pour ramener tout les dot.y en positif
+**		On creer un nouveau tab de dot 3d pour ramener tout les dot.x en positif
 **		On les projette en 2d
-**		On creer la box
-**		On la ramene sur les bords de l'ecran si necessaire
-**
-**	Tester pour les 4 cote chaque segments, si un segment est dessus
-**	alors new point et suppr lancien (Comme pour ramener les y<0 devant soi)
-**	On fais ca 4 fois au lieu de 1
+**		On creer la box autour des 4 points
+**		Si necessaire (hors screen) on ramene la box sur les bords de l'écran
 */
 
 static void			set_box(t_poly *poly, t_dot *box_x, t_dot *box_y,\
-							t_dot proj[N_DOTS_POLY * 2])
+							t_dot proj[N_DOTS_POLY + 2])
 {
 	int				i;
 
@@ -48,14 +44,14 @@ static void			set_proj(t_win *win, t_poly *poly)
 	int				i;
 
 	i = -1;
-	while (++i < poly->n_dot)
+	while (++i < poly->n_proj)
 	{
 		poly->dots_proj[i].x = (win->map->player.fov_2 + poly->dots_new[i].y /\
 								poly->dots_new[i].x) * win->w_div_fov;
 		poly->dots_proj[i].y = (win->map->player.fov_up_2 - poly->dots_new[i].z\
 								/ poly->dots_new[i].x) * win->h_div_fov;
 	}
-	poly->n_proj = poly->n_dot;
+	//poly->n_proj = poly->n_proj; //Attendre une compilation fructueuse #agiordan
 }
 
 static void			create_dot_on_axe_y(t_poly *poly)
@@ -63,7 +59,7 @@ static void			create_dot_on_axe_y(t_poly *poly)
 	int			i;
 	int			i2;
 
-	poly->n_dot = 0;
+	poly->n_proj = 0;
 	i = -1;
 	while (++i < N_DOTS_POLY)
 	{
@@ -71,12 +67,12 @@ static void			create_dot_on_axe_y(t_poly *poly)
 		if (poly->dots[i].x > 0)
 		{
 			if (poly->dots[i2].x < 0)
-				poly->dots_new[poly->n_dot++] =\
+				poly->dots_new[poly->n_proj++] =\
 							intersection_axe_y(poly->dots[i], poly->dots[i2]);
-			poly->dots_new[poly->n_dot++] = poly->dots[i];
+			poly->dots_new[poly->n_proj++] = poly->dots[i];
 		}
 		else if (poly->dots[i2].x > 0)
-			poly->dots_new[poly->n_dot++] =\
+			poly->dots_new[poly->n_proj++] =\
 							intersection_axe_y(poly->dots[i], poly->dots[i2]);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 18:06:50 by agiordan          #+#    #+#             */
-/*   Updated: 2020/03/05 18:12:25 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 02:16:52 by agiordan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,13 @@ void			rotate_box(t_player *player, t_object *object)
 t_fdot_3d		rotate_dot(t_fdot_3d dot, t_matrix matrix)
 {
 	return ((t_fdot_3d)\
-			{dot.x * matrix._00 + dot.y * matrix._10 + dot.z * matrix._20,\
-			dot.x * matrix._01 + dot.y * matrix._11 + dot.z * matrix._21,\
-			dot.x * matrix._02 + dot.y * matrix._12 + dot.z * matrix._22});
+			{dot.x * matrix.index_00 +\
+			dot.y * matrix.index_10 +\
+			dot.z * matrix.index_20,\
+			dot.x * matrix.index_01 +\
+			dot.y * matrix.index_11 +\
+			dot.z * matrix.index_21,\
+			dot.x * matrix.index_02 +\
+			dot.y * matrix.index_12 +\
+			dot.z * matrix.index_22});
 }
