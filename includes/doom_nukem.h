@@ -7,16 +7,14 @@
 # include <fcntl.h>
 # include <math.h>
 # include <pthread.h>
-# include <stdio.h>///////////////////
-
-# include <sys/stat.h> //mkdir pour creation de fichiers .png et .mp3
-
+# include <stdio.h>
+# include <sys/stat.h>
 # include "SDL.h"
 # include "SDL_ttf.h"
 # include "SDL_image.h"
 # include "SDL_mixer.h"
 # include "libft.h"
-# include <time.h>////////////////////////////
+# include <time.h>
 
 # define WIDTH				1200
 # define HEIGHT				800
