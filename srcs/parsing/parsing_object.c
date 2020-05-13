@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:05:29 by aducimet          #+#    #+#             */
-/*   Updated: 2020/05/10 18:34:05 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 11:14:10 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		set_poly_dots_rotz_only(t_poly *poly, t_fdot_3d pos,\
 	poly->dots_rotz_only[3].x = pos.x - width_2;
 	poly->dots_rotz_only[3].y = pos.y;
 	poly->dots_rotz_only[3].z = pos.z + height_2;
-	print_poly(poly, 1);
+	// print_poly(poly, 1);
 }
 
 static int		add_object(t_object **object)

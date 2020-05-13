@@ -1,4 +1,5 @@
 #include "doom_nukem.h"
+#include "ui_error.h"
 
 /*
 **	A faire :
@@ -113,16 +114,16 @@ int					main(int argc, char **argv)
 			map.editor.export.path = ft_strdup(argv[1]);
 			if ((fd = open(argv[1], O_RDONLY)) <= 0)
 				return (ret_error("open error"));
-			// if (!(win.map->polys = ft_data_storing(fd, &map, &win)))
-			// {
-			// 	clear_leaks(win.map);
-			// 	SDL_DestroyWindow(win.ptr);
-			// 	SDL_DestroyRenderer(win.rend);
-			// 	SDL_Quit();
-			// }
 			if ((win.map->polys = ft_data_storing(fd, &map, &win)))
 			{
-				if (!init_music_timer(&map, &(win.music))) //deuxieme essai mtn que les fichiers audio ont été créés
+				t_poly *p;
+				p = map.polys;
+				while (p)
+				{
+					printf("p = %p texture = %p name = %s\n", p, p->texture, p->texture_name);
+					p = p->next;
+				}
+				if (!init_music_timer(&map, &(win.music)))
 				{
 					ft_putendl("init_music failed");
 					return (4);
@@ -132,6 +133,9 @@ int					main(int argc, char **argv)
 					return (ret_num_error("Init error", ret));
 				main_menu(&win, &map);
 			}
+			else
+				ui_ret_error("main", "ft_data_storing failed", 1);
+			
 		}
 		// clear_leaks(win.map);
 		ui_free_win(&win.winui);

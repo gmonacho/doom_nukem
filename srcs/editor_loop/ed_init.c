@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:21 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 19:12:41 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 16:03:36 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		init_map_editor_settings(t_map *map)
 	map->editor.settings.flat_z = 0;
 	map->editor.settings.inclined.z1 = 0;
 	map->editor.settings.inclined.z2 = 100;
-	map->editor.settings.texture = ft_strdup("Brique.png");
+	map->editor.settings.texture = ft_strdup("brique.png");
 	map->editor.settings.object.z = 0;
 	map->editor.settings.object.width = 30;
 }

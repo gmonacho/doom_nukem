@@ -8,7 +8,7 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
-set (CMAKE_C_FLAGS "-ffast-math -march=native -flto -O3 -g3 -fsanitize=address")
+set (CMAKE_C_FLAGS "-ffast-math -march=native -flto -O3")
 # -g3 -fsanitize=address
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes ${CMAKE_CURRENT_SOURCE_DIR}/includes/libui ${CMAKE_CURRENT_SOURCE_DIR}/libft/includes ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR})
 
@@ -76,6 +76,7 @@ srcs/editor_loop/ed_write_export.c
 srcs/editor_loop/ed_write_export_cont.c
 srcs/editor_loop/ed_write_item.c
 srcs/event/time.c
+srcs/event/events_game_loop.c 
 srcs/game_loop/events.c
 srcs/game_loop/game_loop.c
 srcs/hud/dead.c
@@ -121,9 +122,7 @@ srcs/physics/fts_maths_fdots_3d.c
 srcs/physics/fts_maths_geometry.c
 srcs/physics/fts_poly.c
 srcs/physics/lights.c
-srcs/physics/poly_reductions.c
 srcs/physics/projection_2d.c
-srcs/physics/raycasting_3d_final.c
 srcs/physics/rotate.c
 srcs/physics/rotate_rotz_only.c
 srcs/physics/rotations_x.c
@@ -133,6 +132,7 @@ srcs/physics/sky_box.c
 srcs/physics/slide.c
 srcs/physics/translate.c
 srcs/physics/translate_rotz_only.c
+srcs/physics/raytracing.c
 srcs/player/init_rays.c
 srcs/player/player.c
 srcs/time/time.c

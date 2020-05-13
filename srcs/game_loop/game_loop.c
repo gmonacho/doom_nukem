@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 22:13:37 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/11 02:18:30 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 11:04:34 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-static int		end_game(t_win *win, t_map *map, t_player *player,\
-							SDL_Event event)
+static int		end_game(t_win *win, t_map *map, t_player *player,
+						SDL_Event *event)
 {
-	if (event.type == SDL_QUIT ||\
-			event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+	int	i;
+
+	if (event->type == SDL_QUIT ||\
+			event->key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 	{
 		init_main_menu(win);
 		return (1);
@@ -105,9 +107,8 @@ static SDL_bool	game(t_win *win, t_map *map, t_player *player)
 
 	events_game_loop(win, map, player, &event);
 	draw(win, map, player);
-	if (end_game(win, map, player, event))
+	if (end_game(win, map, player, &event))
 		return (SDL_FALSE);
-	event.type = SDL_FALSE;
 	SDL_RenderPresent(win->rend);
 	return (SDL_TRUE);
 }

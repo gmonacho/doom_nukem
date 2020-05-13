@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 21:15:30 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/11 02:30:04 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 11:06:08 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ void		use_item(t_map *map, t_player *player,
 		apply_armor(player, 15);
 	}
 	else
-		use_item_cut(map, player, music, slot_selected);
+		use_item_cut(map, player, slot_selected);
 }

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 15:21:58 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 15:22:07 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 16:02:03 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	init_fpoly(t_poly **poly)
 	new_poly->dots_rotz_only[1].x = -10000;
 	new_poly->dots_rotz_only[2].x = -10000;
 	new_poly->dots_rotz_only[3].x = -10000;
-	new_poly->texture_name = ft_strdup("Brique.png");
+	new_poly->texture_name = ft_strdup("brique.png");
+	new_poly->texture = IMG_Load("textures/brique.png");
 	*poly = new_poly;
 }
 

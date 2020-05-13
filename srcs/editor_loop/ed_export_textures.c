@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ed_export_textures.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 10:47:47 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/10 21:02:03 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/05/11 16:03:33 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ed_write_texture(int fd, t_list **lst, char *texname)
 	int				bytes;
 
 	if (!texname)
-		texname = ft_strdup("Brique.png");
+		texname = ft_strdup("brique.png");
 	if (!ft_content_already_inlist(*lst, texname))
 	{
 		*lst = ft_lst_pb(lst, ft_strdup(texname));
