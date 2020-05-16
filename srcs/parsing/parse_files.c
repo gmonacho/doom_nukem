@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:29:01 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/10 08:37:53 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 23:35:59 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int			write_tmp_file(int fd, char *name, size_t bytes, char *dir)
 	fd_tex = open(ft_strjoin(dir, name),
 	O_WRONLY | O_APPEND | O_CREAT | O_TRUNC, 0777);
 	n = read(fd, tmp, bytes);
-	write(fd_tex, tmp, n);
+	if (write(fd_tex, tmp, n) < 0)
+		return (0);
 	return (1);
 }
 

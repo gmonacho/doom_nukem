@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projection_2d.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:43 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 21:57:20 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 23:39:16 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void			set_proj(t_win *win, t_poly *poly)
 		poly->dots_proj[i].y = (win->map->player.fov_up_2 - poly->dots_new[i].z\
 								/ poly->dots_new[i].x) * win->h_div_fov;
 	}
-	//poly->n_proj = poly->n_proj; //Attendre une compilation fructueuse #agiordan
+	//poly->n_proj = poly->n_proj; //Attendre une compilation fructueuse & marche #agiordan
 }
 
 static void			create_dot_on_axe_y(t_poly *poly)

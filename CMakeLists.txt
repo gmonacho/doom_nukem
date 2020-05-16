@@ -80,6 +80,7 @@ srcs/event/time.c
 srcs/event/events_game_loop.c 
 srcs/game_loop/events.c
 srcs/game_loop/game_loop.c
+srcs/game_loop/events_others.c 
 srcs/hud/dead.c
 srcs/hud/hud.c
 srcs/hud/hud_utils.c

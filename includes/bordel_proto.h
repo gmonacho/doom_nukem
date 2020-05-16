@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/16 22:31:23 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 23:27:05 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,6 +295,7 @@ int			set_box_object(t_object *object, t_fdot_3d pos,
 void		copy_poly_lst(t_poly *dst, t_poly *src);
 int			create_poly_save(t_map *map);
 void		poly_del(t_poly *poly);
+int			check_parallelogram(t_poly *poly);
 
 void		graphics_engine(t_win *win, t_map *map);
 int			is_in_poly(t_poly *poly, t_fdot *coord, t_fdot_3d dot);
@@ -322,8 +323,6 @@ void		rotate_all_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
 void		copy_rotate_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
 void		rotate_box(t_player *player, t_object *object);
 void		translate_box(t_object *object);
-
-void		print_poly(t_poly *poly, int arg);
 
 t_matrix	create_matrix(t_fdot_3d axe, float angle);
 t_matrix	create_rx_matrix(float angle);

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 16:05:33 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 16:14:16 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 23:27:58 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int				create_window(t_win *win, const char *title,
 		return (ret_error(SDL_GetError()));
 	win->w = rect.w;
 	win->h = rect.h;
-	printf("w = %d| h = %d\n", win->w, win->h);
 	win->frames = NULL;
 	win->text_entry = NULL;
 	if (!(win->rend = SDL_CreateRenderer(win->ptr, 0,

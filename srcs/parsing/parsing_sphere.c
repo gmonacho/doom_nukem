@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 22:54:45 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 17:34:03 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 23:27:15 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,4 @@ void			new_sphere(t_sphere *sphere, char **tab, int i)
 	sphere->j_rotz_only = (t_fdot_3d){1, 0, 0};
 	sphere->j = (t_fdot_3d){1, 0, 0};
 	fill_sphere(sphere, tab, i);
-	printf("1)sphere->texture = %p\n", sphere->texture);
 }

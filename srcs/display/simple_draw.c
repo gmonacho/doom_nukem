@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 15:41:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/16 23:05:27 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 23:28:56 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	draw_line(t_win *win, t_dot p1, t_dot p2)
 		return ;
 	delta.x /= n_pixels;
 	delta.y /= n_pixels;
-	printf("Delta %f %f\tn pixels %d\n", delta.x, delta.y, n_pixels);
 	i = -1;
 	while (++i < n_pixels)
 	{

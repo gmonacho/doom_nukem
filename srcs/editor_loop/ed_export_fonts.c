@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 06:52:40 by widrye            #+#    #+#             */
-/*   Updated: 2020/05/06 14:20:44 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 23:35:33 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int		ed_write_fonts(int fd, char *name)
 	ft_putendl_fd(ft_itoa(bytes), fd);
 	fd_font = open(ft_strjoin("TTF/", name), O_RDONLY);
 	while ((n = read(fd_font, tmp, sizeof(tmp))))
-		write(fd, tmp, n);
+	{
+		if (write(fd, tmp, n) < 0)
+			return (0);
+	}
 	return (1);
 }
 

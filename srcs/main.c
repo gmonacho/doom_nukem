@@ -32,18 +32,14 @@ static void			init_map(t_map *map)
 
 static int			init(t_win *win, t_map *map, t_player *player)
 {
-	printf("Debut init\n");
 	if (init_win_player(win, player))
 		return (1);
 	init_polygone(map->polys);
-	/*sif (check_parallelogram(map->polys))
-	{
-		ui_ret_error("init", "A poly is not a parallelogramme", 1);
-	}*/
+	if (check_parallelogram(map->polys))
+		return (ui_ret_error("init", "A poly is not a parallelogramme", 1));
 	create_poly_save(map);
 	if (init_threads(win, map, player))
 		return (1);
-	printf("Fin init\n");
 	return (0);
 }
 
@@ -115,13 +111,13 @@ int					main(int argc, char **argv)
 				return (ret_error("open error"));
 			if ((win.map->polys = ft_data_storing(fd, &map, &win)))
 			{
-				t_poly *p;
+				/*t_poly *p;
 				p = map.polys;
 				while (p)
 				{
 					printf("p = %p texture = %p name = %s\n", p, p->texture, p->texture_name);
 					p = p->next;
-				}
+				}*/
 				if (!init_music_timer(&map, &(win.music)))
 				{
 					ft_putendl("init_music failed");

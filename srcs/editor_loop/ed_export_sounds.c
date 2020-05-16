@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ed_export_sounds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: widrye <widrye@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 19:35:55 by widrye            #+#    #+#             */
-/*   Updated: 2020/03/10 07:54:23 by widrye           ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 23:35:25 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int		ed_write_sounds(int fd, char *name)
 	ft_putendl_fd(ft_itoa(bytes), fd);
 	fd_sound = open(ft_strjoin("sounds/", name), O_RDONLY);
 	while ((n = read(fd_sound, tmp, sizeof(tmp))))
-		write(fd, tmp, n);
+	{
+		if (write(fd, tmp, n) < 0)
+			return (0);
+	}
 	return (1);
 }
 

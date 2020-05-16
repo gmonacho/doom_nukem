@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 15:21:58 by gal               #+#    #+#             */
-/*   Updated: 2020/05/11 16:02:03 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 23:26:12 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,5 @@ void	add_existing_poly(t_poly **polys, t_poly *poly)
 	{
 		poly->next = *polys;
 		*polys = poly;
-	}
-}
-
-void	print_polys(t_poly **polys)
-{
-	t_poly	*p;
-
-	if (polys)
-	{
-		p = *polys;
-		while (p)
-		{
-			printf("poly = %p\n", p);
-			p = p->next;
-		}
 	}
 }
