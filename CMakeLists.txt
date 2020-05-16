@@ -20,6 +20,7 @@ srcs/init_player_maths.c
 srcs/init_polygone.c
 srcs/main_free.c
 srcs/main.c
+srcs/main_free_entities.c
 srcs/animation/animation.c
 srcs/data/poly.c
 srcs/data/delete_poly.c

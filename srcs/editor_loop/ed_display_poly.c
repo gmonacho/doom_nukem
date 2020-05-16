@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:29 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:20:29 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 22:44:38 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		ed_display_wall(t_win *win, const t_map *map, t_poly *poly)
 	line = ed_get_display_line(map,
 			(t_dot){poly->dots[0].x, poly->dots[0].y},
 			(t_dot){poly->dots[1].x, poly->dots[1].y});
-	ui_draw_line(win->rend, &line);
+	draw_line(win, line.p1, line.p2);
 }
 
 void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly)
@@ -29,20 +29,20 @@ void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly)
 
 	line = ed_get_display_line(map, (t_dot){poly->dots[0].x, poly->dots[0].y},
 									(t_dot){poly->dots[1].x, poly->dots[1].y});
-	ui_draw_line(win->rend, &line);
+	draw_line(win, line.p1, line.p2);
 	line = ed_get_display_line(map, (t_dot){poly->dots[1].x, poly->dots[1].y},
 									(t_dot){poly->dots[2].x, poly->dots[2].y});
-	ui_draw_line(win->rend, &line);
+	draw_line(win, line.p1, line.p2);
 	line = ed_get_display_line(map, (t_dot){poly->dots[2].x, poly->dots[2].y},
 									(t_dot){poly->dots[3].x, poly->dots[3].y});
-	ui_draw_line(win->rend, &line);
+	draw_line(win, line.p1, line.p2);
 	line = ed_get_display_line(map, (t_dot){poly->dots[3].x, poly->dots[3].y},
 									(t_dot){poly->dots[0].x, poly->dots[0].y});
-	ui_draw_line(win->rend, &line);
+	draw_line(win, line.p1, line.p2);
 	line = ed_get_display_line(map, (t_dot){poly->dots[0].x, poly->dots[0].y},
 									(t_dot){poly->dots[2].x, poly->dots[2].y});
-	ui_draw_line(win->rend, &line);
+	draw_line(win, line.p1, line.p2);
 	line = ed_get_display_line(map, (t_dot){poly->dots[1].x, poly->dots[1].y},
 									(t_dot){poly->dots[3].x, poly->dots[3].y});
-	ui_draw_line(win->rend, &line);
+	draw_line(win, line.p1, line.p2);
 }

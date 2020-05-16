@@ -6,11 +6,11 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:21:15 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/10 22:20:24 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 22:59:58 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-double		ft_abs(double n)
+float		ft_abs(float n)
 {
 	return ((n < 0.0) ? -n : n);
 }

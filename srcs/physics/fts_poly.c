@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fts_poly.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:23:48 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 21:26:41 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 23:01:57 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,13 @@ int			create_poly_save(t_map *map)
 	poly->next = NULL;
 	return (0);
 }
+/*
+void		check_parallelogram(t_poly *poly)
+{
+	while (poly)
+	{
+		if (poly->)
+		poly = poly->next;
+	}
+}
+*/

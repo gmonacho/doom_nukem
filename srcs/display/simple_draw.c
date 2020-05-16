@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 15:41:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 15:48:10 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 23:05:27 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,25 @@ void	draw_line(t_win *win, t_dot p1, t_dot p2)
 	int		i;
 	int		n_pixels;
 	t_fdot	delta;
-	t_fdot	absdelta;
-	t_fdot	pixel;
+	t_dot	absdelta;
+	t_dot	pixel;
 
 	delta.x = p2.x - p1.x;
 	delta.y = p2.y - p1.y;
-	absdelta = (t_fdot){ft_abs(delta.x), ft_abs(delta.y)};
+	absdelta = (t_dot){ft_intabs(delta.x), ft_intabs(delta.y)};
 	n_pixels = absdelta.x > absdelta.y ? absdelta.x : absdelta.y;
+	if (is_null(n_pixels, 0.0005))
+		return ;
 	delta.x /= n_pixels;
 	delta.y /= n_pixels;
+	printf("Delta %f %f\tn pixels %d\n", delta.x, delta.y, n_pixels);
 	i = -1;
 	while (++i < n_pixels)
 	{
-		pixel = (t_fdot){	.x = p1.x + delta.x * i,\
-							.y = p1.y + delta.y * i};
-		if (0 <= pixel.y && pixel.y < win->h
-		&& 0 <= pixel.x && pixel.x < win->w)
+		pixel = (t_dot){	.x = (int)(p1.x + delta.x * i),\
+							.y = (int)(p1.y + delta.y * i)};
+		if (0 <= pixel.y && pixel.y < win->h &&\
+			0 <= pixel.x && pixel.x < win->w)
 			SDL_RenderDrawPoint(win->rend, pixel.x, pixel.y);
 	}
 }

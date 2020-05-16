@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bordel_proto.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/11 02:32:36 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 22:31:23 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,5 +391,10 @@ t_fdot_3d	proj_ortho_origin_line(t_fdot_3d l1, t_fdot_3d l2, t_fdot_3d *proj);
 int			is_in_segment(t_fdot_3d is, t_fdot_3d d1, t_fdot_3d d2);
 int			is_in_poly_rotz_only(t_poly *poly, t_fdot_3d dot);
 t_fdot_3d	intersection_axe_y(t_fdot_3d d1, t_fdot_3d d2);
+
+void		main_free_rays(t_cartesienne **rays);
+void		main_free_inventory(t_inventory *inventory);
+void		main_free_player(t_player *player);
+void		main_free_polys(t_poly **polys);
 
 #endif

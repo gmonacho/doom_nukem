@@ -3,56 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 16:47:53 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/11 01:37:25 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 22:27:34 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8 *state)
+static void		events_reload(t_win *win,
+								t_map *map,
+								t_player *player,
+								const Uint8 *state)
 {
-	char        *tmp;
-    SDL_Texture *text;
+	char		*tmp;
+	SDL_Texture	*text;
 
-	if (map->event->type == SDL_MOUSEWHEEL && test_timer_refresh(&(player->timers.item_cd)) == 1)
-	{
-		if (map->event->wheel.y > 0 && player->inventory->selected_slot != 4)
-			player->inventory->selected_slot += 1;
-		if (map->event->wheel.y < 0 && player->inventory->selected_slot != 0)
-			player->inventory->selected_slot -= 1;
-		Mix_PlayChannel(1, map->music->tmusic[4], 0);
-	}
 	if (state[SDL_SCANCODE_R])
-	{	
+	{
 		if (player->inventory->magazine <= 0)
 		{
 			tmp = ft_strdup("NO AMMO LEFT");
-    		text = generate_text(win->rend, win->texhud->police, tmp, (SDL_Color){200, 0, 2, 40});
+			text = generate_text(win->rend, win->texhud->police,
+									tmp, (SDL_Color){200, 0, 2, 40});
 			free(tmp);
-    		SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(win->w * 0.05), (win->h * 0.8125), (win->w * 0.25), (win->h * 0.0625)});
+			SDL_RenderCopy(win->rend, text, NULL,
+							&(SDL_Rect){(win->w * 0.05), (win->h * 0.8125),
+										(win->w * 0.25), (win->h * 0.0625)});
 		}
 		else if (player->inventory->weapon == 1 && player->inventory->ammo < 30)
-		{	
+		{
 			player->inventory->weapon = 2;
 			player->timers.reload_cd.index = 0;
-            Mix_PlayChannel(3, map->music->tmusic[1], 0);
+			Mix_PlayChannel(3, map->music->tmusic[1], 0);
 			reload_ammo(player);
 		}
 	}
+}
+
+static void		events_shoot(t_win *win,
+								t_map *map,
+								t_player *player,
+								const Uint8 *state)
+{
+	char		*tmp;
+	SDL_Texture	*text;
+
 	if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT))
-	{	
+	{
 		if (player->inventory->ammo == 0)
 		{
 			tmp = ft_strdup("EMPTY AMMO PRESS 'R' ");
-			text = generate_text(win->rend, win->texhud->police, tmp, (SDL_Color){200, 0, 2, 40});
+			text = generate_text(win->rend, win->texhud->police,
+									tmp, (SDL_Color){200, 0, 2, 40});
 			free(tmp);
-			SDL_RenderCopy(win->rend, text, NULL, &(SDL_Rect){(win->w * 0.33), (win->h * 0.8125), (win->w * 0.28), (win->h * 0.0625)});
+			SDL_RenderCopy(win->rend, text, NULL,
+							&(SDL_Rect){(win->w * 0.33), (win->h * 0.8125),
+							(win->w * 0.28), (win->h * 0.0625)});
 		}
-		if (test_timer_refresh(&(player->timers.bullet_cd)) == 1 && player->inventory->ammo > 0 && player->inventory->weapon == 1)
-		{	
+		if (test_timer_refresh(&(player->timers.bullet_cd)) == 1
+		&& player->inventory->ammo > 0 && player->inventory->weapon == 1)
+		{
 			player->timers.bullet_cd.index = 0;
 			Mix_PlayChannel(2, map->music->tmusic[0], 0);
 			player->inventory->ammo -= 1;
@@ -60,6 +72,27 @@ static void		events_weapon(t_win *win, t_map *map, t_player *player, const Uint8
 			hit_mobs(map->mob, 10);
 		}
 	}
+}
+
+static void		events_weapon(t_win *win,
+								t_map *map,
+								t_player *player,
+								const Uint8 *state)
+{
+	char		*tmp;
+	SDL_Texture	*text;
+
+	if (map->event->type == SDL_MOUSEWHEEL
+	&& test_timer_refresh(&(player->timers.item_cd)) == 1)
+	{
+		if (map->event->wheel.y > 0 && player->inventory->selected_slot != 4)
+			player->inventory->selected_slot += 1;
+		if (map->event->wheel.y < 0 && player->inventory->selected_slot != 0)
+			player->inventory->selected_slot -= 1;
+		Mix_PlayChannel(1, map->music->tmusic[4], 0);
+	}
+	events_reload(win, map, player, state);
+	///
 }
 
 t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state)
