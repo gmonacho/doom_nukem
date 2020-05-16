@@ -1,7 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/17 00:06:08 by gal               #+#    #+#             */
+/*   Updated: 2020/05/17 00:33:00 by gal              ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 
-static void		init_player_hud(t_player *player)
+static void		set_hud_to_null(t_win *win)
 {
+	int			i;
+
+	i = 0;
+	while (i < 16)
+		win->texhud->tex[i++] = NULL;
+	i = 0;
+	while (i < 6)
+		win->texhud->tex_weapon[i++] = NULL;
+	i = 0;
+	while (i < 5)
+		win->texhud->tex_reload[i++] = NULL;
+	win->texhud->police = NULL;
+}
+
+
+static void		init_player_hud(t_win *win, t_player *player)
+{
+	set_hud_to_null(win);
 	player->inventory = define_inventory();
 	player->max_hp = 100;
 	player->current_hp = player->max_hp;
@@ -32,11 +62,11 @@ int				init_win_player(t_win *win, t_player *player)
 	start_cooldown(&(player->interaction_inventaire_time), 250);
 	start_cooldown(&(player->fly_timer), 250);
 	init_player_maths(win, player);
-	init_player_hud(player);
+	init_player_hud(win, player);
 	return (0);
 }
 
-int				init_music_timer(t_map *map, t_doom_music *music)
+int				init_music_timer(t_doom_music *music)
 {
 	if (music)
 	{
@@ -47,6 +77,5 @@ int				init_music_timer(t_map *map, t_doom_music *music)
 		if (!(music->menu_music = Mix_LoadMUS("sounds/doomMenu.wav")))
 			return (ret_error(SDL_GetError()));
 	}
-	map = NULL;
 	return (1);
 }

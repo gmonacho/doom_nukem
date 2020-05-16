@@ -18,6 +18,7 @@ void		init_player_maths(t_win *win, t_player *player)
 		(t_fdot_3d){-player->pos.x, -player->pos.y, -player->pos.z});
 	rotate_all_rotz_only(win->map, win->map->polys,
 						create_rz_matrix(-player->dir_init));
+	win->map->gravity = win->map->player.const_vel / 2;
 	player->rot_y = 0;
 	player->ddir = 0.05;
 	player->fov = win->w * M_PI_2 / 1000;

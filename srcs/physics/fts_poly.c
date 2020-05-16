@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:23:48 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/16 23:43:11 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 00:02:42 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,31 @@ int			create_poly_save(t_map *map)
 	return (0);
 }
 
-int		check_parallelogram(t_poly *poly)
+int			check_parallelogram(t_poly *poly)
 {
+	int		i;
+
+	i = 0;
 	while (poly)
 	{
-		if (!is_null(mag(fdot_3d_sub(poly->dots[1], poly->dots[0])) -\
-					mag(fdot_3d_sub(poly->dots[3], poly->dots[2])), 0.005))
+		if (!is_null(mag(fdot_3d_sub(poly->dots[0], poly->dots[1])) -\
+					mag(fdot_3d_sub(poly->dots[2], poly->dots[3])), 5))
 		{
-			printf("Poly is not par : %f %f %f\t%f %f %f\t%f %f %f\t%f %f %f\n", poly->dots[0].x, poly->dots[0].y, poly->dots[0].z, poly->dots[1].x, poly->dots[1].y, poly->dots[1].z, poly->dots[2].x, poly->dots[2].y, poly->dots[2].z, poly->dots[3].x, poly->dots[3].y, poly->dots[3].z);	
+			ft_putstr("Polygone n°");
+			ft_putnbr(i);
+			ft_putendl(" is not a parallelogram");
+			return (1);
+		}
+		if (!is_null(mag(fdot_3d_sub(poly->dots[1], poly->dots[2])) -\
+					mag(fdot_3d_sub(poly->dots[3], poly->dots[0])), 5))
+		{
+			ft_putstr("Polygone n°");
+			ft_putnbr(i);
+			ft_putendl(" is not a parallelogram");
 			return (1);
 		}
 		poly = poly->next;
+		i++;
 	}
 	return (0);
 }

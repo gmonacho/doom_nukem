@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/16 23:27:05 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 00:31:39 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void		main_free(t_win *win, t_map *map);
 
-int			init_music_timer(t_map *map, t_doom_music *music);
+int			init_music_timer(t_doom_music *music);
 int			init_textures(t_win *win, t_textures *textures);
 int			init_win_player(t_win *win, t_player *player);
 int			init_threads(t_win *win, t_map *map, t_player *player);
