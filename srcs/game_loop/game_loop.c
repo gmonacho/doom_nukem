@@ -76,7 +76,7 @@ void			move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 	t_fdot_3d	move_slide;
 	t_poly		*poly_collide;
 	int			i;
-
+ 
 	copy_poly_lst(map->polys_save, map->polys);
 	translate_all_poly_rotz_only(map->polys, move);
 	if (!player->collision_on)
