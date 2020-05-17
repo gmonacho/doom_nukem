@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/17 00:31:39 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 21:52:24 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ SDL_bool	is_in_rect(SDL_Rect rect, t_dot p);
 SDL_bool	intersect_line_rect(t_line line, SDL_Rect rect);
 SDL_bool	is_next_point(t_dot dot, t_dot other, int distance);
 
-int			main_menu(t_win *win, t_map *map);
+int			main_menu(t_win *win, t_map *map, char *arg);
 void		print_credit(t_win *win);
 void		end();
 void		main_menu_quit(t_win *win, Uint32 ms);

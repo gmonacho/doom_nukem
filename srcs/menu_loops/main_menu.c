@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 17:03:33 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 17:49:06 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 21:51:54 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,12 @@ static void		main_menu_ui(t_win *win)
 	ui_update_ui(win->winui);
 }
 
-int				main_menu(t_win *win, t_map *map)
+int				main_menu(t_win *win, t_map *map, char *arg)
 {
 	int			next_loop;
 	int			f_set;
 
+	map->editor.export.path = ft_strdup(arg);
 	next_loop = 1;
 	f_set = 0;
 	if (!init_main_menu(win))

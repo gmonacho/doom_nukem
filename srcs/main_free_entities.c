@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 16:06:45 by gal               #+#    #+#             */
-/*   Updated: 2020/05/16 22:31:50 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 20:27:40 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,21 @@ void		main_free_inventory(t_inventory *inventory)
 {
 	int i;
 
-	i = -1;
-	while (++i < 5)
+	if (!inventory || !inventory->item)
+		return ;
+	i = 0;
+	while (i < 5)
+	{
 		if (inventory->item[i])
 			free(inventory->item[i]);
+		i++;
+	}
 }
 
 void		main_free_player(t_player *player)
 {
+	if (!player)
+		return ;
 	if (player->inventory)
 	{
 		main_free_inventory(player->inventory);

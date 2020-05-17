@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:34:34 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/06 14:15:46 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 20:47:44 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,21 +93,24 @@ static int		ui_load_text(t_winui *win, char **text)
 	i = 0;
 	while (text[i])
 	{
-		if (ft_strcmp(text[i], "frame") != 0)
-			return (ui_load_error("ui_load", "frame expected", 0, i + 1));
-		i += 2;
-		if (!parse_frame(win, &text[i], &i))
-			return (ui_load_error("ui_load", "parse_frame failed", 0, i + 1));
-		if (text[i])
+		if (ft_strcmp(text[i], "frame") == 0)
 		{
-			if (ft_strcmp(text[i], "}") != 0)
+			i += 2;
+			if (!parse_frame(win, &text[i], &i))
+				return (ui_load_error("ui_load", "parse_frame failed", 0, i + 1));
+			if (text[i])
 			{
-				return (ui_load_error("ui_load",
-						"frame is not correctly closed (!!only '}' expected!!)",
-						0, i + 1));
+				if (ft_strcmp(text[i], "}") != 0)
+				{
+					return (ui_load_error("ui_load",
+							"frame is not correctly closed (!!only '}' expected!!)",
+							0, i + 1));
+				}
+				i++;
 			}
-			i++;
 		}
+		else
+			i++;
 	}
 	return (1);
 }

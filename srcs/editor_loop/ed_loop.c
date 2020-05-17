@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:30 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 19:07:34 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 21:55:04 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int				editor_loop(t_win *win, t_map *map)
 {
 	SDL_bool			loop;
 
+	if (!map->editor.export.path)
+		map->editor.export.path = ft_strdup("./maps/new_map");
 	if (!init_editor_menu(win, map))
 		return (ui_ret_error("editor_loop", "init_editor_menu failed", 0));
 	ed_init_map_editor(win, map);

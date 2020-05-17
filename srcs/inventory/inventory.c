@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 16:58:32 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 16:58:33 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 20:26:08 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int			define_pos_slot(t_inventory *inventory, t_win *win)
 
 	i = 0;
 	slotposx = 240;
-	while (i <= 4)
+	while (i < 5)
 	{
 		inventory->item[i] = (t_item *)ft_memalloc(sizeof(t_item));
 		i++;
 	}
 	i = 0;
-	while (i <= 4)
+	while (i < 5)
 	{
 		inventory->item[i]->pos = &(SDL_Rect){(slotposx),
 			(win->h * 0.8875), (win->w * 0.075), (win->h * 0.09375)};
