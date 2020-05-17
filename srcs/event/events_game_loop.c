@@ -6,16 +6,14 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 11:07:01 by gal               #+#    #+#             */
-/*   Updated: 2020/05/16 21:55:14 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:32:57 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-void	events_game_loop(t_win *win,
-							t_map *map,
-							t_player *player,
-							SDL_Event *event)
+void	events_game_loop(t_win *win, t_map *map, t_player *player,\
+						SDL_Event *event)
 {
 	const Uint8	*state;
 
@@ -27,9 +25,9 @@ void	events_game_loop(t_win *win,
 	state = SDL_GetKeyboardState(NULL);
 	events_rotate(win, map, player, state);
 	events_others(win, player, state);
-	move_and_collide(map, player, events_move(map, player, state));
-	move_and_collide(map, player, (t_fdot_3d){0, 0,\
-			map->gravity + player->jump});
+	move_and_collide(win, map, player, events_move(map, player, state));
+	move_and_collide(win, map, player, (t_fdot_3d){0, 0,\
+												map->gravity + player->jump});
 	if (player->jump < 0)
 		player->jump++;
 	mobs_attack_move(map, player, map->mob);

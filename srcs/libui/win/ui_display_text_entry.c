@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:36:55 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/06 14:18:12 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:51:13 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,13 @@ static void		ui_draw_text_side(t_winui *win,
 {
 	t_rect				r;
 	char				pre_cursor_text[ft_strlen(text) + 1];
-	int					cursor_x;
 	t_dot				text_size;
 
 	ft_bzero(pre_cursor_text, ft_strlen(text) + 1);
 	ft_strncpy(pre_cursor_text, text, win->ui.cursor_position);
 	TTF_SizeText(win->ui.button_font, pre_cursor_text,
 					&text_size.x, &text_size.y);
-	r = ui_get_text_side_rect(win, text_entry, rect);
-	cursor_x = (r.h * text_size.x) / text_size.y;
+	r = ui_get_text_side_rect(text_entry, rect);
 	ui_draw_text_line(win->rend,
 						&(t_text_line_kit){text,
 						win->ui.button_text_color,
@@ -78,7 +76,7 @@ static void		ui_draw_name_side(t_winui *win,
 		if ((text_texture = ui_new_text(win->rend, win->ui.button_font,
 			text_entry_button->name, &win->ui.button_text_color)))
 		{
-			r = ui_get_name_side_rect(win, text_entry_button, rect);
+			r = ui_get_name_side_rect(text_entry_button, rect);
 			if (text_entry_button->textures.name_side_texture)
 				SDL_RenderCopy(win->rend,
 				text_entry_button->textures.name_side_texture,
@@ -128,7 +126,7 @@ void			ui_display_text_entry(t_winui *win,
 
 	if (text_entry_button->textures.current_box_texture)
 	{
-		text_side_rect = ui_get_text_side_rect(win, text_entry_button, rect);
+		text_side_rect = ui_get_text_side_rect(text_entry_button, rect);
 		SDL_RenderCopy(win->rend,
 						text_entry_button->textures.current_box_texture,
 						NULL, (SDL_Rect*)&text_side_rect);

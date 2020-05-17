@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:23:08 by widrye            #+#    #+#             */
-/*   Updated: 2020/05/10 12:51:06 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:43:46 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,9 @@ char		**ft_fill_map(int fd)
 char		**fillntesttab(int fd)
 {
 	char		**tab;
-	int			i;
 	static char	tmp[13];
 
 	tmp[12] = '\0';
-	i = 0;
 	if ((read(fd, tmp, 12)) > 0)
 	{
 		if (!(ft_strcmp(tmp, "#GAMEREADY#\n")))

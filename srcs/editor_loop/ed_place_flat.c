@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:58 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:21:59 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:37:12 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,8 @@ static t_poly	*ed_init_flat(t_map *map, t_dot p1)
 
 int				ed_place_flat(t_win *win, t_map *map)
 {
-	t_poly	*poly;
 	t_dot	p1;
 
-	poly = NULL;
 	p1 = ed_get_map_point(map, win->winui->mouse.pos);
 	if (map->editor.flags & ED_DRAW_HELP)
 		p1 = ed_is_next_to_poly(map, p1, NEXT_RADIUS);

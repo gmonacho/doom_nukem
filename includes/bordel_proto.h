@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/17 21:52:24 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:34:33 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,7 @@ void		ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos);
 int			game_loop(t_win *win, t_map *map);
 
 void		add_existing_object(t_object **objects, t_object *new_object);
-void		objects_actions(t_map *map, t_player *player, t_object *object);
+void		objects_actions(t_win *win, t_map *map, t_player *player, t_object *object);
 void		objects_movements(t_map *map, t_player *player, t_object *object);
 int			interact_door(t_map *map, t_object *door);
 int			set_door_object(t_object *object, t_fdot_3d pos,
@@ -350,7 +350,7 @@ t_fdot_3d	segment_slide(t_fdot_3d dots[N_DOTS_POLY],
 							t_plan plan, int segment_code);
 int			collision_dots(t_fdot_3d dots[N_DOTS_POLY], float ray);
 int			is_collision_box(t_object *object, t_cartesienne *ray);
-void		move_and_collide(t_map *map, t_player *player, t_fdot_3d move);
+void		move_and_collide(t_win *win, t_map *map, t_player *player, t_fdot_3d move);
 
 void		*draw_ray(void *param);
 int			sky_box(t_sphere *sky_box, t_cartesienne *ray);

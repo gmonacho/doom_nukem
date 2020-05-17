@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 16:47:53 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/16 23:10:12 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:42:17 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ static void		events_reload(t_win *win,
 
 static void		events_shoot(t_win *win,
 								t_map *map,
-								t_player *player,
-								const Uint8 *state)
+								t_player *player)
 {
 	char		*tmp;
 	SDL_Texture	*text;
@@ -79,9 +78,6 @@ static void		events_weapon(t_win *win,
 								t_player *player,
 								const Uint8 *state)
 {
-	char		*tmp;
-	SDL_Texture	*text;
-
 	if (map->event->type == SDL_MOUSEWHEEL
 	&& test_timer_refresh(&(player->timers.item_cd)) == 1)
 	{
@@ -92,7 +88,7 @@ static void		events_weapon(t_win *win,
 		Mix_PlayChannel(1, map->music->tmusic[4], 0);
 	}
 	events_reload(win, map, player, state);
-	events_shoot(win, map, player, state);
+	events_shoot(win, map, player);
 }
 
 t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state)

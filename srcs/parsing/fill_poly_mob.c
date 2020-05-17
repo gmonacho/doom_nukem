@@ -6,13 +6,13 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 17:57:38 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 18:06:30 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:44:09 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-const void	assign_variables(char **tmp, t_poly *poly, t_mob *mob)
+void	assign_variables(char **tmp, t_poly *poly, t_mob *mob)
 {
 	char	*tmp_free;
 

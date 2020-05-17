@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ui_win.h                                         .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: gmonacho <gmonacho@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/21 18:21:05 by gmonacho     #+#   ##    ##    #+#       */
-/*   Updated: 2020/05/03 14:11:59 by gmonacho    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ui_win.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/21 18:21:05 by gmonacho          #+#    #+#             */
+/*   Updated: 2020/05/17 23:49:37 by gal              ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef UI_WIN_H
 # define UI_WIN_H
@@ -77,10 +77,10 @@ void					ui_update_buttons(t_winui *win);
 void					ui_display_simple(t_winui *win,
 								t_simple_button *simple_button,
 								const t_rect *rect);
-t_rect					ui_get_name_side_rect(t_winui *win,
+t_rect					ui_get_name_side_rect(
 						t_text_entry_button *text_entry_button,
 						const t_rect *rect);
-t_rect					ui_get_text_side_rect(t_winui *win,
+t_rect					ui_get_text_side_rect(
 						t_text_entry_button *text_entry_button,
 						const t_rect *rect);
 void					ui_display_text_entry(t_winui *win,

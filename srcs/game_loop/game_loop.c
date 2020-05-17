@@ -6,13 +6,14 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 22:13:37 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/11 11:04:34 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:42:25 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-static int		end_game(t_win *win, t_map *map, t_player *player,
+static int		end_game(t_win *win, t_map *map,
+						t_player *player,
 						SDL_Event *event)
 {
 	int	i;
@@ -28,11 +29,7 @@ static int		end_game(t_win *win, t_map *map, t_player *player,
 		i = dead_menu(win, player);
 		if (i == 2)
 		{
-			ui_free_win(&win->winui);
 			main_free(win, map);
-			SDL_DestroyWindow(win->ptr);
-			SDL_DestroyRenderer(win->rend);
-			SDL_Quit();
 			exit(0);
 		}
 		else
@@ -71,12 +68,12 @@ static int		tests_before_slide(t_map *map, t_poly *poly_collide,\
 	return (0);
 }
 
-void			move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
+void			move_and_collide(t_win *win, t_map *map, t_player *player, t_fdot_3d move)
 {
 	t_fdot_3d	move_slide;
 	t_poly		*poly_collide;
 	int			i;
- 
+
 	copy_poly_lst(map->polys_save, map->polys);
 	translate_all_poly_rotz_only(map->polys, move);
 	if (!player->collision_on)
@@ -85,7 +82,7 @@ void			move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 	while ((poly_collide = collisions_sphere(map, player, map->polys, 1)))
 	{
 		if (poly_collide->object && poly_collide->object->type != BOX)
-			objects_actions(map, player, poly_collide->object);
+			objects_actions(win, map, player, poly_collide->object);
 		if (i++ == 4 ||\
 				tests_before_slide(map, poly_collide, move))
 			break ;
@@ -103,7 +100,6 @@ void			move_and_collide(t_map *map, t_player *player, t_fdot_3d move)
 static SDL_bool	game(t_win *win, t_map *map, t_player *player)
 {
 	SDL_Event	event;
-	int			i;
 
 	events_game_loop(win, map, player, &event);
 	draw(win, map, player);

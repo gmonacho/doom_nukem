@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 00:02:45 by widrye            #+#    #+#             */
-/*   Updated: 2020/05/06 14:22:05 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:36:51 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ static t_object		*ed_init_door(t_dot p)
 static int			ed_place_door(t_win *win, t_map *map)
 {
 	static t_dot	p1 = (t_dot){0, 0};
-	t_object		*door;
 	t_dot			p;
 
-	door = NULL;
 	p = ed_get_map_point(map, win->winui->mouse.pos);
 	if (map->editor.flags & ED_DRAW_HELP)
 		p = ed_is_next_to_poly(map, p, NEXT_RADIUS);

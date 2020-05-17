@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 16:34:07 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 16:34:08 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:42:37 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ void		dead_menu_ui(t_win *win)
 
 void		define_line_shot(t_win *win, t_player *player)
 {
-	int i;
-
-	i = 1;
 	player->bullet_drop = NULL;
 	player->len_bullet = 0;
 	player->l[1] = is_point(win->w * 0.68, win->h * 0.65,

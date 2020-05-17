@@ -6,25 +6,12 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:42:47 by gal               #+#    #+#             */
-/*   Updated: 2020/05/17 22:18:14 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 22:46:43 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 #include "ui_error.h"
-
-/*
-**	A faire :
-**
-**	Elements de decors
-**	Tenter de casser le parsing
-**	Clean code/fichier inutiles
-**	Gerer les leaks
-**	Norme all
-**
-*/
-
-//Enlever les wildcards
 
 static void			init_map(t_map *map)
 {
@@ -37,23 +24,8 @@ static void			init_map(t_map *map)
 	map->player.inventory = NULL;
 	map->player.rays = NULL;
 	map->editor.settings.texture = NULL;
+	map->editor.export.path = NULL;
 }
-
-// static void		set_hud_to_null(t_win *win)
-// {
-// 	int			i;
-
-// 	i = 0;
-// 	while (i < 16)
-// 		win->texhud->tex[i++] = NULL;
-// 	i = 0;
-// 	while (i < 6)
-// 		win->texhud->tex_weapon[i++] = NULL;
-// 	i = 0;
-// 	while (i < 5)
-// 		win->texhud->tex_reload[i++] = NULL;
-// 	win->texhud->police = NULL;
-// }
 
 static int			pre_init(t_win *win, t_map *map)
 {

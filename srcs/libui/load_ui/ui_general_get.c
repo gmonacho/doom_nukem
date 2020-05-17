@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:34:18 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/06 14:15:27 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:44:59 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,7 @@ int			get_float(char *str, double *fnb_ptr)
 int			get_ratio(const char *line, t_frect *ratio_ptr)
 {
 	char	*ratio_str;
-	void	*ptr;
 
-	ptr = ratio_ptr;
 	if (!(ratio_str = ft_strstr(line, " : ")))
 		return (ui_ret_error("get_ratio", "\" : \" not found", 0));
 	ratio_str += 3;

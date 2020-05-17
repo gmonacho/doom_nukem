@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:04:39 by aducimet          #+#    #+#             */
-/*   Updated: 2020/05/17 21:42:54 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:43:33 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_poly	*ft_data_storing(int fd, t_map *map, t_win *win)
 	win->texhud = define_texhud(win);
 	while (tab[++i])
 	{
-		if (!ft_data_storing2(&poly, map, tab, i) == -1)
+		if (ft_data_storing2(&poly, map, tab, i) == -1)
 			return (ui_ret_null_error("ft_data_storing", "2 failed", NULL));
 	}
 	ft_2dstrdel(&tab);

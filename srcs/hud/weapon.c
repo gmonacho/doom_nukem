@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 16:34:16 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 16:34:16 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:42:50 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,8 @@ void		add_bullet(t_player *player)
 
 void		print_weapon(t_win *win, t_player *player, t_texhud *texhud)
 {
-	int		slotposx;
 	int		i;
 
-	slotposx = 500;
 	i = -1;
 	if (player->inventory->weapon == 1 && !(player->inventory->magazine == 0
 		&& player->inventory->ammo == 0))

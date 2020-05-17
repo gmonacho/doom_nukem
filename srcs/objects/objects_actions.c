@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects_actions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 21:59:27 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/04 21:11:38 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:33:59 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ static void		rotate_all_objects(t_player *player, t_object *object)
 	}
 }
 
-void			objects_actions(t_map *map, t_player *player, t_object *object)
+void			objects_actions(t_win *win, t_map *map, t_player *player,\
+								t_object *object)
 {
 	if (object->type == HEAL)
 		player->inventory->item[0]->nb++;
@@ -103,7 +104,10 @@ void			objects_actions(t_map *map, t_player *player, t_object *object)
 		start_cooldown(&(map->gravity_inv_time), 10000);
 	}
 	if (object->type == END)
-		end();
+	{
+		main_free(win, map);
+		exit(0);
+	}
 	object->collide = 0;
 	object->visible = 0;
 }

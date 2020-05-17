@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:15:56 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:15:58 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:45:17 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ static int	parse_buttons_loop(t_winui *win,
 
 int			parse_buttons(t_winui *win, char **text, int *i)
 {
-	int			index;
 	t_frame		*frame;
 
-	index = 0;
 	frame = win->ui.frames;
 	if (!parse_buttons_loop(win, text, i, frame))
 		return (ui_ret_error("parse_buttons", "parse_buttons_loop failed", 0));

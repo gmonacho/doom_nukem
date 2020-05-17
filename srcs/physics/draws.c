@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draws.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:56:29 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/11 00:19:49 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 23:44:40 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int			select_color(t_thread *thread, t_cartesienne *ray)
 	else
 		return (thread->win->map->sky_box.texture ?\
 								sky_box(&(thread->win->map->sky_box), ray) :\
-								0xFF505050);
+								(int)0xFF505050);
 }
 
 void				*draw_ray(void *param)
