@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:42:47 by gal               #+#    #+#             */
-/*   Updated: 2020/05/17 22:46:43 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/18 12:15:14 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ static void			init_map(t_map *map)
 	map->polys = NULL;
 	map->polys_save = NULL;
 	map->mob = NULL;
+	map->player.pos.x = 30;
+	map->player.pos.y = 30;
+	map->player.pos.z = 30;
 	map->player.width = 30;
 	map->player.height = 30;
 	map->player.inventory = NULL;

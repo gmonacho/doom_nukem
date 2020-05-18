@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 22:13:37 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/18 12:05:03 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/18 12:58:41 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ static int		end_game(t_win *win, t_map *map,
 
 	if (event->type == SDL_QUIT ||\
 			event->key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-	{
-		init_main_menu(win);
 		return (1);
-	}
 	if (player->current_hp <= 0)
 	{
 		i = dead_menu(win, player);
@@ -33,10 +30,7 @@ static int		end_game(t_win *win, t_map *map,
 			exit(0);
 		}
 		else
-		{
-			init_main_menu(win);
 			return (1);
-		}
 	}
 	return (0);
 }
@@ -106,7 +100,10 @@ static SDL_bool	game(t_win *win, t_map *map, t_player *player)
 	events_game_loop(win, map, player, &event);
 	draw(win, map, player);
 	if (end_game(win, map, player, &event) || state[SDL_SCANCODE_ESCAPE])
+	{
+		init_main_menu(win);
 		return (SDL_FALSE);
+	}
 	SDL_RenderPresent(win->rend);
 	return (SDL_TRUE);
 }

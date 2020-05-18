@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:03 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:21:04 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/18 12:51:55 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ void		ed_export(void *ed_export)
 
 	export = (t_export*)ed_export;
 	map = (t_map*)export->map;
-	if (!export->fd)
-		export->fd = open(export->path, O_WRONLY | O_CREAT | O_TRUNC,
-		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	export->fd = open(export->path, O_WRONLY | O_CREAT | O_TRUNC,
+	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (export->fd)
 	{
 		ft_putendl_fd("\n###########", export->fd);
