@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 22:13:37 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/17 23:42:25 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/18 12:05:03 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,12 @@ void			move_and_collide(t_win *win, t_map *map, t_player *player, t_fdot_3d move
 static SDL_bool	game(t_win *win, t_map *map, t_player *player)
 {
 	SDL_Event	event;
+	const Uint8 *state;
 
+	state = SDL_GetKeyboardState(NULL);
 	events_game_loop(win, map, player, &event);
 	draw(win, map, player);
-	if (end_game(win, map, player, &event))
+	if (end_game(win, map, player, &event) || state[SDL_SCANCODE_ESCAPE])
 		return (SDL_FALSE);
 	SDL_RenderPresent(win->rend);
 	return (SDL_TRUE);

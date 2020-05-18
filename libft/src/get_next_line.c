@@ -6,77 +6,100 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 21:57:26 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/17 00:14:08 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/18 11:27:00 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
 #include <stdio.h>
 
-int		ft_check_index(const char *tab, int c)
+static char		*ft_first_return(const char *str)
 {
-	int index;
+	char	*next_nl;
+	char	*new_str;
 
-	index = 0;
-	if (tab == NULL)
-		return (-1);
-	while (tab[index])
+	next_nl = ft_strchr(str, '\n');
+	new_str = ft_strnew(next_nl - str + 1);
+	ft_strncpy(new_str, str, next_nl - str);
+	new_str[next_nl - str] = '\0';
+	return (new_str);
+}
+
+static t_list	*ft_listlink(t_list *list, const int fd)
+{
+	if (list)
 	{
-		if (tab[index] == c)
-			return (index);
-		index++;
+		while (list)
+		{
+			if (list->content_size == (size_t)fd)
+				return (list);
+			list = list->next;
+		}
 	}
-	return (-1);
+	return (NULL);
 }
 
-int		ft_check_error(const int fd, int buff_size, char *buf)
+static t_list	*ft_set_tmp_value(t_list *list, int fd)
 {
-	if (fd < 0 || buff_size <= 0 || fd >= 10240)
-		return (-1);
-	if (read(fd, buf, 0))
-		return (-1);
-	return (0);
-}
+	t_list *tmp;
 
-char	*fill_tab(char *buf, char **tab, const int fd, int nbchar)
-{
-	char *tmp;
-
-	buf[nbchar] = '\0';
-	if (tab[fd] == NULL)
-		tab[fd] = ft_strdup(buf);
+	if (ft_listlink(list, fd))
+	{
+		tmp = ft_listlink(list, fd);
+		if (!tmp->content)
+			tmp->content = ft_strnew(0);
+	}
 	else
 	{
-		tmp = tab[fd];
-		tab[fd] = ft_strjoin(tab[fd], buf);
-		free(tmp);
+		ft_lstaddend(&list, ft_lstnew("\0", fd));
+		tmp = ft_listlink(list, fd);
 	}
-	return (tab[fd]);
+	return (tmp);
 }
 
-int		get_next_line(const int fd, char **line)
+static void		ft_set_line_tmp_value(char **line, t_list **tmp)
 {
-	char		buf[BUFF_SIZE + 1];
-	int			nb_char;
-	static char	*tab[10240];
-	int			start;
-	char		*tmp;
+	char	*tmptofree;
 
-	if ((ft_check_error(fd, BUFF_SIZE, buf)) == -1 || line == NULL)
-		return (-1);
-	while (ft_check_index(tab[fd], '\n') == -1 &&
-	(nb_char = read(fd, buf, BUFF_SIZE)) > 0)
-		fill_tab(buf, tab, fd, nb_char);
-	if (!nb_char && !tab[fd])
-		return (0);
-	start = (ft_check_index(tab[fd], '\n') == -1) ?
-	(int)ft_strlen(tab[fd]) : ft_check_index(tab[fd], '\n');
-	*line = ft_strsub(tab[fd], 0, start);
-	if (tab[fd] != NULL)
+	if (ft_strchr((*tmp)->content, '\n'))
 	{
-		tmp = tab[fd];
-		tab[fd] = ft_strsub(tab[fd], start + 1, ft_strlen(tab[fd]) - start);
-		free(tmp);
+		*line = ft_first_return((*tmp)->content);
+		tmptofree = (*tmp)->content;
+		(*tmp)->content = ft_strdup(tmptofree + ft_index(tmptofree, '\n') + 1);
+		ft_strdel(&tmptofree);
 	}
-	return (1);
+	else
+	{
+		*line = ft_strdup((*tmp)->content);
+		(*tmp)->content = NULL;
+	}
+}
+
+int				get_next_line(const int fd, char **line)
+{
+	int				nbchar;
+	char			buf[BUFF_SIZE + 1];
+	static t_list	*list = NULL;
+	t_list			*tmp;
+	char			*tmptofree;
+
+	if (read(fd, buf, 0) < 0)
+		return (-1);
+	list = (!list) ? (t_list*)ft_memalloc(sizeof(t_list)) : list;
+	tmp = ft_set_tmp_value(list, fd);
+	while (!ft_strchr(tmp->content, '\n')
+			&& (nbchar = read(tmp->content_size, buf, BUFF_SIZE)) > 0)
+	{
+		buf[nbchar] = '\0';
+		tmptofree = tmp->content;
+		tmp->content = ft_strjoin(tmptofree, buf);
+		ft_strdel(&tmptofree);
+	}
+	if (((char*)tmp->content)[0] != '\0')
+	{
+		ft_set_line_tmp_value(line, &tmp);
+		return (1);
+	}
+	else
+		return (0);
 }
