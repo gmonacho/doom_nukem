@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collisions_sphere.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:22 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 23:17:25 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/18 13:18:28 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int				collision_poly(t_map *map, t_player *player, t_poly *poly)
 {
 	t_fdot_3d	proj_ortho;
 
+	proj_ortho = (t_fdot_3d){0, 0, 0};
 	proj_ortho_plan((t_fdot_3d){0, 0, 0}, poly->equation_rotz_only,\
 					&proj_ortho);
 	if (mag(proj_ortho) > player->width_2)
