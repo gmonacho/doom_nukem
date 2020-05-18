@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:46 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:35:30 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/18 16:13:11 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,9 @@ void		ed_write_sphere(int fd, const t_sphere *skybox)
 		tmp = ft_itoa(skybox->pos_rotz_only.z);
 		ed_write_line(fd, "\tposz", tmp);
 		ft_strdel(&tmp);
-		if (!skybox->radius)
-			ed_write_line(fd, "\tradius", "10000");
-		else
-		{
-			tmp = ft_itoa(skybox->radius);
-			ed_write_line(fd, "\tradius", tmp);
-			ft_strdel(&tmp);
-		}
+		tmp = ft_itoa(skybox->radius);
+		ed_write_line(fd, "\tradius", tmp);
+		ft_strdel(&tmp);
 		ed_write_line(fd, "\ttexture", "desert.jpg");
 		ft_putendl_fd("}", fd);
 	}
