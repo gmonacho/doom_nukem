@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:33:57 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 18:38:13 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/18 13:55:31 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int		add_poly_object_norm2(t_object *object, char *type_str)
 		object->type = GRAVITY_INV;
 	else if (!ft_strcmp(type_str, "LIGHT"))
 		object->type = LIGHT;
-	if (!ft_strcmp(type_str, "HEAL"))
+	else if (!ft_strcmp(type_str, "HEAL"))
 		object->type = HEAL;
+	else if (!ft_strcmp(type_str, "END"))
+		object->type = END;
 	return (0);
 }
