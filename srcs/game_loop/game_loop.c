@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 22:13:37 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/19 13:14:20 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 19:44:57 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void			move_and_collide(t_win *win, t_map *map,
 	map->last_move = fdot_3d_add(map->last_move, move_slide);
 	translate_all_objects_rotz_only(map->objects, move_slide);
 	map->sky_box.pos_rotz_only = fdot_3d_add(map->sky_box.pos_rotz_only,\
-			move_slide);
+																		move_slide);
 }
 
 static SDL_bool	game(t_win *win, t_map *map, t_player *player)

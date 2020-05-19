@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 11:07:01 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 12:06:02 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 20:02:55 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	events_game_loop(t_win *win, t_map *map, t_player *player,\
 	SDL_GetRelativeMouseState(&(win->winui->mouse.pos.x),\
 			&(win->winui->mouse.pos.y));
 	state = SDL_GetKeyboardState(NULL);
+
 	events_rotate(win, map, player, state);
 	events_others(win, player, state);
 	move_and_collide(win, map, player, events_move(map, player, state));
