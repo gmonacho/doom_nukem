@@ -6,14 +6,14 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:04:39 by aducimet          #+#    #+#             */
-/*   Updated: 2020/05/19 14:45:58 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 17:56:34 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-int		ft_fill_data(char **tab, t_poly **poly, int i)
+int		ft_fill_data(t_map *map, char **tab, t_poly **poly, int i)
 {
 	int index;
 
@@ -34,7 +34,7 @@ int		ft_fill_data(char **tab, t_poly **poly, int i)
 			index++;
 		}
 		if (ft_strstr(tab[i], "texture = "))
-			if (find_texture(tab[i], *poly) == -1)
+			if (find_texture(map, tab[i], *poly) == -1)
 				return (ui_ret_error("ft_fill_data", "texture not found", -1));
 		if (ft_strstr(tab[i], "light = "))
 			(*poly)->light_coef = ft_atoi(ft_strrchr(tab[i], '=') + 1) / 100.0;
@@ -42,7 +42,7 @@ int		ft_fill_data(char **tab, t_poly **poly, int i)
 	return (0);
 }
 
-int		fill_poly_object(t_poly *poly, t_object *object)
+int		fill_poly_object(t_map *map, t_poly *poly, t_object *object)
 {
 	char	*tmp;
 	t_poly	*poly_object;
@@ -57,7 +57,7 @@ int		fill_poly_object(t_poly *poly, t_object *object)
 		poly->light_coef = object->light_coef;
 		while (poly_object)
 		{
-			if (fill_poly_object_norm(tmp, poly_object) == -1)
+			if (fill_poly_object_norm(map, tmp, poly_object) == -1)
 				return (-1);
 			poly->next = poly_object;
 			poly = poly->next;

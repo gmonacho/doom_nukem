@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 18:06:48 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/19 15:53:46 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 18:29:56 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			rotate_all_rotz_only(t_map *map, t_poly *poly, t_matrix matrix, int n)
 {
 	int i;
 
-	printf("rotz n = %d\n", n);
+	// printf("rotz n = %d\n", n);
 	i = 0;
 	while (i < n)
 	{

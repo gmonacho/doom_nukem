@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:05:10 by aducimet          #+#    #+#             */
-/*   Updated: 2020/05/10 12:59:46 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 17:22:16 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int			ft_data_storing2(t_poly **poly, t_map *map, char **tab, int i)
 {
 	if (ft_strstr(tab[i], "Polygon"))
-		ft_fill_data(tab, poly, i);
+		ft_fill_data(map, tab, poly, i);
 	else if (ft_strstr(tab[i], "Object"))
 	{
 		if (object_data(tab, &(map->objects), i))

@@ -2,40 +2,49 @@
 ###########
 Player
 {
-	posx = 30
-	posy = 30
+	posx = 0
+	posy = 0
 	posz = 0
-	dir = 800
-	width = 30
-	height = 30
-	velocity = 0
+	dir = 0
+	width = 60
+	height = 60
+	velocity = 1
 }
 Sphere
 {
-	posx = 800
+	posx = 0
 	posy = 0
 	posz = 0
-	radius = -2147483648
+	radius = 100000
 	texture = desert.jpg
 }
 Object
 {
-	type = LIGHT
-	posx = 98
-	posy = 165
+	type = HEAL
+	posx = -6
+	posy = 539
 	posz = 0
 	width = 30
 	height = 30
 	dir = 0
 	light = 50
+	texture = healthPotion.png
+}
+Polygon
+{
+	dot = x:-252 y:-252 z:-200
+	dot = x:412 y:-95 z:-200
+	dot = x:234 y:655 z:-200
+	dot = x:-429 y:499 z:-200
+	light = 100
 	texture = brique.png
 }
 Polygon
 {
-	dot = x:-65 y:-38 z:0
-	dot = x:292 y:-38 z:0
-	dot = x:292 y:352 z:0
-	dot = x:-65 y:352 z:0
+	dot = x:-252 y:-252 z:-200
+	dot = x:412 y:-95 z:-200
+	dot = x:495 y:-454 z:-200
+	dot = x:-167 y:-610 z:-200
 	light = 100
 	texture = brique.png
 }

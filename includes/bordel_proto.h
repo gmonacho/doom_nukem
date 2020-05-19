@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/19 12:38:27 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 18:21:05 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,17 +145,24 @@ int			ft_parse_error(char **tab);
 t_poly		*ft_data_storing(int fd, t_map *map, t_win *win);
 char		**fillntesttab(int fd);
 int			fill_poly(t_poly *poly, t_map *map);
-int			fill_poly_object(t_poly *poly, t_object *object);
-int			fill_poly_mob(t_poly *poly, t_mob *mob);
-int			fill_poly_object_norm(char *tmp, t_poly	*poly_object);
+int			fill_poly_object(t_map *map, t_poly *poly, t_object *object);
+int			fill_poly_mob(t_map *map, t_poly *poly, t_mob *mob);
+int			fill_poly_object_norm(t_map *map, char *tmp, t_poly	*poly_object);
 int			add_poly_object_norm2(t_object *object, char *type_str);
 int			ft_data_storing2(t_poly **poly, t_map *map, char **tab, int i);
 char		*object_data_fill(char **tab, t_object **object, int i);
 void		fill_mob_data_norm(t_mob **mob, char *tab);
-int			ft_fill_data(char **tab, t_poly **poly, int i);
+int			ft_fill_data(t_map *map, char **tab, t_poly **poly, int i);
 
-int			fill_poly_mob(t_poly *poly, t_mob *mob);
-int			find_texture(char *tab, t_poly *poly);
+int			find_texture(t_map *map, char *tab, t_poly *poly);
+t_l_texture	*new_stock_texture(const char *id);
+void		add_stock_texture(t_l_texture **textures,
+								t_l_texture *t);
+int			is_in_stock(t_l_texture *textures,
+						t_l_texture *texture);
+int			is_id_in_stock(t_l_texture *textures,
+						char *id);
+SDL_Surface	*get_surface_from_stock(t_l_texture *textures, const char *id);
 void		player_data(char **tab, t_player *player, int i);
 void		new_sphere(t_sphere *sphere, char **tab, int i);
 

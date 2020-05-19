@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 09:36:16 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 15:01:27 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 17:26:16 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,14 @@ typedef enum				e_view
 	BOX_VIEW = 0b0100,
 	LIGHT_VIEW = 0b1000
 }							t_view;
+
+typedef struct 				s_l_texture
+{
+	SDL_Surface				*surface;
+	char					*id;
+	struct s_l_texture		*next;
+}							t_l_texture;
+
 
 typedef struct				s_win
 {
@@ -648,6 +656,7 @@ typedef struct				s_map
 	t_music					*music;
 	t_editor				editor;
 	t_save					save;
+	t_l_texture				*texture_stock;
 }							t_map;
 
 #endif

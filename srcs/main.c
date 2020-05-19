@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:42:47 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 15:53:09 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 17:21:37 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static int			pre_init(t_win *win, t_map *map)
 	win->h = HEIGHT;
 	win->map = map;
 	map->save.if_pars = 0;
+	map->texture_stock = NULL;
 	init_map(map);
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == -1 ||\
 		TTF_Init() == -1 ||\

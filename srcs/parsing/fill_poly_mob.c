@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 17:57:38 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 09:23:37 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 18:20:43 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		assign_variables(char **tmp, t_poly *poly, t_mob *mob)
 	ft_strdel(&tmp_free);
 }
 
-int			fill_poly_mob(t_poly *poly, t_mob *mob)
+int			fill_poly_mob(t_map *map, t_poly *poly, t_mob *mob)
 {
 	char	*tmp;
 
@@ -35,17 +35,9 @@ int			fill_poly_mob(t_poly *poly, t_mob *mob)
 	while (mob)
 	{
 		assign_variables(&tmp, poly, mob);
-		if (!(poly->texture = IMG_Load(tmp)))
-		{
-			ft_strdel(&tmp);
-			return (-1);
-		}
-		if (!(poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
-						SDL_PIXELFORMAT_ARGB8888, 0)))
-		{
-			ft_strdel(&tmp);
-			return (-1);
-		}
+		if (!is_id_in_stock(map->texture_stock, tmp))
+			add_stock_texture(&map->texture_stock, new_stock_texture(tmp));
+		poly->texture = get_surface_from_stock(map->texture_stock, tmp);
 		mob = mob->next;
 		ft_strdel(&tmp);
 	}

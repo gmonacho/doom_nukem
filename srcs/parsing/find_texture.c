@@ -6,14 +6,14 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 17:37:19 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 09:23:30 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 17:40:48 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-void		free_find(char **s1, char **s2)
+static void	free_find(char **s1, char **s2)
 {
 	if (s1)
 		ft_strdel(s1);
@@ -21,7 +21,7 @@ void		free_find(char **s1, char **s2)
 		ft_strdel(s2);
 }
 
-int			find_texture(char *tab, t_poly *poly)
+int			find_texture(t_map *map, char *tab, t_poly *poly)
 {
 	char	*tmp;
 	char	*name;
@@ -35,17 +35,9 @@ int			find_texture(char *tab, t_poly *poly)
 	tmp_free = tmp;
 	tmp = ft_strjoin(tmp, name);
 	free_find(&tmp_free, &name);
-	if (!(poly->texture = IMG_Load(tmp)))
-	{
-		ft_strdel(&name);
-		return (ui_ret_error("find_texture", SDL_GetError(), -1));
-	}
-	if (!(poly->texture = SDL_ConvertSurfaceFormat(poly->texture,
-					SDL_PIXELFORMAT_ARGB8888, 0)))
-	{
-		ft_strdel(&name);
-		return (ui_ret_error("find_texture", SDL_GetError(), -1));
-	}
+	if (!is_id_in_stock(map->texture_stock, tmp))
+		add_stock_texture(&map->texture_stock, new_stock_texture(tmp));
+	poly->texture = get_surface_from_stock(map->texture_stock, tmp);
 	ft_strdel(&tmp);
 	return (0);
 }

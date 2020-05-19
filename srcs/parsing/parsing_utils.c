@@ -6,26 +6,18 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:23:08 by widrye            #+#    #+#             */
-/*   Updated: 2020/05/17 23:43:46 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 18:23:30 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-int			fill_poly_object_norm(char *tmp, t_poly *poly_object)
+int			fill_poly_object_norm(t_map *map, char *tmp, t_poly *poly_object)
 {
-	if (!(poly_object->texture = IMG_Load(tmp)))
-	{
-		ui_ret_error("fill_poly_object", SDL_GetError(), 0);
-		return (-1);
-	}
-	if (!(poly_object->texture = SDL_ConvertSurfaceFormat(
-		poly_object->texture, SDL_PIXELFORMAT_ARGB8888, 0)))
-	{
-		ui_ret_error("fill_poly_object", SDL_GetError(), 0);
-		return (-1);
-	}
+	if (!is_id_in_stock(map->texture_stock, tmp))
+		add_stock_texture(&map->texture_stock, new_stock_texture(tmp));
+	poly_object->texture = get_surface_from_stock(map->texture_stock, tmp);
 	return (0);
 }
 
@@ -97,8 +89,8 @@ char		**fillntesttab(int fd)
 
 int			fill_poly(t_poly *poly, t_map *map)
 {
-	if (fill_poly_mob(poly, map->mob) == -1 ||
-	fill_poly_object(poly, map->objects) == -1)
+	if (fill_poly_mob(map, poly, map->mob) == -1 ||
+	fill_poly_object(map, poly, map->objects) == -1)
 		return (-1);
 	ft_putendl("Fin parsing\n");
 	return (0);
