@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/18 00:03:21 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 12:09:44 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ int			ed_event(t_win *win, t_map *map)
 			|| map->editor.selected_mob
 			|| map->editor.selected_obj))
 		ed_delete_event(win, map);
-	if (state[SDL_SCANCODE_ESCAPE])
-		return (0);
 	ed_next_events(win, map, state);
 	ed_action(win, map);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:30 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 12:05:43 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 12:13:11 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ int				editor_loop(t_win *win, t_map *map)
 	while (loop)
 	{
 		editor_menu_disp(win, map);
-		if (win->winui->event.type == SDL_QUIT || !ed_event(win, map))
+		if (win->winui->event.type == SDL_QUIT ||
+				win->winui->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 			loop = 0;
+		ed_event(win, map);
 	}
 	editor_menu_quit(win, map, 500);
 	if (map->editor.export.path)
