@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 22:48:53 by gal               #+#    #+#             */
-/*   Updated: 2020/05/17 22:48:53 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 09:38:57 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		init_player_maths(t_win *win, t_player *player)
 	player->fov_2 = player->fov / 2;
 	player->fov_up_2 = player->fov_up / 2;
 	player->width_2 = player->width / 2;
-	player->_4_height_10 = 2 * (float)player->height / 5;
+	player->f_height_10 = 2 * (float)player->height / 5;
 	player->sneak = 0;
 	player->collision_on = 1;
 	player->fly = 0;

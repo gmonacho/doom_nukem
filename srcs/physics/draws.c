@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:56:29 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/17 23:44:40 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 09:38:57 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void				draw(t_win *win, t_map *map, t_player *player)
 	if (player->sneak)
 	{
 		translate_all_poly_rotz_only(map->polys,\
-				(t_fdot_3d){0, 0, map->player._4_height_10});
+				(t_fdot_3d){0, 0, map->player.f_height_10});
 		copy_rotate_rotz_only(map, map->polys,\
 				create_ry_matrix(-player->rot_y));
 		translate_all_poly_rotz_only(map->polys,\
-				(t_fdot_3d){0, 0, -map->player._4_height_10});
+				(t_fdot_3d){0, 0, -map->player.f_height_10});
 	}
 	else
 		copy_rotate_rotz_only(map, map->polys,\

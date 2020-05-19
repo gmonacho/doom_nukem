@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bordel_struct.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/19 09:36:16 by gal               #+#    #+#             */
+/*   Updated: 2020/05/19 10:12:01 by gal              ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BORDEL_STRUCT_H
 # define BORDEL_STRUCT_H
 
@@ -121,9 +133,7 @@ typedef enum				e_editor_calc
 	ED_CALC_Z = 2
 }							t_editor_calc;
 
-# define ED_ALL_TYPES (ED_WALL | ED_FLAT | ED_INCLINED | ED_PLAYER | ED_MOB\
-| ED_HEAL | ED_SHIELD | ED_GRAVITY | ED_BULLET | ED_BOX | ED_DOOR | ED_END\
-| ED_LIGHT)
+# define ED_ALL_TYPES 262136
 
 typedef struct				s_kit_flags
 {
@@ -263,36 +273,26 @@ typedef enum				e_view
 typedef struct				s_win
 {
 	struct s_map			*map;
-	SDL_Window*				ptr;
+	struct s_thread			*threads;
+	SDL_Window				*ptr;
 	SDL_Renderer			*rend;
 	Uint32					*pixels;
 	SDL_Texture				*rend_texture;
 	t_timer					view_change_time;
-
-	struct s_thread			*threads;
 	int						w;
 	int						h;
 	float					w_div_fov;
 	float					h_div_fov;
-
 	t_ed_texture			ed_texture;
 	SDL_Texture				*text_entry_texture;
-
 	char					*text_entry;
-
 	t_frame					*frames;
 	t_frame					*selected_frame;
-
 	t_button				*selected_button;
-
 	t_font					font;
 	t_texhud				*texhud;
-
 	t_doom_music			music;
 	t_main_menu				*main_menu;
-
-	char					**error_msg;
-	int						nb_error_msg;
 	t_winui					*winui;
 }							t_win;
 
@@ -430,7 +430,7 @@ typedef struct				s_player
 	int						width;
 	float					width_2;
 	int						height;
-	float					_4_height_10;
+	float					f_height_10;
 
 	int						sneak;
 	int						collision_on;

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:22 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/18 13:18:28 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 09:38:57 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_poly			*collisions_sphere(t_map *map, t_player *player,\
 									t_poly *poly, int ban_interest)
 {
 	translate_all_rotz_only(map, map->polys,\
-							(t_fdot_3d){0, 0, map->player._4_height_10});
+							(t_fdot_3d){0, 0, map->player.f_height_10});
 	while (poly)
 	{
 		if (((poly->object && poly->object->collide) ||\
@@ -112,12 +112,12 @@ t_poly			*collisions_sphere(t_map *map, t_player *player,\
 			collision_poly(map, player, poly))
 		{
 			translate_all_rotz_only(map, map->polys,\
-								(t_fdot_3d){0, 0, -map->player._4_height_10});
+								(t_fdot_3d){0, 0, -map->player.f_height_10});
 			return (poly);
 		}
 		poly = poly->next;
 	}
 	translate_all_rotz_only(map, map->polys,\
-								(t_fdot_3d){0, 0, -map->player._4_height_10});
+								(t_fdot_3d){0, 0, -map->player.f_height_10});
 	return (NULL);
 }

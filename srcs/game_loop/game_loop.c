@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 22:13:37 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/19 09:23:56 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 09:38:57 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ static int		tests_before_slide(t_map *map, t_poly *poly_collide,\
 	t_fdot_3d	poly_collide_vector;
 
 	translate_all_poly_rotz_only(map->polys,\
-							(t_fdot_3d){0, 0, map->player._4_height_10});
+							(t_fdot_3d){0, 0, map->player.f_height_10});
 	if (collision_dots(poly_collide->dots_rotz_only, map->player.width_2))
 	{
 		translate_all_poly_rotz_only(map->polys,\
-							(t_fdot_3d){0, 0, -map->player._4_height_10});
+							(t_fdot_3d){0, 0, -map->player.f_height_10});
 		return (1);
 	}
 	translate_all_poly_rotz_only(map->polys,\
-							(t_fdot_3d){0, 0, -map->player._4_height_10});
+							(t_fdot_3d){0, 0, -map->player.f_height_10});
 	poly_collide_vector = poly_collide->equation_rotz_only.v;
 	if (poly_collide->segment_code)
 	{
