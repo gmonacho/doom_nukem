@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/19 09:29:40 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 12:38:27 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,7 +321,7 @@ void		translate_all_poly_rotz_only(t_poly *poly, t_fdot_3d translation);
 void		translate_all_objects_rotz_only(t_object *object,
 											t_fdot_3d translation);
 t_fdot_3d	rotate_dot(t_fdot_3d dot, t_matrix matrix);
-void		rotate_all_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
+void		rotate_all_rotz_only(t_map *map, t_poly *poly, t_matrix matrix, int n);
 void		copy_rotate_rotz_only(t_map *map, t_poly *poly, t_matrix matrix);
 void		rotate_box(t_player *player, t_object *object);
 void		translate_box(t_object *object);
