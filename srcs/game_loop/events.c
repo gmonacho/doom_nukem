@@ -103,8 +103,12 @@ t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state)
 		move = fdot_3d_add(move,\
 						(t_fdot_3d){-player->const_vel * player->sprint, 0, 0});
 	if (state[SDL_SCANCODE_S])
+	{
 		move = fdot_3d_add(move,\
 						(t_fdot_3d){player->const_vel * player->sprint, 0, 0});
+
+		printf("const = %f, %f\n", player->const_vel, player->sprint);
+	}
 	if (state[SDL_SCANCODE_D])
 		move = fdot_3d_add(move,\
 						(t_fdot_3d){0, -player->const_vel * player->sprint, 0});
