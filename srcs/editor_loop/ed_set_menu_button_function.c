@@ -6,19 +6,11 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 08:45:29 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 09:20:51 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
-
-static void		set_editor_calc(void *argument)
-{
-	t_arg_menu	*arg;
-
-	arg = (t_arg_menu*)argument;
-	*(arg->loop) = arg->value;
-}
 
 static void		set_menu_button_function_first(t_win *win, t_map *map)
 {
@@ -94,6 +86,10 @@ static void		set_menu_button_function_third(t_win *win, t_map *map)
 								"b_light",
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[15]);
+}
+
+static void		set_menu_button_function_fourth(t_win *win, t_map *map)
+{
 	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,
@@ -113,6 +109,7 @@ void			ed_set_menu_button_function(t_win *win, t_map *map)
 	set_menu_button_function_first(win, map);
 	set_menu_button_function_second(win, map);
 	set_menu_button_function_third(win, map);
+	set_menu_button_function_fourth(win, map);
 	ui_set_text_entry_function(win->winui, "b_z_min",
 								&set_int_value, &map->editor.z_min);
 	ui_set_text_entry_function(win->winui, "b_z_max",

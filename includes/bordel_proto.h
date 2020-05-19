@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/17 23:34:33 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 09:18:22 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void		ed_set_buttons_player(t_win *win, t_player *selected);
 void		set_int_value(void *argument, char *button_output);
 void		set_float_value(void *argument, char *button_output);
 void		set_coef_value(void *argument, char *button_output);
+void		set_editor_calc(void *argument);
 void		set_wall_z1(void *argument, char *button_output);
 void		set_wall_z2(void *argument, char *button_output);
 void		set_flat_z(void *argument, char *button_output);

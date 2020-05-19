@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:39 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:22:39 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 09:17:54 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,12 @@ void		set_str_value(void *argument, char *button_output)
 	if (*((char**)argument))
 		ft_strdel((char**)argument);
 	*((char**)argument) = ft_strdup(button_output);
+}
+
+void		set_editor_calc(void *argument)
+{
+	t_arg_menu	*arg;
+
+	arg = (t_arg_menu*)argument;
+	*(arg->loop) = arg->value;
 }

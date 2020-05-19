@@ -6,14 +6,14 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 17:37:19 by gal               #+#    #+#             */
-/*   Updated: 2020/05/17 23:44:19 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 09:23:30 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-void	free_find(char **s1, char **s2)
+void		free_find(char **s1, char **s2)
 {
 	if (s1)
 		ft_strdel(s1);

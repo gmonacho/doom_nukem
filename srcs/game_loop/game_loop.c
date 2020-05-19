@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 22:13:37 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/18 12:58:41 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 09:23:56 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static int		tests_before_slide(t_map *map, t_poly *poly_collide,\
 	return (0);
 }
 
-void			move_and_collide(t_win *win, t_map *map, t_player *player, t_fdot_3d move)
+void			move_and_collide(t_win *win, t_map *map,
+									t_player *player, t_fdot_3d move)
 {
 	t_fdot_3d	move_slide;
 	t_poly		*poly_collide;
