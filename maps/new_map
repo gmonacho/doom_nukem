@@ -5,24 +5,24 @@ Player
 	posx = 30
 	posy = 30
 	posz = 0
-	dir = -3
+	dir = 800
 	width = 30
 	height = 30
-	velocity = 2
+	velocity = 0
 }
 Sphere
 {
-	posx = 41
-	posy = 130
-	posz = -2147483648
+	posx = 800
+	posy = 0
+	posz = 0
 	radius = -2147483648
 	texture = desert.jpg
 }
 Object
 {
-	type = END
-	posx = 128
-	posy = -146
+	type = LIGHT
+	posx = 98
+	posy = 165
 	posz = 0
 	width = 30
 	height = 30
@@ -32,10 +32,10 @@ Object
 }
 Polygon
 {
-	dot = x:328 y:3 z:0
-	dot = x:-101 y:132 z:0
-	dot = x:-215 y:-247 z:0
-	dot = x:213 y:-375 z:0
+	dot = x:-65 y:-38 z:0
+	dot = x:292 y:-38 z:0
+	dot = x:292 y:352 z:0
+	dot = x:-65 y:352 z:0
 	light = 100
 	texture = brique.png
 }

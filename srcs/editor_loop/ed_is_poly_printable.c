@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:27 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:32:00 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 08:57:28 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static SDL_bool		ed_is_object_poly(const t_map *map, const t_poly *poly)
 	obj = map->objects;
 	while (obj)
 	{
-		if (obj->type == BOX || obj->type == LIGHT || obj->type == DOOR)
+		if (obj->type == BOX || obj->type == DOOR)
 		{
 			i = 0;
 			p = obj->poly;

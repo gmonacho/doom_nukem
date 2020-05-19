@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:21 by gal               #+#    #+#             */
-/*   Updated: 2020/05/11 16:03:36 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 08:48:17 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void		init_map_editor_arg_tab_bis(t_map *map)
 											ED_DOOR};
 	map->editor.arg_menu_tab[14] = (t_arg_menu){(int*)&map->editor.flags,
 											ED_END};
+	map->editor.arg_menu_tab[15] = (t_arg_menu){(int*)&map->editor.flags,
+											ED_LIGHT};
 }
 
 static void		init_map_editor_arg_tab(t_map *map)

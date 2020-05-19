@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:09 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:21:10 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 08:56:55 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ SDL_Color		ed_get_type_color(int type)
 		return ((SDL_Color){150, 120, 120, 255});
 	else if (type == END)
 		return ((SDL_Color){255, 100, 255, 255});
+	else if (type == LIGHT)
+		return ((SDL_Color){255, 255, 200, 255});
 	return ((SDL_Color){255, 215, 0, 255});
 }
 

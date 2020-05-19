@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:44:36 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 08:45:29 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ static void		set_menu_button_function_third(t_win *win, t_map *map)
 								"b_end",
 								&set_editor_flags,
 								&map->editor.arg_menu_tab[14]);
+	ui_set_simple_button_function(win->winui,
+								"b_light",
+								&set_editor_flags,
+								&map->editor.arg_menu_tab[15]);
 	ui_set_simple_button_function(win->winui,
 								"b_export",
 								&ed_export,

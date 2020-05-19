@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:11 by gal               #+#    #+#             */
-/*   Updated: 2020/05/07 14:14:16 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 08:48:52 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ static void	ed_set_item_flag_next(t_map *map, t_object *obj)
 	else if (map->editor.flags & ED_END)
 	{
 		obj->type = END;
+		obj->texture = ft_strdup(map->editor.settings.texture);
+	}
+	else if (map->editor.flags & ED_LIGHT)
+	{
+		obj->type = LIGHT;
 		obj->texture = ft_strdup(map->editor.settings.texture);
 	}
 }

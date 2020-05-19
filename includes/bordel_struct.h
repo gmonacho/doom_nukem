@@ -110,7 +110,8 @@ typedef enum				e_editor
 	ED_GRAVITY = 8192,
 	ED_BULLET = 16384,
 	ED_DOOR = 32768,
-	ED_END = 65536
+	ED_END = 65536,
+	ED_LIGHT = 131072
 }							t_editor_flag;
 
 typedef enum				e_editor_calc
@@ -121,7 +122,8 @@ typedef enum				e_editor_calc
 }							t_editor_calc;
 
 # define ED_ALL_TYPES (ED_WALL | ED_FLAT | ED_INCLINED | ED_PLAYER | ED_MOB\
-| ED_HEAL | ED_SHIELD | ED_GRAVITY | ED_BULLET | ED_BOX | ED_DOOR | ED_END)
+| ED_HEAL | ED_SHIELD | ED_GRAVITY | ED_BULLET | ED_BOX | ED_DOOR | ED_END\
+| ED_LIGHT)
 
 typedef struct				s_kit_flags
 {
@@ -622,7 +624,7 @@ typedef struct				s_editor
 	int						max_pos_z;
 	t_editor_flag			flags;
 	t_editor_calc			calc;
-	t_arg_menu				arg_menu_tab[15];
+	t_arg_menu				arg_menu_tab[16];
 	SDL_Cursor				*cursor[2];
 	t_export				export;
 }							t_editor;

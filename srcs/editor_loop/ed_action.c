@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:19:58 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:19:59 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 08:47:17 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ed_action(t_win *win, t_map *map)
 				map->editor.flags & ED_GRAVITY ||
 				map->editor.flags & ED_BULLET ||
 				map->editor.flags & ED_BOX ||
+				map->editor.flags & ED_LIGHT ||
 				map->editor.flags & ED_END) && !win->winui->ui.on_mouse_button)
 		ed_place_item(win, map);
 	else if (map->editor.flags & ED_PLACE && !win->winui->ui.on_mouse_button)
