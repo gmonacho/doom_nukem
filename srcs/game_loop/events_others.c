@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:10:18 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 12:44:28 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 13:28:54 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 void			events_rotate(t_win *win, t_map *map,\
 								t_player *player, const Uint8 *state)
 {
-	if (map->event->motion.xrel || map->event->motion.yrel)
+	if (map->event->motion.xrel && ft_abs(map->event->motion.xrel) < 1000)
 	{
 		if (win->winui->mouse.pos.x > 0)
 			rotate_all_rotz_only(map, map->polys, player->rz, ft_abs(map->event->motion.xrel));
 		if (win->winui->mouse.pos.x < 0)
 			rotate_all_rotz_only(map, map->polys, player->rz_inv, ft_abs(map->event->motion.xrel));
-		if (win->winui->mouse.pos.y > 0)
-			player->rot_y -= player->ddir * ft_abs(map->event->motion.yrel);
-		if (win->winui->mouse.pos.y < 0)
-			player->rot_y += player->ddir * ft_abs(map->event->motion.yrel);
+	}
+	if (map->event->motion.yrel && ft_abs(map->event->motion.yrel) < 1000)
+	{
+		player->rot_y -= player->ddir * map->event->motion.yrel;
+		map->event->motion.yrel = 0;
 	}
 	if (state[SDL_SCANCODE_RIGHT])
 		rotate_all_rotz_only(map, map->polys, player->rz, 1);
