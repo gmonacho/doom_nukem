@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:10:18 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 13:28:54 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 18:43:17 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void			events_rotate(t_win *win, t_map *map,\
 	if (map->event->motion.xrel && ft_abs(map->event->motion.xrel) < 1000)
 	{
 		if (win->winui->mouse.pos.x > 0)
-			rotate_all_rotz_only(map, map->polys, player->rz, ft_abs(map->event->motion.xrel));
+			rotate_all_rotz_only(map, map->polys, player->rz, 1);
 		if (win->winui->mouse.pos.x < 0)
-			rotate_all_rotz_only(map, map->polys, player->rz_inv, ft_abs(map->event->motion.xrel));
+			rotate_all_rotz_only(map, map->polys, player->rz_inv, 1);
 	}
 	if (map->event->motion.yrel && ft_abs(map->event->motion.yrel) < 1000)
 	{
