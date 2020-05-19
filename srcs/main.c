@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:42:47 by gal               #+#    #+#             */
-/*   Updated: 2020/05/18 12:15:14 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 15:53:09 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ static void			init_map(t_map *map)
 	map->polys = NULL;
 	map->polys_save = NULL;
 	map->mob = NULL;
-	map->player.pos.x = 30;
-	map->player.pos.y = 30;
-	map->player.pos.z = 30;
-	map->player.width = 30;
-	map->player.height = 30;
+	map->player.win_w = WIDTH;
+	map->player.win_h = HEIGHT;
+	map->player.pos.x = 0;
+	map->player.pos.y = 0;
+	map->player.pos.z = 0;
+	map->player.width = 40;
+	map->player.height = 40;
 	map->player.inventory = NULL;
 	map->player.rays = NULL;
 	map->editor.settings.texture = NULL;
@@ -87,6 +89,31 @@ int					main(int argc, char **argv)
 		{
 			if ((ret = init(&win, &map, &(map.player))))
 				return (ret_num_error("Init error", ret));
+			printf("map->polys = %p\n", map.polys);
+			printf("map->mob = %p\n", map.mob);
+			printf("map->objects = %p\n", map.objects);
+			printf("map->polys_save = %p\n", map.polys_save);
+			printf("map->objects_save = %p\n", map.objects_save);
+			printf("sphere x = %f, y = %f, z = %f, radius = %f texture = %p\n", map.sky_box.pos.x,
+									map.sky_box.pos.y,
+									map.sky_box.pos.x,
+									map.sky_box.radius,
+									map.sky_box.texture);
+			printf("player %f %f %f %d %d %d %d %p\n", map.player.pos.x,
+								map.player.pos.y,
+								map.player.pos.z,
+								map.player.width,
+								map.player.height,
+								map.player.win_w,
+								map.player.win_h,
+								map.player.rays);
+			t_poly *p;
+			p = map.polys;
+			while (p)
+			{
+				printf("textures = %p\n", p->texture);
+				p = p->next;
+			}
 			main_menu(&win, &map, argv[1]);
 		}
 		else
