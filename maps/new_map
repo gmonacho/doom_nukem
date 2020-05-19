@@ -6,7 +6,7 @@ Player
 	posy = 0
 	posz = 0
 	dir = 0
-	width = 60
+	width = 30
 	height = 60
 	velocity = 1
 }
@@ -20,44 +20,67 @@ Sphere
 }
 Object
 {
-	type = HEAL
-	posx = -6
-	posy = 539
+	type = LIGHT
+	posx = 114
+	posy = 77
 	posz = 0
 	width = 30
 	height = 30
 	dir = 0
 	light = 50
-	texture = healthPotion.png
-}
-Mob
-{
-	posx = 118
-	posy = 220
-	posz = 5
-	height = 30
-	width = 30
-	damage = 1
-	dir = -90
-	velocity = 1
-	light = 0
 	texture = brique.png
 }
 Polygon
 {
-	dot = x:-252 y:-252 z:-200
-	dot = x:412 y:-95 z:-200
-	dot = x:495 y:-454 z:-200
-	dot = x:-167 y:-610 z:-200
-	light = 100
+	dot = x:-198 y:-153 z:50
+	dot = x:223 y:-155 z:50
+	dot = x:225 y:313 z:50
+	dot = x:-195 y:315 z:50
+	light = 50
 	texture = brique.png
 }
 Polygon
 {
-	dot = x:-252 y:-252 z:-200
-	dot = x:412 y:-95 z:-200
-	dot = x:234 y:655 z:-200
-	dot = x:-429 y:499 z:-200
-	light = 100
+	dot = x:-195 y:316 z:50
+	dot = x:-198 y:-153 z:50
+	dot = x:-198 y:-153 z:-50
+	dot = x:-195 y:316 z:-50
+	light = 50
+	texture = brique.png
+}
+Polygon
+{
+	dot = x:225 y:314 z:50
+	dot = x:-195 y:316 z:50
+	dot = x:-195 y:316 z:-50
+	dot = x:225 y:314 z:-50
+	light = 50
+	texture = brique.png
+}
+Polygon
+{
+	dot = x:223 y:-155 z:50
+	dot = x:225 y:314 z:50
+	dot = x:225 y:314 z:-50
+	dot = x:223 y:-155 z:-50
+	light = 50
+	texture = brique.png
+}
+Polygon
+{
+	dot = x:-198 y:-153 z:50
+	dot = x:223 y:-155 z:50
+	dot = x:223 y:-155 z:-50
+	dot = x:-198 y:-153 z:-50
+	light = 50
+	texture = brique.png
+}
+Polygon
+{
+	dot = x:-198 y:-153 z:-50
+	dot = x:223 y:-155 z:-50
+	dot = x:225 y:314 z:-50
+	dot = x:-195 y:316 z:-50
+	light = 50
 	texture = brique.png
 }

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 16:47:53 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/19 20:02:54 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 20:05:25 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,6 @@ t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state)
 	{
 		move = fdot_3d_add(move,\
 						(t_fdot_3d){player->const_vel * player->sprint, 0, 0});
-
-		printf("const = %f, %f\n", player->const_vel, player->sprint);
 	}
 	if (state[SDL_SCANCODE_D])
 		move = fdot_3d_add(move,\
