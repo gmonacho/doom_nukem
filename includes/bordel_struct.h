@@ -263,7 +263,6 @@ typedef enum				e_view
 typedef struct				s_win
 {
 	struct s_map			*map;
-
 	SDL_Window*				ptr;
 	SDL_Renderer			*rend;
 	Uint32					*pixels;
