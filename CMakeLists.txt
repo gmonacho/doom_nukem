@@ -78,7 +78,7 @@ srcs/editor_loop/ed_write_export.c
 srcs/editor_loop/ed_write_export_cont.c
 srcs/editor_loop/ed_write_item.c
 srcs/event/time.c
-srcs/event/events_game_loop.c 
+srcs/game_loop/events_game_loop.c 
 srcs/game_loop/events.c
 srcs/game_loop/game_loop.c
 srcs/game_loop/events_others.c 

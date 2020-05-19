@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 16:47:53 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/17 23:42:17 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/19 12:30:37 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,16 @@ static void		events_weapon(t_win *win,
 								t_player *player,
 								const Uint8 *state)
 {
-	if (map->event->type == SDL_MOUSEWHEEL
-	&& test_timer_refresh(&(player->timers.item_cd)) == 1)
+	if (map->event->type == SDL_MOUSEWHEEL)
 	{
-		if (map->event->wheel.y > 0 && player->inventory->selected_slot != 4)
-			player->inventory->selected_slot += 1;
-		if (map->event->wheel.y < 0 && player->inventory->selected_slot != 0)
-			player->inventory->selected_slot -= 1;
-		Mix_PlayChannel(1, map->music->tmusic[4], 0);
+		player->inventory->selected_slot -= map->event->wheel.y;
+		if (player->inventory->selected_slot < 0)
+			player->inventory->selected_slot = 0;
+		else if (player->inventory->selected_slot > 4)
+			player->inventory->selected_slot = 4;
+		if (map->event->wheel.y)
+			Mix_PlayChannel(1, map->music->tmusic[4], 0);
+		map->event->wheel.y = 0;
 	}
 	events_reload(win, map, player, state);
 	events_shoot(win, map, player);
