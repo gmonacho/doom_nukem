@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 16:47:53 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/20 11:17:45 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/20 16:55:39 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void		events_shoot(t_win *win,
 							&(SDL_Rect){(win->w * 0.33), (win->h * 0.8125),
 							(win->w * 0.28), (win->h * 0.0625)});
 		}
-		if (test_timer_refresh(&(player->timers.bullet_cd)) == 1
-		&& player->inventory->ammo > 0 && player->inventory->weapon == 1)
+		if (test_timer_refresh(&(player->timers.bullet_cd)) == 1 &&\
+			player->inventory->ammo > 0 && player->inventory->weapon == 1)
 		{
 			player->timers.bullet_cd.index = 0;
 			Mix_PlayChannel(2, map->music->tmusic[0], 0);

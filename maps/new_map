@@ -15,7 +15,7 @@ Sphere
 	posx = 0
 	posy = 0
 	posz = 0
-	radius = 100000
+	radius = 10000
 	texture = desert.jpg
 }
 Object

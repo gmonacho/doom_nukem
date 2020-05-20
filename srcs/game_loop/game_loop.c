@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 22:13:37 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/19 19:44:57 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/20 17:23:28 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,9 @@ int				game_loop(t_win *win, t_map *map)
 	}
 	loop = SDL_TRUE;
 	while (loop)
+	{
+		SDL_SetWindowSize(win->ptr, WIDTH, HEIGHT);
 		loop = game(win, map, &(map->player));
+	}
 	return (1);
 }

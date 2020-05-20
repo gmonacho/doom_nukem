@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 16:34:16 by gal               #+#    #+#             */
-/*   Updated: 2020/05/17 23:42:50 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/20 17:17:06 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ void		del_bullet(t_player *player)
 	if (player->len_bullet)
 	{
 		if (!(tmp = (int *)malloc(sizeof(int) * (player->len_bullet))))
+		{
 			ft_putendl("error malloc in weapon.c l.57");
+			return ;
+		}
 		i = -1;
 		while (++i < player->len_bullet)
 			tmp[i] = player->bullet_drop[i + 1];
@@ -82,7 +85,10 @@ void		add_bullet(t_player *player)
 
 	i = -1;
 	if (!(tmp = (int *)malloc(sizeof(int) * (player->len_bullet + 1))))
+	{
 		ft_putendl("error malloc in weapon.c l.73");
+		return ;
+	}
 	tmp[player->len_bullet] = 0;
 	while (++i < player->len_bullet)
 		tmp[i] = player->bullet_drop[i];
@@ -104,7 +110,7 @@ void		print_weapon(t_win *win, t_player *player, t_texhud *texhud)
 		NULL, &(SDL_Rect){(win->w * 0.55),
 		(win->h * 0.55), (win->w * 0.7), (win->h * 0.4625)});
 		SDL_RenderCopy(win->rend, texhud->tex[11],
-		NULL, &(SDL_Rect){(win->w * 0.45), (win->h * 0.475),
+		NULL, &(SDL_Rect){(win->w * 0.44), (win->h * 0.425),
 		(win->w * 0.12), (win->h * 0.15)});
 	}
 	else
