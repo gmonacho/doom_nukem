@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 09:32:17 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 14:03:51 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/20 13:56:11 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@
 # include "libft.h"
 # include <time.h>
 
-# define WIDTH				600
+# define WIDTH			    600
 # define HEIGHT				400
+# define SENSITIVE			0.0015
 
 # define MAX_SECTORS		25
 # define NEXT_FACTOR		50

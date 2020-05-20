@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotations_z.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:24:16 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/11 02:09:04 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/20 13:55:52 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void				init_matrix_rz(t_player *player)
 {
-	player->rz.index_00 = cos(player->ddir);
-	player->rz.index_01 = -sin(player->ddir);
+	player->rz.index_00 = cos(SENSITIVE);
+	player->rz.index_01 = -sin(SENSITIVE);
 	player->rz.index_02 = 0;
-	player->rz.index_10 = sin(player->ddir);
-	player->rz.index_11 = cos(player->ddir);
+	player->rz.index_10 = sin(SENSITIVE);
+	player->rz.index_11 = cos(SENSITIVE);
 	player->rz.index_12 = 0;
 	player->rz.index_20 = 0;
 	player->rz.index_21 = 0;
@@ -27,11 +27,11 @@ void				init_matrix_rz(t_player *player)
 
 void				init_matrix_rz_inv(t_player *player)
 {
-	player->rz_inv.index_00 = cos(-player->ddir);
-	player->rz_inv.index_01 = -sin(-player->ddir);
+	player->rz_inv.index_00 = cos(-SENSITIVE);
+	player->rz_inv.index_01 = -sin(-SENSITIVE);
 	player->rz_inv.index_02 = 0;
-	player->rz_inv.index_10 = sin(-player->ddir);
-	player->rz_inv.index_11 = cos(-player->ddir);
+	player->rz_inv.index_10 = sin(-SENSITIVE);
+	player->rz_inv.index_11 = cos(-SENSITIVE);
 	player->rz_inv.index_12 = 0;
 	player->rz_inv.index_20 = 0;
 	player->rz_inv.index_21 = 0;

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 17:12:00 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 17:50:23 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/20 14:11:41 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int				init_main_menu(t_win *win)
 {
 	if (Mix_PlayMusic(win->music.menu_music, -1) == -1)
 		ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
+	Mix_VolumeMusic(30);
 	if (!(win->winui->ui.button_font = ui_load_font("TTF/DooM.ttf", 100)))
 		return (ui_ret_error("init_main_menu", "ui_load_font failed", 0));
 	if (!ui_load("interfaces/menu_interface", win->winui))

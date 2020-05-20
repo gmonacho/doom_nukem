@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 22:48:53 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 19:58:25 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/20 13:56:14 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ void		init_player_maths(t_win *win, t_player *player)
 	translate_all_rotz_only(win->map, win->map->polys,
 		(t_fdot_3d){-player->pos.x, -player->pos.y, -player->pos.z});
 	rotate_all_rotz_only(win->map, win->map->polys,
-						create_rz_matrix(-player->dir_init), 1);
+						create_rz_matrix(-player->dir_init));
 	win->map->gravity = player->const_vel / 2;
 	player->jump = 0;
 	player->rot_y = 0;
-	player->ddir = 0.05;
 	player->fov = win->w * M_PI_2 / 1000;
 	player->fov_up = win->h * M_PI_2 / 1000;
 	player->fov_2 = player->fov / 2;

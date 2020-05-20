@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:10:18 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 19:37:49 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/20 13:55:52 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,28 @@
 void			events_rotate(t_win *win, t_map *map,\
 								t_player *player, const Uint8 *state)
 {
-	if (map->event->motion.xrel && ft_abs(map->event->motion.xrel) < 1000)
+	int xrel;
+	int yrel;
+
+	xrel = win->winui->mouse.pos.x;
+	yrel = win->winui->mouse.pos.y;
+	if (xrel)
 	{
-		if (win->winui->mouse.pos.x > 0)
-			rotate_all_rotz_only(map, map->polys, player->rz, 1);
-		if (win->winui->mouse.pos.x < 0)
-			rotate_all_rotz_only(map, map->polys, player->rz_inv, 1);
-		map->event->motion.xrel = 0;
+		if (xrel > 0)
+			rotate_all_rotz_only(map, map->polys, create_rz_matrix(ft_abs((float)xrel) * SENSITIVE));
+		if (xrel < 0)
+			rotate_all_rotz_only(map, map->polys, create_rz_matrix(-ft_abs((float)xrel) * SENSITIVE));
 	}
-	if (map->event->motion.yrel && ft_abs(map->event->motion.yrel) < 1000)
-	{
-		player->rot_y -= player->ddir * map->event->motion.yrel;
-		map->event->motion.yrel = 0;
-	}
+	if (yrel)
+		player->rot_y -= SENSITIVE * yrel;
 	if (state[SDL_SCANCODE_RIGHT])
-		rotate_all_rotz_only(map, map->polys, player->rz, 1);
+		rotate_all_rotz_only(map, map->polys, player->rz);
 	if (state[SDL_SCANCODE_LEFT])
-		rotate_all_rotz_only(map, map->polys, player->rz_inv, 1);
+		rotate_all_rotz_only(map, map->polys, player->rz_inv);
 	if (state[SDL_SCANCODE_UP] && player->rot_y < M_PI_2)
-		player->rot_y += player->ddir;
+		player->rot_y += SENSITIVE;
 	if (state[SDL_SCANCODE_DOWN] && player->rot_y > -M_PI_2)
-		player->rot_y -= player->ddir;
+		player->rot_y -= SENSITIVE;
 }
 
 void			events_others(t_win *win, t_player *player, const Uint8 *state)

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 19:46:19 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/10 17:24:13 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/20 14:27:04 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,27 @@ static void			mobs_apply_rotation(t_poly *poly, t_fdot_3d pos,\
 							pos);
 }
 
-static void			mobs_rotate(t_player *player, t_fdot_3d pos, t_poly *poly)
+static void			mobs_rotate(t_fdot_3d pos, t_poly *poly)
 {
 	t_fdot_3d		v1;
 	t_fdot_3d		v2;
 	t_matrix		rotation;
+	t_matrix		rz;
+	t_matrix		rz_inv;
 
-	v1 = rotate_dot(poly->equation_rotz_only.v, player->rz);
-	v2 = rotate_dot(poly->equation_rotz_only.v, player->rz_inv);
+	rz = create_rz_matrix(SENSITIVE * 10);
+	rz_inv = create_rz_matrix(-SENSITIVE * 10);
+	v1 = rotate_dot(poly->equation_rotz_only.v, rz);
+	v2 = rotate_dot(poly->equation_rotz_only.v, rz_inv);
 	if (mag(fdot_3d_add(pos, v1)) < mag(fdot_3d_add(pos, v2)))
 	{
 		poly->equation_rotz_only.v = v1;
-		rotation = player->rz;
+		rotation = rz;
 	}
 	else
 	{
 		poly->equation_rotz_only.v = v2;
-		rotation = player->rz_inv;
+		rotation = rz_inv;
 	}
 	mobs_apply_rotation(poly, pos, rotation);
 }
@@ -87,12 +91,12 @@ void				mobs_attack_move(t_map *map, t_player *player, t_mob *mobs)
 		dist = player->width_2 + mobs->width_2;
 		while (mobs)
 		{
-			if (mobs->alive)
+			pos = mid_segment(mobs->poly->dots_rotz_only[0],\
+								mobs->poly->dots_rotz_only[2]);
+			if (mobs->alive && (dist_mob = mag(pos)) < 500)
 			{
-				pos = mid_segment(mobs->poly->dots_rotz_only[0],\
-									mobs->poly->dots_rotz_only[2]);
-				mobs_rotate(player, pos, mobs->poly);
-				if (is_null(dist_mob = mag(pos), 1) || dist_mob < dist)
+				mobs_rotate(pos, mobs->poly);
+				if (dist_mob < dist)
 					apply_damage(map, player, mobs->damage);
 				else
 					mobs_move(pos, mobs->poly, dist_mob, mobs->vel);
