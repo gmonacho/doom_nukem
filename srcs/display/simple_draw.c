@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 15:41:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/16 23:28:56 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/20 14:54:38 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	draw_line(t_win *win, t_dot p1, t_dot p2)
 	{
 		pixel = (t_dot){	.x = (int)(p1.x + delta.x * i),\
 							.y = (int)(p1.y + delta.y * i)};
-		if (0 <= pixel.y && pixel.y < win->h &&\
-			0 <= pixel.x && pixel.x < win->w)
+		if (0 <= pixel.x && pixel.x < win->w &&\
+			0 <= pixel.y && pixel.y < win->h)
 			SDL_RenderDrawPoint(win->rend, pixel.x, pixel.y);
 	}
 }

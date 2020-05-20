@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 12:09:44 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/20 14:52:20 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int			ed_event(t_win *win, t_map *map)
 {
 	const Uint8	*state;
 
+	SDL_GetWindowSize(win->ptr, &win->w, &win->h);
 	state = SDL_GetKeyboardState(NULL);
 	if (map->player.pos.z != 0)
 	{
