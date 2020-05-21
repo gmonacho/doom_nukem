@@ -28,9 +28,9 @@
 # include "libft.h"
 # include <time.h>
 
-# define WIDTH			    600
-# define HEIGHT				400
-# define SENSITIVE			0.00000015 //0.000015
+# define WIDTH			    800
+# define HEIGHT				600
+# define SENSITIVE			0.0015 //0.00000015 pour aducimet
 
 # define MAX_SECTORS		25
 # define NEXT_FACTOR		50
