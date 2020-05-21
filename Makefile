@@ -1932,6 +1932,33 @@ srcs/hud/weapon.c.s:
 	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/hud/weapon.c.s
 .PHONY : srcs/hud/weapon.c.s
 
+srcs/hud/win.o: srcs/hud/win.c.o
+
+.PHONY : srcs/hud/win.o
+
+# target to build an object file
+srcs/hud/win.c.o:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/hud/win.c.o
+.PHONY : srcs/hud/win.c.o
+
+srcs/hud/win.i: srcs/hud/win.c.i
+
+.PHONY : srcs/hud/win.i
+
+# target to preprocess a source file
+srcs/hud/win.c.i:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/hud/win.c.i
+.PHONY : srcs/hud/win.c.i
+
+srcs/hud/win.s: srcs/hud/win.c.s
+
+.PHONY : srcs/hud/win.s
+
+# target to generate assembly for a file
+srcs/hud/win.c.s:
+	$(MAKE) -f CMakeFiles/doom-nukem.dir/build.make CMakeFiles/doom-nukem.dir/srcs/hud/win.c.s
+.PHONY : srcs/hud/win.c.s
+
 srcs/init.o: srcs/init.c.o
 
 .PHONY : srcs/init.o
@@ -5220,6 +5247,9 @@ help:
 	@echo "... srcs/hud/weapon.o"
 	@echo "... srcs/hud/weapon.i"
 	@echo "... srcs/hud/weapon.s"
+	@echo "... srcs/hud/win.o"
+	@echo "... srcs/hud/win.i"
+	@echo "... srcs/hud/win.s"
 	@echo "... srcs/init.o"
 	@echo "... srcs/init.i"
 	@echo "... srcs/init.s"

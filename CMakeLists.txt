@@ -86,6 +86,7 @@ srcs/hud/dead.c
 srcs/hud/hud.c
 srcs/hud/hud_utils.c
 srcs/hud/inventory_hud.c
+srcs/hud/win.c
 srcs/hud/weapon.c
 srcs/inventory/ammo.c
 srcs/inventory/inventory.c

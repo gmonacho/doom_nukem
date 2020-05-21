@@ -88,6 +88,7 @@ void		draw_circle(t_win *win, t_circle circle);
 void		draw_color_picker(t_win *win, float picker_position,
 								SDL_Rect rect);
 
+int			win_menu(t_win *win, t_player *player);
 void		hud(t_win *win, t_player *player, t_texhud *texhud);
 void		print_items_s(t_win *win, SDL_Texture *tex, int slotposx);
 void		inventory_hud(t_win *win, t_texhud *texhud, t_player *player);
@@ -292,7 +293,7 @@ void		ed_write_item(int fd, const t_object *obj, t_fdot_3d playerpos);
 int			game_loop(t_win *win, t_map *map);
 
 void		add_existing_object(t_object **objects, t_object *new_object);
-void		objects_actions(t_win *win, t_map *map,
+void		objects_actions(t_map *map,
 							t_player *player, t_object *object);
 void		objects_movements(t_map *map, t_player *player, t_object *object);
 int			interact_door(t_map *map, t_object *door);
@@ -359,7 +360,7 @@ t_fdot_3d	segment_slide(t_fdot_3d dots[N_DOTS_POLY],
 							t_plan plan, int segment_code);
 int			collision_dots(t_fdot_3d dots[N_DOTS_POLY], float ray);
 int			is_collision_box(t_object *object, t_cartesienne *ray);
-void		move_and_collide(t_win *win, t_map *map,
+void		move_and_collide(t_map *map,
 								t_player *player, t_fdot_3d move);
 
 void		*draw_ray(void *param);

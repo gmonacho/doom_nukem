@@ -24,11 +24,10 @@ void	events_game_loop(t_win *win, t_map *map, t_player *player,\
 	SDL_GetRelativeMouseState(&(win->winui->mouse.pos.x),\
 			&(win->winui->mouse.pos.y));
 	state = SDL_GetKeyboardState(NULL);
-
 	events_rotate(win, map, player, state);
 	events_others(win, player, state);
-	move_and_collide(win, map, player, events_move(map, player, state));
-	move_and_collide(win, map, player, (t_fdot_3d){0, 0,\
+	move_and_collide(map, player, events_move(map, player, state));
+	move_and_collide(map, player, (t_fdot_3d){0, 0,\
 												map->gravity + player->jump});
 	if (player->jump < 0)
 		player->jump++;

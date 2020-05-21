@@ -115,9 +115,8 @@ t_fdot_3d		events_move(t_map *map, t_player *player, const Uint8 *state)
 						(t_fdot_3d){0, player->const_vel * player->sprint, 0});
 	if (state[SDL_SCANCODE_SPACE] &&\
 		(player->fly || is_null(map->last_move.z, 0.25)))
-		player->jump = -0.5 - map->gravity -\
-						sqrt(0.24 + map->gravity * (map->gravity + 1) +\
-						player->height);
+		player->jump = -0.5 - map->gravity - sqrt(0.24 + map->gravity *\
+						(map->gravity + 1) + player->height);
 	map->last_move = (t_fdot_3d){0, 0, 0};
 	player->sneak = state[SDL_SCANCODE_LSHIFT] ? 1 : 0;
 	return (move);

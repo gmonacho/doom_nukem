@@ -85,7 +85,7 @@ static void		rotate_all_objects(t_player *player, t_object *object)
 	}
 }
 
-void			objects_actions(t_win *win, t_map *map, t_player *player,\
+void			objects_actions(t_map *map, t_player *player,\
 								t_object *object)
 {
 	if (object->type == HEAL)
@@ -104,10 +104,7 @@ void			objects_actions(t_win *win, t_map *map, t_player *player,\
 		start_cooldown(&(map->gravity_inv_time), 10000);
 	}
 	if (object->type == END)
-	{
-		main_free(win, map);
-		exit(0);
-	}
+		player->end = 1;
 	object->collide = 0;
 	object->visible = 0;
 }

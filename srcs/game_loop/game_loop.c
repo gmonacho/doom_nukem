@@ -30,9 +30,13 @@ static int		end_game(t_win *win, t_map *map,
 			exit(0);
 		}
 		else
-			return (1);
+		{
+			i = 1;
+			return (i);
+		}
 	}
-	return (0);
+	i = end_game_win(win, map, player, i);
+	return (i);
 }
 
 static int		tests_before_slide(t_map *map, t_poly *poly_collide,\
@@ -62,7 +66,7 @@ static int		tests_before_slide(t_map *map, t_poly *poly_collide,\
 	return (0);
 }
 
-void			move_and_collide(t_win *win, t_map *map,
+void			move_and_collide(t_map *map,
 									t_player *player, t_fdot_3d move)
 {
 	t_fdot_3d	move_slide;
@@ -77,7 +81,7 @@ void			move_and_collide(t_win *win, t_map *map,
 	while ((poly_collide = collisions_sphere(map, player, map->polys, 1)))
 	{
 		if (poly_collide->object && poly_collide->object->type != BOX)
-			objects_actions(win, map, player, poly_collide->object);
+			objects_actions(map, player, poly_collide->object);
 		if (i++ == 4 ||\
 				tests_before_slide(map, poly_collide, move))
 			break ;
@@ -89,7 +93,7 @@ void			move_and_collide(t_win *win, t_map *map,
 	map->last_move = fdot_3d_add(map->last_move, move_slide);
 	translate_all_objects_rotz_only(map->objects, move_slide);
 	map->sky_box.pos_rotz_only = fdot_3d_add(map->sky_box.pos_rotz_only,\
-																		move_slide);
+											move_slide);
 }
 
 static SDL_bool	game(t_win *win, t_map *map, t_player *player)
@@ -102,7 +106,8 @@ static SDL_bool	game(t_win *win, t_map *map, t_player *player)
 	draw(win, map, player);
 	if (end_game(win, map, player, &event) || state[SDL_SCANCODE_ESCAPE])
 	{
-		init_main_menu(win);
+		if (!player->end)
+			init_main_menu(win);
 		return (SDL_FALSE);
 	}
 	SDL_RenderPresent(win->rend);

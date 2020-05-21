@@ -25,7 +25,6 @@ t_l_texture	*new_stock_texture(const char *id)
 	texture->id = ft_strdup(id);
 	if (!(texture->surface = IMG_Load(id)))
 		return (ui_ret_null_error("new_stock_texture", SDL_GetError(), NULL));
-
 	if (!(texture->surface = SDL_ConvertSurfaceFormat(\
 				texture->surface, SDL_PIXELFORMAT_ARGB8888, 0)))
 		return (ui_ret_null_error("new_stock_texture", SDL_GetError(), NULL));

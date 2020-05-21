@@ -23,9 +23,11 @@ void			events_rotate(t_win *win, t_map *map,\
 	if (xrel)
 	{
 		if (xrel > 0)
-			rotate_all_rotz_only(map, map->polys, create_rz_matrix(ft_abs((float)xrel) * SENSITIVE));
+			rotate_all_rotz_only(map, map->polys,\
+							create_rz_matrix(ft_abs((float)xrel) * SENSITIVE));
 		if (xrel < 0)
-			rotate_all_rotz_only(map, map->polys, create_rz_matrix(-ft_abs((float)xrel) * SENSITIVE));
+			rotate_all_rotz_only(map, map->polys,\
+							create_rz_matrix(-ft_abs((float)xrel) * SENSITIVE));
 	}
 	if (yrel)
 		player->rot_y -= SENSITIVE * yrel;

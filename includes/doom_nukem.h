@@ -30,7 +30,7 @@
 
 # define WIDTH			    600
 # define HEIGHT				400
-# define SENSITIVE			0.0015
+# define SENSITIVE			0.00000015 //0.000015
 
 # define MAX_SECTORS		25
 # define NEXT_FACTOR		50

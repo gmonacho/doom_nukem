@@ -20,11 +20,10 @@ static int	fill_poly_mob_norm(t_map *map, char *tmp, t_poly *poly_mob)
 	return (0);
 }
 
-
 int			fill_poly_mob(t_map *map, t_poly *poly, t_mob *mob)
 {
 	char	*tmp;
-	t_poly	*poly_mob;	
+	t_poly	*poly_mob;
 
 	tmp = NULL;
 	while (poly && poly->next)

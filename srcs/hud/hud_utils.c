@@ -38,3 +38,24 @@ void		define_line_shot(t_win *win, t_player *player)
 	player->l[4] = is_point(win->w * 0.552, win->h * 0.575,
 		win->w * 0.51, win->h * 0.55);
 }
+
+int			end_game_win(t_win *win, t_map *map, t_player *player, int i)
+{
+	if (player->end)
+	{
+		i = win_menu(win, player);
+		{
+			if (i == 2)
+			{
+				main_free(win, map);
+				exit(0);
+			}
+			else
+			{
+				i = 1;
+				return (i);
+			}
+		}
+	}
+	return (0);
+}
