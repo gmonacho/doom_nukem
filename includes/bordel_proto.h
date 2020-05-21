@@ -36,6 +36,7 @@ void		events_actions(t_win *win, t_map *map,
 void		events_others(t_win *win, t_player *player, const Uint8 *state);
 void		events_game_loop(t_win *win, t_map *map, t_player *player,
 								SDL_Event *event);
+int			end_game_win(t_win *win, t_map *map, t_player *player, int i);
 int			key_pressed(Uint32 sdl_keycode);
 t_dot		mouse_drag(int x, int y, SDL_bool end);
 
@@ -406,5 +407,7 @@ void		main_free_rays(t_cartesienne **rays);
 void		main_free_inventory(t_inventory *inventory);
 void		main_free_player(t_player *player);
 void		main_free_polys(t_poly **polys);
+
+
 
 #endif
