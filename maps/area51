@@ -20,6 +20,42 @@ Sphere
 }
 Object
 {
+	type = DOOR
+	posx = -577
+	posy = -851
+	posz = -90
+	width = 50
+	height = 90
+	dir = 115
+	light = 100
+	texture = doorfront.png
+}
+Object
+{
+	type = HEAL
+	posx = -748
+	posy = -591
+	posz = -352
+	width = 30
+	height = 30
+	dir = 0
+	light = 50
+	texture = kevlar.png
+}
+Object
+{
+	type = LIGHT
+	posx = 34
+	posy = -438
+	posz = 104
+	width = 5
+	height = 5
+	dir = 0
+	light = 50
+	texture = metal1s.png
+}
+Object
+{
 	type = BULLET
 	posx = -582
 	posy = -445
@@ -47,12 +83,12 @@ Object
 	type = ARMOR
 	posx = -401
 	posy = -311
-	posz = -350
+	posz = -340
 	width = 30
 	height = 30
 	dir = 0
 	light = 50
-	texture = shieldPotion.png
+	texture = bluepot.png
 }
 Object
 {
@@ -162,7 +198,6 @@ Object
 	light = 100
 	texture = doorfront.png
 }
-
 Object
 {
 	type = BOX
@@ -209,7 +244,7 @@ Object
 	height = 30
 	dir = 0
 	light = 50
-	texture = woodbox.jpg
+	texture = biohazard.jpg
 }
 Object
 {
@@ -234,18 +269,6 @@ Object
 	dir = 0
 	light = 50
 	texture = woodbox.jpg
-}
-Object
-{
-	type = LIGHT
-	posx = 34
-	posy = -438
-	posz = 104
-	width = 5
-	height = 5
-	dir = 0
-	light = 50
-	texture = metal1s.png
 }
 Object
 {
@@ -283,6 +306,18 @@ Object
 	light = 50
 	texture = brique.png
 }
+Object
+{
+	type = BOX
+	posx = -287
+	posy = -726
+	posz = -495
+	width = 30
+	height = 30
+	dir = 0
+	light = 50
+	texture = biohazard.jpg
+}
 Mob
 {
 	posx = -10
@@ -306,15 +341,217 @@ Mob
 	damage = 1
 	dir = -90
 	velocity = 0
-	light = 0
+	light = 100
+	texture = madara.png
+}
+Mob
+{
+	posx = -695
+	posy = -606
+	posz = -320
+	height = 30
+	width = 30
+	damage = 1
+	dir = -90
+	velocity = 0
+	light = 100
 	texture = madara.png
 }
 Polygon
 {
-	dot = x:-590 y:-344 z:-119
+	dot = x:-231 y:-724 z:-460
+	dot = x:-232 y:-674 z:-460
+	dot = x:-232 y:-674 z:-409
+	dot = x:-231 y:-724 z:-409
+	light = 60
+	texture = ooze.png
+}
+Polygon
+{
+	dot = x:-288 y:-603 z:-509
+	dot = x:-289 y:-658 z:-509
+	dot = x:-231 y:-653 z:-509
+	dot = x:-230 y:-598 z:-509
+	light = 60
+	texture = ooze.png
+}
+Polygon
+{
+	dot = x:-229 y:-602 z:-511
+	dot = x:-348 y:-602 z:-511
+	dot = x:-348 y:-602 z:-320
+	dot = x:-229 y:-602 z:-320
+	light = 100
+	texture = metal1s.png
+}
+Polygon
+{
+	dot = x:-577 y:-851 z:10
+	dot = x:-388 y:-853 z:10
+	dot = x:-385 y:-656 z:10
+	dot = x:-574 y:-654 z:10
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-488 y:-657 z:-90
+	dot = x:-450 y:-656 z:-90
+	dot = x:-450 y:-656 z:60
+	dot = x:-488 y:-657 z:60
+	light = 100
+	texture = concrete.jpg
+}
+Polygon
+{
+	dot = x:-714 y:-1138 z:-90
+	dot = x:-450 y:-1032 z:-90
+	dot = x:-561 y:-753 z:-90
+	dot = x:-825 y:-859 z:-90
+	light = 100
+	texture = carpet.jpg
+}
+Polygon
+{
+	dot = x:-714 y:-1138 z:-90
+	dot = x:-494 y:-1050 z:-90
+	dot = x:-494 y:-1050 z:60
+	dot = x:-714 y:-1138 z:60
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-494 y:-1050 z:-90
+	dot = x:-577 y:-851 z:-90
+	dot = x:-577 y:-851 z:60
+	dot = x:-494 y:-1050 z:60
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-821 y:-867 z:-90
+	dot = x:-714 y:-1138 z:-90
+	dot = x:-714 y:-1138 z:60
+	dot = x:-821 y:-867 z:60
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-601 y:-779 z:-90
+	dot = x:-821 y:-867 z:-90
+	dot = x:-821 y:-867 z:60
+	dot = x:-601 y:-779 z:60
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-599 y:-805 z:-90
+	dot = x:-637 y:-710 z:-90
+	dot = x:-637 y:-710 z:60
+	dot = x:-599 y:-805 z:60
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-488 y:-760 z:-90
+	dot = x:-599 y:-805 z:-90
+	dot = x:-599 y:-805 z:10
+	dot = x:-488 y:-760 z:10
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-443 y:-801 z:-90
+	dot = x:-577 y:-851 z:-90
+	dot = x:-577 y:-851 z:10
+	dot = x:-443 y:-801 z:10
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-386 y:-657 z:-90
+	dot = x:-443 y:-801 z:-90
+	dot = x:-443 y:-801 z:10
+	dot = x:-386 y:-657 z:10
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-450 y:-656 z:-90
+	dot = x:-488 y:-760 z:-90
+	dot = x:-488 y:-760 z:10
+	dot = x:-450 y:-656 z:10
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-488 y:-760 z:-260
+	dot = x:-488 y:-657 z:-170
+	dot = x:-386 y:-657 z:-170
+	dot = x:-386 y:-760 z:-260
+	light = 100
+	texture = concrete.png
+}
+Polygon
+{
+	dot = x:-386 y:-705 z:-511
+	dot = x:-346 y:-705 z:-511
+	dot = x:-346 y:-705 z:-200
+	dot = x:-386 y:-705 z:-200
+	light = 100
+	texture = metal1s.png
+}
+Polygon
+{
+	dot = x:-229 y:-755 z:-511
+	dot = x:-542 y:-755 z:-511
+	dot = x:-542 y:-755 z:-200
+	dot = x:-229 y:-755 z:-200
+	light = 100
+	texture = metal1s.png
+}
+Polygon
+{
+	dot = x:-728 y:-644 z:-312
+	dot = x:-604 y:-644 z:-312
+	dot = x:-604 y:-644 z:-362
+	dot = x:-728 y:-644 z:-362
+	light = 100
+	texture = coats.png
+}
+Polygon
+{
+	dot = x:-721 y:-655 z:-320
+	dot = x:-608 y:-655 z:-320
+	dot = x:-608 y:-644 z:-320
+	dot = x:-721 y:-644 z:-320
+	light = 100
+	texture = tabletops.jpg
+}
+Polygon
+{
+	dot = x:-758 y:-578 z:-320
+	dot = x:-758 y:-634 z:-320
+	dot = x:-745 y:-634 z:-320
+	dot = x:-745 y:-578 z:-320
+	light = 70
+	texture = tabletops.jpg
+}
+Polygon
+{
+	dot = x:-550 y:-344 z:-119
 	dot = x:-694 y:-344 z:-119
 	dot = x:-694 y:-344 z:-161
-	dot = x:-590 y:-344 z:-161
+	dot = x:-550 y:-344 z:-161
 	light = 100
 	texture = gardefou.png
 }
@@ -1555,8 +1792,8 @@ Polygon
 {
 	dot = x:-386 y:-656 z:-223
 	dot = x:-385 y:-556 z:-223
-	dot = x:-385 y:-556 z:-130
-	dot = x:-386 y:-656 z:-130
+	dot = x:-385 y:-556 z:-90
+	dot = x:-386 y:-656 z:-90
 	light = 100
 	texture = metal2s.png
 }
@@ -1703,4 +1940,121 @@ Polygon
 	dot = x:494 y:-604 z:10
 	light = 100
 	texture = fence.png
+}
+Polygon
+{
+	dot = x:-386 y:-705 z:-90
+	dot = x:-386 y:-656 z:-90
+	dot = x:-386 y:-656 z:-405
+	dot = x:-386 y:-705 z:-405
+	light = 100
+	texture = bunkwall2.jpg
+}
+Polygon
+{
+	dot = x:-758 y:-578 z:-330
+	dot = x:-745 y:-578 z:-320
+	dot = x:-745 y:-634 z:-320
+	dot = x:-758 y:-634 z:-330
+	light = 100
+	texture = tableside.png
+}
+Polygon
+{
+	dot = x:-721 y:-655 z:-330
+	dot = x:-721 y:-644 z:-320
+	dot = x:-608 y:-644 z:-320
+	dot = x:-608 y:-655 z:-330
+	light = 100
+	texture = tableside.png
+}
+Polygon
+{
+	dot = x:-694 y:-344 z:-210
+	dot = x:-694 y:-485 z:-210
+	dot = x:-694 y:-485 z:-110
+	dot = x:-694 y:-344 z:-110
+	light = 100
+	texture = gardefou.png
+}
+Polygon
+{
+	dot = x:-488 y:-657 z:-170
+	dot = x:-386 y:-657 z:-170
+	dot = x:-386 y:-657 z:-90
+	dot = x:-488 y:-657 z:-90
+	light = 100
+	texture = bunkwall.jpg
+}
+Polygon
+{
+	dot = x:-386 y:-657 z:-90
+	dot = x:-575 y:-655 z:-90
+	dot = x:-577 y:-851 z:-90
+	dot = x:-388 y:-853 z:-90
+	light = 100
+	texture = carpet.jpg
+}
+Polygon
+{
+	dot = x:-714 y:-1138 z:59
+	dot = x:-450 y:-1032 z:59
+	dot = x:-561 y:-753 z:59
+	dot = x:-825 y:-859 z:59
+	light = 100
+	texture = ceiling.jpg
+}
+Polygon
+{
+	dot = x:-599 y:-805 z:0
+	dot = x:-577 y:-851 z:0
+	dot = x:-577 y:-851 z:60
+	dot = x:-599 y:-805 z:60
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-229 y:-755 z:-511
+	dot = x:-229 y:-602 z:-511
+	dot = x:-229 y:-602 z:-320
+	dot = x:-229 y:-755 z:-320
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:-346 y:-705 z:-511
+	dot = x:-348 y:-640 z:-511
+	dot = x:-348 y:-640 z:-320
+	dot = x:-346 y:-705 z:-320
+	light = 100
+	texture = metal1s.png
+}
+Polygon
+{
+	dot = x:-229 y:-755 z:-320
+	dot = x:-348 y:-755 z:-320
+	dot = x:-348 y:-602 z:-320
+	dot = x:-229 y:-602 z:-320
+	light = 100
+	texture = metal2s.png
+}
+Polygon
+{
+	dot = x:-348 y:-755 z:-450
+	dot = x:-229 y:-755 z:-450
+	dot = x:-229 y:-711 z:-450
+	dot = x:-348 y:-711 z:-450
+	light = 100
+	texture = grate.png
+}
+Polygon
+{
+	dot = x:-346 y:-705 z:-450
+	dot = x:-272 y:-711 z:-450
+	dot = x:-272 y:-711 z:-400
+	dot = x:-346 y:-705 z:-400
+	light = 100
+	texture = gardefou.png
 }
