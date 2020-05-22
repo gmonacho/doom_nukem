@@ -93,7 +93,7 @@ void				mobs_attack_move(t_map *map, t_player *player, t_mob *mobs)
 		{
 			pos = mid_segment(mobs->poly->dots_rotz_only[0],\
 								mobs->poly->dots_rotz_only[2]);
-			if (mobs->alive && (dist_mob = mag(pos)) < 200)
+			if (mobs->alive && (dist_mob = mag(pos)) < 300)
 			{
 				mobs_rotate(pos, mobs->poly);
 				if (dist_mob < dist)
