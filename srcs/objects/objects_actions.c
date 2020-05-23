@@ -32,7 +32,7 @@ static t_object	*catch_box(t_player *player, t_object *object,\
 				is_in_poly(poly, &coord, collision) &&\
 				mag(collision) < player->width * 3)
 				return (object);
-			if ((++i > 6 && object->type == BOX) ||\
+			if ((++i > 5 && object->type == BOX) ||\
 				(i > 1 && object->type == DOOR))
 				break ;
 			poly = poly->next;
