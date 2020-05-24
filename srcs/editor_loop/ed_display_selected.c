@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:35 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:20:35 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 13:29:55 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ void		ed_display_selected_mob(t_win *win, const t_map *map)
 		draw_circle(win,
 			(t_circle){pos.x, pos.y,
 			map->editor.selected_mob->width * map->editor.unit / 2});
+		ui_set_draw_color(win->winui->rend, &(SDL_Color){200, 255, 50, 255});
+		draw_circle(win,
+			(t_circle){pos.x, pos.y,
+			map->editor.selected_mob->agro_dist * map->editor.unit / 2});
 	}
 }
 
