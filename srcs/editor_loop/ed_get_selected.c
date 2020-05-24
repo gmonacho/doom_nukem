@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:15 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:21:15 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 13:05:48 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static SDL_bool	ed_is_mob_selected(t_win *win,
 								const t_mob *mob)
 {
 	if (ed_get_line_len(&(t_line){ed_get_map_point(map, win->winui->mouse.pos),
-						(t_dot){mob->pos.x, mob->pos.y}}) < mob->width)
+						(t_dot){mob->pos.x, mob->pos.y}}) < mob->width / 2.0)
 		return (SDL_TRUE);
 	else
 		return (SDL_FALSE);
@@ -52,7 +52,7 @@ static SDL_bool	ed_is_obj_selected(t_win *win,
 {
 	if (ed_get_line_len(&(t_line){ed_get_map_point(map, win->winui->mouse.pos),
 						(t_dot){object->pos_rotz_only.x,
-								object->pos_rotz_only.y}}) < object->width)
+								object->pos_rotz_only.y}}) < object->width / 2.0)
 		return (SDL_TRUE);
 	else
 		return (SDL_FALSE);

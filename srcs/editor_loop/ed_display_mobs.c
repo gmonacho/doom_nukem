@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:19 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:20:20 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 13:03:21 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ed_display_mobs(t_win *win, const t_map *map)
 		pos = ed_get_display_point(map, (t_dot){m->pos.x, m->pos.y});
 		draw_circle(win, (t_circle){pos.x,
 									pos.y,
-									m->width * map->editor.unit / 2});
+									(m->width / 2.0) * map->editor.unit});
 		m = m->next;
 	}
 }
