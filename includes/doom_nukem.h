@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 09:32:17 by gal               #+#    #+#             */
-/*   Updated: 2020/05/20 13:56:11 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 11:29:27 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # include "libft.h"
 # include <time.h>
 
-# define WIDTH			    800
-# define HEIGHT				600
+# define WIDTH			    600
+# define HEIGHT				400
 # define SENSITIVE			0.0015 //0.00000015 pour aducimet
 
 # define MAX_SECTORS		25

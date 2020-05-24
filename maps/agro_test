@@ -5,7 +5,7 @@ Player
 	posx = 0
 	posy = 0
 	posz = 0
-	dir = 0
+	dir = -37480660
 	width = 40
 	height = 40
 	velocity = 2
@@ -14,29 +14,29 @@ Sphere
 {
 	posx = 0
 	posy = 0
-	posz = 0
-	radius = 10000
+	posz = -2147483648
+	radius = -2147483648
 	texture = desert.jpg
 }
 Mob
 {
-	posx = 56
-	posy = 335
+	posx = -31
+	posy = 294
 	posz = 5
 	height = 30
 	width = 30
 	damage = 1
 	dir = -90
 	velocity = 1
-	agro_dist = 300
+	agro_dist = 100
 	texture = brique.png
 }
 Polygon
 {
-	dot = x:-69 y:-69 z:-100
-	dot = x:163 y:-70 z:-100
-	dot = x:164 y:205 z:-100
-	dot = x:-67 y:206 z:-100
+	dot = x:-1 y:149 z:0
+	dot = x:-92 y:-157 z:0
+	dot = x:192 y:-240 z:0
+	dot = x:283 y:65 z:0
 	light = 100
 	texture = brique.png
 }

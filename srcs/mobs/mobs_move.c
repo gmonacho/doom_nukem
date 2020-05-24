@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 19:46:19 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/20 14:27:04 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 12:21:01 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void				mobs_attack_move(t_map *map, t_player *player, t_mob *mobs)
 		{
 			pos = mid_segment(mobs->poly->dots_rotz_only[0],\
 								mobs->poly->dots_rotz_only[2]);
-			if (mobs->alive && (dist_mob = mag(pos)) < 300)
+			if (mobs->alive && (dist_mob = mag(pos)) < mobs->agro_dist)
 			{
 				mobs_rotate(pos, mobs->poly);
 				if (dist_mob < dist)

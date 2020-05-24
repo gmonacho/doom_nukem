@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 09:36:16 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 17:26:16 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 11:43:03 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,6 +384,7 @@ typedef struct				s_mob
 	int						dir;
 	char					*texture;
 	float					light_coef;
+	int						agro_dist;
 }							t_mob;
 
 /*

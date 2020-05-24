@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ed_write_export_cont.c                             :+:      :+:    :+:   */
+/*   ed_export_write_cont.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:46 by gal               #+#    #+#             */
-/*   Updated: 2020/05/18 16:13:11 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 12:00:19 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void		ed_write_mob_cont(int fd, const t_mob *m)
 	tmp = ft_itoa(m->vel);
 	ed_write_line(fd, "\tvelocity", tmp);
 	ft_strdel(&tmp);
-	tmp = ft_itoa(m->light_coef * 100);
-	ed_write_line(fd, "\tlight", tmp);
+	tmp = ft_itoa(m->agro_dist);
+	ed_write_line(fd, "\tagro_dist", tmp);
 	ft_strdel(&tmp);
 	ed_write_line(fd, "\ttexture", m->texture);
 }

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:05:46 by aducimet          #+#    #+#             */
-/*   Updated: 2020/05/19 19:07:48 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 12:25:39 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		add_mob(t_mob **mob)
 
 	if (!(new_mob = (t_mob *)ft_memalloc(sizeof(t_mob))))
 		return (-1);
+	new_mob->light_coef = 1;
 	new_mob->next = *mob;
 	new_mob->alive = 1;
 	*mob = new_mob;
@@ -83,6 +84,8 @@ int		fill_mob_data(t_mob **mob, char **tab, int i)
 			(*mob)->vel = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		if (ft_strstr(tab[i], "health = "))
 			(*mob)->health = ft_atoi(ft_strrchr(tab[i], '=') + 1);
+		if (ft_strstr(tab[i], "agro_dist = "))
+			(*mob)->agro_dist = ft_atoi(ft_strrchr(tab[i], '=') + 1);
 		i++;
 	}
 	return (add_poly_mob(mob));

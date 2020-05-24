@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:30 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:22:31 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 12:11:21 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void		ed_set_buttons_mob(t_win *win, t_mob *selected)
 	ed_set_property(win, &(t_property){"b_property_7", "velocity",
 							&set_int_value, &selected->vel, tmp});
 	ft_strdel(&tmp);
-	tmp = ft_itoa(selected->light_coef * 100);
-	ed_set_property(win, &(t_property){"b_property_8", "light %",
-							&set_coef_value, &selected->light_coef, tmp});
+	tmp = ft_itoa(selected->agro_dist);
+	ed_set_property(win, &(t_property){"b_property_8", "agro_dist",
+							&set_int_value, &selected->agro_dist, tmp});
 	ft_strdel(&tmp);
 }

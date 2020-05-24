@@ -8,9 +8,8 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
-#set (CMAKE_C_FLAGS "-ffast-math -march=native -flto -O3")
-# set (CMAKE_C_FLAGS "-Wall -Wextra -Werror")
 set (CMAKE_C_FLAGS "-Wall -Wextra -Werror -ffast-math -march=native -flto -O3")
+# set (CMAKE_C_FLAGS "-Wall -Wextra -Werror -g3 -fsanitize=address")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes ${CMAKE_CURRENT_SOURCE_DIR}/includes/libui ${CMAKE_CURRENT_SOURCE_DIR}/libft/includes ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR})
 
 add_executable(${PROJECT_NAME}	
@@ -74,9 +73,9 @@ srcs/editor_loop/ed_set_flags.c
 srcs/editor_loop/ed_set_functions.c
 srcs/editor_loop/ed_set_menu_button_function.c
 srcs/editor_loop/ed_set_z_functions.c
-srcs/editor_loop/ed_write_export.c
-srcs/editor_loop/ed_write_export_cont.c
-srcs/editor_loop/ed_write_item.c
+srcs/editor_loop/ed_export_write.c
+srcs/editor_loop/ed_export_write_cont.c
+srcs/editor_loop/ed_export_write_item.c
 srcs/event/time.c
 srcs/game_loop/events_game_loop.c 
 srcs/game_loop/events.c

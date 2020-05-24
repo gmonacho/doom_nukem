@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 22:13:37 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/20 17:23:28 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 11:53:28 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int		end_game(t_win *win, t_map *map,
 {
 	int	i;
 
+	i = 0;
 	if (event->type == SDL_QUIT ||\
 			event->key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 		return (1);

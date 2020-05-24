@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:17 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:22:18 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 12:24:15 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	ed_add_mob(t_win *win, t_map *map)
 	mob->health = map->editor.settings.mob.health;
 	mob->damage = map->editor.settings.mob.damage;
 	mob->vel = map->editor.settings.mob.velocity;
+	mob->agro_dist = 0;
+	mob->light_coef = 1;
 	mob->texture = ft_strdup(map->editor.settings.texture);
 	add_existing_mob(&map->mob, mob);
 	return (1);

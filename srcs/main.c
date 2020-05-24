@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:42:47 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 19:35:23 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 12:18:20 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ static void			init_map(t_map *map)
 	map->player.pos.x = 0;
 	map->player.pos.y = 0;
 	map->player.pos.z = 0;
+	map->sky_box.pos.x = 0;
+	map->sky_box.pos.y = 0;
+	map->sky_box.pos.z = 0;
+	map->sky_box.pos_rotz_only.x = 0;
+	map->sky_box.pos_rotz_only.y = 0;
+	map->sky_box.pos_rotz_only.z = 0;
+	map->sky_box.radius = 10000;
 	map->player.width = 40;
 	map->player.height = 40;
 	map->player.inventory = NULL;
