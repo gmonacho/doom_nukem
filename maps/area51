@@ -2,7 +2,7 @@
 ###########
 Player
 {
-	posx = 0
+	posx = -30
 	posy = 0
 	posz = 0
 	dir = 0
@@ -402,6 +402,18 @@ Object
 	light = 50
 	texture = Ammo_box_icon.png
 }
+Object
+{
+	type = ARMOR
+	posx = 350
+	posy = -742
+	posz = 10
+	width = 15
+	height = 15
+	dir = 0
+	light = 50
+	texture = bluepot.png
+}
 Mob
 {
 	posx = 156
@@ -411,8 +423,8 @@ Mob
 	width = 30
 	damage = 5
 	dir = -90
-	velocity = 3
-	agro_dist = 130
+	velocity = 0
+	agro_dist = 220
 	texture = madara.png
 	health = 60
 }
@@ -440,7 +452,7 @@ Mob
 	damage = 1
 	dir = -90
 	velocity = 0
-	agro_dist = 130
+	agro_dist = 160
 	texture = madara.png
 	health = 60
 }
@@ -453,10 +465,10 @@ Mob
 	width = 30
 	damage = 1
 	dir = -90
-	velocity = 0
-	agro_dist = 0
+	velocity = 1
+	agro_dist = 50
 	texture = madara.png
-	health = 0
+	health = 20
 }
 Mob
 {
@@ -502,6 +514,42 @@ Mob
 }
 Polygon
 {
+	dot = x:137 y:-823 z:30
+	dot = x:495 y:-822 z:30
+	dot = x:495 y:-822 z:100
+	dot = x:137 y:-823 z:100
+	light = 100
+	texture = window.png
+}
+Polygon
+{
+	dot = x:82 y:-823 z:30
+	dot = x:495 y:-822 z:30
+	dot = x:494 y:-655 z:30
+	dot = x:81 y:-656 z:30
+	light = 100
+	texture = ciawhite.jpg
+}
+Polygon
+{
+	dot = x:80 y:-853 z:80
+	dot = x:79 y:-617 z:140
+	dot = x:496 y:-616 z:140
+	dot = x:497 y:-852 z:80
+	light = 100
+	texture = tuiles.png
+}
+Polygon
+{
+	dot = x:153 y:-654 z:60
+	dot = x:300 y:-654 z:60
+	dot = x:300 y:-654 z:0
+	dot = x:153 y:-654 z:0
+	light = 100
+	texture = vine3.png
+}
+Polygon
+{
 	dot = x:70 y:-656 z:-150
 	dot = x:120 y:-656 z:-150
 	dot = x:120 y:-656 z:0
@@ -512,8 +560,8 @@ Polygon
 Polygon
 {
 	dot = x:80 y:-720 z:-138
-	dot = x:80 y:-703 z:-128
-	dot = x:38 y:-703 z:-128
+	dot = x:80 y:-703 z:-118
+	dot = x:38 y:-703 z:-118
 	dot = x:38 y:-720 z:-138
 	light = 100
 	texture = grate.png
@@ -521,18 +569,18 @@ Polygon
 Polygon
 {
 	dot = x:39 y:-637 z:-130
-	dot = x:39 y:-657 z:-128
-	dot = x:83 y:-657 z:-128
+	dot = x:39 y:-657 z:-118
+	dot = x:83 y:-657 z:-118
 	dot = x:83 y:-637 z:-130
 	light = 100
 	texture = grate.png
 }
 Polygon
 {
-	dot = x:81 y:-702 z:-128
-	dot = x:82 y:-657 z:-128
-	dot = x:41 y:-658 z:-128
-	dot = x:40 y:-703 z:-128
+	dot = x:81 y:-702 z:-118
+	dot = x:82 y:-657 z:-118
+	dot = x:41 y:-658 z:-118
+	dot = x:40 y:-703 z:-118
 	light = 100
 	texture = grate.png
 }
@@ -2968,10 +3016,73 @@ Polygon
 }
 Polygon
 {
-	dot = x:155 y:-654 z:-60
-	dot = x:291 y:-654 z:-60
-	dot = x:291 y:-654 z:-20
-	dot = x:155 y:-654 z:-20
+	dot = x:81 y:-823 z:30
+	dot = x:82 y:-657 z:30
+	dot = x:82 y:-657 z:60
+	dot = x:81 y:-823 z:60
 	light = 100
-	texture = vine.png
+	texture = grate.png
+}
+Polygon
+{
+	dot = x:82 y:-657 z:30
+	dot = x:494 y:-656 z:30
+	dot = x:494 y:-656 z:60
+	dot = x:82 y:-657 z:60
+	light = 100
+	texture = grate.png
+}
+Polygon
+{
+	dot = x:83 y:-657 z:0
+	dot = x:83 y:-667 z:0
+	dot = x:83 y:-667 z:136
+	dot = x:83 y:-657 z:136
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:83 y:-657 z:0
+	dot = x:93 y:-657 z:0
+	dot = x:93 y:-657 z:140
+	dot = x:83 y:-657 z:140
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:276 y:-657 z:140
+	dot = x:298 y:-657 z:140
+	dot = x:298 y:-657 z:0
+	dot = x:276 y:-657 z:0
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:494 y:-656 z:30
+	dot = x:485 y:-656 z:30
+	dot = x:485 y:-656 z:140
+	dot = x:494 y:-656 z:140
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:491 y:-657 z:30
+	dot = x:491 y:-663 z:30
+	dot = x:491 y:-663 z:140
+	dot = x:491 y:-657 z:140
+	light = 100
+	texture = metal3s.jpg
+}
+Polygon
+{
+	dot = x:491 y:-657 z:30
+	dot = x:490 y:-819 z:30
+	dot = x:490 y:-819 z:110
+	dot = x:491 y:-657 z:110
+	light = 100
+	texture = window.png
 }
