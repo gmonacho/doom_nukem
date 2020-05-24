@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/24 15:22:51 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 19:51:35 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,6 @@ void		ed_init_map_editor(t_win *win, t_map *map);
 int			editor_loop(t_win *win, t_map *map);
 int			resolve_ui_left_press(t_win *win, t_map_editor *map);
 int			load_ui(int fd, t_win *win);
-void		ed_display(t_win *win, const t_map *map);
 void		resolve_ui_left_release(t_win *win, t_map_editor *map);
 void		check_file(t_map_editor *map);
 
@@ -225,6 +224,9 @@ void		set_str_value(void *argument, char *button_output);
 void		set_editor_flags(void *argument);
 void		ed_set_menu_button_function(t_win *win, t_map *map);
 
+void		ed_display(t_win *win, const t_map *map);
+void		ed_display_list_selected(t_win *win, const t_map *map);
+void		ed_display_poly(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_polys(t_win *win, const t_map *map);
 void		ed_display_polys_flat(t_win *win, const t_map *map);
 void		ed_display_polys_inclined(t_win *win, const t_map *map);
@@ -232,11 +234,12 @@ void		ed_display_polys_wall(t_win *win, const t_map *map);
 void		ed_display_wall(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
-void		ed_display_selected_poly(t_win *win, const t_map *map);
-void		ed_display_selected_mob(t_win *win, const t_map *map);
-void		ed_display_selected_obj(t_win *win, const t_map *map);
+void		ed_display_selected_poly(t_win *win, const t_map *map, const t_poly *selected);
+void		ed_display_selected_mob(t_win *win, const t_map *map, const t_mob *selected);
+void		ed_display_selected_obj(t_win *win, const t_map *map, const t_object *selected);
 void		ed_display_player(t_win *win, const t_map *map);
 void		ed_display_mobs(t_win *win, const t_map *map);
+void		ed_display_mob(t_win *win, const t_map *map, const t_mob *m);
 void		ed_display_object(t_win *win, const t_map *map, t_object *obj);
 void		ed_display_objects(t_win *win, const t_map *map);
 void		ed_display_placing_door(t_win *win, const t_map *map);
@@ -264,19 +267,25 @@ SDL_Color	ed_get_wall_display_color(const t_map *map, t_poly *poly);
 SDL_Color	ed_get_flat_display_color(const t_map *map, t_poly *poly);
 SDL_Color	ed_get_mob_display_color(const t_map *map, t_mob *m);
 SDL_Color	ed_get_obj_display_color(const t_map *map, t_object *obj);
-SDL_bool	ed_is_flat(t_poly *poly);
-SDL_bool	ed_is_inclined(t_poly *poly);
-SDL_bool	ed_is_wall(t_poly *poly);
+SDL_bool	ed_is_flat(const t_poly *poly);
+SDL_bool	ed_is_inclined(const t_poly *poly);
+SDL_bool	ed_is_wall(const t_poly *poly);
 
 void		ed_selection(t_win *win, t_map *map);
-t_object	*ed_get_selected_obj(t_win *win, const t_map *map);
-t_player	*ed_get_selected_player(t_win *win, t_map *map);
-t_mob		*ed_get_selected_mob(t_win *win, const t_map *map);
-t_poly		*ed_get_selected_poly(t_map *map, int i);
+void		ed_set_buttons_selected(t_win *win, t_map *map);
+t_selected	*ed_new_selected(void *ptr, e_selected_type selected_type);
+void		ed_add_selected(t_selected **list_selected, t_selected *selected);
+void		ed_free_selected(t_selected **list_selected);
+void		ed_get_selected_obj(t_win *win, t_map *map);
+void		ed_get_selected_mob(t_win *win, t_map *map);
+void		ed_get_selected_poly(t_map *map, int i);
+void		ed_get_selected_player(t_win *win, t_map *map);
+void		ed_incre_selected(t_selected *list_selected, t_selected **selected);
+
 
 SDL_bool	ed_is_poly_point(const t_poly *poly);
 SDL_bool	ed_is_real_poly(const t_map *map, const t_poly *poly);
-SDL_bool	ed_is_poly_printable(const t_map *map, t_poly *poly);
+SDL_bool	ed_is_poly_printable(const t_map *map, const t_poly *poly);
 
 t_dot		ed_is_next_to_poly(const t_map *map, t_dot point, int radius);
 

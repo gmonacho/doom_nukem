@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 09:36:16 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 14:21:41 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 19:46:03 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -613,6 +613,22 @@ typedef struct				s_property
 	char					*content;
 }							t_property;
 
+typedef enum				s_selected_type
+{
+	SELECTED_TYPE_NONE = 0,
+	SELECTED_TYPE_POLY = 1,
+	SELECTED_TYPE_OBJECT = 2,
+	SELECTED_TYPE_MOB = 3,
+	SELECTED_TYPE_PLAYER = 4
+}							e_selected_type;
+
+typedef struct				s_selected
+{
+	void					*ptr;
+	e_selected_type			selected_type;
+	struct s_selected		*next;
+}							t_selected;
+
 typedef struct				s_editor
 {
 	t_dot					pos;
@@ -623,10 +639,8 @@ typedef struct				s_editor
 	t_settings				settings;
 	int						place_step;
 	t_rect					select_rect;
-	t_poly					*selected_poly;
-	t_mob					*selected_mob;
-	t_object				*selected_obj;
-	t_player				*selected_player;
+	t_selected				*list_selected;
+	t_selected				*selected;
 	t_poly					*placing_poly;
 	t_object				*placing_door;
 	int						min_pos_z;
@@ -636,7 +650,7 @@ typedef struct				s_editor
 	t_arg_menu				arg_menu_tab[16];
 	SDL_Cursor				*cursor[2];
 	t_export				export;
-}							t_editor;
+}							 t_editor;
 
 typedef struct				s_map
 {

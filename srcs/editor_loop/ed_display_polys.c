@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:33 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:20:33 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 17:18:32 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ void		ed_display_polys(t_win *win, const t_map *map)
 	ed_display_polys_inclined(win, map);
 	ed_display_polys_wall(win, map);
 	ed_display_mobs(win, map);
-	ed_display_selected_poly(win, map);
-	ed_display_selected_mob(win, map);
 	ed_display_placing_poly(win, map);
 	ed_display_placing_door(win, map);
 }

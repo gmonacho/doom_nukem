@@ -6,70 +6,55 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:28 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:22:28 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 19:50:06 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-static int	ed_first_fill_selected(t_win *win, t_map *map)
+static int	ed_get_all_selected(t_win *win, t_map *map)
 {
-	if ((map->editor.selected_mob = ed_get_selected_mob(win, map)))
-	{
-		ed_set_buttons_mob(win, map->editor.selected_mob);
-		map->editor.selected_obj = NULL;
-		map->editor.selected_poly = NULL;
-		map->editor.selected_player = NULL;
-		return (1);
-	}
-	else if ((map->editor.selected_player = ed_get_selected_player(win, map)))
-	{
-		ed_set_buttons_player(win, map->editor.selected_player);
-		map->editor.selected_obj = NULL;
-		map->editor.selected_poly = NULL;
-		map->editor.selected_mob = NULL;
-		return (1);
-	}
+	ed_get_selected_mob(win, map);
+	ed_get_selected_obj(win, map);
+	ed_get_selected_poly(map, 0);
+	ed_get_selected_player(win, map);
 	return (0);
 }
 
-static int	ed_second_fill_selected(t_win *win, t_map *map)
+static void	ed_clean_selected(t_win *win, t_map *map)
 {
-	if ((map->editor.selected_obj = ed_get_selected_obj(win, map)))
-	{
-		ed_set_buttons_object(win, map->editor.selected_obj);
-		map->editor.selected_mob = NULL;
-		map->editor.selected_poly = NULL;
-		map->editor.selected_player = NULL;
-		return (1);
-	}
-	else if ((map->editor.selected_poly = ed_get_selected_poly(map, 0)))
-	{
-		if (ed_is_wall(map->editor.selected_poly))
-			ed_set_buttons_wall(win, map->editor.selected_poly);
-		else if (ed_is_flat(map->editor.selected_poly))
-			ed_set_buttons_flat(win, map->editor.selected_poly);
-		else if (ed_is_inclined(map->editor.selected_poly))
-			ed_set_buttons_inclined(win, map->editor.selected_poly);
-		map->editor.selected_mob = NULL;
-		map->editor.selected_obj = NULL;
-		map->editor.selected_player = NULL;
-		return (1);
-	}
-	return (0);
-}
-
-static void	ed_third_fill_selected(t_win *win, t_map *map)
-{
+	if (map->editor.list_selected)
+		ed_free_selected(&map->editor.list_selected);
 	ed_clean_property(win, 1);
-	map->editor.selected_mob = NULL;
-	map->editor.selected_poly = NULL;
-	map->editor.selected_obj = NULL;
-	map->editor.selected_player = NULL;
+	map->editor.selected = NULL;
+}
+
+void ed_set_buttons_selected(t_win *win, t_map *map)
+{
+	if (map->editor.selected->selected_type == SELECTED_TYPE_MOB)
+		ed_set_buttons_mob(win, (t_mob*)map->editor.selected->ptr);
+	else if (map->editor.selected->selected_type == SELECTED_TYPE_OBJECT)
+		ed_set_buttons_object(win, (t_object*)map->editor.selected->ptr);
+	else if (map->editor.selected->selected_type == SELECTED_TYPE_POLY)
+	{
+		if (ed_is_wall((t_poly*)map->editor.selected->ptr))
+			ed_set_buttons_wall(win, (t_poly*)map->editor.selected->ptr);
+		else if (ed_is_flat((t_poly*)map->editor.selected->ptr))
+			ed_set_buttons_flat(win, (t_poly*)map->editor.selected->ptr);
+		else if (ed_is_inclined((t_poly*)map->editor.selected->ptr))
+			ed_set_buttons_inclined(win, (t_poly*)map->editor.selected->ptr);
+	}
+	else if (map->editor.selected->selected_type == SELECTED_TYPE_PLAYER)
+		ed_set_buttons_player(win, (t_player*)map->editor.selected->ptr);
 }
 
 void		ed_selection(t_win *win, t_map *map)
 {
+	if (map->editor.list_selected)
+	{
+		ed_free_selected(&map->editor.list_selected);
+		map->editor.selected = NULL;
+	}
 	if (win->winui->mouse.clicking & UI_MOUSE_LEFT
 		|| win->winui->mouse.clicking & UI_MOUSE_RIGHT)
 	{
@@ -85,10 +70,13 @@ void		ed_selection(t_win *win, t_map *map)
 									- map->editor.select_rect.x;
 		map->editor.select_rect.h = ed_get_map_y(map, win->winui->mouse.pos.y)
 									- map->editor.select_rect.y;
-		if (!ed_first_fill_selected(win, map))
+		ed_get_all_selected(win, map);
+		if (!map->editor.list_selected)
+			ed_clean_selected(win, map);
+		else
 		{
-			if (!ed_second_fill_selected(win, map))
-				ed_third_fill_selected(win, map);
+			map->editor.selected = map->editor.list_selected;
+			ed_set_buttons_selected(win, map);
 		}
 	}
 }

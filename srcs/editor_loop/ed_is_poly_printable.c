@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:27 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 08:57:28 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 17:33:29 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ SDL_bool			ed_is_real_poly(const t_map *map, const t_poly *poly)
 	return (!(ed_is_mob_poly(map, poly) || ed_is_object_poly(map, poly)));
 }
 
-SDL_bool			ed_is_poly_printable(const t_map *map, t_poly *poly)
+SDL_bool			ed_is_poly_printable(const t_map *map, const t_poly *poly)
 {
 	int	inter;
 	int	min;

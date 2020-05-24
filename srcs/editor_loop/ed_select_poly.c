@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:26 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:22:26 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 19:01:04 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,11 @@ static SDL_bool	ed_is_wall_selected(const t_map *map, const t_poly poly)
 	return (0);
 }
 
-t_poly			*ed_get_selected_poly(t_map *map, int i)
+void			ed_get_selected_poly(t_map *map, int i)
 {
 	t_poly		*poly;
 
-	if (i < 3 && map)
+	if (map)
 	{
 		poly = map->polys;
 		while (poly)
@@ -117,16 +117,19 @@ t_poly			*ed_get_selected_poly(t_map *map, int i)
 			if (ed_is_poly_printable(map, poly))
 			{
 				if ((i == 0 && ed_is_wall(poly) &&
-				ed_is_wall_selected(map, *poly)) ||
-				(i == 1 && ed_is_flat(poly) &&
-				rect_intersect_poly(map, *poly)) ||
-				(i == 2 && ed_is_inclined(poly) &&
-				rect_intersect_poly(map, *poly)))
-					return (poly);
+					ed_is_wall_selected(map, *poly)) ||
+					(i == 1 && ed_is_flat(poly) &&
+					rect_intersect_poly(map, *poly)) ||
+					(i == 2 && ed_is_inclined(poly) &&
+					rect_intersect_poly(map, *poly)))
+				{
+					ed_add_selected(&map->editor.list_selected,
+								ed_new_selected((void*)poly, SELECTED_TYPE_POLY));
+				}
 			}
 			poly = poly->next;
 		}
-		return (ed_get_selected_poly(map, i + 1));
+		if (i < 3)
+			ed_get_selected_poly(map, i + 1);
 	}
-	return (NULL);
 }

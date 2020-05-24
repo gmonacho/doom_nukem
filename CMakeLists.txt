@@ -8,8 +8,8 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
-set (CMAKE_C_FLAGS "-Wall -Wextra -Werror -ffast-math -march=native -flto -O3")
-# set (CMAKE_C_FLAGS "-Wall -Wextra -Werror -g3 -fsanitize=address")
+# set (CMAKE_C_FLAGS "-Wall -Wextra -Werror -ffast-math -march=native -flto -O3")
+set (CMAKE_C_FLAGS "-Wall -Wextra -Werror -g3 -fsanitize=address")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes ${CMAKE_CURRENT_SOURCE_DIR}/includes/libui ${CMAKE_CURRENT_SOURCE_DIR}/libft/includes ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR})
 
 add_executable(${PROJECT_NAME}	
@@ -43,6 +43,7 @@ srcs/editor_loop/ed_display_player.c
 srcs/editor_loop/ed_display_poly.c
 srcs/editor_loop/ed_display_polys.c
 srcs/editor_loop/ed_display_selected.c
+srcs/editor_loop/ed_display_list_selected.c
 srcs/editor_loop/ed_event.c
 srcs/editor_loop/ed_export.c
 srcs/editor_loop/ed_export_fonts.c
@@ -50,7 +51,6 @@ srcs/editor_loop/ed_export_sounds.c
 srcs/editor_loop/ed_export_textures.c
 srcs/editor_loop/ed_get_display_color.c
 srcs/editor_loop/ed_get_object_poly_count.c
-srcs/editor_loop/ed_get_selected.c
 srcs/editor_loop/ed_get_z_limits.c
 srcs/editor_loop/ed_init.c
 srcs/editor_loop/ed_is_next_to_poly.c
@@ -66,6 +66,8 @@ srcs/editor_loop/ed_place_poly_base.c
 srcs/editor_loop/ed_place_wall.c
 srcs/editor_loop/ed_poly_type.c
 srcs/editor_loop/ed_selection.c
+srcs/editor_loop/ed_selection_get.c
+srcs/editor_loop/ed_selected.c
 srcs/editor_loop/ed_select_poly.c
 srcs/editor_loop/ed_set_buttons_mob.c
 srcs/editor_loop/ed_set_buttons_properties.c

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:38 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:20:38 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 17:41:36 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,16 @@ void		ed_display(t_win *win, const t_map *map)
 	ed_display_polys(win, map);
 	ed_display_objects(win, map);
 	ed_display_player(win, map);
-	ed_display_selected_obj(win, map);
+	ed_display_list_selected(win, map);
+	if (map->editor.selected)
+	{
+		if (map->editor.selected->selected_type == SELECTED_TYPE_OBJECT)
+			ed_display_selected_obj(win, map, (t_object*)map->editor.selected->ptr);
+		else if (map->editor.selected->selected_type == SELECTED_TYPE_POLY)
+			ed_display_selected_poly(win, map, (t_poly*)map->editor.selected->ptr);
+		else if (map->editor.selected->selected_type == SELECTED_TYPE_MOB)
+			ed_display_selected_mob(win, map, (t_mob*)map->editor.selected->ptr);
+	}
 	ed_display_selection_rect(win, map);
 	draw_fps();
 }

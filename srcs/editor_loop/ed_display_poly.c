@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:29 by gal               #+#    #+#             */
-/*   Updated: 2020/05/16 22:44:38 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 19:12:55 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,15 @@ void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly)
 	line = ed_get_display_line(map, (t_dot){poly->dots[1].x, poly->dots[1].y},
 									(t_dot){poly->dots[3].x, poly->dots[3].y});
 	draw_line(win, line.p1, line.p2);
+}
+
+void		ed_display_poly(t_win *win, const t_map *map, t_poly *poly)
+{
+	if (ed_is_wall(poly))
+		ed_display_wall(win, map, poly);
+	else if (ed_is_flat(poly))
+		ed_display_flat(win, map, poly);
+	else if (ed_is_inclined(poly))
+		ed_display_inclined(win, map, poly);
+	
 }

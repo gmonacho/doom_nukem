@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/20 14:52:20 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 20:08:58 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,18 @@ static void	ed_move_player_z(t_map *map)
 
 static void	ed_delete_event(t_win *win, t_map *map)
 {
-	ed_clean_property(win, 1);
-	if (map->editor.selected_poly)
+	if (map->editor.selected)
 	{
-		delete_poly(&map->polys, map->editor.selected_poly);
-		map->editor.selected_poly = NULL;
-	}
-	else if (map->editor.selected_mob)
-	{
-		ed_delete_mob(&map->mob, map->editor.selected_mob);
-		map->editor.selected_mob = NULL;
-	}
-	else if (map->editor.selected_obj)
-	{
-		ed_delete_obj(map, &map->objects, map->editor.selected_obj);
-		map->editor.selected_obj = NULL;
+		if (map->editor.selected->selected_type == SELECTED_TYPE_POLY)
+			delete_poly(&map->polys, (t_poly*)map->editor.selected->ptr);
+		else if (map->editor.selected->selected_type == SELECTED_TYPE_MOB)
+			ed_delete_mob(&map->mob, (t_mob*)map->editor.selected->ptr);
+		else if (map->editor.selected->selected_type == SELECTED_TYPE_OBJECT)
+			ed_delete_obj(map, &map->objects, (t_object*)map->editor.selected->ptr);
+		ed_clean_property(win, 1);
+		// ed_incre_selected(map->editor.list_selected, &map->editor.selected);
+		ed_free_selected(&map->editor.list_selected);
+		map->editor.selected = NULL;
 	}
 }
 
@@ -81,10 +78,22 @@ static void	ed_next_events(t_win *win, t_map *map, const Uint8 *state)
 	}
 }
 
-static void	ed_edit_vel(const Uint8 *state, t_dot *pos)
+static void	ed_edit_vel(t_win *win, t_map *map, const Uint8 *state, t_dot *pos)
 {
 	int vel;
+	static Uint32	l_ti = 0;
+	Uint32			n_ti;
 
+	n_ti = SDL_GetTicks();
+	if (l_ti == 0 || n_ti - l_ti >= 200)
+	{	
+		if (state[SDL_SCANCODE_TAB] && map->editor.selected)
+		{
+			l_ti = n_ti;
+			ed_incre_selected(map->editor.list_selected, &map->editor.selected);
+			ed_set_buttons_selected(win, map);
+		}
+	}
 	vel = 3;
 	if (state[SDL_SCANCODE_LSHIFT])
 		vel += 4;
@@ -95,7 +104,7 @@ static void	ed_edit_vel(const Uint8 *state, t_dot *pos)
 	if (state[SDL_SCANCODE_W])
 		pos->y -= vel;
 	if (state[SDL_SCANCODE_S])
-		pos->y += vel;
+		pos->y += vel;	
 }
 
 int			ed_event(t_win *win, t_map *map)
@@ -110,11 +119,9 @@ int			ed_event(t_win *win, t_map *map)
 		map->player.pos.z = 0;
 	}
 	if (!win->winui->ui.clicked_button)
-		ed_edit_vel(state, &map->editor.pos);
+		ed_edit_vel(win, map, state, &map->editor.pos);
 	if (state[SDL_SCANCODE_DELETE]
-		&& (map->editor.selected_poly
-			|| map->editor.selected_mob
-			|| map->editor.selected_obj))
+		&& map->editor.selected)
 		ed_delete_event(win, map);
 	ed_next_events(win, map, state);
 	ed_action(win, map);

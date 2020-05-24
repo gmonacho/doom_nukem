@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ed_get_selected.c                                  :+:      :+:    :+:   */
+/*   ed_selection_get.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:15 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 13:05:48 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 19:51:08 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static SDL_bool	ed_is_mob_selected(t_win *win,
 		return (SDL_FALSE);
 }
 
-t_mob			*ed_get_selected_mob(t_win *win, const t_map *map)
+void	ed_get_selected_mob(t_win *win, t_map *map)
 {
 	t_mob	*m;
 
@@ -31,19 +31,22 @@ t_mob			*ed_get_selected_mob(t_win *win, const t_map *map)
 	while (m)
 	{
 		if (ed_is_mob_selected(win, map, m))
-			return (m);
+		{
+			ed_add_selected(&map->editor.list_selected,
+						ed_new_selected((void*)m, SELECTED_TYPE_MOB));
+		}
 		m = m->next;
 	}
-	return (NULL);
 }
 
-t_player		*ed_get_selected_player(t_win *win, t_map *map)
+void	ed_get_selected_player(t_win *win, t_map *map)
 {
 	if (ed_get_line_len(&(t_line){ed_get_map_point(map, win->winui->mouse.pos),
 			(t_dot){map->player.pos.x, map->player.pos.y}}) < map->player.width)
-		return (&map->player);
-	else
-		return (NULL);
+	{
+		ed_add_selected(&map->editor.list_selected,
+					ed_new_selected((void*)&map->player, SELECTED_TYPE_PLAYER));
+	}
 }
 
 static SDL_bool	ed_is_obj_selected(t_win *win,
@@ -58,7 +61,7 @@ static SDL_bool	ed_is_obj_selected(t_win *win,
 		return (SDL_FALSE);
 }
 
-t_object		*ed_get_selected_obj(t_win *win, const t_map *map)
+void			ed_get_selected_obj(t_win *win, t_map *map)
 {
 	t_object	*obj;
 
@@ -66,8 +69,10 @@ t_object		*ed_get_selected_obj(t_win *win, const t_map *map)
 	while (obj)
 	{
 		if (ed_is_obj_selected(win, map, obj))
-			return (obj);
+		{
+			ed_add_selected(&map->editor.list_selected,
+						ed_new_selected((void*)obj, SELECTED_TYPE_OBJECT));
+		}
 		obj = obj->next;
 	}
-	return (NULL);
 }

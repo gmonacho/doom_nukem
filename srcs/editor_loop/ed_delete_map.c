@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:10 by gal               #+#    #+#             */
-/*   Updated: 2020/05/18 13:04:43 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 19:50:44 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,8 @@ void			ed_delete_map(void *map_ptr)
 	void		*next;
 
 	map = (t_map*)map_ptr;
-	map->editor.selected_obj = NULL;
-	map->editor.selected_poly = NULL;
-	map->editor.selected_player = NULL;
-	map->editor.selected_mob = NULL;
+	map->editor.list_selected = NULL;
+	map->editor.selected = NULL;
 	if (map)
 	{
 		p = map->polys;

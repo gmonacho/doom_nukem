@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:21 by gal               #+#    #+#             */
-/*   Updated: 2020/05/19 08:48:17 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 20:00:26 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,8 @@ void			ed_init_map_editor(t_win *win, t_map *map)
 	map->editor.z_min = 0;
 	map->editor.z_max = 100;
 	map->editor.place_step = 0;
-	map->editor.selected_poly = NULL;
-	map->editor.selected_mob = NULL;
-	map->editor.selected_obj = NULL;
-	map->editor.selected_player = NULL;
+	map->editor.list_selected = NULL;
+	map->editor.selected = NULL;
 	map->editor.placing_poly = NULL;
 	map->editor.placing_door = NULL;
 	map->editor.flags = ED_NONE;
