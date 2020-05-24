@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 16:06:45 by gal               #+#    #+#             */
-/*   Updated: 2020/05/17 21:01:57 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 14:24:09 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static void		main_free_win(t_win *win)
 
 void			main_free(t_win *win, t_map *map)
 {
+	free_stock_texture(&map->texture_stock);
 	ui_free_win(&(win->winui));
 	main_free_win(win);
 	main_free_map(map);

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 16:30:30 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 14:01:49 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 14:36:32 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@ t_l_texture	*new_stock_texture(const char *id)
 									"allocation failed", NULL));
 	}
 	texture->id = ft_strdup(id);
-	if (!(texture->surface = IMG_Load(id)))
-		return (ui_ret_null_error("new_stock_texture", SDL_GetError(), NULL));
-	if (!(texture->surface = SDL_ConvertSurfaceFormat(\
+	if (!(texture->surface = IMG_Load(id))
+		|| !(texture->surface = SDL_ConvertSurfaceFormat(\
 				texture->surface, SDL_PIXELFORMAT_ARGB8888, 0)))
-		return (ui_ret_null_error("new_stock_texture", SDL_GetError(), NULL));
+			ui_ret_null_error("new_stock_texture", SDL_GetError(), NULL);
 	texture->next = NULL;
 	return (texture);
 }

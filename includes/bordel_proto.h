@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/20 12:28:04 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 14:21:52 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int			is_in_stock(t_l_texture *textures,
 						t_l_texture *texture);
 int			is_id_in_stock(t_l_texture *textures,
 						char *id);
+void		free_stock_texture(t_l_texture **stock);
 SDL_Surface	*get_surface_from_stock(t_l_texture *textures, const char *id);
 void		player_data(char **tab, t_player *player, int i);
 void		new_sphere(t_sphere *sphere, char **tab, int i);
