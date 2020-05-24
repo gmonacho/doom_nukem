@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 21:59:27 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/17 23:33:59 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 15:16:02 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,6 @@ void			drop_box(t_map *map, t_player *player)
 			object->collide = 1;
 			object->visible = 1;
 			return ;
-		}
-		object = object->next;
-	}
-}
-
-static void		rotate_all_objects(t_player *player, t_object *object)
-{
-	t_fdot_3d	p;
-
-	while (object)
-	{
-		if (object->type != BOX && object->type != DOOR)
-		{
-			p = mid_segment(object->poly->dots_rotz_only[0],\
-							object->poly->dots_rotz_only[2]);
-			object->poly->equation_rotz_only.v = rotate_dot(\
-								object->poly->equation_rotz_only.v, player->rz);
-			object->poly->dots_rotz_only[0] = fdot_3d_add(rotate_dot(\
-			fdot_3d_sub(object->poly->dots_rotz_only[0], p), player->rz), p);
-			object->poly->dots_rotz_only[1] = fdot_3d_add(rotate_dot(\
-			fdot_3d_sub(object->poly->dots_rotz_only[1], p), player->rz), p);
-			object->poly->dots_rotz_only[2] = fdot_3d_add(rotate_dot(\
-			fdot_3d_sub(object->poly->dots_rotz_only[2], p), player->rz), p);
-			object->poly->dots_rotz_only[3] = fdot_3d_add(rotate_dot(\
-			fdot_3d_sub(object->poly->dots_rotz_only[3], p), player->rz), p);
 		}
 		object = object->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:42:47 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 12:18:20 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 15:37:37 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void			init_map(t_map *map)
 	map->sky_box.pos.x = 0;
 	map->sky_box.pos.y = 0;
 	map->sky_box.pos.z = 0;
+	map->sky_box.texture = NULL;
 	map->sky_box.pos_rotz_only.x = 0;
 	map->sky_box.pos_rotz_only.y = 0;
 	map->sky_box.pos_rotz_only.z = 0;

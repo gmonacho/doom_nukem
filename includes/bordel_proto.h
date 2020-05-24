@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/24 14:21:52 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 15:22:51 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,7 @@ void		add_existing_object(t_object **objects, t_object *new_object);
 void		objects_actions(t_map *map,
 							t_player *player, t_object *object);
 void		objects_movements(t_map *map, t_player *player, t_object *object);
+void		rotate_all_objects(t_player *player, t_object *object);
 int			interact_door(t_map *map, t_object *door);
 int			set_door_object(t_object *object, t_fdot_3d pos,
 							float width_2, float height_2);
@@ -408,7 +409,5 @@ void		main_free_rays(t_cartesienne **rays);
 void		main_free_inventory(t_inventory *inventory);
 void		main_free_player(t_player *player);
 void		main_free_polys(t_poly **polys);
-
-
 
 #endif
