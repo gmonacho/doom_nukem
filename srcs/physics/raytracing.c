@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiordan <agiordan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:18:49 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/11 00:18:19 by agiordan         ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 14:08:19 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int			find_pixel(t_poly *poly, t_fdot_3d collision)
 	if (!is_in_poly(poly, &coord_plan, collision))
 		return (-1);
 	if (!poly->texture)
-		return (ui_ret_error("find_pixel", "poly->texture is null", 0));
+		return (0xFFFF00FF);
 	coord_texture = (poly->object || poly->mob) ?\
 				(t_dot){coord_plan.x * poly->texture->w,\
 						(1 - coord_plan.y) * poly->texture->h} :\
