@@ -7,12 +7,12 @@ Player
 	posz = 0
 	dir = 0
 	width = 30
-	height = 30
+	height = 50
 	velocity = 5
 }
 Sphere
 {
-	posx = 0
+	posx = 120
 	posy = 0
 	posz = -30
 	radius = 10000000
@@ -447,8 +447,8 @@ Mob
 	posx = -620
 	posy = -603
 	posz = -320
-	height = 100
-	width = 30
+	height = 60
+	width = 40
 	damage = 1
 	dir = -90
 	velocity = 0
@@ -466,7 +466,7 @@ Mob
 	damage = 1
 	dir = -90
 	velocity = 1
-	agro_dist = 50
+	agro_dist = 60
 	texture = madara.png
 	health = 20
 }
@@ -511,6 +511,15 @@ Mob
 	agro_dist = 0
 	texture = radar.png
 	health = 60
+}
+Polygon
+{
+	dot = x:-386 y:-705 z:-515
+	dot = x:-346 y:-705 z:-515
+	dot = x:-346 y:-705 z:-200
+	dot = x:-386 y:-705 z:-200
+	light = 100
+	texture = metal2s.png
 }
 Polygon
 {
@@ -3085,4 +3094,22 @@ Polygon
 	dot = x:491 y:-657 z:110
 	light = 100
 	texture = window.png
+}
+Polygon
+{
+	dot = x:-346 y:-760 z:-435
+	dot = x:-346 y:-705 z:-435
+	dot = x:-346 y:-705 z:-460
+	dot = x:-346 y:-760 z:-460
+	light = 100
+	texture = metal2s.png
+}
+Polygon
+{
+	dot = x:-346 y:-705 z:-350
+	dot = x:-386 y:-705 z:-250
+	dot = x:-386 y:-760 z:-250
+	dot = x:-346 y:-760 z:-350
+	light = 100
+	texture = concrete.png
 }
