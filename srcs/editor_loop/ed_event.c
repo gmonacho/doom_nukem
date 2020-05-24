@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 20:08:58 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 20:20:12 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void	ed_delete_event(t_win *win, t_map *map)
 		else if (map->editor.selected->selected_type == SELECTED_TYPE_OBJECT)
 			ed_delete_obj(map, &map->objects, (t_object*)map->editor.selected->ptr);
 		ed_clean_property(win, 1);
-		// ed_incre_selected(map->editor.list_selected, &map->editor.selected);
 		ed_free_selected(&map->editor.list_selected);
 		map->editor.selected = NULL;
 	}
