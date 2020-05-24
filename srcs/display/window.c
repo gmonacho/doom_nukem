@@ -24,7 +24,7 @@ static void		setup_winui_struct(t_win *win)
 	win->winui->ui.button_text_color = (SDL_Color){255, 255, 255, 255};
 	win->winui->ui.button_text_ratio = 0.7;
 	win->winui->ui.cursor_position = 0;
-	win->winui->ui.delay_text_entry = 80;
+	win->winui->ui.delay_text_entry = 160;
 	win->winui->ui.delay_text_del = 30;
 	win->winui->ui.last_char = '\0';
 	win->winui->ui.cursor_color = (SDL_Color){255, 255, 255, 255};

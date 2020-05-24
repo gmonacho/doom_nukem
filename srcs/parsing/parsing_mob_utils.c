@@ -22,6 +22,8 @@ void		fill_mob_data_norm(t_mob **mob, char *tab)
 		(*mob)->pos.y = ft_atoi(ft_strrchr(tab, '=') + 1);
 	if (ft_strstr(tab, "posz = "))
 		(*mob)->pos.z = ft_atoi(ft_strrchr(tab, '=') + 1);
+	if (ft_strstr(tab, "health = "))
+		(*mob)->health = ft_atoi(ft_strrchr(tab, '=') + 1);
 	if (ft_strstr(tab, "dir = "))
 		(*mob)->dir = ft_atoi(ft_strrchr(tab, '=') + 1);
 	if (ft_strstr(tab, "light = "))
