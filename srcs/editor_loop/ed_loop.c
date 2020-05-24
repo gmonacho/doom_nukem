@@ -40,8 +40,8 @@ int				init_editor_menu(t_win *win, t_map *map)
 {
 	t_text_entry_button	*b;
 
-	if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
-		ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
+	// if (Mix_PlayMusic(win->music.editor_music, -1) == -1)
+		// ui_ret_error("init_editor_menu", "impossible to play menu_music", 0);
 	if (!(win->winui->ui.button_font = ui_load_font("TTF/arial.ttf", 100)))
 		return (ui_ret_error("init_editor_menu", "ui_load_font failed", 0));
 	if (!ui_load("interfaces/editor_interface", win->winui))
@@ -56,6 +56,8 @@ int				init_editor_menu(t_win *win, t_map *map)
 int				editor_loop(t_win *win, t_map *map)
 {
 	SDL_bool			loop;
+	Uint32				end;
+	Uint32				start;
 
 	if (!map->editor.export.path)
 		map->editor.export.path = ft_strdup("./maps/new_map");
@@ -65,11 +67,15 @@ int				editor_loop(t_win *win, t_map *map)
 	loop = SDL_TRUE;
 	while (loop)
 	{
+		start = SDL_GetTicks();
 		editor_menu_disp(win, map);
 		if (win->winui->event.type == SDL_QUIT ||
 				win->winui->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 			loop = 0;
 		ed_event(win, map);
+		end = SDL_GetTicks();
+		if (end - start < 1000 / 60)
+			SDL_Delay(1000 / 60 - (end - start));
 	}
 	editor_menu_quit(win, map, 500);
 	if (map->editor.export.path)

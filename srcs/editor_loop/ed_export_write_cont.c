@@ -54,6 +54,9 @@ void		ed_write_mob_cont(int fd, const t_mob *m)
 	ed_write_line(fd, "\tagro_dist", tmp);
 	ft_strdel(&tmp);
 	ed_write_line(fd, "\ttexture", m->texture);
+	tmp = ft_itoa(m->health);
+	ed_write_line(fd, "\thealth", tmp);
+	ft_strdel(&tmp);
 }
 
 void		ed_write_mob(int fd, const t_mob *m)
