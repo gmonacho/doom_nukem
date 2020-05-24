@@ -118,6 +118,7 @@ srcs/parsing/fill_poly_mob.c
 srcs/parsing/find_texture.c
 srcs/parsing/add_object_norm2.c
 srcs/parsing/stock_texture.c
+srcs/parsing/free_stock_texture.c
 srcs/physics/collisions_sphere.c
 srcs/physics/draws.c
 srcs/physics/fts_maths_algebra.c
