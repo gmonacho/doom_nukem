@@ -28,10 +28,10 @@
 # include "libft.h"
 # include <time.h>
 
-# define WIDTH			    600
-# define HEIGHT				400
+# define WIDTH			    900
+# define HEIGHT				600
 # define SENSITIVE			0.0015 //0.00000015 pour aducimet
-# define OBJECT_ROTATION_VELOCITY	20
+# define OBJECT_ROTATION_VELOCITY	10
 
 # define MAX_SECTORS		25
 # define NEXT_FACTOR		50
