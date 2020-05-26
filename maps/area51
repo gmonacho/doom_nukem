@@ -12,11 +12,71 @@ Player
 }
 Sphere
 {
-	posx = 3060
+	posx = 3180
 	posy = 0
 	posz = -30
 	radius = 10000000
 	texture = desert.jpg
+}
+Object
+{
+	type = GRAVITY_INV
+	posx = 118
+	posy = -754
+	posz = -975
+	width = 30
+	height = 30
+	dir = 0
+	light = 50
+	texture = jetpack.png
+}
+Object
+{
+	type = ARMOR
+	posx = 168
+	posy = -983
+	posz = -665
+	width = 30
+	height = 30
+	dir = 0
+	light = 100
+	texture = purpot.png
+}
+Object
+{
+	type = HEAL
+	posx = 171
+	posy = -983
+	posz = -660
+	width = 30
+	height = 30
+	dir = 0
+	light = 50
+	texture = clear.png
+}
+Object
+{
+	type = HEAL
+	posx = -363
+	posy = -819
+	posz = -960
+	width = 30
+	height = 30
+	dir = 0
+	light = 50
+	texture = redpot.png
+}
+Object
+{
+	type = ARMOR
+	posx = 54
+	posy = -769
+	posz = -960
+	width = 30
+	height = 30
+	dir = 0
+	light = 50
+	texture = bluepot.png
 }
 Object
 {
@@ -640,7 +700,7 @@ Object
 	height = 30
 	dir = 0
 	light = 50
-	texture = pq.png
+	texture = jetpack.png
 }
 Object
 {
@@ -903,6 +963,33 @@ Mob
 	agro_dist = 50
 	texture = clear.png
 	health = 10000
+}
+Polygon
+{
+	dot = x:196 y:-922 z:-600
+	dot = x:195 y:-1024 z:-600
+	dot = x:195 y:-1024 z:-800
+	dot = x:196 y:-922 z:-800
+	light = 100
+	texture = grate.png
+}
+Polygon
+{
+	dot = x:196 y:-922 z:-1001
+	dot = x:120 y:-933 z:-1001
+	dot = x:120 y:-933 z:-800
+	dot = x:196 y:-922 z:-800
+	light = 100
+	texture = grate.png
+}
+Polygon
+{
+	dot = x:85 y:-874 z:-980
+	dot = x:20 y:-743 z:-980
+	dot = x:20 y:-743 z:-1000
+	dot = x:85 y:-874 z:-1000
+	light = 100
+	texture = metal3s.jpg
 }
 Polygon
 {
@@ -4584,4 +4671,31 @@ Polygon
 	dot = x:-346 y:-705 z:-375
 	light = 100
 	texture = metal1s.png
+}
+Polygon
+{
+	dot = x:-83 y:-668 z:-640
+	dot = x:131 y:-577 z:-640
+	dot = x:316 y:-1011 z:-640
+	dot = x:102 y:-1102 z:-640
+	light = 100
+	texture = clear.png
+}
+Polygon
+{
+	dot = x:102 y:-1102 z:-640
+	dot = x:17 y:-904 z:-640
+	dot = x:-325 y:-1051 z:-640
+	dot = x:-240 y:-1249 z:-640
+	light = 100
+	texture = clear.png
+}
+Polygon
+{
+	dot = x:-325 y:-1051 z:-640
+	dot = x:-108 y:-958 z:-640
+	dot = x:-203 y:-734 z:-640
+	dot = x:-420 y:-827 z:-640
+	light = 100
+	texture = clear.png
 }

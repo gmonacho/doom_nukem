@@ -76,7 +76,7 @@ void			objects_actions(t_map *map, t_player *player,\
 	if (object->type == GRAVITY_INV)
 	{
 		map->gravity = -map->gravity;
-		start_cooldown(&(map->gravity_inv_time), 10000);
+		start_cooldown(&(map->gravity_inv_time), 5000);
 	}
 	if (object->type == END)
 		player->end = 1;
