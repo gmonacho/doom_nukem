@@ -67,7 +67,7 @@ static void		events_shoot(t_win *win,
 			player->timers.bullet_cd.index = 0;
 			Mix_PlayChannel(2, map->music->tmusic[0], 0);
 			player->inventory->ammo -= 1;
-			add_bullet(player);
+			// add_bullet(player);
 			hit_mobs(map->mob, 10);
 		}
 	}
