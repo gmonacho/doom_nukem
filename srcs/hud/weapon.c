@@ -84,7 +84,6 @@ void		add_bullet(t_player *player)
 	int *tmp;
 
 	i = -1;
-	printf("len-bullet = %d\n", player->len_bullet);
 	if (!(tmp = (int *)malloc(sizeof(int) * (player->len_bullet + 1))))
 	{
 		ft_putendl("error malloc in weapon.c l.73");
