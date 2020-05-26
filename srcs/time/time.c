@@ -45,16 +45,12 @@ void	reload_cd(t_map *map)
 	if (test_timer_refresh(&(map->player.timers.shot_cd)) == 1 &&\
 			map->player.timers.bullet_cd.index < 5)
 		map->player.timers.bullet_cd.index++;
-	if (test_timer_refresh(&(map->player.timers.animation_shot_cd)) == 1 &&\
-			map->player.timers.animation_shot_cd.index < 5)
+	if (map->player.bullet_drop)
 	{
-		if (map->player.bullet_drop)
-		{
-			while (++i < map->player.len_bullet)
-				(map->player.bullet_drop[i])++;
-			if (map->player.bullet_drop[0] == 5)
-				del_bullet(&map->player);
-		}
+		while (++i < map->player.len_bullet)
+			(map->player.bullet_drop[i])++;
+		if (map->player.bullet_drop[0] >= 5)
+			del_bullet(&map->player);
 	}
 	if (test_timer_refresh(&(map->player.timers.reload_cd)) == 1 &&\
 			map->player.timers.reload_cd.index < 4)
