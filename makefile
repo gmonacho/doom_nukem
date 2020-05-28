@@ -6,7 +6,7 @@
 #    By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/02 16:01:28 by gmonacho          #+#    #+#              #
-#    Updated: 2020/05/28 17:03:26 by gal              ###   ########lyon.fr    #
+#    Updated: 2020/05/28 18:26:49 by gal              ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -205,13 +205,12 @@ HEADERS = -Ilibft/includes/\
 
 OBJS = $(SRCS:.c=.o)
 LDFLAGS= -lm -pthread -Llibft/ -lft -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image
-CFLAGS += -Wall -Wextra -Werror
-
-all: $(EXEC) clean
+CFLAGS += -Wall -Wextra -Werror -O3 -ffast-math -march=native 
+# -flto 
+all: $(EXEC)
 
 $(EXEC): $(OBJS)
-	echo $(OBJS)
-	$(CC) -o $@ $^ $(LDFLAGS)
+	@$(CC) -o $@ $^ $(LDFLAGS)
 
 main.o:	libft.h\
 		bordel_proto.h\
@@ -232,7 +231,6 @@ main.o:	libft.h\
 
 .PHONY: clean
 		fclean
-		re
 
 clean:
 	@rm -rf $(OBJS)

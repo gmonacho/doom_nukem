@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:42:47 by gal               #+#    #+#             */
-/*   Updated: 2020/05/26 22:50:17 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 18:11:27 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void			init_map(t_map *map)
 	map->editor.settings.texture = NULL;
 	map->editor.export.path = NULL;
 	map->editor.selected = NULL;
+	map->editor.list_selected = NULL;
 }
 
 static int			pre_init(t_win *win, t_map *map)
