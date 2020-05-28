@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:35 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 17:38:37 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 14:40:59 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ void		ed_display_selected_obj(t_win *win,
 											selected->dir);
 		else
 			draw_circle(win, (t_circle){pos.x, pos.y,
-										selected->width * map->editor.unit / 2});
+									selected->width * map->editor.unit / 2});
 	}
 }

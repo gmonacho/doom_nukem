@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:29 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 19:12:55 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 14:29:22 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,4 @@ void		ed_display_poly(t_win *win, const t_map *map, t_poly *poly)
 		ed_display_flat(win, map, poly);
 	else if (ed_is_inclined(poly))
 		ed_display_inclined(win, map, poly);
-	
 }

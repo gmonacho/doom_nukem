@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:22:26 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 19:01:04 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 14:42:37 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void			ed_get_selected_poly(t_map *map, int i)
 					rect_intersect_poly(map, *poly)))
 				{
 					ed_add_selected(&map->editor.list_selected,
-								ed_new_selected((void*)poly, SELECTED_TYPE_POLY));
+							ed_new_selected((void*)poly, SELECTED_TYPE_POLY));
 				}
 			}
 			poly = poly->next;

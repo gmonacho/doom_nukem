@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 16:34:07 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 11:53:46 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 14:54:58 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ void		dead_menu_ui(t_win *win)
 	ui_update_ui(win->winui);
 }
 
-void        define_line_shot(t_win *win, t_player *player)
+void		define_line_shot(t_win *win, t_player *player)
 {
-    player->bullet_drop = NULL;
-    player->len_bullet = 0;
-    player->l[1] = is_point(win->w * 0.68, win->h * 0.65,
-        win->w * 0.637, win->h * 0.625);
-    player->l[2] = is_point(win->w * 0.637, win->h * 0.625,
-        win->w * 0.595, win->h * 0.6);
-    player->l[3] = is_point(win->w * 0.595, win->h * 0.6,
-        win->w * 0.552, win->h * 0.575);
-    player->l[4] = is_point(win->w * 0.552, win->h * 0.575,
-        win->w * 0.51, win->h * 0.55);
+	player->bullet_drop = NULL;
+	player->len_bullet = 0;
+	player->l[1] = is_point(win->w * 0.68, win->h * 0.65,
+		win->w * 0.637, win->h * 0.625);
+	player->l[2] = is_point(win->w * 0.637, win->h * 0.625,
+		win->w * 0.595, win->h * 0.6);
+	player->l[3] = is_point(win->w * 0.595, win->h * 0.6,
+		win->w * 0.552, win->h * 0.575);
+	player->l[4] = is_point(win->w * 0.552, win->h * 0.575,
+		win->w * 0.51, win->h * 0.55);
 }
 
 int			end_game_win(t_win *win, t_map *map, t_player *player, int i)

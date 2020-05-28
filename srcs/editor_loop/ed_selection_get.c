@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:21:15 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 19:51:08 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 14:43:18 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static SDL_bool	ed_is_mob_selected(t_win *win,
 		return (SDL_FALSE);
 }
 
-void	ed_get_selected_mob(t_win *win, t_map *map)
+void			ed_get_selected_mob(t_win *win, t_map *map)
 {
 	t_mob	*m;
 
@@ -39,7 +39,7 @@ void	ed_get_selected_mob(t_win *win, t_map *map)
 	}
 }
 
-void	ed_get_selected_player(t_win *win, t_map *map)
+void			ed_get_selected_player(t_win *win, t_map *map)
 {
 	if (ed_get_line_len(&(t_line){ed_get_map_point(map, win->winui->mouse.pos),
 			(t_dot){map->player.pos.x, map->player.pos.y}}) < map->player.width)
@@ -54,8 +54,8 @@ static SDL_bool	ed_is_obj_selected(t_win *win,
 								const t_object *object)
 {
 	if (ed_get_line_len(&(t_line){ed_get_map_point(map, win->winui->mouse.pos),
-						(t_dot){object->pos_rotz_only.x,
-								object->pos_rotz_only.y}}) < object->width / 2.0)
+					(t_dot){object->pos_rotz_only.x,
+							object->pos_rotz_only.y}}) < object->width / 2.0)
 		return (SDL_TRUE);
 	else
 		return (SDL_FALSE);

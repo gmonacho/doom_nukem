@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 09:36:16 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 19:46:03 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 15:03:44 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,13 +270,12 @@ typedef enum				e_view
 	LIGHT_VIEW = 0b1000
 }							t_view;
 
-typedef struct 				s_l_texture
+typedef struct				s_l_texture
 {
 	SDL_Surface				*surface;
 	char					*id;
 	struct s_l_texture		*next;
 }							t_l_texture;
-
 
 typedef struct				s_win
 {
@@ -613,19 +612,19 @@ typedef struct				s_property
 	char					*content;
 }							t_property;
 
-typedef enum				s_selected_type
+typedef enum				e_selected_type
 {
 	SELECTED_TYPE_NONE = 0,
 	SELECTED_TYPE_POLY = 1,
 	SELECTED_TYPE_OBJECT = 2,
 	SELECTED_TYPE_MOB = 3,
 	SELECTED_TYPE_PLAYER = 4
-}							e_selected_type;
+}							t_selected_type;
 
 typedef struct				s_selected
 {
 	void					*ptr;
-	e_selected_type			selected_type;
+	t_selected_type			selected_type;
 	struct s_selected		*next;
 }							t_selected;
 
@@ -650,7 +649,7 @@ typedef struct				s_editor
 	t_arg_menu				arg_menu_tab[16];
 	SDL_Cursor				*cursor[2];
 	t_export				export;
-}							 t_editor;
+}							t_editor;
 
 typedef struct				s_map
 {

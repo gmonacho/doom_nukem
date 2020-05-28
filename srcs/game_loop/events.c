@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 16:47:53 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/20 16:55:39 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/26 22:11:46 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void		events_shoot(t_win *win,
 			player->timers.bullet_cd.index = 0;
 			Mix_PlayChannel(2, map->music->tmusic[0], 0);
 			player->inventory->ammo -= 1;
-			// add_bullet(player);
+			add_bullet(player);
 			hit_mobs(map->mob, 10);
 		}
 	}

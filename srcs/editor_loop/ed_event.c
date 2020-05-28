@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:20:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 20:20:12 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 14:23:46 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static void	ed_delete_event(t_win *win, t_map *map)
 		else if (map->editor.selected->selected_type == SELECTED_TYPE_MOB)
 			ed_delete_mob(&map->mob, (t_mob*)map->editor.selected->ptr);
 		else if (map->editor.selected->selected_type == SELECTED_TYPE_OBJECT)
-			ed_delete_obj(map, &map->objects, (t_object*)map->editor.selected->ptr);
+			ed_delete_obj(map, &map->objects,
+							(t_object*)map->editor.selected->ptr);
 		ed_clean_property(win, 1);
 		ed_free_selected(&map->editor.list_selected);
 		map->editor.selected = NULL;
@@ -79,13 +80,13 @@ static void	ed_next_events(t_win *win, t_map *map, const Uint8 *state)
 
 static void	ed_edit_vel(t_win *win, t_map *map, const Uint8 *state, t_dot *pos)
 {
-	int vel;
+	int				vel;
 	static Uint32	l_ti = 0;
 	Uint32			n_ti;
 
 	n_ti = SDL_GetTicks();
 	if (l_ti == 0 || n_ti - l_ti >= 200)
-	{	
+	{
 		if (state[SDL_SCANCODE_TAB] && map->editor.selected)
 		{
 			l_ti = n_ti;
@@ -103,7 +104,7 @@ static void	ed_edit_vel(t_win *win, t_map *map, const Uint8 *state, t_dot *pos)
 	if (state[SDL_SCANCODE_W])
 		pos->y -= vel;
 	if (state[SDL_SCANCODE_S])
-		pos->y += vel;	
+		pos->y += vel;
 }
 
 int			ed_event(t_win *win, t_map *map)

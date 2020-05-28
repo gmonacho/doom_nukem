@@ -6,14 +6,14 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 16:13:41 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 19:43:24 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 15:05:03 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 #include "ui_error.h"
 
-t_selected	*ed_new_selected(void *ptr, e_selected_type selected_type)
+t_selected	*ed_new_selected(void *ptr, t_selected_type selected_type)
 {
 	t_selected	*selected;
 
@@ -28,7 +28,7 @@ t_selected	*ed_new_selected(void *ptr, e_selected_type selected_type)
 	return (selected);
 }
 
-void	ed_add_selected(t_selected **list_selected, t_selected *selected)
+void		ed_add_selected(t_selected **list_selected, t_selected *selected)
 {
 	if (selected)
 	{

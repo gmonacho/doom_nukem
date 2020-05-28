@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/24 19:51:35 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 15:04:36 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,9 +234,12 @@ void		ed_display_polys_wall(t_win *win, const t_map *map);
 void		ed_display_wall(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_inclined(t_win *win, const t_map *map, t_poly *poly);
 void		ed_display_flat(t_win *win, const t_map *map, t_poly *poly);
-void		ed_display_selected_poly(t_win *win, const t_map *map, const t_poly *selected);
-void		ed_display_selected_mob(t_win *win, const t_map *map, const t_mob *selected);
-void		ed_display_selected_obj(t_win *win, const t_map *map, const t_object *selected);
+void		ed_display_selected_poly(t_win *win, const t_map *map,
+													const t_poly *selected);
+void		ed_display_selected_mob(t_win *win, const t_map *map,
+													const t_mob *selected);
+void		ed_display_selected_obj(t_win *win, const t_map *map,
+													const t_object *selected);
 void		ed_display_player(t_win *win, const t_map *map);
 void		ed_display_mobs(t_win *win, const t_map *map);
 void		ed_display_mob(t_win *win, const t_map *map, const t_mob *m);
@@ -273,7 +276,7 @@ SDL_bool	ed_is_wall(const t_poly *poly);
 
 void		ed_selection(t_win *win, t_map *map);
 void		ed_set_buttons_selected(t_win *win, t_map *map);
-t_selected	*ed_new_selected(void *ptr, e_selected_type selected_type);
+t_selected	*ed_new_selected(void *ptr, t_selected_type selected_type);
 void		ed_add_selected(t_selected **list_selected, t_selected *selected);
 void		ed_free_selected(t_selected **list_selected);
 void		ed_get_selected_obj(t_win *win, t_map *map);
@@ -281,7 +284,6 @@ void		ed_get_selected_mob(t_win *win, t_map *map);
 void		ed_get_selected_poly(t_map *map, int i);
 void		ed_get_selected_player(t_win *win, t_map *map);
 void		ed_incre_selected(t_selected *list_selected, t_selected **selected);
-
 
 SDL_bool	ed_is_poly_point(const t_poly *poly);
 SDL_bool	ed_is_real_poly(const t_map *map, const t_poly *poly);

@@ -6,13 +6,13 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 22:12:26 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/24 15:38:28 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 14:58:48 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-void	add_existing_object(t_object **objects, t_object *new_object)
+void			add_existing_object(t_object **objects, t_object *new_object)
 {
 	if (new_object)
 	{

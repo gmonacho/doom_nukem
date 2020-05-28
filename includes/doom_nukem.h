@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 09:32:17 by gal               #+#    #+#             */
-/*   Updated: 2020/05/24 15:38:29 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 15:04:11 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@
 
 # define WIDTH			    900
 # define HEIGHT				600
-# define SENSITIVE			0.0015 //0.00000015 pour aducimet
+# define SENSITIVE			0.0015
+
+/*
+** 0.00000015 pour aducimet
+*/
+
 # define OBJECT_ROTATION_VELOCITY	10
 
 # define MAX_SECTORS		25
