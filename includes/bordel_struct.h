@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 09:36:16 by gal               #+#    #+#             */
-/*   Updated: 2020/05/28 15:03:44 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 16:46:25 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 # define BORDEL_STRUCT_H
 
 # include "ui_win.h"
-# include "SDL.h"
+# ifdef __linux__
+#  include "SDL2/SDL.h"
+# else
+#  include "SDL.h"
+# endif
 
 typedef struct				s_fdot_3d
 {

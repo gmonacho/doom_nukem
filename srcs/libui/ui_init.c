@@ -6,11 +6,15 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:19:07 by gal               #+#    #+#             */
-/*   Updated: 2020/05/06 14:19:08 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 16:48:00 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "SDL.h"
+# ifdef __linux__
+#  include "SDL2/SDL.h"
+# else
+#  include "SDL.h"
+# endif
 #include "ui.h"
 #include "ui_error.h"
 

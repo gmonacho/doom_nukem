@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 09:32:17 by gal               #+#    #+#             */
-/*   Updated: 2020/05/28 15:04:11 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 16:45:00 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,22 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <sys/stat.h>
-# include "SDL.h"
-# include "SDL_ttf.h"
-# include "SDL_image.h"
-# include "SDL_mixer.h"
+# ifdef __linux__
+#  include "SDL2/SDL.h"
+#  include "SDL2/SDL_ttf.h"
+#  include "SDL2/SDL_image.h"
+#  include "SDL2/SDL_mixer.h"
+# else
+#  include "SDL.h"
+#  include "SDL_ttf.h"
+#  include "SDL_image.h"
+#  include "SDL_mixer.h"
+# endif
 # include "libft.h"
 # include <time.h>
 
-# define WIDTH			    900
-# define HEIGHT				600
+# define WIDTH			    600
+# define HEIGHT				400
 # define SENSITIVE			0.0015
 
 /*

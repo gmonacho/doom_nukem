@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:17:32 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/19 09:27:50 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 16:45:29 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 # define UI_EVENT_H
 
 # include "ui_shape.h"
-# include "SDL.h"
+# ifdef __linux__
+#  include "SDL2/SDL.h"
+# else
+#  include "SDL.h"
+# endif
 
 typedef enum		e_mouse_button
 {

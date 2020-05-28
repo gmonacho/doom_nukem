@@ -6,14 +6,18 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:10:31 by agiordan          #+#    #+#             */
-/*   Updated: 2020/05/28 15:04:36 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 16:46:34 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BORDEL_PROTO_H
 # define BORDEL_PROTO_H
 
-# include "SDL.h"
+# ifdef __linux__
+#  include "SDL2/SDL.h"
+# else
+#  include "SDL.h"
+# endif
 
 void		main_free(t_win *win, t_map *map);
 

@@ -6,15 +6,20 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:20:45 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/19 09:28:01 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 16:46:04 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UI_TEXTURE_H
 # define UI_TEXTURE_H
 
-# include "SDL.h"
-# include "SDL_ttf.h"
+# ifdef __linux__
+#  include "SDL2/SDL.h"
+#  include "SDL2/SDL_ttf.h"
+# else
+#  include "SDL.h"
+#  include "SDL_ttf.h"
+# endif
 # include "ui_shape.h"
 
 void				ui_set_rend_target(SDL_Renderer *rend,

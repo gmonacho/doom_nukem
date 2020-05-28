@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:17:07 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/19 09:27:42 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 16:47:03 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 # define UI_DRAW_H
 
 # include "ui_shape.h"
-# include "SDL.h"
+# ifdef __linux__
+#  include "SDL2/SDL.h"
+# else
+#  include "SDL.h"
+# endif
 
 void	ui_set_draw_color(SDL_Renderer *rend, const SDL_Color *color);
 void	ui_draw_point(SDL_Renderer *rend, const t_dot *dot);

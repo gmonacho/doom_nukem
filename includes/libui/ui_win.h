@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:21:05 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/19 09:28:07 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 16:46:20 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 # include "ui_event.h"
 # include "ui_shape.h"
 # include "ui_texture.h"
-# include "SDL.h"
+# ifdef __linux__
+#  include "SDL2/SDL.h"
+# else
+#  include "SDL.h"
+# endif
 
 typedef struct			s_texture
 {

@@ -6,7 +6,7 @@
 /*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 16:06:45 by gal               #+#    #+#             */
-/*   Updated: 2020/05/28 15:00:31 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/28 16:46:50 by gal              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		main_free_inventory(t_inventory *inventory)
 {
 	int i;
 
-	if (!inventory || !inventory->item)
+	if (!inventory)
 		return ;
 	i = 0;
 	while (i < 5)
