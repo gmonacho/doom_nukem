@@ -1,14 +1,17 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/10/02 16:01:28 by gmonacho          #+#    #+#              #
-#    Updated: 2020/05/28 18:26:49 by gal              ###   ########lyon.fr    #
-#                                                                              #
-# **************************************************************************** #
+ifneq ($(words $(MAKECMDGOALS)),1)
+.DEFAULT_GOAL = all
+%:
+		@$(MAKE) $@ --no-print-directory -rRf $(firstword $(MAKEFILE_LIST))
+else
+ifndef ECHO
+T := $(shell $(MAKE) $(MAKECMDGOALS) --no-print-directory \
+		-nrRf $(firstword $(MAKEFILE_LIST)) \
+		ECHO="COUNTTHIS" | grep -c "COUNTTHIS")
+
+N := x
+C = $(words $N)$(eval N := x $N)
+ECHO = echo "`expr " [\`expr $C '*' 100 / $T\`" : '.*\(....\)$$'`%]"
+endif
 
 EXEC = doom-nukem
 CC = clang
@@ -207,7 +210,8 @@ OBJS = $(SRCS:.c=.o)
 LDFLAGS= -lm -pthread -Llibft/ -lft -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image
 CFLAGS += -Wall -Wextra -Werror -O3 -ffast-math -march=native 
 # -flto 
-all: $(EXEC)
+all: 	$(EXEC)
+		@$(ECHO) All done
 
 $(EXEC): $(OBJS)
 	@$(CC) -o $@ $^ $(LDFLAGS)
@@ -227,7 +231,9 @@ main.o:	libft.h\
 		ui_win.h
 
 %.o: %.c
-	$(CC) -o $@ -c $< $(CFLAGS) $(HEADERS)
+	@$(ECHO) Compiling $@
+	@$(CC) -o $@ -c $< $(CFLAGS) $(HEADERS)
+	@sleep 0.1
 
 .PHONY: clean
 		fclean
@@ -242,3 +248,5 @@ fclean: clean
 
 re: fclean
 	all
+
+endif
