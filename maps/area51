@@ -12,7 +12,7 @@ Player
 }
 Sphere
 {
-	posx = 3990
+	posx = 4350
 	posy = 0
 	posz = -30
 	radius = 10000000
@@ -860,6 +860,20 @@ Object
 }
 Mob
 {
+	posx = -89
+	posy = -1178
+	posz = 32
+	height = 60
+	width = 30
+	damage = 1
+	dir = -90
+	velocity = 1
+	agro_dist = 220
+	texture = madarafull.png
+	health = 60
+}
+Mob
+{
 	posx = 964
 	posy = -658
 	posz = 5
@@ -877,13 +891,13 @@ Mob
 	posx = 338
 	posy = -1222
 	posz = 5
-	height = 30
+	height = 60
 	width = 30
 	damage = 2
 	dir = -90
 	velocity = 2
 	agro_dist = 138
-	texture = madara.png
+	texture = madarafull.png
 	health = 60
 }
 Mob
@@ -947,13 +961,13 @@ Mob
 	posx = -175
 	posy = -978
 	posz = -960
-	height = 30
+	height = 60
 	width = 30
 	damage = 1
 	dir = -90
 	velocity = 1
 	agro_dist = 200
-	texture = madara.png
+	texture = madarafull.png
 	health = 40
 }
 Mob
@@ -961,55 +975,41 @@ Mob
 	posx = -49
 	posy = -839
 	posz = -950
-	height = 30
+	height = 60
 	width = 30
 	damage = 2
 	dir = -90
 	velocity = 2
 	agro_dist = 300
-	texture = madara.png
+	texture = madarafull.png
 	health = 70
-}
-Mob
-{
-	posx = 289
-	posy = -739
-	posz = 100
-	height = 30
-	width = 30
-	damage = 1
-	dir = -90
-	velocity = 1
-	agro_dist = 95
-	texture = madara.png
-	health = 50
 }
 Mob
 {
 	posx = 320
 	posy = -800
-	posz = -40
-	height = 30
-	width = 30
+	posz = -60
+	height = 50
+	width = 20
 	damage = 1
 	dir = -90
 	velocity = 1
 	agro_dist = 90
-	texture = madara.png
+	texture = madarafull.png
 	health = 50
 }
 Mob
 {
 	posx = 455
 	posy = -812
-	posz = -30
-	height = 30
-	width = 30
+	posz = -50
+	height = 55
+	width = 25
 	damage = 1
 	dir = -90
 	velocity = 2
 	agro_dist = 165
-	texture = madara.png
+	texture = madarafull.png
 	health = 60
 }
 Mob
@@ -1017,13 +1017,13 @@ Mob
 	posx = -608
 	posy = -420
 	posz = -120
-	height = 40
+	height = 90
 	width = 40
 	damage = 2
 	dir = -90
 	velocity = 3
 	agro_dist = 250
-	texture = madara.png
+	texture = madarafull.png
 	health = 90
 }
 Mob
@@ -1044,14 +1044,14 @@ Mob
 {
 	posx = -10
 	posy = -732
-	posz = 70
+	posz = 75
 	height = 60
-	width = 60
+	width = 36
 	damage = 0
 	dir = -90
 	velocity = 0
-	agro_dist = 0
-	texture = madara.png
+	agro_dist = 600
+	texture = madarafull.png
 	health = 100
 }
 Mob
@@ -1059,13 +1059,13 @@ Mob
 	posx = -251
 	posy = -732
 	posz = -410
-	height = 30
+	height = 60
 	width = 30
 	damage = 1
 	dir = -90
 	velocity = 0
 	agro_dist = 190
-	texture = madara.png
+	texture = madarafull.png
 	health = 20
 }
 Mob
@@ -1073,13 +1073,13 @@ Mob
 	posx = -620
 	posy = -603
 	posz = -320
-	height = 60
+	height = 80
 	width = 40
 	damage = 1
 	dir = -90
 	velocity = 0
 	agro_dist = 160
-	texture = madara.png
+	texture = madarafull.png
 	health = 60
 }
 Mob
@@ -1112,37 +1112,60 @@ Mob
 }
 Mob
 {
-	posx = 142
-	posy = -1184
-	posz = 35
-	height = 45
-	width = 30
+	posx = 129
+	posy = -827
+	posz = 60
+	height = 55
+	width = 25
 	damage = 1
 	dir = -90
-	velocity = 3
-	agro_dist = 280
-	texture = madara.png
-	health = 66
+	velocity = 1
+	agro_dist = 75
+	texture = madarafull.png
+	health = 50
 }
 Mob
 {
-	posx = -38
+	posx = 121
 	posy = -1209
-	posz = 35
-	height = 40
+	posz = 25
+	height = 64
+	width = 32
+	damage = 2
+	dir = -90
+	velocity = 2
+	agro_dist = 300
+	texture = madarafull.png
+	health = 50
+}
+Mob
+{
+	posx = 497
+	posy = -1114
+	posz = 5
+	height = 30
 	width = 30
 	damage = 1
 	dir = -90
 	velocity = 1
-	agro_dist = 240
-	texture = madara.png
-	health = 60
+	agro_dist = 0
+	texture = brique.png
+	health = 50
+}
+Polygon
+{
+	dot = x:64 y:-940 z:99
+	dot = x:169 y:-941 z:99
+	dot = x:168 y:-1035 z:99
+	dot = x:63 y:-1034 z:99
+	light = 48
+	texture = ceiling.jpg
 }
 Polygon
 {
 	dot = x:153 y:-654 z:30
-	dot = x:152 y:-631 z:5
-	dot = x:80 y:-633 z:5
+	dot = x:152 y:-631 z:12
+	dot = x:80 y:-633 z:12
 	dot = x:81 y:-656 z:30
 	light = 100
 	texture = grate.png
@@ -1266,8 +1289,8 @@ Polygon
 }
 Polygon
 {
-	dot = x:378 y:-1223 z:80
-	dot = x:230 y:-1326 z:80
+	dot = x:378 y:-1223 z:10
+	dot = x:230 y:-1326 z:10
 	dot = x:230 y:-1326 z:-30
 	dot = x:378 y:-1223 z:-30
 	light = 100
@@ -1275,8 +1298,8 @@ Polygon
 }
 Polygon
 {
-	dot = x:341 y:-1166 z:0
-	dot = x:378 y:-1223 z:0
+	dot = x:341 y:-1166 z:80
+	dot = x:378 y:-1223 z:80
 	dot = x:378 y:-1223 z:-31
 	dot = x:341 y:-1166 z:-31
 	light = 100
@@ -1295,8 +1318,8 @@ Polygon
 {
 	dot = x:163 y:-1227 z:80
 	dot = x:250 y:-1167 z:80
-	dot = x:250 y:-1167 z:31
-	dot = x:163 y:-1227 z:31
+	dot = x:250 y:-1167 z:-31
+	dot = x:163 y:-1227 z:-31
 	light = 100
 	texture = metal3s.jpg
 }
@@ -3314,7 +3337,7 @@ Polygon
 	dot = x:19 y:-768 z:40
 	dot = x:-44 y:-768 z:40
 	light = 100
-	texture = brique.png
+	texture = metal2s.png
 }
 Polygon
 {
@@ -5142,4 +5165,22 @@ Polygon
 	dot = x:491 y:-657 z:60
 	light = 100
 	texture = grate.png
+}
+Polygon
+{
+	dot = x:137 y:-822 z:-30
+	dot = x:213 y:-822 z:-30
+	dot = x:213 y:-822 z:-65
+	dot = x:137 y:-822 z:-65
+	light = 100
+	texture = screen.jpg
+}
+Polygon
+{
+	dot = x:80 y:-822 z:-30
+	dot = x:120 y:-822 z:-30
+	dot = x:120 y:-822 z:-65
+	dot = x:80 y:-822 z:-65
+	light = 100
+	texture = tv.png
 }
