@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_2dstrpushback.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 22:20:19 by gal               #+#    #+#             */
-/*   Updated: 2020/05/10 22:20:19 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/29 13:45:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
-#include <stdio.h>
 
 void		copytab2d(char **tab, char **ntab, int len, int i)
 {

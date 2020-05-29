@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 10:21:37 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/10 22:24:12 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/29 13:26:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 #include "../includes/libft.h"
 
 char	*ft_strcpy(char *dst, const char *src)

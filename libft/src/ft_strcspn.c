@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strcspn.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/02 16:20:27 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/29 13:46:33 by user42           ###   ########.fr       */
+/*   Created: 2020/05/29 13:23:19 by user42            #+#    #+#             */
+/*   Updated: 2020/05/29 13:23:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "../includes/libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+size_t	ft_strcspn(const char *s, const char *charset)
 {
-	size_t			i;
+	size_t	i;
 
 	i = 0;
-	while (i < len)
+	while (s[i])
 	{
-		((char *)b)[i++] = (unsigned char)c;
+		while (*charset)
+		{
+			if (s[i] == *charset)
+				return (i);
+			i++;
+		}
+		charset++;
 	}
-	return (b);
+	return (i);
 }

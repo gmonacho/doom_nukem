@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 10:23:36 by gmonacho          #+#    #+#             */
-/*   Updated: 2020/05/17 23:04:50 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/05/29 13:27:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int					**ft_2dintpushback(int **tab, int size_i,
 char				**ft_2dstrpushback(char **tab, int size_i, char *line);
 int					ft_2dstrlen(char **tab);
 char				*ft_strdup(const char *s1);
+char				*ft_strndup(const char *str, size_t n);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
 char				*ft_strcat(char *s1, const char *s2);
@@ -89,6 +90,7 @@ char				*ft_strrev(char *str);
 
 size_t				ft_strlen(const char *s);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
+size_t				ft_strcspn(const char *s, const char *charset);
 size_t				ft_lstlen(t_list **alst);
 size_t				ft_tablen(void **tab);
 
