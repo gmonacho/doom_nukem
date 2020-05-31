@@ -12,11 +12,71 @@ Player
 }
 Sphere
 {
-	posx = 5250
+	posx = 5550
 	posy = 0
 	posz = -30
 	radius = 10000000
 	texture = desert.jpg
+}
+Object
+{
+	type = LIGHT
+	posx = -249
+	posy = -1380
+	posz = 1000
+	width = 30
+	height = 30
+	dir = 0
+	light = 59
+	texture = clear.png
+}
+Object
+{
+	type = LIGHT
+	posx = 37
+	posy = -429
+	posz = 104
+	width = 2
+	height = 2
+	dir = 0
+	light = 50
+	texture = clear.png
+}
+Object
+{
+	type = DOOR
+	posx = 499
+	posy = -1244
+	posz = -766
+	width = 47
+	height = 47
+	dir = 224
+	light = 100
+	texture = fan.jpg
+}
+Object
+{
+	type = DOOR
+	posx = 298
+	posy = -963
+	posz = -760
+	width = 49
+	height = 49
+	dir = 263
+	light = 100
+	texture = airvent.png
+}
+Object
+{
+	type = BOX
+	posx = 290
+	posy = -993
+	posz = -786
+	width = 26
+	height = 26
+	dir = 0
+	light = 50
+	texture = woodbox.png
 }
 Object
 {
@@ -53,18 +113,6 @@ Object
 	dir = 0
 	light = 50
 	texture = redpot.png
-}
-Object
-{
-	type = LIGHT
-	posx = -786
-	posy = -937
-	posz = -30
-	width = 10
-	height = 10
-	dir = 0
-	light = 58
-	texture = clear.png
 }
 Object
 {
@@ -128,18 +176,6 @@ Object
 }
 Object
 {
-	type = LIGHT
-	posx = -30
-	posy = -927
-	posz = -750
-	width = 10
-	height = 10
-	dir = 0
-	light = 50
-	texture = clear.png
-}
-Object
-{
 	type = DOOR
 	posx = 134
 	posy = -943
@@ -161,18 +197,6 @@ Object
 	dir = 0
 	light = 50
 	texture = alien.jpg
-}
-Object
-{
-	type = LIGHT
-	posx = 83
-	posy = -742
-	posz = -20
-	width = 10
-	height = 10
-	dir = 0
-	light = 50
-	texture = clear.png
 }
 Object
 {
@@ -245,18 +269,6 @@ Object
 	dir = 0
 	light = 50
 	texture = biohazard.jpg
-}
-Object
-{
-	type = LIGHT
-	posx = -573
-	posy = -472
-	posz = 0
-	width = 2
-	height = 2
-	dir = 0
-	light = 50
-	texture = brique.png
 }
 Object
 {
@@ -500,18 +512,6 @@ Object
 }
 Object
 {
-	type = LIGHT
-	posx = 34
-	posy = -438
-	posz = 104
-	width = 5
-	height = 5
-	dir = 0
-	light = 50
-	texture = metal1s.png
-}
-Object
-{
 	type = ARMOR
 	posx = -748
 	posy = -591
@@ -533,18 +533,6 @@ Object
 	dir = 115
 	light = 100
 	texture = doorfront.png
-}
-Object
-{
-	type = LIGHT
-	posx = 272
-	posy = -734
-	posz = 0
-	width = 1
-	height = 1
-	dir = 0
-	light = 50
-	texture = metal1s.png
 }
 Object
 {
@@ -677,30 +665,6 @@ Object
 	dir = 0
 	light = 50
 	texture = cement.png
-}
-Object
-{
-	type = LIGHT
-	posx = -528
-	posy = -1019
-	posz = 0
-	width = 10
-	height = 10
-	dir = 0
-	light = 50
-	texture = clear.png
-}
-Object
-{
-	type = LIGHT
-	posx = -141
-	posy = -1015
-	posz = -650
-	width = 10
-	height = 10
-	dir = 0
-	light = 50
-	texture = clear.png
 }
 Object
 {
@@ -891,7 +855,7 @@ Object
 	width = 28
 	height = 28
 	dir = 0
-	light = 50
+	light = 30
 	texture = paper.jpg
 }
 Mob
@@ -1165,7 +1129,7 @@ Mob
 	posx = 121
 	posy = -1209
 	posz = 25
-	height = 64
+	height = 42
 	width = 32
 	damage = 2
 	dir = -90
@@ -1173,6 +1137,51 @@ Mob
 	agro_dist = 300
 	texture = madarafull.png
 	health = 50
+}
+Polygon
+{
+	dot = x:361 y:-282 z:-90
+	dot = x:1419 y:-282 z:-90
+	dot = x:1419 y:210 z:-90
+	dot = x:361 y:210 z:-90
+	light = 100
+	texture = desertground.jpg
+}
+Polygon
+{
+	dot = x:1419 y:-656 z:-91
+	dot = x:494 y:-655 z:-91
+	dot = x:493 y:-1117 z:-91
+	dot = x:1418 y:-1118 z:-91
+	light = 100
+	texture = desertground.jpg
+}
+Polygon
+{
+	dot = x:494 y:-656 z:0
+	dot = x:494 y:-656 z:0
+	dot = x:730 y:-656 z:0
+	dot = x:730 y:-656 z:0
+	light = 100
+	texture = brique.png
+}
+Polygon
+{
+	dot = x:361 y:-656 z:-90
+	dot = x:361 y:-282 z:-90
+	dot = x:1419 y:-282 z:-90
+	dot = x:1419 y:-656 z:-90
+	light = 100
+	texture = desertground.jpg
+}
+Polygon
+{
+	dot = x:405 y:-990 z:-800
+	dot = x:1153 y:-990 z:-800
+	dot = x:1153 y:-1851 z:-800
+	dot = x:405 y:-1851 z:-800
+	light = 100
+	texture = concrete.jpg
 }
 Polygon
 {
@@ -1203,15 +1212,6 @@ Polygon
 }
 Polygon
 {
-	dot = x:296 y:-964 z:-720
-	dot = x:316 y:-1011 z:-720
-	dot = x:316 y:-1011 z:-600
-	dot = x:296 y:-964 z:-600
-	light = 100
-	texture = metal2s.png
-}
-Polygon
-{
 	dot = x:433 y:-1309 z:-800
 	dot = x:629 y:-1117 z:-800
 	dot = x:629 y:-1117 z:-766
@@ -1231,8 +1231,8 @@ Polygon
 Polygon
 {
 	dot = x:454 y:-1287 z:-766
-	dot = x:406 y:-1237 z:-761
-	dot = x:470 y:-1176 z:-761
+	dot = x:406 y:-1237 z:-760
+	dot = x:470 y:-1176 z:-760
 	dot = x:518 y:-1226 z:-766
 	light = 100
 	texture = metal2s.png
@@ -1902,15 +1902,6 @@ Polygon
 	dot = x:134 y:-943 z:200
 	light = 100
 	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:818 y:-282 z:-90
-	dot = x:494 y:-963 z:-90
-	dot = x:1277 y:-1335 z:-90
-	dot = x:1600 y:-656 z:-90
-	light = 100
-	texture = desertground.jpg
 }
 Polygon
 {
@@ -2937,15 +2928,6 @@ Polygon
 	dot = x:494 y:-604 z:10
 	light = 100
 	texture = fence.png
-}
-Polygon
-{
-	dot = x:818 y:-656 z:-90
-	dot = x:494 y:-656 z:-90
-	dot = x:494 y:-963 z:-90
-	dot = x:818 y:-963 z:-90
-	light = 100
-	texture = desertground.jpg
 }
 Polygon
 {
@@ -4170,24 +4152,6 @@ Polygon
 	dot = x:361 y:-823 z:-90
 	light = 100
 	texture = concrete.png
-}
-Polygon
-{
-	dot = x:361 y:-282 z:-90
-	dot = x:818 y:-282 z:-90
-	dot = x:818 y:-656 z:-90
-	dot = x:361 y:-656 z:-90
-	light = 100
-	texture = desertground.jpg
-}
-Polygon
-{
-	dot = x:361 y:-282 z:-90
-	dot = x:818 y:-282 z:-90
-	dot = x:818 y:212 z:-90
-	dot = x:361 y:212 z:-90
-	light = 100
-	texture = desertground.jpg
 }
 Polygon
 {
@@ -5541,15 +5505,6 @@ Polygon
 }
 Polygon
 {
-	dot = x:434 y:-1120 z:-800
-	dot = x:1143 y:-1120 z:-800
-	dot = x:1143 y:-1834 z:-800
-	dot = x:434 y:-1834 z:-800
-	light = 100
-	texture = bunkwall.jpg
-}
-Polygon
-{
 	dot = x:433 y:-1648 z:-800
 	dot = x:631 y:-1834 z:-800
 	dot = x:631 y:-1834 z:0
@@ -5694,19 +5649,37 @@ Polygon
 }
 Polygon
 {
-	dot = x:320 y:-1011 z:-800
-	dot = x:299 y:-963 z:-800
-	dot = x:299 y:-963 z:-760
-	dot = x:320 y:-1011 z:-760
-	light = 100
-	texture = brique.png
-}
-Polygon
-{
 	dot = x:296 y:-964 z:-759
 	dot = x:402 y:-1210 z:-759
 	dot = x:467 y:-1180 z:-759
 	dot = x:361 y:-934 z:-759
 	light = 100
 	texture = concrete.png
+}
+Polygon
+{
+	dot = x:299 y:-963 z:-800
+	dot = x:320 y:-1011 z:-800
+	dot = x:320 y:-1011 z:-760
+	dot = x:299 y:-963 z:-760
+	light = 100
+	texture = metal2s.png
+}
+Polygon
+{
+	dot = x:299 y:-963 z:-720
+	dot = x:320 y:-1011 z:-720
+	dot = x:320 y:-1011 z:-600
+	dot = x:299 y:-963 z:-600
+	light = 100
+	texture = metal2s.png
+}
+Polygon
+{
+	dot = x:935 y:-1119 z:-92
+	dot = x:1295 y:-1482 z:-92
+	dot = x:1621 y:-1157 z:-92
+	dot = x:1261 y:-794 z:-92
+	light = 100
+	texture = desertground.jpg
 }
