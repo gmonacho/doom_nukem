@@ -6465,7 +6465,14 @@ Polygon
 	light = 100
 	texture = concrete.png
 }
+<<<<<<< HEAD
 Polygon
+=======
+
+
+
+Polygon									//Manche
+>>>>>>> f83bcf654a09d78620d638336ec2c43785fdabf2
 {
 	dot = x:697 y:-1217 z:-800
 	dot = x:679 y:-1217 z:-800
@@ -6512,19 +6519,33 @@ Polygon
 }
 Polygon
 {
+<<<<<<< HEAD
 	dot = x:798 y:-1488 z:-42
 	dot = x:823 y:-1464 z:-42
 	dot = x:823 y:-1464 z:-405
 	dot = x:798 y:-1488 z:-405
+=======
+	dot = x:86, y:-740, z:-36
+	dot = x:86, y:-736, z:-36
+	dot = x:86, y:-736, z:-40
+	dot = x:86, y:-740, z:-40
+>>>>>>> f83bcf654a09d78620d638336ec2c43785fdabf2
 	light = 100
 	texture = airvent.png
 }
 Polygon
 {
+<<<<<<< HEAD
 	dot = x:823 y:-1464 z:-42
 	dot = x:824 y:-1438 z:-42
 	dot = x:824 y:-1438 z:-405
 	dot = x:823 y:-1464 z:-405
+=======
+	dot = x:82, y:-740, z:-40
+	dot = x:82, y:-736, z:-40
+	dot = x:82, y:-736, z:-42
+	dot = x:82, y:-740, z:-42
+>>>>>>> f83bcf654a09d78620d638336ec2c43785fdabf2
 	light = 100
 	texture = airvent.png
 }

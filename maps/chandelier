@@ -52,19 +52,19 @@ Polygon									//Bougie 3
 
 Polygon									//Manche haut
 {
-	dot = x:4, y:-2, z:0
-	dot = x:4, y:2, z:0
-	dot = x:4, y:2, z:-2
-	dot = x:4, y:-2, z:-2
+	dot = x:4, y:-2, z:6
+	dot = x:4, y:2, z:6
+	dot = x:4, y:2, z:2
+	dot = x:4, y:-2, z:2
 	light = 100
 	texture = gold.jpg
 }
 Polygon									//Manche bas
 {
-	dot = x:0, y:-2, z:6
-	dot = x:0, y:2, z:6
-	dot = x:0, y:2, z:2
 	dot = x:0, y:-2, z:2
+	dot = x:0, y:2, z:2
+	dot = x:0, y:2, z:-2
+	dot = x:0, y:-2, z:-2
 	light = 100
 	texture = gold.jpg
 }
