@@ -5561,6 +5561,8 @@ Polygon
 	texture = vine3.png
 }
 
+
+
 Polygon									//Manche
 {
 	dot = x:90, y:-740, z:-32
@@ -5611,8 +5613,8 @@ Polygon									//Bougie 3
 
 Polygon									//Manche haut
 {
-	dot = x:86, y:-740, z:-38
-	dot = x:86, y:-736, z:-38
+	dot = x:86, y:-740, z:-36
+	dot = x:86, y:-736, z:-36
 	dot = x:86, y:-736, z:-40
 	dot = x:86, y:-740, z:-40
 	light = 100
@@ -5620,10 +5622,10 @@ Polygon									//Manche haut
 }
 Polygon									//Manche bas
 {
-	dot = x:82, y:-740, z:-32
-	dot = x:82, y:-736, z:-32
-	dot = x:82, y:-736, z:-36
-	dot = x:82, y:-740, z:-36
+	dot = x:82, y:-740, z:-40
+	dot = x:82, y:-736, z:-40
+	dot = x:82, y:-736, z:-42
+	dot = x:82, y:-740, z:-42
 	light = 100
 	texture = gold.jpg
 }
