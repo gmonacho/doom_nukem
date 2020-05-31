@@ -1,7 +1,7 @@
 Player
 {
 	posx = 718
-	posy = 494
+	posy = 700
 	width = 25
 	height = 50
 	sector = 0
@@ -12,7 +12,7 @@ Sector
 	name = sector
 	ceilHeight = 1
 	floorHeight = 0
-	line
+	line	
 	{
 		dot = (1291, 942)
 		dot = (1590, 834)

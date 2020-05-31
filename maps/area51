@@ -12,7 +12,7 @@ Player
 }
 Sphere
 {
-	posx = 6060
+	posx = 6120
 	posy = 0
 	posz = -30
 	radius = 10000000
@@ -4635,285 +4635,6 @@ Polygon
 }
 Polygon
 {
-	dot = x:91 y:-738 z:-34
-	dot = x:91 y:-734 z:-34
-	dot = x:91 y:-734 z:-42
-	dot = x:91 y:-738 z:-42
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:91 y:-746 z:-30
-	dot = x:91 y:-726 z:-30
-	dot = x:91 y:-726 z:-34
-	dot = x:91 y:-746 z:-34
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:91 y:-746 z:-13
-	dot = x:91 y:-742 z:-13
-	dot = x:91 y:-742 z:-30
-	dot = x:91 y:-746 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:91 y:-738 z:-13
-	dot = x:91 y:-734 z:-13
-	dot = x:91 y:-734 z:-30
-	dot = x:91 y:-738 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:91 y:-730 z:-13
-	dot = x:91 y:-726 z:-13
-	dot = x:91 y:-726 z:-30
-	dot = x:91 y:-730 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:87 y:-738 z:-38
-	dot = x:87 y:-734 z:-38
-	dot = x:87 y:-734 z:-42
-	dot = x:87 y:-738 z:-42
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:83 y:-738 z:-34
-	dot = x:83 y:-734 z:-34
-	dot = x:83 y:-734 z:-38
-	dot = x:83 y:-738 z:-38
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:87 y:-746 z:-30
-	dot = x:87 y:-726 z:-30
-	dot = x:87 y:-726 z:-34
-	dot = x:87 y:-746 z:-34
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:87 y:-746 z:-13
-	dot = x:87 y:-742 z:-13
-	dot = x:87 y:-742 z:-30
-	dot = x:87 y:-746 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:87 y:-738 z:-13
-	dot = x:87 y:-734 z:-13
-	dot = x:87 y:-734 z:-30
-	dot = x:87 y:-738 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:87 y:-730 z:-13
-	dot = x:87 y:-726 z:-13
-	dot = x:87 y:-726 z:-30
-	dot = x:87 y:-730 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:83 y:-738 z:-38
-	dot = x:91 y:-738 z:-38
-	dot = x:91 y:-738 z:-42
-	dot = x:83 y:-738 z:-42
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:87 y:-738 z:-34
-	dot = x:91 y:-738 z:-34
-	dot = x:91 y:-738 z:-38
-	dot = x:87 y:-738 z:-38
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:87 y:-746 z:-30
-	dot = x:91 y:-746 z:-30
-	dot = x:91 y:-746 z:-34
-	dot = x:87 y:-746 z:-34
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:87 y:-746 z:-13
-	dot = x:91 y:-746 z:-13
-	dot = x:91 y:-746 z:-30
-	dot = x:87 y:-746 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:87 y:-738 z:-13
-	dot = x:91 y:-738 z:-13
-	dot = x:91 y:-738 z:-30
-	dot = x:87 y:-738 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:87 y:-730 z:-13
-	dot = x:91 y:-730 z:-13
-	dot = x:91 y:-730 z:-30
-	dot = x:87 y:-730 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:83 y:-734 z:-38
-	dot = x:91 y:-734 z:-38
-	dot = x:91 y:-734 z:-42
-	dot = x:83 y:-734 z:-42
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:87 y:-734 z:-34
-	dot = x:91 y:-734 z:-34
-	dot = x:91 y:-734 z:-38
-	dot = x:87 y:-734 z:-38
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:87 y:-726 z:-30
-	dot = x:91 y:-726 z:-30
-	dot = x:91 y:-726 z:-34
-	dot = x:87 y:-726 z:-34
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:87 y:-742 z:-13
-	dot = x:91 y:-742 z:-13
-	dot = x:91 y:-742 z:-30
-	dot = x:87 y:-742 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:87 y:-734 z:-13
-	dot = x:91 y:-734 z:-13
-	dot = x:91 y:-734 z:-30
-	dot = x:87 y:-734 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:87 y:-726 z:-13
-	dot = x:91 y:-726 z:-13
-	dot = x:91 y:-726 z:-30
-	dot = x:87 y:-726 z:-30
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:87 y:-746 z:-13
-	dot = x:87 y:-742 z:-13
-	dot = x:91 y:-742 z:-13
-	dot = x:91 y:-746 z:-13
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:87 y:-738 z:-13
-	dot = x:87 y:-734 z:-13
-	dot = x:91 y:-734 z:-13
-	dot = x:91 y:-738 z:-13
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:87 y:-730 z:-13
-	dot = x:87 y:-726 z:-13
-	dot = x:91 y:-726 z:-13
-	dot = x:91 y:-730 z:-13
-	light = 1
-	texture = concrete.jpg
-}
-Polygon
-{
-	dot = x:87 y:-742 z:-30
-	dot = x:87 y:-738 z:-30
-	dot = x:91 y:-738 z:-30
-	dot = x:91 y:-742 z:-30
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:87 y:-734 z:-30
-	dot = x:87 y:-730 z:-30
-	dot = x:91 y:-730 z:-30
-	dot = x:91 y:-734 z:-30
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:83 y:-738 z:-38
-	dot = x:83 y:-734 z:-38
-	dot = x:87 y:-734 z:-38
-	dot = x:87 y:-738 z:-38
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:91 y:-746 z:-34
-	dot = x:91 y:-726 z:-34
-	dot = x:87 y:-726 z:-34
-	dot = x:87 y:-746 z:-34
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
-	dot = x:91 y:-738 z:-42
-	dot = x:91 y:-734 z:-42
-	dot = x:83 y:-734 z:-42
-	dot = x:83 y:-738 z:-42
-	light = 1
-	texture = metal3s.jpg
-}
-Polygon
-{
 	dot = x:-689 y:-1125 z:-73
 	dot = x:-508 y:-1052 z:-73
 	dot = x:-508 y:-1052 z:40
@@ -5838,4 +5559,299 @@ Polygon
 	dot = x:-175 y:-309 z:-129
 	light = 100
 	texture = vine3.png
+}
+
+Polygon									//Manche
+{
+	dot = x:90, y:-740, z:-32
+	dot = x:90, y:-736, z:-32
+	dot = x:90, y:-736, z:-40
+	dot = x:90, y:-740, z:-40
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Socle
+{
+	dot = x:90, y:-748, z:-28
+	dot = x:90, y:-728, z:-28
+	dot = x:90, y:-728, z:-32
+	dot = x:90, y:-748, z:-32
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Bougie 1
+{
+	dot = x:90, y:-748, z:-11
+	dot = x:90, y:-744, z:-11
+	dot = x:90, y:-744, z:-28
+	dot = x:90, y:-748, z:-28
+	light = 100
+	texture = airvent.png
+}
+Polygon									//Bougie 2
+{
+	dot = x:90, y:-740, z:-11
+	dot = x:90, y:-736, z:-11
+	dot = x:90, y:-736, z:-28
+	dot = x:90, y:-740, z:-28
+	light = 100
+	texture = airvent.png
+}
+Polygon									//Bougie 3
+{
+	dot = x:90, y:-732, z:-11
+	dot = x:90, y:-728, z:-11
+	dot = x:90, y:-728, z:-28
+	dot = x:90, y:-732, z:-28
+	light = 100
+	texture = airvent.png
+}
+
+		/* Chandelier Derriere */
+
+Polygon									//Manche haut
+{
+	dot = x:86, y:-740, z:-38
+	dot = x:86, y:-736, z:-38
+	dot = x:86, y:-736, z:-40
+	dot = x:86, y:-740, z:-40
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Manche bas
+{
+	dot = x:82, y:-740, z:-32
+	dot = x:82, y:-736, z:-32
+	dot = x:82, y:-736, z:-36
+	dot = x:82, y:-740, z:-36
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Socle
+{
+	dot = x:86, y:-748, z:-28
+	dot = x:86, y:-728, z:-28
+	dot = x:86, y:-728, z:-32
+	dot = x:86, y:-748, z:-32
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Bougie 1
+{
+	dot = x:86, y:-748, z:-11
+	dot = x:86, y:-744, z:-11
+	dot = x:86, y:-744, z:-28
+	dot = x:86, y:-748, z:-28
+	light = 100
+	texture = airvent.png
+}
+Polygon									//Bougie 2
+{
+	dot = x:86, y:-740, z:-11
+	dot = x:86, y:-736, z:-11
+	dot = x:86, y:-736, z:-28
+	dot = x:86, y:-740, z:-28
+	light = 100
+	texture = airvent.png
+}
+Polygon									//Bougie 3
+{
+	dot = x:86, y:-732, z:-11
+	dot = x:86, y:-728, z:-11
+	dot = x:86, y:-728, z:-28
+	dot = x:86, y:-732, z:-28
+	light = 100
+	texture = airvent.png
+}
+
+		/* Chandelier gauche
+
+Polygon									//Manche bas
+{
+	dot = x:82, y:-740, z:-36
+	dot = x:90, y:-740, z:-36
+	dot = x:90, y:-740, z:-40
+	dot = x:82, y:-740, z:-40
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Manche haut
+{
+	dot = x:86, y:-740, z:-32
+	dot = x:90, y:-740, z:-32
+	dot = x:90, y:-740, z:-36
+	dot = x:86, y:-740, z:-36
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Socle
+{
+	dot = x:86, y:-748, z:-28
+	dot = x:90, y:-748, z:-28
+	dot = x:90, y:-748, z:-32
+	dot = x:86, y:-748, z:-32
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Bougie 1
+{
+	dot = x:86, y:-748, z:-11
+	dot = x:90, y:-748, z:-11
+	dot = x:90, y:-748, z:-28
+	dot = x:86, y:-748, z:-28
+	light = 100
+	texture = airvent.png
+}
+Polygon									//Bougie 2
+{
+	dot = x:86, y:-740, z:-11
+	dot = x:90, y:-740, z:-11
+	dot = x:90, y:-740, z:-28
+	dot = x:86, y:-740, z:-28
+	light = 100
+	texture = airvent.png
+}
+Polygon									//Bougie 3
+{
+	dot = x:86, y:-732, z:-11
+	dot = x:90, y:-732, z:-11
+	dot = x:90, y:-732, z:-28
+	dot = x:86, y:-732, z:-28
+	light = 100
+	texture = airvent.png
+}
+
+		/* Chandelier droit
+
+Polygon									//Manche bas
+{
+	dot = x:82, y:-736, z:-36
+	dot = x:90, y:-736, z:-36
+	dot = x:90, y:-736, z:-40
+	dot = x:82, y:-736, z:-40
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Manche haut
+{
+	dot = x:86, y:-736, z:-32
+	dot = x:90, y:-736, z:-32
+	dot = x:90, y:-736, z:-36
+	dot = x:86, y:-736, z:-36
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Socle
+{
+	dot = x:86, y:-728, z:-28
+	dot = x:90, y:-728, z:-28
+	dot = x:90, y:-728, z:-32
+	dot = x:86, y:-728, z:-32
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Bougie 1
+{
+	dot = x:86, y:-744, z:-11
+	dot = x:90, y:-744, z:-11
+	dot = x:90, y:-744, z:-28
+	dot = x:86, y:-744, z:-28
+	light = 100
+	texture = airvent.png
+}
+Polygon									//Bougie 2
+{
+	dot = x:86, y:-736, z:-11
+	dot = x:90, y:-736, z:-11
+	dot = x:90, y:-736, z:-28
+	dot = x:86, y:-736, z:-28
+	light = 100
+	texture = airvent.png
+}
+Polygon									//Bougie 3
+{
+	dot = x:86, y:-728, z:-11
+	dot = x:90, y:-728, z:-11
+	dot = x:90, y:-728, z:-28
+	dot = x:86, y:-728, z:-28
+	light = 100
+	texture = airvent.png
+}
+
+		/* Chandelier haut */
+
+Polygon									//Bougie 1
+{
+	dot = x:86, y:-748, z:-11
+	dot = x:86, y:-744, z:-11
+	dot = x:90, y:-744, z:-11
+	dot = x:90, y:-748, z:-11
+	light = 100
+	texture = airvent.png
+}
+Polygon									//Bougie 2
+{
+	dot = x:86, y:-740, z:-11
+	dot = x:86, y:-736, z:-11
+	dot = x:90, y:-736, z:-11
+	dot = x:90, y:-740, z:-11
+	light = 100
+	texture = airvent.png
+}
+Polygon									//Bougie 3
+{
+	dot = x:86, y:-732, z:-11
+	dot = x:86, y:-728, z:-11
+	dot = x:90, y:-728, z:-11
+	dot = x:90, y:-732, z:-11
+	light = 100
+	texture = airvent.png
+}
+Polygon									//Socle 12
+{
+	dot = x:86, y:-744, z:-28
+	dot = x:86, y:-740, z:-28
+	dot = x:90, y:-740, z:-28
+	dot = x:90, y:-744, z:-28
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Socle 23
+{
+	dot = x:86, y:-736, z:-28
+	dot = x:86, y:-732, z:-28
+	dot = x:90, y:-732, z:-28
+	dot = x:90, y:-736, z:-28
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Manche
+{
+	dot = x:82, y:-740, z:-36
+	dot = x:82, y:-736, z:-36
+	dot = x:86, y:-736, z:-36
+	dot = x:86, y:-740, z:-36
+	light = 100
+	texture = gold.jpg
+}
+
+		/* Chandelier bas */
+
+Polygon									//Manche
+{
+	dot = x:90, y:-748, z:-32
+	dot = x:90, y:-728, z:-32
+	dot = x:86, y:-728, z:-32
+	dot = x:86, y:-748, z:-32
+	light = 100
+	texture = gold.jpg
+}
+Polygon									//Manche
+{
+	dot = x:90, y:-740, z:-40
+	dot = x:90, y:-736, z:-40
+	dot = x:82, y:-736, z:-40
+	dot = x:82, y:-740, z:-40
+	light = 100
+	texture = gold.jpg
 }
