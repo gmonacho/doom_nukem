@@ -49,8 +49,12 @@ void		ed_export(void *ed_export)
 
 	export = (t_export*)ed_export;
 	map = (t_map*)export->map;
-	export->fd = open(export->path, O_WRONLY | O_CREAT | O_TRUNC,
+	if (!export->pack)
+	{
+		export->fd = open(export->path, O_WRONLY | O_CREAT | O_TRUNC,
 	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	}
+	export->pack = 0;
 	if (export->fd)
 	{
 		ft_putendl_fd("\n###########", export->fd);
@@ -70,6 +74,7 @@ void		ed_package(void *ed_exp)
 	export = (t_export*)ed_exp;
 	export->fd = open(export->path, O_CREAT | O_WRONLY | O_TRUNC,
 	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	export->pack = 1;
 	ft_putendl_fd("#GAMEREADY#\nTextures", export->fd);
 	if (!ed_export_textures(export->fd, (t_map *)export->map))
 	{
