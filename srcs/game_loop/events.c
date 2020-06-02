@@ -50,7 +50,7 @@ static void		events_shoot(t_win *win,
 	SDL_Texture	*text;
 
 	if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT))
-	{
+	{	
 		if (player->inventory->ammo == 0)
 		{
 			tmp = ft_strdup("EMPTY AMMO PRESS 'R' ");
