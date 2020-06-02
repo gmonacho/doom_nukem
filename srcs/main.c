@@ -45,7 +45,6 @@ static void			init_map(t_map *map)
 
 static int			pre_init_music(t_win *win)
 {
-
 	if (!init_music_timer(&(win->music)))
 		return (ui_ret_error("init_music_timer failed", NULL, 1));
 	return (0);
