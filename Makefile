@@ -194,7 +194,7 @@ OBJS = $(SRCS:c=o)
 LDFLAGS= -lm -pthread -Llibft/ -lft -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image
 CFLAGS += -Wall -Wextra -Werror -O3 -ffast-math -march=native
 #-flto
-HEADERS =	./includes/bordel_proto.h\
+HEADERS=	./includes/bordel_proto.h\
 			./includes/bordel_struct.h\
 			./includes/doom_nukem.h\
 			./includes/libui/ui_button.h\
@@ -207,22 +207,27 @@ HEADERS =	./includes/bordel_proto.h\
 			./includes/libui/ui_texture.h\
 			./includes/libui/ui_win.h
 
-all: $(EXEC)
+all: libft.a $(EXEC)
 	@echo "All done"
 
 $(EXEC): $(OBJS)
 	@echo "Compiling project"
 	@$(CC) -o $@ $^ $(LDFLAGS)
 
-%.o: %.c $(HEADERS)
+%.o: %.c $(HEADERS) $(LIBS)
 	@echo "Compiling $@"
 	@$(CC) -o $@ -c $< $(CFLAGS) $(HEADERS_PATHS)
 
+libft.a:
+	make -C libft/
+
 clean:
+	@make clean -C libft/
 	@rm -f $(OBJS)
 	@echo "Objects deleted"
 
 fclean: clean
+	@make fclean -C libft/
 	@rm -f $(EXEC)
 	@echo "$(EXEC) is deleted"
 
