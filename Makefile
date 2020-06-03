@@ -34,6 +34,7 @@ SRCS =	$(SRCS_PATH)/error.c\
 		$(SRCS_PATH)/editor_loop/ed_display_list_selected.c\
 		$(SRCS_PATH)/editor_loop/ed_event.c\
 		$(SRCS_PATH)/editor_loop/ed_export.c\
+		$(SRCS_PATH)/editor_loop/ed_package.c\
 		$(SRCS_PATH)/editor_loop/ed_export_fonts.c\
 		$(SRCS_PATH)/editor_loop/ed_export_sounds.c\
 		$(SRCS_PATH)/editor_loop/ed_export_textures.c\
