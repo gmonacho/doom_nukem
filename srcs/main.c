@@ -38,7 +38,6 @@ static void			init_map(t_map *map)
 	map->player.rays = NULL;
 	map->editor.settings.texture = NULL;
 	map->editor.export.path = NULL;
-	map->editor.export.pack = 0;
 	map->editor.selected = NULL;
 	map->editor.list_selected = NULL;
 }
@@ -60,6 +59,7 @@ static int			pre_init(t_win *win, t_map *map, int ac)
 	map->save.if_pars = 0;
 	map->texture_stock = NULL;
 	init_map(map);
+	map->editor.export.pack = 0;
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == -1 ||\
 	TTF_Init() == -1 ||\
 	(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG ||\
