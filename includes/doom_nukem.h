@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gal <gal@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 09:32:17 by gal               #+#    #+#             */
-/*   Updated: 2020/05/28 16:45:00 by gal              ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 12:35:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 # include "libft.h"
 # include <time.h>
 
-# define WIDTH			    1200
-# define HEIGHT				800
+# define WIDTH			    960
+# define HEIGHT				720
 # define SENSITIVE			0.0015
 
 /*
