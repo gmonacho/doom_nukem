@@ -191,8 +191,8 @@ SRCS =	$(SRCS_PATH)/error.c\
 HEADERS_PATHS = -I./libft/includes/ -I./includes/ -I./includes/libui
 
 OBJS = $(SRCS:c=o)
-LDFLAGS= -lm -pthread -Llibft/ -lft -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image
-CFLAGS += -Wall -Wextra -Werror -O3 -ffast-math -march=native
+LDFLAGS = -lm -pthread -Llibft/ -lft -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image
+CFLAGS = -Wall -Wextra -Werror -O3 -march=native -ffast-math
 #-flto
 HEADERS=	./includes/bordel_proto.h\
 			./includes/bordel_struct.h\
@@ -216,7 +216,7 @@ $(EXEC): $(OBJS)
 
 %.o: %.c $(HEADERS) $(LIBS)
 	@echo "Compiling $@"
-	@$(CC) -o $@ -c $< $(CFLAGS) $(HEADERS_PATHS)
+	@$(CC) $(CFLAGS) $(HEADERS_PATHS) -o $@ -c $<
 
 libft.a:
 	make -C libft/
