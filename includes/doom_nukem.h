@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: widrye <widrye@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 09:32:17 by gal               #+#    #+#             */
-/*   Updated: 2020/06/03 12:35:02 by user42           ###   ########.fr       */
+/*   Updated: 2020/06/05 14:07:48 by widrye           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@
 # define WIDTH			    960
 # define HEIGHT				720
 # define SENSITIVE			0.0015
-
-/*
-** 0.00000015 pour aducimet
-*/
 
 # define OBJECT_ROTATION_VELOCITY	10
 
