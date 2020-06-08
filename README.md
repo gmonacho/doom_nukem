@@ -8,7 +8,8 @@ Il nous a donc fallu développer un moteur Graphique 3D, un moteur physique, [un
 ### Moteur Graphique et Physique :
 
 ![Salle et Chandelier Exemple](https://zupimages.net/up/20/24/wo6i.png)
-![Lumière et Ombre](https://zupimages.net/up/20/24/j1or.png)
+![Lumières et Ombres](https://zupimages.net/up/20/24/j1or.png)
+![Lumières](https://zupimages.net/up/20/24/zr39.png)
 ![Fusée](https://zupimages.net/up/20/24/fpx4.png)
 
 ### Editeur de Map :
